@@ -1,0 +1,39 @@
+# Kakhovka 2023 study area: CRS and the three canonical processing frames.
+# Scoped extract from SWOT-DNIPRO src/swot_dnipro/canonical_grid.py and scripts/p52a_processing_frames_qa.py,
+# source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766. Per 06_CONFIGURATION_DESIGN.md's table row
+# "study_area.yaml". The frame bboxes here are DATA copies for reference/config purposes; the code that actually
+# builds the frame grids still reads them from src/floodstate_eo/spatial/canonical_grid.py:FRAME_BBOX (verbatim
+# copy, not yet rewired to read this file -- that rewiring is Phase 6).
+
+crs: "EPSG:32636"          # config.py:88 CRS_METRIC
+lattice_resolution_m: 10.0 # canonical_grid.py:34 CELL
+
+# canonical_grid.py:60-64 FRAME_BBOX (fixed by the user 2026-09-21; B1 tightened, B3 extended east -- see that
+# module's docstring for the measurement behind each change)
+frames:
+  B1: {name: "B1 · dam -> Kherson", bbox_xmin: 455680.0, bbox_ymin: 5138000.0, bbox_xmax: 538000.0, bbox_ymax: 5212000.0}
+  B2: {name: "B2 · Kherson -> delta", bbox_xmin: 438000.0, bbox_ymin: 5135002.0, bbox_xmax: 475685.0, bbox_ymax: 5211567.0}
+  B3: {name: "B3 · delta with the liman", bbox_xmin: 374260.0, bbox_ymin: 5107360.0, bbox_xmax: 465000.0, bbox_ymax: 5267000.0}
+
+# p52a_processing_frames_qa.py:32,35,38 -- the legacy analysis-zone names each frame is built on / overlaps,
+# for provenance and for the case-study's still-unmigrated legacy zone-grid tooling
+# (floodstate_eo.optical.sentinel_preprocess.zone_grid()). See provenance/UNRESOLVED_DEPENDENCIES.md: the
+# ZONE_1..4 and reservoir_full_pool_prebreach source geometries themselves are not vendored into this repo.
+frame_legacy_zone:
+  B1: "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+  B2: "ZONE_2_KHERSON_DELTA"
+  B3: "ZONE_3_DNIPRO_BUG_ESTUARY"
+
+# canonical_grid.py:51-56 -- B1 was reduced from a legacy full extent after measurement (99.96% of observed S1
+# new water at the June peak retained); kept here as a provenance note, not an alternative value in force.
+b1_superseded_legacy_km2: 10337.6
+b1_canonical_km2: 6091.7
+
+# p52a_processing_frames_qa.py:45-47 TOWNS -- settlements the frames must cover, used for the QA figure only
+towns:
+  "Kakhovka dam": {lon: 33.3700, lat: 46.7780}
+  "Kherson": {lon: 32.6178, lat: 46.6354}
+  "Oleshky": {lon: 32.7100, lat: 46.6300}
+  "Hola Prystan": {lon: 32.5200, lat: 46.5200}
+  "Ochakiv": {lon: 31.5450, lat: 46.6130}
+  "Mykolaiv": {lon: 31.9946, lat: 46.9750}

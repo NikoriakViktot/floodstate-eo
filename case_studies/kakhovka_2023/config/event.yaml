@@ -1,0 +1,23 @@
+# Kakhovka 2023 dam-breach event definition.
+# Scoped extract from SWOT-DNIPRO src/swot_dnipro/config.py, source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766.
+# Per 19_MIGRATION_MANIFEST.csv row 28 (config.py, CORE_LIBRARY, scoped extract not wholesale copy) and
+# 06_CONFIGURATION_DESIGN.md's table row "event.yaml". Every value below is cited to its source, not invented.
+
+event_id: kakhovka_2023
+
+# config.py:93 BREACH_DATE = "2023-06-06"
+breach_date: "2023-06-06"
+
+# S1 peak observation dates used as the EVENT window anchor. p71_s1_event_change.py:54 PEAK_LO/PEAK_HI
+# ("2023-06-06".."2023-06-14"); p69c_maps.py:30 PEAK = the three dates Sentinel-1 actually observed within it.
+peak_dates: ["2023-06-09", "2023-06-13", "2023-06-14"]
+peak_window: {start: "2023-06-06", end: "2023-06-14"}
+
+# config.py:94-95 PREBREACH_START/PREBREACH_END -- an older, narrower pre-breach window used elsewhere in
+# SWOT-DNIPRO (not the PRE window this repo's p54b uses; see temporal_windows.yaml). Kept for provenance only;
+# UNVERIFIED whether any migrated file in this repo still reads it.
+legacy_prebreach_window: {start: "2023-04-05", end: "2023-06-05"}
+
+# S1 event IDs referenced by the legacy p51 label-generation rule (p0r_zone2_flood_events.csv in SWOT-DNIPRO).
+# NOT migrated -- that file is not in 19_MIGRATION_MANIFEST.csv. TBD if/when p51 or its successor is migrated.
+s1_event_ids: TBD  # see provenance/UNRESOLVED_DEPENDENCIES.md

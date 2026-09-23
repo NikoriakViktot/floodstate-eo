@@ -1,0 +1,24 @@
+# PRE/EVENT/TRACE temporal windows for the 10 m composite chain.
+# Scoped extract from SWOT-DNIPRO scripts/p54a_frame_index_stacks_10m.py / p54b_frame_composites_10m.py /
+# p54c_composites_10m_freeze_gate.py, all migrated verbatim (WIN redefined identically in each, see the
+# p54a MIGRATION TODO note about the superseded p53a source of the same values).
+# source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766. Per 06_CONFIGURATION_DESIGN.md's table row
+# "temporal_windows.yaml" -- THIS IS THE CANONICAL DEFINITION IN FORCE for the 10 m pipeline. Two OTHER window
+# variants exist elsewhere in SWOT-DNIPRO (p51's EVENT_WINDOW/TRACE_WINDOW/PRE_YEARS, and p25's regime bounds)
+# and were NOT reconciled with this one before migration -- 04_CORE_VS_CASE_STUDY.md flags this explicitly as
+# "3 variants must be reconciled", a science-adjacent decision, not a refactor, and out of scope for Phase 5.
+
+windows:
+  pre:   {start: "2022-01-01", end: "2023-06-05"}
+  event: {start: "2023-06-07", end: "2023-07-31"}
+  trace: {start: "2023-08-01", end: "2023-11-30"}
+
+breach_date: "2023-06-06"        # a post-breach acquisition can never enter PRE; asserted in code, not just configured
+
+# p54b_frame_composites_10m.py SEASON_MONTHS / PRE_SETS -- the season-matched pre-event baseline ablation
+pre_baseline_sets:
+  preall: {label: "PRE_ALL", rule: "every pre-breach acquisition in the pre window"}
+  preseas: {label: "PRE_SEASONAL", rule: "month in [5,6,7,8] and date < breach_date", season_months: [5, 6, 7, 8]}
+
+# UNVERIFIED / not reconciled here (see note above): p51's own window constants and p25's regime bounds.
+unreconciled_legacy_variants: TBD

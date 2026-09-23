@@ -1,0 +1,31 @@
+# Sentinel-1/2 product and validity rules used by this case study.
+# Scoped extract from SWOT-DNIPRO src/swot_dnipro/sentinel_preprocess.py and watermask.py, both migrated
+# verbatim as CORE_LIBRARY into src/floodstate_eo/optical/ -- this file documents the constants those modules
+# already carry in code; the code is not yet rewired to read it (Phase 6).
+# source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766. Per 06_CONFIGURATION_DESIGN.md's table row "sensors.yaml".
+
+sentinel2:
+  product: "L2A"
+  boa_add_offset_db: -1000        # sentinel_preprocess.py:14-32 -- verified 2026-09-16 on MTD_MSIL2A.xml
+  boa_quantification_value: 10000
+  index_scale: 10000              # sentinel_preprocess.py:82 INDEX_SCALE (int16 storage: value * 10000)
+  index_nodata: -32768            # sentinel_preprocess.py:83 INDEX_NODATA
+  scl_reject: [0, 1, 3, 8, 9, 10, 11]   # watermask.py:32 SCL_REJECT
+  scl_water_ok: [2, 6, 7, 4, 5]         # watermask.py:34 SCL_WATER_OK
+  water_rule:
+    ndwi_threshold: 0.0           # watermask.py:36 DEFAULT_NDWI
+    mndwi_threshold: 0.0          # watermask.py:37 DEFAULT_MNDWI
+    scl6_relaxation: -0.15        # sentinel_preprocess.py:241 (ndwi_thr - 0.15) when SCL trusts water directly
+
+# sentinel_preprocess.py:100-102 -- k10e surface-classification thresholds
+surface_thresholds:
+  ndvi_sparse: 0.15
+  ndvi_veg: 0.30
+  ndmi_wet: 0.10
+  bsi_bare: 0.10
+
+sentinel1:
+  # p71_s1_event_change.py header -- linear gamma0 cache, converted to dB before any statistic
+  cache_units: "linear_gamma0"
+  change_operator: "log_ratio_db"
+  mad_floor_db: 0.1              # p71_s1_event_change.py: the 0.1 dB MAD guard

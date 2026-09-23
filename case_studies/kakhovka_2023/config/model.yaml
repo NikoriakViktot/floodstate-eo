@@ -1,0 +1,32 @@
+# Random-forest model configuration for the M2 (Sentinel-2-only) evidence layer.
+# Scoped extract from SWOT-DNIPRO scripts/p65b_m2_spatial_cv.py, p66_production_m2.py, p67b_production_candidate.py.
+# source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766. Per 06_CONFIGURATION_DESIGN.md's table row "model.yaml".
+#
+# NOTE ON SCOPE: this describes the M2 Random Forest (BASE_CLASS/M2 chain, p65b/p66/p67b/p69a/p69b -- the
+# CANONICAL evidence path per 19_MIGRATION_MANIFEST.csv). The legacy `p51_rf_flood_optical.py` model on the 20 m
+# zone grid is a SEPARATE, unreconciled model and is NOT migrated or described here -- see
+# 00_EXECUTIVE_SUMMARY.md's "two unreconciled flood-state bridges" finding.
+
+seed: 20260921          # p65b_m2_spatial_cv.py SEED (20260922 in p66/p67b -- see note below; not reconciled)
+seed_note: "p65b uses 20260921; p66/p67b use 20260922 for the production fit. Both values are cited verbatim from
+  source, not reconciled into one -- flagged for Phase 6."
+
+random_forest:
+  class_weight: "balanced_subsample"
+  hyperparameter_grid:            # p65b_m2_spatial_cv.py GRID
+    n_estimators: [300, 500]
+    max_depth: [null, 20, 40]
+    min_samples_leaf: [1, 5, 20]
+    max_features: ["sqrt", 0.5]
+  hyperparameter_selection: "best median inner AP over the 5 outer spatial-CV folds of the PRE_ALL/buffered run;
+    outer-test scores are never consulted (p66_production_m2.py choose_params())"
+  production_baseline: "PRE_ALL"  # p66/p67b: largest temporal support; NOT because it outperformed statistically
+
+target_recall: 0.90      # p65b_m2_spatial_cv.py TARGET_RECALL -- threshold selection target on the inner split
+training_frames: ["B1", "B2"]    # p67b_production_candidate.py TRAIN_FRAMES -- B3 used for nothing
+fit_sample_n: 300000              # p65b/p66/p67b FIT_N
+tune_sample_n: 25000               # p65b TUNE_N
+
+# p65b_m2_spatial_cv.py: M3 (S2+S1 features) is deliberately NOT run -- the weak labels are themselves an S1
+# rule, so S1 features would measure reconstruction of the label-generation rule.
+m3_excluded_by_design: true

@@ -1,0 +1,31 @@
+# Spectral indices and temporal-composite feature/statistic plan.
+# Scoped extract from SWOT-DNIPRO src/swot_dnipro/sentinel_preprocess.py and scripts/p54b_frame_composites_10m.py.
+# source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766. Per 06_CONFIGURATION_DESIGN.md's table row
+# "features.yaml".
+
+indices:
+  # sentinel_preprocess.py:81 INDEX_NAMES, formulas in that module's docstring
+  - {name: "NDVI", formula: "(B08-B04)/(B08+B04)"}
+  - {name: "NDWI", formula: "(B03-B08)/(B03+B08)", note: "McFeeters 1996"}
+  - {name: "MNDWI", formula: "(B03-B11)/(B03+B11)", note: "Xu 2006"}
+  - {name: "NDMI", formula: "(B08-B11)/(B08+B11)", note: "Gao 1996"}
+  - {name: "BSI", formula: "((B11+B04)-(B08+B02))/((B11+B04)+(B08+B02))"}
+  - {name: "AWEIsh", formula: "B02+2.5*B03-1.5*(B08+B11)-0.25*B12", note: "Feyisa et al. 2014, not thresholded here"}
+  - {name: "NDTI", formula: "(B04-B03)/(B04+B03)", note: "Lacaux et al. 2007"}
+  - {name: "NDBI", formula: "-NDMI", note: "p54b_frame_composites_10m.py -- derived at composite time, extremes transposed (NDBI_min = -NDMI_max)"}
+
+# p54b_frame_composites_10m.py band_plan(): per index x window, median in all three windows, min/max in PRE and
+# EVENT only (not TRACE), plus three change statistics against the PRE median
+statistics:
+  pre: ["median", "min", "max"]
+  event: ["median", "min", "max"]
+  trace: ["median"]
+  change: ["d_med (event_med - pre_med)", "d_ext (signed event extreme furthest from pre_med)",
+           "d_trace (trace_med - pre_med)"]
+
+# p54b band_plan() tail -- n_obs_* are PLAIN COUNTS of distinct valid acquisition dates, never index-scaled;
+# n_obs_pre_seas is always the seasonal count, present in both pre_baseline_sets
+observation_count_bands: ["n_obs_pre", "n_obs_event", "n_obs_trace", "n_obs_pre_seas"]
+n_obs_semantics: "distinct acquisition dates with a valid scene observation; a feature, never a gate"
+
+total_bands_per_frame: 84   # p54c_composites_10m_freeze_gate.py G7_MANIFEST assertion
