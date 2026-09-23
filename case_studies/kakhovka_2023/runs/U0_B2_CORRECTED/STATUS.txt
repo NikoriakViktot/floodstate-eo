@@ -1,0 +1,13 @@
+ACTIVE_REFERENCE (frozen 2026-09-23; do NOT retrain)
+
+U0_B2_FULL on p71v2 dB-domain inputs (15 S1 channels), 512x512, stride 128, 10 km geographic blocks
+(train 29 / val 7 / test 9, disjoint asserted), masked BCE + Dice, seed 20260923, threshold 0.57 frozen on
+VALIDATION, TEST evaluated once: P 0.946, R 0.954, F1 0.950, IoU 0.905.
+
+TERMINOLOGY: these numbers are AGREEMENT WITH HELD-OUT WEAK REFERENCE LABELS, not flood-mapping accuracy. The labels
+are weak supervision built from S1 peak water, pre-breach S2 water frequency and the M2 optical decision, i.e.
+partly from the same evidence family the model sees; they are not independent ground truth.
+
+LABEL CONTRACT v001: FLOOD requires p69b_semantic_state in {1..5}, and p69b = BASE_CLASS x M2, so BASE_CLASS
+(land cover) participates in the target. U0's INPUTS are S1-only, so this is not input leakage for U0 itself, but any
+context-model ablation measured against v001 labels is circular. Context ablations use m6_labels_v002.

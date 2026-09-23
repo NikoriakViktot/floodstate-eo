@@ -1,0 +1,4 @@
+frame,n_components,total_km2,largest_km2,median_component_px,frac_components_le_4px,km2_in_specks,median_dist_to_prewater_m,p90_dist_to_prewater_m
+B1,7254,145.93,17.96,4,0.5833,1.692,1809.9,4812.3
+B2,9403,80.16,10.46,4,0.5229,1.967,1629.8,4297.3
+B3,1222,1.69,0.13,4,0.6072,0.297,21.8,1457.1

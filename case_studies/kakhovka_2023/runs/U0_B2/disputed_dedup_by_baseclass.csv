@@ -1,0 +1,7 @@
+base_class,km2,pct_of_disputed,median_score,pred_pos_pct,pred_pos_km2
+PRE_WATER,193.93,53.4,0.519,56.14,108.88
+VEG_AGRI,96.6,26.6,0.08,44.18,42.68
+WETLAND,69.99,19.3,0.004,29.97,20.97
+BARE_SAND,1.56,0.4,0.005,28.55,0.45
+BUILT_UP,1.04,0.3,0.001,6.0,0.06
+OTHER_DRY,0.12,0.0,0.004,2.1,0.0

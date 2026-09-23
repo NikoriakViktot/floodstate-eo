@@ -216,3 +216,8 @@ __marimo__/
 
 # Streamlit
 .streamlit/secrets.toml
+
+# M6 model checkpoints (~98 MB each): recovered from SWOT-DNIPRO f3e3e1a, kept on disk, not in git
+case_studies/kakhovka_2023/runs/**/*.pt
+# run logs / local caches
+case_studies/kakhovka_2023/logs/

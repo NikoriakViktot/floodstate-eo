@@ -1,0 +1,11 @@
+frame,tier,n_cells,km2,pct_of_frame,note
+B1,UNOBSERVED,33213668,3321.37,54.523,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B1,SINGLE_SOURCE,25105872,2510.59,41.213,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B1,CONSENSUS_NEGATIVE,2323096,232.31,3.814,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B1,CONSENSUS_POSITIVE,259372,25.94,0.426,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B1,SOURCE_CONFLICT,14792,1.48,0.024,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B2,UNOBSERVED,14885517,1488.55,51.58,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B2,SINGLE_SOURCE,11376456,1137.65,39.421,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B2,CONSENSUS_NEGATIVE,2323096,232.31,8.05,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B2,CONSENSUS_POSITIVE,259372,25.94,0.899,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below
+B2,SOURCE_CONFLICT,14792,1.48,0.051,per-frame; the B1/B2 overlap appears in BOTH rows -- see the deduplicated population below

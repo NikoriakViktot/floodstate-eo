@@ -1,0 +1,10 @@
+{
+  "threshold": 0.23000000000000004,
+  "criterion": "max F1 on VALIDATION patches",
+  "val_F1": 0.83874,
+  "never_used": [
+    "test F1",
+    "disputed area",
+    "literature area"
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "model": "U0_B2_FULL",
+  "inputs": "p71 orbit-safe S1 only (15 channels)",
+  "absent": [
+    "Sentinel-2",
+    "HAND",
+    "distance_to_water",
+    "BASE_CLASS",
+    "p73",
+    "TRACE"
+  ],
+  "patch": 512,
+  "stride": 128,
+  "epochs": 60,
+  "batch": 6,
+  "lr": 0.0003,
+  "seed": 20260923,
+  "disputed_policy": "IGNORE in loss, threshold, early stopping and tuning",
+  "meaning": "PASS means a SAR-only U-Net generalises spatially on B2 weak labels; it does NOT mean validated flood extent",
+  "status": "SUPERSEDED_PREPROCESSING_UNIT_ERROR",
+  "superseded_on": "2026-09-23",
+  "superseded_reason": "p71 computed change features by subtracting linear gamma0 values although the feature contract specified dB-domain changes. The mathematical definition of the input features changed, not a model hyperparameter, so this model is superseded rather than re-run. Nothing is deleted: weights, config, split manifest, normalisation, threshold, test metrics, bootstrap and leakage analysis are retained as a forensic trail. Its test F1 must NOT be presented as a primary scientific result, and must not appear in the same table as corrected models as though it were a peer ablation.",
+  "legacy_name": "U0_B2_LEGACY",
+  "replaced_by": "p71v2 dB-domain change stack; corrected U0 to be refitted as the new N0 baseline"
+}

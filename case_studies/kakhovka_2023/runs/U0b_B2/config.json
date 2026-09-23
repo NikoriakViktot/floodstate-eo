@@ -1,0 +1,26 @@
+{
+  "model": "U0b",
+  "inputs": "p71 orbit-safe S1 (15 ch) + p69a BASE_CLASS one-hot (7 ch)",
+  "ablation_of": "U0 (p75) -- identical seed, split, patches, loss, schedule and threshold rule",
+  "primary_endpoint": "dR_VEG_AGRI controlling dP_VEG_AGRI and dR_WETLAND",
+  "verdict": "CONTAMINATED_BY_LABEL_CONSTRUCTION_not_an_answer_to_the_hypothesis",
+  "leakage_control_F1": null,
+  "epochs": 60,
+  "batch": 6,
+  "lr": 0.0003,
+  "seed": 20260923,
+  "disputed_policy": "IGNORE in loss, threshold, early stopping and tuning",
+  "verdict_as_run": "NO_DETECTABLE_EFFECT_ON_AGRICULTURE",
+  "leakage_control": {
+    "AP": 0.7404,
+    "no_skill_AP": 0.1643,
+    "AUC": 0.9546,
+    "contaminated": true
+  },
+  "correction_note": "the process was launched before the leakage control was fixed, so it ran the F1-at-0.5 version, scored 0.0000, concluded 'usable' and emitted NO_DETECTABLE_EFFECT_ON_AGRICULTURE. That verdict is withdrawn. The measured outcome -- VEG_AGRI recall -0.199 with precision +0.169 (CI excludes zero) -- is the predicted signature of the network learning the label's construction rule (VEG_AGRI positive rate 0.0081), not evidence about whether pre-event context helps. The hypothesis remains untested.",
+  "status": "SUPERSEDED_PREPROCESSING_UNIT_ERROR+CONTAMINATED_BY_LABEL_CONSTRUCTION",
+  "superseded_on": "2026-09-23",
+  "superseded_reason": "p71 computed change features by subtracting linear gamma0 values although the feature contract specified dB-domain changes. The mathematical definition of the input features changed, not a model hyperparameter, so this model is superseded rather than re-run. Nothing is deleted: weights, config, split manifest, normalisation, threshold, test metrics, bootstrap and leakage analysis are retained as a forensic trail. Its test F1 must NOT be presented as a primary scientific result, and must not appear in the same table as corrected models as though it were a peer ablation. Additionally, BASE_CLASS is an ingredient of the weak label (p69b builds the semantic state as BASE_CLASS x M2) and ranks it alone at AUC 0.955 / AP 0.740 against a prevalence of 0.164, so this run describes label structure and does not test whether pre-event context helps. That finding is domain-independent and survives the rebuild.",
+  "legacy_name": "U0b_B2_LEGACY",
+  "replaced_by": "p71v2 dB-domain change stack; corrected U0 to be refitted as the new N0 baseline"
+}

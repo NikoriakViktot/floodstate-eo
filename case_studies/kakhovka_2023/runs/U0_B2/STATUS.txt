@@ -1,0 +1,3 @@
+SUPERSEDED_PREPROCESSING_UNIT_ERROR
+
+p71 computed change features by subtracting linear gamma0 values although the feature contract specified dB-domain changes. The mathematical definition of the input features changed, not a model hyperparameter, so this model is superseded rather than re-run. Nothing is deleted: weights, config, split manifest, normalisation, threshold, test metrics, bootstrap and leakage analysis are retained as a forensic trail. Its test F1 must NOT be presented as a primary scientific result, and must not appear in the same table as corrected models as though it were a peer ablation.

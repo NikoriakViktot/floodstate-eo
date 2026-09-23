@@ -1,0 +1,23 @@
+{
+  "train_positive_rate_by_base_class": {
+    "PRE_WATER": 0.0,
+    "VEG_AGRI": 0.0081,
+    "BARE_SAND": 0.0124,
+    "BUILT_UP": 0.0,
+    "WETLAND": 0.2229,
+    "OTHER_DRY": 0.1937
+  },
+  "test_prevalence": 0.1643,
+  "lookup_AP": 0.7404,
+  "no_skill_AP": 0.1643,
+  "lookup_AUC": 0.9546,
+  "ap_lift": 4.506,
+  "criterion": "AUC >= 0.75 or AP >= 3x prevalence",
+  "superseded_measure": {
+    "metric": "F1 at threshold 0.5",
+    "value": 0.0,
+    "why_invalid": "at prevalence 0.164 no class rate reaches 0.5, so the rule predicts all-negative; F1=0 there is an artefact of the threshold and not evidence of independence. Leakage is a RANKING property."
+  },
+  "interpretation": "BASE_CLASS is an INGREDIENT OF THE LABEL, not an independent covariate: y=1 requires a flood-associated semantic state and p69b builds that state as BASE_CLASS x M2. PRE_WATER is 0.0000 by construction (pre-existing water wins over any M2 response).",
+  "contaminated": true
+}

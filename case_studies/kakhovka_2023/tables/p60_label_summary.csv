@@ -1,0 +1,4 @@
+frame,cache,n_events,n_pre,n_post,n_peak_candidate,n_peak_usable,n_positive,n_negative,n_unlabelled,n_no_s1,km2_positive,km2_negative,km2_unlabelled,km2_no_s1,frame_km2,s1_coverage_pct,prevalence
+B1,ZONE_4_FLOODWAY_june2023_s32,11,2,8,3,3,1459252,17656180,8587700,33213668,145.93,1765.6,858.8,3321.4,6091.7,45.48,0.0763
+B2,ZONE_2_KHERSON_DELTA_flood_june2023,11,2,8,3,3,801624,7432840,5739252,14885517,80.16,743.3,573.9,1488.6,2885.9,48.42,0.0973
+B3,ZONE_3_DNIPRO_BUG_ESTUARY_flood_june2023,11,2,8,3,3,16948,31208000,44988560,68643828,1.69,3120.8,4498.9,6864.4,14485.7,52.61,0.0005

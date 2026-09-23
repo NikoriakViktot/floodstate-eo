@@ -1,0 +1,20 @@
+{
+  "model": "U0_B2_FULL",
+  "inputs": "p71 orbit-safe S1 only (15 channels)",
+  "absent": [
+    "Sentinel-2",
+    "HAND",
+    "distance_to_water",
+    "BASE_CLASS",
+    "p73",
+    "TRACE"
+  ],
+  "patch": 512,
+  "stride": 128,
+  "epochs": 60,
+  "batch": 6,
+  "lr": 0.0003,
+  "seed": 20260923,
+  "disputed_policy": "IGNORE in loss, threshold, early stopping and tuning",
+  "meaning": "PASS means a SAR-only U-Net generalises spatially on B2 weak labels; it does NOT mean validated flood extent"
+}

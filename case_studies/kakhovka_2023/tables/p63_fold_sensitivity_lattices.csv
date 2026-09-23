@@ -1,0 +1,4 @@
+lattice,block_km,n_blocks_with_labels,mean_labelled_km2_per_block,is_primary
+blk2,2.0,911,2.434,False
+blk5,5.0,179,12.389,True
+blk10,10.0,58,38.234,False

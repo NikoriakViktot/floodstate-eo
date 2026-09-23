@@ -1,0 +1,4 @@
+split,n_disputed_px,km2,score_p10,score_median,score_p90,predicted_positive_km2,predicted_positive_pct,status
+train,28314267,2831.43,0.0019,0.1638,0.9297,793.312,28.02,MODEL_SUPPORTED_CANDIDATES_not_recovered_flood
+val,733929,73.39,0.0012,0.0139,0.7954,10.786,14.7,MODEL_SUPPORTED_CANDIDATES_not_recovered_flood
+test,2211246,221.12,0.0013,0.1632,0.9927,74.216,33.56,MODEL_SUPPORTED_CANDIDATES_not_recovered_flood

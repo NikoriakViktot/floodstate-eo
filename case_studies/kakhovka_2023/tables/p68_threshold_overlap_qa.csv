@@ -1,0 +1,16 @@
+pair,product,n_common,n_mismatch
+B1|B2,thr_class,14721357,0
+B1|B2,flood_core,14721357,0
+B1|B2,flood_central,14721357,0
+B1|B2,flood_possible,14721357,0
+B1|B2,threshold_uncertain,14721357,0
+B1|B3,thr_class,6896800,0
+B1|B3,flood_core,6896800,0
+B1|B3,flood_central,6896800,0
+B1|B3,flood_possible,6896800,0
+B1|B3,threshold_uncertain,6896800,0
+B2|B3,thr_class,20673900,0
+B2|B3,flood_core,20673900,0
+B2|B3,flood_central,20673900,0
+B2|B3,flood_possible,20673900,0
+B2|B3,threshold_uncertain,20673900,0

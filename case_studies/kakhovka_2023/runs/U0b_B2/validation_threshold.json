@@ -1,0 +1,5 @@
+{
+  "threshold": 0.5800000000000002,
+  "criterion": "max F1 on VALIDATION patches (identical procedure to U0)",
+  "val_F1": 0.83125
+}

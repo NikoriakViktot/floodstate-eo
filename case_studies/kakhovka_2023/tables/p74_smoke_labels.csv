@@ -1,0 +1,16 @@
+channel,median,iqr
+d_vv_min,-0.03,0.04
+d_vh_min,-0.01,0.02
+d_vv_max,0.11,0.24000001
+d_vh_max,0.02,0.02
+d_vv_mean,0.03,0.09
+d_vh_mean,0.0,0.01
+d_vvvh_min,-0.03,0.04
+d_vvvh_max,0.09,0.22999999
+z_vv_min,-0.3,0.40999997
+z_vh_min,-0.06,0.14999999
+z_vv_max,1.06,2.2600002
+z_vh_max,0.19,0.26000002
+n_valid_pre_matched,20.0,4.0
+n_valid_event,4.0,1.0
+n_orbits_event,4.0,1.0

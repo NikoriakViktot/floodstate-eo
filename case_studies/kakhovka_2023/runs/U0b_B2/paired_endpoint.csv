@@ -1,0 +1,6 @@
+stratum,n_blocks,dR,dR_lo,dR_hi,dR_excludes_zero,dP,dP_lo,dP_hi,dP_excludes_zero
+PRE_WATER,4,0.0,0.0,0.0,False,0.0,0.0,0.0,False
+VEG_AGRI,5,-0.19885,-0.295,0.00462,False,0.16924,0.11799,0.5625,True
+BARE_SAND,4,-0.19442,-0.28913,0.0,False,0.0,0.0,0.0,False
+BUILT_UP,5,-0.0527,-0.07774,0.0,False,0.48958,0.0,0.78961,False
+WETLAND,4,-0.00786,-0.02434,-0.0018,True,0.00697,-0.04082,0.01109,False

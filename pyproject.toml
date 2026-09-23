@@ -26,6 +26,8 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest", "ruff"]
+# M6 segmentation (case_studies/*/workflows/m6): versions as used for the frozen U0_B2_CORRECTED run
+m6 = ["torch==2.14.0", "segmentation-models-pytorch==0.5.0", "timm==1.0.30"]
 
 [tool.setuptools.packages.find]
 where = ["src"]
