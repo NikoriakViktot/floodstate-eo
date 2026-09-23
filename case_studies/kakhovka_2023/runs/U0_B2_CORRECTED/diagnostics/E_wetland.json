@@ -1,0 +1,15 @@
+{
+  "test": {
+    "TP": 253202,
+    "FP": 6903,
+    "FN": 3844,
+    "TN": 73206,
+    "precision": 0.97346,
+    "recall": 0.98505,
+    "F1": 0.97922,
+    "IoU": 0.95928
+  },
+  "predicted_flood_km2_fullframe": 102.83,
+  "n_components_dominant_wetland": 806,
+  "largest_component_share_of_wetland_dominant_area": 0.2527569515063314
+}

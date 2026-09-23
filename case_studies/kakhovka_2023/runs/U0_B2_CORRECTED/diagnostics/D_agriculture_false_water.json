@@ -1,0 +1,19 @@
+{
+  "veg_agri_predicted_flood_km2": 99.51,
+  "test_veg_agri_TP_km2": 0.405,
+  "test_veg_agri_FP_km2": 0.625,
+  "all_labelled_veg_agri_TP_km2": 2.011,
+  "all_labelled_veg_agri_FP_km2": 1.936,
+  "n_components_dominant_veg_agri": 1410,
+  "median_component_km2_dominant_veg_agri": 0.0026000000000000003,
+  "isolated_field_rule": "area >= 0.01 km2, VEG_AGRI share >= 0.8, no labelled FLOOD pixel, min distance to pre-water (p60 S2 freq >= 20 %) > 500.0 m",
+  "n_isolated_field_components": 268,
+  "isolated_field_km2": 25.767,
+  "isolated_field_median_rectangularity": 0.5761499999999999,
+  "isolated_field_by_split": {
+    "outside_patches": 182,
+    "train": 57,
+    "test": 16,
+    "val": 13
+  }
+}
