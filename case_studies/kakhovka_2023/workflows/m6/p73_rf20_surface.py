@@ -27,8 +27,10 @@ globally): 5-fold spatial-block CV on 5 km blocks, plus B1 -> B2 and B2 -> B1 tr
 UNCERTAIN (code 10) is assigned where the forest's top-class probability is below 0.5 -- fixed before any result was
 seen and never tuned on flood labels.
 
-Outputs: $BULK_ROOT/frames10/<F>/p73_surface_20m.tif (band 1 class, band 2 top probability x100, band 3 margin x100)
-         <case_study>/tables/p73_{inventory,target_filter,cv_by_class,cv_confusion,transfer}.csv
+Outputs: $BULK_ROOT/frames10/<F>/p73_rf20/{surface_class,surface_max_score,surface_uncertain,surface_scores}_20m.tif
+         (20 m only; never upsampled here), $BULK_ROOT/frames10/_m6/p73_rf20_model.joblib,
+         <case_study>/tables/p73_{inventory,target_filter}.csv, p73_rf20_{metrics,confusion_matrix,class_area}.csv,
+         p73_rf20_manifest.json. `--infer B3` = pure inference with the persisted model (no training, no tuning).
 """
 from __future__ import annotations
 import argparse, json, re, time
@@ -199,60 +201,144 @@ def main():
     fv = np.vectorize(fold.get)(gs); pred = np.zeros_like(ys)
     for k in range(5):
         m = mk().fit(Xs[fv != k], ys[fv != k]); pred[fv == k] = m.predict(Xs[fv == k])
+    met = []
     P, R, F1, N = precision_recall_fscore_support(ys, pred, labels=labels, zero_division=0)
-    cv = pd.DataFrame(dict(cls=[CLASSES[c] for c in labels], precision=P.round(4), recall=R.round(4),
-                           F1=F1.round(4), n=N))
-    cv.loc[len(cv)] = ["MACRO", P.mean().round(4), R.mean().round(4), F1.mean().round(4), int(N.sum())]
-    cv.loc[len(cv)] = ["OVERALL_ACCURACY", None, None, round(float((pred == ys).mean()), 4), int(N.sum())]
-    cv.to_csv(CFG.TABLES / "p73_cv_by_class.csv", index=False)
+    met += [dict(evaluation="spatial_block_cv_5fold", cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4),
+                 F1=round(f_, 4), n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
+    met.append(dict(evaluation="spatial_block_cv_5fold", cls="MACRO", precision=round(P.mean(), 4),
+                    recall=round(R.mean(), 4), F1=round(F1.mean(), 4), n=int(N.sum())))
+    met.append(dict(evaluation="spatial_block_cv_5fold", cls="OVERALL_ACCURACY", F1=round(float((pred == ys).mean()), 4),
+                    n=int(N.sum())))
     pd.DataFrame(confusion_matrix(ys, pred, labels=labels), index=[CLASSES[c] for c in labels],
-                 columns=[CLASSES[c] for c in labels]).to_csv(CFG.TABLES / "p73_cv_confusion.csv")
-    print(cv.to_string(index=False), flush=True)
+                 columns=[CLASSES[c] for c in labels]).to_csv(CFG.TABLES / "p73_rf20_confusion_matrix.csv")
+    print(pd.DataFrame([r for r in met]).to_string(index=False), flush=True)
 
     # ---- geographic transfer between frames ----------------------------------------------------------------------
-    tr = []
     if len(S) > 1:
         for src, dst in (("B1", "B2"), ("B2", "B1")):
             m = mk().fit(S[src][0], S[src][1]); pr = m.predict(S[dst][0])
             P, R, F1, N = precision_recall_fscore_support(S[dst][1], pr, labels=labels, zero_division=0)
-            tr += [dict(train=src, test=dst, cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4),
-                        F1=round(f_, 4), n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
-            tr.append(dict(train=src, test=dst, cls="OVERALL_ACCURACY", F1=round(float((pr == S[dst][1]).mean()), 4)))
-        pd.DataFrame(tr).to_csv(CFG.TABLES / "p73_transfer.csv", index=False)
+            ev = f"transfer_{src}_to_{dst}"
+            met += [dict(evaluation=ev, cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4), F1=round(f_, 4),
+                         n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
+            met.append(dict(evaluation=ev, cls="MACRO", precision=round(P.mean(), 4), recall=round(R.mean(), 4),
+                            F1=round(F1.mean(), 4), n=int(N.sum())))
+            met.append(dict(evaluation=ev, cls="OVERALL_ACCURACY", F1=round(float((pr == S[dst][1]).mean()), 4),
+                            n=int(N.sum())))
+    pd.DataFrame(met).to_csv(CFG.TABLES / "p73_rf20_metrics.csv", index=False)
 
-    # ---- final model on all sampled targets, wall-to-wall prediction ---------------------------------------------
+    # ---- final model on all sampled targets, persisted, then wall-to-wall prediction ----------------------------
+    import joblib, sklearn
     M = mk().fit(Xs, ys)
+    MODEL.parent.mkdir(parents=True, exist_ok=True)
+    joblib.dump(dict(model=M, features=names, classes=CLASSES, uncertain_p=UNCERTAIN_P), MODEL, compress=3)
+    areas = []
     for fid, d in D.items():
-        g = d["g"]; flat = d["X"].reshape(len(names), -1).T; okf = d["ok"].ravel()
-        cls = np.full(okf.shape, 255, np.uint8); top = np.full(okf.shape, 255, np.uint8)
-        mar = np.full(okf.shape, 255, np.uint8)
-        w = np.flatnonzero(okf)
-        for i in range(0, len(w), 2_000_000):
-            ii = w[i:i + 2_000_000]; pp = M.predict_proba(flat[ii])
-            srt = np.sort(pp, axis=1); best = M.classes_[pp.argmax(1)].astype("u1")
-            best[srt[:, -1] < UNCERTAIN_P] = 10
-            cls[ii] = best; top[ii] = np.round(srt[:, -1] * 100); mar[ii] = np.round((srt[:, -1] - srt[:, -2]) * 100)
-        prof = dict(driver="GTiff", height=g["ny"], width=g["nx"], count=3, dtype="uint8", nodata=255,
-                    crs=CFG.CRS_METRIC, transform=g["transform"], compress="deflate", tiled=True,
-                    blockxsize=512, blockysize=512)
-        p = OUT / fid / "p73_surface_20m.tif"
-        with rasterio.open(p.with_suffix(".tif.part"), "w", **prof) as o:
-            for b, (arr, nm) in enumerate(((cls, "p73_class"), (top, "top_probability_x100"),
-                                           (mar, "margin_x100")), 1):
-                o.write(arr.reshape(g["ny"], g["nx"]), b); o.set_band_description(b, nm)
-            o.update_tags(classes=json.dumps(CLASSES), uncertain_rule=f"top probability < {UNCERTAIN_P}",
-                          predictors="PRE-event S2 composite bands only: " + ";".join(names),
-                          target="ESA WorldCover 2021, 4-cell purity + PRE-S2 consistency (weak reference)",
-                          inputs_read=json.dumps(sorted(set(_opened))),
-                          forbidden_not_read="M2, p69a/BASE_CLASS, p69b, S1 change, flood labels, HAND, UNOSAT, "
-                                             "TRACE/EVENT bands, U-Net outputs",
-                          status="DEVELOPMENT: must not enter a U-Net before m6_labels_v002 is frozen",
-                          producer="p73_rf20_surface.py")
-        p.with_suffix(".tif.part").replace(p)
-        u, c = np.unique(cls[okf], return_counts=True)
-        print(f"{fid} -> {p.name}: " + ", ".join(f"{CLASSES.get(int(k), k)} {v * 4e-4:.0f} km2"
-                                                 for k, v in zip(u, c)), flush=True)
+        areas += write_products(M, names, fid, d["g"], d["X"], d["ok"])
+    pd.DataFrame(areas).to_csv(CFG.TABLES / "p73_rf20_class_area.csv", index=False)
+
+    rf = mk().get_params()
+    man = dict(product="p73_rf20", status="FREEZE_CANDIDATE (set to P73_RF20_FROZEN only after visual + statistical QA)",
+               git=_git(), created_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+               purpose="PRE-event surface classification; not flood detection; not yet a U-Net input",
+               grid={f: dict(crs=CFG.CRS_METRIC, cell_m=20.0, x0=d["g"]["transform"].c, y1=d["g"]["transform"].f,
+                             ny=d["g"]["ny"], nx=d["g"]["nx"], row_offset_10m=d["g"]["r0"], col_offset_10m=d["g"]["c0"],
+                             rule="global S2 20 m lattice (origin multiple of 20 m); strict 2x2 mean of the 10 m "
+                                  "composite, any nodata sub-cell -> nodata") for f, d in D.items()},
+               features=dict(order=names, n=len(names), source="composite_preall + composite_preseas *_pre_* bands, "
+                             "value/10000; valid only where all features finite and n_obs_pre >= 5"),
+               target=dict(source="ESA WorldCover 2021 (wc_2021_20m per zone)", crosswalk=P_WC(),
+                           rule="all four half-cell-shifted WorldCover cells agree, then PRE-S2 consistency filters "
+                                "(tables/p73_target_filter.csv); conflict -> IGNORE",
+                           classes_without_targets=[CLASSES[c] for c in range(1, 10) if c not in labels]),
+               split=dict(cv="5-fold spatial block CV", block_m=BLOCK_M, block_to_fold="shuffled block ids, i % 5",
+                          transfer="B1->B2 and B2->B1", sample_per_class_per_frame=PER_CLASS),
+               random_forest={k: rf[k] for k in ("n_estimators", "min_samples_leaf", "class_weight", "random_state")},
+               seed=SEED, uncertainty=dict(rule=f"top class probability < {UNCERTAIN_P} -> UNCERTAIN (10)",
+                                           fixed_before_results=True),
+               software=dict(sklearn=sklearn.__version__, numpy=np.__version__, rasterio=rasterio.__version__),
+               model=dict(path=str(MODEL), sha256=_sha(MODEL)),
+               sources={p_: _sha(Path(p_)) for p_ in sorted(set(_opened))},
+               products={f: [str(OUT / f / "p73_rf20" / n) for n in PRODUCTS] for f in D})
+    (CFG.TABLES / "p73_rf20_manifest.json").write_text(json.dumps(man, indent=1, default=str))
+    print(f"-> tables/p73_rf20_{{metrics,confusion_matrix,class_area,manifest}}; model {MODEL}", flush=True)
+
+
+PRODUCTS = ("surface_class_20m.tif", "surface_max_score_20m.tif", "surface_uncertain_20m.tif", "surface_scores_20m.tif")
+MODEL = OUT / "_m6" / "p73_rf20_model.joblib"
+
+
+def P_WC():
+    return {str(k): CLASSES[v] for k, v in WC2P73.items()}
+
+
+def _sha(p: Path):
+    import hashlib
+    h = hashlib.sha256()
+    with open(p, "rb") as f:
+        for c in iter(lambda: f.read(16 << 20), b""):
+            h.update(c)
+    return h.hexdigest()
+
+
+def _git():
+    import subprocess
+    root = Path(__file__).resolve().parents[4]
+    run = lambda *a: subprocess.run(["git", *a], cwd=root, capture_output=True, text=True).stdout.strip()
+    return dict(commit=run("rev-parse", "HEAD"), dirty_tracked=bool(run("status", "--porcelain", "--untracked-files=no")),
+                worktree=str(root))
+
+
+def write_products(M, names, fid, g, X, ok):
+    """Four 20 m products per frame. Never upsampled here."""
+    flat = X.reshape(len(names), -1).T; okf = ok.ravel(); nc = len(M.classes_)
+    cls = np.full(okf.shape, 255, np.uint8); top = np.full(okf.shape, 255, np.uint8)
+    unc = np.full(okf.shape, 255, np.uint8); sc = np.full((nc, okf.size), 255, np.uint8)
+    w = np.flatnonzero(okf)
+    for i in range(0, len(w), 2_000_000):
+        ii = w[i:i + 2_000_000]; pp = M.predict_proba(flat[ii])
+        best = M.classes_[pp.argmax(1)].astype("u1"); mx = pp.max(1)
+        u = mx < UNCERTAIN_P; best[u] = 10
+        cls[ii] = best; top[ii] = np.round(mx * 100); unc[ii] = u; sc[:, ii] = np.round(pp.T * 100)
+    d = OUT / fid / "p73_rf20"; d.mkdir(exist_ok=True)
+    base = dict(driver="GTiff", height=g["ny"], width=g["nx"], dtype="uint8", nodata=255, crs=CFG.CRS_METRIC,
+                transform=g["transform"], compress="deflate", tiled=True, blockxsize=512, blockysize=512)
+    tags = dict(classes=json.dumps(CLASSES), uncertain_rule=f"top probability < {UNCERTAIN_P}", producer="p73_rf20_surface.py",
+                meaning="PRE-event surface class from PRE-only S2 (weak WorldCover target); not flood evidence")
+    for name, arrs, descs in (
+            ("surface_class_20m.tif", [cls], ["p73_class"]),
+            ("surface_max_score_20m.tif", [top], ["max_class_probability_x100"]),
+            ("surface_uncertain_20m.tif", [unc], ["uncertain (1) / certain (0)"]),
+            ("surface_scores_20m.tif", list(sc), [f"prob_x100_{CLASSES[int(c)]}" for c in M.classes_])):
+        p_ = d / name
+        with rasterio.open(p_.with_suffix(".tif.part"), "w", count=len(arrs), **base) as o:
+            for b, (arr, ds) in enumerate(zip(arrs, descs), 1):
+                o.write(arr.reshape(g["ny"], g["nx"]), b); o.set_band_description(b, ds)
+            o.update_tags(**tags)
+        p_.with_suffix(".tif.part").replace(p_)
+    v = okf.sum(); rows = []
+    for c, n in CLASSES.items():
+        k = int((cls[okf] == c).sum())
+        rows.append(dict(frame=fid, p73_class=n, km2=round(k * 4e-4, 2), share_pct=round(100 * k / max(v, 1), 2)))
+    print(f"{fid} -> {d}: " + ", ".join(f"{r['p73_class']} {r['km2']:.0f} km2" for r in rows if r["km2"]), flush=True)
+    return rows
+
+
+def infer(frames):
+    """PURE INFERENCE with the persisted frozen model (e.g. B3). No training, no threshold or configuration choice."""
+    import joblib
+    b = joblib.load(MODEL)
+    rows = []
+    for fid in frames:
+        g = grid20(fid); X, names, nobs = predictors(fid, g)
+        assert names == b["features"], "feature order differs from the frozen model"
+        rows += write_products(b["model"], names, fid, g, X, np.all(np.isfinite(X), axis=0) & (nobs >= 5))
+    pd.DataFrame(rows).to_csv(CFG.TABLES / f"p73_rf20_class_area_infer_{'_'.join(frames)}.csv", index=False)
 
 
 if __name__ == "__main__":
-    main()
+    import sys as _s
+    if "--infer" in _s.argv:
+        infer([f for f in _s.argv[_s.argv.index("--infer") + 1:] if not f.startswith("-")])
+    else:
+        main()
