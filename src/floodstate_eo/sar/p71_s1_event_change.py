@@ -2,6 +2,10 @@
 # copy_date=2026-09-23. CANONICAL, per 19_MIGRATION_MANIFEST.csv row 17 (migration_phase=5).
 # Import block only: swot_dnipro package imports -> floodstate_eo. `to_db()` is what
 # tests/test_p71_change_domain.py imports (from floodstate_eo.sar.p71_s1_event_change import to_db).
+# LOGIC EXTENDED in floodstate-eo on 2026-09-23 for B1 (B2 path unchanged -- embedding is the identity there):
+# LONG_GRID georeference for caches without one (verified by content), June events embedded at a verified integer
+# offset with no resampling, EXCLUDE_EVENT_ORBITS (167_DES: too few matched scenes, never pooled), and a manifest
+# merged per frame instead of overwritten.
 """P71 -- Sentinel-1 event CHANGE channels for a segmentation network, not a classifier.
 
 This file no longer decides anything. It builds the physical evidence a later model will learn from, and it
@@ -30,8 +34,9 @@ misnamed, since 2022-plus is RECENT, not season-matched. Only LONG_MATCHED, 18 t
 B2 FIRST, DELIBERATELY. The delta is where the optical model recovered only 23 % of the S1 candidates, where the
 disputed area sits at HAND ~ 0 in large connected masses rather than on a plateau, and where flooding is under reed
 rather than in the open. It is also the only frame whose long and June caches share a grid exactly (3830 x 1887),
-so no resampling enters the difference. B1's caches do NOT share a grid and will need an explicit reprojection step
--- the same operation that was got wrong once already, so it is done separately and not rushed here.
+so no resampling enters the difference. B1's caches do NOT share a grid, but the June grid is an exact integer
+sub-window of the long grid (verified by content, see LONG_GRID), so B1 is also built with no resampling before the
+single final reprojection onto the 10 m lattice. Pixels outside the June cache's extent have no event and stay nodata.
 
 Outputs: $BULK_ROOT/frames10/<FRAME>/s1_change.tif  (channels below, on the canonical 10 m lattice)
          <case_study>/tables/p71_s1_change_manifest.csv
@@ -55,6 +60,17 @@ JUNE = {"B2": "ZONE_2_KHERSON_DELTA_flood_june2023", "B3": "ZONE_3_DNIPRO_BUG_ES
         "B1": "ZONE_4_FLOODWAY_june2023_s32"}
 BREACH = "2023-06-06"
 PEAK_LO, PEAK_HI = "2023-06-06", "2023-06-14"
+#: Long caches that carry no per_scene_water.npz, so no recorded georeference: (x0, y1, cell) of the pixel CORNER.
+#: B1's long cache was built by p0o as from_origin(gx[0], gy[-1]) on a grid one cell wider than today's
+#: build_grid(ZONE_4) (5683x4552 vs 5681x4551). Verified 2026-09-23 by content, not assumed: all five peak scenes
+#: present in both the long and the June cache match at an integer offset of exactly (481, 501) cells from the June
+#: cache's recorded origin (465680, 5213640) -- median |difference| 0, 85-99 % of samples bit-identical, and every
+#: neighbouring offset worse. The ZONE_4 floodplain rasters' (455650, 5223270) is a half-cell-shifted convention
+#: and is NOT this grid.
+LONG_GRID = {"B1": (455660.0, 5223260.0, 20.0)}
+#: Event orbits that cannot be differenced against their own orbit and are therefore dropped, never pooled.
+EXCLUDE_EVENT_ORBITS = {"B1": {"167_DES": "2 matched pre-breach scenes in the long cache (< 5 for median+MAD); "
+                                          "a pooled baseline is forbidden, so the 2023-06-08 event is excluded"}}
 SCALE = 100          # dB * 100 in int16
 ND = -32768
 ROWS = 512
@@ -100,6 +116,11 @@ def to_db(a):
     return out
 
 
+def orbit(pth):
+    m = re.search(r"_orb(\d+)_(ASC|DES)", pth.name)
+    return f"{m.group(1)}_{m.group(2)}" if m else "?"
+
+
 def scenes(cache, lo=None, hi=None, pre=False):
     d = CFG.S1_CACHE / cache
     out = []
@@ -124,22 +145,60 @@ def main():
         pre_all = scenes(LONG[fid], pre=True)
         pre_22 = [p for p in pre_all if p.name[:10] >= "2022-01-01"]
         ev = scenes(JUNE[fid], PEAK_LO, PEAK_HI)
+        excl = EXCLUDE_EVENT_ORBITS.get(fid, {})
+        dropped = [p_ for p_ in ev if orbit(p_) in excl]
+        ev = [p_ for p_ in ev if orbit(p_) not in excl]
+        for p_ in dropped:
+            print(f"  {fid}: event {p_.stem} EXCLUDED -- {excl[orbit(p_)]}", flush=True)
         z0 = np.load(pre_all[0]); shp = z0["vv"].shape
         ze = np.load(ev[0])
-        if ze["vv"].shape != shp:
-            print(f"{fid}: SKIP -- long cache {shp} and June cache {ze['vv'].shape} are on different grids; "
-                  f"an explicit reprojection step is required and is deliberately not improvised here")
-            continue
         F = CG.frame_grid(fid)
         # the zone cache grid, taken from per_scene_water so the geometry is the recorded one
         w = np.load(CFG.S1_CACHE / JUNE[fid] / "per_scene_water.npz", allow_pickle=True)
         cell = float(w["cell"]); ztr = from_origin(float(w["x0"]), float(w["y1"]), cell, cell)
+        emb = (0, 0)                       # June-cache (row, col) offset inside the long grid
+        if ze["vv"].shape != shp:
+            if fid not in LONG_GRID:
+                print(f"{fid}: SKIP -- long cache {shp} and June cache {ze['vv'].shape} are on different grids "
+                      f"and the long grid has no verified georeference; not improvised here")
+                continue
+            lx0, ly1, lcell = LONG_GRID[fid]
+            dr, dc = (ly1 - float(w["y1"])) / cell, (float(w["x0"]) - lx0) / cell
+            if lcell != cell or dr != round(dr) or dc != round(dc) or dr < 0 or dc < 0:
+                raise SystemExit(f"{fid}: June grid is not an integer sub-window of the long grid "
+                                 f"(offset {dr}, {dc} cells) -- that needs resampling, which is not done here")
+            emb = (int(dr), int(dc))
+            # guard the recorded georeference with content: a peak scene cached in both must line up exactly
+            for p_ in ev:
+                lp = CFG.S1_CACHE / LONG[fid] / p_.name
+                if not lp.exists():
+                    continue
+                zl, zj = np.load(lp), np.load(p_)
+                h_, w_ = zj["vv"].shape
+                la = zl["vv"][emb[0]:emb[0] + h_, emb[1]:emb[1] + w_]
+                m_ = zl["cov"][emb[0]:emb[0] + h_, emb[1]:emb[1] + w_] & zj["cov"] & (la > 0) & (zj["vv"] > 0)
+                eq = float(np.mean(la[m_] == zj["vv"][m_])) if m_.any() else 0.0
+                if eq < 0.8:
+                    raise SystemExit(f"{fid}: {p_.stem} agrees with its long-cache copy on only {eq:.1%} of "
+                                     f"samples at offset {emb} -- the long-grid georeference is wrong; stop")
+                print(f"  {fid}: {p_.stem} long/June bit-identical on {eq:.1%} at offset {emb}", flush=True)
+                break
+            ztr = from_origin(lx0, ly1, cell, cell)
         print(f"{fid}: {len(pre_all)} pre-breach scenes ({len(pre_22)} from 2022), {len(ev)} peak scenes "
-              f"{PEAK_LO}..{PEAK_HI}; zone grid {shp} at {cell:.0f} m", flush=True)
-        def orbit(pth):
-            m = re.search(r"_orb(\d+)_(ASC|DES)", pth.name)
-            return f"{m.group(1)}_{m.group(2)}" if m else "?"
+              f"{PEAK_LO}..{PEAK_HI}; zone grid {shp} at {cell:.0f} m; June offset {emb}", flush=True)
         ev_orb = {p_: orbit(p_) for p_ in ev}
+
+        def embed(z, band, r0, r1):
+            """Event rows r0:r1 of the LONG grid; June samples pasted at the verified integer offset, NaN outside
+            the June extent and wherever cov is False. No resampling (identity when the grids already agree)."""
+            out = np.full((r1 - r0, shp[1]), np.nan, "f4")
+            v, c = z[band], z["cov"]
+            a0, a1 = max(r0 - emb[0], 0), min(r1 - emb[0], v.shape[0])
+            if a1 > a0:
+                x = v[a0:a1].astype("f4"); x[~c[a0:a1]] = np.nan
+                w_ = min(v.shape[1], shp[1] - emb[1])
+                out[a0 + emb[0] - r0:a1 + emb[0] - r0, emb[1]:emb[1] + w_] = x[:, :w_]
+            return out
         need = sorted(set(ev_orb.values()))
         by_orb = {o: [p_ for p_ in pre_all if orbit(p_) == o] for o in need}
         for o in need:
@@ -178,9 +237,8 @@ def main():
                 for p_ in ev:
                     o = ev_orb[p_]
                     z = np.load(p_)
-                    c = z["cov"][r0:r1]
-                    vv = z["vv"][r0:r1].astype("f4"); vv[~c] = np.nan; vv = to_db(vv)
-                    vh = z["vh"][r0:r1].astype("f4"); vh[~c] = np.nan; vh = to_db(vh)
+                    vv, vh = embed(z, "vv", r0, r1), embed(z, "vh", r0, r1)
+                    vv, vh = to_db(vv), to_db(vh)
                     evv.append(vv); evh.append(vh)
                     dvv.append(vv - base[(o, "vv", "med")]); dvh.append(vh - base[(o, "vh", "med")])
                     zvv.append((vv - base[(o, "vv", "med")]) / base[(o, "vv", "mad")])
@@ -225,7 +283,9 @@ def main():
                                 baseline="LONG_MATCHED per relative orbit",
                                 orbits="|".join(sorted(set(ev_orb.values()))),
                                 n_pre_matched_min=min(len(v) for v in by_orb.values()),
-                                n_pre_matched_max=max(len(v) for v in by_orb.values()), n_event=len(ev)))
+                                n_pre_matched_max=max(len(v) for v in by_orb.values()), n_event=len(ev),
+                                excluded_event_orbits="|".join(sorted(excl)) or "",
+                                june_offset_rows_cols=f"{emb[0]},{emb[1]}"))
                 del d10, q
             dst.update_tags(peak_window=f"{PEAK_LO}..{PEAK_HI}", n_pre_all=str(len(pre_all)),
                             n_pre_2022=str(len(pre_22)), n_event=str(len(ev)),
@@ -244,7 +304,13 @@ def main():
         os.replace(p.with_suffix(".tif.part"), p)
         print(f"  -> {p.name} {len(CH)} channels, {p.stat().st_size/1e9:.2f} GB, {time.time()-t0:.0f}s", flush=True)
         del acc
-    pd.DataFrame(man).to_csv(CFG.TABLES / "p71_s1_change_manifest.csv", index=False)
+    # merged by frame: building B1 must not erase B2's rows
+    mp = CFG.TABLES / "p71_s1_change_manifest.csv"
+    new = pd.DataFrame(man)
+    if mp.exists() and len(new):
+        old = pd.read_csv(mp)
+        new = pd.concat([old[~old.frame.isin(new.frame.unique())], new], ignore_index=True)
+    new.to_csv(mp, index=False)
     print("-> <case_study>/tables/p71_s1_change_manifest.csv")
 
 

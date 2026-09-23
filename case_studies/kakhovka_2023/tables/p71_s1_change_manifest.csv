@@ -1,0 +1,31 @@
+frame,band,channel,scale,units,baseline,orbits,n_pre_matched_min,n_pre_matched_max,n_event,excluded_event_orbits,june_offset_rows_cols
+B2,1,d_vv_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,2,d_vh_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,3,d_vv_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,4,d_vh_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,5,d_vv_mean,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,6,d_vh_mean,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,7,d_vvvh_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,8,d_vvvh_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,9,z_vv_min,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,10,z_vh_min,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,11,z_vv_max,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,12,z_vh_max,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,13,n_valid_pre_matched,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,14,n_valid_event,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B2,15,n_orbits_event,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,18,23,4,,
+B1,1,d_vv_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,2,d_vh_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,3,d_vv_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,4,d_vh_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,5,d_vv_mean,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,6,d_vh_mean,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,7,d_vvvh_min,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,8,d_vvvh_max,100,dB x 100,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,9,z_vv_min,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,10,z_vh_min,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,11,z_vv_max,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,12,z_vh_max,100,robust z,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,13,n_valid_pre_matched,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,14,n_valid_event,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
+B1,15,n_orbits_event,1,count,LONG_MATCHED per relative orbit,138_DES|14_ASC|65_DES|87_ASC,6,15,4,167_DES,"481,501"
