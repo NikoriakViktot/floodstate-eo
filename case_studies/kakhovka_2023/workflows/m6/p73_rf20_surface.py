@@ -159,6 +159,7 @@ def main():
     a = ap.parse_args()
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
+    git0 = _git()          # captured BEFORE this run writes any tracked table, so "dirty" means the code state
     rng = np.random.default_rng(SEED)
     D, inv, filt = {}, [], []
     for fid in a.frames:
@@ -173,10 +174,9 @@ def main():
         inv.append(dict(frame=fid, ny20=g["ny"], nx20=g["nx"], row_offset_10m=g["r0"], col_offset_10m=g["c0"],
                         x0=g["transform"].c, y1=g["transform"].f, n_features=len(names),
                         valid_cells=int(ok.sum()), target_cells=int((y > 0).sum()),
-                        **{f"target_{CLASSES[c]}": int((y == c).sum()) for c in range(1, 10)},
-                        seconds=round(time.time() - t0)))
+                        **{f"target_{CLASSES[c]}": int((y == c).sum()) for c in range(1, 10)}))
         print(f"{fid}: 20 m grid {g['ny']}x{g['nx']} (offset {g['r0']},{g['c0']}), {len(names)} PRE features, "
-              f"{int((y > 0).sum()):,} target cells", flush=True)
+              f"{int((y > 0).sum()):,} target cells, {time.time() - t0:.0f}s", flush=True)
     pd.DataFrame(inv).to_csv(CFG.TABLES / "p73_inventory.csv", index=False)
     pd.DataFrame(filt).to_csv(CFG.TABLES / "p73_target_filter.csv", index=False)
 
@@ -239,7 +239,7 @@ def main():
 
     rf = mk().get_params()
     man = dict(product="p73_rf20", status="FREEZE_CANDIDATE (set to P73_RF20_FROZEN only after visual + statistical QA)",
-               git=_git(), created_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
+               git=git0, created_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()),
                purpose="PRE-event surface classification; not flood detection; not yet a U-Net input",
                grid={f: dict(crs=CFG.CRS_METRIC, cell_m=20.0, x0=d["g"]["transform"].c, y1=d["g"]["transform"].f,
                              ny=d["g"]["ny"], nx=d["g"]["nx"], row_offset_10m=d["g"]["r0"], col_offset_10m=d["g"]["c0"],
