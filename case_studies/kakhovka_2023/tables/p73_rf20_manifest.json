@@ -1,0 +1,166 @@
+{
+ "product": "p73_rf20",
+ "status": "P73_RF20_FROZEN",
+ "git": {
+  "commit": "5f875ce94a66fda2edffe3e632b18db007e3132d",
+  "dirty_tracked": false,
+  "worktree": "/tmp/claude-1000/-home-niko-repo-floodstate-eo/78024b45-7f1b-4b60-bb65-7ab819d3a765/scratchpad/wt_p73f"
+ },
+ "created_utc": "2026-09-23T23:07:27Z",
+ "purpose": "PRE-event surface classification; not flood detection; not yet a U-Net input",
+ "grid": {
+  "B1": {
+   "crs": "EPSG:32636",
+   "cell_m": 20.0,
+   "x0": 455680.0,
+   "y1": 5212000.0,
+   "ny": 3700,
+   "nx": 4116,
+   "row_offset_10m": 0,
+   "col_offset_10m": 0,
+   "rule": "global S2 20 m lattice (origin multiple of 20 m); strict 2x2 mean of the 10 m composite, any nodata sub-cell -> nodata"
+  },
+  "B2": {
+   "crs": "EPSG:32636",
+   "cell_m": 20.0,
+   "x0": 438000.0,
+   "y1": 5211560.0,
+   "ny": 3828,
+   "nx": 1884,
+   "row_offset_10m": 1,
+   "col_offset_10m": 0,
+   "rule": "global S2 20 m lattice (origin multiple of 20 m); strict 2x2 mean of the 10 m composite, any nodata sub-cell -> nodata"
+  }
+ },
+ "features": {
+  "order": [
+   "preall:NDVI_pre_med",
+   "preall:NDVI_pre_min",
+   "preall:NDVI_pre_max",
+   "preall:NDWI_pre_med",
+   "preall:NDWI_pre_min",
+   "preall:NDWI_pre_max",
+   "preall:MNDWI_pre_med",
+   "preall:MNDWI_pre_min",
+   "preall:MNDWI_pre_max",
+   "preall:NDMI_pre_med",
+   "preall:NDMI_pre_min",
+   "preall:NDMI_pre_max",
+   "preall:BSI_pre_med",
+   "preall:BSI_pre_min",
+   "preall:BSI_pre_max",
+   "preall:AWEIsh_pre_med",
+   "preall:AWEIsh_pre_min",
+   "preall:AWEIsh_pre_max",
+   "preall:NDTI_pre_med",
+   "preall:NDTI_pre_min",
+   "preall:NDTI_pre_max",
+   "preall:NDBI_pre_med",
+   "preall:NDBI_pre_min",
+   "preall:NDBI_pre_max",
+   "preseas:NDVI_pre_med",
+   "preseas:NDVI_pre_min",
+   "preseas:NDVI_pre_max",
+   "preseas:NDWI_pre_med",
+   "preseas:NDWI_pre_min",
+   "preseas:NDWI_pre_max",
+   "preseas:MNDWI_pre_med",
+   "preseas:MNDWI_pre_min",
+   "preseas:MNDWI_pre_max",
+   "preseas:NDMI_pre_med",
+   "preseas:NDMI_pre_min",
+   "preseas:NDMI_pre_max",
+   "preseas:BSI_pre_med",
+   "preseas:BSI_pre_min",
+   "preseas:BSI_pre_max",
+   "preseas:AWEIsh_pre_med",
+   "preseas:AWEIsh_pre_min",
+   "preseas:AWEIsh_pre_max",
+   "preseas:NDTI_pre_med",
+   "preseas:NDTI_pre_min",
+   "preseas:NDTI_pre_max",
+   "preseas:NDBI_pre_med",
+   "preseas:NDBI_pre_min",
+   "preseas:NDBI_pre_max"
+  ],
+  "n": 48,
+  "source": "composite_preall + composite_preseas *_pre_* bands, value/10000; valid only where all features finite and n_obs_pre >= 5"
+ },
+ "target": {
+  "source": "ESA WorldCover 2021 (wc_2021_20m per zone)",
+  "crosswalk": {
+   "80": "WATER",
+   "40": "CROPLAND",
+   "30": "GRASS_LOW_VEGETATION",
+   "10": "FOREST",
+   "20": "SHRUB",
+   "90": "WETLAND_REED",
+   "50": "BUILT_UP",
+   "60": "BARE_SAND",
+   "70": "OTHER",
+   "95": "OTHER",
+   "100": "OTHER"
+  },
+  "rule": "all four half-cell-shifted WorldCover cells agree, then PRE-S2 consistency filters (tables/p73_target_filter.csv); conflict -> IGNORE",
+  "classes_without_targets": [
+   "SHRUB",
+   "OTHER"
+  ]
+ },
+ "split": {
+  "cv": "5-fold spatial block CV",
+  "block_m": 5000.0,
+  "block_to_fold": "shuffled block ids, i % 5",
+  "transfer": "B1->B2 and B2->B1",
+  "sample_per_class_per_frame": 30000
+ },
+ "random_forest": {
+  "n_estimators": 200,
+  "min_samples_leaf": 5,
+  "class_weight": "balanced_subsample",
+  "random_state": 20260923
+ },
+ "seed": 20260923,
+ "uncertainty": {
+  "rule": "top class probability < 0.5 -> UNCERTAIN (10)",
+  "fixed_before_results": true
+ },
+ "software": {
+  "sklearn": "1.9.1",
+  "numpy": "2.5.3",
+  "rasterio": "1.5.1"
+ },
+ "model": {
+  "path": "/mnt/f/data_kakhovka_dem_swot/frames10/_m6/p73_rf20_model.joblib",
+  "sha256": "bb14c942a5aba8bfe585ffa3cdfb01da00c861f6a36373be911a6db10ca1be88"
+ },
+ "sources": {
+  "/mnt/f/data_kakhovka_dem_swot/frames10/B1/composite_preall.tif": "b71d66edbb503407c7b63bbb05e69e3c595000c485cdbfb35fa56cc9a7c26771",
+  "/mnt/f/data_kakhovka_dem_swot/frames10/B1/composite_preseas.tif": "9866fa3e867cbf8a7ce466642cb7653c7023f7f6197c206856479d93e3883ac2",
+  "/mnt/f/data_kakhovka_dem_swot/frames10/B2/composite_preall.tif": "dace95b24da0e04195e4d6616eb1adaa16a511eb06d9dce41de709ca067642b1",
+  "/mnt/f/data_kakhovka_dem_swot/frames10/B2/composite_preseas.tif": "a3dbdcd13f34ff527ab8b6bb7fb4652b02fdebc41bd19bda8987a00170ed0030",
+  "/mnt/f/data_kakhovka_dem_swot/worldcover_frames/ZONE_2_KHERSON_DELTA/wc_2021_20m.tif": "506825c4fe0b80413b9f3dc4ef9e230e52f705f2819a456118431a4c4067486e",
+  "/mnt/f/data_kakhovka_dem_swot/worldcover_frames/ZONE_4_DAM_TO_KHERSON_FLOODWAY/wc_2021_20m.tif": "01b69cc3a972ac61aaff92c095984789ccc699c94425c9bf6c96053bbd570967"
+ },
+ "products": {
+  "B1": [
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B1/p73_rf20/surface_class_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B1/p73_rf20/surface_max_score_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B1/p73_rf20/surface_uncertain_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B1/p73_rf20/surface_scores_20m.tif"
+  ],
+  "B2": [
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B2/p73_rf20/surface_class_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B2/p73_rf20/surface_max_score_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B2/p73_rf20/surface_uncertain_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/frames10/B2/p73_rf20/surface_scores_20m.tif"
+  ]
+ },
+ "freeze": {
+  "frozen_utc": "2026-09-23",
+  "produced_by_commit": "5f875ce94a66fda2edffe3e632b18db007e3132d",
+  "set_by": "QA review after visual + statistical QA",
+  "qa_verdict": "tables/p73_rf20_qa/QA_VERDICT.md",
+  "reproducibility_gate": "PASS: bitwise identical to the dirty-tree development run (dd8c096 and 5f875ce clean worktrees)"
+ }
+}

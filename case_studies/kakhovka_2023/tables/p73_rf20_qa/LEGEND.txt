@@ -1,0 +1,2 @@
+p73 colours: {"1": "#2166ac", "2": "#f1c232", "3": "#b6d7a8", "4": "#274e13", "5": "#93c47d", "6": "#8e7cc3", "7": "#cc0000", "8": "#e6d3a3", "9": "#999999", "10": "#ff00ff", "255": "#ffffff"}
+classes: 1=WATER, 2=CROPLAND, 3=GRASS_LOW_VEGETATION, 4=FOREST, 5=SHRUB, 6=WETLAND_REED, 7=BUILT_UP, 8=BARE_SAND, 9=OTHER, 10=UNCERTAIN

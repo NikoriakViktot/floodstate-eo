@@ -40,7 +40,7 @@ below runs from floodstate-eo. Source of truth for anything missing: SWOT-DNIPRO
   Any U1 claim must be made WITHIN strata (esp. VEG_AGRI), not from global F1. B1 has more flooded-field labels
   (25.7 km²) and matters for this.
 - **p73 RF20** (`workflows/m6/p73_rf20_surface.py`): PRE-only S2 predictors, WorldCover 2021 target with 4-cell purity
-  + PRE-S2 consistency, global 20 m grid. DEVELOPMENT status; must not enter a U-Net yet.
+  + PRE-S2 consistency, global 20 m grid. **P73_RF20_FROZEN** (see step 0 below); U-Net input only in U1.
 
 ### DECISIONS (maintainer, 2026-09-23) — binding for the next experiments
 **D1 — U1 is evaluated WITHIN strata, and B1 is mandatory.** The primary test is U0 → U1 at a fixed land-cover class:
@@ -74,14 +74,17 @@ B1+B2 m6_labels_v002
 The U1 question: **does p73 reduce false flood on dry fields without killing recall on genuinely flooded fields in B1?**
 
 ### Ordered next steps (replaces the list at the bottom where they conflict)
+0. ✅ **p73 RF20 FROZEN** (2026-09-23, products of `5f875ce`, clean-worktree reproducibility gate bitwise PASS;
+   `tables/p73_rf20_manifest.json`, `tables/p73_rf20_qa/QA_VERDICT.md` — read its 7 limitations before using p73).
+   Old VEGETATION_AGRICULTURE = CROPLAND ~64 %, GRASS ~20 %, FOREST 7–10 %, WETLAND_REED 0.4 %, UNCERTAIN ~5 %.
+   Optional: B3 by pure inference (`--infer B3`).
 1. Freeze the B1+B2 split per D1 (flood-agri and dry-agri in test geography; same blocks for every arm).
 2. U0d, then U0z (D2). Evaluation harness per D1 (strata, sub-populations, FP km², paired block bootstrap).
-3. p73: review CV/transfer tables (current CV is on balanced PURE pixels — optimistic); then freeze.
-4. U1 = best U0 + p73. Later U2 +HAND/distance to water, U3 +S2 06-08, U4 +S2 06-18, U5 +TRACE;
+3. U1 = best U0 + p73. Later U2 +HAND/distance to water, U3 +S2 06-08, U4 +S2 06-18, U5 +TRACE;
    U6 +coherence only if the baseline works.
-5. Independent evaluation reference: observations that took no part in label construction (none exists yet).
-6. B3 p71 only after the B1 caveats above are accepted.
-7. Still uncommitted from the earlier session (not part of the M6 commits): the `_kakhovka_legacy_config.py` CRS fix,
+4. Independent evaluation reference: observations that took no part in label construction (none exists yet).
+5. B3 p71 only after the B1 caveats above are accepted.
+6. Still uncommitted from the earlier session (not part of the M6 commits): the `_kakhovka_legacy_config.py` CRS fix,
    `case_studies/kakhovka_2023/manifests/*.csv`, `provenance/UNRESOLVED_DEPENDENCIES.md` #7/#8, `CLAUDE.md`.
 
 ## Current state, precisely

@@ -1,4 +1,5 @@
-# New in floodstate-eo, 2026-09-23. STATUS: ACTIVE (development). Must NOT enter any U-Net until m6_labels_v002 is frozen.
+# New in floodstate-eo, 2026-09-23. STATUS: P73_RF20_FROZEN (products of commit 5f875ce; QA: tables/p73_rf20_qa/QA_VERDICT.md).
+# May enter a U-Net only as INPUT context (U1) after the B1+B2 split is frozen; never in label construction.
 """P73 -- RF20: PRE-EVENT SURFACE CLASSIFICATION on the global native-aligned 20 m Sentinel-2 grid. Not flood detection.
 
 PURPOSE. U0 separates delta/wetland inundation well and agricultural false water badly (VEG_AGRI F1 0.39 against
