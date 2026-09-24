@@ -22,7 +22,7 @@ exists in the repository, and assigns a DIAGNOSTIC group by rules fixed here bef
 These groups are a triage for the next step, not ground truth. HAND: floodplain/<zone>_hand_m.tif read with its own
 transform (its origin sits half a 20 m cell off the S2 grid; irrelevant for component medians, recorded anyway).
 
-Outputs: <case_study>/tables/p89_candidates_<ARM>.csv, p89_group_summary.csv, p89_persistence.csv;
+Outputs: <case_study>/tables/p89_candidates_<ARM>.csv, p89_group_summary.csv, p89_persistence.csv, p89_retention.csv;
          <case_study>/tables/p89_maps/*.png (frame maps for all arms, candidate gallery, group maps)
 """
 from __future__ import annotations
@@ -40,7 +40,7 @@ HERE = Path(__file__).resolve().parent
 OUT = CFG.BULK_ROOT / "frames10"
 RUNS = HERE.parents[1] / "runs"
 MAPS = CFG.TABLES / "p89_maps"
-ARMS = ("U0d", "U0z", "U1")
+ARMS = ("U0d", "U0z", "U1", "U2")
 FRAMES = ("B1", "B2")
 JUNE = {"B1": "ZONE_4_FLOODWAY_june2023_s32", "B2": "ZONE_2_KHERSON_DELTA_flood_june2023"}
 HANDZ = {"B1": "ZONE_4_DAM_TO_KHERSON_FLOODWAY", "B2": "ZONE_2_KHERSON_DELTA"}
@@ -219,13 +219,20 @@ def main():
             m = a["U0d"]["comp"] == r.component
             per.append(dict(frame=fid, component=r.component, group=r.group, area_km2=r.area_km2,
                             **{f"still_candidate_in_{o}": round(float((a[o]["sel"][a[o]["comp"]] & m).sum() / m.sum()), 3)
-                               for o in ("U0z", "U1")},
+                               for o in ARMS[1:]},
                             **{f"predicted_in_{o}": round(float((a[o]["pred"] & m).sum() / m.sum()), 3)
-                               for o in ("U0z", "U1")}))
+                               for o in ARMS[1:]}))
         del base_mask
     Pp = pd.DataFrame(per); Pp.to_csv(CFG.TABLES / "p89_persistence.csv", index=False)
-    print(Pp.groupby("group")[["area_km2", "predicted_in_U0z", "predicted_in_U1"]].agg(
-        {"area_km2": "sum", "predicted_in_U0z": "mean", "predicted_in_U1": "mean"}).round(3).to_string())
+    # area-weighted retention of the U0d candidate area, per group, in every other arm (Retention_A is the control)
+    ret = []
+    for g_, G_ in Pp.groupby("group"):
+        ret.append(dict(group=g_, U0d_area_km2=round(G_.area_km2.sum(), 3),
+                        **{f"retained_km2_{o}": round(float((G_.area_km2 * G_[f"predicted_in_{o}"]).sum()), 3)
+                           for o in ARMS[1:]},
+                        **{f"retention_{o}": round(float((G_.area_km2 * G_[f"predicted_in_{o}"]).sum() / G_.area_km2.sum()), 3)
+                           for o in ARMS[1:]}))
+    R = pd.DataFrame(ret); R.to_csv(CFG.TABLES / "p89_retention.csv", index=False); print(R.to_string(index=False))
 
     # ---- maps -------------------------------------------------------------------------------------------------------
     gcol = {"A": (0.1, 0.4, 0.9), "B": (0.1, 0.7, 0.2), "C": (0.9, 0.1, 0.1), "D": (0.95, 0.6, 0.0)}

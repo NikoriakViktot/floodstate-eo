@@ -73,6 +73,31 @@ B1+B2 m6_labels_v002
 ```
 The U1 question: **does p73 reduce false flood on dry fields without killing recall on genuinely flooded fields in B1?**
 
+### M6 status 2026-09-24 (after p89 audit and U2)
+Arms on the frozen m6_split_v1 (same labels v002, recipe and D1(+A1/A2) harness): U0d (ACTIVE baseline), U0z
+(rejected by D2), U1 (+p73), U2 (+HAND). Comparisons: runs/compare_*; audit: tables/p89_*.
+- **Wording (binding for logs and paper):** "None of the audited 19.2 km² cropland-associated candidates showed
+  positive evidence consistent with breach-induced inundation under the available SAR, optical and terrain
+  constraints." They are *cropland-associated SAR candidates*, not "false water".
+  A (7.3 km²) = real SAR water present BEFORE 06-06 → a TEMPORAL ATTRIBUTION error, not a spatial false positive;
+  B (8.0 km²) = spectral/SAR confusion on elevated cropland; D (3.9 km²) = UNRESOLVED (no S1 water product there is
+  not a negative observation).
+- **Canonical failure cases** for the paper figure U0 → U1 → U2 → U2b: candidate 22 (B1, E499570 N5205430, group A,
+  pre-existing water) and candidate 78 (B2, E440926 N5184734, group D, high-HAND agricultural SAR response).
+- **U1** (+p73): land cover is context, not a veto — CROPLAND ≠ not water. Retains 78–91 % of the candidate area.
+- **U2** (+HAND, continuous feature + has_hand): A2 −9.6 km² [−14.8, −5.1], A1 −0.42 km² [−1.17, −0.01], B recall
+  +0.04 [−0.005, +0.18], B IoU +0.08 [+0.0005, +0.23]; cost: BUILT_UP FP +0.37 km² [+0.04, +1.03]. Retention of U0d
+  candidate area: A 0.43, B 0.55, D 0.56. **A is not a clean negative control here**: the group-A fields are also
+  elevated (HAND ~50 m, irrigated plateau), so HAND removes them as elevated land, not by temporal reasoning.
+- **U2b blocker (label contract):** 0 labelled v002 pixels have pre-breach S1 water (p60 requires land dry in every
+  observed pre-breach event), so a W_pre input can never be supervised under v002. U2b needs a label-contract
+  decision (e.g. v003 with an explicit "water before the event → not event flood" negative class) before training.
+- **Gate:** `U3_BLOCKED_UNTIL_P72_REBUILD = TRUE` — every d* band of s2_sparse_support.tif is invalid
+  (workflows/m6/KNOWN_ISSUES.md). Fix = symmetric scaling before clipping; add a sanity test (|Δ| ≤ 2, ~0 % at int16
+  limits, nodata preserved).
+- **Route:** p89 audit → U2 (+HAND) ✅ → U2b (+pre-event SAR state; needs label decision) → fix/rebuild p72 → U3
+  (+optical change) → U4/full fusion.
+
 ### Ordered next steps (replaces the list at the bottom where they conflict)
 0. ✅ **p73 RF20 FROZEN** (2026-09-23, products of `5f875ce`, clean-worktree reproducibility gate bitwise PASS;
    `tables/p73_rf20_manifest.json`, `tables/p73_rf20_qa/QA_VERDICT.md` — read its 7 limitations before using p73).
