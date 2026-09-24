@@ -41,7 +41,25 @@ ARMS = {
     # best U0 by the pre-registered D2 rule is U0d (compare_U0d_vs_U0z), so U1 builds on U0d
     "U1": dict(s1=D_CH + SUPPORT, p73=True,
                note="U0d + frozen p73 RF20 surface class as one-hot INPUT context (never in labels)."),
+    # H1: terrain removes elevated cropland false positives. HAND is a FEATURE (continuous metres, TRAIN median/IQR
+    # normalisation, explicit has_hand indicator for its nodata domain), never a hand-made mask. Fixed before training.
+    "U2": dict(s1=D_CH + SUPPORT, p73=False, hand=True,
+               note="U0d + HAND (floodplain/<zone>_hand_m.tif, metres) + has_hand. NO p73, NO z_*, NO S2, NO TRACE."),
 }
+HANDZ = {"B1": "ZONE_4_DAM_TO_KHERSON_FLOODWAY", "B2": "ZONE_2_KHERSON_DELTA"}
+
+
+def hand_10m(fid, F):
+    """HAND (m) on the frame lattice, nearest from its own 20 m transform (origin half a cell off the S2 grid);
+    NaN outside its domain."""
+    from rasterio.enums import Resampling
+    from rasterio.warp import reproject
+    with rasterio.open(CFG.BULK_ROOT / "floodplain" / HANDZ[fid] / f"{HANDZ[fid]}_hand_m.tif") as s:
+        h = s.read(1).astype("f4"); h[h == s.nodata] = np.nan
+        d = np.full((F["ny"], F["nx"]), np.nan, "f4")
+        reproject(source=h, destination=d, src_transform=s.transform, src_crs=s.crs, dst_transform=F["transform"],
+                  dst_crs=CFG.CRS_METRIC, resampling=Resampling.nearest, src_nodata=np.nan, dst_nodata=np.nan)
+    return d
 #: p73 input encoding, fixed before U1 was trained: one-hot of the frozen class, SHRUB/OTHER omitted (never
 #: predicted), p73 nodata -> all zeros; 20 m -> 10 m by exact 2x2 replication (the grids nest).
 P73_ONEHOT = [(1, "p73_WATER"), (2, "p73_CROPLAND"), (3, "p73_GRASS_LOW_VEGETATION"), (4, "p73_FOREST"),
@@ -93,6 +111,8 @@ def main():
     for f in FRAMES:
         F = CG.frame_grid(f)
         X, has = frame_tensor(f, a.arm)
+        if ARMS[a.arm].get("hand"):
+            X = np.concatenate([X, hand_10m(f, F)[None]], 0)
         role, _ = read(f, f"{SPLIT}_role.tif", 1)
         y, _ = read(f, "m6_labels_v002.tif", 1)
         y = np.where(np.isin(role, (1, 2, 3)) & has, y, 255).astype(np.uint8)
@@ -119,10 +139,13 @@ def main():
     for f in FRAMES:
         Z = np.nan_to_num((D[f]["X"] - med) / iqr, nan=0.0).astype("f4")
         extra = [D[f]["has"][None].astype("f4")]
+        if ARMS[a.arm].get("hand"):
+            extra.append(np.isfinite(D[f]["X"][-1])[None].astype("f4"))      # has_hand, from the raw (pre-norm) HAND
         if ARMS[a.arm]["p73"]:
             extra.append(np.stack([(D[f]["p73"] == k).astype("f4") for k, _ in P73_ONEHOT]))
         D[f]["X"] = np.concatenate([Z] + extra, 0)
-    chans = ARMS[a.arm]["s1"] + ["has_event"] + ([n for _, n in P73_ONEHOT] if ARMS[a.arm]["p73"] else [])
+    chans = (ARMS[a.arm]["s1"] + (["hand_m"] if ARMS[a.arm].get("hand") else []) + ["has_event"]
+             + (["has_hand"] if ARMS[a.arm].get("hand") else []) + ([n for _, n in P73_ONEHOT] if ARMS[a.arm]["p73"] else []))
     json.dump(dict(channels=chans, median=med.ravel().tolist(), iqr=iqr.ravel().tolist(),
                    source="TRAIN patch pixels with an S1 event, both frames, 1M-pixel sample per frame",
                    has_event="appended unnormalised (1 = >= 1 S1 event observed)"),
