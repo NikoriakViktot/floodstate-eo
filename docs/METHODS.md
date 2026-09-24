@@ -31,3 +31,51 @@ drift from the code if not kept current — where in doubt, the code under `src/
 
 See `docs/DATA_DICTIONARY.md` for the per-product data dictionary (Appendix to this document in the source
 audit's plan).
+
+---
+
+## M6 — breach-induced inundation as water retrieval + event attribution (design adopted 2026-09-24)
+
+Status: **design adopted, partially implemented**. References are keys in `docs/references.bib`.
+
+**Formulation.** Breach-induced inundation is not mapped as direct binary flood / non-flood classification. It is
+split into (1) retrieval of surface water at the event date and (2) attribution of that water to the event. A binary
+flood classifier trained only where land was dry before the event (label contract v002) never sees water that already
+existed, and cannot be asked to tell such water apart from new inundation (p89 audit, group A). Operational and
+benchmark practice separates the same quantities: observed water, observed flood and reference water in CEMS GFM
+[Wagner_2026]; permanent vs flood vs total surface water in Sen1Floods11 [Bonafilia_2020] and in S1+S2 fusion
+[Bai_2021; Bioresita_2019].
+
+1. **Stage 1 — event water retrieval** `[proposed]`. P(W_t) from Sentinel-1 VV/VH and orbit-matched dB change
+   (p71), Sentinel-2 NDWI/MNDWI/NDVI and their change (p72, after the 2026-09-24 scaling fix), HAND and context.
+   Target: LAND / WATER. SAR water detection follows the automated S1 chain logic of [Twele_2016]; S1+S2 fusion
+   follows [Bai_2021; Bioresita_2019].
+2. **Stage 2 — immediate pre-event water** `[implemented as data: S1 06-01 / 06-02 masks]`. W_pre from the last two
+   S1 acquisitions before the breach. Used in attribution, NOT as a model input: a label built from W_pre and a model
+   fed W_pre would reproduce the label rule (circularity).
+3. **Stage 3 — reference / seasonal water** `[implemented as data: p89b]`. W_ref from an independent, earlier time
+   window: 13 S1 RTC scenes 2023-04-15..05-28 per frame (5 orbits), classified with exactly the June water classifier
+   (reproduction gate: fresh 06-01/06-02 masks identical to the cached ones, IoU 1.0), plus S2 late-pre and
+   multi-year S2 water frequency. Seasonal reference water reduces flood over-estimation [Martinis_2022; Wagner_2026].
+4. **Stage 4 — event attribution** `[proposed]`. EVENT_FLOOD = W_t ∧ ¬W_pre; W_t ∧ W_ref → REFERENCE_WATER.
+   Product ontology: LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN (never-observed stays UNKNOWN, not LAND).
+5. **Terrain** `[implemented: U2 arm, p86]`. HAND is a plausibility feature, not a water detector and not a hard mask
+   [Tupas_2023]. On the frozen split U2 (+HAND) reduced predicted flood on unlabelled cropland by 9.6 km²
+   (95 % block-bootstrap CI −14.8 to −5.1) without a detectable recall loss.
+6. **Urban** `[proposed]`. Separate treatment: absolute backscatter is hard to interpret among buildings; multi-temporal
+   change is required [Giustarini_2013]. U2 moved errors into BUILT_UP (+0.37 km²).
+7. **Evaluation.** Frozen B1+B2 split (m6_split_v1), agreement with held-out weak labels — not flood-mapping accuracy.
+   D1 endpoints within land-cover strata, A1 (labelled dry cropland) vs A2 (unlabelled cropland: "predicted flood
+   burden", never called false positives), paired spatial-block bootstrap.
+8. **Wording rule.** "None of the audited 19.2 km² cropland-associated candidates showed positive evidence consistent
+   with breach-induced inundation under the available SAR, optical and terrain constraints."
+
+### Key references
+- Wagner et al. 2026, RSE 333:115108 — CEMS Global Flood Monitoring; observed flood vs reference water. `Wagner_2026`
+- Martinis et al. 2022, RSE 278:113077 — S1/S2 seasonal + permanent reference water. `Martinis_2022`
+- Bonafilia et al. 2020, CVPRW 835–845 — Sen1Floods11; permanent / flood / total water. `Bonafilia_2020`
+- Bai et al. 2021, Remote Sensing 13:2220 — S1+S2 deep learning for permanent vs temporary water. `Bai_2021`
+- Bioresita et al. 2019, IJRS 40:9026–9049 — S1+S2 time-series fusion, permanent and temporary water. `Bioresita_2019`
+- Twele et al. 2016, IJRS 37:2990–3004 — fully automated S1 flood processing chain. `Twele_2016`
+- Tupas et al. 2023, Water 15:4034 — HAND/topographic prior for S1 flood maps. `Tupas_2023`
+- Giustarini et al. 2013, IEEE TGRS 51:2417–2430 — SAR change detection for urban flooding. `Giustarini_2013`

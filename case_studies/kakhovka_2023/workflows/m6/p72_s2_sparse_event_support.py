@@ -1,7 +1,10 @@
 # Provenance: SWOT-DNIPRO scripts/p72_s2_sparse_event_support.py, source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766
 # migration_date=2026-09-23. M6 recovery (not in the Phase-5 manifest; removed from SWOT-DNIPRO by 9419ea3).
 # STATUS: ACTIVE -- builds s2_sparse_support.tif, the 06-08 / 06-18 optical support channels planned for U3/U4.
-# Import/path block only: swot_dnipro -> floodstate_eo; ROOT -> case_studies/kakhovka_2023. Logic unchanged.
+# Import/path block only: swot_dnipro -> floodstate_eo; ROOT -> case_studies/kakhovka_2023.
+# LOGIC FIXED 2026-09-24 (KNOWN_ISSUES.md): d* bands subtracted an UNSCALED pre median (x10000) from a scaled event
+# index and saturated at +-32767. Now delta_i16() scales both sides symmetrically before clipping, and every written
+# d* band passes a sanity gate (|delta| <= 2, ~0 % of valid pixels at the int16 limits).
 """P72 -- sparse DATED optical support for M6. Not a peak composite, because there is no optical peak to composite.
 
 THE INVENTORY DECIDED THIS FILE'S SHAPE. Inside the peak window 2023-06-06..06-14 the archive holds exactly ONE
@@ -54,6 +57,25 @@ def channels():
     return c
 
 
+def delta_i16(event_scaled, pre_raw):
+    """Change in index units, stored x SCALE. `event_scaled` is already value/SCALE; `pre_raw` is the composite's
+    int16 x SCALE value (ND -> NaN beforehand). Both sides are brought to the same units BEFORE rounding/clipping."""
+    d = event_scaled - pre_raw / SCALE
+    return d, np.clip(np.round(d * SCALE), -32767, 32767)
+
+
+def sanity(d_i16, valid):
+    """Gate for a written d* band: |delta| <= 2 index units and (near) nothing at the int16 limits."""
+    v = d_i16[valid]
+    at_lim = float(np.mean(np.abs(v) >= 32767)) if v.size else 0.0
+    over2 = float(np.mean(np.abs(v) > 2 * SCALE)) if v.size else 0.0
+    # Tolerances set 2026-09-24 AFTER the first rebuild tripped a 1e-4 gate on dNDVI_0618 (B1: 0.019 % at the limit,
+    # 0.057 % |delta| > 2 -- impossible for a normalised index, i.e. outliers already present in the per-date index
+    # stacks). The gate's job is to catch the scaling bug (~100 % at the limit), not to hide source outliers, so
+    # every band's exact fractions are written into the raster tags.
+    return dict(frac_at_int16_limit=at_lim, frac_abs_gt_2=over2, ok=at_lim < 1e-3 and over2 < 1e-2)
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=list(FR)); a = ap.parse_args()
     CH = channels()
@@ -96,10 +118,15 @@ def main():
                     dst.write(q, b); dst.set_band_description(b, f"{i}_{tag}")
                 for i in IDX:
                     b += 1
-                    d = vals[i] - pre[i]
-                    q = np.where(val & np.isfinite(d), np.clip(np.round(d * SCALE), -32767, 32767),
-                                 FILL).astype("i2")
+                    d, dq = delta_i16(vals[i], pre[i])
+                    ok_ = val & np.isfinite(d)
+                    q = np.where(ok_, dq, FILL).astype("i2")
+                    chk = sanity(q, ok_)
+                    if not chk["ok"]:
+                        raise SystemExit(f"{fid} d{i}_{tag}: delta sanity gate failed {chk} -- not written")
                     dst.write(q, b); dst.set_band_description(b, f"d{i}_{tag}")
+                    dst.update_tags(b, delta_sanity=json.dumps({k: round(v, 7) if isinstance(v, float) else v
+                                                                for k, v in chk.items()}))
                 b += 1
                 dst.write(val.astype("i2"), b); dst.set_band_description(b, f"valid_{tag}")
                 sup.append(dict(frame=fid, date=dt, temporal_role=role,
