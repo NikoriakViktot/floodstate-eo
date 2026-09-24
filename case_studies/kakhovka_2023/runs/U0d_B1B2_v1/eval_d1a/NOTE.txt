@@ -1,0 +1,1 @@
+D1 amendment (2026-09-24: A1 supervised / A2 challenge) evaluated by p87 from the stored scores and the frozen validation threshold 0.56. For U0d this is POST HOC (its TEST was first read before the amendment); no model, score or threshold was changed. For later arms the amendment is pre-registered.

@@ -15,7 +15,7 @@ flips, seed 20260923.
 - A run directory is immutable: re-running an existing arm refuses, so TEST cannot be looked at twice by accident.
 
 Outputs: runs/<ARM>_B1B2_v1/{config.json, normalization.json, training_history.csv, validation_threshold.json,
-         test_endpoints.csv, test_endpoints_ci.csv, test_by_frame.csv, test_blocks.csv, model_best.pt, model_last.pt}
+         eval_d1a/{endpoints,endpoints_ci,by_frame,blocks,a2_curve}.csv, model_best.pt, model_last.pt}
          $BULK_ROOT/frames10/<F>/m6/<ARM>_score.tif (uint16 x10000, nodata 65535)
 """
 from __future__ import annotations
@@ -205,39 +205,17 @@ def main():
     if a.smoke:
         print("SMOKE: stopping before TEST"); return
 
-    # ---- TEST, once ---------------------------------------------------------------------------------------------
-    from sklearn.metrics import average_precision_score
-    rows, blocks, ss, yy = [], [], [], []
+    # ---- TEST, once: D1 + amendment (A1/A2) through the one harness ----------------------------------------------
     for f in FRAMES:
-        d = D[f]; test = d["role"] == 3
-        pred = (d["score"] >= thr) & test & d["has"]
-        r, b, (s_, y_) = E.evaluate_frame(pred, np.nan_to_num(d["score"]), d["y"], d["p73"], test & d["has"], d["blk"])
-        rows.append(dict(frame=f, **r)); b.insert(0, "frame", f); blocks.append(b); ss.append(s_); yy.append(y_)
-    Bt = pd.concat(blocks, ignore_index=True); Bt.to_csv(RUN / "test_blocks.csv", index=False)
-    R = pd.DataFrame(rows)
-    tot = R[[c for c in R.columns if c.endswith("_px")]].sum()
-    ep_all = E.endpoints(tot)
-    ep_all.update(A_n_fp_components=int(R.A_n_fp_components.sum()),
-                  A_n_isolated_field_components=int(R.A_n_isolated_field_components.sum()),
-                  A_isolated_field_km2=round(float(R.A_isolated_field_px.sum()) * E.PX_KM2, 4),
-                  B_n_ref_components=int(R.B_n_ref_components.sum()), B_n_recovered=int(R.B_n_recovered.sum()),
-                  C_n_ref_components_LOWN=int(R.C_n_ref_components.sum()), C_n_recovered_LOWN=int(R.C_n_recovered.sum()),
-                  W_pred_components=int(R.W_pred_components.sum()),
-                  G_PR_AUC=round(float(average_precision_score(np.concatenate(yy), np.concatenate(ss))), 4),
-                  threshold=thr)
-    pd.Series(ep_all).to_csv(RUN / "test_endpoints.csv", header=["value"])
-    # a 10 km block cut by the B1/B2 ownership line is ONE physical resampling unit
-    E.bootstrap(Bt.drop(columns=["frame"]).groupby("block").sum()).to_csv(RUN / "test_endpoints_ci.csv")
-    byf = pd.DataFrame([dict(frame=r_["frame"], **E.endpoints(r_), A_n_fp_components=r_["A_n_fp_components"],
-                             B_n_ref_components=r_["B_n_ref_components"], B_n_recovered=r_["B_n_recovered"],
-                             W_largest_component_share=r_["W_largest_component_share"]) for r_ in rows])
-    byf.to_csv(RUN / "test_by_frame.csv", index=False)
+        D[f].pop("X")                                                   # free memory; scores are all that is needed
+    ep, byf, curve = E.evaluate_arm(RUN, a.arm, D, thr)
     json.dump(dict(arm=a.arm, channels=chans, note=ARMS[a.arm]["note"], split=SPLIT, split_manifest=man.get("version"),
                    labels="m6_labels_v002", epochs=a.epochs, batch=a.batch, lr=a.lr, seed=SEED, stride=a.stride,
                    architecture="smp.Unet resnet34, encoder_weights=None", loss="masked BCE + Dice",
                    meaning="agreement with held-out weak reference labels; NOT flood-mapping accuracy",
                    seconds=round(time.time() - t0)), open(RUN / "config.json", "w"), indent=2)
-    print(pd.Series(ep_all).to_string()); print(byf.to_string(index=False))
+    print(pd.Series(ep).to_string()); print(byf.to_string(index=False))
+    print(curve.to_string(index=False))
     print(f"-> {RUN.relative_to(ROOT)}/")
 
 
