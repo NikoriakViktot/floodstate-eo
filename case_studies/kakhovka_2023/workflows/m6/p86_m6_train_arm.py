@@ -38,7 +38,14 @@ ARMS = {
                 note="S1 d_* + support + has_event. NO z_*, NO p73, NO HAND, NO S2, NO TRACE."),
     "U0z": dict(s1=D_CH + ["z_vv_min", "z_vh_min", "z_vv_max", "z_vh_max"] + SUPPORT, p73=False,
                 note="U0d + robust z_* (domain-shift ablation)."),
+    # best U0 by the pre-registered D2 rule is U0d (compare_U0d_vs_U0z), so U1 builds on U0d
+    "U1": dict(s1=D_CH + SUPPORT, p73=True,
+               note="U0d + frozen p73 RF20 surface class as one-hot INPUT context (never in labels)."),
 }
+#: p73 input encoding, fixed before U1 was trained: one-hot of the frozen class, SHRUB/OTHER omitted (never
+#: predicted), p73 nodata -> all zeros; 20 m -> 10 m by exact 2x2 replication (the grids nest).
+P73_ONEHOT = [(1, "p73_WATER"), (2, "p73_CROPLAND"), (3, "p73_GRASS_LOW_VEGETATION"), (4, "p73_FOREST"),
+              (6, "p73_WETLAND_REED"), (7, "p73_BUILT_UP"), (8, "p73_BARE_SAND"), (10, "p73_UNCERTAIN")]
 
 
 def _load(name):
@@ -111,8 +118,11 @@ def main():
     del samp
     for f in FRAMES:
         Z = np.nan_to_num((D[f]["X"] - med) / iqr, nan=0.0).astype("f4")
-        D[f]["X"] = np.concatenate([Z, D[f]["has"][None].astype("f4")], 0)
-    chans = ARMS[a.arm]["s1"] + ["has_event"]
+        extra = [D[f]["has"][None].astype("f4")]
+        if ARMS[a.arm]["p73"]:
+            extra.append(np.stack([(D[f]["p73"] == k).astype("f4") for k, _ in P73_ONEHOT]))
+        D[f]["X"] = np.concatenate([Z] + extra, 0)
+    chans = ARMS[a.arm]["s1"] + ["has_event"] + ([n for _, n in P73_ONEHOT] if ARMS[a.arm]["p73"] else [])
     json.dump(dict(channels=chans, median=med.ravel().tolist(), iqr=iqr.ravel().tolist(),
                    source="TRAIN patch pixels with an S1 event, both frames, 1M-pixel sample per frame",
                    has_event="appended unnormalised (1 = >= 1 S1 event observed)"),
