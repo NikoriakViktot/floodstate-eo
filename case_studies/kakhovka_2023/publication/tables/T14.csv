@@ -1,0 +1,25 @@
+zone,date,category,km2,km2_ground_below_surface,km2_ground_0_2m_above,km2_ground_2_5m_above,km2_ground_ge5m_above,km2_normally_wet,km2_wc_trees,km2_wc_wetland,km2_wc_built,km2_wc_cropland,km2_wc_grass,km2_wc_bare,km2_p73_reed,km2_p73_forest,km2_p73_built,km2_p73_cropland,category_meaning
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,A,25.82,25.82,0.0,0.0,0.0,0.0,0.93,6.15,0.65,0.98,16.65,0.07,5.46,1.44,1.48,1.06,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,B,66.28,66.28,0.0,0.0,0.0,0.0,27.8,5.75,9.52,1.12,21.41,0.05,4.94,25.65,11.55,1.31,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,C,109.07,75.09,1.44,3.46,29.08,74.29,2.78,69.09,0.13,25.63,9.26,0.21,69.9,2.75,0.34,5.94,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,N,1870.95,305.79,96.6,199.53,1268.69,57.96,250.69,18.88,81.21,866.96,404.95,7.24,30.36,210.29,81.92,442.01,neither
+ZONE_2_KHERSON_DELTA,2023-06-09,A,32.98,32.98,0.0,0.0,0.0,0.0,0.48,24.06,1.02,0.37,6.54,0.08,21.59,0.65,2.27,0.46,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-09,B,53.39,53.39,0.0,0.0,0.0,0.0,15.56,14.39,13.75,0.18,8.98,0.08,12.2,13.98,16.43,0.18,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-09,C,151.55,91.47,32.09,3.02,24.96,99.2,1.78,119.27,0.25,12.55,16.33,0.08,118.48,1.0,1.02,10.81,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_2_KHERSON_DELTA,2023-06-09,N,883.09,168.62,51.5,36.28,619.94,36.41,117.21,59.55,75.86,289.25,205.21,2.01,67.21,102.38,85.97,246.57,neither
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,A,12.55,12.55,0.0,0.0,0.0,0.0,0.82,4.43,0.12,0.08,6.69,0.01,4.51,0.99,0.51,0.18,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,B,26.64,26.64,0.0,0.0,0.0,0.0,11.39,5.43,3.32,0.11,5.95,0.01,4.43,11.42,4.3,0.13,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,C,78.01,73.28,0.93,0.86,2.94,71.72,3.38,66.17,0.18,0.15,5.64,0.31,68.6,1.8,0.41,0.17,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,N,1954.93,269.34,37.29,137.81,1510.13,60.52,266.61,23.84,87.89,894.35,433.99,7.24,33.11,225.93,90.07,449.84,neither
+ZONE_2_KHERSON_DELTA,2023-06-13,A,10.88,10.88,0.0,0.0,0.0,0.0,0.09,8.96,0.12,0.02,1.38,0.03,8.33,0.1,0.47,0.13,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-13,B,57.86,57.86,0.0,0.0,0.0,0.0,11.93,27.83,9.2,0.13,8.18,0.04,24.01,11.13,11.76,0.17,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-13,C,63.46,56.9,3.57,0.25,2.73,57.93,0.81,58.52,0.04,0.26,3.01,0.13,57.79,0.36,0.45,0.43,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_2_KHERSON_DELTA,2023-06-13,N,1157.71,277.95,107.27,60.07,704.75,90.16,137.2,134.41,83.71,328.22,276.54,2.85,133.46,121.51,97.87,278.81,neither
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,A,5.77,5.77,0.0,0.0,0.0,0.0,0.41,1.31,0.03,0.0,3.71,0.0,1.7,0.47,0.26,0.05,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,B,24.74,24.74,0.0,0.0,0.0,0.0,10.02,7.71,1.91,0.09,4.51,0.01,6.88,10.31,2.6,0.12,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,C,53.42,47.17,1.77,0.62,3.87,46.39,2.02,42.44,0.14,0.07,6.96,0.11,44.44,0.77,0.32,0.09,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,N,1233.79,176.38,27.01,110.23,919.82,85.85,243.12,48.35,69.26,393.16,372.19,7.37,57.48,226.52,84.2,354.18,neither
+ZONE_2_KHERSON_DELTA,2023-06-14,A,5.97,5.97,0.0,0.0,0.0,0.0,0.03,4.76,0.04,0.01,0.91,0.02,4.33,0.04,0.25,0.08,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-14,B,50.79,50.79,0.0,0.0,0.0,0.0,9.7,29.75,5.89,0.04,4.8,0.04,26.27,9.15,7.97,0.13,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-14,C,34.14,17.53,3.46,2.4,10.75,18.06,0.37,18.76,0.03,1.06,13.32,0.09,17.8,0.13,0.36,1.13,"terrain- / S1+ (submergence signal on normally-wet ground, or false SAR water on land)"
+ZONE_2_KHERSON_DELTA,2023-06-14,N,1199.01,317.92,113.64,60.26,699.53,130.03,139.94,176.45,87.12,327.51,270.08,2.91,175.19,123.77,101.97,278.2,neither

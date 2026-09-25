@@ -1,0 +1,418 @@
+{
+ "generated_utc": "2026-09-25T20:35:34Z",
+ "git_commit": "46dd984010663e4c60e181ffe690da8d825c83cf",
+ "tables": {
+  "T01": {
+   "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
+   "evidence_level": "mixed",
+   "rows": 28,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s1.csv",
+    "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv",
+    "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv",
+    "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv",
+    "case_studies/kakhovka_2023/tables/p77d_v003_A_scene_qa.csv"
+   ],
+   "sha256": "1c73e2c0d02ed3f9666c46abbf437bfd13cd557f70885d95f2960d47385c59f4"
+  },
+  "T02": {
+   "caption": "Weak reference labels per frame: v002 (FLOOD / NON_FLOOD / IGNORE) and v003_A (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN), km2. EVENT_FLOOD is pixel-identical to v002 FLOOD.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 2,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p77_labels_v002_summary.csv",
+    "case_studies/kakhovka_2023/tables/p77d_v003_A_areas.csv",
+    "case_studies/kakhovka_2023/tables/p77d_v003_A_transition_v002.csv"
+   ],
+   "sha256": "3a8291e08ef383e3e8d353ef7623484f2a19f64164b8e27bdae566f6d53d3f27"
+  },
+  "T02b": {
+   "caption": "Transition v002 -> v003_A per frame, km2 (the change is on the negative side and in the UNKNOWN domain).",
+   "evidence_level": "weak_label_agreement",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p77d_v003_A_transition_v002.csv"
+   ],
+   "sha256": "108acb2ee2c94ed90aeca814df24bf33a034fbfb82c1f542dd2851beb5dc6ec9"
+  },
+  "T03": {
+   "caption": "Frozen spatial-block split m6_split_v1: geometry, counts and rationale.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 9,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/m6_split_v1_composition.csv",
+    "case_studies/kakhovka_2023/tables/m6_split_v1_strata.csv",
+    "case_studies/kakhovka_2023/tables/m6_split_v1_manifest.json"
+   ],
+   "sha256": "a069e7c29999514bb9766f86f443fca3c3db8d7e1a4e58768f60186d9126009d"
+  },
+  "T03b": {
+   "caption": "Stratum shares of the frozen split (train / validation / test), km2.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/m6_split_v1_strata.csv"
+   ],
+   "sha256": "06750b3646b3ab025172cdb284440fef0a01b17d83bd203eed0a35d1e0f3eab3"
+  },
+  "T03c": {
+   "caption": "Composition of the frozen split per frame, km2.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 8,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/m6_split_v1_composition.csv"
+   ],
+   "sha256": "cda60a948714f1c63c3bf78079c885d0f9c14ca34b54374d97875f0ff105da64"
+  },
+  "T04": {
+   "caption": "U-Net arms: inputs, labels, frozen validation threshold and training settings. U2b is a diagnostic experiment (W_pre is also a label ingredient).",
+   "evidence_level": "weak_label_agreement",
+   "rows": 7,
+   "sources": [
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/config.json",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/config.json",
+    "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U1_B1B2_v1/config.json",
+    "case_studies/kakhovka_2023/runs/U1_B1B2_v1/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v1/config.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v1/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/config.json",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/config.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/validation_threshold.json",
+    "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/config.json",
+    "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/validation_threshold.json"
+   ],
+   "sha256": "26a061d6e323563c9cb58ce089c5704927ac88ce7e622f9096ce705292c6994e"
+  },
+  "T05": {
+   "caption": "D1 endpoints per arm on the frozen TEST blocks with 95 % spatial-block bootstrap intervals (2000 resamples).",
+   "evidence_level": "weak_label_agreement",
+   "rows": 266,
+   "sources": [
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U1_B1B2_v1/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U1_B1B2_v1/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v1/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v1/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/eval_d1a/endpoints_ci.csv",
+    "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/eval_d1a/endpoints_ci.csv"
+   ],
+   "sha256": "759d3edb560495f2e09fd46fddae46187fb2b8fcf3735dc3ff6a07a18830d97a"
+  },
+  "T06": {
+   "caption": "Paired arm comparisons (B minus A) on identical spatial blocks, 2000 resamples, 95 % intervals.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 140,
+   "sources": [
+    "case_studies/kakhovka_2023/runs/compare_U0d_vs_U0z/paired_bootstrap.csv",
+    "case_studies/kakhovka_2023/runs/compare_U0d_vs_U1/paired_bootstrap.csv",
+    "case_studies/kakhovka_2023/runs/compare_U0d_vs_U2/paired_bootstrap.csv",
+    "case_studies/kakhovka_2023/runs/compare_U0d_vs_U2_v003A/paired_bootstrap.csv",
+    "case_studies/kakhovka_2023/runs/compare_U2_vs_U2b_v003A/paired_bootstrap.csv"
+   ],
+   "sha256": "8dfd5060bd405aee05e1a3f01df830cd3a3b718ecfed27a49decfffd0726dd92"
+  },
+  "T07": {
+   "caption": "v003_A attribution endpoints per finished run at its own frozen threshold: predicted flood on TEST REFERENCE_WATER, EVENT_FLOOD recall, LAND false positives, UNKNOWN burden; 95 % block-bootstrap intervals.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 65,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p90_v003A_endpoints.csv"
+   ],
+   "sha256": "8b947c215dbf9e1c78cf1c0ff43c5704de1dc18a5d48b7754875e2969dcae738"
+  },
+  "T07b": {
+   "caption": "Paired differences (B minus A) of the v003_A attribution endpoints across label sets and inputs.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 39,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p90_v003A_paired.csv"
+   ],
+   "sha256": "00f7adad27c38fabcbac53b688ff7d173ed7730c37af1137bdf4df315a017647"
+  },
+  "T08": {
+   "caption": "Cropland-associated SAR candidates (p89 audit): groups A (water before the breach), B (wet/irrigated agriculture), D (unresolved / likely SAR artefact) per arm and frame.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 36,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p89_group_summary.csv"
+   ],
+   "sha256": "09b0ce87efc0c9d468a02743ef6148b2740c2d5fec530d88d43704400e8ad593"
+  },
+  "T08b": {
+   "caption": "Retention of U0d candidate area by the other v002 arms (fraction of km2).",
+   "evidence_level": "weak_label_agreement",
+   "rows": 3,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p89_retention.csv"
+   ],
+   "sha256": "3124aa9d41a44c6997db5a6f55f231fb235e750970bf9b465bed4810139913e9"
+  },
+  "T09": {
+   "caption": "RF20 surface classification: per-class precision / recall / F1 with support, macro means and overall agreement, spatial-block 5-fold CV and frame transfers. Reference = WorldCover 2021, the training reference.",
+   "evidence_level": "contextual",
+   "rows": 30,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p73_rf20_metrics.csv",
+    "case_studies/kakhovka_2023/tables/p73_rf20_confusion_matrix.csv"
+   ],
+   "sha256": "c080d80b545f61b046105571f8e98da31d4b8a54152be680a5c599862f6c0bd5"
+  },
+  "T10": {
+   "caption": "RF20 confusion matrix (spatial-block CV, counts).",
+   "evidence_level": "contextual",
+   "rows": 7,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p73_rf20_confusion_matrix.csv"
+   ],
+   "sha256": "eccbe884a601af16585ac719e80b8d65761d97c62f5021fe7d5899d50319cf93"
+  },
+  "T10b": {
+   "caption": "RF20 class areas per frame, km2 (mapped areas of a context product).",
+   "evidence_level": "contextual",
+   "rows": 20,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p73_rf20_class_area.csv"
+   ],
+   "sha256": "ef46d1c7a53e04a5271d3a81e427cf9652c354b66dbb24440cfb3f00946d61d0"
+  },
+  "T10c": {
+   "caption": "RF20 vs WorldCover wall-to-wall agreement on WorldCover-pure cells (recall / precision vs the training reference).",
+   "evidence_level": "contextual",
+   "rows": 22,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p73_rf20_qa/worldcover_walltowall.csv"
+   ],
+   "sha256": "5c79c40bea4d6f4ac534a0aefbc92f86c581109af9751b01efcc55391aee96fb"
+  },
+  "T11": {
+   "caption": "Terrain reconstruction: rules, closure, constants and the water-surface method per variant. The superseded closure row is kept for traceability.",
+   "evidence_level": "independent_physical",
+   "rows": 5,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95_manifest.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_ceiling_only.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_dem_uncorrected.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_closure_p59_m050.json"
+   ],
+   "sha256": "2dd14fa2ab6adfc303fed718abcbe9c0043f37f2c0b31ceeeeed8e1565e144f1"
+  },
+  "T11b": {
+   "caption": "Uncertainty components of the terrain reconstruction (Monte-Carlo inputs): closure, gauge, SWOT node height, per-node time interpolation, DEM error by WorldCover class (Paper 2 / p57).",
+   "evidence_level": "independent_physical",
+   "rows": 11,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95e_uncertainty_components.csv"
+   ],
+   "sha256": "238f05ae1695a72ba567eba6b3a2bca73decd5c4cd8e313c4a687d5b4478f3c8"
+  },
+  "T12": {
+   "caption": "Daily terrain-reconstructed new inundation (area, volume) with the Monte-Carlo p05/p50/p95 band (DEM class-bias corrected, central), the p42 HAND-rule lower bound, the ceiling-only variant, the uncorrected-DEM sensitivity and the superseded-closure sensitivity; key dates, per region.",
+   "evidence_level": "independent_physical",
+   "rows": 45,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv",
+    "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_ceiling_only.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv"
+   ],
+   "sha256": "94e600555de2aeb264aca3d2e739fe63558ee23f01b091ba586aaa11c5333f32"
+  },
+  "T13": {
+   "caption": "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (primary) and POD excluding normally-wet cells (sensitivity).",
+   "evidence_level": "cross_sensor",
+   "rows": 165,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_ceiling_only.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv"
+   ],
+   "sha256": "e8df894dcd80389e736f4dd721d7bdc3fbd5d4dd45654e6d418865de668fe495"
+  },
+  "T14": {
+   "caption": "Disagreement ontology terrain x Sentinel-1 by zone and date: category areas split by ground elevation relative to the water surface, normally-wet flag, WorldCover and RF20 classes (km2).",
+   "evidence_level": "contextual",
+   "rows": 24,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95d_agreement_20230609_summary.csv",
+    "case_studies/kakhovka_2023/tables/p95d_agreement_20230613_summary.csv",
+    "case_studies/kakhovka_2023/tables/p95d_agreement_20230614_summary.csv"
+   ],
+   "sha256": "17d9b24887ed10259d0e26d0f6d5e5579018d2e10f9476fc4d50beea0142cf5e"
+  },
+  "T15": {
+   "caption": "ICESat-2 altimetric consistency check per zone and agreement category: residual seamless DEM minus ICESat-2 (median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface.",
+   "evidence_level": "independent_physical",
+   "rows": 16,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95c_icesat2_check_0609.csv"
+   ],
+   "sha256": "11b4c283eac0b9e03b97f39f8c4a3a4cbbddd31f2e13e0a24898ee281423af52"
+  },
+  "T16": {
+   "caption": "Area accounting with explicit semantics: observed (S1), mapped (U-Net), terrain-reconstructed and literature-reported figures are different quantities and are never compared as validation.",
+   "evidence_level": "mixed",
+   "rows": 32,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv",
+    "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv"
+   ],
+   "sha256": "c7bfa2f323c49b963aa7b7b14350d7fe4c7d512f805122e7fb9d61679f0679eb"
+  },
+  "T17": {
+   "caption": "SWOT-input consistency at Kherson after re-anchoring: nodes within 3 km of the gauge, daily median vs the daily gauge (river yearbook, EVRF2019). The frame validation itself is Paper 1; this only checks the p95 input.",
+   "evidence_level": "independent_physical",
+   "rows": 4,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv",
+    "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv"
+   ],
+   "sha256": "d5b7fb29a28f4f80f653212ad487a63f1178832677a119e5f7ecbd26e5be98b4"
+  },
+  "T17b": {
+   "caption": "Daily values behind T17.",
+   "evidence_level": "independent_physical",
+   "rows": 36,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv",
+    "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv"
+   ],
+   "sha256": "823f2e394ba4d1c93dc540d5113dcac2a1bf77e3f49b77c4118471d5beb7c570"
+  },
+  "T18": {
+   "caption": "Seamless DEM accuracy against night ICESat-2 ground segments (Paper 2): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class; the class rows feed the DEM error model of T11b.",
+   "evidence_level": "independent_physical",
+   "rows": 16,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv"
+   ],
+   "sha256": "75937b5493f9a40a3bf02ae5fa2c6cc84e51c52a2e918ce98a4709ff2b05c035"
+  },
+  "T19": {
+   "caption": "Per-acquisition-date new water (not water before the breach) inside the Sentinel-1 observable domain, with coverage; S2 only where >= 30 % of the region was cloud-free; estuary zone on its own grid.",
+   "evidence_level": "cross_sensor",
+   "rows": 77,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s1.csv",
+    "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv",
+    "case_studies/kakhovka_2023/tables/p94_flood_dynamics_estuary_s1.csv"
+   ],
+   "sha256": "4c7e440217d790b2b1b86b0f3c33e0bbaf565412d608cf7eeb43b8aaaba864df"
+  },
+  "T20": {
+   "caption": "Block-size sensitivity (U2 on v003_A): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 5,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/m6_split_v1_manifest.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/tables/m6_split_s7p5_manifest.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s7p5/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/tables/m6_split_s15_manifest.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s15/eval_d1a/endpoints.csv",
+    "case_studies/kakhovka_2023/tables/m6_split_s20_manifest.json",
+    "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s20/eval_d1a/endpoints.csv"
+   ],
+   "sha256": "ef96e6ec6866f10d73aa54d098b90ab76c3ea31381749a1ecc616ccf781e4c5c"
+  }
+ },
+ "sources": {
+  "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s1.csv": "97ff9bf3654288ee6994363a7bcced4e3777c9e06b5dbf4fae272ad28486f6fe",
+  "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv": "c2d3edb230a090f2a5b6519e5b2924bd2f974f2409cf667c712f58a01aa8f6b2",
+  "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv": "e539baca153203e2c79bcdbb39f4d11fe398a1f50bc6134e75e7f9e00de14760",
+  "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv": "c3b1be15aafa14b632783756ba2b99a6b6d60e3ad3d4095f2ce6d5e7f05a7fc6",
+  "case_studies/kakhovka_2023/tables/p77d_v003_A_scene_qa.csv": "950487fcbdfc73b4fa2b7f80ae9db3b41e98631926a9366b7505288756a20b2f",
+  "case_studies/kakhovka_2023/tables/p77_labels_v002_summary.csv": "c7f6956e6c533664c2a86d3321d3f13fbd172d36215b7e18499c985f2f9df774",
+  "case_studies/kakhovka_2023/tables/p77d_v003_A_areas.csv": "afde28fe4033264819194d04e749d1b40a7a71d0efb4b91a584ee813e383ee58",
+  "case_studies/kakhovka_2023/tables/p77d_v003_A_transition_v002.csv": "a9282eceea8f60192871305bab5afa1a7dcf49bce000174c9d13b2ae4767f2f1",
+  "case_studies/kakhovka_2023/tables/m6_split_v1_composition.csv": "cda60a948714f1c63c3bf78079c885d0f9c14ca34b54374d97875f0ff105da64",
+  "case_studies/kakhovka_2023/tables/m6_split_v1_strata.csv": "06750b3646b3ab025172cdb284440fef0a01b17d83bd203eed0a35d1e0f3eab3",
+  "case_studies/kakhovka_2023/tables/m6_split_v1_manifest.json": "2de932f9b2e90158719f0803258b3bbe26214ca04ecad1d0a22e468c2310e863",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/config.json": "87de5317feef1689670d4a7df89b4136a271d292c5dabfa0d3ca7406ca1dbc3f",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/validation_threshold.json": "94fdda29c7507152ad040adfcd86d78d33014d6af6577d296d83519669844232",
+  "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/config.json": "77aa28ab231b9ea1449fd17424b1307c957c3380f12b445ac05c82fbb7886db3",
+  "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/validation_threshold.json": "f5bfc83b4cd284460c0c77f74e0dd39a6b6bd9640ab29d1f36d5c072e39f5eb0",
+  "case_studies/kakhovka_2023/runs/U1_B1B2_v1/config.json": "902075089ee42ffc18efd0ddda275a78fa685ca6cd01ca06328166385f331728",
+  "case_studies/kakhovka_2023/runs/U1_B1B2_v1/validation_threshold.json": "a57e534d203ada6aacc78c77090a698367d1d229795e3f1f3da7952401c49148",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v1/config.json": "cf8a65bed62d1b7ccca7e229285bd5498eae1269ea2c5317fbb1ac4950cf0630",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v1/validation_threshold.json": "17e348caf6e3e9ff44415b1c83316bcfc055d699b28b98d6f4cb279e6c364440",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/config.json": "01cc8491dddd237493c23d9136b657f343c65aa05a93b7a038210d27ce27c1ed",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/validation_threshold.json": "d2524276625b0819ac32cd00e9b82da2967f7fb774d5a6ca8cee83dafa83f0b8",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/config.json": "fd997abb7a25c35ca7afbe0d5cc2870625fe166598d456bc623f42a38a4059a4",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/validation_threshold.json": "b1000f61593c259d53254933389274ee1589efcc64ddad68c0c8222ada9c3f02",
+  "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/config.json": "e07e4e813d1538a575802f9d0cda171067f7f10c42a1fc82eaa924b29803cbd6",
+  "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/validation_threshold.json": "eb6eccd21744ac8bfee2ec55ea45c006ff0c666d4fdc0f2e0e9c4b572c1d353b",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/eval_d1a/endpoints.csv": "59ec0028739ed15c27c5e409ff821933b7d863dfeb5c497dd2e61a1a93047c6e",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v1/eval_d1a/endpoints_ci.csv": "410b120038733d57c0845caa637e627a569ee515bbd4883e43d6bd42683bf1e3",
+  "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/eval_d1a/endpoints.csv": "b672c9c7964d2552d48b072fb26b2efe4b0f073dd17f06e9848510af1f85490b",
+  "case_studies/kakhovka_2023/runs/U0z_B1B2_v1/eval_d1a/endpoints_ci.csv": "99e5aaa5c48053df52b8a4931258a5d6ab2cc36a166c48e3529e5581724f1553",
+  "case_studies/kakhovka_2023/runs/U1_B1B2_v1/eval_d1a/endpoints.csv": "a013723c3bb05856699f4130f0a2e5abe01947064ae8c711dd244f8959fca078",
+  "case_studies/kakhovka_2023/runs/U1_B1B2_v1/eval_d1a/endpoints_ci.csv": "7590bce5302672773b7a710b79ea244da0a133f3d10b49df6dee9e38084a408c",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v1/eval_d1a/endpoints.csv": "eda552a801562c05d978627c9351b70f44167d859f67115dc2b737ae75700183",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v1/eval_d1a/endpoints_ci.csv": "6dbf594a8589cd86f5b1c74b733a7b076f512eb211c4454a37cd54465d076a0b",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/eval_d1a/endpoints.csv": "826f1f81ca41d5a566983d70dcb55a4cf58012cc9f775738940db967a6dad138",
+  "case_studies/kakhovka_2023/runs/U0d_B1B2_v003A/eval_d1a/endpoints_ci.csv": "b2037b6d365b361640a4a673d2ee3a9ae1094dc83e609dfe9d4d222a869dcc4e",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/eval_d1a/endpoints.csv": "19abcd23f1f2254929c676bd95f893c87edfb17a1d1193b693b5c098f356dbeb",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A/eval_d1a/endpoints_ci.csv": "3f961674a4a0dd6fe5a2071c1317b458251ae5216c4c5a62d12aa8e950a19910",
+  "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/eval_d1a/endpoints.csv": "4ab3f3476cfdfbb363ae01217e5d59cc3f46f04220fca5834d3e245962be2256",
+  "case_studies/kakhovka_2023/runs/U2b_B1B2_v003A/eval_d1a/endpoints_ci.csv": "c5f07fffab49d309d6f80fef63820dc43e9626b18e71b10aa6bfe01b73689cbb",
+  "case_studies/kakhovka_2023/runs/compare_U0d_vs_U0z/paired_bootstrap.csv": "882eda5895bf09c19f62ecbf882fecb5a4e3a03136ef217b8064b5558ed0f864",
+  "case_studies/kakhovka_2023/runs/compare_U0d_vs_U1/paired_bootstrap.csv": "cae646fe3e26688fdf70e1472f57543c84eadb70789773576a24bffbe4430abc",
+  "case_studies/kakhovka_2023/runs/compare_U0d_vs_U2/paired_bootstrap.csv": "f6cce794dd42fc6ef22cfb0b7a92175b5cdb2637041b6e963f9e7ccf753e5278",
+  "case_studies/kakhovka_2023/runs/compare_U0d_vs_U2_v003A/paired_bootstrap.csv": "ecac9f6a77c55d55ac0f43b5fe8de23c0b9b1e4b474315a80988dc7c76c7ad95",
+  "case_studies/kakhovka_2023/runs/compare_U2_vs_U2b_v003A/paired_bootstrap.csv": "ea860c958ecb43b3d7b15b08a646111381accd94511b60d1f108fd258797a8f6",
+  "case_studies/kakhovka_2023/tables/p90_v003A_endpoints.csv": "f5284a9c5aa5683c9f76aabdd571b2538bbf580d79d274a28634954cee7fad36",
+  "case_studies/kakhovka_2023/tables/p90_v003A_paired.csv": "c1d9ce621ffaf956f45bcb519549fce174d9df320b56838d37d11a67e7cc96fb",
+  "case_studies/kakhovka_2023/tables/p89_group_summary.csv": "abff7f48f2b3403ddbd1c0041a4a12175d221c6d5efa2088f8543085bc71cc37",
+  "case_studies/kakhovka_2023/tables/p89_retention.csv": "3124aa9d41a44c6997db5a6f55f231fb235e750970bf9b465bed4810139913e9",
+  "case_studies/kakhovka_2023/tables/p73_rf20_metrics.csv": "a5c2993916be22ad70e570ed6b6ffa4ab719a092e6a156b1072c68ba5fe0f523",
+  "case_studies/kakhovka_2023/tables/p73_rf20_confusion_matrix.csv": "e4ad95237a576c2dbfe946a01b067f5622f42f4749e4392aec2757949a472107",
+  "case_studies/kakhovka_2023/tables/p73_rf20_class_area.csv": "ef46d1c7a53e04a5271d3a81e427cf9652c354b66dbb24440cfb3f00946d61d0",
+  "case_studies/kakhovka_2023/tables/p73_rf20_qa/worldcover_walltowall.csv": "5c79c40bea4d6f4ac534a0aefbc92f86c581109af9751b01efcc55391aee96fb",
+  "case_studies/kakhovka_2023/tables/p95_manifest.json": "412dd7576c796ca7a9dc351e018d49061c7f0be1a845f07759de79d5eab36cbd",
+  "case_studies/kakhovka_2023/tables/p95_manifest_ceiling_only.json": "691f4e59d68c111878930f002f00dd1983928fa6fc078d8429da2cda2b96c42e",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling.json": "9c3b94b8b75640138aa9a9dc24dce370b475709c26e92ad452fa6503afefe2c5",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_dem_uncorrected.json": "911a45a62e7c151bb87aa12aa5ebf619b6fccb8c017f38174df504630c7fd5c7",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_closure_p59_m050.json": "b28d96d2c67521b3791792497a791b31214eb86f6627559e071cf3abedf1e053",
+  "case_studies/kakhovka_2023/tables/p95e_uncertainty_components.csv": "238f05ae1695a72ba567eba6b3a2bca73decd5c4cd8e313c4a687d5b4478f3c8",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv": "17dc7b7e962289463e63636a34e2c5e423e39a0b6def2cae8b4a6d6f74e57198",
+  "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv": "8dd7620f232de88e37de9b44398be841905463fa9bfb77675e5cfe7cd559a218",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled.csv": "5fcc8f63ecde48fae439d5c49fe1efd79b51d17ee191fb37126349f4eaa839b9",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_ceiling_only.csv": "8037eba10a0f1a4338368e2dac0e8fced30f0fb8ca2f3028d9e39f5d886dbbb0",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv": "d1a7075b73e5e0f2873a31fff313aea49cc3ba22012d0e88516796cf4dd35132",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv": "6230d1ee3ee70f711641d0e06da056100ea7a2a6de226170ead88dec116a0338",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled.csv": "8ff697e2a88769b7216cb9040b010afa5f4a8afd7aa788d92add610c4ed653de",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_ceiling_only.csv": "8a3904ae1ac16edade0f9fbbe4e13f70b63f13cf2cfee5df7fe19114a40ccadd",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling.csv": "edbd20cf130a7ccfa0e182d349f6033062aa0db4ed364308aa5c9a04d7bd6735",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv": "baaee1af4ceb508bb440c8f95924ada91829b6460f1b273ac08fcea7a556df79",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv": "dc5cf485f24378e4c03ac59519d97a42119019e316184cfda5fd85e76bacd544",
+  "case_studies/kakhovka_2023/tables/p95d_agreement_20230609_summary.csv": "8e7b9032d43dc75958d0da98bfa00d1a2554809c3e9bccb162213cf4c2bef6b9",
+  "case_studies/kakhovka_2023/tables/p95d_agreement_20230613_summary.csv": "7f9821fd4463162ec70d3f93a757a07bb8b74ae252abd29204a5dec4ae1dd266",
+  "case_studies/kakhovka_2023/tables/p95d_agreement_20230614_summary.csv": "8fe3bb749fae8baee83cbe65bd07de0eecd8f7693fa208fcc2dce00915bbecb8",
+  "case_studies/kakhovka_2023/tables/p95c_icesat2_check_0609.csv": "d6d865d96430b87502522e8d774a1e72b578cac117317554cc23ad14102291f0",
+  "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv": "20769157b53a09e1f6e2e1ad7505d1a47f690d3d2d8305a08db5aa31a7bf393a",
+  "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv": "1b1bfbbe6c82b9aab05dd725cda273b8892e0655300bb7600df0dc89f0d37561",
+  "case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv": "f9ac2e1222b0b65c18defb39d785e2db842549fc1d4039e63a937786673572c2",
+  "case_studies/kakhovka_2023/tables/p94_flood_dynamics_estuary_s1.csv": "e88909456a11999491325f60e473fc7d481b279a731c000b9e903ad075fe2dfb",
+  "case_studies/kakhovka_2023/tables/m6_split_s7p5_manifest.json": "023376fe4da51472663b47721804b162c4134d10c56c613244f0dd5a304aa34e",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s7p5/eval_d1a/endpoints.csv": "147ddd9ba385251631033222d2a0a4f74f373cfb439ecfea7f419242522e2d49",
+  "case_studies/kakhovka_2023/tables/m6_split_s15_manifest.json": "baf9fa8a04fe0e9c14ddc18ca1e4c3258a9bd8a7b7d1f0e9af926b9103728a81",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s15/eval_d1a/endpoints.csv": "e14609b509cfa8d28c96f56d873e8a1e7f64ae3b945754c23a17d6e9e589b2b2",
+  "case_studies/kakhovka_2023/tables/m6_split_s20_manifest.json": "14753b5e4f9ffa41a362345afd5d7287e119154aff27e2096513b5377cdfb028",
+  "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s20/eval_d1a/endpoints.csv": "93dac955c12bd6832188868d71be3faa523e2ffea30a155921de5c9b30788f76"
+ }
+}

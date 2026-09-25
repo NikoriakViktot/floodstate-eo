@@ -26,8 +26,10 @@ default).
 
 **Why not pulled in:** not in the manifest.
 
-**To resolve:** port `plotting/style.py` from SWOT-DNIPRO if/when it is added to the migration scope, or write a
-fresh, event-agnostic map-styling module here.
+**RESOLVED 2026-09-25:** `src/floodstate_eo/visualization/figstyle.py` -- an event-agnostic adaptation of SWOT-DNIPRO
+`plotting/style.py` (provenance header in the file; palette replaced by the evidence-hierarchy colours; scale bar, north
+arrow, graticule, date axis, bands, forest plots, NMAD/bootstrap helpers). `maps.py` still uses its own literal fallback;
+switching it to `figstyle` is a Phase-6 cleanup.
 
 ## 3. Kakhovka zone and reservoir domain geometries
 

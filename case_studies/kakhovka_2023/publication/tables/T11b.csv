@@ -1,0 +1,12 @@
+component,sigma_m,applied,source,bias_m,rmse_m,n
+closure_kherson,0.05,"one offset per draw, all cells",Paper 1 Table 5 / Sec. 5.12 (NMAD 4-5 cm at Kherson),,,
+gauge_daily,0.05,"per draw, cells > 15 km from a node (gauge cap)",date-only daily values; two yearbooks differ by NMAD 1.5 cm (Paper 1 Sec. 5.12),,,
+swot_node_wse_u,0.092,"per (day, 1-km bin), 5-km smoothed field","p59 nodes, median wse_u",,,
+"H(s,t)_interpolation",0.054,"interpolated cells only, per (day, bin), 5-km smoothed",leave-one-out NMAD on 17313 observed cells,,,
+dem_trees,1.603,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),1.481,3.024,8066.0
+dem_grass,0.491,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),0.107,1.329,29227.0
+dem_cropland,0.195,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),-0.059,0.408,95454.0
+dem_built,0.696,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),0.151,1.901,7850.0
+dem_bare,1.188,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),-0.574,3.375,287.0
+dem_wetland,0.477,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),0.509,1.131,12409.0
+dem_all,0.299,"class-wise sigma, spatially correlated field (500 m) per draw; class median bias removed in p95 rev 5",/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv (C seamless by WorldCover class),-0.002,1.11,153342.0

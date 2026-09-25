@@ -1,0 +1,10 @@
+item,value
+block size (m),10000.0
+buffer (px / m),64 / 640
+patch (px / km),512 / 5.12
+blocks train/val/test,"{'train': 64, 'val': 15, 'test': 20}"
+patches train/val/test,"{'train': 556, 'test': 164, 'val': 28}"
+accepted draw / seed,1 / 20260923
+selection reads,"m6_labels_v002 + frozen p73 only; never U0/U1 scores, model errors or target metrics"
+anti-leakage,pure 512x512 footprints (centre >= 2.56 km from axis-aligned split boundaries) + 640 m eroded buffer; both asserted on the frozen patch list
+minimum feasible block,"patch + 2 x buffer = 5.12 + 1.28 km; a 5 km split leaves no validation patch (p84 rebuild, 2026-09-25)"
