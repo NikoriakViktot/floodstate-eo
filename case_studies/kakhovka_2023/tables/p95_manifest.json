@@ -1,0 +1,31 @@
+{
+ "rule": " (per zone 20 m grid, p42 v20/v21 constants, unchanged):\n    WSE_t(cell) = H_t(s of the nearest SWOT node) + SWOT_MARGIN (0.5 m; SWOT under-reads the gauge);\n                  cells > 15 km from a node: min(that, Kherson gauge_t + margin)\n    potential_t = HAND < WSE_t - 1 m (river floor)  AND  DEM_seamless < WSE_t  AND  dist to pre-breach water <= 10 km\n                  AND downstream of the dam (x < dam - 1 km);   depth_t = WSE_t - DEM\n    new_t       = potential_t AND NOT baseline,  baseline = potential on ANY pre-breach day 05-26..06-05 under the same rule\n                  (normal regime; new = 0 before the breach by construction; absorbs the +-10 cm WSE noise) OR observed\n                  pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %). The model-only part of the baseline\n                  (\"normally wet\": low reed beds below the normal water surface that no optical/SAR mask lists as water) is\n                  reported in the S1 validation as its own category -- S1 dark-water onset there is a DEPTH signal (reeds\n                  submerged), not inundation onset.\n    --rule ceiling_only drops the HAND term (p42 v21: HAND is unreliable where the delta drainage is unmapped) = upper bound.\n    --rule connected_ceiling: DEM < WSE_t AND 8-connected to the pre-breach optical water network (p60 pre_water_frac >= 20 %)\n                  -- no HAND (unmapped delta drainage), no isolated low pockets; the recommended primary variant.\nH_t(s): per date, 1-km bins of the node median H_EVRF2019 (p59 nodes, node_q/dark_frac already screened) plus the daily\nKherson gauge as one more node; gaps filled in time (linear between SWOT days) then along s; 3-bin rolling median.\nHAND = p42 (FABDEM floored at 1 m, WhiteboxTools, streams = pre-breach water); DEM = p55 seamless EVRF2019 (bathymetric\nbed where surveyed, FABDEM elsewhere), so channel depth is physical where the bed is known.\n",
+ "constants": {
+  "SWOT_MARGIN_M": 0.5,
+  "RIVER_LEVEL_M": 1.0,
+  "SWOT_MAX_DIST_M": 15000.0,
+  "DIST_MAX_M": 10000.0,
+  "baseline_until": "2023-06-05",
+  "margin_m": 0.5
+ },
+ "rule_variant": "hand_and_ceiling",
+ "kherson_s_km": 34.421,
+ "zones": {
+  "ZONE_4_DAM_TO_KHERSON_FLOODWAY": {
+   "cells": 8371155,
+   "far_from_swot_frac": 0.102,
+   "outputs": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+  },
+  "ZONE_2_KHERSON_DELTA": {
+   "cells": 5828521,
+   "far_from_swot_frac": 0.201,
+   "outputs": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_2_KHERSON_DELTA"
+  }
+ },
+ "sources": {
+  "swot_nodes": "tables/p59_swot_flood_nodes.csv (SWOT-DNIPRO p59)",
+  "gauge": "SWOT-DNIPRO p59_swot_vs_kherson.csv",
+  "hand": "floodplain/<ZONE>_hand_m.tif (p42)",
+  "dem": "dem_seamless/<ZONE>_dem_evrf2019_20m.tif (p55)"
+ }
+}

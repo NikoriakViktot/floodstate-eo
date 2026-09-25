@@ -1,0 +1,27 @@
+{
+ "cut_rects": {
+  "west_of_inhulets_mouth": [
+   462000.0,
+   5175000.0,
+   481000.0,
+   5300000.0
+  ],
+  "inhulets_valley": [
+   481000.0,
+   5180000.0,
+   503000.0,
+   5300000.0
+  ],
+  "terrace_fragments_ne": [
+   503000.0,
+   5187000.0,
+   530000.0,
+   5300000.0
+  ]
+ },
+ "cut_rects_source": "SWOT-DNIPRO scripts/p42_below_dam_floodplain.py CUT_RECTS (2026-09-19)",
+ "pre_water_rule": "labels.tif pre_water_frac >= 20",
+ "floodplain_domain": "/home/niko/repo/SWOT-DNIPRO/data/processed/domains/below_dam_floodplain_utm.geojson",
+ "owner_rule": "B2 owns overlap",
+ "meaning": "predicted flood = U-Net score >= frozen validation threshold; agreement with weak labels, not accuracy"
+}

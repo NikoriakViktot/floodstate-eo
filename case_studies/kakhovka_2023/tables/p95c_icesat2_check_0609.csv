@@ -1,0 +1,17 @@
+zone,category,N,res_median,res_p10,res_p90,ice_minus_wse_median,share_ice_below_wse,share_dem_below_wse
+ZONE_2_KHERSON_DELTA,observed_neither,88981,-0.03,-1.57,1.16,12.86,0.221,0.201
+ZONE_2_KHERSON_DELTA,S1_only_ground_lt2m_above,9959,0.39,-0.26,0.75,-3.18,0.9,0.851
+ZONE_2_KHERSON_DELTA,both,6446,0.73,-0.09,1.26,-3.51,0.998,1.0
+ZONE_2_KHERSON_DELTA,terrain_only,9537,0.81,-0.19,1.82,-2.98,0.983,1.0
+ZONE_2_KHERSON_DELTA,S1_only_ground_ge2m_above,3127,0.02,-0.31,0.62,13.4,0.0,0.0
+ZONE_2_KHERSON_DELTA,S1_only_ge2m box=False wc=grass,1592,0.02,-0.33,0.96,12.8,0.0,0.0
+ZONE_2_KHERSON_DELTA,S1_only_ge2m box=False wc=cropland,1049,-0.02,-0.32,0.39,28.56,0.0,0.0
+ZONE_2_KHERSON_DELTA,S1_only_ge2m box=True wc=grass,382,0.12,-0.17,0.65,5.64,0.0,0.0
+ZONE_2_KHERSON_DELTA,S1_only_ge2m box=True wc=cropland,90,0.32,-0.28,0.93,30.43,0.0,0.0
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,observed_neither,102485,0.22,-0.28,1.53,17.84,0.133,0.101
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,S1_only_ground_lt2m_above,6113,0.56,-0.08,0.94,-6.9,0.984,0.982
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,both,2903,0.59,-0.08,1.42,-5.03,1.0,1.0
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,terrain_only,6775,0.5,-0.33,1.73,-4.68,0.988,1.0
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,S1_only_ground_ge2m_above,1692,0.02,-0.25,1.64,40.97,0.007,0.0
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,S1_only_ge2m box=False wc=grass,492,0.77,-0.03,7.12,3.12,0.02,0.0
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,S1_only_ge2m box=False wc=cropland,1178,-0.06,-0.28,0.26,47.26,0.0,0.0

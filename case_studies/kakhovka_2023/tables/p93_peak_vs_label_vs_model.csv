@@ -1,0 +1,4 @@
+region,pre_breach_water_km2,peak_0609_total_water_km2,peak_0609_new_water_km2,label_recipe_2of3_new_km2,any_of_3_peak_new_km2,union_0606_0618_new_km2,U2b_predicted_km2,U2b_threshold,U2b_pred_or_peak_0609_water_km2
+DNIPRO_CORRIDOR,594.4,682.5,299.6,167.8,324.6,353.3,241.0,0.78,714.9
+INHULETS_VALLEY_rect,91.0,67.6,36.1,27.2,38.7,47.6,30.4,0.78,71.3
+P42_FLOODPLAIN_DOMAIN,153.0,329.6,202.9,148.2,213.3,214.0,188.8,0.78,344.0

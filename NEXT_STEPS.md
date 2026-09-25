@@ -98,6 +98,70 @@ Arms on the frozen m6_split_v1 (same labels v002, recipe and D1(+A1/A2) harness)
 - **Route:** p89 audit → U2 (+HAND) ✅ → U2b (+pre-event SAR state; needs label decision) → fix/rebuild p72 → U3
   (+optical change) → U4/full fusion.
 
+### M6 status 2026-09-25 -- v003_A arms trained (U0d, U2, U2b); NOT frozen, v003_A still a CANDIDATE label set
+Trainer p86 rev 2: `--labels {v002,v003_A}` (v003_A ontology -> EVENT_FLOOD 1, LAND + REFERENCE_WATER 0, UNKNOWN 255)
+and arm **U2b = U2 + W_pre** (S1 06-01/06-02 water state + has_wpre, read from the v003_A observation bands). Runs live in
+`runs/<ARM>_B1B2_v003A/`, scores in `frames10/<F>/m6/<ARM>_v003A_score.tif`; every v1 run is untouched. Same split,
+recipe, seed; ~3 min per arm on the A4000. New evaluators: p90 (v003_A attribution endpoints for ANY finished run at its
+own frozen threshold: predicted flood on REFERENCE_WATER, EVENT_FLOOD recall, LAND FP, UNKNOWN burden; paired block
+bootstrap across label sets), p91 (maps + curves), p92 (dam -> liman area on the B1 u B2 mosaic with the maintainer's
+p42 CUT_RECTS separating the Inhulets valley / terraces from the Dnipro corridor). Tables `tables/p90_*`, `p92_*`;
+figures `figures/m6_v003A/`.
+- **Label effect (U2 v002 -> U2 v003_A, same inputs):** predicted flood on TEST REFERENCE_WATER 15.3 -> 1.3 km²
+  (paired -13.4 [-29.5, -2.5]); EVENT_FLOOD recall 0.956 -> 0.928 (-0.028 [-0.042, +0.006], not significant); the
+  drained-reservoir wedge NE of the dam appears at U2 v003_A's low threshold 0.37 and not in U2b (0.78).
+- **Input effect (U2 -> U2b, both v003_A):** REFERENCE_WATER 1.27 -> 0.61 km² (-0.62 [-1.28, -0.13]); EVENT_FLOOD
+  recall +0.011 [-0.016, +0.016]; D1 endpoints all overlap zero except A dry-cropland FP -0.08 [-0.22, -0.001];
+  BU FP +0.19 [-0.07, +0.55]. Global F1 on the v003_A test: U0d 0.929, U2 0.931, U2b 0.937 (NOT comparable with the
+  v002 0.945/0.938: different negatives). CAVEAT recorded before training: v003_A EVENT_FLOOD is defined with
+  w_pre = 0, so W_pre is also a label ingredient; U2b shows the network uses the channel, not that W_pre is
+  independently informative. An independent evaluation reference (step 4 below) is still missing.
+- **Dam -> liman (U2b, B1 u B2, one pixel once):** Dnipro corridor (outside CUT_RECTS) 241 km², of which 189 km² inside
+  the p42 terrain-eligible floodplain (116 km² on EVENT_FLOOD labels, 65 km² UNKNOWN) and 52 km² outside it (42 km²
+  UNKNOWN = the cropland-associated SAR candidates of the p89 audit). Inhulets valley rectangle 30 km² (24 km² on
+  EVENT_FLOOD labels, i.e. observed S1+optical water, a 0.5-1.5 km wide strip up to the frame edge at N 5212 km) --
+  reported separately, never added to the Dnipro reach. 211 km² of the mosaic have no S1 event (unobserved, not dry).
+- Decision needed: freeze v003_A (or revise) before any arm on it is called ACTIVE; U2b then replaces U2 as the
+  base for U3 (+optical change, p72 rebuilt) only if the maintainer accepts the W_pre circularity caveat.
+
+### 2026-09-25 (later) -- dynamics and the terrain pillar (p93, p94, p95, p95b); paper = U-Net + RF + terrain, HEC-RAS later
+Maintainer decision: the paper is a closed three-pillar study (U-Net M6 arms, RF p73 surface context, terrain/HAND daily
+reconstruction); HEC-RAS 2D (p44 package in SWOT-DNIPRO, never run) builds on it afterwards.
+- **Why M6 areas are below the published 600-800 km2** (p93): m6 labels are a PERSISTENCE product (S1 water on >= 2 of
+  06-09/13/14), i.e. water still standing on 13-14 June (~180 km2 in the literature by 13 June), not the 6-9 June peak
+  (~620 km2 UNOSAT). The single 06-09 scene already shows 300 km2 of new dark water in the corridor; peak 7-8 June had no
+  scene; ~590 km2 of pre-breach water (1-2 June, incl. sand false water) is subtracted; B3 (delta+liman) not built; the
+  dark-water rule is blind under reeds/forest/buildings.
+- **p94 per-date series** (11 S1 dates, S2 to end of August, estuary zone 3 on its own grid): inside the p42 floodplain the
+  S1 series follows the Kherson recession (203 -> 152 -> 74 -> 22 -> 5 km2); corridor numbers after 06-18 (155, 99 km2) are
+  scattered dark fields/sand, not flood. S2 (NDWI>0 & MNDWI>0) adds almost nothing. Coverage is relative to the union of
+  the S1 zone footprints (orbit 138 dates = 62 %).
+- **p95 terrain reconstruction, daily 05-26..07-10**: WSE H(s,t) from SWOT nodes (p59, exported to
+  tables/p59_swot_flood_nodes.csv via the SWOT-DNIPRO venv) + Kherson gauge, projected on the p55 seamless DEM with p42
+  constants. Rules: `hand_and_ceiling` (p42, channel-connected lower bound), `ceiling_only`, `connected_ceiling`
+  (DEM < WSE, 8-connected to the optical pre-breach water network; PRIMARY). Baseline = same-rule potential on pre-breach
+  days (fixed 0.5 m margin) + observed pre water; the model-only part ("normally wet" low reed beds) is its own validation
+  category. Sensitivity: event-day margin 0.3 / 0.8 m. Outputs `$BULK_ROOT/floodplain_dyn/<ZONE>[_rule]/`, tables
+  `p95_*`, `p95b_dynamics_summary.csv`, figure `hand_dyn_summary.png`.
+  Findings (connected, 0.5 m, Dnipro corridor): peak 293 km2 on 06-07, 253 on 06-08, 230 on 06-09, 169 on 06-13,
+  74 on 06-18, ~0 by 06-22; volume 0.76 km3 at the peak (planar surface, no ponding, so the recession is a lower bound).
+  Validation on 06-09 in the p42 floodplain: POD 0.39 raw, **0.96 excluding S1 onset on normally-wet reeds** (118 of 122
+  km2 of "misses" are reed beds below the normal water surface where S1 dark-water onset means submergence, a depth
+  signal); S1 "new water" >= 5 m above the water surface (54 km2 on 06-09, cropland/grass/sand) is the sensor's false
+  water; terrain-only area (forest 44+13, built-up 12+15, reeds 16+20 km2) is the sensor's blind spot. Inhulets under the
+  backwater assumption: POD 0.78-0.98, CSI 0.65-0.85 (ceiling rules); the HAND rule gives ~0 there (HAND measured to the
+  Dnipro, not the Inhulets).
+- Limits to state: planar WSE per reach (no momentum, no timing), DEM under reeds/forest (FABDEM canopy), SWOT nodes on the
+  channel only, no scene at the peak; the U-Net concept (S1 dark-water onset) and the terrain concept (new inundation
+  extent) differ in reed wetlands -- report both "new inundation" and "wetland submergence".
+- **Oleshky / left bank checked with ICESat-2 (p95c, night ATL08 via SWOT-DNIPRO p57):** where S1 sees water but the
+  terrain says the ground is >= 2 m above the 06-09 surface (33 + 27 km2), the seamless DEM matches ICESat-2 to +-0.3 m
+  and the ground is 5.6 m (Oleshky grass) to 30 m (cropland) above the water surface, 0 % of segments below it. So this
+  is false SAR water on land, NOT a DEM error; the Oleshky terraces above ~11 m were not flooded. Where terrain and S1
+  agree, 98-100 % of ICESat-2 ground lies below the surface. `tables/p95c_icesat2_check_0609.csv`.
+- Next: freeze v003_A or revise; decide the paper's primary terrain variant (connected_ceiling proposed); B3 frame for the
+  liman; HEC-RAS 2D with the p44 package using p95 as the calibration target (SWOT profiles + S1 dates + gauge).
+
 ### Ordered next steps (replaces the list at the bottom where they conflict)
 0. ✅ **p73 RF20 FROZEN** (2026-09-23, products of `5f875ce`, clean-worktree reproducibility gate bitwise PASS;
    `tables/p73_rf20_manifest.json`, `tables/p73_rf20_qa/QA_VERDICT.md` — read its 7 limitations before using p73).
