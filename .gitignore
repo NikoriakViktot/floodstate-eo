@@ -221,3 +221,5 @@ __marimo__/
 case_studies/kakhovka_2023/runs/**/*.pt
 # run logs / local caches
 case_studies/kakhovka_2023/logs/
+# PyCharm project files (local)
+.idea/

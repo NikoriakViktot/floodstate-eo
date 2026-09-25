@@ -1,0 +1,35 @@
+# Non-S1/S2 external data dependencies actually referenced by src/floodstate_eo/** (verified by grep against the
+# migrated tree, source_commit=f3e3e1afe91902a82a73f3c09354d1f9eb847766), not by 08_DATA_POLICY.md's pre-migration
+# draft table, which listed Dynamic World and HAND as "used as context" / "legacy" without checking the actual
+# migrated code. Re-checked here:
+#   - Dynamic World: NOT referenced anywhere in src/floodstate_eo/** (grep -rniE "dynamic.?world" = no hits). EXCLUDED.
+#   - HAND: referenced only in docstrings/comments as something explicitly NOT opened by p69a_base_class.py /
+#     p69b_event_association.py ("Never opened: ... HAND, UNOSAT") and as a non-reason-to-exclude in p52a/p52b's
+#     domain comments. Not a real input to any migrated script. EXCLUDED.
+#   - ESA WorldCover 2021: IS a genuine, load-bearing input -- surface_state/p69a_base_class.py's ancillary(kind="wc")
+#     reads CFG.BULK_ROOT/"worldcover_frames"/<ZONE>/"wc_2021_20m.tif" and several BASE_CLASS rules key directly on
+#     WorldCover class codes (10/20/30/40/95/100=vegetation, 60=bare, 50=built-up, 90=wetland). INCLUDED, required.
+#   - FABDEM: referenced once, in spatial/p52a_processing_frames_qa.py (CFG.BULK_ROOT/"terrain"/"ZONE_4..."/
+#     "fabdem_evrf2019_20m.tif"), guarded by `if p.exists()`, used only as an optional hillshade background for a
+#     QA figure -- not read by any data-producing step. INCLUDED but marked role=visualization-only, not a hard
+#     dependency of any product in docs/DATA_DICTIONARY.md.
+#   - EGG2015 quasigeoid / UA2019Z datum grid / gauge yearbook parquet / ATL13 parquet (all read via SWOT-DNIPRO's
+#     src/swot_dnipro/config.py from the icesat2-atl13-kakhovka sibling repo): grep-checked against all of
+#     src/floodstate_eo/** -- zero hits. These back the vertical-datum/bathymetry chain (hist*/k*/part* in
+#     SWOT-DNIPRO), which is out of floodstate-eo's scope entirely. EXCLUDED, confirmed by grep not assumed.
+#
+# Two further real dependencies have NO fetch/build code in floodstate-eo at all (not merely un-vendored data --
+# the CODE that produces them was never in 19_MIGRATION_MANIFEST.csv either). Listed here as role=input anyway,
+# because a registry that omits them would look more complete than the repo is:
+#   - kakhovka_zone_reservoir_geometry: see provenance/UNRESOLVED_DEPENDENCIES.md #3.
+#   - s1_grd_rtc_orbit_cache: sar/p71_s1_event_change.py reads CFG.S1_CACHE/<cache_name>/*.npz (orbit-aware,
+#     season-referenced GRD/RTC composites, e.g. "ZONE_2_..._s32"). Built by SWOT-DNIPRO's p0o (fetch) / p0v,p0w
+#     (composite) scripts, none of which are CANONICAL/CORE_LIBRARY in 19_MIGRATION_MANIFEST.csv, so they were not
+#     migrated. This is a SECOND, distinct S1 product family from s1_scenes.csv's SLC set (GRD/RTC vs SLC) --
+#     do not conflate the two when reasoning about "S1 data" for this repo.
+dataset_id,source,product_id_or_scene_id,acquisition_date,url_or_query,license,sha256,size_bytes,local_relpath,role,redistributable,notes
+srtm_1sec_hgt,"NASA/USGS SRTM 1 Arc-Second Global, via ESA SNAP auxdata mirror",N47E033/N47E031 (auto-selected by tile covering frame B2),n/a (static DEM),http://step.esa.int/auxdata/dem/SRTMGL1/{tile}.SRTMGL1.hgt.zip,"Public domain (US Government work); SRTM terms of use apply to redistribution formatting, not to reuse",n/a,n/a,"auto-downloaded by SNAP gpt into its own cache, not under repo data root",input,YES,"auto-downloaded at run time by sar/p82_coherence_graph.py's Terrain-Correction and Back-Geocoding nodes (demName=SRTM 1Sec HGT); not fetched by any floodstate-eo script, SNAP does this internally; tile ids not pinned in code, resolved by SNAP from product footprint"
+esa_worldcover_2021,ESA WorldCover v200 (2021 epoch),wc_2021_20m.tif per zone,2021 (single epoch, pre-breach),https://esa-worldcover.org/en,CC-BY 4.0 (ESA WorldCover licence),TBD,TBD,worldcover_frames/<ZONE>/wc_2021_20m.tif,input,YES (CC-BY 4.0 permits redistribution with attribution),"REQUIRED, load-bearing input to surface_state/p69a_base_class.py:84 ancillary(kind='wc'); fetch/tiling code that produced these per-zone rasters is not in 19_MIGRATION_MANIFEST.csv and was not migrated -- see provenance/UNRESOLVED_DEPENDENCIES.md, this should be added as entry 7"
+fabdem_zone4,FABDEM (Forest And Buildings removed Copernicus DEM),fabdem_evrf2019_20m.tif (ZONE_4 only),n/a (static DEM derivative),https://data.bris.ac.uk/data/dataset/s5hqmjcdj8yo2ibzi9b4ew3sn,"CC BY-NC-SA 4.0 per publisher (University of Bristol) -- TBD, verify before any redistribution; non-commercial clause conflicts with an open scientific release, resolve before Zenodo bundling",TBD,TBD,terrain/ZONE_4_DAM_TO_KHERSON_FLOODWAY/fabdem_evrf2019_20m.tif,visualization-only,NO (NC-SA clause, unverified compatibility with release),"optional hillshade background in spatial/p52a_processing_frames_qa.py:90-97, wrapped in `if p.exists()`; not read by any data-producing step; not required for docs/DATA_DICTIONARY.md's product list to be valid"
+kakhovka_zone_reservoir_geometry,"Two sibling-repo GeoJSON files: SWOT-DNIPRO data/processed/domains/analysis_zones_utm.geojson (ZONE_1..4) and icesat2-atl13-kakhovka data/Kakhovka_SA_2.geojson (pre-breach reservoir pool)",ZONE_1_KAKHOVKA_LOWER_DNIPRO / ZONE_2_KHERSON_DELTA / ZONE_3_DNIPRO_BUG_ESTUARY / ZONE_4_DAM_TO_KHERSON_FLOODWAY / reservoir_full_pool_prebreach,n/a (static geometry),n/a (not a downloadable product -- hand-digitised/derived in SWOT-DNIPRO's own pipeline),Same as SWOT-DNIPRO project licensing (unspecified in either repo -- TBD),TBD,TBD,"external, read via $SWOT_DNIPRO_ROOT and $SWOT_DNIPRO_ICESAT_ROOT env vars, never vendored into floodstate-eo",input,NO (not vendored; depends on two sibling checkouts existing on disk outside this repo entirely),"see provenance/UNRESOLVED_DEPENDENCIES.md #3 and src/floodstate_eo/_kakhovka_legacy_config.py KAKHOVKA_LOADERS; this is the single largest reproducibility gap in the repo -- floodstate-eo cannot run its own migrated scripts without both sibling repos present"
+s1_grd_rtc_orbit_cache,"Sentinel-1 GRD/RTC, orbit-aware seasonal-reference NPZ composites (e.g. ZONE_2_..._s32)",per-orbit per-season cache directories under $S1_CACHE,2019-2023 (multi-year seasonal reference, per sar/p71_s1_event_change.py:73 docstring),n/a (built product, not a direct catalogue query),"Derived from Copernicus Sentinel-1 data -- same licence chain as raw S1, TBD to restate precisely for a derived NPZ product",n/a,n/a,s1_cache/<cache_name>/*.npz,input,NO,"read by sar/p71_s1_event_change.py:103-135 (scenes()); BUILT by SWOT-DNIPRO's p0o/p0v/p0w, none of which are in 19_MIGRATION_MANIFEST.csv -- a second, distinct S1 product family from s1_scenes.csv (GRD/RTC vs SLC); no fetch/build code for this exists in floodstate-eo at all, not even an unmigrated-but-known path like case 1 in UNRESOLVED_DEPENDENCIES.md"

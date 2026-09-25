@@ -1,0 +1,3 @@
+variant,frame,component,ontology_LAND_frac,ontology_EVENT_FLOOD_frac,ontology_REFERENCE_WATER_frac,ontology_UNKNOWN_frac,reason_RECURRENT_ANCHORED_WATER_frac,reason_ANCHORED_DRY_frac,reason_INSUFFICIENT_MAY_SUPPORT_frac,reason_REFERENCE_EXTRAPOLATED_UNCORROBORATED_frac,reason_UNOBSERVED_frac,reason_MIXED_MAY_EVIDENCE_frac
+A,B1,22,0.0,0.0,0.324,0.676,0.324,0.0,0.0,0.602,0.0,0.073
+A,B2,78,0.0,0.0,0.0,1.0,0.0,0.0,0.0,1.0,0.0,0.0

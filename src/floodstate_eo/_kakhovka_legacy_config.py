@@ -74,13 +74,33 @@ _ICESAT2_SIBLING = Path(os.environ.get("SWOT_DNIPRO_ICESAT_ROOT",
 
 
 def _read_geojson_union(path: Path):
+    """Read a GeoJSON polygon/union and return it in EPSG:32636 -- reprojecting if needed rather than assuming.
+
+    `Kakhovka_SA_2.geojson` (the reservoir source, in the icesat2-atl13-kakhovka sibling) declares
+    `"crs": "urn:ogc:def:crs:OGC:1.3:CRS84"` (lon/lat degrees), NOT EPSG:32636 as this module's docstring
+    claimed for "zone/reservoir polygons" generally -- that claim is only true of `analysis_zones_utm.geojson`
+    (read by `_zone_layer`, genuinely EPSG:32636). Treating the reservoir file as already-UTM silently returned
+    an `.area` of 2.6e-7 km^2 instead of the real ~2000 km^2 (found while testing this migration's data access,
+    not by inspection). Detected here by the file's own `crs` member, with a coordinate-bounds fallback in case
+    a future source omits it (GeoJSON's default CRS is WGS84 per RFC 7946), so a genuinely already-projected file
+    is never accidentally reprojected a second time.
+    """
     import json
+    from pyproj import Transformer
     from shapely.geometry import shape
-    from shapely.ops import unary_union
+    from shapely.ops import transform, unary_union
     gj = json.loads(path.read_text())
     geoms = [shape(f["geometry"]) for f in gj.get("features", [gj])] if gj.get("type") == "FeatureCollection" \
         else [shape(gj["geometry"] if gj.get("type") == "Feature" else gj)]
-    return unary_union(geoms)
+    u = unary_union(geoms)
+    crs_name = (gj.get("crs") or {}).get("properties", {}).get("name", "")
+    is_geographic = "CRS84" in crs_name or "4326" in crs_name or not crs_name
+    if is_geographic:
+        minx, miny, maxx, maxy = u.bounds
+        if abs(minx) <= 180 and abs(maxx) <= 180 and abs(miny) <= 90 and abs(maxy) <= 90:
+            tr = Transformer.from_crs("EPSG:4326", "EPSG:32636", always_xy=True)
+            u = transform(tr.transform, u)
+    return u
 
 
 def _zone_layer(path: Path, name: str):

@@ -65,3 +65,26 @@ pipeline uses (`p54b`'s `WIN`), but the source repository also has a legacy `p51
 (`EVENT_WINDOW`/`TRACE_WINDOW`/`PRE_YEARS`) and a `p25` regime-bounds variant, neither migrated nor reconciled
 with this one. Flagged explicitly in `04_CORE_VS_CASE_STUDY.md` of the migration audit as "3 variants must be
 reconciled" — a science-adjacent decision, out of scope for this Phase 5 copy.
+
+## 7. ESA WorldCover 2021 fetch/tiling code
+
+**Where it's needed:** `surface_state/p69a_base_class.py`'s `ancillary(frame, "wc")` (line 84) reads
+`CFG.BULK_ROOT/"worldcover_frames"/<ZONE>/"wc_2021_20m.tif"` — this is a **required, load-bearing** input: several
+`BASE_CLASS` rules key directly on WorldCover class codes (10/20/30/40/95/100, 60, 50, 90). `08_DATA_POLICY.md`'s
+pre-migration draft listed Dynamic World as "used as context" and didn't mention WorldCover as load-bearing; a
+post-migration grep of the actual `src/floodstate_eo/**` tree found the opposite (Dynamic World: zero references,
+excluded; WorldCover: required). See `case_studies/kakhovka_2023/manifests/external.csv`.
+
+**Why not pulled in:** the script that fetches/tiles WorldCover per zone onto `worldcover_frames/` is not in
+`19_MIGRATION_MANIFEST.csv`.
+
+**To resolve:** identify and port the WorldCover fetch/tiling script (or write a `workflows/fetch_worldcover.py`
+against the public ESA WorldCover STAC/S3 endpoint) as Phase 6 work.
+
+## 8. FABDEM licence compatibility with an open release
+
+`spatial/p52a_processing_frames_qa.py` optionally reads a FABDEM raster (visualization-only, guarded by
+`if p.exists()`; see `manifests/external.csv`). FABDEM's publisher licence is CC BY-NC-SA 4.0 — the NC clause has
+not been checked against floodstate-eo's own release licence (`LICENSE` at repo root, not read as part of this
+task). Not blocking (the dependency is optional and not required for the repository to function), but must be
+resolved — verify or drop the FABDEM overlay — before any public/Zenodo release that bundles this figure.
