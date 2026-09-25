@@ -129,18 +129,21 @@ def labels_10m(fid, lab):
 
 
 def main():
+    global SPLIT
     ap = argparse.ArgumentParser(); ap.add_argument("--arm", required=True, choices=sorted(ARMS))
     ap.add_argument("--labels", default="v002", choices=sorted(LABELS))
+    ap.add_argument("--split", default=SPLIT, help="split version; m6_split_v1 (frozen) or m6_split_sNN (block-size sensitivity)")
     ap.add_argument("--epochs", type=int, default=60); ap.add_argument("--batch", type=int, default=6)
     ap.add_argument("--lr", type=float, default=3e-4); ap.add_argument("--stride", type=int, default=256)
     ap.add_argument("--smoke", action="store_true", help="pipeline check: separate dir, stops BEFORE test is read")
     a = ap.parse_args()
     import torch, torch.nn as nn, segmentation_models_pytorch as smp
     E = _load("m6_eval"); P84 = _load("p84_m6_split_b1b2")
+    SPLIT = a.split; SSFX = "" if a.split == "m6_split_v1" else "_" + a.split.split("_")[-1]
     L = LABELS[a.labels]
     if ARMS[a.arm].get("wpre") and a.labels == "v002":
         raise SystemExit("U2b cannot be supervised under v002 (0 labelled pixels with pre-breach water); use --labels v003_A")
-    RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}")
+    RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}{SSFX}")
     if a.smoke and RUN.exists():
         import shutil; shutil.rmtree(RUN)
     if RUN.exists():
@@ -164,7 +167,8 @@ def main():
             D[f] = {}
         p73 = P84.p73_10m(f, F)
         gx = F["transform"].c + 10.0 * np.arange(F["nx"]); gy = F["transform"].f - 10.0 * np.arange(F["ny"])
-        blk = np.floor(gy / P84.BLOCK_M).astype("i8")[:, None] * 100000 + np.floor(gx / P84.BLOCK_M).astype("i8")[None, :]
+        BM = float(man.get("block_m", P84.BLOCK_M))
+        blk = np.floor(gy / BM).astype("i8")[:, None] * 100000 + np.floor(gx / BM).astype("i8")[None, :]
         D[f].update(F=F, X=X, has=has, role=role, y=y, p73=p73, blk=blk)
     half = PATCH // 2
 
@@ -266,7 +270,7 @@ def main():
         sc = acc / np.maximum(ws, 1e-9); sc[~D[f]["has"]] = np.nan; D[f]["score"] = sc
         (OUT / f / "m6").mkdir(exist_ok=True)
         q = np.where(np.isfinite(sc), np.round(sc * 10000), 65535).astype("u2")
-        with rasterio.open(OUT / f / "m6" / f"{a.arm}{L['tag']}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
+        with rasterio.open(OUT / f / "m6" / f"{a.arm}{L['tag']}{SSFX}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
                            count=1, dtype="uint16", nodata=65535, crs=CFG.CRS_METRIC, transform=F["transform"],
                            compress="deflate", tiled=True, blockxsize=512, blockysize=512) as o:
             o.write(q, 1); o.update_tags(arm=a.arm, split=SPLIT, labels=L["file"],

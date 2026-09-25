@@ -82,7 +82,13 @@ def p73_10m(fid, F):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--inventory", action="store_true"); a = ap.parse_args()
+    global VERSION, BLOCK_M
+    ap = argparse.ArgumentParser(); ap.add_argument("--inventory", action="store_true")
+    ap.add_argument("--block-m", type=float, default=BLOCK_M, help="block size in metres; 10000 = the frozen m6_split_v1; other values write m6_split_sNN (block-size sensitivity, never replaces v1)")
+    a = ap.parse_args()
+    if abs(a.block_m - 10_000.0) > 1e-6:
+        BLOCK_M = a.block_m; VERSION = "m6_split_s" + f"{a.block_m / 1000:g}".replace(".", "p")
+        print(f"BLOCK-SIZE SENSITIVITY split: {VERSION} (block {BLOCK_M:.0f} m); m6_split_v1 untouched", flush=True)
     G = {f: CG.frame_grid(f) for f in FRAMES}
     # global canvas on the shared lattice
     x0 = min(G[f]["transform"].c for f in FRAMES); y1 = max(G[f]["transform"].f for f in FRAMES)

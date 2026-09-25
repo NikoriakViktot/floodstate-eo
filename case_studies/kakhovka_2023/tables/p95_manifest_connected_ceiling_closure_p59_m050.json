@@ -1,0 +1,88 @@
+{
+ "rule": " (per zone 20 m grid, p42 v20/v21 constants, unchanged):\n    WSE_t(cell) = median H_t of the 5 nearest nodes within 3 km + margin (central 0.0 m; the SWOT heights are re-anchored to the\n                  Kherson-local closure of Paper 1 -- see CLOSURES -- so no bias term is needed; uncertainty enters via p95e);\n                  cells > 15 km from a node: min(that, Kherson gauge_t + margin)\n    potential_t = HAND < WSE_t - 1 m (river floor)  AND  DEM_seamless < WSE_t  AND  dist to pre-breach water <= 10 km\n                  AND downstream of the dam (x < dam - 1 km);   depth_t = WSE_t - DEM\n    new_t       = potential_t AND NOT baseline,  baseline = potential on ANY pre-breach day 05-26..06-05 under the same rule\n                  (normal regime; new = 0 before the breach by construction; absorbs the +-10 cm WSE noise) OR observed\n                  pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %). The model-only part of the baseline\n                  (\"normally wet\": low reed beds below the normal water surface that no optical/SAR mask lists as water) is\n                  reported in the S1 validation as its own category -- S1 dark-water onset there is a DEPTH signal (reeds\n                  submerged), not inundation onset.\n    --rule ceiling_only drops the HAND term (p42 v21: HAND is unreliable where the delta drainage is unmapped) = upper bound.\n    --rule connected_ceiling: DEM < WSE_t AND 8-connected to the pre-breach optical water network (p60 pre_water_frac >= 20 %)\n                  -- no HAND (unmapped delta drainage), no isolated low pockets; the recommended primary variant.\nWater surface (rev 4, node-based): every cell takes the median of its 5 nearest SWOT nodes within 3 km on the day; each\nnode is time-filled between its own observations; the Kherson gauge is one more node; no chainage is used (the SWORD\np_dist_out chainage of p59 is not comparable across branches). A straight-line-distance profile is written for display only.\nHAND = p42 (FABDEM floored at 1 m, WhiteboxTools, streams = pre-breach water); DEM = p55 seamless EVRF2019 (bathymetric\nbed where surveyed, FABDEM elsewhere), so channel depth is physical where the bed is known.\nDEM (rev 5): the seamless DEM minus its class-median bias against night ICESat-2 (Paper 2 / p57), so that the p95e band is\ncentred on the central run; `--dem-bias none` is the uncorrected sensitivity.\n",
+ "constants": {
+  "SWOT_MARGIN_M": 0.5,
+  "RIVER_LEVEL_M": 1.0,
+  "SWOT_MAX_DIST_M": 15000.0,
+  "DIST_MAX_M": 10000.0,
+  "baseline_until": "2023-06-05",
+  "margin_m": 0.5
+ },
+ "wse_method": "node-based: median of K=5 nearest SWOT nodes within 3 km, per-node time interpolation, gauge as a node, gauge cap beyond 15 km west of the gauge (rev 4; the p59 chainage is not comparable across SWORD branches)",
+ "dem_bias_correction": "p57_class",
+ "dem_error_table": {
+  "10": {
+   "bias": 1.481,
+   "sigma": 1.603,
+   "rmse": 3.024,
+   "n": 8066,
+   "cls": "trees"
+  },
+  "30": {
+   "bias": 0.107,
+   "sigma": 0.491,
+   "rmse": 1.329,
+   "n": 29227,
+   "cls": "grass"
+  },
+  "40": {
+   "bias": -0.059,
+   "sigma": 0.195,
+   "rmse": 0.408,
+   "n": 95454,
+   "cls": "cropland"
+  },
+  "50": {
+   "bias": 0.151,
+   "sigma": 0.696,
+   "rmse": 1.901,
+   "n": 7850,
+   "cls": "built"
+  },
+  "60": {
+   "bias": -0.574,
+   "sigma": 1.188,
+   "rmse": 3.375,
+   "n": 287,
+   "cls": "bare"
+  },
+  "90": {
+   "bias": 0.509,
+   "sigma": 0.477,
+   "rmse": 1.131,
+   "n": 12409,
+   "cls": "wetland"
+  },
+  "default": {
+   "bias": -0.002,
+   "sigma": 0.299,
+   "rmse": 1.11,
+   "n": 153342,
+   "cls": "all"
+  }
+ },
+ "rule_variant": "connected_ceiling",
+ "closure": "p59_reservoir",
+ "closure_chain": "H_evrf of p59: wse + geoid_hght + free2mean(lat) - zeta + mean reservoir c (-0.173 m) -- SUPERSEDED, sensitivity only",
+ "closure_offset_vs_p59_H_evrf_m": 0.0,
+ "c_kherson_m": 0.0,
+ "c_kherson_nmad_m": 0.05,
+ "zones": {
+  "ZONE_4_DAM_TO_KHERSON_FLOODWAY": {
+   "cells": 11187420,
+   "far_from_swot_frac_coarse": 0.078,
+   "outputs": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_4_DAM_TO_KHERSON_FLOODWAY_connected_ceiling_closure_p59_m050"
+  },
+  "ZONE_2_KHERSON_DELTA": {
+   "cells": 6879234,
+   "far_from_swot_frac_coarse": 0.57,
+   "outputs": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_2_KHERSON_DELTA_connected_ceiling_closure_p59_m050"
+  }
+ },
+ "sources": {
+  "swot_nodes": "tables/p59_swot_flood_nodes.csv (SWOT-DNIPRO p59)",
+  "gauge": "SWOT-DNIPRO p59_swot_vs_kherson.csv",
+  "hand": "floodplain/<ZONE>_hand_m.tif (p42)",
+  "dem": "dem_seamless/<ZONE>_dem_evrf2019_20m.tif (p55)"
+ }
+}

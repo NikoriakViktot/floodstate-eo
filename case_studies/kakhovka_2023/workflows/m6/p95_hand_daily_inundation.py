@@ -6,7 +6,8 @@ This is the third pillar next to the U-Net (M6) and the RF surface class (p73): 
 every day, including the 7-8 June peak that no satellite image saw, and it is independent of the S1/S2 labels.
 
 Rule (per zone 20 m grid, p42 v20/v21 constants, unchanged):
-    WSE_t(cell) = H_t(s of the nearest SWOT node) + SWOT_MARGIN (0.5 m; SWOT under-reads the gauge);
+    WSE_t(cell) = median H_t of the 5 nearest nodes within 3 km + margin (central 0.0 m; the SWOT heights are re-anchored to the
+                  Kherson-local closure of Paper 1 -- see CLOSURES -- so no bias term is needed; uncertainty enters via p95e);
                   cells > 15 km from a node: min(that, Kherson gauge_t + margin)
     potential_t = HAND < WSE_t - 1 m (river floor)  AND  DEM_seamless < WSE_t  AND  dist to pre-breach water <= 10 km
                   AND downstream of the dam (x < dam - 1 km);   depth_t = WSE_t - DEM
@@ -19,10 +20,13 @@ Rule (per zone 20 m grid, p42 v20/v21 constants, unchanged):
     --rule ceiling_only drops the HAND term (p42 v21: HAND is unreliable where the delta drainage is unmapped) = upper bound.
     --rule connected_ceiling: DEM < WSE_t AND 8-connected to the pre-breach optical water network (p60 pre_water_frac >= 20 %)
                   -- no HAND (unmapped delta drainage), no isolated low pockets; the recommended primary variant.
-H_t(s): per date, 1-km bins of the node median H_EVRF2019 (p59 nodes, node_q/dark_frac already screened) plus the daily
-Kherson gauge as one more node; gaps filled in time (linear between SWOT days) then along s; 3-bin rolling median.
+Water surface (rev 4, node-based): every cell takes the median of its 5 nearest SWOT nodes within 3 km on the day; each
+node is time-filled between its own observations; the Kherson gauge is one more node; no chainage is used (the SWORD
+p_dist_out chainage of p59 is not comparable across branches). A straight-line-distance profile is written for display only.
 HAND = p42 (FABDEM floored at 1 m, WhiteboxTools, streams = pre-breach water); DEM = p55 seamless EVRF2019 (bathymetric
 bed where surveyed, FABDEM elsewhere), so channel depth is physical where the bed is known.
+DEM (rev 5): the seamless DEM minus its class-median bias against night ICESat-2 (Paper 2 / p57), so that the p95e band is
+centred on the central run; `--dem-bias none` is the uncorrected sensitivity.
 Limits (state them with every number): a planar water surface per reach, no momentum, no timing of filling / draining
 (ponds drain slower than the channel, so the recession is UNDER-estimated), HAND is unreliable where the delta drainage is
 incompletely mapped (p42 v21 note), and the Inhulets valley only gets the Dnipro level at its mouth (backwater assumption).
@@ -57,8 +61,21 @@ ZONES = {"ZONE_4_DAM_TO_KHERSON_FLOODWAY": dict(frame="B1", cache="ZONE_4_FLOODW
          "ZONE_2_KHERSON_DELTA": dict(frame="B2", cache="ZONE_2_KHERSON_DELTA_flood_june2023")}
 ZONE2_BBOX = (437980.0, 5134980.0, 475720.0, 5211580.0)      # ZONE_2 owns the overlap (same rule as m6_split_v1: B2 owns)
 DAM_LONLAT = (33.3667, 46.7783); KHERSON_LONLAT = (32.612026, 46.623750)
-SWOT_MARGIN_M, RIVER_LEVEL_M, SWOT_MAX_DIST_M, DIST_MAX_M, DAM_BUFFER_M = 0.5, 1.0, 15000.0, 10000.0, 1000.0
-BASE_MARGIN_M = 0.5                    # the pre-breach baseline always uses the p42 margin (--margin varies event days only)
+SWOT_MARGIN_M, RIVER_LEVEL_M, SWOT_MAX_DIST_M, DIST_MAX_M, DAM_BUFFER_M = 0.0, 1.0, 15000.0, 10000.0, 1000.0
+BASE_MARGIN_M = 0.0                    # the pre-breach baseline uses the central (zero) margin; --margin varies event days only
+# Vertical closure (rev 3, 2026-09-25, after Paper 1 of the series): SWOT heights are EGG2015-referenced heights,
+# H_S = wse + geoid_hght - zeta_EGG2015 (SWOT's crust is already mean-tide, no permanent-tide term), shifted by the LOCAL
+# empirical closure residual c = gauge - satellite. Paper 1 measured c ~ 0 at Kherson (+0.9 cm RiverSP pre-breach, -2.6 cm PIXC,
+# +1.9 cm through the breach fortnight, NMAD 4-5 cm), whereas p59 had applied the mean reservoir closure (-0.173 m) plus a
+# free2mean term (-0.036 m) to the downstream reach, i.e. -0.209 m too low, hidden by the old +0.5 m margin.
+C_KHERSON_M, C_KHERSON_NMAD_M = 0.0, 0.05
+# DEM bias correction (rev 5): the seamless DEM sits above night ICESat-2 ground by a class-dependent median (Paper 2 / p57,
+# C seamless by WorldCover class: trees +1.5-2 m, wetland +0.5, grass +0.4, cropland ~0). The reconstruction subtracts that
+# class median so the Monte-Carlo band (p95e, class NMAD as sigma) is centred on the reported central run.
+DEM_BIAS = "p57_class"                 # or "none" (sensitivity, suffix _dem_uncorrected)
+DEM_CLASS = {10: "trees", 30: "grass", 40: "cropland", 50: "built", 60: "bare", 90: "wetland"}
+CLOSURES = {"kherson_paper1": "H = wse + geoid_hght - zeta_EGG2015 + c_Kherson (c = 0.00 m, NMAD 0.05 m; Paper 1 Table 5 / Sec. 5.12)",
+            "p59_reservoir": "H_evrf of p59: wse + geoid_hght + free2mean(lat) - zeta + mean reservoir c (-0.173 m) -- SUPERSEDED, sensitivity only"}
 BASELINE_DATE = "2023-06-05"
 DATES = pd.date_range("2023-05-26", "2023-07-10", freq="D")
 S1_DATES = ["2023-06-01", "2023-06-02", "2023-06-06", "2023-06-09", "2023-06-13", "2023-06-14", "2023-06-18",
@@ -73,24 +90,102 @@ def load_p92():
     return m
 
 
-def wse_table(nodes: pd.DataFrame, gauge: pd.DataFrame, s_kh: float):
-    """H[date, 1-km bin] in m EVRF2019: SWOT node medians + the Kherson gauge as a node; time then s interpolation."""
-    nodes = nodes.copy(); nodes["b"] = np.floor(nodes.s_km).astype(int)
-    bins = np.arange(int(np.floor(nodes.s_km.min())), int(np.ceil(nodes.s_km.max())) + 1)
-    T = pd.DataFrame(index=DATES, columns=bins, dtype=float)
-    med = nodes.groupby([nodes.date.dt.normalize(), "b"]).H_evrf.median()
-    for (d, b), h in med.items():
-        if d in T.index and b in T.columns:
-            T.loc[d, b] = h
-    bk = int(np.floor(s_kh))
-    for d, h in gauge.items():
-        if d in T.index:
-            T.loc[d, bk] = h if np.isnan(T.loc[d, bk]) else 0.5 * (T.loc[d, bk] + h)
-    raw_mask = T.notna()
-    T = T.interpolate(axis=0, limit_direction="both")                      # time first (same reach, adjacent days)
-    T = T.interpolate(axis=1, limit_direction="both")                      # then along the channel
-    T = T.T.rolling(3, center=True, min_periods=1).median().T              # 3-km rolling median along s
-    return T, raw_mask
+def dem_error_table():
+    """median (bias) and NMAD (sigma) of seamless DEM - ICESat-2 by WorldCover class (p57 copy, Paper 2)."""
+    src = CFG.TABLES / "p57_dem_accuracy_night.csv"
+    if not src.exists():
+        src = Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p57_dem_accuracy_night.csv"
+    Tb = pd.read_csv(src); out = {}
+    for code, nm in DEM_CLASS.items():
+        r = Tb[Tb.set.str.contains("C seamless, ZONE_2_KHERSON_DELTA, WorldCover " + nm)]
+        if len(r) == 0:
+            r = Tb[Tb.set.str.contains("C seamless, ZONE_4_DAM_TO_KHERSON_FLOODWAY, WorldCover " + nm)]
+        if len(r):
+            out[code] = dict(bias=float(r.iloc[0]["median"]), sigma=float(r.iloc[0]["NMAD"]), rmse=float(r.iloc[0]["RMSE"]), n=int(r.iloc[0]["N"]), cls=nm)
+    a = Tb[Tb.set.str.startswith("C seamless, ZONE_2_KHERSON_DELTA")].iloc[0]
+    out["default"] = dict(bias=float(a["median"]), sigma=float(a["NMAD"]), rmse=float(a["RMSE"]), n=int(a["N"]), cls="all")
+    return out, str(src)
+
+
+def dem_bias_fields(zone, G):
+    """(bias, sigma) per cell from WorldCover 2021 on the zone grid and the p57 class table."""
+    E, _ = dem_error_table()
+    with rasterio.open(CFG.BULK_ROOT / "worldcover_frames" / zone / "wc_2021_20m.tif") as s:
+        wc = np.zeros((G["ny"], G["nx"]), "u1")
+        reproject(s.read(1), wc, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)
+    bias = np.full((G["ny"], G["nx"]), E["default"]["bias"], "f4"); sig = np.full((G["ny"], G["nx"]), E["default"]["sigma"], "f4")
+    for code, v in E.items():
+        if code != "default":
+            bias[wc == code] = v["bias"]; sig[wc == code] = v["sigma"]
+    return bias, sig
+
+
+def load_engine(closure="kherson_paper1"):
+    """(WSE engine, dam x, dam y, nodes) exactly as main() builds them -- used by p95c/p95d/p95e."""
+    nodes = pd.read_csv(CFG.TABLES / "p59_swot_flood_nodes.csv", parse_dates=["date"])
+    nodes["H"] = (nodes.wse + nodes.geoid_hght - nodes.zeta + C_KHERSON_M) if closure == "kherson_paper1" else nodes.H_evrf
+    kh = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p59_swot_vs_kherson.csv", parse_dates=["date"])
+    gauge = kh.set_index("date").H_gauge_evrf.dropna()
+    kx, ky = tf_transform("EPSG:4326", CFG.CRS_METRIC, [KHERSON_LONLAT[0]], [KHERSON_LONLAT[1]])
+    dx, dy = tf_transform("EPSG:4326", CFG.CRS_METRIC, [DAM_LONLAT[0]], [DAM_LONLAT[1]])
+    return WSE(nodes, gauge, kx[0], ky[0]), dx[0], dy[0], nodes
+
+
+class WSE:
+    """Water surface per day, NODE-BASED (rev 4): no along-channel chainage. The SWORD p_dist_out chainage of p59 is not
+    comparable across branches (Inhulets, Kokan', the side channels at Kherson start their own count), so binning H by s
+    mixed reaches. Here every cell takes the median height of its K nearest SWOT nodes within RMAX_M on the day; each node
+    is time-filled between its own observations; the Kherson gauge is one more node at its own coordinates. Cells whose
+    nearest node is farther than FAR_M and that lie west (downstream) of the gauge are capped at the gauge level. Evaluated
+    on a COARSE (100 m) lattice and replicated to 20 m."""
+    K, RMAX_M, FAR_M, COARSE, MIN_OBS = 5, 3000.0, 15000.0, 5, 3
+
+    def __init__(self, nodes: pd.DataFrame, gauge: pd.Series, kx: float, ky: float):
+        daily = nodes.groupby(["node_id", nodes.date.dt.normalize()]).H.median().unstack().reindex(columns=DATES)
+        daily = daily[daily.notna().sum(1) >= self.MIN_OBS]
+        pos = nodes.groupby("node_id").agg(x=("x", "median"), y=("y", "median"), reach_id=("reach_id", "first"),
+                                           river_name=("river_name", "first")).loc[daily.index]
+        g = gauge.reindex(DATES)
+        self.node_id = list(daily.index) + ["GAUGE_80805"]
+        self.reach = list(pos.reach_id) + ["GAUGE"]; self.river = list(pos.river_name) + ["gauge"]
+        self.xy = np.vstack([pos[["x", "y"]].values, [[kx, ky]]]).astype("f8")
+        self.obs = np.vstack([daily.notna().values, g.notna().values[None]])
+        self.H = np.vstack([daily.interpolate(axis=1, limit_direction="both").values, g.interpolate(limit_direction="both").values[None]]).astype("f4")
+        self.dates = list(DATES); self.tree = cKDTree(self.xy); self.kx = kx
+
+    def prepare(self, L):
+        G = L["G"]; c = self.COARSE
+        xs, ys = L["xs"][::c], L["ys"][::c]; YY, XX = np.meshgrid(ys, xs, indexing="ij"); pts = np.c_[XX.ravel(), YY.ravel()]
+        d, idx = self.tree.query(pts, k=self.K, distance_upper_bound=self.RMAX_M)
+        valid = np.isfinite(d); idx = np.where(valid, idx, 0)
+        d1, i1 = self.tree.query(pts, k=1)
+        return dict(idx=idx, valid=valid, i1=i1, far=(d1 > self.FAR_M) & (pts[:, 0] < self.kx), shape_c=(len(ys), len(xs)),
+                    shape=(G["ny"], G["nx"]), far_frac=float(((d1 > self.FAR_M) & (pts[:, 0] < self.kx)).mean()))
+
+    def field(self, Z, day, margin=0.0, offset=0.0, off_far=0.0, Hmat=None):
+        Hm = self.H if Hmat is None else Hmat; j = self.dates.index(pd.Timestamp(day))
+        col = Hm[:, j]; hv = np.where(Z["valid"], col[Z["idx"]], np.nan)
+        with np.errstate(all="ignore"):
+            h = np.nanmedian(hv, axis=1)
+        h = np.where(np.isfinite(h), h, col[Z["i1"]])                       # no node within RMAX -> nearest node
+        gj = col[-1]
+        if np.isfinite(gj):
+            h = np.where(Z["far"], np.minimum(h, gj + off_far), h)
+        h = (h + margin + offset).astype("f4").reshape(Z["shape_c"])
+        c = self.COARSE
+        return np.repeat(np.repeat(h, c, 0), c, 1)[:Z["shape"][0], :Z["shape"][1]]
+
+    def profile_display(self, dx, dy):
+        """Display-only profile: date x 1-km straight-line distance from the dam, OBSERVED main-stem nodes (no Inhulets,
+        no Kokan', no gauge), medians; NaN where unobserved. For the H(s,t) figure and T17, never for the reconstruction."""
+        main = np.array([r not in ("Inhulets", "Kokan'", "gauge") for r in self.river])
+        dd = np.hypot(self.xy[:, 0] - dx, self.xy[:, 1] - dy) / 1e3
+        rows = {}
+        for j, d in enumerate(self.dates):
+            ok = main & self.obs[:, j]; b = np.floor(dd[ok]).astype(int)
+            rows[d] = pd.Series(self.H[ok, j]).groupby(b).median()
+        T = pd.DataFrame(rows).T.sort_index(axis=1); T.index.name = "date"
+        return T
 
 
 def zone_layers(zone, P):
@@ -106,6 +201,8 @@ def zone_layers(zone, P):
             reproject(a, d, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"],
                       resampling=resampling, src_nodata=np.nan, dst_nodata=np.nan)
         return d
+    if DEM_BIAS == "p57_class":
+        bias, _ = dem_bias_fields(zone, G); dem = (dem - bias).astype("f4")            # rev 5: class-median bias removed
     hand = onto(CFG.BULK_ROOT / "floodplain" / zone / f"{zone}_hand_m.tif")
     dist = onto(T / "dist_ref_water_m.tif")
     with rasterio.open(P.OUT / Z["frame"] / "labels.tif") as s:
@@ -172,43 +269,45 @@ def main():
     ap.add_argument("--rule", default="hand_and_ceiling", choices=["hand_and_ceiling", "ceiling_only", "connected_ceiling"],
                     help="hand_and_ceiling = p42 extension rule (default); ceiling_only = DEM < WSE within 10 km of pre-breach "
                          "water, no HAND (p42 v21 observed-term rule; upper bound where the delta drainage is unmapped)")
-    ap.add_argument("--margin", type=float, default=SWOT_MARGIN_M, help="WSE margin added to SWOT/gauge (p42: 0.5; sensitivity 0.3 / 0.8)")
+    ap.add_argument("--margin", type=float, default=SWOT_MARGIN_M, help="WSE margin added to SWOT/gauge on event days (central 0.0; the old p42 value 0.5 is a sensitivity)")
+    ap.add_argument("--closure", default="kherson_paper1", choices=sorted(CLOSURES), help="vertical closure of the SWOT heights (see CLOSURES)")
+    ap.add_argument("--dem-bias", default="p57_class", choices=["p57_class", "none"], help="subtract the class-median DEM bias vs ICESat-2 (default) or not (sensitivity)")
     args = ap.parse_args(); RULE = args.rule; SFX = "" if RULE == "hand_and_ceiling" else f"_{RULE}"
+    global DEM_BIAS
+    DEM_BIAS = args.dem_bias
+    if args.closure != "kherson_paper1":
+        SFX += "_closure_p59"
+    if DEM_BIAS == "none":
+        SFX += "_dem_uncorrected"
     if abs(args.margin - SWOT_MARGIN_M) > 1e-9:
         SWOT_MARGIN_M = args.margin; SFX += f"_m{int(round(args.margin * 100)):03d}"
     t0 = time.time(); P = load_p92(); FIG.mkdir(parents=True, exist_ok=True)
     nodes = pd.read_csv(CFG.TABLES / "p59_swot_flood_nodes.csv", parse_dates=["date"])
+    if args.closure == "kherson_paper1":
+        nodes["H"] = nodes.wse + nodes.geoid_hght - nodes.zeta + C_KHERSON_M
+    else:
+        nodes["H"] = nodes.H_evrf
+    closure_offset = float((nodes.H - nodes.H_evrf).median())
     kh = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p59_swot_vs_kherson.csv", parse_dates=["date"])
     gauge = kh.set_index("date").H_gauge_evrf.dropna()
-    N = nodes.groupby("node_id").agg(x=("x", "median"), y=("y", "median"), s_km=("s_km", "median")).reset_index()
-    tree = cKDTree(np.c_[N.x.values, N.y.values])
     kx, ky = tf_transform("EPSG:4326", CFG.CRS_METRIC, [KHERSON_LONLAT[0]], [KHERSON_LONLAT[1]])
     dx, dy = tf_transform("EPSG:4326", CFG.CRS_METRIC, [DAM_LONLAT[0]], [DAM_LONLAT[1]])
-    s_kh = float(N.s_km.values[tree.query([kx[0], ky[0]])[1]])
-    H, raw = wse_table(nodes, gauge, s_kh)
-    H.to_csv(CFG.TABLES / "p95_wse_table.csv"); raw.to_csv(CFG.TABLES / "p95_wse_table_observed_mask.csv")
-    print(f"WSE table {H.shape}, Kherson gauge at s = {s_kh:.1f} km, dam x = {dx[0]:.0f}", flush=True)
-    bins = np.array(H.columns, dtype=int)
+    W = WSE(nodes, gauge, kx[0], ky[0])
+    WSFX = "" if args.closure == "kherson_paper1" else "_closure_p59"
+    H = W.profile_display(dx[0], dy[0]); H.to_csv(CFG.TABLES / f"p95_wse_profile_display{WSFX}.csv")
+    pd.DataFrame(W.H, index=W.node_id, columns=[str(d.date()) for d in W.dates]).to_csv(CFG.TABLES / f"p95_wse_nodes{WSFX}.csv")
+    pd.DataFrame(W.obs, index=W.node_id, columns=[str(d.date()) for d in W.dates]).to_csv(CFG.TABLES / f"p95_wse_nodes_observed{WSFX}.csv")
+    print(f"WSE engine: {len(W.node_id) - 1} nodes + gauge, {int(W.obs.sum())} observed node-days; dam x = {dx[0]:.0f}", flush=True)
     rows, val_rows, m6_rows, man = [], [], [], {}
     curve_cache = {}
     for zone in ZONES:
         L = zone_layers(zone, P); G = L["G"]; print(zone, "layers", round(time.time() - t0), "s", flush=True)
-        YY, XX = np.meshgrid(L["ys"], L["xs"], indexing="ij")
-        dn, ii = tree.query(np.c_[XX.ravel(), YY.ravel()]); dn = dn.reshape(G["ny"], G["nx"]).astype("f4")
-        sb = np.clip(np.floor(N.s_km.values[ii]).astype(int), bins.min(), bins.max()).reshape(G["ny"], G["nx"])
-        bidx = np.searchsorted(bins, sb)
-        far = (dn > SWOT_MAX_DIST_M) & (sb >= s_kh)          # cap by the Kherson gauge only DOWNSTREAM of it (outer delta)
-        base = np.isfinite(L["dem"]) & (L["dist"] <= DIST_MAX_M) & (XX < dx[0] - DAM_BUFFER_M) & L["own"]
+        Z = W.prepare(L)
+        base = np.isfinite(L["dem"]) & (L["dist"] <= DIST_MAX_M) & (L["xs"] < dx[0] - DAM_BUFFER_M)[None, :] & L["own"]
         if RULE == "hand_and_ceiling":
             base &= np.isfinite(L["hand"])
-        del XX, YY
         def wse_on(d, margin=None):
-            mg = SWOT_MARGIN_M if margin is None else margin
-            h = H.loc[d].values.astype("f4")[bidx] + mg
-            g = gauge.get(d, np.nan)
-            if np.isfinite(g):
-                h = np.where(far, np.minimum(h, g + mg), h)
-            return h
+            return W.field(Z, d, SWOT_MARGIN_M if margin is None else margin)
         def potential(d, margin=None):
             w = wse_on(d, margin)
             if RULE == "ceiling_only":
@@ -277,7 +376,7 @@ def main():
                 o.write(a.astype(dt), 1); o.update_tags(producer="p95_hand_daily_inundation.py", day_index_origin=str(DATES[0].date()),
                                                         meaning="terrain-allowed NEW inundation from SWOT+gauge WSE; not an observation")
         np.savez_compressed(od / "daily_new.npz", shape=np.array([G["ny"], G["nx"]]), **packed)
-        man[zone] = dict(cells=int(base.sum()), far_from_swot_frac=round(float(far[base].mean()), 3), outputs=str(od))
+        man[zone] = dict(cells=int(base.sum()), far_from_swot_frac_coarse=round(Z["far_frac"], 3), outputs=str(od))
         curve_cache[zone] = dict(L=L, ever=ever, dur=dur, d0608=d0608, s1_0609=(L["W"].get("2023-06-09", np.zeros_like(ever)) & ~L["pre"]),
                                  v_0609=L["V"].get("2023-06-09", np.zeros_like(ever)), new_0609=np.unpackbits(packed["2023-06-09"], count=ever.size).reshape(ever.shape).astype(bool))
         print(zone, "done", round(time.time() - t0), "s", flush=True)
@@ -286,7 +385,11 @@ def main():
     M = pd.DataFrame(m6_rows); M.to_csv(CFG.TABLES / f"p95_validation_m6{SFX}.csv", index=False)
     (CFG.TABLES / f"p95_manifest{SFX}.json").write_text(json.dumps(dict(
         rule=__doc__.split("Rule")[1].split("Limits")[0], constants=dict(SWOT_MARGIN_M=SWOT_MARGIN_M, RIVER_LEVEL_M=RIVER_LEVEL_M,
-        SWOT_MAX_DIST_M=SWOT_MAX_DIST_M, DIST_MAX_M=DIST_MAX_M, baseline_until=BASELINE_DATE, margin_m=SWOT_MARGIN_M), rule_variant=RULE, kherson_s_km=s_kh, zones=man,
+        SWOT_MAX_DIST_M=SWOT_MAX_DIST_M, DIST_MAX_M=DIST_MAX_M, baseline_until=BASELINE_DATE, margin_m=SWOT_MARGIN_M),
+        wse_method=f"node-based: median of K={WSE.K} nearest SWOT nodes within {WSE.RMAX_M/1e3:.0f} km, per-node time interpolation, gauge as a node, gauge cap beyond {WSE.FAR_M/1e3:.0f} km west of the gauge (rev 4; the p59 chainage is not comparable across SWORD branches)",
+        dem_bias_correction=DEM_BIAS, dem_error_table=dem_error_table()[0],
+        rule_variant=RULE, closure=args.closure, closure_chain=CLOSURES[args.closure], closure_offset_vs_p59_H_evrf_m=round(closure_offset, 4),
+        c_kherson_m=C_KHERSON_M, c_kherson_nmad_m=C_KHERSON_NMAD_M, zones=man,
         sources=dict(swot_nodes="tables/p59_swot_flood_nodes.csv (SWOT-DNIPRO p59)", gauge="SWOT-DNIPRO p59_swot_vs_kherson.csv",
                      hand="floodplain/<ZONE>_hand_m.tif (p42)", dem="dem_seamless/<ZONE>_dem_evrf2019_20m.tif (p55)")), indent=1))
     # ---- pooled daily curve (zones summed; overlap owned by ZONE_2) ----------------------------------------------------
@@ -318,12 +421,13 @@ def main():
     fig.savefig(FIG / f"hand_dyn_curve{SFX}.png", dpi=120, bbox_inches="tight"); plt.close(fig)
     # ---- WSE profile heatmap ------------------------------------------------------------------------------------------
     fig, ax = plt.subplots(figsize=(10, 4.2), constrained_layout=True)
-    Hm = H.loc[:, (H.columns >= 0) & (H.columns <= 90)]
+    Hm = H.loc[:, (H.columns >= 0) & (H.columns <= 90)].interpolate(axis=0, limit_direction="both")
     im = ax.imshow(Hm.values, aspect="auto", cmap=LinearSegmentedColormap.from_list("w", ["#f4f8fc", "#2a78d6", "#0b2a5c"]),
                    extent=[Hm.columns.min(), Hm.columns.max() + 1, mdates.date2num(DATES[-1]), mdates.date2num(DATES[0])])
-    ax.yaxis_date(); ax.yaxis.set_major_formatter(mdates.DateFormatter("%m-%d")); ax.set_xlabel("distance from the dam along the channel, km", fontsize=8)
-    ax.axvline(s_kh, color="#e34948", lw=0.8, ls="--"); ax.text(s_kh + 0.5, mdates.date2num(DATES[2]), "Kherson gauge", fontsize=7, color="#e34948")
-    ax.set_title("Water surface elevation H(s, t), m EVRF2019 -- SWOT node medians + gauge, gaps interpolated (observed cells listed in p95_wse_table_observed_mask.csv)", fontsize=9, loc="left")
+    ax.yaxis_date(); ax.yaxis.set_major_formatter(mdates.DateFormatter("%m-%d")); ax.set_xlabel("straight-line distance from the dam, km", fontsize=8)
+    dkh = float(np.hypot(kx[0] - dx[0], ky[0] - dy[0]) / 1e3)
+    ax.axvline(dkh, color="#e34948", lw=0.8, ls="--"); ax.text(dkh + 0.5, mdates.date2num(DATES[2]), "Kherson gauge", fontsize=7, color="#e34948")
+    ax.set_title("Water surface H(d, t), gauge-anchored EGG2015-referenced heights -- main-stem SWOT node medians per 1 km of straight-line distance from the dam (display; the reconstruction is node-based)", fontsize=8, loc="left")
     cb = fig.colorbar(im, ax=ax, shrink=0.8); cb.set_label("m EVRF2019", fontsize=8); ax.tick_params(labelsize=7)
     fig.savefig(FIG / "hand_dyn_wse_profile.png", dpi=120, bbox_inches="tight"); plt.close(fig)
     # ---- maps per zone: 06-08 depth (unobserved peak), duration, 06-09 agreement ----------------------------------------

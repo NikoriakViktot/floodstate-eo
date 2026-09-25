@@ -1,0 +1,110 @@
+{
+ "version": "m6_split_s7p5",
+ "status": "FROZEN",
+ "created_utc": "2026-09-25T19:59:51Z",
+ "frames": [
+  "B1",
+  "B2"
+ ],
+ "overlap_owner": "B2",
+ "owner_priority": [
+  "B2",
+  "B1"
+ ],
+ "ownership_rule": "each physical 10 m pixel has exactly one source representation: B2 owns the B1/B2 overlap (B1 there is input context only, IGNORE in loss and metrics)",
+ "anti_leakage": "pure 512x512 footprints (centre >= 2.56 km from axis-aligned split boundaries) + 640 m eroded buffer; both asserted on the frozen patch list",
+ "selection_reads": "m6_labels_v002 + frozen p73 only; never U0/U1 scores, model errors or target metrics",
+ "low_n_strata": [
+  "FLOODED_CROPLAND"
+ ],
+ "d1_final": {
+  "primary_A": {
+   "name": "DRY CROPLAND false-flood suppression",
+   "stratum": "v002 NON_FLOOD x p73 CROPLAND",
+   "metrics": [
+    "FP_area_km2",
+    "FP_rate = FP / evaluated dry cropland area",
+    "n_FP_components",
+    "area in large isolated field-like components"
+   ]
+  },
+  "primary_B": {
+   "name": "FLOODED OPEN LOW VEGETATION",
+   "stratum": "v002 FLOOD x p73 (CROPLAND u GRASS_LOW_VEGETATION)",
+   "metrics": [
+    "recall",
+    "IoU",
+    "FN_area_km2",
+    "component recovery"
+   ]
+  },
+  "secondary": {
+   "name": "FLOODED CROPLAND only",
+   "flag": "LOW-N / LOW-POWER: no strong conclusion from it alone",
+   "metrics": [
+    "recall",
+    "FN_area_km2",
+    "n_reference_components",
+    "n_recovered"
+   ]
+  },
+  "other": {
+   "WETLAND_REED": [
+    "precision",
+    "recall",
+    "IoU",
+    "fragmentation"
+   ],
+   "BUILT_UP": [
+    "FP_area_km2",
+    "precision"
+   ],
+   "BARE_SAND": [
+    "FP_area_km2"
+   ],
+   "GLOBAL": [
+    "F1",
+    "IoU",
+    "PR-AUC (secondary only)"
+   ],
+   "CROPLAND_precision": "additional only (few positives)"
+  },
+  "comparison": "same blocks for every arm; paired spatial-block bootstrap CI"
+ },
+ "block_m": 7500.0,
+ "buffer_px": 64,
+ "patch": 512,
+ "stride": 128,
+ "seed": 20260923,
+ "accepted_draw": 10,
+ "block_share_target": {
+  "test": 0.2,
+  "val": 0.15
+ },
+ "rule": {
+  "test_min": 0.15,
+  "test_max": 0.45,
+  "val_min": 0.08,
+  "train_min": 0.35
+ },
+ "required_strata": [
+  "DRY_CROPLAND",
+  "FLOODED_OPEN_LOW_VEGETATION",
+  "FLOODED_WETLAND",
+  "DRY_WETLAND_OR_VEGETATION",
+  "FLOOD_BOUNDARY"
+ ],
+ "labels": "m6_labels_v002 band 1, restricted to owned pixels with >= 1 S1 event",
+ "strata_source": "p73 RF20 FROZEN (composition check only) x m6_labels_v002",
+ "n_blocks": {
+  "train": 95,
+  "val": 22,
+  "test": 29
+ },
+ "n_patches": {
+  "train": 393,
+  "test": 24,
+  "val": 15
+ },
+ "rule_for_every_arm": "U0d, U0z, U1, U2 ... use exactly these role rasters and this patch list"
+}

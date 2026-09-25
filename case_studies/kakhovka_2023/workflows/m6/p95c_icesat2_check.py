@@ -10,7 +10,8 @@ Two steps, because the ICESat-2 pull lives in SWOT-DNIPRO (parquet + its vertica
                    on those rasters: residual seamless DEM - ICESat-2, ICESat-2 ground minus the 06-09 water surface, share
                    of segments whose ground lies below the water surface; per category, and for category 5 also inside the
                    Oleshky left-bank box (x 462-476 km, y 5148-5166 km) by WorldCover class.
-Verdict 2026-09-25 (tables/p95c_icesat2_check_0609.csv): in category 5 the DEM matches ICESat-2 to +-0.3 m (median
+Rev 2: the WSE comes from the p95 rev-4 node-based engine (load_engine), same closure as the reconstruction.
+Verdict 2026-09-25 (tables/p95c_icesat2_check_0609.csv, first run, superseded chainage; re-run after rev 4): in category 5 the DEM matches ICESat-2 to +-0.3 m (median
 residual 0.02 m) and the ground lies 5.6 m (Oleshky grass) to 30 m (cropland) ABOVE the 06-09 water surface, 0 % of
 segments below it -> that S1 water is false SAR water on land, not a DEM error. Categories 2-4: 90-100 % of segments
 below the surface, as the reconstruction assumes.
@@ -36,24 +37,13 @@ def _ld(name, path):
 
 def rasters():
     import rasterio
-    from rasterio.warp import transform as tf
-    from scipy.spatial import cKDTree
     from floodstate_eo import _kakhovka_legacy_config as CFG
     P95 = _ld("p95", HERE / "p95_hand_daily_inundation.py"); P = P95.load_p92()
     out = CFG.BULK_ROOT / "floodplain_dyn" / "_icesat_check"; out.mkdir(parents=True, exist_ok=True)
-    H = pd.read_csv(CFG.TABLES / "p95_wse_table.csv", index_col=0, parse_dates=True); H.columns = H.columns.astype(int); bins = np.array(H.columns)
-    nodes = pd.read_csv(CFG.TABLES / "p59_swot_flood_nodes.csv")
-    N = nodes.groupby("node_id").agg(x=("x", "median"), y=("y", "median"), s_km=("s_km", "median")).reset_index()
-    tree = cKDTree(np.c_[N.x, N.y]); kx, ky = tf("EPSG:4326", CFG.CRS_METRIC, [P95.KHERSON_LONLAT[0]], [P95.KHERSON_LONLAT[1]])
-    s_kh = float(N.s_km.values[tree.query([kx[0], ky[0]])[1]])
-    kh = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p59_swot_vs_kherson.csv", parse_dates=["date"]).set_index("date").H_gauge_evrf
+    W, dxm, dym, _ = P95.load_engine()
     for zone in P95.ZONES:
         L = P95.zone_layers(zone, P); G = L["G"]
-        YY, XX = np.meshgrid(L["ys"], L["xs"], indexing="ij"); dn, ii = tree.query(np.c_[XX.ravel(), YY.ravel()])
-        dn = dn.reshape(G["ny"], G["nx"]); sb = np.clip(np.floor(N.s_km.values[ii]).astype(int), bins.min(), bins.max()).reshape(G["ny"], G["nx"])
-        far = (dn > P95.SWOT_MAX_DIST_M) & (sb >= s_kh)
-        w = H.loc[pd.Timestamp(DATE)].values.astype("f4")[np.searchsorted(bins, sb)] + P95.SWOT_MARGIN_M
-        w = np.where(far, np.minimum(w, kh[pd.Timestamp(DATE)] + P95.SWOT_MARGIN_M), w).astype("f4")
+        w = W.field(W.prepare(L), DATE, P95.SWOT_MARGIN_M)
         z = np.load(CFG.BULK_ROOT / "floodplain_dyn" / (zone + "_connected_ceiling") / "daily_new.npz")
         new = np.unpackbits(z[DATE], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
         v = L["V"][DATE] & L["own"] & ~L["cut"]; s1 = L["W"][DATE] & ~L["pre"] & v; dz = L["dem"] - w
