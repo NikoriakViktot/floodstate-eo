@@ -1,7 +1,11 @@
 # FloodState-EO
 
-**Status: v0.1.0-alpha — canonical EO preprocessing and temporal-composite pipeline. Flood-state inference is not
-yet part of the canonical release.**
+**Status: v0.2.0-alpha — canonical EO preprocessing and temporal-composite pipeline, plus the Kakhovka 2023 case study
+of Paper 3: a physical daily-inundation reconstruction (SWOT + gauge water surface × terrain, with an uncertainty budget),
+its cross-sensor and altimetric checks, an RF20 surface-context product, and U-Net experiments on frozen weak labels
+(v002 / v003_A). A canonical multi-class FLOOD_STATE product still does not exist; every model number is agreement with
+weak reference labels. See `case_studies/kakhovka_2023/publication/` (claims register, tables, figures, manuscript),
+the notebooks under `case_studies/kakhovka_2023/notebooks/` and the Streamlit dashboard under `apps/dashboard/`.**
 
 FloodState-EO is developed within the broader GeoHydroAI research ecosystem.
 

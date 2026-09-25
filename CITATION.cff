@@ -1,12 +1,12 @@
 cff-version: 1.2.0
-message: "If you use this software, please cite it as below. This is a v0.1.0-alpha release; a software DOI is not yet minted (see docs/REPRODUCIBILITY.md and 15_PUBLICATION_ZENODO_PLAN.md of the migration audit)."
+message: "If you use this software, please cite it as below. Cite the versioned GitHub release (tag v0.2.0-alpha) and its Zenodo DOI once minted, not the mutable main branch."
 title: "FloodState-EO"
 type: software
-version: "0.1.0-alpha"
-date-released: "2026-09-23"
+version: "0.2.0-alpha"
+date-released: "2026-09-25"
 authors:
   - family-names: "Nikoriak"
     given-names: "Viktor"
 license: MIT
 repository-code: "https://github.com/NikoriakViktot/floodstate-eo"
-abstract: "Context-Aware Multisensor Earth Observation for Flood-State Reconstruction. v0.1.0-alpha: canonical EO preprocessing and temporal-composite pipeline. Flood-state inference is not yet part of the canonical release."
+abstract: "Context-Aware Multisensor Earth Observation for Flood-State Reconstruction. v0.2.0-alpha: canonical EO preprocessing and temporal composites; Kakhovka 2023 case study with a physical daily-inundation reconstruction (SWOT + gauge water surface on terrain, Monte-Carlo uncertainty), cross-sensor and ICESat-2 checks, an RF20 surface-context product and U-Net weak-label experiments. Numbers are agreement with weak reference labels; a canonical multi-class flood-state product does not exist yet. Submission snapshot for Paper 3 of the Kakhovka series; a versioned release DOI is minted on Zenodo from the GitHub release."

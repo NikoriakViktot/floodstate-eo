@@ -3,15 +3,35 @@
   "descriptor": "Context-Aware Multisensor Earth Observation for Flood-State Reconstruction",
   "one_line": "Framework for reconstructing surface state during flood events from multisensor EO evidence.",
   "scientific_question": "TBD (final wording by the author)",
-  "software_status": "alpha (preprocessing + surface-state/event-association layer; a canonical multi-class flood-state classifier is pending)",
+  "software_status": "alpha: preprocessing + Kakhovka case study (terrain reconstruction, checks, RF20 context, U-Net weak-label experiments); canonical multi-class flood-state product pending",
   "repository": "https://github.com/NikoriakViktot/floodstate-eo",
-  "paper": {"status": "in preparation", "doi": null},
+  "paper": {
+    "status": "manuscript draft in repository (case_studies/kakhovka_2023/publication/manuscript.md), Paper 3 of the Kakhovka series",
+    "doi": null
+  },
   "software_doi": null,
   "datasets": [],
-  "case_studies": [{"id": "kakhovka_2023", "path": "case_studies/kakhovka_2023"}],
-  "figures": [],
+  "case_studies": [
+    {
+      "id": "kakhovka_2023",
+      "path": "case_studies/kakhovka_2023"
+    }
+  ],
+  "figures": [
+    "case_studies/kakhovka_2023/publication/figures/Fig01",
+    "case_studies/kakhovka_2023/publication/figures/Fig02",
+    "case_studies/kakhovka_2023/publication/figures/Fig03",
+    "case_studies/kakhovka_2023/publication/figures/Fig04",
+    "case_studies/kakhovka_2023/publication/figures/Fig05",
+    "case_studies/kakhovka_2023/publication/figures/Fig06",
+    "case_studies/kakhovka_2023/publication/figures/Fig07",
+    "case_studies/kakhovka_2023/publication/figures/Fig08"
+  ],
   "citation": "CITATION.cff",
   "license": "MIT",
-  "authors": ["Viktor Nikoriak"],
-  "release_version": "v0.1.0-alpha"
+  "authors": [
+    "Viktor Nikoriak"
+  ],
+  "release_version": "v0.2.0-alpha",
+  "dashboard": "apps/dashboard/streamlit_app.py (Streamlit Community Cloud)"
 }

@@ -89,7 +89,7 @@ any `src/floodstate_eo/**/*.py` except an explicit `KNOWN_EXCEPTIONS` allowlist 
 
 ## Working rules for this repo
 
-- The repo is local-only (not pushed). Don't push, rewrite history, or copy more files from SWOT-DNIPRO without
-  the maintainer's explicit go-ahead.
+- The repo is public on GitHub (`origin main`, pushed 2026-09-25). Don't rewrite history, force-push, or copy more files from
+  SWOT-DNIPRO without the maintainer's explicit go-ahead. Submission snapshots are tags/releases (Zenodo DOI), never `main`.
 - Distinguish verified behaviour from design docs: a design in `docs/METHODS.md` (e.g. §15 fusion) is not
   implemented code. Verify data access by actually loading data, not just by imports succeeding.

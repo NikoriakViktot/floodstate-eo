@@ -162,6 +162,52 @@ reconstruction); HEC-RAS 2D (p44 package in SWOT-DNIPRO, never run) builds on it
 - Next: freeze v003_A or revise; decide the paper's primary terrain variant (connected_ceiling proposed); B3 frame for the
   liman; HEC-RAS 2D with the p44 package using p95 as the calibration target (SWOT profiles + S1 dates + gauge).
 
+### 2026-09-25 (evening) -- terrain reconstruction rev 3/4: closure and chainage corrections; Inhulets numbers withdrawn
+Supervisor review of the paper plan (recorded in memory and in the approved plan): the manuscript is Paper 3 of a series
+(Paper 1 = vertical frame + slopes, Paper 2 = bathymetry/terrain, Paper 5 = HEC-RAS); evidence hierarchy physical
+reconstruction -> independent/cross-sensor checks -> surface context -> ML under weak labels; claims-first
+(`publication/evidence_matrix.csv`, Paper-1 schema, rendered to `claims.md`); area semantics; U2b diagnostic only;
+uncertainty budget; three-level reproducibility; release snapshot.
+- **Closure (rev 3):** p59 had applied the mean RESERVOIR closure residual (-0.173 m) plus a free2mean term (-0.036 m) to
+  the downstream reach, i.e. SWOT heights 0.209 m too low, hidden by the old +0.5 m margin. Paper 1 measured c ~ 0 at Kherson
+  (+0.9 cm RiverSP, -2.6 cm PIXC, +1.9 cm in the breach fortnight, NMAD 4-5 cm). p95 now uses
+  H = wse + geoid_hght - zeta_EGG2015 + c_Kherson (0.00 m, NMAD 0.05 m) with margin 0 as the central value; the old
+  configuration survives only as `--closure p59_reservoir --margin 0.5` (suffix `_closure_p59_m050`, sensitivity).
+- **Chainage (rev 4):** the p59 `s_km` (SWORD p_dist_out) is NOT comparable across branches -- Inhulets reaches run
+  -1.9..31 km while lying 42-48 km from the dam, Kokan' and the Kherson side channels start their own count -- so the
+  1-km-binned H(s,t) table mixed reaches. The water surface is now NODE-BASED: median of the 5 nearest SWOT nodes within 3 km
+  per day, per-node time interpolation, the gauge as one more node, gauge cap only beyond 15 km west of the gauge
+  (`p95.WSE`, shared by p95c/p95d/p95e via `load_engine`). `p95_wse_table*.csv` are gone; `p95_wse_profile_display.csv`
+  (straight-line distance, main stem, observed only) exists for the figure only. The p59 5-km binned profiles carry the same
+  chainage problem (note for Paper 1/2).
+- **Effect (connected_ceiling, corridor):** peak 347 km2 on 06-07 (was 293 under the old closure+margin+baseline), 337 on
+  06-08, 295 on 06-09, 233 on 06-13, 111 on 06-18, ~0 by 06-22; peak volume 0.93 km3. 06-09 vs S1 in the p42 floodplain:
+  POD 0.68 raw / 0.90 excluding normally-wet, FAR 0.45, CSI 0.44 (was 0.39 / 0.96 / 0.56 / 0.33). The Inhulets now has its own
+  SWOT nodes: POD 0.46-0.54 raw, CSI 0.39-0.47 (06-09..06-14). **The earlier "Inhulets POD 0.78-0.98, CSI 0.65-0.85" came from
+  runs before the rule-consistent baseline and is WITHDRAWN; cite only the current p95_validation_s1* tables.**
+- New: p95d (disagreement ontology A/B/C x WorldCover x p73 x elevation-above-surface bins, committed tables), p95e (Monte-Carlo
+  uncertainty of area/volume: closure, gauge, SWOT wse_u, per-node interpolation, class-wise DEM error field), p95c re-run on
+  the rev-4 surface. The `_m030/_m080` margin variants are deleted (replaced by p95e).
+
+### 2026-09-25 (night) -- rev 5: DEM class-bias correction; the reed-bed definition dominates; publication bundle built
+- **Rev 5 (p95):** the seamless DEM enters minus its class-median residual against night ICESat-2 (Paper 2 / p57: trees
+  +1.5-2 m, wetland ~+0.5, grass ~+0.4, cropland ~0), so the Monte-Carlo band (p95e, class NMAD as sigma, correlated 500 m
+  field) is centred on the reported central run; `--dem-bias none` keeps the uncorrected DEM as a sensitivity
+  (suffix `_dem_uncorrected`). Consequence: the delta reed beds now sit at or below the NORMAL water surface and belong to the
+  pre-breach regime, so the corridor peak on 06-07 drops from ~350 km2 (DEM as delivered) to ~235 km2 (central), and the
+  Sentinel-1 "misses" inside the p42 floodplain are almost entirely normally-wet cells (POD raw ~0.26, POD_excl ~0.96).
+  This is a DEFINITION (new inundation vs wetland submergence), not a metric error, and the paper reports both quantities.
+- **Publication bundle:** `publication/{evidence_matrix.csv, claims.md, manuscript_template.md -> manuscript.md, captions.md,
+  references_to_verify.md, tables/, figures/}`; scripts `workflows/paper/{p96, p97, p98, p99, fill_manuscript, fill_evidence,
+  render_claims}`; `src/floodstate_eo/visualization/figstyle.py`; notebooks 00 (filled) + 01/02/03 (executable from tables);
+  Streamlit dashboard `apps/dashboard` (layers 1.9 MB); tests `test_figstyle`, `test_paper_tables`, `test_dashboard_bundle`.
+- **Block-size sensitivity (D1):** 5 km infeasible (no validation patch survives the buffers); 7.5 / 15 / 20 km splits built
+  (`m6_split_s7p5/s15/s20`) and U2 v003_A retrained on each (`runs/U2_B1B2_v003A_s*`); T20/FigS05.
+- Docs: METHODS items 22-26, DATA_DICTIONARY Paper-3 products, REPRODUCIBILITY in three levels, README/CITATION/project.json
+  to v0.2.0-alpha, CLAUDE.md (repo public after the push), UNRESOLVED #2 resolved (figstyle).
+- Open before submission: verify every `VERIFY` bib entry and the literature area figures; decide the wording for the
+  reed-bed definition in the abstract; B3 frame; HEC-RAS (Paper 5) on the p95 daily surfaces.
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

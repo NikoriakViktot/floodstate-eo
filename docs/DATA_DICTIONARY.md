@@ -24,3 +24,16 @@ values not directly read with rasterio during this migration are marked UNVERIFI
 | URBAN_SCORE | none | **PROPOSED / NOT YET CANONICAL** |
 | UNCERTAINTY | none | **PROPOSED / NOT YET CANONICAL** |
 | FINAL_FLOOD_MASK | none | **PROPOSED / NOT YET CANONICAL** |
+
+## Paper 3 products (2026-09-25)
+
+| Product | Producer | Status |
+|---|---|---|
+| `frames10/<F>/m6_labels_v003_A.tif` (11 bands: ontology, event water, reference state/reason/domain, May counts, W_pre state/valid, seasonal flag) | `workflows/m6/p77d_m6_labels_v003_final.py --variant A` | FROZEN (D3, `tables/m6_labels_v003_A_FROZEN.json`); weak reference labels |
+| `frames10/<F>/m6/<ARM>[_v003A][_sNN]_score.tif` (uint16 ×10000, nodata 65535) | `workflows/m6/p86_m6_train_arm.py` | agreement with weak labels, not a flood probability |
+| `frames10/<F>/m6_split_{v1,s7p5,s15,s20}_role.tif` | `workflows/m6/p84_m6_split_b1b2.py` | v1 FROZEN; sNN = block-size sensitivity |
+| `frames10/<F>/p73_rf20/surface_class_20m.tif` | `workflows/m6/p73_rf20_surface.py` | FROZEN context product |
+| `floodplain_dyn/<ZONE>[_rule][_variant]/{duration_days,first_day,last_day,max_depth_m,depth_2023-06-08_m}.tif, daily_new.npz` | `workflows/m6/p95_hand_daily_inundation.py` | terrain-reconstructed new inundation; FABDEM-derived, not redistributed |
+| `floodplain_dyn/_icesat_check/<ZONE>_{cat,wse}0609.tif` | `workflows/m6/p95c_icesat2_check.py --step rasters` | diagnostic |
+| `publication/tables/T*.csv` + `manifest.json` | `workflows/paper/p96_paper_tables.py` | committed, regenerated with `--check` |
+| `apps/dashboard/data/**` (classed PNG overlays, GeoJSON, manifest) | `workflows/paper/p98_dashboard_layers.py` | committed, ≤ 100 MB |
