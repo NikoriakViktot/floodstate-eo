@@ -1,0 +1,14 @@
+{
+ "sources": {
+  "levels": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/p61_pool_levels_2023.csv",
+  "inflow": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/dniprohes_releases.csv",
+  "hypsometry": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/hist2_hypsometry.csv",
+  "dem": "dem_seamless_evrf2019_50m.tif (Paper 2, kriged bed inside the pool)",
+  "pool": "reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson, 2174.7 km2)"
+ },
+ "method": "sloped daily surface interpolated along the SWORD chainage between outlet (SWOT), Nikopol (press), Rozumivka (gauge), G-REALM; integrated under the DEM inside the pool polygon; chainage = polyline dam-Nikopol-Rozumivka scaled to SWORD anchors",
+ "bs77_to_evrf_m": 0.185,
+ "pool_cells": 863911,
+ "cell_km2": 0.0025,
+ "seconds": 8
+}

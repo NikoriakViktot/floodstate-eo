@@ -20,7 +20,14 @@ TEST blocks outlined. (c) Paired differences on identical spatial blocks (median
 and RF20 inputs on v002, the label effect v002 → v003_A at fixed inputs, and the W_pre input (grey: not independent, W_pre is
 a label ingredient). All numbers are agreement with weak reference labels (T06, T07b).
 
-**Fig04 Daily terrain-reconstructed inundation.** New inundation (water on cells that were not water in the pre-breach regime)
+**Fig04 Daily inundation, dam → liman.** (a–c) TOTAL water surface per day (all water on the day, including pre-breach
+channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley: deterministic run
+(black), 100 000-draw emulator per day as candles (p05–p95 whisker, p25–p75 body, median), the DEM-as-delivered sensitivity
+(orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial coverage). (d–f) New inundation
+(cumulative, black) with its daily change as bars (blue filling, orange draining) and the U-Net U2b persistent-event-flood area.
+(g–i) Kherson stage. Areas are terrain_reconstructed or observed_S1 (T12, T19).
+
+**Fig04 (previous caption, superseded) Daily terrain-reconstructed inundation.** New inundation (water on cells that were not water in the pre-breach regime)
 per day for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley: connected-ceiling rule (central, DEM
 class-bias corrected), Monte-Carlo p05–p95 band (T11b), p42 HAND rule (lower bound), Sentinel-1 observed new dark water per
 acquisition date (open symbols: partial coverage), the U2b persistent-event-flood area (mapped_UNet) and the Kherson stage.
@@ -45,6 +52,13 @@ rasters derived from FABDEM through the seamless DEM (not redistributed).
 agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments
 below it: where S1 reports water ≥ 2 m above the surface the DEM is confirmed to within a few decimetres and essentially no
 segment lies below the water (T15). A track-based consistency check, not a validation of the map.
+
+**Fig09 Reservoir drawdown and the downstream flood.** (a) Water levels in one frame: SWOT outlet nodes, Nikopol post
+(press values), Rozumivka gauge, ICESat-2 passes, G-REALM, and the Kherson stage downstream. (b) Pool volume and water area
+under the sloped daily surface integrated on the seamless DEM inside the pre-breach pool polygon; Sentinel-1 water areas of
+Yi (2025) for comparison (VERIFY). (c) Daily balance: volume released from the pool (−dV/dt), DniproHES inflow and the
+terrain-reconstructed new water stored downstream (corridor + Inhulets). (d) Hypsometry of the seamless DEM against the
+design Table 19 (T21, T22).
 
 ## Supplementary figures
 

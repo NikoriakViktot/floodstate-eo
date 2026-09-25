@@ -239,6 +239,25 @@ in the normal regime (5 June), 779 km² on 7 June,
 comparable in kind with the 600–800 km² reported by operational products (T16, literature_reported), which differ further in AOI
 (the liman reach, frame B3, is not part of this domain) and in the reference water they subtract.
 
+**Uncertainty per day.** The 100 000-draw emulator (§3.3) gives, for the peak day, a new-inundation band of
+214–293 km²
+(p25–p75 235–268 km²,
+median 251 km²) and a total-water band of
+758–837 km²
+(Fig04, candles); the 40 full spatial draws lie inside it. The daily change of new inundation (bars in Fig04) shows the
+filling on 6–7 June and the draining at 30–40 km² per day between 10 and 18 June.
+
+**Reservoir side of the balance [C13].** Under the sloped daily surface (outlet SWOT nodes, Nikopol press values, Rozumivka gauge)
+the pool held 18.9 km³ on 5 June (design table at the same outlet level:
+21.1 km³) and 4.5 km³ on 13 June, i.e.
+14.7 km³ released in eight days, with the largest daily volume change of
+-3225 hm³ on 7 June, an implied breach outflow of
+40057 m³ s⁻¹ against a DniproHES inflow of
+2730 m³ s⁻¹; the surface gradient across the pool reached
+5.0 m on 10 June. Downstream, the terrain-reconstructed new water stored above ground peaks at
+653 hm³ on 9 June — a few per cent of the release; the rest passed to the liman
+(Fig09, T21, T22).
+
 ### 4.2 Agreement with Sentinel-1 on the observation domain [C02]
 
 On 9 June, in the p42 floodplain domain and on the Sentinel-1 footprint, the reconstruction allows

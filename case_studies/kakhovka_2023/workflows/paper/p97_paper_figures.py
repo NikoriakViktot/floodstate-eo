@@ -10,6 +10,7 @@ Main text (claims decide the figures):
   Fig06 water surface: H(d,t) display profile + SWOT-input vs gauge at Kherson                                 [tables]
   Fig07 event-scale spatial result: peak-day depth and duration, dam -> liman                                  [bulk]
   Fig08 ICESat-2 altimetric consistency check                                                                  [tables]
+  Fig09 reservoir drawdown (levels, area, volume, daily balance vs DniproHES inflow and downstream storage)     [tables]
 Supplement: FigS01 training curves, FigS02 rule / closure sensitivity, FigS03 per-date S1/S2 series, FigS04 RF20 confusion
 and per-class F1, FigS05 block-size sensitivity, FigS06 Inhulets profile.
 `--only FigNN`, `--tables-only`. Bulk figures are rendered once locally and committed.
@@ -172,35 +173,42 @@ def fig03():
 
 # ---- Fig04 -----------------------------------------------------------------------------------------------------------
 def fig04():
+    """Daily inundation, dam -> liman: TOTAL water surface with 100 000-draw candles, daily change as bars, S1, U-Net, gauge."""
     d = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
-    h = pd.read_csv(T / "p95_daily_area_pooled.csv"); h["t"] = pd.to_datetime(h.date)
-    u = pd.read_csv(T / "p95e_area_volume_uncertainty.csv") if (T / "p95e_area_volume_uncertainty.csv").exists() else None
+    g = pd.read_csv(T / "p95g_mc_daily.csv") if (T / "p95g_mc_daily.csv").exists() else None
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
     p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
     regs = ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"]
-    fig, axs = plt.subplots(2, 3, figsize=(7.2, 4.6), gridspec_kw=dict(height_ratios=[3, 1.1]), sharex=True, constrained_layout=True)
+    fig, axs = plt.subplots(3, 3, figsize=(7.4, 7.6), gridspec_kw=dict(height_ratios=[3, 1.4, 1.0]), sharex="col", constrained_layout=True)
     for j, r in enumerate(regs):
-        a, b = axs[0, j], axs[1, j]; s = d[d.region == r]
-        if u is not None:
-            uu = u[u.region == r].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t")
-            FS.band(a, uu.t, uu.A_p05_km2, uu.A_p95_km2, label="Monte-Carlo p05–p95")
-        a.plot(s.t, s.new_km2, color=FS.PALETTE["terrain"], lw=2, label="terrain-reconstructed (connected, central)")
-        hh = h[h.region == r]; a.plot(hh.t, hh.new_km2, color=FS.PALETTE["terrain"], lw=1, ls="--", label="p42 HAND rule (channel-connected)")
+        a, b, c = axs[0, j], axs[1, j], axs[2, j]; s = d[d.region == r].sort_values("t")
+        if g is not None:
+            gg = g[g.region == r].copy(); gg["t"] = pd.to_datetime(gg.date); gg = gg.sort_values("t")
+            for _, q in gg.iterrows():                                              # candles: p05-p95 whisker, p25-p75 body, p50 tick
+                a.plot([q.t, q.t], [q.W_total_km2_p05, q.W_total_km2_p95], color=FS.PALETTE["terrain"], lw=0.7, alpha=0.8)
+                a.add_patch(Rectangle((q.t - pd.Timedelta(hours=9), q.W_total_km2_p25), pd.Timedelta(hours=18), q.W_total_km2_p75 - q.W_total_km2_p25, fc="#b9d1ee", ec=FS.PALETTE["terrain"], lw=0.5))
+                a.plot([q.t - pd.Timedelta(hours=9), q.t + pd.Timedelta(hours=9)], [q.W_total_km2_p50] * 2, color=FS.PALETTE["terrain"], lw=1.0)
+        a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="TOTAL water surface, deterministic run")
         pun = T / "p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv"
         if pun.exists():
-            un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.new_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="DEM as delivered (reed beds counted as new)")
-        a.plot(s.t, s.potential_km2, color=FS.PALETTE["terrain"], lw=1.2, ls="-.", label="TOTAL water surface (incl. pre-breach water)")
+            un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.potential_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="total, DEM as delivered")
         o = s1[s1.region == r]; full, part = o[o.coverage >= 0.9], o[o.coverage < 0.9]
-        a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=3.5, mfc="none", label="S1 total dark water")
-        a.plot(full.t, full.new_water_km2, "o", color=FS.PALETTE["s1"], ms=4.5, label="S1 observed new dark water"); a.plot(part.t, part.new_water_km2, "o", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
+        a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, label="S1 total dark water"); a.plot(part.t, part.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
+        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("total water surface, km²", fontsize=7); FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
+        # daily change of NEW inundation as bars (+ filling, - draining)
+        inc = s.new_km2.diff().fillna(0)
+        b.bar(s.t, inc, width=0.8, color=np.where(inc >= 0, FS.PALETTE["terrain"], FS.PALETTE["s1"]), lw=0)
+        b.plot(s.t, s.new_km2, color=FS.PALETTE["ink"], lw=1.0, label="new inundation (cumulative)"); b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
         if r in u2b.index:
-            a.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b, persistent event flood")
-        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("km²", fontsize=7); a.set_ylim(0, None)
-        b.plot(s.t, s.kherson_gauge_m, color=FS.PALETTE["gauge"], lw=1.3); b.set_ylabel("Kherson\nstage, m", fontsize=6.5)
-        for ax in (a, b):
+            b.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b persistent event flood")
+        b.set_ylabel("new inundation, km²\n(bars: daily change)", fontsize=6.5); FS.panel_label(b, "def"[j], x=0.02, y=0.98)
+        c.plot(s.t, s.kherson_gauge_m, color=FS.PALETTE["gauge"], lw=1.3); c.set_ylabel("Kherson\nstage, m", fontsize=6.5)
+        for ax in (a, b, c):
             FS.date_axis(ax, BREACH, every_days=7); ax.tick_params(labelsize=6); ax.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-07-05"))
-        FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
-    h, l = axs[0, 0].get_legend_handles_labels(); fig.legend(h, l, loc="lower center", ncol=3, fontsize=6, frameon=False, bbox_to_anchor=(0.5, -0.13))
+        a.set_ylim(0, None)
+    h, l = axs[0, 0].get_legend_handles_labels(); h2, l2 = axs[1, 0].get_legend_handles_labels()
+    fig.legend(h + [Patch(fc="#b9d1ee", ec=FS.PALETTE["terrain"], label="100 000 draws per day: p05–p95 whisker, p25–p75 body, median")] + h2, l + ["100 000 draws per day: p05–p95, p25–p75, median"] + l2,
+               loc="lower center", ncol=3, fontsize=5.8, frameon=False, bbox_to_anchor=(0.5, -0.09))
     FS.save(fig, "Fig04_daily_inundation", FIG)
 
 
@@ -288,6 +296,36 @@ def fig08():
     FS.save(fig, "Fig08_icesat2_consistency", FIG)
 
 
+# ---- Fig09 -----------------------------------------------------------------------------------------------------------
+def fig09():
+    R = pd.read_csv(T / "p95f_reservoir_daily.csv"); R["t"] = pd.to_datetime(R.date); H = pd.read_csv(T / "p95f_hypsometry_dem.csv")
+    lv = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_pool_levels_2023.csv", parse_dates=["date"])
+    lv = lv[(lv.date >= "2023-05-26") & (lv.date <= "2023-07-10")]
+    fig, axs = plt.subplots(2, 2, figsize=(7.4, 6.2), constrained_layout=True)
+    a = axs[0, 0]
+    for src, c, mk, lab in [("SWOT_OUTLET", FS.PALETTE["terrain"], "o", "SWOT outlet (0 km)"), ("NIKOPOL_UHE", FS.PALETTE["s2"], "s", "Nikopol post (160 km, press)"),
+                            ("ROZUMIVKA_GAUGE", FS.PALETTE["rf"], "^", "Rozumivka gauge (248 km)"), ("ICESAT2_ATL13", FS.PALETTE["unet"], "x", "ICESat-2 passes"), ("GREALM_S6A", FS.PALETTE["muted"], "d", "G-REALM (111 km)")]:
+        q = lv[lv.source == src]; a.plot(q.date, q.H_evrf2019, mk, color=c, ms=4, label=lab, lw=0)
+    a.plot(R.t, R.kherson_stage_m, color=FS.PALETTE["gauge"], lw=1.3, label="Kherson stage (downstream)"); FS.date_axis(a, BREACH, every_days=7)
+    a.set_ylabel("water level, m (gauge-anchored EGG2015 / EVRF2019)", fontsize=6.5); a.legend(fontsize=5.5, ncol=2); a.tick_params(labelsize=6); FS.panel_label(a, "a")
+    b = axs[0, 1]; ok = R.V_pool_km3.notna()
+    b.plot(R.t[ok], R.V_pool_km3[ok], "o-", color=FS.PALETTE["terrain"], ms=3, lw=1.5, label="pool volume under the sloped surface (DEM, km³)")
+    b2 = b.twinx(); b2.plot(R.t[ok], R.A_pool_km2[ok], "s--", color=FS.PALETTE["rf"], ms=3, lw=1, label="pool water area (DEM, km²)"); b2.set_ylabel("area, km²", fontsize=6.5); b2.tick_params(labelsize=6)
+    ya = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_yi2025_reservoir_area.csv")
+    b2.plot(pd.Timestamp("2023-06-06") + pd.to_timedelta(ya.day_after_breach, unit="D"), ya.area_km2_S1, "v", color=FS.PALETTE["s1"], ms=5, label="S1 water area (Yi 2025, VERIFY)")
+    b.set_ylabel("volume, km³", fontsize=6.5); FS.date_axis(b, BREACH, every_days=7); b.tick_params(labelsize=6); h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels(); b.legend(h1 + h2, l1 + l2, fontsize=5.5); FS.panel_label(b, "b")
+    b.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-06-15"))
+    c = axs[1, 0]; dd = R[ok & (R.t >= "2023-06-05")]
+    c.bar(dd.t, -dd.dV_pool_hm3 / 1000, width=0.8, color=FS.PALETTE["terrain"], label="released from the pool, km³/day (−dV/dt)")
+    c.plot(dd.t, dd.Q_in_hm3_day / 1000, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow, km³/day")
+    c.plot(R.t, R.downstream_new_volume_hm3 / 1000, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream (corridor + Inhulets), km³")
+    c.set_ylabel("km³", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.legend(fontsize=5.5); c.tick_params(labelsize=6); FS.panel_label(c, "c"); c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
+    dax = axs[1, 1]; dax.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.6, label="seamless DEM, level surface"); dax.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["gauge"], lw=1.2, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
+    dax.set_xlabel("pool level, m", fontsize=6.5); dax.set_ylabel("volume, km³", fontsize=6.5); dax.legend(fontsize=5.5); dax.tick_params(labelsize=6); dax.grid(color=FS.PALETTE["grid"]); FS.panel_label(dax, "d")
+    fig.suptitle("Reservoir drawdown and the downstream flood: levels, pool area/volume, daily balance and the hypsometry used", fontsize=8)
+    FS.save(fig, "Fig09_reservoir_balance", FIG)
+
+
 # ---- Supplement ------------------------------------------------------------------------------------------------------
 def figS01():
     fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.2, 2.8), constrained_layout=True)
@@ -357,7 +395,7 @@ def figS06():
     FS.save(fig, "FigS06_inhulets_profile", FIG)
 
 
-ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False),
+ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False)}
 
 

@@ -20,7 +20,8 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - **NMAD**: 1.4826 x median |r - median(r)|
 - **LE90 / LE95**: 90th / 95th percentile of |r|
 - **95 % interval**: percentile 2.5 / 97.5 of 2000 spatial-block bootstrap resamples (seed 20260923); paired comparisons resample identical physical blocks
-- **Monte-Carlo band**: p05 / p50 / p95 over draws of DEM, closure, gauge, SWOT and interpolation errors (p95e)
+- **Monte-Carlo band**: p05 / p50 / p95 over 40 full spatial draws of DEM, closure, gauge, SWOT and interpolation errors (p95e); the 100 000-draw cluster-normal emulator (p95g) gives p05/p25/p50/p75/p95 per day
+- **pool volume**: seamless DEM integrated under the sloped daily water surface inside the pre-breach pool polygon (p95f); design Table 19 for reference
 - **OA**: overall agreement with the reference classification
 - **macro mean**: unweighted mean over classes
 
@@ -45,7 +46,7 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - **T10c** [contextual] RF20 vs WorldCover wall-to-wall agreement on WorldCover-pure cells (recall / precision vs the training reference). (22 rows)
 - **T11** [independent_physical] Terrain reconstruction: rules, closure, constants and the water-surface method per variant. The superseded closure row is kept for traceability. (5 rows)
 - **T11b** [independent_physical] Uncertainty components of the terrain reconstruction (Monte-Carlo inputs): closure, gauge, SWOT node height, per-node time interpolation, DEM error by WorldCover class (Paper 2 / p57). (11 rows)
-- **T12** [independent_physical] Daily terrain-reconstructed inundation per region and key date: NEW inundation (A_*, with the Monte-Carlo p05/p95 band) and TOTAL water surface (W_total_*, all water on the day incl. pre-breach channels, lakes and reed beds), for the central run (DEM class-bias corrected), the p42 HAND rule, the ceiling-only variant, the uncorrected-DEM and superseded-closure sensitivities; volume of new water. (48 rows)
+- **T12** [independent_physical] Daily terrain-reconstructed inundation per region and key date: TOTAL water surface (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; p05..p95 of 100 000 emulator draws) and NEW inundation (A_*: 40 spatial Monte-Carlo draws p05/p50/p95 and 100 000 emulator draws p05..p95), for the central run (DEM class-bias corrected), the p42 HAND rule, the ceiling-only variant, the uncorrected-DEM and superseded-closure sensitivities; volume of new water. (48 rows)
 - **T13** [cross_sensor] Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (primary) and POD excluding normally-wet cells (sensitivity). (165 rows)
 - **T14** [contextual] Disagreement ontology terrain x Sentinel-1 by zone and date: category areas split by ground elevation relative to the water surface, normally-wet flag, WorldCover and RF20 classes (km2). (24 rows)
 - **T15** [independent_physical] ICESat-2 altimetric consistency check per zone and agreement category: residual seamless DEM minus ICESat-2 (median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface. (16 rows)
@@ -55,3 +56,5 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - **T18** [independent_physical] Seamless DEM accuracy against night ICESat-2 ground segments (Paper 2): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class; the class rows feed the DEM error model of T11b. (16 rows)
 - **T19** [cross_sensor] Per-acquisition-date new water (not water before the breach) inside the Sentinel-1 observable domain, with coverage; S2 only where >= 30 % of the region was cloud-free; estuary zone on its own grid. (77 rows)
 - **T20** [weak_label_agreement] Block-size sensitivity (U2 on v003_A): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences. (5 rows)
+- **T21** [independent_physical] Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, implied breach outflow, and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage. (46 rows)
+- **T22** [independent_physical] Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m). (27 rows)

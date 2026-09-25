@@ -208,6 +208,23 @@ uncertainty budget; three-level reproducibility; release snapshot.
 - Open before submission: verify every `VERIFY` bib entry and the literature area figures; decide the wording for the
   reed-bed definition in the abstract; B3 frame; HEC-RAS (Paper 5) on the p95 daily surfaces.
 
+### 2026-09-25 (late) -- headline = TOTAL water surface; 100 000-draw emulator; reservoir balance
+Maintainer: "the flood zone is all the water, not only the new water". Corrected everywhere: T12 carries W_total_* (total
+water surface on the day) next to A_* (new inundation); Fig04 shows the total with candles and the daily change as bars.
+- p95g cluster-normal emulator: 100 000 draws per day of new area / volume from the margin histograms per WorldCover class
+  (class NMAD x the cell-level std of the p95e field, clusters of 625 cells) and a scalar water-surface offset; the total's
+  draws = deterministic total + new-area deviations (the pre-breach water is observed, not propagated); the raw emulator
+  total is inflated by the symmetric DEM error under trees and kept only for transparency. Checked against the 40 spatial
+  draws (p95g_vs_p95e.csv): emulator p05-p95 wider than p95e (e.g. 214-293 vs 247-255 km2 on 06-07), p50 +7 %.
+- p95f reservoir balance: sloped daily pool surface (SWOT outlet, Nikopol press, Rozumivka gauge, ICESat-2, G-REALM; p61 of
+  SWOT-DNIPRO), integrated on the seamless 50 m DEM inside the pool polygon; pre-breach 18.9 km3 (design table 21.1 at the
+  same level: DEM hypsometry 8-12 % low), 4.5 km3 on 13 June, 14.7 km3 released, implied peak breach outflow ~40 000 m3/s
+  on 06-07 (DniproHES inflow ~2 700); downstream stored new water peaks at 0.65 km3 (~4-5 % of the release). Not defined
+  after 13 June (the pool is a river). Claim C13, T21/T22, Fig09.
+- Totals (corridor, deterministic): 488 km2 normal regime (06-05) -> 779 (06-07) -> 724 (06-09) -> 632 (06-13) -> 517 (06-21);
+  Inhulets 21 -> 69 -> 76 -> 63 -> 22; S1 total dark water 06-09: 682 + 68 km2. These are the numbers comparable in kind with
+  the 600-800 km2 of operational products (which still differ in AOI -- no B3/liman here -- and reference water).
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

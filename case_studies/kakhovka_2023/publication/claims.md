@@ -149,6 +149,19 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Caveat:** new splits change TEST geography; only signs and CIs compared
 - **Status:** TABLES_LINKED / draft
 
+### C13 [independent_physical] -- section 4.1
+
+**Statement.** The pool released about fourteen cubic kilometres between 6 and 13 June under a strongly sloped surface (outlet drawdown faster than the upstream gauges), with an implied peak breach outflow of order 4x10^4 m3/s on 7 June; the terrain-reconstructed water stored downstream above ground is a few per cent of that release, the remainder passing to the liman.
+
+- **Independent:** yes -- gauges, SWOT, press levels, DEM, DniproHES releases; no EO flood mask
+- **Result type / dataset:** water balance / p61 pool levels, dniprohes_releases, seamless DEM, p95 downstream volume
+- **Independent unit:** day; **n:** 8 drawdown days with >= 2 level sources
+- **Value:** pool volume 18.9 -> 4.5 km3 (released 14.7 km3); max daily loss -3225 hm3; implied breach outflow 40057 m3/s (inflow 2730); downstream stored new water peak 653 hm3; **uncertainty:** DEM hypsometry vs design table at 17.5 m: 19.3 vs 21.1 km3; surface interpolated between 3-4 points
+- **Evidence:** tables T21, T22; figures Fig09
+- **Scope:** pool 2023-05-26..06-13; downstream corridor + Inhulets
+- **Caveat:** sloped surface interpolated between 3-4 level points; DEM hypsometry 8-12 % below the design table; press levels; Nikopol/Rozumivka unavailable after 13 June
+- **Status:** TABLES_LINKED / draft
+
 ## Exploratory claims
 
 ### C09 [weak_label_agreement] -- section 5.8
