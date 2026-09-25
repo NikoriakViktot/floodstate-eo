@@ -1,4 +1,4 @@
-# New in floodstate-eo, 2026-09-24. STATUS: CANDIDATE. Variant A = primary candidate, variant B = sensitivity only.
+# New in floodstate-eo, 2026-09-24. STATUS: variant A FROZEN 2026-09-25 (p77e, tables/m6_labels_v003_A_FROZEN.json); variant B = sensitivity only.
 # Rev 2 (2026-09-24): scene QA + temporal-persistence pixel rule; REFERENCE_WATER no longer vetoes EVENT_FLOOD.
 """P77d -- m6_labels_v003_final: water retrieval target + reference state + event attribution (LAND / EVENT_FLOOD /
 REFERENCE_WATER / UNKNOWN). Supersedes the v003 CANDIDATE (p77c). v002 and every arm trained on it stay frozen.

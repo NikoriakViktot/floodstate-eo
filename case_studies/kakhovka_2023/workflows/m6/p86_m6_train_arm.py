@@ -16,7 +16,7 @@ flips, seed 20260923.
   the full-frame blended score (unique pixels). TEST is evaluated once, after the threshold is written to disk.
 - A run directory is immutable: re-running an existing arm refuses, so TEST cannot be looked at twice by accident.
 - Labels: v002 (default, FLOOD / NON_FLOOD / IGNORE) or v003_A (p77d ontology: EVENT_FLOOD -> 1, LAND and
-  REFERENCE_WATER -> 0, UNKNOWN -> 255). v003_A is a CANDIDATE label set (not frozen); its positives are identical to
+  REFERENCE_WATER -> 0, UNKNOWN -> 255). v003_A is FROZEN (2026-09-25, tables/m6_labels_v003_A_FROZEN.json); its positives are identical to
   v002's, its negatives add recurrent May-2023 water (REFERENCE_WATER) and drop v002 NON_FLOOD pixels without
   >= 3 admitted May dates. U2b requires v003_A: under v002 no labelled pixel has pre-breach water, so W_pre cannot be
   supervised (NEXT_STEPS, U2b blocker).

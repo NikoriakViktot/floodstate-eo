@@ -162,6 +162,19 @@ reconstruction); HEC-RAS 2D (p44 package in SWOT-DNIPRO, never run) builds on it
 - Next: freeze v003_A or revise; decide the paper's primary terrain variant (connected_ceiling proposed); B3 frame for the
   liman; HEC-RAS 2D with the p44 package using p95 as the calibration target (SWOT profiles + S1 dates + gauge).
 
+### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
+- **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
+  255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:
+  sha256 of both rasters and of the two S1 source caches, build commit, freeze commit, reproducibility gate).
+  Test `tests/test_m6_labels_v003A_frozen.py` fails if the record, the build manifest or the rasters on disk drift.
+- **What it means:** STATUS, NOT PROMOTION -- weak reference labels for supervision and scoring; every number stays
+  "agreement with weak reference labels". EVENT_FLOOD is pixel-identical to v002 FLOOD; the change is the negative side
+  (REFERENCE_WATER = recurrent May-2023 S1 water on >= 3 admitted dates) and the UNKNOWN domain.
+- **Consequences:** `U0d/U2/U2b_B1B2_v003A` are now the reference arms; U2b (+W_pre) is the base for U3 (+optical change,
+  p72 rebuilt). The v002 arms (U0d/U0z/U1/U2 _v1) stay frozen history, never retrained. Variant B stays SENSITIVITY_ONLY.
+  Any change of rule, scene QA or sources is v004, never an edit of v003_A. The W_pre circularity caveat (input and
+  label ingredient) is accepted and must be stated wherever U2b is reported.
+
 ### Ordered next steps (replaces the list at the bottom where they conflict)
 0. ✅ **p73 RF20 FROZEN** (2026-09-23, products of `5f875ce`, clean-worktree reproducibility gate bitwise PASS;
    `tables/p73_rf20_manifest.json`, `tables/p73_rf20_qa/QA_VERDICT.md` — read its 7 limitations before using p73).
