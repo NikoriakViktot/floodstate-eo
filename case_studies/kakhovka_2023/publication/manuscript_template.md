@@ -45,6 +45,12 @@ v003_A at fixed inputs changed the U-Net flood on reference water on the test bl
 {{T07b|A=U2_B1B2_v1,B=U2_B1B2_v003A,endpoint=R_pred_on_reference_water_km2|hi||.1f}}) without a detectable loss of
 event-flood recall.
 
+The TOTAL water surface on the peak day — the quantity that operational "flooded area" products report — is
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km² in the corridor plus
+{{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_central_km2||.0f}} km² in the Inhulets valley, against
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_central_km2||.0f}} km² of water in the normal regime on 5 June; Sentinel-1 saw
+{{T19|date=2023-06-09,region=DNIPRO_CORRIDOR,sensor=S1|water_km2||.0f}} km² of dark water in the corridor on 9 June.
+
 **Conclusions.** The mapped flood of a SAR mask, the persistent flood learned by a U-Net and the terrain-reconstructed
 inundation are three different quantities. The reconstruction recovers the day-by-day extent, depth and volume that the
 observations cannot, and the observations show where the reconstruction and the sensors are blind. We report every area
@@ -219,6 +225,19 @@ domain the peak is {{T12|region=P42_FLOODPLAIN_DOMAIN,date=2023-06-07|A_central_
 backwater with its own SWOT nodes, peaks at {{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|A_central_km2||.0f}} km² on 9 June.
 The depth and duration maps (Fig07) show the 7–8 June water more than 4 m deep on the right-bank floodplain below the dam and
 the delta channels, and inundation lasting more than a week only in the floodplain lows and the delta.
+
+**Total water surface.** New inundation is the water that was not there before; the flood *zone* that operational products
+report is the total water surface on the day. In the corridor it is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_central_km2||.0f}} km²
+in the normal regime (5 June), {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km² on 7 June,
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|W_total_central_km2||.0f}} km² on 9 June and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|W_total_central_km2||.0f}} km² on 13 June (with the DEM as delivered:
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_connected_ceiling_dem_uncorrected_km2||.0f}} →
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_connected_ceiling_dem_uncorrected_km2||.0f}} km²); the Inhulets valley adds
+{{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_central_km2||.0f}} km² on 7 June. Sentinel-1 saw
+{{T19|date=2023-06-09,region=DNIPRO_CORRIDOR,sensor=S1|water_km2||.0f}} km² of dark water in the corridor on 9 June and
+{{T19|date=2023-06-09,region=INHULETS_VALLEY_rect,sensor=S1|water_km2||.0f}} km² in the Inhulets valley. These totals are the numbers
+comparable in kind with the 600–800 km² reported by operational products (T16, literature_reported), which differ further in AOI
+(the liman reach, frame B3, is not part of this domain) and in the reference water they subtract.
 
 ### 4.2 Agreement with Sentinel-1 on the observation domain [C02]
 

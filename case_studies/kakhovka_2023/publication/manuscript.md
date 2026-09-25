@@ -45,6 +45,12 @@ v003_A at fixed inputs changed the U-Net flood on reference water on the test bl
 -2.5) without a detectable loss of
 event-flood recall.
 
+The TOTAL water surface on the peak day — the quantity that operational "flooded area" products report — is
+779 km² in the corridor plus
+69 km² in the Inhulets valley, against
+488 km² of water in the normal regime on 5 June; Sentinel-1 saw
+682 km² of dark water in the corridor on 9 June.
+
 **Conclusions.** The mapped flood of a SAR mask, the persistent flood learned by a U-Net and the terrain-reconstructed
 inundation are three different quantities. The reconstruction recovers the day-by-day extent, depth and volume that the
 observations cannot, and the observations show where the reconstruction and the sensors are blind. We report every area
@@ -219,6 +225,19 @@ domain the peak is 154 km²; the Inhulets valley, treated as
 backwater with its own SWOT nodes, peaks at 50 km² on 9 June.
 The depth and duration maps (Fig07) show the 7–8 June water more than 4 m deep on the right-bank floodplain below the dam and
 the delta channels, and inundation lasting more than a week only in the floodplain lows and the delta.
+
+**Total water surface.** New inundation is the water that was not there before; the flood *zone* that operational products
+report is the total water surface on the day. In the corridor it is 488 km²
+in the normal regime (5 June), 779 km² on 7 June,
+724 km² on 9 June and
+632 km² on 13 June (with the DEM as delivered:
+310 →
+714 km²); the Inhulets valley adds
+69 km² on 7 June. Sentinel-1 saw
+682 km² of dark water in the corridor on 9 June and
+68 km² in the Inhulets valley. These totals are the numbers
+comparable in kind with the 600–800 km² reported by operational products (T16, literature_reported), which differ further in AOI
+(the liman reach, frame B3, is not part of this domain) and in the reference water they subtract.
 
 ### 4.2 Agreement with Sentinel-1 on the observation domain [C02]
 

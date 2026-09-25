@@ -20,11 +20,13 @@ fig = go.Figure()
 if "A_p05_km2" in uu.columns and uu.A_p05_km2.notna().any():
     fig.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.A_p95_km2) + list(uu.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="Monte-Carlo p05–p95", hoverinfo="skip"))
 fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="terrain-reconstructed (connected, central)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+fig.add_trace(go.Scatter(x=s.t, y=s.potential_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="TOTAL water surface (incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
 hh = h[h.region == region]; fig.add_trace(go.Scatter(x=hh.t, y=hh.new_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dash"), name="p42 HAND rule (lower bound)"))
 o = s1[s1.region == region]
 fig.add_trace(go.Scatter(x=o.t, y=o.new_water_km2, mode="markers", marker=dict(color=C["s1"], size=9, symbol=["circle" if c >= 0.9 else "circle-open" for c in o.coverage]), name="Sentinel-1 observed new dark water (open = partial coverage)", hovertemplate="%{x|%d %b}: %{y:.0f} km² (coverage %{customdata:.0%})", customdata=o.coverage))
+fig.add_trace(go.Scatter(x=o.t, y=o.water_km2, mode="markers", marker=dict(color=C["s1"], size=8, symbol="diamond-open"), name="Sentinel-1 total dark water", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
 fig.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
-fig.update_layout(height=430, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="new inundation, km²", legend=dict(orientation="h", y=-0.15), xaxis=dict(range=["2023-05-31", "2023-07-05"]))
+fig.update_layout(height=430, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", legend=dict(orientation="h", y=-0.15), xaxis=dict(range=["2023-05-31", "2023-07-05"]))
 st.plotly_chart(fig, width="stretch")
 
 c1, c2 = st.columns(2)
@@ -38,7 +40,7 @@ with c2:
     vv.update_layout(height=260, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="terrain-reconstructed water volume above ground (planar surface, no ponding)"); st.plotly_chart(vv, width="stretch")
 
 st.subheader("Key dates (T12)"); st.caption(caption("T12"))
-cols = [c for c in ["date", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_central_hm3", "V_p05_hm3", "V_p95_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
+cols = [c for c in ["date", "W_total_central_km2", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_central_hm3", "V_p05_hm3", "V_p95_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
 st.dataframe(uu[cols], width="stretch", hide_index=True)
 st.subheader("Uncertainty components (T11b) and constants (T11)"); st.caption(caption("T11b")); st.dataframe(table("T11b"), width="stretch", hide_index=True)
 st.dataframe(table("T11"), width="stretch", hide_index=True)

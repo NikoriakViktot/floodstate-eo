@@ -21,7 +21,7 @@ SEMANTICS = {"observed_S1": "water seen by the Sentinel-1 dark-water rule on tha
              "terrain_reconstructed": "cells the reconstructed water surface allows (DEM < WSE, connected), minus the pre-breach regime",
              "literature_reported": "figure quoted from an operational or published product with its own AOI, date and reference water; context only"}
 ARMS_V1 = ["U0d", "U0z", "U1", "U2"]; ARMS_V3 = ["U0d", "U2", "U2b"]
-KEY_DATES = ["2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13",
+KEY_DATES = ["2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13",
              "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-18", "2023-06-21", "2023-06-25", "2023-06-30"]
 LITERATURE = [  # context only; every row must be VERIFIED against the source before submission
     dict(source="UNOSAT (via CEOBS 2023 / REACH 2023)", quantity="flooded area 6-9 June 2023", value_km2=620, verify="VERIFY: exact product, AOI, date, reference-water definition"),
@@ -195,7 +195,7 @@ def t11_terrain():
 
 def t12_daily():
     p = T / "p95_daily_area_pooled_connected_ceiling.csv"; d = pd.read_csv(p); src = [p]
-    D = d[d.date.isin(KEY_DATES)].copy(); D["area_semantics"] = "terrain_reconstructed"; D = D.rename(columns={"new_km2": "A_central_km2", "new_volume_hm3": "V_central_hm3"})
+    D = d[d.date.isin(KEY_DATES)].copy(); D["area_semantics"] = "terrain_reconstructed"; D = D.rename(columns={"new_km2": "A_central_km2", "new_volume_hm3": "V_central_hm3", "potential_km2": "W_total_central_km2"})
     pu = T / "p95e_area_volume_uncertainty.csv"
     if pu.exists():
         U = pd.read_csv(pu); src.append(pu)
@@ -203,9 +203,10 @@ def t12_daily():
     for name, (sfx, man, mp) in _p95_variants().items():
         q = T / f"p95_daily_area_pooled{sfx}.csv"
         if q.exists() and name != "connected_ceiling":
-            x = pd.read_csv(q)[["date", "region", "new_km2"]].rename(columns={"new_km2": f"A_{name.split(' ')[0]}{'_superseded' if 'superseded' in name else ''}_km2"}); D = D.merge(x, on=["date", "region"], how="left"); src.append(q)
-    D["definition_note"] = "new inundation = cells allowed by the water surface that are not in the same-rule pre-breach regime; wetland submergence (S1 dark-water onset on normally-wet cells) is reported separately in T13/T14"
-    put("T12", D, "Daily terrain-reconstructed new inundation (area, volume) with the Monte-Carlo p05/p50/p95 band (DEM class-bias corrected, central), the p42 HAND-rule lower bound, the ceiling-only variant, the uncorrected-DEM sensitivity and the superseded-closure sensitivity; key dates, per region.", src, "independent_physical")
+            tag = f"{name.split(' ')[0]}{'_superseded' if 'superseded' in name else ''}"
+            x = pd.read_csv(q)[["date", "region", "new_km2", "potential_km2"]].rename(columns={"new_km2": f"A_{tag}_km2", "potential_km2": f"W_total_{tag}_km2"}); D = D.merge(x, on=["date", "region"], how="left"); src.append(q)
+    D["definition_note"] = "A_* = NEW inundation (cells allowed by the water surface outside the same-rule pre-breach regime); W_total_* = TOTAL water surface on the day (all cells allowed by the water surface, incl. channels, lakes, reed beds) -- the quantity comparable with operational 'flooded area' products; wetland submergence is in T13/T14"
+    put("T12", D, "Daily terrain-reconstructed inundation per region and key date: NEW inundation (A_*, with the Monte-Carlo p05/p95 band) and TOTAL water surface (W_total_*, all water on the day incl. pre-breach channels, lakes and reed beds), for the central run (DEM class-bias corrected), the p42 HAND rule, the ceiling-only variant, the uncorrected-DEM and superseded-closure sensitivities; volume of new water.", src, "independent_physical")
 
 
 def t13_terrain_vs_s1():

@@ -10,8 +10,8 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 - **Independent:** yes -- gauge + SWOT water surface x terrain; no EO flood mask enters
 - **Result type / dataset:** terrain reconstruction / SWOT nodes 05-26..07-10, Kherson gauge 80805, p55 seamless DEM, HAND p42
-- **Independent unit:** day; **n:** 15 key dates x 40 draws
-- **Value:** peak 235 km2 on 2023-06-07 (DEM-uncorrected sensitivity 347); 06-13 108; 06-21 4; peak volume 509 hm3; **uncertainty:** MC p05-p95 238-255 km2; volume 545-596 hm3; HAND lower bound 247 km2
+- **Independent unit:** day; **n:** 16 key dates x 40 draws
+- **Value:** peak 235 km2 on 2023-06-07 (DEM-uncorrected sensitivity 347); 06-13 108; 06-21 4; peak volume 509 hm3; TOTAL water surface 06-07 779 km2 (normal regime 06-05 488 km2); **uncertainty:** MC p05-p95 238-255 km2; volume 545-596 hm3; HAND lower bound 247 km2
 - **Evidence:** tables T12, T11b; figures Fig04, Fig07
 - **Scope:** Dnipro corridor; connected_ceiling rule; closure kherson_paper1
 - **Caveat:** planar water surface per reach; no momentum or timing of filling/draining -> recession is a lower bound; DEM under canopy

@@ -189,11 +189,13 @@ def fig04():
         pun = T / "p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv"
         if pun.exists():
             un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.new_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="DEM as delivered (reed beds counted as new)")
+        a.plot(s.t, s.potential_km2, color=FS.PALETTE["terrain"], lw=1.2, ls="-.", label="TOTAL water surface (incl. pre-breach water)")
         o = s1[s1.region == r]; full, part = o[o.coverage >= 0.9], o[o.coverage < 0.9]
+        a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=3.5, mfc="none", label="S1 total dark water")
         a.plot(full.t, full.new_water_km2, "o", color=FS.PALETTE["s1"], ms=4.5, label="S1 observed new dark water"); a.plot(part.t, part.new_water_km2, "o", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
         if r in u2b.index:
             a.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b, persistent event flood")
-        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("new inundation, km²", fontsize=7); a.set_ylim(0, None)
+        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("km²", fontsize=7); a.set_ylim(0, None)
         b.plot(s.t, s.kherson_gauge_m, color=FS.PALETTE["gauge"], lw=1.3); b.set_ylabel("Kherson\nstage, m", fontsize=6.5)
         for ax in (a, b):
             FS.date_axis(ax, BREACH, every_days=7); ax.tick_params(labelsize=6); ax.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-07-05"))

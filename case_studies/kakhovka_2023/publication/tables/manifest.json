@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-25T20:35:34Z",
- "git_commit": "46dd984010663e4c60e181ffe690da8d825c83cf",
+ "generated_utc": "2026-09-25T20:50:23Z",
+ "git_commit": "2044e2b31a752c714b4287155eba70c57c0880b6",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -217,9 +217,9 @@
    "sha256": "238f05ae1695a72ba567eba6b3a2bca73decd5c4cd8e313c4a687d5b4478f3c8"
   },
   "T12": {
-   "caption": "Daily terrain-reconstructed new inundation (area, volume) with the Monte-Carlo p05/p50/p95 band (DEM class-bias corrected, central), the p42 HAND-rule lower bound, the ceiling-only variant, the uncorrected-DEM sensitivity and the superseded-closure sensitivity; key dates, per region.",
+   "caption": "Daily terrain-reconstructed inundation per region and key date: NEW inundation (A_*, with the Monte-Carlo p05/p95 band) and TOTAL water surface (W_total_*, all water on the day incl. pre-breach channels, lakes and reed beds), for the central run (DEM class-bias corrected), the p42 HAND rule, the ceiling-only variant, the uncorrected-DEM and superseded-closure sensitivities; volume of new water.",
    "evidence_level": "independent_physical",
-   "rows": 45,
+   "rows": 48,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv",
     "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv",
@@ -228,7 +228,7 @@
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv"
    ],
-   "sha256": "94e600555de2aeb264aca3d2e739fe63558ee23f01b091ba586aaa11c5333f32"
+   "sha256": "574c2bb15989461bbca50692d8ab641924928e9539c4584ebfa5009aa6fbb362"
   },
   "T13": {
    "caption": "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (primary) and POD excluding normally-wet cells (sensitivity).",
