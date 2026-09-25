@@ -1,4 +1,6 @@
 # New in floodstate-eo, 2026-09-23. STATUS: ACTIVE. One trainer for every M6 arm on the frozen m6_split_v1.
+# Rev 2 (2026-09-25): --labels {v002,v003_A} and arm U2b (+W_pre). v002 runs (<ARM>_B1B2_v1) are untouched:
+#   a v003_A run lives in <ARM>_B1B2_v003A and writes <ARM>_v003A_score.tif. Geography, recipe, seed unchanged.
 """P86 -- train and evaluate one M6 arm (U0d, U0z, U1, ...) on B1+B2, frozen geography, D1 harness.
 
 ARMS differ ONLY in their input channels (ARMS below). Everything else is identical and inherited from the frozen
@@ -13,10 +15,16 @@ flips, seed 20260923.
 - Model selection by validation-patch F1@0.5 (as p75). Threshold: max F1 on ALL owned, labelled VALIDATION pixels of
   the full-frame blended score (unique pixels). TEST is evaluated once, after the threshold is written to disk.
 - A run directory is immutable: re-running an existing arm refuses, so TEST cannot be looked at twice by accident.
+- Labels: v002 (default, FLOOD / NON_FLOOD / IGNORE) or v003_A (p77d ontology: EVENT_FLOOD -> 1, LAND and
+  REFERENCE_WATER -> 0, UNKNOWN -> 255). v003_A is a CANDIDATE label set (not frozen); its positives are identical to
+  v002's, its negatives add recurrent May-2023 water (REFERENCE_WATER) and drop v002 NON_FLOOD pixels without
+  >= 3 admitted May dates. U2b requires v003_A: under v002 no labelled pixel has pre-breach water, so W_pre cannot be
+  supervised (NEXT_STEPS, U2b blocker).
 
 Outputs: runs/<ARM>_B1B2_v1/{config.json, normalization.json, training_history.csv, validation_threshold.json,
          eval_d1a/{endpoints,endpoints_ci,by_frame,blocks,a2_curve}.csv, model_best.pt, model_last.pt}
          $BULK_ROOT/frames10/<F>/m6/<ARM>_score.tif (uint16 x10000, nodata 65535)
+         with --labels v003_A: runs/<ARM>_B1B2_v003A/ and m6/<ARM>_v003A_score.tif
 """
 from __future__ import annotations
 import argparse, importlib.util, json, time
@@ -45,6 +53,18 @@ ARMS = {
     # normalisation, explicit has_hand indicator for its nodata domain), never a hand-made mask. Fixed before training.
     "U2": dict(s1=D_CH + SUPPORT, p73=False, hand=True,
                note="U0d + HAND (floodplain/<zone>_hand_m.tif, metres) + has_hand. NO p73, NO z_*, NO S2, NO TRACE."),
+    # H2: the immediate pre-event S1 water state (06-01 / 06-02, the last observations before the breach) separates
+    # event flood from water that was already there. W_pre is an OBSERVATION channel (0 dry / 1 water on any valid
+    # date, unobserved -> 0 + explicit has_wpre); it is read from bands w_pre_state / w_pre_valid of the v003_A label
+    # product, which are pure S1 layers (never a label). CAVEAT (recorded before training): v003_A EVENT_FLOOD is
+    # defined with w_pre_state = 0, so W_pre is also a label ingredient -- U2b tests whether the network USES the
+    # channel, not whether W_pre is informative in general.
+    "U2b": dict(s1=D_CH + SUPPORT, p73=False, hand=True, wpre=True,
+                note="U2 + W_pre (S1 06-01/06-02 water state) + has_wpre. Requires --labels v003_A."),
+}
+LABELS = {
+    "v002": dict(file="m6_labels_v002.tif", band=1, map=None, run="v1", tag=""),
+    "v003_A": dict(file="m6_labels_v003_A.tif", band=1, map={0: 0, 1: 1, 2: 0, 255: 255}, run="v003A", tag="_v003A"),
 }
 HANDZ = {"B1": "ZONE_4_DAM_TO_KHERSON_FLOODWAY", "B2": "ZONE_2_KHERSON_DELTA"}
 
@@ -90,15 +110,37 @@ def frame_tensor(fid, arm):
     return X, has
 
 
+def wpre_10m(fid):
+    """W_pre channel (0/1) and its validity mask from the v003_A S1 observation bands (never the ontology band)."""
+    with rasterio.open(OUT / fid / LABELS["v003_A"]["file"]) as s:
+        d = list(s.descriptions)
+        st = s.read(d.index("w_pre_state") + 1); nv = s.read(d.index("w_pre_valid") + 1)
+    return (st == 1).astype("f4"), (nv > 0)
+
+
+def labels_10m(fid, lab):
+    y, _ = read(fid, LABELS[lab]["file"], LABELS[lab]["band"])
+    if LABELS[lab]["map"]:
+        z = np.full(y.shape, 255, np.uint8)
+        for k, v in LABELS[lab]["map"].items():
+            z[y == k] = v
+        y = z
+    return y.astype(np.uint8)
+
+
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--arm", required=True, choices=sorted(ARMS))
+    ap.add_argument("--labels", default="v002", choices=sorted(LABELS))
     ap.add_argument("--epochs", type=int, default=60); ap.add_argument("--batch", type=int, default=6)
     ap.add_argument("--lr", type=float, default=3e-4); ap.add_argument("--stride", type=int, default=256)
     ap.add_argument("--smoke", action="store_true", help="pipeline check: separate dir, stops BEFORE test is read")
     a = ap.parse_args()
     import torch, torch.nn as nn, segmentation_models_pytorch as smp
     E = _load("m6_eval"); P84 = _load("p84_m6_split_b1b2")
-    RUN = ROOT / "runs" / (f"_smoke_{a.arm}" if a.smoke else f"{a.arm}_B1B2_v1")
+    L = LABELS[a.labels]
+    if ARMS[a.arm].get("wpre") and a.labels == "v002":
+        raise SystemExit("U2b cannot be supervised under v002 (0 labelled pixels with pre-breach water); use --labels v003_A")
+    RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}")
     if a.smoke and RUN.exists():
         import shutil; shutil.rmtree(RUN)
     if RUN.exists():
@@ -114,12 +156,16 @@ def main():
         if ARMS[a.arm].get("hand"):
             X = np.concatenate([X, hand_10m(f, F)[None]], 0)
         role, _ = read(f, f"{SPLIT}_role.tif", 1)
-        y, _ = read(f, "m6_labels_v002.tif", 1)
+        y = labels_10m(f, a.labels)
         y = np.where(np.isin(role, (1, 2, 3)) & has, y, 255).astype(np.uint8)
+        if ARMS[a.arm].get("wpre"):
+            D[f] = dict(wpre=wpre_10m(f))
+        else:
+            D[f] = {}
         p73 = P84.p73_10m(f, F)
         gx = F["transform"].c + 10.0 * np.arange(F["nx"]); gy = F["transform"].f - 10.0 * np.arange(F["ny"])
         blk = np.floor(gy / P84.BLOCK_M).astype("i8")[:, None] * 100000 + np.floor(gx / P84.BLOCK_M).astype("i8")[None, :]
-        D[f] = dict(F=F, X=X, has=has, role=role, y=y, p73=p73, blk=blk)
+        D[f].update(F=F, X=X, has=has, role=role, y=y, p73=p73, blk=blk)
     half = PATCH // 2
 
     # ---- normalisation from TRAIN patch pixels only -------------------------------------------------------------
@@ -143,9 +189,13 @@ def main():
             extra.append(np.isfinite(D[f]["X"][-1])[None].astype("f4"))      # has_hand, from the raw (pre-norm) HAND
         if ARMS[a.arm]["p73"]:
             extra.append(np.stack([(D[f]["p73"] == k).astype("f4") for k, _ in P73_ONEHOT]))
+        if ARMS[a.arm].get("wpre"):
+            wp, wv = D[f].pop("wpre")
+            extra += [wp[None], wv[None].astype("f4")]                    # W_pre (unnormalised 0/1) + has_wpre
         D[f]["X"] = np.concatenate([Z] + extra, 0)
     chans = (ARMS[a.arm]["s1"] + (["hand_m"] if ARMS[a.arm].get("hand") else []) + ["has_event"]
-             + (["has_hand"] if ARMS[a.arm].get("hand") else []) + ([n for _, n in P73_ONEHOT] if ARMS[a.arm]["p73"] else []))
+             + (["has_hand"] if ARMS[a.arm].get("hand") else []) + ([n for _, n in P73_ONEHOT] if ARMS[a.arm]["p73"] else [])
+             + (["w_pre_state", "has_wpre"] if ARMS[a.arm].get("wpre") else []))
     json.dump(dict(channels=chans, median=med.ravel().tolist(), iqr=iqr.ravel().tolist(),
                    source="TRAIN patch pixels with an S1 event, both frames, 1M-pixel sample per frame",
                    has_event="appended unnormalised (1 = >= 1 S1 event observed)"),
@@ -216,10 +266,11 @@ def main():
         sc = acc / np.maximum(ws, 1e-9); sc[~D[f]["has"]] = np.nan; D[f]["score"] = sc
         (OUT / f / "m6").mkdir(exist_ok=True)
         q = np.where(np.isfinite(sc), np.round(sc * 10000), 65535).astype("u2")
-        with rasterio.open(OUT / f / "m6" / f"{a.arm}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
+        with rasterio.open(OUT / f / "m6" / f"{a.arm}{L['tag']}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
                            count=1, dtype="uint16", nodata=65535, crs=CFG.CRS_METRIC, transform=F["transform"],
                            compress="deflate", tiled=True, blockxsize=512, blockysize=512) as o:
-            o.write(q, 1); o.update_tags(arm=a.arm, split=SPLIT, meaning="weak-label U-Net score, not flood probability")
+            o.write(q, 1); o.update_tags(arm=a.arm, split=SPLIT, labels=L["file"],
+                                         meaning="weak-label U-Net score, not flood probability")
 
     # ---- threshold on VALIDATION unique pixels, written BEFORE test is read ---------------------------------------
     sv, yv = [], []
@@ -243,7 +294,10 @@ def main():
         D[f].pop("X")                                                   # free memory; scores are all that is needed
     ep, byf, curve = E.evaluate_arm(RUN, a.arm, D, thr)
     json.dump(dict(arm=a.arm, channels=chans, note=ARMS[a.arm]["note"], split=SPLIT, split_manifest=man.get("version"),
-                   labels="m6_labels_v002", epochs=a.epochs, batch=a.batch, lr=a.lr, seed=SEED, stride=a.stride,
+                   labels=L["file"].replace(".tif", ""), label_map=L["map"],
+                   wpre_source=(f"{L['file']} bands w_pre_state/w_pre_valid (S1 2023-06-01/02 observation layers)"
+                                if ARMS[a.arm].get("wpre") else None),
+                   epochs=a.epochs, batch=a.batch, lr=a.lr, seed=SEED, stride=a.stride,
                    architecture="smp.Unet resnet34, encoder_weights=None", loss="masked BCE + Dice",
                    meaning="agreement with held-out weak reference labels; NOT flood-mapping accuracy",
                    seconds=round(time.time() - t0)), open(RUN / "config.json", "w"), indent=2)

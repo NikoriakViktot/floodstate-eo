@@ -2,7 +2,7 @@
 """P88 -- arm B vs arm A on the frozen m6_split_v1 TEST: side-by-side D1 (+ A1/A2) endpoints per frame and pooled,
 and the paired spatial-block bootstrap of B - A (physical blocks, 2000 resamples). Reads only eval_d1a/ outputs.
 
-Output: runs/compare_<A>_vs_<B>/{pooled.csv, by_frame.csv, paired_bootstrap.csv}
+Output: runs/compare_<A>_vs_<B>[_<run>]/{pooled.csv, by_frame.csv, paired_bootstrap.csv}
 """
 from __future__ import annotations
 import argparse, importlib.util
@@ -14,11 +14,13 @@ RUNS = HERE.parents[1] / "runs"
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("a"); ap.add_argument("b"); x = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("a"); ap.add_argument("b")
+    ap.add_argument("--run", default="v1", help="run-directory suffix: v1 (v002 labels) or v003A (v003_A labels)")
+    x = ap.parse_args()
     s = importlib.util.spec_from_file_location("m6_eval", HERE / "m6_eval.py")
     E = importlib.util.module_from_spec(s); s.loader.exec_module(E)
-    ra, rb = RUNS / f"{x.a}_B1B2_v1" / "eval_d1a", RUNS / f"{x.b}_B1B2_v1" / "eval_d1a"
-    od = RUNS / f"compare_{x.a}_vs_{x.b}"; od.mkdir(exist_ok=True)
+    ra, rb = RUNS / f"{x.a}_B1B2_{x.run}" / "eval_d1a", RUNS / f"{x.b}_B1B2_{x.run}" / "eval_d1a"
+    od = RUNS / (f"compare_{x.a}_vs_{x.b}" + ("" if x.run == "v1" else f"_{x.run}")); od.mkdir(exist_ok=True)
     pa = pd.read_csv(ra / "endpoints.csv", index_col=0).value
     pb = pd.read_csv(rb / "endpoints.csv", index_col=0).value
     P = pd.DataFrame({x.a: pa, x.b: pb}); P.to_csv(od / "pooled.csv")
