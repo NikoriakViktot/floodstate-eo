@@ -1,0 +1,2214 @@
+{
+ "generated_utc": "2026-09-25T20:24:46Z",
+ "grid": {
+  "crs": "EPSG:4326",
+  "dlon": 0.001,
+  "dlat": 0.00072,
+  "nx": 1400,
+  "ny": 1111,
+  "bounds": [
+   [
+    46.35,
+    32.15
+   ],
+   [
+    47.15,
+    33.55
+   ]
+  ]
+ },
+ "layers": [
+  {
+   "id": "terrain_daily_2023-05-26",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-26.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-05-27",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-05-28",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-05-29",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-29.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-05-30",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-05-31",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-05-31.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-01",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-01.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-02",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-03",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-04",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-04.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-05",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-05.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-06",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-06.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 14710,
+   "sha256": "ae3e567af17011693ff3bfe09a1c68087864c66f50b23d67ea10f995442ad882",
+   "area_km2_by_class": {
+    "1": 211.4
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-07",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 16565,
+   "sha256": "d233b4900cf7f63334e9e33bc372c1d1ee05f19a266ba81ff437c6508d9abce5",
+   "area_km2_by_class": {
+    "1": 274.6
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-08",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 16689,
+   "sha256": "1654bdf9971b8d7eff78d1a4dfdfef44c6ad6d25e866d5bace4f2aac0b893db0",
+   "area_km2_by_class": {
+    "1": 267.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-09",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-09.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 15670,
+   "sha256": "491870e8e359431861e455806be564777d44f8a608a00576370aa987d7f7d984",
+   "area_km2_by_class": {
+    "1": 228.1
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-10",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 14057,
+   "sha256": "39f74b83ac3f0af2db79d9fa747114db9a72af5c5b6f3772db87ef9ad5e0e41b",
+   "area_km2_by_class": {
+    "1": 199.9
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-11",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-11.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 13487,
+   "sha256": "aa869f79055b1b0b4f41eaaa8e7b430dc3821e69c83edbde0caa885bfcf0417e",
+   "area_km2_by_class": {
+    "1": 184.6
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-12",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-12.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 13313,
+   "sha256": "06fa8e4dd0a7eb612ccb3a33a476c65d3e4b99772e4001cf1d885a29034ad6ff",
+   "area_km2_by_class": {
+    "1": 167.7
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-13",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-13.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 12939,
+   "sha256": "c64171eadd75c0e952ae4ac5730d10f6ede710ea4e1a74bd431b598bc43afb17",
+   "area_km2_by_class": {
+    "1": 144.5
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-14",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-14.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 12665,
+   "sha256": "6fddc85d310191ca7e673080c3e7934dba6cecd8ca4323e1345281958bd372e5",
+   "area_km2_by_class": {
+    "1": 118.5
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-15",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-15.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 12158,
+   "sha256": "4690575e46c0f1ba22aa4081fd3714ee02d980165201e562ead989f4345aaf56",
+   "area_km2_by_class": {
+    "1": 99.4
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-16",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-16.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 11239,
+   "sha256": "d35d2d4e6e08a4208fcdc089f63b2dc8700436c3a9b338df0234296577b0c469",
+   "area_km2_by_class": {
+    "1": 76.9
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-17",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-17.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 10459,
+   "sha256": "0f80cdd9f51da29bec12d7c066110f083e55fe05677c40b2606bd89d676bbcde",
+   "area_km2_by_class": {
+    "1": 61.2
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-18",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 9219,
+   "sha256": "f1c56da585f04c54119245b4a549c47bebd5c710de140ade3d618f3edcfb004c",
+   "area_km2_by_class": {
+    "1": 44.2
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-19",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-19.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 7812,
+   "sha256": "ae3e1662455d0e64859dcf0a68800fe38b90095e690f4a5dc1c1c1c2728a63a7",
+   "area_km2_by_class": {
+    "1": 30.7
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-20",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-20.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 5423,
+   "sha256": "e4402551ec890c177cb2bd44ababf75921a73692651cb3d3aa853a1519f5786d",
+   "area_km2_by_class": {
+    "1": 14.5
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-21",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-21.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 3380,
+   "sha256": "d65b1007cdb1d864ed0fbdac200cad06d411fdc71b4e3f2ddfaad332d119e52f",
+   "area_km2_by_class": {
+    "1": 3.7
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-22",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-22.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2545,
+   "sha256": "1f5bbfea29583ae211d8cf9b77c02a1cda2e08df06e52d6118fd7f1660fd33ac",
+   "area_km2_by_class": {
+    "1": 0.4
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-23",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-23.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2405,
+   "sha256": "095661f70a5d2634c13a10cee753aac12fce8b675cabc711c28922a31ad2aca5",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-24",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-24.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2386,
+   "sha256": "f730ed5aafd3e62e139e727f2ff53d083c5de037988d061b81c9f94ecaea08f8",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-25",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-25.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2389,
+   "sha256": "d91bb6128686a08b441280655af581019691aeb65dea698e0bdb0bc3846dc9dc",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-26",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-26.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-27",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2388,
+   "sha256": "9023e46ed2942b78f4a455f4d46f3743186ae5f0113fefd41bbd06bb429adbb0",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-28",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2391,
+   "sha256": "9d8433afa1e93ffcca820475a3d02ca9e525a3f3188c78943908286caa1a0edc",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-29",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-29.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2398,
+   "sha256": "1f9e7e431842cf7609bf50d05b78d2f7c2768f673200dbafa97d2df53f026556",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-06-30",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-06-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2403,
+   "sha256": "caa8bbfd974cf9290f6a16ecbc37ce27cde2d36669915df1461bc20cd0c9f8b3",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-01",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-01.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2712,
+   "sha256": "69224291fce97f93ebd2ee2a64bc87906fdb2067a347590d62b2f8e410034376",
+   "area_km2_by_class": {
+    "1": 1.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-02",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2398,
+   "sha256": "a0f0b8fac635c1487bebd9da2e51ec3a8cd5c7dd4aac0e8aee1de2a1b1d24d83",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-03",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2394,
+   "sha256": "ab12f0bc510b633bfb0b17e4b6838ad49a1d9d5e036a29eba1011f9badebce84",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-04",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-04.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2387,
+   "sha256": "ee732300efa85732dc3311e86a4f950438dd4bccdcc996da91671e701afca0b2",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-05",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-05.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-06",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-06.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-07",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-08",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-09",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-09.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_daily_2023-07-10",
+   "group": "terrain_daily",
+   "file": "terrain/daily/2023-07-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "terrain-reconstructed new inundation"
+   },
+   "palette": {
+    "1": "#2a78d6"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "terrain_duration",
+   "group": "terrain_summary",
+   "file": "terrain/terrain_duration.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "1\u20133 d",
+    "2": "4\u20137 d",
+    "3": "8\u201314 d",
+    "4": "\u2265 15 d"
+   },
+   "palette": {
+    "1": "#f4f8fc",
+    "2": "#eda100",
+    "3": "#e34948",
+    "4": "#4a3aa7"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 25257,
+   "sha256": "f57402f78bc00856377fbe494108032d68c239b6f48871e5a640e7dccad03a3b",
+   "area_km2_by_class": {
+    "1": 128.7,
+    "2": 58.1,
+    "3": 125.0,
+    "4": 13.8
+   }
+  },
+  {
+   "id": "terrain_max_depth",
+   "group": "terrain_summary",
+   "file": "terrain/terrain_max_depth.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "< 0.5 m",
+    "2": "0.5\u20131 m",
+    "3": "1\u20132 m",
+    "4": "2\u20134 m",
+    "5": "> 4 m"
+   },
+   "palette": {
+    "1": "#dbe9f8",
+    "2": "#9cc0ea",
+    "3": "#5a93da",
+    "4": "#2a78d6",
+    "5": "#0b2a5c"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 30099,
+   "sha256": "a446e012385072e2f1d168f6e0ae2254de08e4279d7fc3d224c090765b3afb84",
+   "area_km2_by_class": {
+    "1": 29.3,
+    "2": 30.6,
+    "3": 84.7,
+    "4": 114.1,
+    "5": 66.8
+   }
+  },
+  {
+   "id": "terrain_depth_20230608",
+   "group": "terrain_summary",
+   "file": "terrain/terrain_depth_20230608.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "< 0.5 m",
+    "2": "0.5\u20131 m",
+    "3": "1\u20132 m",
+    "4": "2\u20134 m",
+    "5": "> 4 m"
+   },
+   "palette": {
+    "1": "#dbe9f8",
+    "2": "#9cc0ea",
+    "3": "#5a93da",
+    "4": "#2a78d6",
+    "5": "#0b2a5c"
+   },
+   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "note": "",
+   "bytes": 27449,
+   "sha256": "50d74589fb5f65348d085bae15bd6edbc7c49fc4af7aff141bdaf531f170c606",
+   "area_km2_by_class": {
+    "1": 35.0,
+    "2": 41.5,
+    "3": 61.6,
+    "4": 85.5,
+    "5": 43.3
+   }
+  },
+  {
+   "id": "s1_new_2023-06-01",
+   "group": "s1_daily",
+   "file": "s1/2023-06-01_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "91331a5a7ce28cbf06347c5dab915128aef480a1323724129f28ea72b9ed22de",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-01",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-01_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6345,
+   "sha256": "4b6bf53e3d2e8230c9223d6ac8da74c69deac85ce47685e125710a8876e675e9",
+   "area_km2_by_class": {
+    "1": 3901.3
+   }
+  },
+  {
+   "id": "s1_new_2023-06-02",
+   "group": "s1_daily",
+   "file": "s1/2023-06-02_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 2380,
+   "sha256": "91331a5a7ce28cbf06347c5dab915128aef480a1323724129f28ea72b9ed22de",
+   "area_km2_by_class": {
+    "1": 0.0
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-02",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-02_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6088,
+   "sha256": "809361aa78c7d7e4fc4f66796e110f346e3adcd51d1a11aee6176df171b1ad88",
+   "area_km2_by_class": {
+    "1": 3612.2
+   }
+  },
+  {
+   "id": "s1_new_2023-06-06",
+   "group": "s1_daily",
+   "file": "s1/2023-06-06_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 11612,
+   "sha256": "23bb3fb6f52f96c59a985a0af8d143255aa33b7554c11d320248f8da30ca5599",
+   "area_km2_by_class": {
+    "1": 46.6
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-06",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-06_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 5170,
+   "sha256": "fca75f8edcc2b5b654cbd55414cd654ee0054277164fa24b10bc263923e1952d",
+   "area_km2_by_class": {
+    "1": 2442.7
+   }
+  },
+  {
+   "id": "s1_new_2023-06-09",
+   "group": "s1_daily",
+   "file": "s1/2023-06-09_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 30635,
+   "sha256": "15cb38143f08b6aa2f153d30c98d9f1291269bc44e0a5d051c9447a782fd17ab",
+   "area_km2_by_class": {
+    "1": 367.8
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-09",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-09_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6282,
+   "sha256": "83c18dadbd26afa2b0917f81646ff1dc5512df896091fa86fed18cb9f4dbf25c",
+   "area_km2_by_class": {
+    "1": 3733.5
+   }
+  },
+  {
+   "id": "s1_new_2023-06-13",
+   "group": "s1_daily",
+   "file": "s1/2023-06-13_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 19123,
+   "sha256": "11126d0240f109a97c41645cb95dddcc002f2c8377f6734e59b03be9cd59bcee",
+   "area_km2_by_class": {
+    "1": 209.9
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-13",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-13_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6345,
+   "sha256": "4b6bf53e3d2e8230c9223d6ac8da74c69deac85ce47685e125710a8876e675e9",
+   "area_km2_by_class": {
+    "1": 3901.3
+   }
+  },
+  {
+   "id": "s1_new_2023-06-14",
+   "group": "s1_daily",
+   "file": "s1/2023-06-14_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 17807,
+   "sha256": "3fdb3b40c87a59503b7bc2de3c829d06f5b699cd0685411005dc0e9a01c2b331",
+   "area_km2_by_class": {
+    "1": 136.3
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-14",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-14_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6091,
+   "sha256": "553aadd4a211efdc5771cc80fd33302c434259d7c19f80c6e8948b8c41b592ae",
+   "area_km2_by_class": {
+    "1": 3612.9
+   }
+  },
+  {
+   "id": "s1_new_2023-06-18",
+   "group": "s1_daily",
+   "file": "s1/2023-06-18_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 16511,
+   "sha256": "35ac1e9ea7e9cabc8b906e89d32d927ebb0b8f51bd142d549eb53edab3d45fc2",
+   "area_km2_by_class": {
+    "1": 86.1
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-18",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-18_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 5169,
+   "sha256": "c4a21da204d9bd8b46d3b7d70d2e89f83fb788a0ec03e1a07b673095a06cce6d",
+   "area_km2_by_class": {
+    "1": 2436.2
+   }
+  },
+  {
+   "id": "s1_new_2023-06-21",
+   "group": "s1_daily",
+   "file": "s1/2023-06-21_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 30664,
+   "sha256": "1f57b09fe7d1735c5a3696ceddb7ae95dab5273fa3311c068145451bcc15ed80",
+   "area_km2_by_class": {
+    "1": 218.3
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-21",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-21_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6279,
+   "sha256": "bd4ed9e39e75313357e32f06199ccb8c3b8aa376fcef40d1a4c4424c1357a910",
+   "area_km2_by_class": {
+    "1": 3729.6
+   }
+  },
+  {
+   "id": "s1_new_2023-06-25",
+   "group": "s1_daily",
+   "file": "s1/2023-06-25_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 23851,
+   "sha256": "05129f04e9cd200e1e12ccafe11a5d741ccb6870304fe7b73660b4b5d3b93570",
+   "area_km2_by_class": {
+    "1": 146.9
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-25",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-25_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6345,
+   "sha256": "4b6bf53e3d2e8230c9223d6ac8da74c69deac85ce47685e125710a8876e675e9",
+   "area_km2_by_class": {
+    "1": 3901.3
+   }
+  },
+  {
+   "id": "s1_new_2023-06-26",
+   "group": "s1_daily",
+   "file": "s1/2023-06-26_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 11816,
+   "sha256": "09e6a358b9ea7b54911bf7b41122f4e20857bfc74762ea3ada057cbcc8fb08a4",
+   "area_km2_by_class": {
+    "1": 64.5
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-26",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-26_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 6098,
+   "sha256": "c89361091142539c7dc3894bca5f9921bd2312c398639bc039dd52d9405e2e58",
+   "area_km2_by_class": {
+    "1": 3616.2
+   }
+  },
+  {
+   "id": "s1_new_2023-06-30",
+   "group": "s1_daily",
+   "file": "s1/2023-06-30_new.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 new dark water (not water on 06-01/02)"
+   },
+   "palette": {
+    "1": "#eb6834"
+   },
+   "source": "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m",
+   "note": "",
+   "bytes": 25362,
+   "sha256": "185ac330a567da83ae56102b202f895d06561e042fd3e0df982198d0179d49c6",
+   "area_km2_by_class": {
+    "1": 163.3
+   }
+  },
+  {
+   "id": "s1_footprint_2023-06-30",
+   "group": "s1_footprint",
+   "file": "s1/2023-06-30_footprint.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "S1 valid footprint"
+   },
+   "palette": {
+    "1": "#c3c2b7"
+   },
+   "source": "s1_zone_cache valid masks",
+   "note": "",
+   "bytes": 5169,
+   "sha256": "f6eaf5e04c4e09864181dc06103ac53324f2165800911b2d2aee5182479e0fe0",
+   "area_km2_by_class": {
+    "1": 2445.0
+   }
+  },
+  {
+   "id": "unet_U2b_v003A",
+   "group": "unet",
+   "file": "unet/U2b_v003A.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "U2b (v003_A) predicted flood, score \u2265 0.78"
+   },
+   "palette": {
+    "1": "#4a3aa7"
+   },
+   "source": "runs/U2b_B1B2_v003A",
+   "note": "agreement with weak labels; persistent-water concept",
+   "bytes": 18769,
+   "sha256": "f87e465df6ab53ffd2e796fbf67f210a8049f0043efef0da4f210274c59751e1",
+   "area_km2_by_class": {
+    "1": 280.2
+   }
+  },
+  {
+   "id": "unet_U2_v1",
+   "group": "unet",
+   "file": "unet/U2_v1.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "U2 (v002) predicted flood, score \u2265 0.5"
+   },
+   "palette": {
+    "1": "#8a7fd6"
+   },
+   "source": "runs/U2_B1B2_v1",
+   "note": "agreement with weak labels",
+   "bytes": 26689,
+   "sha256": "85b8762ded2c07f849927df6c8e31f27420cf5405a806cff916c81247032f3c8",
+   "area_km2_by_class": {
+    "1": 396.4
+   }
+  },
+  {
+   "id": "labels_v003A",
+   "group": "labels",
+   "file": "labels/v003A.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "LAND",
+    "2": "EVENT_FLOOD",
+    "3": "REFERENCE_WATER",
+    "4": "UNKNOWN"
+   },
+   "palette": {
+    "1": "#efece6",
+    "2": "#2a78d6",
+    "3": "#b9c7d6",
+    "4": "#f7f5f0"
+   },
+   "source": "m6_labels_v003_A (FROZEN)",
+   "note": "weak reference labels",
+   "bytes": 87280,
+   "sha256": "caad129f5370c2864a8a871e003823a705ddabc2ac092b5dfc433faf5a894388",
+   "area_km2_by_class": {
+    "1": 1972.3,
+    "2": 158.9,
+    "3": 483.0,
+    "4": 4874.1
+   }
+  },
+  {
+   "id": "rf_p73",
+   "group": "rf",
+   "file": "rf/p73.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#5b9bd5",
+    "2": "#eda100",
+    "3": "#b5d33d",
+    "4": "#1b7f3b",
+    "5": "#8fbc8f",
+    "6": "#1baf7a",
+    "7": "#7d3c98",
+    "8": "#e8d8a0",
+    "9": "#95a5a6",
+    "10": "#d8dbdd"
+   },
+   "source": "p73 RF20 (FROZEN)",
+   "note": "context, agreement with WorldCover",
+   "bytes": 201180,
+   "sha256": "3d72b1ca908e20f6fbd8cad46e2b8d15b68aa63789311fb5c4d1810ab3d79a81",
+   "area_km2_by_class": {
+    "1": 282.7,
+    "2": 4060.8,
+    "3": 1274.2,
+    "4": 635.9,
+    "5": 0.0,
+    "6": 367.2,
+    "7": 306.2,
+    "8": 126.5,
+    "9": 0.0,
+    "10": 434.6
+   }
+  },
+  {
+   "id": "frames_and_points",
+   "group": "context",
+   "file": "context/frames_and_points.geojson",
+   "bounds": null,
+   "legend": {},
+   "source": "own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)",
+   "bytes": 2027,
+   "sha256": "755c58f27c936d2fc0f6085fe5da6bb4272be3a597a2394346d3444eb3f58b3e"
+  },
+  {
+   "id": "p42_floodplain",
+   "group": "context",
+   "file": "context/p42_floodplain.geojson",
+   "bounds": null,
+   "legend": {},
+   "source": "own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)",
+   "bytes": 740686,
+   "sha256": "40d8c395542fa990381c6625547b674f51e1ce1e250695cf3708796b18cee6be"
+  }
+ ],
+ "total_bytes": 1678779,
+ "n_layers": 77,
+ "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless DEM; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
+}

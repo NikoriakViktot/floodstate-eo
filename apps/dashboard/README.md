@@ -1,0 +1,14 @@
+# FloodState-EO · Kakhovka 2023 dashboard (Streamlit)
+
+Reads only committed tables (`case_studies/kakhovka_2023/{tables,publication}`) and the pre-rendered layers in
+`apps/dashboard/data/` (classed PNG overlays in EPSG:4326 + GeoJSON context, manifest with sha256). No bulk data, no
+rasterio, no FABDEM-derived numeric raster is served.
+
+Run locally: `pip install -r apps/dashboard/requirements.txt && streamlit run apps/dashboard/streamlit_app.py`
+Rebuild layers (needs the bulk root): `python case_studies/kakhovka_2023/workflows/paper/p98_dashboard_layers.py`
+Deploy (Streamlit Community Cloud): repository `NikoriakViktot/floodstate-eo`, branch `main`, main file
+`apps/dashboard/streamlit_app.py`, Python 3.12, no secrets. If the platform does not pick up this directory's
+`requirements.txt`, add a root `requirements.txt` containing `-r apps/dashboard/requirements.txt`.
+
+Licence note: terrain layers derive from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) through the seamless DEM and are
+provided as rendered classed images for non-commercial use with attribution; they are not covered by the repository's MIT licence.
