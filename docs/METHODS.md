@@ -61,7 +61,7 @@ benchmark practice separates the same quantities: observed water, observed flood
    Product ontology: LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN (never-observed stays UNKNOWN, not LAND).
 5. **Terrain** `[implemented: U2 arm, p86]`. HAND is a plausibility feature, not a water detector and not a hard mask
    [Tupas_2023]. On the frozen split U2 (+HAND) reduced predicted flood on unlabelled cropland by 9.6 km²
-   (95 % block-bootstrap CI −14.8 to −5.1) without a detectable recall loss.
+   (95 % block-bootstrap CI −14.8 to −5.1) with no statistically resolved change in recall (interval crosses zero).
 6. **Urban** `[proposed]`. Separate treatment: absolute backscatter is hard to interpret among buildings; multi-temporal
    change is required [Giustarini_2013]. U2 moved errors into BUILT_UP (+0.37 km²).
 7. **Evaluation.** Frozen B1+B2 split (m6_split_v1), agreement with held-out weak labels — not flood-mapping accuracy.
@@ -91,8 +91,8 @@ benchmark practice separates the same quantities: observed water, observed flood
     WorldCover/RF20 class and ground elevation above the surface; ICESat-2 altimetric consistency check (night ATL08 vs DEM
     and the 06-09 surface); SWOT-input vs gauge at day level; DEM accuracy by class from Paper 2.
 26. **Publication assembly** `[implemented: workflows/paper/p96–p99, render_claims]`. Claims register
-    (`publication/evidence_matrix.csv`, Paper-1 schema + evidence_level/tier) → tables T01–T20 with manifest → figures
-    Fig01–Fig08 + supplement → three executable notebooks → Streamlit dashboard (`apps/dashboard`). Wording rules: model
+    (`publication/evidence_matrix.csv`, Paper-1 schema + evidence_level/tier) → tables T01–T22 with manifest → figures
+    Fig01–Fig09 + supplement (FigS01–S07) → three executable notebooks → Streamlit dashboard (`apps/dashboard`). Terminology frozen in `publication/TERMINOLOGY.md` (enforced by `tests/test_terminology_freeze.py`; consolidation review 2026-09-26). Wording rules: model
     numbers are agreement with weak labels; not observed is not dry; area semantics named; cropland-associated SAR candidates.
 
 ### Key references

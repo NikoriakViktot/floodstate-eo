@@ -10,8 +10,8 @@ terrain below 1 m (channels, lakes), frames B1 (dam → Kherson) and B2 (Kherson
 terrain-eligible floodplain, the cut rectangles that separate the Inhulets valley and the terraces from the Dnipro reach,
 SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gauge 80805 and the dam.
 
-**Fig02 Evidence hierarchy.** The physical reconstruction (gauge-anchored SWOT water surface × terrain connectivity) is the
-main axis; Sentinel-1 per date, ICESat-2 and the SWOT–gauge comparison check it; the RF20 surface classes and the elevation
+**Fig02 Evidence hierarchy.** The observation-constrained terrain inundation reconstruction (gauge-anchored SWOT water surface × terrain
+connectivity; no momentum or continuity equations) is the main axis; Sentinel-1 per date, ICESat-2 and the SWOT–gauge comparison check it; the RF20 surface classes and the elevation
 above the surface explain the disagreements; the U-Net arms show what EO inputs recover under weak labels.
 
 **Fig03 U-Net weak-label experiment.** (a, b) Flood-state map of arm U2b (labels v003_A) on frames B1 and B2 at its frozen
@@ -20,18 +20,14 @@ TEST blocks outlined. (c) Paired differences on identical spatial blocks (median
 and RF20 inputs on v002, the label effect v002 → v003_A at fixed inputs, and the W_pre input (grey: not independent, W_pre is
 a label ingredient). All numbers are agreement with weak reference labels (T06, T07b).
 
-**Fig04 Daily inundation, dam → liman.** (a–c) TOTAL water surface per day (all water on the day, including pre-breach
-channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley: deterministic run
-(black), 100 000-draw emulator per day as candles (p05–p95 whisker, p25–p75 body, median), the DEM-as-delivered sensitivity
-(orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial coverage). (d–f) New inundation
-(cumulative, black) with its daily change as bars (blue filling, orange draining) and the U-Net U2b persistent-event-flood area.
-(g–i) Kherson stage. Areas are terrain_reconstructed or observed_S1 (T12, T19).
-
-**Fig04 (previous caption, superseded) Daily terrain-reconstructed inundation.** New inundation (water on cells that were not water in the pre-breach regime)
-per day for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley: connected-ceiling rule (central, DEM
-class-bias corrected), Monte-Carlo p05–p95 band (T11b), p42 HAND rule (lower bound), Sentinel-1 observed new dark water per
-acquisition date (open symbols: partial coverage), the U2b persistent-event-flood area (mapped_UNet) and the Kherson stage.
-Areas are terrain_reconstructed or observed_S1 (T12, T13, T19).
+**Fig04 Daily reconstructed series, dam → liman.** (a–c) Reconstructed total water-surface area per day (all water on the day,
+including pre-breach channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley:
+central run (black), the PRIMARY interval (shaded: p05–p95 of the 40 spatial Monte-Carlo draws, key dates), the emulator
+sensitivity envelope (candles: 100 000 draws per day, p05–p95 whisker, p25–p75 body, median; area only, a broader parameter
+space), the DEM-as-delivered sensitivity (orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
+coverage). (d–f) Reconstructed newly inundated area (black) with its daily change as bars (blue filling, orange draining) and the
+U-Net U2b persistent-event-flood area. (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
+the areal maximum (7 June) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
 **Fig05 Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint:
 A both, B terrain only, C S1 only split by ground elevation relative to the reconstructed surface. (b) B by WorldCover class:
@@ -44,21 +40,24 @@ EGG2015-referenced heights; the reconstruction itself is node-based (no chainage
 3 km of the Kherson gauge against the gauge after re-anchoring to the Kherson-local closure of Paper 1. (c) Residuals gauge −
 SWOT (T17).
 
-**Fig07 Event-scale spatial result.** (a) Depth of terrain-reconstructed new inundation on 2023-06-08, the peak day without a
-satellite scene. (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, central run;
+**Fig07 Event-scale spatial result.** (a) Depth of the reconstructed newly inundated area on 2023-06-08, one day after the
+reconstructed areal maximum and without a satellite scene. (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, central run;
 rasters derived from FABDEM through the seamless DEM (not redistributed).
 
 **Fig08 ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per
 agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments
-below it: where S1 reports water ≥ 2 m above the surface the DEM is confirmed to within a few decimetres and essentially no
-segment lies below the water (T15). A track-based consistency check, not a validation of the map.
+below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
+within a few decimetres along the tracks and essentially no segment lies below the water, so the available ICESat-2
+observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency
+check that supports this reading; it does not sample every cell and does not validate the map.
 
 **Fig09 Reservoir drawdown and the downstream flood.** (a) Water levels in one frame: SWOT outlet nodes, Nikopol post
 (press values), Rozumivka gauge, ICESat-2 passes, G-REALM, and the Kherson stage downstream. (b) Pool volume and water area
 under the sloped daily surface integrated on the seamless DEM inside the pre-breach pool polygon; Sentinel-1 water areas of
-Yi (2025) for comparison (VERIFY). (c) Daily balance: volume released from the pool (−dV/dt), DniproHES inflow and the
-terrain-reconstructed new water stored downstream (corridor + Inhulets). (d) Hypsometry of the seamless DEM against the
-design Table 19 (T21, T22).
+Yi et al. (2025) for comparison (VERIFY). (c) Daily balance: daily-mean effective release from the pool (−dV/dt + Q_in; a
+storage-balance estimate, not an instantaneous breach discharge), DniproHES inflow and the reconstructed new water stored
+downstream (corridor + Inhulets). (d) Hypsometry of the seamless DEM against the design Table 19 (T21, T22; FigS07 for the
+relative gap).
 
 ## Supplementary figures
 
@@ -66,12 +65,16 @@ design Table 19 (T21, T22).
 (connected, HAND, ceiling only, superseded p59 closure with +0.5 m margin, uncorrected DEM). **FigS03** per-date S1 and reliable S2
 new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-block CV) and per-class F1 for CV and transfers.
 **FigS05** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
-**FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band.
+**FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
+sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
+level over the drawdown range (shaded), about −9 % at the full-pool level and −15…−20 % at 11–13 m; the design table is undefined
+below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
 
 ## Tables
 
 See `tables/README.md` (generated): T01 data inventory · T02/T02b labels and transition · T03/T03b/T03c split · T04 arms ·
 T05 D1 endpoints with intervals · T06 paired comparisons · T07/T07b v003_A attribution endpoints · T08/T08b audit and retention ·
 T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T12 daily area/volume with the Monte-Carlo band ·
-T13 terrain vs S1 · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting with semantics · T17/T17b SWOT-input vs gauge ·
-T18 DEM accuracy (Paper 2) · T19 per-date series · T20 block-size sensitivity.
+T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting
+with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T18 DEM accuracy (Paper 2) · T19 per-date series ·
+T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap.

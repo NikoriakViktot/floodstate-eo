@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-25T21:14:55Z",
- "git_commit": "d293ae8acf74769ead9ee3642e28a521b719e5b7",
+ "generated_utc": "2026-09-26T05:11:32Z",
+ "git_commit": "6734f31f11b65465ba1c0e958608d90284ac22b8",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -217,7 +217,7 @@
    "sha256": "238f05ae1695a72ba567eba6b3a2bca73decd5c4cd8e313c4a687d5b4478f3c8"
   },
   "T12": {
-   "caption": "Daily terrain-reconstructed inundation per region and key date: TOTAL water surface (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; p05..p95 of 100 000 emulator draws) and NEW inundation (A_*: 40 spatial Monte-Carlo draws p05/p50/p95 and 100 000 emulator draws p05..p95), for the central run (DEM class-bias corrected), the p42 HAND rule, the ceiling-only variant, the uncorrected-DEM and superseded-closure sensitivities; volume of new water.",
+   "caption": "Daily terrain-reconstructed inundation per region and key date: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds) and reconstructed NEWLY INUNDATED area (A_*) with the volume of new water (V_*). PRIMARY intervals p05/p50/p95 from the 40 spatial Monte-Carlo draws (p95e); *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). Central run (DEM class-bias corrected), p42 HAND rule, ceiling-only, uncorrected-DEM and superseded-closure sensitivities. Daily reconstructed series, not daily observations.",
    "evidence_level": "independent_physical",
    "rows": 48,
    "sources": [
@@ -229,10 +229,10 @@
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv"
    ],
-   "sha256": "397926a5e19945723e52bc23ebd26f5222ce78b9e7e784acd5424eff966ecbf1"
+   "sha256": "6ccd8a6144be5f832c05e5d0ba7f6c4a7e323e64d43a46f65f91b43e6aa0d94b"
   },
   "T13": {
-   "caption": "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (primary) and POD excluding normally-wet cells (sensitivity).",
+   "caption": "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (raw agreement, primary) and the conditional POD outside the normally-wet class (diagnostic).",
    "evidence_level": "cross_sensor",
    "rows": 165,
    "sources": [
@@ -242,7 +242,7 @@
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv"
    ],
-   "sha256": "e8df894dcd80389e736f4dd721d7bdc3fbd5d4dd45654e6d418865de668fe495"
+   "sha256": "4ce3819402ff57e3c53ac71e76c0bb91fcb0ff850f9c3127fcb3ff67e0f31f6c"
   },
   "T14": {
    "caption": "Disagreement ontology terrain x Sentinel-1 by zone and date: category areas split by ground elevation relative to the water surface, normally-wet flag, WorldCover and RF20 classes (km2).",
@@ -253,7 +253,7 @@
     "case_studies/kakhovka_2023/tables/p95d_agreement_20230613_summary.csv",
     "case_studies/kakhovka_2023/tables/p95d_agreement_20230614_summary.csv"
    ],
-   "sha256": "17d9b24887ed10259d0e26d0f6d5e5579018d2e10f9476fc4d50beea0142cf5e"
+   "sha256": "66297ce6a0dd1728684bda55cda2106c28b555844866ffec0e15891af9d12a24"
   },
   "T15": {
    "caption": "ICESat-2 altimetric consistency check per zone and agreement category: residual seamless DEM minus ICESat-2 (median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface.",
@@ -265,14 +265,14 @@
    "sha256": "11b4c283eac0b9e03b97f39f8c4a3a4cbbddd31f2e13e0a24898ee281423af52"
   },
   "T16": {
-   "caption": "Area accounting with explicit semantics: observed (S1), mapped (U-Net), terrain-reconstructed and literature-reported figures are different quantities and are never compared as validation.",
+   "caption": "Area accounting with explicit semantics: observed (S1), mapped (U-Net), terrain-reconstructed and literature-reported figures are different quantities (new vs total water; snapshot vs cumulative vs persistence) and are never compared as validation.",
    "evidence_level": "mixed",
-   "rows": 32,
+   "rows": 39,
    "sources": [
     "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv",
     "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv"
    ],
-   "sha256": "c7bfa2f323c49b963aa7b7b14350d7fe4c7d512f805122e7fb9d61679f0679eb"
+   "sha256": "90edaa20eb33e22288baf18922f0b06de14c40142aac660d8d77d19c097ae198"
   },
   "T17": {
    "caption": "SWOT-input consistency at Kherson after re-anchoring: nodes within 3 km of the gauge, daily median vs the daily gauge (river yearbook, EVRF2019). The frame validation itself is Paper 1; this only checks the p95 input.",
@@ -331,22 +331,22 @@
    "sha256": "ef96e6ec6866f10d73aa54d098b90ab76c3ea31381749a1ecc616ccf781e4c5c"
   },
   "T21": {
-   "caption": "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, implied breach outflow, and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage.",
+   "caption": "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage.",
    "evidence_level": "independent_physical",
    "rows": 46,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv"
    ],
-   "sha256": "2715222e27cd7455895b9968c2dc0613a6c072463dde0e65eac23bd5cb135392"
+   "sha256": "2b12981b46793ee2716ae33d91b9e381594eee96d3692bea318594427647bb7f"
   },
   "T22": {
-   "caption": "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m).",
+   "caption": "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives 8-12 % less volume at the same level (open question for Paper 4: reservoir bowl on the historical bathymetry).",
    "evidence_level": "independent_physical",
    "rows": 27,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv"
    ],
-   "sha256": "106a45dfdb58ad58c358fccc4b96bbb913bc11e4ec592b735c075eed47d61522"
+   "sha256": "da03b49021e48ac1b38d99c56a6912150ab0ac3ba9d8b8517c89e12cc3819f3b"
   }
  },
  "sources": {

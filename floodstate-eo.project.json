@@ -32,6 +32,6 @@
   "authors": [
     "Viktor Nikoriak"
   ],
-  "release_version": "v0.2.0-alpha",
+  "release_version": "v0.3.0-rc1",
   "dashboard": "apps/dashboard/streamlit_app.py (Streamlit Community Cloud)"
 }

@@ -36,13 +36,13 @@ RULES = ("**Reading rules.** Every model number is *agreement with weak referenc
 
 def nb01():
     c = []
-    c.append(nbf.v4.new_markdown_cell("# 01 · Physical reconstruction of the daily inundation and its checks\n\nPaper 3 of the Kakhovka series. This notebook reads committed tables only.\n\n" + RULES))
+    c.append(nbf.v4.new_markdown_cell("# 01 · Observation-constrained terrain inundation reconstruction (daily reconstructed series) and its checks\n\nPaper 3 of the Kakhovka series. This notebook reads committed tables only.\n\n" + RULES))
     c.append(nbf.v4.new_code_cell(HEAD))
     c.append(nbf.v4.new_markdown_cell("## 1. The water surface\nSWOT node heights (EGG2015-referenced, gauge-anchored with the Kherson-local closure of Paper 1) and the Kherson gauge; node-based interpolation (no chainage)."))
     c.append(nbf.v4.new_code_cell("show('T11')"))
     c.append(nbf.v4.new_code_cell("fig('Fig06'); show('T17')"))
-    c.append(nbf.v4.new_markdown_cell("## 2. Daily terrain-reconstructed inundation (area, volume) with the Monte-Carlo band"))
-    c.append(nbf.v4.new_code_cell("d = show('T12'); d[d.region == 'DNIPRO_CORRIDOR'][['date','A_central_km2','A_p05_km2','A_p95_km2','V_central_hm3','V_p05_hm3','V_p95_hm3','A_hand_and_ceiling_km2','A_ceiling_only_km2']]"))
+    c.append(nbf.v4.new_markdown_cell("## 2. Daily reconstructed series: total water-surface area, newly inundated area, volume — PRIMARY interval = 40 spatial Monte-Carlo draws"))
+    c.append(nbf.v4.new_code_cell("d = show('T12'); d[d.region == 'DNIPRO_CORRIDOR'][['date','W_total_central_km2','W_total_p05_km2','W_total_p95_km2','A_central_km2','A_p05_km2','A_p95_km2','V_central_hm3','V_p05_hm3','V_p95_hm3','A_hand_and_ceiling_km2','A_ceiling_only_km2']]"))
     c.append(nbf.v4.new_code_cell('''u = pd.read_csv(T / "p95e_area_volume_uncertainty.csv") if (T / "p95e_area_volume_uncertainty.csv").exists() else None
 dd = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); dd["t"] = pd.to_datetime(dd.date)
 fig_, axs = plt.subplots(1, 3, figsize=(13, 3.6))
@@ -50,21 +50,21 @@ for ax, r in zip(axs, ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VAL
     s = dd[dd.region == r]; ax.plot(s.t, s.new_km2, color=C["terrain"], lw=2, label="central")
     if u is not None:
         uu = u[u.region == r].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t"); ax.fill_between(uu.t, uu.A_p05_km2, uu.A_p95_km2, color=C["terrain"], alpha=0.2, label="MC p05-p95")
-    ax.set_title(r); ax.set_ylabel("new inundation, km²"); ax.tick_params(axis="x", rotation=45)
+    ax.set_title(r); ax.set_ylabel("reconstructed newly inundated area, km²"); ax.tick_params(axis="x", rotation=45)
 axs[0].legend(); plt.tight_layout()'''))
     c.append(nbf.v4.new_code_cell("show('T11b')"))
-    c.append(nbf.v4.new_markdown_cell("### 100 000 draws per day (cluster-normal emulator, p95g) -- candles of the total water surface"))
+    c.append(nbf.v4.new_markdown_cell("### SENSITIVITY envelope: 100 000 draws per day (cluster-normal emulator, p95g) -- candles of the total water-surface area; the primary interval is the spatial MC above"))
     c.append(nbf.v4.new_code_cell('''g = pd.read_csv(T / "p95g_mc_daily.csv"); gg = g[g.region == "DNIPRO_CORRIDOR"].copy(); gg["t"] = pd.to_datetime(gg.date)
 fig_, ax = plt.subplots(figsize=(12, 4))
 for _, q in gg.iterrows():
     ax.plot([q.t, q.t], [q.W_total_km2_p05, q.W_total_km2_p95], color=C["terrain"], lw=1); ax.plot([q.t, q.t], [q.W_total_km2_p25, q.W_total_km2_p75], color=C["terrain"], lw=5, alpha=0.5)
-ax.plot(gg.t, gg.W_total_central_km2, color="k", lw=1.5, label="deterministic total"); ax.set_ylabel("total water surface, km²"); ax.legend(); ax.set_title("Dnipro corridor: 100 000 emulator draws per day (p05-p95 whisker, p25-p75 body)")'''))
-    c.append(nbf.v4.new_markdown_cell("### Reservoir side of the balance (T21, T22, Fig09)"))
-    c.append(nbf.v4.new_code_cell("show('T21'); show('T22'); fig('Fig09')"))
-    c.append(nbf.v4.new_markdown_cell("## 3. Cross-sensor check against Sentinel-1 (per acquisition date)\nPOD / FAR / CSI on the S1 observation domain are primary; POD excluding normally-wet cells is a sensitivity with an a-priori rule."))
-    c.append(nbf.v4.new_code_cell("v = show('T13'); v[(v.variant == 'connected_ceiling') & v.date.isin(['2023-06-09','2023-06-13','2023-06-14','2023-06-18','2023-06-21'])][['date','region','s1_new_km2','hand_new_km2','hit_km2','miss_km2','miss_on_normally_wet_km2','hand_only_km2','POD','FAR','CSI','POD_excl_normally_wet']]"))
+ax.plot(gg.t, gg.W_total_central_km2, color="k", lw=1.5, label="deterministic total"); ax.set_ylabel("reconstructed total water-surface area, km²"); ax.legend(); ax.set_title("Dnipro corridor: emulator sensitivity envelope, 100 000 draws per day (p05-p95 whisker, p25-p75 body)")'''))
+    c.append(nbf.v4.new_markdown_cell("### Reservoir side of the balance (T21, T22, Fig09, FigS07): daily-MEAN effective release (-dV/dt + Q_in), not an instantaneous breach discharge; hypsometry DEM vs design is the open question of Paper 4 (historical bathymetry)"))
+    c.append(nbf.v4.new_code_cell("show('T21'); show('T22'); fig('Fig09'); fig('FigS07')"))
+    c.append(nbf.v4.new_markdown_cell("## 3. Cross-sensor check against Sentinel-1 (per acquisition date)\nRaw POD / FAR / CSI on the S1 observation domain are primary; the conditional POD outside the normally-wet class is a diagnostic conditional agreement (a-priori class), never a corrected POD."))
+    c.append(nbf.v4.new_code_cell("v = show('T13'); v[(v.variant == 'connected_ceiling') & v.date.isin(['2023-06-09','2023-06-13','2023-06-14','2023-06-18','2023-06-21'])][['date','region','s1_new_km2','hand_new_km2','hit_km2','miss_km2','miss_on_normally_wet_km2','hand_only_km2','POD','FAR','CSI','POD_cond_outside_normally_wet']]"))
     c.append(nbf.v4.new_code_cell("fig('Fig04')"))
-    c.append(nbf.v4.new_markdown_cell("## 4. Disagreement ontology (A both / B terrain-only / C S1-only)\nB decomposed by land cover (SAR blind spots); C by ground elevation relative to the surface (submergence vs false SAR water)."))
+    c.append(nbf.v4.new_markdown_cell("## 4. Disagreement ontology (A both / B terrain-only / C S1-only)\nB decomposed by land cover (SAR blind spots); C by ground elevation relative to the surface (submergence of normally-wet reeds vs S1-only detections topographically unsupported by the reconstructed water surface)."))
     c.append(nbf.v4.new_code_cell("o = show('T14'); o[o.date == '2023-06-09']"))
     c.append(nbf.v4.new_code_cell("fig('Fig05')"))
     c.append(nbf.v4.new_markdown_cell("## 5. ICESat-2 altimetric consistency check\nA track-based consistency check of the DEM and the water surface, not a validation of the inundation map."))
@@ -102,10 +102,10 @@ def nb03():
 
 
 NARRATIVE = [
-    ("Scientific question", "Can the daily inundation after the Kakhovka dam breach be reconstructed physically (water-surface geometry × terrain), checked against independent observations, and what do EO-based flood products recover of it under weak labels? See `publication/claims.md` (C01–C12).", "framed 2026-09-25; the evidence hierarchy is physical reconstruction → cross-sensor checks → surface context → ML under weak labels"),
+    ("Scientific question", "Can the daily inundation after the Kakhovka dam breach be reconstructed from the observed water-surface geometry constrained on the terrain (an observation-constrained terrain reconstruction, not a hydrodynamic model), checked against independent observations, and what do EO-based flood products recover of it under weak labels? See `publication/claims.md` (C01–C14) and `publication/TERMINOLOGY.md`.", "framed 2026-09-25; the evidence hierarchy is observation-constrained terrain reconstruction → cross-sensor checks → surface context → ML under weak labels"),
     ("Study area", "Lower Dnipro from the Kakhovka dam to the Dnipro–Buh liman: frames B1 (dam → Kherson) and B2 (Kherson delta) on one 10 m lattice; the Inhulets valley is reported separately (Fig01).", "implemented"),
-    ("Dam-breach context", "Breach on 2023-06-06; Kherson stage 0.5 → 5.78 m on 06-08, back to the pre-breach regime by ~22 June (Fig06b, T17b). Water-surface geometry and the vertical frame are Paper 1.", "implemented (Paper 1)"),
-    ("Why binary water mapping is insufficient", "On 2023-06-09 the terrain reconstruction and the S1 dark-water rule disagree on ~200 km²: forest, reeds and buildings hide water from SAR, reed beds below the normal surface show a depth signal, and dark fields far above the surface are false SAR water (T14, Fig05, Fig08).", "measured, not modelled"),
+    ("Dam-breach context", "Breach on 2023-06-06; Kherson stage 0.5 → 5.78 m on 06-08 (peak stage), back to the pre-breach regime by ~22 June (Fig06b, T17b); the reconstructed areal maximum falls on 06-07, between the S1 acquisitions — peak stage and peak area are different quantities. Water-surface geometry and the vertical frame are Paper 1.", "implemented (Paper 1)"),
+    ("Why binary water mapping is insufficient", "On 2023-06-09 the terrain reconstruction and the S1 dark-water rule disagree on ~200 km²: forest, reeds and buildings hide water from SAR, reed beds below the normal surface show a depth signal, and dark fields far above the surface are S1-only detections topographically unsupported by the reconstructed water surface (T14, Fig05, Fig08).", "measured, not modelled"),
     ("Frames B1/B2/B3", "B1 and B2 built; B3 (delta with the liman) is NOT built. The estuary S1 series exists on its own grid (T19).", "partial: B3 missing"),
     ("Input datasets", "T01 lists every dataset with its role and evidence level; manifests under `manifests/`.", "implemented"),
     ("PRE surface context", "RF20 PRE-only Sentinel-2 classification (p73, frozen) is the context product (notebook 02, T09/T10); BASE_CLASS is historical.", "implemented, frozen"),
@@ -119,14 +119,14 @@ NARRATIVE = [
     ("S1/S2 evidence", "S1 per date vs terrain (T13); S2 reliable dates only (T19).", "implemented"),
     ("Urban flood", "Built-up appears as a terrain-only category (SAR blind spot, T14) and as the BU false-positive endpoint of the arms (T05); no dedicated urban product.", "measured as endpoints"),
     ("Flooded vegetation", "Reed beds: S1 dark-water onset where the ground is below the normal surface is a submergence (depth) signal, not inundation onset (T14, C category, normally-wet flag).", "measured, not modelled"),
-    ("Wet sand / bare soil", "S1 new water ≥ 5 m above the surface (54 km² on 06-09) is false SAR water: DEM agrees with ICESat-2 within ±0.3 m there (T15, Fig08).", "evidence in tables"),
+    ("Wet sand / bare soil", "S1 new water ≥ 5 m above the surface (54 km² on 06-09) is topographically inconsistent with the reconstructed connected water surface; along the ICESat-2 tracks that sample it the DEM agrees with the altimetry within a few decimetres, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain it (T15, Fig08). Supports, does not prove; alternatives (radar shadow, smooth surfaces, local ponding, timing) not individually tested.", "evidence in tables"),
     ("M0–M5", "Not defined. The arm ladder U0d → U0z → U1 → U2 → U2b on v002 / v003_A is the experiment matrix (T04–T07).", "not defined"),
     ("Spatial CV", "Frozen 10 km spatial-block split with 640 m buffers and paired block bootstrap; block-size sensitivity 7.5 / 15 / 20 km (T03, T20).", "implemented"),
     ("Leave-one-zone-out", "For RF20 the frame transfers B1→B2 and B2→B1 (T09); the legacy p51 LOZO is not migrated.", "implemented for RF20"),
-    ("Uncertainty", "Terrain: Monte-Carlo band from DEM/closure/gauge/SWOT/interpolation errors (T11b, T12). Arms: block-bootstrap intervals. No per-cell uncertainty product.", "partial"),
+    ("Uncertainty", "Terrain: PRIMARY interval = 40 spatial Monte-Carlo draws (T11b, T12); the 100 000-draw emulator is a broader sensitivity envelope; volume uncertainty exceeds area uncertainty and volumes always carry p05–p95. Arms: block-bootstrap intervals. No per-cell uncertainty product.", "partial"),
     ("Final products and maps", "Fig03 (U-Net), Fig04 (dynamics), Fig05 (disagreement), Fig07 (peak-day depth and duration); rasters under $BULK_ROOT/floodplain_dyn are not redistributed (FABDEM licence).", "figures committed"),
     ("Limitations", "Planar water surface per reach, no timing; DEM under canopy; SWOT nodes on channels only; no scene at the peak; weak labels; W_pre circularity; B3 missing; no probability-sample reference for areas.", "stated"),
-    ("Conclusions", "See `publication/claims.md` — the claims register is the source of every statement.", "draft")]
+    ("Conclusions", "See `publication/claims.md` — the claims register is the source of every statement. Next step (separate paper, Paper 4): the reservoir bowl reconstructed on the historical bathymetry, resolving the DEM-vs-design hypsometry gap; Paper 5: HEC-RAS calibrated on these daily surfaces.", "draft")]
 
 
 def fill_narrative():
@@ -134,7 +134,7 @@ def fill_narrative():
     md = [c for c in nb.cells if c.cell_type == "markdown"]
     assert len(md) >= 26, len(md)
     md[0].source = ("# Kakhovka 2023 — flood-state reconstruction: narrative index\n\nUpdated 2026-09-25. Each section links to the executable notebooks "
-                    "(01 physical reconstruction and checks, 02 surface context, 03 U-Net weak-label experiments), to publication tables (T01–T20) and figures (Fig01–Fig08, FigS01–S06). "
+                    "(01 observation-constrained terrain reconstruction and checks, 02 surface context, 03 U-Net weak-label experiments), to publication tables (T01–T22) and figures (Fig01–Fig09, FigS01–S07). "
                     + RULES)
     for cell, (title, text, status) in zip(md[1:26], NARRATIVE):
         cell.source = f"## {title}\n\n{text}\n\n**Status: {status}.**"

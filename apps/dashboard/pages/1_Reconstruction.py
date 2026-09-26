@@ -7,7 +7,7 @@ import streamlit as st
 from lib import C, caption, figure, header, raw, table
 
 st.set_page_config(page_title="Reconstruction", layout="wide")
-header("Physical reconstruction: daily inundation from the observed water surface",
+header("Observation-constrained terrain inundation reconstruction: the daily reconstructed series",
        "SWOT node heights (gauge-anchored, Paper-1 closure) + Kherson gauge → connected terrain rule → daily area, depth, volume")
 
 d = raw("p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
@@ -18,15 +18,18 @@ region = st.selectbox("region", ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "IN
 s = d[d.region == region]; uu = u[u.region == region].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t")
 fig = go.Figure()
 if "A_p05_km2" in uu.columns and uu.A_p05_km2.notna().any():
-    fig.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.A_p95_km2) + list(uu.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="Monte-Carlo p05–p95", hoverinfo="skip"))
-fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="terrain-reconstructed (connected, central)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
-fig.add_trace(go.Scatter(x=s.t, y=s.potential_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="TOTAL water surface (incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fig.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.A_p95_km2) + list(uu.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws), newly inundated area", hoverinfo="skip"))
+fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="reconstructed newly inundated area (central run)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+fig.add_trace(go.Scatter(x=s.t, y=s.potential_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="reconstructed total water-surface area (incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
 try:
     g = raw("p95g_mc_daily.csv"); gg = g[g.region == region].copy(); gg["t"] = pd.to_datetime(gg.date)
-    fig.add_trace(go.Candlestick(x=gg.t, open=gg.W_total_km2_p25, close=gg.W_total_km2_p75, low=gg.W_total_km2_p05, high=gg.W_total_km2_p95, name="TOTAL water: 100 000 draws/day (p05–p95, p25–p75)", increasing_line_color="#2a78d6", decreasing_line_color="#2a78d6", opacity=0.5))
+    fig.add_trace(go.Candlestick(x=gg.t, open=gg.W_total_km2_p25, close=gg.W_total_km2_p75, low=gg.W_total_km2_p05, high=gg.W_total_km2_p95, name="SENSITIVITY: 100 000-draw emulator envelope (p05–p95, p25–p75)", increasing_line_color="#2a78d6", decreasing_line_color="#2a78d6", opacity=0.5))
     fig.update_layout(xaxis_rangeslider_visible=False)
 except FileNotFoundError:
     pass
+if "W_total_p05_km2" in uu.columns and uu.W_total_p05_km2.notna().any():
+    tt = uu.dropna(subset=["W_total_p05_km2"])
+    fig.add_trace(go.Scatter(x=list(tt.t) + list(tt.t[::-1]), y=list(tt.W_total_p95_km2) + list(tt.W_total_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.28)", line=dict(width=0), name="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws), total water-surface area", hoverinfo="skip"))
 hh = h[h.region == region]; fig.add_trace(go.Scatter(x=hh.t, y=hh.new_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dash"), name="p42 HAND rule (lower bound)"))
 o = s1[s1.region == region]
 fig.add_trace(go.Scatter(x=o.t, y=o.new_water_km2, mode="markers", marker=dict(color=C["s1"], size=9, symbol=["circle" if c >= 0.9 else "circle-open" for c in o.coverage]), name="Sentinel-1 observed new dark water (open = partial coverage)", hovertemplate="%{x|%d %b}: %{y:.0f} km² (coverage %{customdata:.0%})", customdata=o.coverage))
@@ -42,11 +45,11 @@ with c1:
 with c2:
     vv = go.Figure(); vv.add_trace(go.Scatter(x=s.t, y=s.new_volume_hm3 / 1000, mode="lines", line=dict(color=C["terrain"], width=2), name="volume, km³"))
     if "V_p05_hm3" in uu.columns and uu.V_p05_hm3.notna().any():
-        vv.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.V_p95_hm3 / 1000) + list(uu.V_p05_hm3[::-1] / 1000), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="MC p05–p95"))
+        vv.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.V_p95_hm3 / 1000) + list(uu.V_p05_hm3[::-1] / 1000), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="PRIMARY: spatial MC p05–p95"))
     vv.update_layout(height=260, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="terrain-reconstructed water volume above ground (planar surface, no ponding)"); st.plotly_chart(vv, width="stretch")
 
 st.subheader("Key dates (T12)"); st.caption(caption("T12"))
-cols = [c for c in ["date", "W_total_central_km2", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_central_hm3", "V_p05_hm3", "V_p95_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
+cols = [c for c in ["date", "W_total_central_km2", "W_total_p05_km2", "W_total_p95_km2", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_central_hm3", "V_p05_hm3", "V_p95_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
 st.dataframe(uu[cols], width="stretch", hide_index=True)
 st.subheader("Uncertainty components (T11b) and constants (T11)"); st.caption(caption("T11b")); st.dataframe(table("T11b"), width="stretch", hide_index=True)
 st.dataframe(table("T11"), width="stretch", hide_index=True)

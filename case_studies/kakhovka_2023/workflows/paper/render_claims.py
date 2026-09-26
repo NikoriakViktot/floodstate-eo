@@ -15,17 +15,20 @@ def main():
     out = ["# Claims register (rendered from evidence_matrix.csv -- do not edit by hand)", "",
            "Evidence levels: independent_physical > cross_sensor > weak_label_agreement > contextual. "
            "Every model number is agreement with weak reference labels, never flood-mapping accuracy. "
-           "Areas carry their semantics (observed_S1 / mapped_UNet / terrain_reconstructed / literature_reported).", ""]
+           "Areas carry their semantics (observed_S1 / mapped_UNet / terrain_reconstructed / literature_reported) and are named as "
+           "'reconstructed total water-surface area' (W_total) or 'reconstructed newly inundated area' (A_new). Primary uncertainty = "
+           "40 spatial Monte-Carlo draws; the 100 000-draw emulator is a sensitivity envelope. Terminology is frozen in TERMINOLOGY.md. "
+           "Each claim: claim -> evidence class -> table cell -> uncertainty -> limitation.", ""]
     for tier in ORDER:
         out.append(f"## {tier.capitalize()} claims"); out.append("")
         for _, r in M[M.tier == tier].iterrows():
-            out += [f"### {r.claim_id} [{r.evidence_level}] -- section {r.manuscript_section}", "",
+            out += [f"### {r.claim_id} [{r.evidence_level}] -- section {r.manuscript_section}" + (f" (formerly {r.former_id})" if r.get("former_id", "") else ""), "",
                     f"**Statement.** {r.claim}", "",
                     f"- **Independent:** {r.independent}", f"- **Result type / dataset:** {r.result_type} / {r.dataset}",
                     f"- **Independent unit:** {r.independent_unit}; **n:** {r.n}",
                     f"- **Value:** {r.value}; **uncertainty:** {r.uncertainty}",
                     f"- **Evidence:** tables {r.source_table}; figures {r.source_figure}",
-                    f"- **Scope:** {r.scope}", f"- **Caveat:** {r.caveat}",
+                    f"- **Scope:** {r.scope}", f"- **Caveat:** {r.caveat}", f"- **Limitation:** {r.get('limitation', '')}",
                     f"- **Status:** {r.validation_status} / {r.publication_status}" + (f"; superseded by {r.superseded_by}" if r.superseded_by else ""), ""]
     (PUB / "claims.md").write_text("\n".join(out)); print("->", PUB / "claims.md", len(M), "claims")
 

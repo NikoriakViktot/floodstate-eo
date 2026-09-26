@@ -38,7 +38,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -66,7 +66,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -94,7 +94,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -122,7 +122,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -150,7 +150,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -178,7 +178,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -206,7 +206,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -234,7 +234,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -262,7 +262,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -290,7 +290,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -318,7 +318,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -346,7 +346,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 14710,
    "sha256": "ae3e567af17011693ff3bfe09a1c68087864c66f50b23d67ea10f995442ad882",
@@ -374,7 +374,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 16565,
    "sha256": "d233b4900cf7f63334e9e33bc372c1d1ee05f19a266ba81ff437c6508d9abce5",
@@ -402,7 +402,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 16689,
    "sha256": "1654bdf9971b8d7eff78d1a4dfdfef44c6ad6d25e866d5bace4f2aac0b893db0",
@@ -430,7 +430,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 15670,
    "sha256": "491870e8e359431861e455806be564777d44f8a608a00576370aa987d7f7d984",
@@ -458,7 +458,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 14057,
    "sha256": "39f74b83ac3f0af2db79d9fa747114db9a72af5c5b6f3772db87ef9ad5e0e41b",
@@ -486,7 +486,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 13487,
    "sha256": "aa869f79055b1b0b4f41eaaa8e7b430dc3821e69c83edbde0caa885bfcf0417e",
@@ -514,7 +514,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 13313,
    "sha256": "06fa8e4dd0a7eb612ccb3a33a476c65d3e4b99772e4001cf1d885a29034ad6ff",
@@ -542,7 +542,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 12939,
    "sha256": "c64171eadd75c0e952ae4ac5730d10f6ede710ea4e1a74bd431b598bc43afb17",
@@ -570,7 +570,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 12665,
    "sha256": "6fddc85d310191ca7e673080c3e7934dba6cecd8ca4323e1345281958bd372e5",
@@ -598,7 +598,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 12158,
    "sha256": "4690575e46c0f1ba22aa4081fd3714ee02d980165201e562ead989f4345aaf56",
@@ -626,7 +626,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 11239,
    "sha256": "d35d2d4e6e08a4208fcdc089f63b2dc8700436c3a9b338df0234296577b0c469",
@@ -654,7 +654,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 10459,
    "sha256": "0f80cdd9f51da29bec12d7c066110f083e55fe05677c40b2606bd89d676bbcde",
@@ -682,7 +682,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 9219,
    "sha256": "f1c56da585f04c54119245b4a549c47bebd5c710de140ade3d618f3edcfb004c",
@@ -710,7 +710,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 7812,
    "sha256": "ae3e1662455d0e64859dcf0a68800fe38b90095e690f4a5dc1c1c1c2728a63a7",
@@ -738,7 +738,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 5423,
    "sha256": "e4402551ec890c177cb2bd44ababf75921a73692651cb3d3aa853a1519f5786d",
@@ -766,7 +766,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 3380,
    "sha256": "d65b1007cdb1d864ed0fbdac200cad06d411fdc71b4e3f2ddfaad332d119e52f",
@@ -794,7 +794,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2545,
    "sha256": "1f5bbfea29583ae211d8cf9b77c02a1cda2e08df06e52d6118fd7f1660fd33ac",
@@ -822,7 +822,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2405,
    "sha256": "095661f70a5d2634c13a10cee753aac12fce8b675cabc711c28922a31ad2aca5",
@@ -850,7 +850,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2386,
    "sha256": "f730ed5aafd3e62e139e727f2ff53d083c5de037988d061b81c9f94ecaea08f8",
@@ -878,7 +878,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2389,
    "sha256": "d91bb6128686a08b441280655af581019691aeb65dea698e0bdb0bc3846dc9dc",
@@ -906,7 +906,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -934,7 +934,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2388,
    "sha256": "9023e46ed2942b78f4a455f4d46f3743186ae5f0113fefd41bbd06bb429adbb0",
@@ -962,7 +962,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2391,
    "sha256": "9d8433afa1e93ffcca820475a3d02ca9e525a3f3188c78943908286caa1a0edc",
@@ -990,7 +990,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2398,
    "sha256": "1f9e7e431842cf7609bf50d05b78d2f7c2768f673200dbafa97d2df53f026556",
@@ -1018,7 +1018,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2403,
    "sha256": "caa8bbfd974cf9290f6a16ecbc37ce27cde2d36669915df1461bc20cd0c9f8b3",
@@ -1046,7 +1046,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2712,
    "sha256": "69224291fce97f93ebd2ee2a64bc87906fdb2067a347590d62b2f8e410034376",
@@ -1074,7 +1074,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2398,
    "sha256": "a0f0b8fac635c1487bebd9da2e51ec3a8cd5c7dd4aac0e8aee1de2a1b1d24d83",
@@ -1102,7 +1102,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2394,
    "sha256": "ab12f0bc510b633bfb0b17e4b6838ad49a1d9d5e036a29eba1011f9badebce84",
@@ -1130,7 +1130,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2387,
    "sha256": "ee732300efa85732dc3311e86a4f950438dd4bccdcc996da91671e701afca0b2",
@@ -1158,7 +1158,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1186,7 +1186,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1214,7 +1214,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1242,7 +1242,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1270,7 +1270,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1298,7 +1298,7 @@
    "palette": {
     "1": "#2a78d6"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 2380,
    "sha256": "cb092b0b640c67bdda5c9bed2c519bd8960d71ab1631c37b7b74311201d47617",
@@ -1332,7 +1332,7 @@
     "3": "#e34948",
     "4": "#4a3aa7"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 25257,
    "sha256": "f57402f78bc00856377fbe494108032d68c239b6f48871e5a640e7dccad03a3b",
@@ -1371,7 +1371,7 @@
     "4": "#2a78d6",
     "5": "#0b2a5c"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 30099,
    "sha256": "a446e012385072e2f1d168f6e0ae2254de08e4279d7fc3d224c090765b3afb84",
@@ -1411,7 +1411,7 @@
     "4": "#2a78d6",
     "5": "#0b2a5c"
    },
-   "source": "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
+   "source": "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)",
    "note": "",
    "bytes": 27449,
    "sha256": "50d74589fb5f65348d085bae15bd6edbc7c49fc4af7aff141bdaf531f170c606",

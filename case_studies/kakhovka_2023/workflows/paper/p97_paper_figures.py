@@ -119,9 +119,9 @@ def fig01():
 # ---- Fig02 -----------------------------------------------------------------------------------------------------------
 def fig02():
     fig, ax = plt.subplots(figsize=(7.2, 4.2)); ax.axis("off")
-    boxes = [(0.02, 0.62, "Physical reconstruction\nSWOT node WSE + Kherson gauge\n× seamless DEM, connectivity\n→ daily area, depth, volume", FS.PALETTE["terrain"]),
+    boxes = [(0.02, 0.62, "Observation-constrained terrain\ninundation reconstruction\nSWOT node WSE + Kherson gauge\n× seamless DEM, connectivity\n→ daily reconstructed area, depth, volume", FS.PALETTE["terrain"]),
              (0.35, 0.62, "Independent / cross-sensor checks\nS1 per date (POD / FAR / CSI)\nICESat-2 altimetric consistency\nSWOT vs gauge (Paper 1)", FS.PALETTE["s1"]),
-             (0.68, 0.62, "Surface context\nRF20 classes, WorldCover,\nelevation above the surface\n→ blind spots, false SAR water", FS.PALETTE["rf"]),
+             (0.68, 0.62, "Surface context\nRF20 classes, WorldCover,\nelevation above the surface\n→ blind spots, topographically\nunsupported S1-only detections", FS.PALETTE["rf"]),
              (0.35, 0.12, "ML under weak labels\nU-Net arms U0d → U2b, labels v002 / v003_A\n→ what EO inputs recover\n(agreement, not accuracy)", FS.PALETTE["unet"])]
     for x, y, txt, c in boxes:
         ax.add_patch(FancyBboxPatch((x, y), 0.30, 0.30, boxstyle="round,pad=0.01", fc="white", ec=c, lw=1.6, transform=ax.transAxes))
@@ -173,8 +173,10 @@ def fig03():
 
 # ---- Fig04 -----------------------------------------------------------------------------------------------------------
 def fig04():
-    """Daily inundation, dam -> liman: TOTAL water surface with 100 000-draw candles, daily change as bars, S1, U-Net, gauge."""
+    """Daily reconstructed series, dam -> liman: total water-surface area with the PRIMARY spatial-MC band and the emulator
+    sensitivity envelope as candles, daily change of the newly inundated area as bars, S1, U-Net, gauge."""
     d = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
+    t12 = pd.read_csv(PT / "T12.csv") if (PT / "T12.csv").exists() else None
     g = pd.read_csv(T / "p95g_mc_daily.csv") if (T / "p95g_mc_daily.csv").exists() else None
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
     p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
@@ -188,26 +190,29 @@ def fig04():
                 a.plot([q.t, q.t], [q.W_total_km2_p05, q.W_total_km2_p95], color=FS.PALETTE["terrain"], lw=0.7, alpha=0.8)
                 a.add_patch(Rectangle((q.t - pd.Timedelta(hours=9), q.W_total_km2_p25), pd.Timedelta(hours=18), q.W_total_km2_p75 - q.W_total_km2_p25, fc="#b9d1ee", ec=FS.PALETTE["terrain"], lw=0.5))
                 a.plot([q.t - pd.Timedelta(hours=9), q.t + pd.Timedelta(hours=9)], [q.W_total_km2_p50] * 2, color=FS.PALETTE["terrain"], lw=1.0)
-        a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="TOTAL water surface, deterministic run")
+        if t12 is not None and "W_total_p05_km2" in t12.columns:
+            tt = t12[t12.region == r].dropna(subset=["W_total_p05_km2"]).copy(); tt["t"] = pd.to_datetime(tt.date); tt = tt.sort_values("t")
+            a.fill_between(tt.t, tt.W_total_p05_km2, tt.W_total_p95_km2, color=FS.PALETTE["terrain"], alpha=0.28, lw=0, label="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws)", zorder=3)
+        a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="reconstructed total water-surface area, central run")
         pun = T / "p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv"
         if pun.exists():
             un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.potential_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="total, DEM as delivered")
         o = s1[s1.region == r]; full, part = o[o.coverage >= 0.9], o[o.coverage < 0.9]
         a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, label="S1 total dark water"); a.plot(part.t, part.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
-        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("total water surface, km²", fontsize=7); FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
+        a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("reconstructed total water-surface area, km²", fontsize=6.5); FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
         # daily change of NEW inundation as bars (+ filling, - draining)
         inc = s.new_km2.diff().fillna(0)
         b.bar(s.t, inc, width=0.8, color=np.where(inc >= 0, FS.PALETTE["terrain"], FS.PALETTE["s1"]), lw=0)
-        b.plot(s.t, s.new_km2, color=FS.PALETTE["ink"], lw=1.0, label="new inundation (cumulative)"); b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
+        b.plot(s.t, s.new_km2, color=FS.PALETTE["ink"], lw=1.0, label="reconstructed newly inundated area"); b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
         if r in u2b.index:
             b.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b persistent event flood")
-        b.set_ylabel("new inundation, km²\n(bars: daily change)", fontsize=6.5); FS.panel_label(b, "def"[j], x=0.02, y=0.98)
+        b.set_ylabel("newly inundated area, km²\n(bars: daily change)", fontsize=6.5); FS.panel_label(b, "def"[j], x=0.02, y=0.98)
         c.plot(s.t, s.kherson_gauge_m, color=FS.PALETTE["gauge"], lw=1.3); c.set_ylabel("Kherson\nstage, m", fontsize=6.5)
         for ax in (a, b, c):
             FS.date_axis(ax, BREACH, every_days=7); ax.tick_params(labelsize=6); ax.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-07-05"))
         a.set_ylim(0, None)
     h, l = axs[0, 0].get_legend_handles_labels(); h2, l2 = axs[1, 0].get_legend_handles_labels()
-    fig.legend(h + [Patch(fc="#b9d1ee", ec=FS.PALETTE["terrain"], label="100 000 draws per day: p05–p95 whisker, p25–p75 body, median")] + h2, l + ["100 000 draws per day: p05–p95, p25–p75, median"] + l2,
+    fig.legend(h + [Patch(fc="#b9d1ee", ec=FS.PALETTE["terrain"], label="emulator sensitivity envelope")] + h2, l + ["SENSITIVITY: 100 000-draw emulator per day (p05–p95 whisker, p25–p75 body, median)"] + l2,
                loc="lower center", ncol=3, fontsize=5.8, frameon=False, bbox_to_anchor=(0.5, -0.09))
     FS.save(fig, "Fig04_daily_inundation", FIG)
 
@@ -235,7 +240,7 @@ def fig05():
     b2 = fig.add_subplot(gs[1, 1]); bins = ["km2_ground_below_surface", "km2_ground_0_2m_above", "km2_ground_2_5m_above", "km2_ground_ge5m_above"]
     v2 = [float(s9.loc["C", c]) for c in bins]; nw = float(s9.loc["C", "km2_normally_wet"])
     b2.barh(["below the surface", "0–2 m above", "2–5 m above", "≥ 5 m above"], v2, color=FS.AGREEMENT_COLOURS["C"][1]); b2.invert_yaxis()
-    b2.set_xlabel("km²", fontsize=7); b2.set_title(f"C S1-only ({float(s9.loc['C', 'km2']):.0f} km²) by ground elevation vs surface\n({nw:.0f} km² normally wet; ≥ 5 m = false SAR water, ICESat-2 Fig08)", fontsize=7, loc="left"); FS.panel_label(b2, "c"); b2.tick_params(labelsize=6.5)
+    b2.set_xlabel("km²", fontsize=7); b2.set_title(f"C S1-only ({float(s9.loc['C', 'km2']):.0f} km²) by ground elevation vs surface\n({nw:.0f} km² normally wet; ≥ 5 m = topographically unsupported S1-only, ICESat-2 Fig08)", fontsize=7, loc="left"); FS.panel_label(b2, "c"); b2.tick_params(labelsize=6.5)
     FS.save(fig, "Fig05_disagreement_ontology", FIG)
 
 
@@ -395,8 +400,24 @@ def figS06():
     FS.save(fig, "FigS06_inhulets_profile", FIG)
 
 
+def figS07():
+    """Hypsometry sensitivity: V_DEM(H) vs V_design(H) and dV/V_design (T22) -- the basis of the released volume in T21."""
+    H = pd.read_csv(PT / "T22.csv")
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.0), constrained_layout=True)
+    a.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.8, label="seamless DEM, level surface")
+    a.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["ink2"], lw=1.5, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
+    a.set_xlabel("pool level, m (EVRF2019)", fontsize=7); a.set_ylabel("volume, km³", fontsize=7); a.legend(fontsize=6); a.tick_params(labelsize=6.5); a.grid(color=FS.PALETTE["grid"]); FS.panel_label(a, "a")
+    ok = H.V_table19_km3 > 7.0
+    b.plot(H.level_evrf2019_m[ok], H.dV_rel_pct[ok], color=FS.PALETTE["terrain"], lw=1.8, label="ΔV / V_design")
+    b.plot(H.level_evrf2019_m[ok], H.dA_rel_pct[ok], color=FS.PALETTE["s1"], lw=1.4, ls=":", label="ΔA / A_design")
+    b.axhline(0, color=FS.PALETTE["ink2"], lw=0.6); b.axvspan(5.6, 17.6, color=FS.PALETTE["gauge"], alpha=0.07, lw=0)
+    b.set_xlabel("pool level, m (EVRF2019)", fontsize=7); b.set_ylabel("DEM − design, % of design", fontsize=7); b.legend(fontsize=6); b.tick_params(labelsize=6.5); b.grid(color=FS.PALETTE["grid"]); FS.panel_label(b, "b")
+    fig.suptitle("Reservoir hypsometry: seamless DEM vs design table (shaded: drawdown range 5–13 June); open question for Paper 4 (historical bathymetry)", fontsize=7)
+    FS.save(fig, "FigS07_hypsometry_sensitivity", FIG)
+
+
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
-       "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False)}
+       "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False)}
 
 
 def main():

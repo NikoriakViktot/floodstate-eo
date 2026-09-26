@@ -71,7 +71,7 @@ def zone_raster(z, name, sub="floodplain_dyn"):
 
 
 def terrain_layers():
-    src = "p95 rev 4, connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
+    src = "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
     per = {}
     for z in ZONES:
         zz = np.load(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "daily_new.npz"); shp = tuple(int(v) for v in zz["shape"])

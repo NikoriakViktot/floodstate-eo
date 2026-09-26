@@ -7,17 +7,17 @@ from lib import C, caption, figure, header, table
 
 st.set_page_config(page_title="Checks", layout="wide")
 header("Independent and cross-sensor checks of the reconstruction",
-       "Sentinel-1 per date (POD / FAR / CSI on the observation domain) · disagreement ontology · ICESat-2 altimetric consistency · SWOT-input vs gauge · DEM accuracy (Paper 2)")
+       "Sentinel-1 per date (raw POD / FAR / CSI on the observation domain; conditional POD is diagnostic) · disagreement ontology · ICESat-2 altimetric consistency · SWOT-input vs gauge · DEM accuracy (Paper 2)")
 
 st.subheader("Terrain vs Sentinel-1 per acquisition date (T13)"); st.caption(caption("T13"))
 d = table("T13"); variant = st.selectbox("variant", sorted(d.variant.unique()), index=sorted(d.variant.unique()).index("connected_ceiling") if "connected_ceiling" in set(d.variant) else 0)
 region = st.selectbox("region", ["P42_FLOODPLAIN_DOMAIN", "DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])
 v = d[(d.variant == variant) & (d.region == region)]
 fig = go.Figure()
-for k, c in [("POD", C["terrain"]), ("FAR", C["s1"]), ("CSI", C["rf"]), ("POD_excl_normally_wet", C["muted"])]:
-    fig.add_trace(go.Scatter(x=v.date, y=v[k], mode="lines+markers", name=k + (" (sensitivity)" if "excl" in k else ""), line=dict(color=c, dash="dot" if "excl" in k else None)))
+for k, c in [("POD", C["terrain"]), ("FAR", C["s1"]), ("CSI", C["rf"]), ("POD_cond_outside_normally_wet", C["muted"])]:
+    fig.add_trace(go.Scatter(x=v.date, y=v[k], mode="lines+markers", name=("conditional POD outside normally-wet class (diagnostic)" if "cond" in k else k), line=dict(color=c, dash="dot" if "cond" in k else None)))
 fig.update_layout(height=320, margin=dict(l=10, r=10, t=20, b=10), yaxis=dict(range=[0, 1])); st.plotly_chart(fig, width="stretch")
-st.dataframe(v[["date", "s1_new_km2", "hand_new_km2", "hit_km2", "miss_km2", "miss_on_normally_wet_km2", "hand_only_km2", "POD", "FAR", "CSI", "POD_excl_normally_wet"]], width="stretch", hide_index=True)
+st.dataframe(v[["date", "s1_new_km2", "hand_new_km2", "hit_km2", "miss_km2", "miss_on_normally_wet_km2", "hand_only_km2", "POD", "FAR", "CSI", "POD_cond_outside_normally_wet"]], width="stretch", hide_index=True)
 
 st.subheader("Disagreement ontology (T14, Fig05)"); st.caption(caption("T14"))
 o = table("T14"); date = st.selectbox("date", sorted(o.date.unique()))

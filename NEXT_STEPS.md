@@ -208,6 +208,45 @@ uncertainty budget; three-level reproducibility; release snapshot.
 - Open before submission: verify every `VERIFY` bib entry and the literature area figures; decide the wording for the
   reed-bed definition in the abstract; B3 frame; HEC-RAS (Paper 5) on the p95 daily surfaces.
 
+### 2026-09-26 -- scientific consolidation (supervisor review): six hard gates before the manuscript is frozen
+Stage change: exploration -> consolidation. No new experiments; reduce the possibility of misreading the results. Implemented
+in this commit; enforced by `tests/test_terminology_freeze.py` and `publication/TERMINOLOGY.md`.
+1. **Terminology frozen**: "observation-constrained terrain inundation reconstruction" (no momentum/continuity equations; never
+   "physical reconstruction"); "reconstructed total water-surface area" (W_total) vs "reconstructed newly inundated area" (A_new);
+   "daily reconstructed series", never "daily observed"; temporal semantics on every area (T16: snapshot / cumulative /
+   persistence). UNOSAT ~620 km2 is cumulative flooded LAND 6-9 June (reference water separate): closer in kind to A_new than to
+   W_total; the earlier sentence "779 + 69 ~ 850 km2 comparable with 600-800" is withdrawn.
+2. **54 km2 S1-only >= 5 m above the surface**: "topographically unsupported by the reconstructed connected water surface; the
+   available ICESat-2 observations give no evidence for a DEM bias large enough to explain it" -- never "false SAR water"
+   (tracks do not sample every cell; radar shadow, smooth surfaces, local ponding, timing, registration are untested alternatives).
+3. **Uncertainty hierarchy**: the 40 spatial MC draws (p95e) are the PRIMARY interval of every area and volume (T12
+   `W_total_p05/p95_km2` = central + new-area deviations, `A_*`, `V_*`); the 100 000-draw emulator (p95g) is a SENSITIVITY
+   envelope of the AREA only (`*_emu_*`). Found while wiring it: the emulator's volume draws are ~3x the spatial MC (raw,
+   unanchored, symmetric DEM error under canopy) -> dropped from T12. Found too: the MC half-widths of area and volume are
+   similar (4 vs 5 % on 06-07) but the volume distribution is displaced above the deterministic run by ~2x the area's shift
+   (+12 vs +5 %); C07 states this instead of the expected "area uncertainty << volume uncertainty" (`rel_halfwidth_*`,
+   `mc_shift_*` in T12). Volumes always carry p05-p95 and the MC median.
+4. **Reservoir**: T21 `Q_release_eff_daily_mean_m3s` = -dV/dt + Q_in is a daily-MEAN effective release, never a breach
+   discharge; "most of the released volume was transmitted downstream rather than stored on the mapped floodplain", not "went to
+   the liman". Hypsometry gap DEM vs design (T22 `dV_rel_pct`, FigS07): ~-9 % at full pool, -15..-20 % at 11-13 m, undefined below
+   10 m -- shown as a result. Yi 2025 (initial breach flow 5.7e4 m3/s) and Kadam 2024 (HEC-RAS 3.6e4) are cited as different
+   quantities, context only (VERIFY).
+5. **Claims axis C01-C14** (evidence_matrix.csv with `former_id` and `limitation`): C01 areal maximum 7 June between acquisitions,
+   distinct from the 8 June peak stage; C02 W_total 488 -> 779, A_new 235, V 509 with primary intervals; C03 recession + Inhulets;
+   C04 raw S1 agreement conditioned by surface type (conditional POD = diagnostic, `POD_cond_outside_normally_wet`); C05 ontology;
+   C06 ICESat-2 + SWOT-gauge constrain the vertical-error explanation; C07 area vs volume uncertainty; C08 area semantics /
+   agreement not accuracy; C09 label effect ("no statistically resolved change in recall"); C10 HAND/context; C11 U2b diagnostic;
+   C12 RF20; C13 block size; C14 reservoir balance (context).
+6. **Release candidate** `v0.3.0-rc1` tagged after this commit; no further analysis in Paper 3.
+
+**Next step (maintainer decision 2026-09-26): Paper 4 = the reservoir bowl reconstructed on the historical (pre-impoundment /
+design-survey) bathymetry**, a separate paper. The p95f balance and the hypsometry gap of T22/FigS07 are the hand-over; p95f is
+not extended further here. Paper 5 (HEC-RAS) then uses Paper 3's daily surfaces as the calibration target and Paper 4's bowl.
+
+Remaining before submission (not scientific-quality blockers): VERIFY bibliography entries (`references_to_verify.md`),
+Zenodo DOI from the release, Streamlit Cloud deploy, the sidebar label "streamlit app" (file name), notebook 01 file name still
+says "physical_reconstruction" (title corrected; renaming breaks links in docs -- do it with the docs at release).
+
 ### 2026-09-25 (late) -- headline = TOTAL water surface; 100 000-draw emulator; reservoir balance
 Maintainer: "the flood zone is all the water, not only the new water". Corrected everywhere: T12 carries W_total_* (total
 water surface on the day) next to A_* (new inundation); Fig04 shows the total with candles and the daily change as bars.

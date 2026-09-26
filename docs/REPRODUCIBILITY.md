@@ -5,7 +5,7 @@ Three levels, in increasing cost. Every number in the manuscript and the dashboa
 
 ## Level 1 — manuscript reproduction (minutes, no bulk data)
 
-What: the publication tables T01–T20, the claims register, the table-only figures and the three executable notebooks,
+What: the publication tables T01–T22, the claims register, the table-only figures and the three executable notebooks,
 from committed derived data only.
 
 ```bash
@@ -50,7 +50,7 @@ S1 caches. Not attempted end-to-end from this repository.
 
 ## Submission snapshot
 
-Manuscript numbers are tied to a tagged release (`v0.2.0-alpha`) and its Zenodo DOI, never to the mutable `main` branch.
+Manuscript numbers are tied to a tagged release (`v0.3.0-rc1`) and its Zenodo DOI, never to the mutable `main` branch.
 The tables manifest records the git commit that generated them.
 
 ## Environment facts
