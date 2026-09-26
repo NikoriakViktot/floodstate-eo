@@ -28,7 +28,7 @@ with st.sidebar:
     opacity = st.slider("overlay opacity", 0.2, 1.0, 0.75, 0.05)
     st.caption("Terrain layers derive from FABDEM v1.2 (CC BY-NC-SA 4.0) via the seamless DEM; non-commercial use with attribution.")
 
-m = folium.Map(location=[46.68, 32.9], zoom_start=9, tiles="CartoDB positron", control_scale=True)
+m = folium.Map(location=[46.68, 32.9], zoom_start=9, tiles="OpenStreetMap", control_scale=True)
 def add(lid, op=None, name=None):
     l = by_id[lid]; folium.raster_layers.ImageOverlay(str(DATA / l["file"]), bounds=l["bounds"], opacity=op or opacity, name=name or lid, interactive=False, cross_origin=False, zindex=5).add_to(m)
     return l

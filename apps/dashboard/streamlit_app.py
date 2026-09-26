@@ -26,12 +26,16 @@ d7 = table("T07b"); lab = d7[(d7.A == "U2_B1B2_v1") & (d7.B == "U2_B1B2_v003A") 
 pk = corr.A_central_km2.idxmax()
 
 c1, c2, c3, c4 = st.columns(4)
-c1.metric("Peak terrain-reconstructed new inundation, Dnipro corridor", f"{corr.A_central_km2.max():.0f} km²", f"on {pk} · terrain_reconstructed")
-if "A_p05_km2" in corr.columns and corr.A_p05_km2.notna().any():
-    c2.metric("Monte-Carlo band on the peak day", f"{corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km²", "p05–p95, 40 draws")
+c1.metric("TOTAL water surface on the peak day, Dnipro corridor", f"{corr.loc[pk, 'W_total_central_km2']:.0f} km²" if "W_total_central_km2" in corr.columns else "n/a",
+          (f"p05–p95 {corr.loc[pk, 'W_total_km2_p05']:.0f}–{corr.loc[pk, 'W_total_km2_p95']:.0f} km², 100 000 draws · on {pk}" if "W_total_km2_p05" in corr.columns else f"on {pk}"))
+c2.metric("of which NEW inundation (not water before the breach)", f"{corr.A_central_km2.max():.0f} km²",
+          (f"p05–p95 {corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km², 40 spatial draws · terrain_reconstructed" if "A_p05_km2" in corr.columns and corr.A_p05_km2.notna().any() else "terrain_reconstructed"))
 c3.metric("Agreement with Sentinel-1 on 2023-06-09 (p42 floodplain)", f"POD {float(v.POD.iloc[0]):.2f} · CSI {float(v.CSI.iloc[0]):.2f}" if len(v) else "n/a", "cross_sensor, S1 footprint")
 if len(lab):
     c4.metric("Label effect v002 → v003_A (U2): flood on reference water", f"{float(lab['median'].iloc[0]):+.1f} km²", f"95 % [{float(lab.lo.iloc[0]):.1f}, {float(lab.hi.iloc[0]):.1f}] · weak_label_agreement")
+n05 = corr.loc["2023-06-05", "W_total_central_km2"] if "W_total_central_km2" in corr.columns and "2023-06-05" in corr.index else None
+if n05 is not None:
+    st.caption(f"Normal regime on 2023-06-05: {n05:.0f} km² of water in the corridor; the Inhulets valley is reported separately (Reconstruction page).")
 
 st.divider()
 col1, col2 = st.columns([1.4, 1])
