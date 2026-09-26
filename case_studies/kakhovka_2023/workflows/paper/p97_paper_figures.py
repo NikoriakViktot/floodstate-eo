@@ -307,7 +307,7 @@ def fig09():
                             ("ROZUMIVKA_GAUGE", FS.PALETTE["rf"], "^", "Rozumivka gauge (248 km)"), ("ICESAT2_ATL13", FS.PALETTE["unet"], "x", "ICESat-2 passes"), ("GREALM_S6A", FS.PALETTE["muted"], "d", "G-REALM (111 km)")]:
         q = lv[lv.source == src]; a.plot(q.date, q.H_evrf2019, mk, color=c, ms=4, label=lab, lw=0)
     a.plot(R.t, R.kherson_stage_m, color=FS.PALETTE["gauge"], lw=1.3, label="Kherson stage (downstream)"); FS.date_axis(a, BREACH, every_days=7)
-    a.set_ylabel("water level, m (gauge-anchored EGG2015 / EVRF2019)", fontsize=6.5); a.legend(fontsize=5.5, ncol=2); a.tick_params(labelsize=6); FS.panel_label(a, "a")
+    a.set_ylabel("water level, m (gauge-anchored EGG2015 / EVRF2019)", fontsize=6.5); a.legend(fontsize=5.5, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False, handletextpad=0.4, columnspacing=1.0); a.tick_params(labelsize=6); FS.panel_label(a, "a")
     b = axs[0, 1]; ok = R.V_pool_km3.notna()
     b.plot(R.t[ok], R.V_pool_km3[ok], "o-", color=FS.PALETTE["terrain"], ms=3, lw=1.5, label="pool volume under the sloped surface (DEM, km³)")
     b2 = b.twinx(); b2.plot(R.t[ok], R.A_pool_km2[ok], "s--", color=FS.PALETTE["rf"], ms=3, lw=1, label="pool water area (DEM, km²)"); b2.set_ylabel("area, km²", fontsize=6.5); b2.tick_params(labelsize=6)
@@ -316,10 +316,10 @@ def fig09():
     b.set_ylabel("volume, km³", fontsize=6.5); FS.date_axis(b, BREACH, every_days=7); b.tick_params(labelsize=6); h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels(); b.legend(h1 + h2, l1 + l2, fontsize=5.5); FS.panel_label(b, "b")
     b.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-06-15"))
     c = axs[1, 0]; dd = R[ok & (R.t >= "2023-06-05")]
-    c.bar(dd.t, -dd.dV_pool_hm3 / 1000, width=0.8, color=FS.PALETTE["terrain"], label="released from the pool, km³/day (−dV/dt)")
-    c.plot(dd.t, dd.Q_in_hm3_day / 1000, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow, km³/day")
-    c.plot(R.t, R.downstream_new_volume_hm3 / 1000, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream (corridor + Inhulets), km³")
-    c.set_ylabel("km³", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.legend(fontsize=5.5); c.tick_params(labelsize=6); FS.panel_label(c, "c"); c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
+    c.bar(dd.t, -dd.dV_pool_hm3 / 1000, width=0.8, color=FS.PALETTE["terrain"], label="released from the pool (−dV/dt)")
+    c.plot(dd.t, dd.Q_in_hm3_day / 1000, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow")
+    c.plot(R.t, R.downstream_new_volume_hm3 / 1000, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream\n(corridor + Inhulets)")
+    c.set_ylabel("km³ per day (bars, inflow) / km³ stored (line)", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.legend(fontsize=5.5, loc="upper right"); c.tick_params(labelsize=6); FS.panel_label(c, "c"); c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
     dax = axs[1, 1]; dax.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.6, label="seamless DEM, level surface"); dax.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["gauge"], lw=1.2, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
     dax.set_xlabel("pool level, m", fontsize=6.5); dax.set_ylabel("volume, km³", fontsize=6.5); dax.legend(fontsize=5.5); dax.tick_params(labelsize=6); dax.grid(color=FS.PALETTE["grid"]); FS.panel_label(dax, "d")
     fig.suptitle("Reservoir drawdown and the downstream flood: levels, pool area/volume, daily balance and the hypsometry used", fontsize=8)
