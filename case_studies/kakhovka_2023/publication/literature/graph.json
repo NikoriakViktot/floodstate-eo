@@ -1,0 +1,2334 @@
+{
+ "nodes": [
+  {
+   "id": "TH-INT-01",
+   "type": "Thesis",
+   "label": "The breach of the Kakhovka dam on 6 June 2023 released the largest reservoir of the Dnipro cascade into a ~90 km reach w",
+   "section": "1 Introduction",
+   "category": "background",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-02",
+   "type": "Thesis",
+   "label": "Operational products reported the flooded area within days: UNOSAT ~620 km2 of cumulative satellite-detected flooded lan",
+   "section": "1 Introduction",
+   "category": "comparator",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-03",
+   "type": "Thesis",
+   "label": "SWOT, on its one-day calibration orbit, observed the reach daily through the event; with those data Lehnigk et al. (2026",
+   "section": "1 Introduction",
+   "category": "background",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-04",
+   "type": "Thesis",
+   "label": "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach discharge of 5.7 ",
+   "section": "1 Introduction",
+   "category": "comparator",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-05",
+   "type": "Thesis",
+   "label": "A pixel-counted area from a classified map is a mapped area, not an unbiased estimate of the true flooded area; good pra",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-06",
+   "type": "Thesis",
+   "label": "A C-band dark-water rule does not see water under trees, between buildings or under emergent reeds (SAR blind spots), an",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-07",
+   "type": "Thesis",
+   "label": "A U-Net trained on labels derived from SAR masks inherits the sensor's limits; label noise changes segmentation metrics;",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-INT-08",
+   "type": "Thesis",
+   "label": "An input that also builds the label is label leakage: the comparison of such a model is not independent (the U2b / W_pre",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-INT-09",
+   "type": "Thesis",
+   "label": "Terrain-based inundation methods (HAND; GeoFlood; FwDET) that project a water surface or a mapped extent on a DEM are fi",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-10",
+   "type": "Thesis",
+   "label": "On low-relief floodplains small vertical DEM errors strongly change depth and extent; spatially correlated error realisa",
+   "section": "1 Introduction",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-INT-11",
+   "type": "Thesis",
+   "label": "Series conventions inherited from Paper 1: satellite heights are EGG2015-referenced heights shifted by the empirical loc",
+   "section": "1 Introduction",
+   "category": "background",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-DAT-01",
+   "type": "Thesis",
+   "label": "Sentinel-1 GRD/RTC scenes (11 acquisitions 1-30 June, orbits 14/65/87/138) classified with a per-scene dark-water rule (",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-DAT-02",
+   "type": "Thesis",
+   "label": "Sentinel-2 L2A index stacks per date (NDWI, MNDWI, NDVI, NDMI, BSI, AWEIsh, NDTI) with the water rule NDWI > 0 and MNDWI",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "low"
+  },
+  {
+   "id": "TH-DAT-03",
+   "type": "Thesis",
+   "label": "SWOT L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit, 26 May-10 July 2023, filtered by node_q <= 1 and dark fr",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "high"
+  },
+  {
+   "id": "TH-DAT-04",
+   "type": "Thesis",
+   "label": "Kherson gauge 80805, daily river-yearbook stages, BS-77 -> EVRF2019 by the official EPSG:9902 transformation (+0.216 m a",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-DAT-05",
+   "type": "Thesis",
+   "label": "The seamless DEM (Paper 2) merges a kriged bathymetric bed inside the pre-breach water polygons with FABDEM v1.2 elsewhe",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "high"
+  },
+  {
+   "id": "TH-DAT-06",
+   "type": "Thesis",
+   "label": "HAND is computed from FABDEM floored at the 1 m river level with WhiteboxTools (p42 workflow).",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "low"
+  },
+  {
+   "id": "TH-DAT-07",
+   "type": "Thesis",
+   "label": "ESA WorldCover 2021 (10 m) is the training reference of the RF20 surface classes and the classes of the disagreement ont",
+   "section": "2 Data",
+   "category": "data",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-01",
+   "type": "Thesis",
+   "label": "The daily water surface is built without chainage: each cell takes the median height of its five nearest SWOT nodes with",
+   "section": "3.1 Water surface",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-02",
+   "type": "Thesis",
+   "label": "The Kherson-local closure residual is ~0 (+0.9 cm RiverSP, -2.6 cm PIXC pre-breach; +1.9 cm through the breach fortnight",
+   "section": "3.1 Water surface",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-03",
+   "type": "Thesis",
+   "label": "A cell is water on day t if its DEM lies below the water surface and it is 8-connected through such cells to the pre-bre",
+   "section": "3.2 Terrain rule",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-04",
+   "type": "Thesis",
+   "label": "The DEM enters after subtraction of its class-median residual against night ICESat-2 (trees +1.5-2 m, wetland ~+0.5 m, c",
+   "section": "3.2 Terrain rule",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-05",
+   "type": "Thesis",
+   "label": "The normal regime is the union of the same rule over the pre-breach days 26 May-5 June plus the observed pre-breach wate",
+   "section": "3.2 Terrain rule",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-06",
+   "type": "Thesis",
+   "label": "A 40-draw spatial Monte-Carlo propagates the closure (sigma 0.05 m), the date-only gauge (0.05 m), the SWOT node height ",
+   "section": "3.3 Uncertainty",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-07",
+   "type": "Thesis",
+   "label": "A cluster-normal emulator with 100 000 draws per day over the class-wise DEM and water-surface error parameters gives a ",
+   "section": "3.3 Uncertainty",
+   "category": "method",
+   "priority": "low"
+  },
+  {
+   "id": "TH-MET-08",
+   "type": "Thesis",
+   "label": "On each Sentinel-1 date the reconstruction is compared with the S1 new dark water on the S1 valid footprint (hits, misse",
+   "section": "3.4 Checks",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-MET-09",
+   "type": "Thesis",
+   "label": "The disagreement is decomposed into A (both), B (terrain only), C (S1 only) by WorldCover and RF20 class and by ground e",
+   "section": "3.4 Checks",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-10",
+   "type": "Thesis",
+   "label": "Night ICESat-2 ATL08 ground segments sampled on the 9 June disagreement categories give, per category, the residual DEM ",
+   "section": "3.4 Checks",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-11",
+   "type": "Thesis",
+   "label": "A random forest on PRE-event Sentinel-2 composite predictors, trained on WorldCover 2021 with a purity filter, classifie",
+   "section": "3.5 RF20",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-12",
+   "type": "Thesis",
+   "label": "Label contract v002: FLOOD where S1 saw water on >= 2 of the 3 peak dates on land dry on every pre-breach date; NON_FLOO",
+   "section": "3.6 Labels",
+   "category": "method",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-MET-13",
+   "type": "Thesis",
+   "label": "U-Net with a ResNet-34 encoder trained from scratch on 512-px patches with masked BCE + Dice for 60 epochs (seed fixed);",
+   "section": "3.6 U-Net",
+   "category": "method",
+   "priority": "low"
+  },
+  {
+   "id": "TH-MET-14",
+   "type": "Thesis",
+   "label": "10 km spatial blocks with 640 m eroded buffers and pure 512-px footprints; block size exceeds patch + two buffers (6.4 k",
+   "section": "3.7 Blocking",
+   "category": "method",
+   "priority": "high"
+  },
+  {
+   "id": "TH-RES-01",
+   "type": "Thesis",
+   "label": "The reconstructed newly inundated area of the Dnipro corridor reaches its maximum on 7 June 2023, between the Sentinel-1",
+   "section": "4.1 Areal maximum",
+   "category": "result",
+   "priority": "high"
+  },
+  {
+   "id": "TH-RES-02",
+   "type": "Thesis",
+   "label": "The reconstructed total water-surface area of the corridor rises from 488 km2 (5 June) to 779 km2 (7 June; primary p05-p",
+   "section": "4.1 Totals",
+   "category": "result",
+   "priority": "high"
+  },
+  {
+   "id": "TH-RES-03",
+   "type": "Thesis",
+   "label": "The corridor recedes to 183 km2 (9 June), 108 (13 June), 34 (18 June) and 4 km2 (21 June) with the stage back at 0.74 m;",
+   "section": "4.1 Recession",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-04",
+   "type": "Thesis",
+   "label": "Raw agreement with Sentinel-1 new dark water on 9 June inside the floodplain domain is low (POD 0.26, FAR 0.62, CSI 0.18",
+   "section": "4.2 S1 agreement",
+   "category": "result",
+   "priority": "high"
+  },
+  {
+   "id": "TH-RES-05",
+   "type": "Thesis",
+   "label": "On 9 June B (terrain-only) = 120 km2, dominated by trees (43), wetland (20) and built-up (23); C (S1-only) = 261 km2, of",
+   "section": "4.3 Ontology",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-06",
+   "type": "Thesis",
+   "label": "Along the night ICESat-2 tracks that sample the S1-only cells >= 2 m above the surface, the DEM agrees with the altimetr",
+   "section": "4.4 ICESat-2",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-07",
+   "type": "Thesis",
+   "label": "After re-anchoring, the SWOT node surface agrees with the Kherson gauge at day level (median +0.01 m, NMAD 0.07 m, RMSE ",
+   "section": "4.5 SWOT vs gauge",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-08",
+   "type": "Thesis",
+   "label": "For the same corridor on 9 June: S1 new dark water 300 km2 (snapshot), label recipe 168 km2 (persistence), U2b 241 km2 (",
+   "section": "4.6 Three areas",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-09",
+   "type": "Thesis",
+   "label": "RF20 reaches OA 0.940 and macro F1 0.943 against WorldCover in spatial-block CV; the frame transfers B1->B2 and B2->B1 g",
+   "section": "4.8 RF20",
+   "category": "result",
+   "priority": "low"
+  },
+  {
+   "id": "TH-RES-10",
+   "type": "Thesis",
+   "label": "Changing the label contract from v002 to v003_A at fixed inputs removes a reference-water artefact (-13.4 km2 of flood o",
+   "section": "4.9 Label effect",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-11",
+   "type": "Thesis",
+   "label": "HAND as an input reduces the predicted-flood burden on unlabelled cropland by 9.6 km2 (95 % [-14.8, -5.1]) and moves +0.",
+   "section": "4.9 HAND input",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-12",
+   "type": "Thesis",
+   "label": "Adding the pre-event water state W_pre as an input increases agreement with v003_A (-0.62 km2 flood on reference water, ",
+   "section": "4.9 U2b",
+   "category": "result",
+   "priority": "low"
+  },
+  {
+   "id": "TH-RES-13",
+   "type": "Thesis",
+   "label": "U2 on v003_A gives global F1 0.931 (10 km), 0.956 (7.5), 0.937 (15) and 0.876 (20 km), each with its own test geography;",
+   "section": "4.10 Block size",
+   "category": "result",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-RES-14",
+   "type": "Thesis",
+   "label": "Under the sloped daily surface the pool held 18.9 km3 on 5 June (design table 21.1 km3 at the same outlet level) and 4.5",
+   "section": "4.1 Reservoir (context)",
+   "category": "result",
+   "priority": "high"
+  },
+  {
+   "id": "TH-RES-15",
+   "type": "Thesis",
+   "label": "The seamless-DEM hypsometry lies below the design Table 19 at equal levels: -9 % at 17.5 m, -14 % at 13 m, -20 % at 11 m",
+   "section": "4.1 Hypsometry",
+   "category": "result",
+   "priority": "high"
+  },
+  {
+   "id": "TH-DIS-01",
+   "type": "Thesis",
+   "label": "Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum falls between acquisitions; a",
+   "section": "5 Discussion",
+   "category": "interpretation",
+   "priority": "high"
+  },
+  {
+   "id": "TH-DIS-02",
+   "type": "Thesis",
+   "label": "The largest uncertainty of the reconstruction is definitional, not metric: whether the delta reed beds are 'new inundati",
+   "section": "5 Discussion",
+   "category": "interpretation",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-DIS-03",
+   "type": "Thesis",
+   "label": "The most useful product of the comparison is not a single accuracy but the map of where each source is blind (radar unde",
+   "section": "5 Discussion",
+   "category": "interpretation",
+   "priority": "medium"
+  },
+  {
+   "id": "TH-DIS-04",
+   "type": "Thesis",
+   "label": "Bathymetry controls stage and timing in outburst-flood modelling (Lehnigk 2026); the reservoir balance is bounded contex",
+   "section": "5 Discussion",
+   "category": "interpretation",
+   "priority": "medium"
+  },
+  {
+   "id": "Vyshnevskyi_2023",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Shumilova_2025",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "UNOSAT_3616_2023",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "UNOSAT_3623_2023",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "CEOBS_2023",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "REACH_2023",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?NASA_Harvest_2023",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Lehnigk_2026",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Biancamaria_2016",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Yi_2025",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Kadam_2024",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Olofsson_2014",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?flood_area_estimation_probability_sample",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Zhao_2021",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Shen_2019",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Grimaldi_2020",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "?Tsyganskaya_2018",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Martinis_lookalikes",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Maiti_2022",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "He_2024",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Bonafilia_2020",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "?label_noise_RS_survey",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Apicella_2025",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Kaufman_2012",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Renno_2008",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Nobre_2011",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Johnson_2019",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Zheng_2018",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Cohen_2019",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Darnell_2008",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "Le_2026",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "?Wechsler_2007",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Hawker_2018",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Paper1_Nikoriak_2026",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Denker_2015_EGG2015",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?EVRF2019_BKG",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Lopes_1990",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Otsu_1979",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Twele_2016",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "Martinis_2022",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "Wagner_2026",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Small_2011_RTC",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "McFeeters_1996",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Xu_2006",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Feyisa_2014_AWEI",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "SWOT_RiverSP_v2",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Altenau_2021",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?SWOT_RiverSP_validation_2024",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?EPSG_9902",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?UkrHMC_yearbook_2023",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Hawker_2022",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "Neuenschwander_2019",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Paper2_Nikoriak_2026",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Liu_2021_ATL08",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Kulp_Strauss_2018",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Lindsay_2016",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Zanaga_2022",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?WorldCover_validation_report",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?WSE_interpolation_precedent",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?permanent_tide_IERS",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Poulter_Halpin_2008",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Williams_LuckVogel_2020",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?ICESat2_DEM_bias_correction",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Fisher_Tate_2006",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?emulator_flood_uncertainty",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Schaefer_1990_CSI",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Bates_DeRoo_2000",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Stephens_2014",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Landuyt_2019",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?GFM_validation_landcover",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Roberts_2017",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Pohjankukka_2017",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Valavi_2019",
+   "type": "Reference",
+   "status": "verified"
+  },
+  {
+   "id": "?Belgiu_Dragut_2016",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?training_on_global_LC_labels",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Bai_2021",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "Ronneberger_2015",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "He_2016",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "Iakubovskii_2019",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?Milletari_2016_Dice",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Ploton_2020",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Karasiak_2022",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?block_bootstrap_map_accuracy",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?HDX_FL20230606UKR",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?extent_stage_lag_floodwave",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Monti_2024",
+   "type": "Reference",
+   "status": "VERIFY"
+  },
+  {
+   "id": "?tributary_backwater_flooding",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Giustarini_2013",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "?multi_product_flood_extent_comparison",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "Tupas_2023",
+   "type": "Reference",
+   "status": "in bib, no status note"
+  },
+  {
+   "id": "?HAND_feature_flood_ML",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Ukrhydroenergo_releases_2023",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?GREALM_source",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?dam_breach_storage_balance_discharge",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Kakhovka_bathymetry_historical",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?Kakhovka_Sea_before_after_2025",
+   "type": "Reference",
+   "status": "missing (search)"
+  },
+  {
+   "id": "?revisit_flood_peak_sampling",
+   "type": "Reference",
+   "status": "missing (search)"
+  }
+ ],
+ "edges": [
+  {
+   "source": "TH-INT-01",
+   "target": "Vyshnevskyi_2023",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-01",
+   "target": "Shumilova_2025",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-01",
+   "target": "Kakhovka dam destruction 6 June 2023 consequences reservoir volume",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-01",
+   "target": "Kakhovka reservoir design full-pool volume 18.2 km3 area 2155 km2",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "UNOSAT_3616_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "UNOSAT_3623_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "CEOBS_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "REACH_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "?NASA_Harvest_2023",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "UNOSAT Kakhovka satellite detected flood water extent 9 June 2023 product",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "NASA Harvest Kakhovka dam flooded area 7 June 2023 Planet",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-02",
+   "target": "Kakhovka flood extent km2 satellite estimate comparison 2023",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-03",
+   "target": "Lehnigk_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-03",
+   "target": "Biancamaria_2016",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-03",
+   "target": "SWOT calibration orbit 1-day repeat 2023 water surface elevation Kakhovka",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-03",
+   "target": "Lehnigk Pavelsky Lang SWOT Kakhovka outburst flood model bathymetry",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-04",
+   "target": "Yi_2025",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-04",
+   "target": "Kadam_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-INT-04",
+   "target": "Kakhovka dam breach discharge estimate m3/s satellite",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-04",
+   "target": "Kakhovka breach HEC-RAS 2D simulation flood extent km2",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-05",
+   "target": "Olofsson_2014",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-05",
+   "target": "?flood_area_estimation_probability_sample",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-05",
+   "target": "Olofsson 2014 good practices estimating area and assessing accuracy land change",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-05",
+   "target": "flood extent area estimation stratified random sample unbiased area SAR",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "Zhao_2021",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "Shen_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "Grimaldi_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "?Tsyganskaya_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "?Martinis_lookalikes",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "SAR flood mapping look-alikes smooth surfaces radar shadow sand false positives",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "Tsyganskaya 2018 SAR-based detection of flooded vegetation review",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-06",
+   "target": "C-band Sentinel-1 flooded vegetation double bounce detection limits",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "Maiti_2022",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "He_2024",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "Bonafilia_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "?label_noise_RS_survey",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "label noise semantic segmentation remote sensing effect deep learning",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-07",
+   "target": "weakly supervised flood mapping SAR U-Net noisy labels Sen1Floods11",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-08",
+   "target": "Apicella_2025",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-08",
+   "target": "?Kaufman_2012",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-08",
+   "target": "Kaufman Rosset Perlich leakage in data mining formulation detection avoidance",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-08",
+   "target": "target leakage feature derived from label machine learning evaluation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "Renno_2008",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "Nobre_2011",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "Johnson_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "Zheng_2018",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "Cohen_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "HAND height above nearest drainage flood inundation mapping limitations",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "GeoFlood terrain analysis inundation mapping simplified vs hydrodynamic",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-09",
+   "target": "FwDET floodwater depth estimation tool DEM limitations",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "Darnell_2008",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "Le_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "?Wechsler_2007",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "?Hawker_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "Wechsler 2007 uncertainties associated with digital elevation models for hydrologic applications",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "Hawker 2018 perspectives on DEM simulation flood modeling absence of high-accuracy global DEM",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-10",
+   "target": "spatially correlated DEM error Monte Carlo flood extent uncertainty",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-11",
+   "target": "Paper1_Nikoriak_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-INT-11",
+   "target": "?Denker_2015_EGG2015",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-11",
+   "target": "?EVRF2019_BKG",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-INT-11",
+   "target": "European Gravimetric Quasigeoid EGG2015 Denker",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-INT-11",
+   "target": "EVRF2019 European Vertical Reference Frame realisation BKG",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Lopes_1990",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Otsu_1979",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Twele_2016",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Martinis_2022",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Wagner_2026",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "?Small_2011_RTC",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Sentinel-1 radiometric terrain correction Small 2011 flattening gamma",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "Sentinel-1 change detection flood mapping Otsu threshold automatic Twele 2016",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-01",
+   "target": "reference water mask seasonal water Sentinel-1 flood exclusion Martinis",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-02",
+   "target": "McFeeters_1996",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-02",
+   "target": "Xu_2006",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-02",
+   "target": "?Feyisa_2014_AWEI",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-02",
+   "target": "Feyisa 2014 automated water extraction index AWEI Landsat",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-02",
+   "target": "NDWI MNDWI water rule Sentinel-2 threshold zero flood",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "SWOT_RiverSP_v2",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "Altenau_2021",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "Biancamaria_2016",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "?SWOT_RiverSP_validation_2024",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "SWOT L2_HR_RiverSP node water surface elevation validation gauges 2024 calibration orbit",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "SWORD river database Altenau 2021 nodes reaches",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-03",
+   "target": "SWOT node_q quality flag dark water fraction RiverSP",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-04",
+   "target": "Paper1_Nikoriak_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-04",
+   "target": "?EPSG_9902",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-04",
+   "target": "?UkrHMC_yearbook_2023",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-04",
+   "target": "EPSG 9902 Baltic 1977 height to EVRF2019 Ukraine transformation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-04",
+   "target": "Ukrainian Hydrometeorological Center river yearbook Kherson gauge Dnipro 2023",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "Hawker_2022",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "Neuenschwander_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "Paper2_Nikoriak_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "?Liu_2021_ATL08",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "?Kulp_Strauss_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "FABDEM accuracy forest removal residual bias ICESat-2 validation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "ICESat-2 ATL08 terrain height accuracy night vegetation Liu 2021",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-05",
+   "target": "global DEM vegetation bias correction coastal floodplain CoastalDEM",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-06",
+   "target": "Lindsay_2016",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-DAT-06",
+   "target": "WhiteboxTools Lindsay elevation above stream HAND algorithm citation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-07",
+   "target": "Zanaga_2022",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DAT-07",
+   "target": "?WorldCover_validation_report",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DAT-07",
+   "target": "ESA WorldCover 2021 v200 validation report overall accuracy",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DAT-07",
+   "target": "WorldCover 10 m land cover accuracy wetland built-up class",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "Lehnigk_2026",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "Paper1_Nikoriak_2026",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "?WSE_interpolation_precedent",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "water surface elevation interpolation from satellite altimetry nodes floodplain inundation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "SWOT river node interpolation water surface slope flood",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-01",
+   "target": "gauge and satellite altimetry fusion water level time series interpolation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-02",
+   "target": "Paper1_Nikoriak_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-MET-02",
+   "target": "?permanent_tide_IERS",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-02",
+   "target": "satellite altimetry gauge datum closure residual local geoid offset river",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-02",
+   "target": "permanent tide system mean tide zero tide height conversion IERS conventions",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "Zheng_2018",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "Cohen_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "Johnson_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "?Poulter_Halpin_2008",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "?Williams_LuckVogel_2020",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "bathtub inundation model hydrological connectivity eight-connected Poulter Halpin 2008",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "connectivity constrained planar water surface inundation DEM overestimation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-03",
+   "target": "Williams Luck-Vogel 2020 bathtub model connectivity coastal inundation comparison",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "Hawker_2022",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "Neuenschwander_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "?ICESat2_DEM_bias_correction",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "ICESat-2 ATL08 DEM bias correction land cover class stratified",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "reed wetland canopy bias digital elevation model correction ICESat-2",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-04",
+   "target": "MERIT DEM vegetation bias removal ICESat GLAS",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "Martinis_2022",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "Wagner_2026",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "Grimaldi_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "?Tsyganskaya_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "reference water layer definition flood mapping normal water extent Sentinel-1",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-05",
+   "target": "emergent vegetation submergence SAR backscatter drop water level rise reed",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "Darnell_2008",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "Le_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "?Wechsler_2007",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "?Hawker_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "?Fisher_Tate_2006",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "sequential Gaussian simulation DEM error correlation length flood inundation uncertainty",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "Fisher Tate 2006 causes and consequences of error in digital elevation models",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-06",
+   "target": "number of Monte Carlo realisations DEM uncertainty convergence flood extent",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-07",
+   "target": "?emulator_flood_uncertainty",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-07",
+   "target": "emulator surrogate model flood inundation uncertainty propagation DEM error stage",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-07",
+   "target": "analytical propagation DEM error flood area binomial cells correlated clusters",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "?Schaefer_1990_CSI",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "?Bates_DeRoo_2000",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "?Stephens_2014",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "critical success index threat score Schaefer 1990 definition",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "flood inundation model performance binary measures F statistic Bates De Roo 2000",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-08",
+   "target": "Stephens Bates Freer 2014 problems with binary pattern measures flood",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "Zhao_2021",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "?Landuyt_2019",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "?GFM_validation_landcover",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "Landuyt 2019 flood mapping based on synthetic aperture radar comparison methods Sentinel-1",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "flood map disagreement stratified by land cover height above water surface",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-09",
+   "target": "Global Flood Monitoring validation land cover class Sentinel-1",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-10",
+   "target": "Lehnigk_2026",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-10",
+   "target": "Neuenschwander_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-10",
+   "target": "?Liu_2021_ATL08",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-10",
+   "target": "ICESat-2 ATL08 night acquisitions terrain accuracy vs day background noise",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-10",
+   "target": "ICESat-2 ground tracks sampling bias validation raster products",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "Roberts_2017",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "Pohjankukka_2017",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "Valavi_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "?Belgiu_Dragut_2016",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "?training_on_global_LC_labels",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "Belgiu Dragut 2016 random forest remote sensing review",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "training land cover classifier with global land cover product labels purity filter noisy labels",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-11",
+   "target": "spatial block cross validation land cover classification autocorrelation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-12",
+   "target": "Bonafilia_2020",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-12",
+   "target": "Bai_2021",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-12",
+   "target": "Martinis_2022",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-12",
+   "target": "Sen1Floods11 weak labels Sentinel-1 flood segmentation dataset",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-12",
+   "target": "persistent flood label multiple dates SAR water mask training labels",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "Ronneberger_2015",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "He_2016",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "Iakubovskii_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "?Milletari_2016_Dice",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "Milletari 2016 V-Net Dice loss segmentation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-13",
+   "target": "masked loss ignore label semantic segmentation partial annotations remote sensing",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "Roberts_2017",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "Valavi_2019",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "Pohjankukka_2017",
+   "relation": "METHOD_FROM"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "?Ploton_2020",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "?Karasiak_2022",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "?block_bootstrap_map_accuracy",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "Ploton 2020 spatial validation reveals poor predictive performance large-scale ecological mapping",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "Karasiak 2022 spatial dependence between training and test sets remote sensing",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-MET-14",
+   "target": "cluster bootstrap spatial blocks confidence interval classification accuracy",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "Lehnigk_2026",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "UNOSAT_3616_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "?HDX_FL20230606UKR",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "?extent_stage_lag_floodwave",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "Kakhovka flood extent 7 June 2023 satellite ICEYE Planet daily",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "flood extent maximum vs peak stage lag floodplain storage hysteresis",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-01",
+   "target": "SWOT Kakhovka water surface elevation peak 8 June Kherson gauge 5.6 m",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "UNOSAT_3616_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Kadam_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Monti_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Shumilova_2025",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Vyshnevskyi_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "?NASA_Harvest_2023",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Kakhovka flood inundated area km2 published estimates comparison definition",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-02",
+   "target": "Monti 2024 Nova Kakhovka Sentinel-1 flooded area time series km2",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-03",
+   "target": "UNOSAT_3623_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-03",
+   "target": "Monti_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-03",
+   "target": "?tributary_backwater_flooding",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-03",
+   "target": "Kakhovka flood recession 13 June 21 June 2023 satellite extent",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-03",
+   "target": "tributary backwater inundation confluence main-stem stage imposed flood mapping",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "Johnson_2019",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "Zheng_2018",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "Shen_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "Zhao_2021",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "HAND inundation map vs SAR flood map agreement critical success index evaluation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-04",
+   "target": "Sentinel-1 false water detection wet bare soil after rainfall low backscatter",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "Grimaldi_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "Zhao_2021",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "Shen_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "Giustarini_2013",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "?Tsyganskaya_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "SAR flood omission error forest urban wetland percentage Sentinel-1 validation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-05",
+   "target": "Giustarini 2013 change detection approach urban flood SAR",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-06",
+   "target": "Lehnigk_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-06",
+   "target": "Neuenschwander_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-06",
+   "target": "?Liu_2021_ATL08",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-06",
+   "target": "ICESat-2 ATL08 terrain accuracy cropland grassland RMSE bias",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-06",
+   "target": "ATL08 vs lidar DEM validation vegetation height error flat terrain",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-07",
+   "target": "Paper1_Nikoriak_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-07",
+   "target": "?SWOT_RiverSP_validation_2024",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-07",
+   "target": "SWOT river node water surface elevation accuracy versus in situ gauges centimetres 2024 2025",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-07",
+   "target": "SWOT science orbit calibration phase river height validation",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "Olofsson_2014",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "UNOSAT_3616_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "UNOSAT_3623_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "?multi_product_flood_extent_comparison",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "comparison of flood extent products same event different definitions cumulative snapshot reference water",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-08",
+   "target": "Copernicus EMS vs Global Flood Monitoring extent comparison definitions",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-09",
+   "target": "Zanaga_2022",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-09",
+   "target": "?Belgiu_Dragut_2016",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-09",
+   "target": "?WorldCover_validation_report",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-09",
+   "target": "Sentinel-2 random forest land cover classification overall accuracy WorldCover labels agreement",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-10",
+   "target": "Martinis_2022",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-10",
+   "target": "Wagner_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-10",
+   "target": "Maiti_2022",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-10",
+   "target": "permanent water reference class flood segmentation false positives seasonal water training labels",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-11",
+   "target": "Tupas_2023",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-11",
+   "target": "Bonafilia_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-11",
+   "target": "?HAND_feature_flood_ML",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-11",
+   "target": "HAND terrain feature deep learning flood mapping reduces false positives cropland",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-11",
+   "target": "Tupas 2023 HAND plausibility feature flood mapping",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-12",
+   "target": "Apicella_2025",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-12",
+   "target": "?Kaufman_2012",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-12",
+   "target": "label leakage input feature derived from label evaluation optimistic bias",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-13",
+   "target": "Roberts_2017",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-13",
+   "target": "Valavi_2019",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-RES-13",
+   "target": "?Ploton_2020",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-13",
+   "target": "?Karasiak_2022",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-13",
+   "target": "block size selection spatial cross-validation autocorrelation range semivariogram deep learning patches",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "Yi_2025",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "Kadam_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "Vyshnevskyi_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "?Ukrhydroenergo_releases_2023",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "?GREALM_source",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "?dam_breach_storage_balance_discharge",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "dam breach outflow estimation from reservoir storage change daily water balance altimetry",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "Kakhovka reservoir level Nikopol June 2023 daily drawdown",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-14",
+   "target": "G-REALM Kakhovka reservoir Sentinel-6 water level 2023",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "Vyshnevskyi_2023",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "Yi_2025",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "Lehnigk_2026",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "?Kakhovka_bathymetry_historical",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "?Kakhovka_Sea_before_after_2025",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "Kakhovka reservoir bathymetry historical survey area volume curve",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "Kakhovka reservoir hypsometric curve stage area volume table design 1956",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-RES-15",
+   "target": "exposed Kakhovka reservoir bed DEM ICESat-2 sedimentation volume loss",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DIS-01",
+   "target": "?revisit_flood_peak_sampling",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DIS-01",
+   "target": "Lehnigk_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DIS-01",
+   "target": "satellite revisit time probability of capturing flood peak extent Sentinel-1 sampling",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DIS-01",
+   "target": "temporal undersampling flood hydrograph satellite observations constellation revisit",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DIS-02",
+   "target": "Grimaldi_2020",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DIS-02",
+   "target": "?Tsyganskaya_2018",
+   "relation": "NEEDS_SOURCE"
+  },
+  {
+   "source": "TH-DIS-02",
+   "target": "wetland inundation definition submergence versus flooding emergent vegetation mapping ambiguity",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DIS-03",
+   "target": "Zhao_2021",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DIS-03",
+   "target": "Wagner_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DIS-03",
+   "target": "flood map exclusion layer uncertainty layer operational service Sentinel-1 GFM",
+   "relation": "SEARCH_QUERY"
+  },
+  {
+   "source": "TH-DIS-04",
+   "target": "Lehnigk_2026",
+   "relation": "SUPPORTED_BY"
+  },
+  {
+   "source": "TH-DIS-04",
+   "target": "Kadam_2024",
+   "relation": "COMPARATOR"
+  },
+  {
+   "source": "TH-DIS-04",
+   "target": "dam break 2D hydrodynamic model calibration observed flood extent satellite water surface elevation",
+   "relation": "SEARCH_QUERY"
+  }
+ ]
+}

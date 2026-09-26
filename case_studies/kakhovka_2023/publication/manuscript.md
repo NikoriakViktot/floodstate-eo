@@ -74,15 +74,15 @@ depth and a volume for every day, tied to the observed water surface, with an un
 satellite flood masks and such a reconstruction disagree and why. Terrain-based approaches that project a water surface or a
 mapped extent on a DEM (HAND: Rennó et al. 2008, Nobre et al. 2011; GeoFlood: Zheng et al. 2018; FwDET: Cohen et al. 2019) are
 first-order products, not hydrodynamics, and their depth and extent are sensitive to small vertical errors on low-relief
-floodplains, which spatially correlated DEM-error realisations propagate correctly (Darnell et al. 2008; Le et al. 2025).
+floodplains, which spatially correlated DEM-error realisations propagate correctly (Darnell et al. 2008; Le et al. 2026).
 
 Two well-known properties of satellite flood mapping make this necessary. The area obtained by counting classified pixels is a
 *mapped* area, not an unbiased estimate of the true flooded area; the good-practice framework of Olofsson et al. (2014) asks
 for a probability-sample reference that does not exist here. And a C-band dark-water rule does not see water under trees,
 between buildings or under emergent reeds (Grimaldi et al. 2020; Zhao et al. 2021 formalise such areas as exclusion maps),
 while smooth non-water surfaces and radar shadow can look like water (Shen et al. 2019). A U-Net trained on labels derived
-from those masks inherits both limits (He et al. 2024; Maiti et al. 2022); its accuracy against such labels is agreement, not
-truth, and an input that also builds the label is label leakage (DataLeakage 2025, VERIFY). We therefore structure the study
+from those masks inherits both limits (Maiti et al. 2022; weak supervision for flood mapping: He et al. 2024); its accuracy against such labels is agreement, not
+truth, and an input that also builds the label is label leakage (Apicella et al. 2025). We therefore structure the study
 as a hierarchy of evidence (Fig02): an **observation-constrained terrain inundation reconstruction** of the daily inundation
 from the gauge-constrained, SWOT-supported water-surface geometry and terrain connectivity — a daily reconstructed series, not
 a hydrodynamic model — is the main axis; **independent and cross-sensor
