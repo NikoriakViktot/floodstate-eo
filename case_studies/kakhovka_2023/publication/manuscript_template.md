@@ -300,6 +300,34 @@ is undefined below 10 m (T22, FigS07) — so the released volume inherits this g
 underwater part of the seamless DEM, shoreline geometry, the original survey) is the subject of Paper 4, which reconstructs the
 bowl on the historical bathymetry.
 
+**The design curve as the classical reference (context, no DEM).** Read on the design level–volume curve of the monograph
+(Table 19; T27, FigS10) at the Rozumivka gauge — the only 2023 daily series, and the pool was level before the breach — the
+reservoir held {{T27b|date=2023-02-08|V_design_km3||.1f}} km³ at {{T27b|date=2023-02-08|H_rozumivka_m||.1f}} m on 8 February and
+was filled by the April–May DniproHES release to {{T27b|date=2023-05-05|V_design_km3||.1f}} km³ at
+{{T27b|date=2023-05-05|H_rozumivka_m||.2f}} m on 5 May (just below the highest forced level), held near 17.5 m through May and
+lowered by ~0.4 m in the last ten days before the breach ({{T27b|date=2023-06-05|V_design_km3||.1f}} km³ on 5 June; the filling
+week by week, with the inflow and the outflow through the Kakhovka HPP implied by the design-curve balance, in T27c). After the
+breach the surface sloped by up to {{T21|date=2023-06-10|gradient_m||.1f}} m, so the design curve, which assumes a level pool,
+gives a range rather than a number: at the Rozumivka level the design-curve balance with the DniproHES inflow yields a daily-mean
+effective release of {{T27b|date=2023-06-07|Q_out_design_rozumivka_m3s||.0f}} m³ s⁻¹ on 7 June, the same order as the
+{{T21|date=2023-06-07|Q_release_eff_daily_mean_m3s||.0f}} m³ s⁻¹ of the sloped-surface balance above; at the outlet level the
+curve is undefined from 9 June (outlet below 10 m). "Outlet" here is the pool just above the dam (SWOT nodes at 0 km); the head
+across the dam fell from {{T27b|date=2023-05-31|head_across_dam_m||.1f}} m on 31 May to {{T27b|date=2023-06-06|head_across_dam_m||.1f}} m
+on 6 June and {{T27b|date=2023-06-14|head_across_dam_m||.1f}} m on 14 June (T27b, with the Kherson stage alongside).
+
+**The drawdown of the pool seen from orbit (context, no claim).** Maps of the emptying pool from three sources are in the
+supplement (T23–T26, FigS08–FigS09): the modelled pool under the sloped surface, the Sentinel-1 VH dark surface and the frozen
+Sentinel-2 index and class products of the SWOT-DNIPRO chain (p25, not re-classified here). Sentinel-2 agrees with the modelled full pool on 5 June at IoU
+{{T23|date=2023-06-05,source=S2_WATER3|iou_vs_model||.2f}}; Sentinel-1 agrees at
+{{T23|date=2023-06-01,source=S1|iou_vs_model||.2f}} on 1 June, {{T23|date=2023-06-08,source=S1|iou_vs_model||.2f}} on 8 June and
+{{T23|date=2023-06-13,source=S1|iou_vs_model||.2f}} on 13 June, after which the VH dark surface is open water *or* smooth wet
+sediment and is no longer a water area ({{T23|date=2023-06-20,source=S1|water_km2||.0f}} km² dark against
+{{T23|date=2023-06-20,source=S2_CROSSCHECK|water_km2||.0f}} km² of Sentinel-2 water on 20 June). By 8 September reed or flooded
+vegetation covers {{T24|date=2023-09-08,stratum=EXPOSED_BY_0613|REED_OR_FLOODED_VEGETATION_pct||.0f}} % of the bed exposed first
+(6–13 June) and {{T24|date=2023-09-08,stratum=WET_ON_0613|REED_OR_FLOODED_VEGETATION_pct||.0f}} % of the rest (T24; the seven
+index statistics per stratum in T25–T26). These are observations of the bed, not results of this paper; they are the hand-over to
+Paper 4.
+
 ### 4.2 Raw agreement with Sentinel-1 on the observation domain [C04]
 
 On 9 June, in the p42 floodplain domain and on the Sentinel-1 footprint, the reconstruction allows
@@ -472,6 +500,9 @@ the peak day; the date-only gauge against 11:00 UTC SWOT passes; weak labels who
 W_pre circularity of U2b; frame B3 (delta with the liman) not built; no probability-sample reference for any area; literature
 figures not verified against their sources; the Inhulets backwater treated with its own nodes but without a tributary
 hydrograph; the reservoir balance rests on three to four level points and a DEM hypsometry below the design table; the
+design-curve reading assumes a level pool and, before the breach, holds the last SWOT outlet value between passes; the
+Sentinel-1 dark surface over the drained bed is not a water area (no source separates wet sediment from water in C-band);
+the deterministic nominal run lies below its own Monte-Carlo p05 on the peak days for a reason not yet diagnosed; the
 S1-only detections above the surface are shown to be topographically unsupported, not attributed to a cause.
 
 ## 7. Conclusions

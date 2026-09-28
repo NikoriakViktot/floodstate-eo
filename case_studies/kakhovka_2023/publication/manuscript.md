@@ -300,6 +300,34 @@ is undefined below 10 m (T22, FigS07) — so the released volume inherits this g
 underwater part of the seamless DEM, shoreline geometry, the original survey) is the subject of Paper 4, which reconstructs the
 bowl on the historical bathymetry.
 
+**The design curve as the classical reference (context, no DEM).** Read on the design level–volume curve of the monograph
+(Table 19; T27, FigS10) at the Rozumivka gauge — the only 2023 daily series, and the pool was level before the breach — the
+reservoir held 13.5 km³ at 13.9 m on 8 February and
+was filled by the April–May DniproHES release to 21.3 km³ at
+17.62 m on 5 May (just below the highest forced level), held near 17.5 m through May and
+lowered by ~0.4 m in the last ten days before the breach (20.1 km³ on 5 June; the filling
+week by week, with the inflow and the outflow through the Kakhovka HPP implied by the design-curve balance, in T27c). After the
+breach the surface sloped by up to 5.0 m, so the design curve, which assumes a level pool,
+gives a range rather than a number: at the Rozumivka level the design-curve balance with the DniproHES inflow yields a daily-mean
+effective release of 37811 m³ s⁻¹ on 7 June, the same order as the
+40057 m³ s⁻¹ of the sloped-surface balance above; at the outlet level the
+curve is undefined from 9 June (outlet below 10 m). "Outlet" here is the pool just above the dam (SWOT nodes at 0 km); the head
+across the dam fell from 16.7 m on 31 May to 6.0 m
+on 6 June and 1.5 m on 14 June (T27b, with the Kherson stage alongside).
+
+**The drawdown of the pool seen from orbit (context, no claim).** Maps of the emptying pool from three sources are in the
+supplement (T23–T26, FigS08–FigS09): the modelled pool under the sloped surface, the Sentinel-1 VH dark surface and the frozen
+Sentinel-2 index and class products of the SWOT-DNIPRO chain (p25, not re-classified here). Sentinel-2 agrees with the modelled full pool on 5 June at IoU
+0.98; Sentinel-1 agrees at
+0.98 on 1 June, 0.97 on 8 June and
+0.85 on 13 June, after which the VH dark surface is open water *or* smooth wet
+sediment and is no longer a water area (1702 km² dark against
+648 km² of Sentinel-2 water on 20 June). By 8 September reed or flooded
+vegetation covers 47 % of the bed exposed first
+(6–13 June) and 34 % of the rest (T24; the seven
+index statistics per stratum in T25–T26). These are observations of the bed, not results of this paper; they are the hand-over to
+Paper 4.
+
 ### 4.2 Raw agreement with Sentinel-1 on the observation domain [C04]
 
 On 9 June, in the p42 floodplain domain and on the Sentinel-1 footprint, the reconstruction allows
@@ -472,6 +500,9 @@ the peak day; the date-only gauge against 11:00 UTC SWOT passes; weak labels who
 W_pre circularity of U2b; frame B3 (delta with the liman) not built; no probability-sample reference for any area; literature
 figures not verified against their sources; the Inhulets backwater treated with its own nodes but without a tributary
 hydrograph; the reservoir balance rests on three to four level points and a DEM hypsometry below the design table; the
+design-curve reading assumes a level pool and, before the breach, holds the last SWOT outlet value between passes; the
+Sentinel-1 dark surface over the drained bed is not a water area (no source separates wet sediment from water in C-band);
+the deterministic nominal run lies below its own Monte-Carlo p05 on the peak days for a reason not yet diagnosed; the
 S1-only detections above the surface are shown to be topographically unsupported, not attributed to a cause.
 
 ## 7. Conclusions

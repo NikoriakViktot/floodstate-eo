@@ -72,8 +72,8 @@ below 10 m. The released volume of T21 inherits this gap; resolving it on the hi
 surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June
 first falls dry; the upper (north-eastern) pool empties first. (e–h) Sentinel-1 VH dark surface, per-date Otsu over all covered
 cells (*observed_S1*); IoU against the model on observed cells 0.98 (1 June), 0.97 (8 June), 0.93 (9 June), 0.85 (13 June). VH
-dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (2077 vs
-648 km² around 20–21 June) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products,
+dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (S1 dark
+1702 km² on 20 June and 2077 km² on 21 June against 648 km² of S2 water on 20 June, T23) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products,
 *observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l)
 Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²). For comparison, Yi et al. (2025) map the reservoir from
 Sentinel-1 **and** Sentinel-2; their text gives 2125 km² on 30 May and decrements that imply ~845 km² around 20 June
