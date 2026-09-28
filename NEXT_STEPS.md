@@ -283,6 +283,12 @@ Maintainer: "також мають бути карти спустошення в
   WET_ON_0613. Findings: all water indices flip sign after the breach (MNDWI p50 +0.33 -> -0.26 on 07-05), BSI peaks on
   07-05 (+0.13); by September reed / flooded vegetation covers 47-50 % of the bed exposed first and 34-37 % of the rest, and
   NDVI p50 there is 0.44 vs 0.26. Autumn dates observe only ~52-65 % of the pool (one tile).
+- Dashboard literature (maintainer: "посилання на пейпери ... до кожного пункту ... особливо по індексам та класифікації";
+  "класифікація random forest нижньої частини"): `apps/dashboard/lib.py` reads `docs/references.bib` (TOPICS, INDICES, CLASSIFIERS,
+  SERIES); every page section has a literature expander, Maps shows the literature of the layers switched on; new page
+  7_Literature (series + repos, classifications, index formulas, METHOD_REFERENCES table, bibliography by topic, p100 theses);
+  Surface context = RF20 map of B1+B2, class areas, method from the p73 manifest, QA panels. Bibliography 52 -> 85 entries,
+  every new DOI Crossref/DataCite-verified (Yi_2025 corrected to 8 authors); Rikimaru_2002 (BSI) and Pedregosa_2011 have no DOI.
 
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /

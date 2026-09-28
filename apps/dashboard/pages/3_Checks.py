@@ -3,7 +3,7 @@ from __future__ import annotations
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, table
+from lib import C, caption, figure, header, refs, table
 
 st.set_page_config(page_title="Checks", layout="wide")
 header("Independent and cross-sensor checks of the reconstruction",
@@ -34,7 +34,10 @@ with c2:
         f2 = go.Figure(go.Bar(x=["below surface", "0–2 m above", "2–5 m above", "≥ 5 m above"], y=[cc.km2_ground_below_surface, cc.km2_ground_0_2m_above, cc.km2_ground_2_5m_above, cc.km2_ground_ge5m_above], marker_color=C["s1"]))
         f2.update_layout(title=f"C S1-only ({cc.km2:.0f} km²) by ground elevation vs surface ({cc.km2_normally_wet:.0f} km² normally wet)", height=300, margin=dict(l=10, r=10, t=40, b=10), yaxis_title="km²"); st.plotly_chart(f2, width="stretch")
 figure("Fig05")
+refs(["s1_flood", "Cohen_2019", "Le_2026", "Darnell_2008"], "📚 Literature: Sentinel-1 flood mapping, where SAR cannot see (vegetation, exclusion maps) and urban flood")
 
 st.subheader("ICESat-2 altimetric consistency check (T15, Fig08)"); st.caption(caption("T15")); st.dataframe(table("T15"), width="stretch", hide_index=True); figure("Fig08")
+refs(["Neuenschwander_2019", "Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Lehnigk_2026"], "📚 Literature: ICESat-2 ATL08 / ATL13 and its use in the series")
 st.subheader("SWOT input vs Kherson gauge (T17) and DEM accuracy (T18, Paper 2)"); st.caption(caption("T17")); st.dataframe(table("T17"), width="stretch", hide_index=True)
 st.caption(caption("T18")); st.dataframe(table("T18"), width="stretch", hide_index=True)
+refs(["water_surface", "terrain"], "📚 Literature: SWOT input, gauge frame and DEM accuracy (Paper 2, FABDEM)")

@@ -3,7 +3,7 @@ from __future__ import annotations
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, table
+from lib import C, caption, figure, header, refs, table
 
 st.set_page_config(page_title="U-Net experiments", layout="wide")
 header("What EO inputs recover under weak labels: the U-Net arm experiments",
@@ -27,3 +27,4 @@ st.dataframe(e[e.endpoint.isin(pick)].pivot_table(index=["arm", "labels"], colum
 st.subheader("Cropland-associated SAR candidates (T08)"); st.caption(caption("T08")); st.dataframe(table("T08"), width="stretch", hide_index=True); st.dataframe(table("T08b"), width="stretch", hide_index=True)
 st.subheader("Labels and split (T02, T03, T20)"); st.dataframe(table("T02"), width="stretch", hide_index=True); st.dataframe(table("T03"), width="stretch", hide_index=True)
 st.caption(caption("T20")); st.dataframe(table("T20"), width="stretch", hide_index=True); figure("FigS05"); figure("FigS01")
+refs(["unet"], "📚 Literature: U-Net, ResNet encoders, S1/S2 flood benchmarks, learning from weak / noisy labels and spatial validation", expanded=True)

@@ -3,7 +3,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from lib import caption, header, layers, manifest, table
+from lib import caption, header, layers, manifest, refs, table
 
 st.set_page_config(page_title="Data & provenance", layout="wide")
 header("Data, provenance and licences", "every number on this dashboard resolves to a committed table cell; every layer to a manifest entry with sha256")
@@ -22,3 +22,5 @@ st.markdown(f"""
 - The Kherson gauge series: UkrHMC river hydrological yearbook (see Paper 1). Reservoir polygon and zone geometries: SWOT-DNIPRO (sibling repository).
 - Bulk rasters (10 m frames, 20 m terrain products, S1 caches) are not redistributed; see `docs/REPRODUCIBILITY.md` (three reproduction levels).
 """)
+refs(["Torres_2012", "Drusch_2012", "Main-Knorn_2017", "Biancamaria_2016", "SWOT_RiverSP_v2", "Altenau_2021", "Neuenschwander_2019", "Hawker_2022", "Zanaga_2022", "Pekel_2016", "UNOSAT_3616_2023", "UNOSAT_3623_2023"], "📚 Data sources: missions, products and reference datasets")
+st.markdown("Full bibliography, the Kakhovka series and the method-by-method literature: **Literature** page.")

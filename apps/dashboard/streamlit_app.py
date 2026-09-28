@@ -8,7 +8,7 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from lib import C, caption, figure, header, layers, manifest, table
+from lib import C, SERIES, caption, figure, header, layers, manifest, refs, table
 
 st.set_page_config(page_title="FloodState-EO · Kakhovka 2023", page_icon="🌊", layout="wide")
 header("Kakhovka 2023 — inundation after the dam breach",
@@ -20,6 +20,12 @@ water surface (SWOT nodes + Kherson gauge, Paper-1 vertical frame) projected on 
 ICESat-2 are *checks* of it; the RF20 surface classes *explain* where the sensor and the reconstruction disagree; the U-Net
 arms show *what EO inputs recover under weak labels*. Nothing here is a validated flood map.
 """)
+with st.expander("📄 The Kakhovka series — earlier papers and code", expanded=True):
+    for name, title, status, links, key in SERIES:
+        ln = " · ".join(f"[{t}]({u})" for t, u in links)
+        st.markdown(f"**{name}** — {title} *({status})*" + (f" — {ln}" if ln else ""))
+    st.caption("Manuscripts have no DOI yet; the repositories are the public record. Method-by-method literature: Literature page.")
+refs(["event"], "📚 Literature: the 2023 breach, its consequences and the operational flood products")
 
 d12 = table("T12"); corr = d12[d12.region == "DNIPRO_CORRIDOR"].set_index("date")
 d13 = table("T13"); v = d13[(d13.variant == "connected_ceiling") & (d13.region == "P42_FLOODPLAIN_DOMAIN") & (d13.date == "2023-06-09")]
@@ -49,6 +55,6 @@ with col1:
     st.caption(caption("T12"))
 with col2:
     figure("Fig02")
-    st.markdown("**Pages** — Reconstruction · Maps · Checks · Surface context · U-Net experiments · Data & provenance (left sidebar).")
+    st.markdown("**Pages** — Reconstruction · Maps · Checks · Surface context · U-Net experiments · Data & provenance · Literature (left sidebar).")
     m = manifest(); L = layers()
     st.caption(f"tables generated at {m['generated_utc']} from commit {m['git_commit'][:7]} · {L['n_layers']} map layers, {L['total_bytes'] / 1e6:.1f} MB")

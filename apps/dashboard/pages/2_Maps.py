@@ -6,7 +6,7 @@ import folium
 import streamlit as st
 from streamlit_folium import st_folium
 
-from lib import DATA, header, layers
+from lib import DATA, INDICES, fmt_ref, header, layers, refs
 
 st.set_page_config(page_title="Maps", layout="wide")
 header("Maps: terrain-reconstructed inundation by day, Sentinel-1 by date, U-Net, labels, surface classes, reservoir drawdown",
@@ -83,3 +83,30 @@ for col, l in zip(cols, legend):
         st.markdown(f"**{l['id']}**  \n<small>{l['source']}</small>", unsafe_allow_html=True)
         for k, lab_ in l["legend"].items():
             st.markdown(f"<span style='display:inline-block;width:14px;height:14px;background:{l['palette'][k]};border:1px solid #999'></span> {lab_} — {l['area_km2_by_class'].get(k, '')} km² (mapped)", unsafe_allow_html=True)
+
+
+def layer_refs(lid: str) -> list:
+    """Literature for a map layer id (the method each overlay rests on)."""
+    if lid.startswith("reservoir_s2_"):
+        part = lid.split("_")[2]
+        if part in INDICES:
+            return INDICES[part][2] + ["Drusch_2012", "Main-Knorn_2017"]
+        return {"class": ["k10e"], "water": ["s2_water"]}.get(part, ["s2_water"])
+    for pre, keys in (("reservoir_s1_", ["Otsu_1979", "Twele_2016", "Bioresita_2019", "Torres_2012"]), ("reservoir_", ["reservoir", "Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026"]),
+                      ("terrain_", ["terrain", "water_surface"]), ("s1_", ["s1_flood"]), ("unet_", ["Ronneberger_2015", "He_2016", "Iakubovskii_2019", "He_2024", "Maiti_2022"]),
+                      ("labels_", ["He_2024", "Maiti_2022", "Apicella_2025", "Bonafilia_2020"]), ("rf_", ["rf"])):
+        if lid.startswith(pre):
+            return keys
+    return []
+
+
+if legend:
+    keys = []
+    for l in legend:
+        for k in layer_refs(l["id"]):
+            if k not in keys:
+                keys.append(k)
+    refs(keys, "📚 Literature for the layers shown", expanded=True)
+    ix = [l["id"].split("_")[2] for l in legend if l["id"].startswith("reservoir_s2_") and l["id"].split("_")[2] in INDICES]
+    for i in ix:
+        st.markdown(f"**{i}** = `{INDICES[i][0]}` — responds to {INDICES[i][1]}. <small>{' · '.join(fmt_ref(r) for r in INDICES[i][2])}</small>", unsafe_allow_html=True)

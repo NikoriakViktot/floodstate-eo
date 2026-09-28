@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, raw, table
+from lib import C, INDICES, caption, figure, fmt_ref, header, raw, refs, table
 
 st.set_page_config(page_title="Reconstruction", layout="wide")
 header("Observation-constrained terrain inundation reconstruction: the daily reconstructed series",
@@ -37,6 +37,7 @@ fig.add_trace(go.Scatter(x=o.t, y=o.water_km2, mode="markers", marker=dict(color
 fig.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
 fig.update_layout(height=430, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", legend=dict(orientation="h", y=-0.15), xaxis=dict(range=["2023-05-31", "2023-07-05"]))
 st.plotly_chart(fig, width="stretch")
+refs(["terrain", "water_surface", "Twele_2016", "Martinis_2022"], "📚 Literature: terrain reconstruction (HAND, DEM), water surface (SWOT, Paper 1) and the S1 check")
 
 c1, c2 = st.columns(2)
 with c1:
@@ -53,7 +54,9 @@ cols = [c for c in ["date", "W_total_central_km2", "W_total_p05_km2", "W_total_p
 st.dataframe(uu[cols], width="stretch", hide_index=True)
 st.subheader("Uncertainty components (T11b) and constants (T11)"); st.caption(caption("T11b")); st.dataframe(table("T11b"), width="stretch", hide_index=True)
 st.dataframe(table("T11"), width="stretch", hide_index=True)
+refs(["Olofsson_2014", "Hawker_2022", "Paper2_Nikoriak_2026"], "📚 Literature: uncertainty of reconstructed areas and the DEM error model")
 st.subheader("Water surface (Fig06)"); figure("Fig06")
+refs(["water_surface"], "📚 Literature: SWOT RiverSP, SWORD and the Paper-1 vertical frame")
 
 st.subheader("Reservoir side of the balance (T21, T22, Fig09)")
 try:
@@ -73,6 +76,7 @@ try:
         f3.add_trace(go.Scatter(x=R.t, y=R.downstream_new_volume_hm3 / 1000, mode="lines+markers", name="new water stored downstream, km³", line=dict(color=C["s1"])))
         f3.update_layout(height=280, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="daily balance"); st.plotly_chart(f3, width="stretch")
     st.dataframe(R, width="stretch", hide_index=True)
+    refs(["Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Yi_2025", "Vyshnevskyi_2023", "Shumilova_2025", "Kadam_2024", "Lehnigk_2026"], "📚 Literature: reservoir levels, bathymetry and the breach discharge")
 except FileNotFoundError:
     st.info("reservoir tables not built")
 try:
@@ -88,6 +92,7 @@ try:
     f4.add_trace(go.Scatter(x=yi.t, y=yi.yi2025_S1_km2, mode="markers", name="Yi 2025 S1 (literature_reported, VERIFY)", marker=dict(symbol="x", color=C["gauge"], size=9)))
     f4.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", title="pool water area: model vs observations"); st.plotly_chart(f4, width="stretch")
     st.dataframe(M.drop(columns="t"), width="stretch", hide_index=True)
+    refs(["reservoir", "Otsu_1979", "Twele_2016", "McFeeters_1996", "Xu_2006", "Main-Knorn_2017"], "📚 Literature: the drained Kakhovka reservoir, S1 VH thresholding and the S2 water rule")
 except FileNotFoundError:
     st.info("p95h reservoir maps not built")
 try:
@@ -98,6 +103,9 @@ try:
         ix = st.selectbox("index", sorted(I["index"].unique()), index=sorted(I["index"].unique()).index("MNDWI"))
     with c2:
         strata = st.multiselect("strata", list(I.stratum.unique()), default=list(I.stratum.unique()))
+    if ix in INDICES:
+        fo, what, rk, used = INDICES[ix]
+        st.markdown(f"**{ix}** = `{fo}` — responds to {what}; here: {used}.  \n" + "  \n".join(f"<small>{fmt_ref(r)}</small>" for r in rk), unsafe_allow_html=True)
     f5 = go.Figure()
     for sn, col in zip(strata, [C["terrain"], "#d9a441", C["rf"]]):
         q = I[(I["index"] == ix) & (I.stratum == sn)].sort_values("t")
@@ -108,5 +116,6 @@ try:
     f5.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title=ix, title=f"{ix} inside the pool by date"); st.plotly_chart(f5, width="stretch")
     st.markdown(caption("T25")); st.dataframe(I[(I["index"] == ix) & I.stratum.isin(strata)].drop(columns="t"), width="stretch", hide_index=True)
     st.markdown(caption("T24")); st.dataframe(K[K.stratum.isin(strata)], width="stretch", hide_index=True)
+    refs(["indices", "k10e", "reservoir"], "📚 Literature: the 7 spectral indices, the k10e rule classes and studies of the drained Kakhovka bed")
 except FileNotFoundError:
     st.info("reservoir index tables (T24, T25) not built")
