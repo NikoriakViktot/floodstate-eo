@@ -300,7 +300,14 @@ Maintainer: "також мають бути карти спустошення в
   Rozumivka-level balance 12 / 38 / 20 / 19 x 10^3 m3/s on 06-06..06-09 (T21 sloped-surface: ~40 000 on 06-07); the
   outlet-level balance is unusable on 06-06 (111 000: the outlet fell 5 m in a day, the pool did not). CAVEAT: the pre-breach
   SWOT outlet value in p95f is HELD (few passes), so the pre-breach "gradient" of -0.45 m is an artefact, flagged in T27b.
-  T27 (Table 19), T27b (daily), T27c (weekly), FigS10. S2 dates with >= 50 % of the pool observed: 05-06, 06-05, 07-05, 08-17, 09-08 (06-30, 07-25,
+  T27 (Table 19), T27b (daily), T27c (weekly), FigS10.
+- **Literature audit (GeoHydroAI, 2026-09-28)** is in `case_studies/kakhovka_2023/literature_audit/` (deliverables 01-10,
+  02_thesis_evidence.csv, 07 verified bibs, revisions.yaml, article/Paper3_final.md = the audited text with the 36 + 4 revisions;
+  figures/tables copies and the .docx are git-ignored). Round 1 and 2 actions: `docs/AUDIT_ACTIONS_2026-09-28*.md`, closure in
+  `publication/VALIDATION_2026-09-28.md`. STILL OPEN: the audit's literature list (B-01 .. B-22: Yailymov 2025, Zuo 2024, Bates
+  2021, Cunha 2012, Magas / Tsiupa / Novitskyi / Kuzemko / Tutova ...) is cited in `Paper3_final.md` but NOT in
+  `manuscript_template.md` / `docs/references.bib` -- merge `07_references_verified.bib` (123 keys) into references.bib and
+  carry the B-* sentences over; the bundle manuscript and the audited article must converge into one text before submission. S2 dates with >= 50 % of the pool observed: 05-06, 06-05, 07-05, 08-17, 09-08 (06-30, 07-25,
   08-27 are < 7 %). The drawdown week (06-06..06-20) has S2 water only (crosscheck), no index stacks -- a gap if needed later.
 - p98 `--only reservoir`: 73 reservoir layers on their own EPSG:4326 box, clipped to the pool + 1 km (4 MB); Maps page has
   "zoom to" and a Reservoir drawdown block; Reconstruction page shows model vs S1/S2/Yi areas. FigS08, FigS09 (supplement).
