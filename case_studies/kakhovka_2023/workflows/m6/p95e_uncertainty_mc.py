@@ -9,7 +9,9 @@ sensitivity as the uncertainty statement. Components (T11b), each with its sourc
                     previous and next observed day), applied to interpolated node-days only
     DEM             seamless DEM error by WorldCover class from Paper 2 / p57 (C seamless: the class median is removed in the
                     reconstruction itself, rev 5; NMAD as sigma here), spatially correlated field at 500 m, one field per draw
-Per draw the same-rule pre-breach baseline is rebuilt with the perturbed DEM, so "new" stays consistent. Key dates only.
+Per draw the same-rule pre-breach baseline is rebuilt with the perturbed DEM, so "new" stays consistent. Every post-breach day
+(06-06..07-10, `--days all`, default since 2026-09-28) so that the MC median can be the reported central value; the 9 key
+dates of the first run are reproduced exactly (same seed, the RNG is consumed per draw).
 
 Outputs: <case_study>/tables/p95e_uncertainty_components.csv (T11b), p95e_area_volume_uncertainty.csv (region x date:
          A/V p05, p50, p95 and the deterministic central run), p95e_draws.csv (every draw, for re-analysis)
@@ -24,6 +26,7 @@ from floodstate_eo import _kakhovka_legacy_config as CFG
 
 HERE = Path(__file__).resolve().parent
 KEY_DATES = ["2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-11", "2023-06-13", "2023-06-14", "2023-06-18", "2023-06-21"]
+ALL_DATES = [str(d.date()) for d in pd.date_range("2023-06-06", "2023-07-10", freq="D")]      # every post-breach day of the p95 series (2026-09-28: MC median reported daily)
 BASE_DATES = [str(d.date()) for d in pd.date_range("2023-05-26", "2023-06-05", freq="D")]   # same normal regime as p95
 SIGMA_CLOSURE_M, SIGMA_GAUGE_M = 0.05, 0.05
 DEM_CLASS = {10: "trees", 30: "grass", 40: "cropland", 50: "built", 60: "bare", 90: "wetland"}     # WorldCover codes with p57 rows
@@ -49,7 +52,9 @@ def interp_sigma(H, obs):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--n", type=int, default=40); ap.add_argument("--seed", type=int, default=20260925)
-    ap.add_argument("--rule", default="connected_ceiling"); a = ap.parse_args()
+    ap.add_argument("--rule", default="connected_ceiling"); ap.add_argument("--days", choices=["all", "key"], default="all",
+                    help="all = every post-breach day (default since 2026-09-28); key = the 9 key dates of the first run (identical values: the RNG is consumed per draw, not per day)")
+    a = ap.parse_args(); DAYS = ALL_DATES if a.days == "all" else KEY_DATES
     t0 = time.time(); P95 = _ld("p95_hand_daily_inundation"); P = P95.load_p92(); rng = np.random.default_rng(a.seed)
     W, dxm, dym, nodes = P95.load_engine()
     sig_swot = float(nodes.wse_u.median()); sig_interp, n_loo = interp_sigma(W.H, W.obs)
@@ -93,7 +98,7 @@ def main():
             baseline = L["pre"].copy()
             for day in BASE_DATES:
                 baseline |= potential(day, dem_p, off, Hmat, off_far)[0]
-            for day in KEY_DATES:
+            for day in DAYS:
                 pot, w = potential(day, dem_p, off, Hmat, off_far); new = pot & ~baseline; depth = np.where(new, w - dem_p, 0).astype("f4")
                 for nm, m in regions.items():
                     draws.append(dict(zone=zone, draw=k, date=day, region=nm, area_km2=round(float((new & m).sum()) * CELL_KM2, 2),

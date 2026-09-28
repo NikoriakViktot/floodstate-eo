@@ -13,7 +13,8 @@ Main text (claims decide the figures):
   Fig09 reservoir drawdown (levels, area, volume, daily balance vs DniproHES inflow and downstream storage)     [tables]
 Supplement: FigS01 training curves, FigS02 rule / closure sensitivity, FigS03 per-date S1/S2 series, FigS04 RF20 confusion
 and per-class F1, FigS05 block-size sensitivity, FigS06 Inhulets profile, FigS07 hypsometry sensitivity,
-FigS08 reservoir drawdown maps (model / S1 / S2 classes / day of exposure, p95h) [bulk], FigS09 the 7 S2 indices over the pool [bulk].
+FigS08 reservoir drawdown maps (model / S1 / S2 classes / day of exposure, p95h) [bulk], FigS09 the 7 S2 indices over the pool [bulk],
+FigS10 the design level-area-volume curves (monograph Table 19) with the observed 2023 levels on them (p95i) [tables].
 `--only FigNN`, `--tables-only`. Bulk figures are rendered once locally and committed.
 """
 from __future__ import annotations
@@ -177,7 +178,7 @@ def fig04():
     """Daily reconstructed series, dam -> liman: total water-surface area with the PRIMARY spatial-MC band and the emulator
     sensitivity envelope as candles, daily change of the newly inundated area as bars, S1, U-Net, gauge."""
     d = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
-    t12 = pd.read_csv(PT / "T12.csv") if (PT / "T12.csv").exists() else None
+    t12 = pd.read_csv(PT / "T12b.csv") if (PT / "T12b.csv").exists() else (pd.read_csv(PT / "T12.csv") if (PT / "T12.csv").exists() else None)   # T12b: every day
     g = pd.read_csv(T / "p95g_mc_daily.csv") if (T / "p95g_mc_daily.csv").exists() else None
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
     p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
@@ -194,7 +195,14 @@ def fig04():
         if t12 is not None and "W_total_p05_km2" in t12.columns:
             tt = t12[t12.region == r].dropna(subset=["W_total_p05_km2"]).copy(); tt["t"] = pd.to_datetime(tt.date); tt = tt.sort_values("t")
             a.fill_between(tt.t, tt.W_total_p05_km2, tt.W_total_p95_km2, color=FS.PALETTE["terrain"], alpha=0.28, lw=0, label="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws)", zorder=3)
-        a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="reconstructed total water-surface area, central run")
+        med = None
+        if t12 is not None and "W_total_p50_km2" in t12.columns:
+            med = t12[t12.region == r].dropna(subset=["W_total_p50_km2"]).copy(); med["t"] = pd.to_datetime(med.date); med = med.sort_values("t")
+        if med is not None and len(med) > 20:                               # the reported series: MC median every day
+            a.plot(med.t, med.W_total_p50_km2, color=FS.PALETTE["ink"], lw=1.6, label="reconstructed total water-surface area, MC median")
+            a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=0.7, ls=":", label="deterministic nominal run")
+        else:
+            a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="reconstructed total water-surface area, nominal run")
         pun = T / "p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv"
         if pun.exists():
             un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.potential_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="total, DEM as delivered")
@@ -202,9 +210,13 @@ def fig04():
         a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, label="S1 total dark water"); a.plot(part.t, part.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
         a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("reconstructed total water-surface area, km²", fontsize=6.5); FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
         # daily change of NEW inundation as bars (+ filling, - draining)
-        inc = s.new_km2.diff().fillna(0)
-        b.bar(s.t, inc, width=0.8, color=np.where(inc >= 0, FS.PALETTE["terrain"], FS.PALETTE["s1"]), lw=0)
-        b.plot(s.t, s.new_km2, color=FS.PALETTE["ink"], lw=1.0, label="reconstructed newly inundated area"); b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
+        ser = (med.t, med.A_p50_km2) if med is not None and len(med) > 20 else (s.t, s.new_km2)
+        inc = pd.Series(ser[1].values).diff().fillna(0).values
+        b.bar(ser[0], inc, width=0.8, color=np.where(inc >= 0, FS.PALETTE["terrain"], FS.PALETTE["s1"]), lw=0)
+        b.plot(ser[0], ser[1], color=FS.PALETTE["ink"], lw=1.0, label="reconstructed newly inundated area (MC median)" if ser[0] is not s.t else "reconstructed newly inundated area")
+        if ser[0] is not s.t:
+            b.fill_between(med.t, med.A_p05_km2, med.A_p95_km2, color=FS.PALETTE["terrain"], alpha=0.25, lw=0)
+        b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
         if r in u2b.index:
             b.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b persistent event flood")
         b.set_ylabel("newly inundated area, km²\n(bars: daily change)", fontsize=6.5); FS.panel_label(b, "def"[j], x=0.02, y=0.98)
@@ -318,7 +330,7 @@ def fig09():
     b.plot(R.t[ok], R.V_pool_km3[ok], "o-", color=FS.PALETTE["terrain"], ms=3, lw=1.5, label="pool volume under the sloped surface (DEM, km³)")
     b2 = b.twinx(); b2.plot(R.t[ok], R.A_pool_km2[ok], "s--", color=FS.PALETTE["rf"], ms=3, lw=1, label="pool water area (DEM, km²)"); b2.set_ylabel("area, km²", fontsize=6.5); b2.tick_params(labelsize=6)
     ya = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_yi2025_reservoir_area.csv")
-    b2.plot(pd.Timestamp("2023-06-06") + pd.to_timedelta(ya.day_after_breach, unit="D"), ya.area_km2_S1, "v", color=FS.PALETTE["s1"], ms=5, label="S1 water area (Yi 2025, VERIFY)")
+    b2.plot(pd.Timestamp("2023-06-06") + pd.to_timedelta(ya.day_after_breach, unit="D"), ya.area_km2_S1, "v", color=FS.PALETTE["s1"], ms=5, label="Yi et al. 2025, digitised from their figure (S1+S2; VERIFY)")
     b.set_ylabel("volume, km³", fontsize=6.5); FS.date_axis(b, BREACH, every_days=7); b.tick_params(labelsize=6); h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels(); b.legend(h1 + h2, l1 + l2, fontsize=5.5); FS.panel_label(b, "b")
     b.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-06-15"))
     c = axs[1, 0]; dd = R[ok & (R.t >= "2023-06-05")]
@@ -415,6 +427,50 @@ def figS07():
     b.set_xlabel("pool level, m (EVRF2019)", fontsize=7); b.set_ylabel("DEM − design, % of design", fontsize=7); b.legend(fontsize=6); b.tick_params(labelsize=6.5); b.grid(color=FS.PALETTE["grid"]); FS.panel_label(b, "b")
     fig.suptitle("Reservoir hypsometry: seamless DEM vs design table (shaded: drawdown range 5–13 June); open question for Paper 4 (historical bathymetry)", fontsize=7)
     FS.save(fig, "FigS07_hypsometry_sensitivity", FIG)
+
+
+# ---- FigS10: the DESIGN level-area-volume curves (monograph Table 19 / Figs 13-15) and the observed levels on them (p95i) ------
+def figS10():
+    """Design hypsometry of the Kakhovka reservoir (Table 19: pool and five reaches; design levels) and the observed 2023 levels
+    read on it: design volume at the outlet and at the Rozumivka level (sloped surface -> a range). No DEM, no soundings."""
+    D = pd.read_csv(T / "p95i_design_hypsometry.csv").sort_values("level_bs_m"); Q = pd.read_csv(T / "p95i_design_daily.csv"); Q["t"] = pd.to_datetime(Q.date)
+    dl = D[D.design_level.fillna("") != ""]; reach = ["#0b2a5c", "#2a78d6", "#7fb3e6", "#b9d1ee", "#dbe9f8"]
+    names = ["dam – Babyne", "Babyne – Nikopol", "Nikopol – V. Tarasivka", "V. Tarasivka – Blahovishchenka", "Blahovishchenka – Dnipro HPP"]
+    fig, (a, b, c) = plt.subplots(1, 3, figsize=(7.4, 3.4), constrained_layout=True)
+    for ax in (a, b):
+        for _, q in dl.iterrows():
+            ax.axhline(q.level_bs_m, color="#c3c2b7", lw=0.7, ls=":", zorder=0)
+            ax.text(0.99, q.level_bs_m, q.design_level.split(" - ")[0] + " ", transform=ax.get_yaxis_transform(), fontsize=5.2, va="bottom", ha="right", color=FS.PALETTE["ink2"])
+    Dr = D.dropna(subset=["V_reach1_km3"]); base = np.zeros(len(Dr))
+    for k in range(1, 6):
+        v = Dr[f"V_reach{k}_km3"].values; a.fill_betweenx(Dr.level_bs_m, base, base + v, color=reach[k - 1], lw=0, label=f"reach {k}: {names[k - 1]}"); base = base + v
+    a.plot(D.V_km3, D.level_bs_m, "o-", color=FS.PALETTE["ink"], ms=2.8, lw=1.4, label="whole pool, Table 19")
+    a.set_xlabel("volume, km³", fontsize=7); a.set_ylabel("water level, m (historical Baltic)", fontsize=7); a.legend(fontsize=4.8, loc="upper left", bbox_to_anchor=(0.06, 0.985)); FS.panel_label(a, "a")
+    b.plot(D.A_km2, D.level_bs_m, "o-", color=FS.PALETTE["ink"], ms=2.8, lw=1.4, label="surface area, Table 19")
+    pre = Q[Q.phase == "pre-breach"]; dd = Q[(Q.phase == "drawdown") & Q.design_defined]
+    b.plot(pre.A_design_at_outlet_km2, pre.outlet_level_bs_m, "s", color=FS.PALETTE["s2"], ms=3, mfc="white", label="observed outlet level before the breach (26 May – 5 June)")
+    b.plot(dd.A_design_at_outlet_km2, dd.outlet_level_bs_m, "s-", color=FS.PALETTE["s2"], ms=3, lw=0.8, label="observed outlet level 6–13 June, read on the curve")
+    b.set_xlabel("area, km²", fontsize=7); b.legend(fontsize=5, loc="upper left", bbox_to_anchor=(0.06, 0.985)); FS.panel_label(b, "b")
+    a2 = a.twinx(); a2.set_ylim(np.array(a.get_ylim()) + 0.185); a2.set_ylabel("m EVRF2019 (+0.185 m)", fontsize=6.5); a2.tick_params(labelsize=6)
+    qq = Q[Q.t <= "2023-06-20"]; pb = qq[qq.phase == "pre-breach"]; db = qq[qq.phase != "pre-breach"]
+    c.plot(pb.t, pb.V_design_at_rozumivka_km3, "-", color=FS.PALETTE["ink"], lw=1.4, label="at the Rozumivka level (level pool), Feb – 5 Jun")
+    c.fill_between(db.t, db.V_design_at_outlet_km3, db.V_design_at_rozumivka_km3, color=FS.PALETTE["s2"], alpha=0.25, lw=0, label="after the breach: outlet … Rozumivka (sloped)")
+    c.plot(db.t, db.V_design_at_outlet_km3, "s-", color=FS.PALETTE["s2"], ms=2.5, lw=1.0, label="at the outlet level (SWOT)")
+    c.plot(db.t, db.V_design_at_rozumivka_km3, "^-", color=FS.PALETTE["rf"], ms=2.5, lw=0.8, label="at the Rozumivka level")
+    c3 = c.twinx(); c3.fill_between(qq.t, 0, qq.Q_in_dniprohes_m3s / 1000, color=FS.PALETTE["terrain"], alpha=0.15, lw=0, label="DniproHES release (right axis)"); c3.set_ylim(0, 24); c3.set_ylabel("DniproHES release, 10³ m³/s", fontsize=6.5); c3.tick_params(labelsize=6)
+    und = qq[~qq.design_defined & (qq.phase != "pre-breach")]
+    if len(und):
+        c.axvspan(und.t.min(), qq.t.max(), color=FS.PALETTE["grid"], alpha=0.8, lw=0); c.text(und.t.min(), 8.9, " outlet\n below\n 10 m", fontsize=5, va="top", color=FS.PALETTE["ink2"])
+    for _, q in dl.iterrows():
+        c.axhline(D.set_index("level_bs_m").loc[q.level_bs_m, "V_km3"], color="#c3c2b7", lw=0.6, ls=":"); c.text(qq.t.max(), D.set_index("level_bs_m").loc[q.level_bs_m, "V_km3"], q.design_level.split(" - ")[0], fontsize=5, va="bottom", ha="right", color=FS.PALETTE["ink2"])
+    import matplotlib.dates as mdates
+    FS.date_axis(c, BREACH, every_days=30); c.xaxis.set_major_locator(mdates.MonthLocator()); c.xaxis.set_major_formatter(mdates.DateFormatter("%b")); c.set_xlim(pd.Timestamp("2023-02-01"), pd.Timestamp("2023-06-20"))
+    c.set_ylabel("volume from the design curve, km³", fontsize=7); c.set_ylim(6, 23.2)
+    h1, l1 = c.get_legend_handles_labels(); h2, l2 = c3.get_legend_handles_labels(); c.legend(h1 + h2, l1 + l2, fontsize=4.8, loc="upper left", bbox_to_anchor=(0.0, 0.43), title="design volume read", title_fontsize=5); c.tick_params(labelsize=6); FS.panel_label(c, "c", x=0.02, y=0.99)
+    for ax in (a, b):
+        ax.tick_params(labelsize=6); ax.grid(color=FS.PALETTE["grid"], lw=0.5)
+    fig.suptitle("Kakhovka reservoir design hypsometry (monograph Table 19 / Figs 13–15) and the observed 2023 levels read on it — no DEM, nothing fitted", fontsize=7)
+    FS.save(fig, "FigS10_reservoir_design_hypsometry", FIG)
 
 
 # ---- FigS08 / FigS09: reservoir drawdown maps (p95h) ------------------------------------------------------------------
@@ -536,7 +592,7 @@ def figS09():
 
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
-       "FigS08": (figS08, True), "FigS09": (figS09, True)}
+       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False)}
 
 
 def main():

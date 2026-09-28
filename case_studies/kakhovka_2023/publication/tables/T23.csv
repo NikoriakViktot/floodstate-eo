@@ -1,4 +1,4 @@
-date,source,semantics,water_km2,observed_frac,iou_vs_model,model_km2_on_observed,vh_threshold_db,orbits,regime,mapped,yi2025_S1_km2,area_note
+date,source,semantics,water_km2,observed_frac,iou_vs_model,model_km2_on_observed,vh_threshold_db,orbits,regime,mapped,yi2025_digitised_km2,area_note
 2023-02-10,S2_WATER3,observed_S2,1835.9,0.878,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-05-06,S2_WATER3,observed_S2,2110.1,0.994,,,,,PRE_BREACH,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-05-11,S2_WATER3,observed_S2,1142.4,0.539,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"

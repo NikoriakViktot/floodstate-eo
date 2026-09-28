@@ -272,8 +272,35 @@ Maintainer: "також мають бути карти спустошення в
   [-24, -15] dB (VV-in-pool Otsu failed: wind-roughened water, IoU 0.61); S2 = frozen SWOT-DNIPRO p25 k10e/water3/7-index
   stacks + p15 crosscheck water, not re-classified. Tables `p95h_reservoir_maps.csv`, `p95h_s2_classes.csv`.
 - Agreement with the model: S2 06-05 IoU 0.98; S1 0.98 / 0.97 / 0.93 / 0.85 on 06-01 / 06-08 / 06-09 / 06-13. **S1 VH dark
-  = water or wet mud**: from ~06-13 it overcounts (06-20: S1 1702, S2 648, Yi 2025 825 km2) -- do not use S1 as a water
-  area after the drawdown. S2 dates with >= 50 % of the pool observed: 05-06, 06-05, 07-05, 08-17, 09-08 (06-30, 07-25,
+  = water or wet mud**: from ~06-13 it overcounts (06-20: S1 1702, S2 648 km2; Yi et al. 2025 ~845 km2 from their text,
+  S1 + S2 -- the 825 km2 in T23 is digitised from their figure, see below) -- do not use S1 as a water area after the drawdown.
+- Literature audit 2026-09-28 (GeoHydroAI, literature_audit_paper3): the Yi 2025 areas (2089 / 1849 / 825 / 369 km2,
+  SWOT-DNIPRO p61_yi2025_reservoir_area.csv, fractional days + assumed hour) are NOT in Yi's text -- digitised from a figure
+  of their S1 + S2 mapping. Column renamed `yi2025_digitised_km2` (p95h, T23), FigS08 caption, Fig09 legend and dashboard
+  relabelled. OPEN: the figure number; the T12 `definition_note` fix named in the audit's 06_unresolved.md; the maintainer's
+  decision on reporting the MC median [p05-p95] with the deterministic run in brackets (deterministic < own MC p05:
+  A_new 235 vs 247 [238-255] km2, W_total 779 vs 790 [781-799], V_new 509 vs 566 [545-596] hm3).
+- **Maintainer decision 2026-09-28: the reported central value is the MC MEDIAN [p05-p95], the deterministic nominal run in
+  brackets.** p95e now runs every post-breach day (`--days all`, default; the 9 key dates reproduce exactly, the RNG is consumed
+  per draw); T12 leads with *_p50_*, new T12b = the daily series (median, p05-p95, nominal, flag nominal < p05); manuscript
+  template, fill_evidence (C01-C03, C07), C02 statement, dashboard headline, Fig04 (median line, nominal dotted) switched.
+  Cause of the nominal-below-p05 offset NOT diagnosed -- say so, never explain it away.
+- **Design hypsometry (maintainer: "старі проєктні дані водосховища", monograph Table 19 / Figs 13-15):** p95i =
+  Table 19 (pool + 5 reaches, design levels NUF/NPG/UNS/GMO) + Table 21, both datums (BS, +0.185 EVRF), and the observed
+  2023 levels (T21) read on the design curve -> design volume at the outlet and at Rozumivka (sloped surface -> a range),
+  released volume from the design curve, undefined once the outlet < 10.0 m (from 06-09). T27/T27b, FigS10. NO DEM, no
+  soundings, nothing fitted: a first version that compared the seamless DEM and the datum-fitted soundings was rejected
+  by the maintainer ("повна хірня") -- the soundings agree with Table 19 by construction of the hist2 datum fit, and the
+  daily sloped-surface points are not comparable with level-surface curves; do not bring that back.
+  Then extended (maintainer: "словами ... ухил, до-проривні рівні за 2-3 місяці ... скиди ДніпроГЕС"): p95i reads 1 Feb - 10 Jul
+  2023 (Rozumivka 80959 terms 08/20 from k5 -- the only 2023 daily gauge series; Nova Kakhovka / Nikopol / Plavni end in 2021;
+  G-REALM, ICESat-2, SWOT outlet as checks) + dniprohes_releases.csv. Findings (design curve, no DEM): filling from 13.5 km3
+  (14.0 m EVRF, 8 Feb) to 21.3 km3 (17.6 m, 5 May) = +7.9 km3 of 22.7 km3 DniproHES inflow (35 % stored; HPP outflow
+  1.4-3.7 x 10^3 m3/s); plateau ~17.5 m in May; -0.4 m in the last 10 days before the breach (21.3 -> 20.1 km3). Drawdown:
+  Rozumivka-level balance 12 / 38 / 20 / 19 x 10^3 m3/s on 06-06..06-09 (T21 sloped-surface: ~40 000 on 06-07); the
+  outlet-level balance is unusable on 06-06 (111 000: the outlet fell 5 m in a day, the pool did not). CAVEAT: the pre-breach
+  SWOT outlet value in p95f is HELD (few passes), so the pre-breach "gradient" of -0.45 m is an artefact, flagged in T27b.
+  T27 (Table 19), T27b (daily), T27c (weekly), FigS10. S2 dates with >= 50 % of the pool observed: 05-06, 06-05, 07-05, 08-17, 09-08 (06-30, 07-25,
   08-27 are < 7 %). The drawdown week (06-06..06-20) has S2 water only (crosscheck), no index stacks -- a gap if needed later.
 - p98 `--only reservoir`: 73 reservoir layers on their own EPSG:4326 box, clipped to the pool + 1 km (4 MB); Maps page has
   "zoom to" and a Reservoir drawdown block; Reconstruction page shows model vs S1/S2/Yi areas. FigS08, FigS09 (supplement).

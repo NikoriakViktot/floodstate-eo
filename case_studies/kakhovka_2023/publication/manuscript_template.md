@@ -27,15 +27,16 @@ heights are used as checks. RF20 surface classes supply the context; U-Net arms 
 frozen spatial-block split show what EO inputs recover.
 
 **Results.** In the Dnipro corridor (Inhulets excluded) the reconstructed newly inundated area reaches its maximum of
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km² on 7 June 2023 (primary Monte-Carlo p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km²), between the Sentinel-1 acquisitions of 6 June (partial)
-and 9 June, one day before the peak stage at Kherson ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June); with the DEM as
-delivered, i.e. with the reed beds counted as new, it is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_dem_uncorrected_km2||.0f}} km². The
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June 2023 (Monte-Carlo median; primary p05–p95
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km²; deterministic nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km²), between the Sentinel-1 acquisitions of 6 June (partial)
+and 9 June, one day before the peak stage at Kherson ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June in the river yearbook; the sources differ by ~0.1 m, §4.1); with the DEM as
+delivered, i.e. with the reed beds counted as new, the nominal run gives {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_dem_uncorrected_km2||.0f}} km² (against {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km² nominal). The
 reconstructed total water-surface area rises from {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_central_km2||.0f}} km² in the pre-breach regime (5 June)
-to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km² on 7 June (p05–p95 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²),
-with a further {{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_central_km2||.0f}} km² in the Inhulets valley; the
-reconstructed new-water volume is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_central_hm3||.0f}} hm³ (p05–p95 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p05_hm3||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p95_hm3||.0f}} hm³).
-The newly inundated area falls to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_central_km2||.0f}} km² on 13 June and {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_central_km2||.0f}} km² on 21 June.
+to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p50_km2||.0f}} km² on 7 June (median; p05–p95 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²; nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km²),
+with a further {{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_p50_km2||.0f}} km² in the Inhulets valley; the
+reconstructed new-water volume is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p50_hm3||.0f}} hm³ (median; p05–p95 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p05_hm3||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p95_hm3||.0f}} hm³; nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_central_hm3||.0f}} hm³).
+Reported central values are Monte-Carlo medians: on the peak days the deterministic nominal run lies below its own p05.
+The newly inundated area falls to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_p50_km2||.0f}} km² on 13 June and {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_p50_km2||.0f}} km² on 21 June.
 On 9 June, inside the terrain-eligible floodplain, the raw agreement with Sentinel-1 new dark water is low
 (POD {{T13|variant=connected_ceiling,region=P42_FLOODPLAIN_DOMAIN,date=2023-06-09|POD||.2f}}, FAR {{T13|variant=connected_ceiling,region=P42_FLOODPLAIN_DOMAIN,date=2023-06-09|FAR||.2f}}) and strongly conditioned by surface type:
 {{T14|date=2023-06-09,category=C|km2_normally_wet|sum|.0f}} km² of Sentinel-1 "new water" lies on normally-wet reed beds below
@@ -225,38 +226,40 @@ probability-sample reference exists, so none of them is an unbiased estimate of 
 ### 4.1 The daily reconstructed series [C01–C03, C07, C14]
 
 In the Dnipro corridor the reconstructed newly inundated area rises from zero on 5 June to
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-06|A_central_km2||.0f}} km² on 6 June and reaches its maximum of
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km² on 7 June (primary p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km²),
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-06|A_p50_km2||.0f}} km² on 6 June and reaches its maximum of
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June (Monte-Carlo median; primary p05–p95
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km²; deterministic nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km²),
 a day between the Sentinel-1 acquisitions that no scene covers [C01]; the Kherson stage reaches its maximum one day later
-({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June, consistent with the peak stages by 8 June that
-Lehnigk et al. 2026 report from SWOT, VERIFY) — the areal maximum and the peak stage are different quantities, and the day of the
-areal maximum is a property of the reconstructed series, not an observation. It is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|A_central_km2||.0f}} km² on 9 June,
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_central_km2||.0f}} km² on 13 June,
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-18|A_central_km2||.0f}} km² on 18 June and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_central_km2||.0f}} km² on 21 June, when the Kherson stage is back at
+({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June, the daily value of the river yearbook used here;
+the operational record gives 5.68 m at 15:00 on 8 June (Gleick et al. 2023) and Lehnigk et al. 2026 cite 5.6 m, a ~0.1 m spread
+between sources; the peak stages by 8 June that Lehnigk et al. 2026 report from SWOT are consistent with it, VERIFY) — the areal maximum and the peak stage are different quantities, and the day of the
+areal maximum is a property of the reconstructed series, not an observation. It is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|A_p50_km2||.0f}} km² on 9 June,
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_p50_km2||.0f}} km² on 13 June,
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-18|A_p50_km2||.0f}} km² on 18 June and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_p50_km2||.0f}} km² on 21 June, when the Kherson stage is back at
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|kherson_gauge_m||.2f}} m (Fig04, T12) [C03]. The reconstructed new-water volume
-reaches {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_central_hm3||.0f}} hm³ (p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p05_hm3||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p95_hm3||.0f}} hm³,
-Monte-Carlo median {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p50_hm3||.0f}} hm³) [C02].
-The p42 HAND rule gives {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_hand_and_ceiling_km2||.0f}} km² at the peak; the
+reaches {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p50_hm3||.0f}} hm³ (median; p05–p95
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p05_hm3||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p95_hm3||.0f}} hm³;
+deterministic nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_central_hm3||.0f}} hm³) [C02]. All areas and volumes after 5 June are Monte-Carlo medians unless marked as a nominal run.
+The rule and DEM sensitivities are deterministic runs and compare with the nominal connected run ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km²), not with the median:
+the p42 HAND rule gives {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_hand_and_ceiling_km2||.0f}} km² at the peak; the
 ceiling without connectivity {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_ceiling_only_km2||.0f}} km². The largest single
 term is definitional: with the DEM as delivered, the reed beds count as new inundation and the peak is
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_dem_uncorrected_km2||.0f}} km². Inside the p42 floodplain
-domain the peak is {{T12|region=P42_FLOODPLAIN_DOMAIN,date=2023-06-07|A_central_km2||.0f}} km²; the Inhulets valley, treated as
-backwater with its own SWOT nodes, peaks at {{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|A_central_km2||.0f}} km² on 9 June.
+domain the peak is {{T12|region=P42_FLOODPLAIN_DOMAIN,date=2023-06-07|A_p50_km2||.0f}} km²; the Inhulets valley, treated as
+backwater with its own SWOT nodes, peaks at {{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|A_p50_km2||.0f}} km² on 9 June.
 The depth and duration maps (Fig07) show the 7–8 June water more than 4 m deep on the right-bank floodplain below the dam and
 the delta channels, and inundation lasting more than a week only in the floodplain lows and the delta.
 
 **Reconstructed total water-surface area [C02].** The newly inundated area is the water that was not there before; the total
 water-surface area is all water on the day, including the pre-breach channels, lakes and reed beds. In the corridor it is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_central_km2||.0f}} km²
-in the normal regime (5 June), {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km² on 7 June (primary p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²),
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|W_total_central_km2||.0f}} km² on 9 June and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|W_total_central_km2||.0f}} km² on 13 June (with the DEM as delivered:
+in the normal regime (5 June; observed regime, no draws), {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p50_km2||.0f}} km² on 7 June (median; primary p05–p95
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²; nominal run {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_central_km2||.0f}} km²),
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|W_total_p50_km2||.0f}} km² on 9 June and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|W_total_p50_km2||.0f}} km² on 13 June (with the DEM as delivered:
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_connected_ceiling_dem_uncorrected_km2||.0f}} →
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_connected_ceiling_dem_uncorrected_km2||.0f}} km²); the Inhulets valley adds
-{{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_central_km2||.0f}} km² on 7 June. Sentinel-1 saw
+{{T12|region=INHULETS_VALLEY_rect,date=2023-06-07|W_total_p50_km2||.0f}} km² on 7 June. Sentinel-1 saw
 {{T19|date=2023-06-09,region=DNIPRO_CORRIDOR,sensor=S1|water_km2||.0f}} km² of dark water in the corridor on 9 June and
 {{T19|date=2023-06-09,region=INHULETS_VALLEY_rect,sensor=S1|water_km2||.0f}} km² in the Inhulets valley. Neither total is comparable
 with the operational figures: the UNOSAT ~620 km² of 9 June is cumulative satellite-detected flooded *land* over 6–9 June with the
@@ -266,11 +269,11 @@ in temporal semantics (cumulative vs daily snapshot) and in reference water (§4
 
 **Uncertainty per day [C07].** On 7 June the primary spatial draws give relative half-widths of
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_A_pct||.0f}} % for the area and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_V_pct||.0f}} % for the volume, and Monte-Carlo medians displaced above
-the deterministic run by {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_A_pct||+.0f}} % (area) and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_V_pct||+.0f}} % (volume): the vertical error enters the volume mainly as a
-shift, not as a wider band, so the deterministic volume is not centred in its interval and volumes are always quoted with p05–p95
-and the median. The emulator sensitivity envelope (§3.3) is wider — newly inundated area
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_V_pct||.0f}} % for the volume. The deterministic nominal run lies below its own
+interval: the medians are {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_A_pct||+.0f}} % (area) and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_V_pct||+.0f}} % (volume) above it, and the nominal area and volume fall below the p05 on the peak days
+(T12b flags every such day). The interval is therefore not centred on the nominal run, and the reported central value is the
+Monte-Carlo median with p05–p95, the nominal run in brackets; the cause of the offset is not yet diagnosed. The emulator sensitivity envelope (§3.3) is wider — newly inundated area
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_emu_km2_p05||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_emu_km2_p95||.0f}} km²
 (p25–p75 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_emu_km2_p25||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_emu_km2_p75||.0f}} km²),
 total water-surface area {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_emu_km2_p05||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_emu_km2_p95||.0f}} km²
@@ -316,7 +319,7 @@ a diagnostic conditional agreement, not a corrected POD. On 13 June the raw POD 
 {{T13|variant=connected_ceiling,region=P42_FLOODPLAIN_DOMAIN,date=2023-06-13|POD_cond_outside_normally_wet||.2f}}. After 18 June the
 Sentinel-1 "new water" outside the floodplain domain ({{T19|date=2023-06-21,region=DNIPRO_CORRIDOR,sensor=S1|new_water_km2||.0f}} km²
 on 21 June in the corridor) is scattered on fields and sand while the gauge is at its pre-breach level and the reconstruction is
-at {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_central_km2||.0f}} km²: the dark-water rule, not the flood. The large-scale
+at {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_p50_km2||.0f}} km²: the dark-water rule, not the flood. The large-scale
 recession seen by Sentinel-1 inside the floodplain (T19) follows the reconstruction and the gauge (Fig04).
 
 ### 4.3 The disagreement is mechanistic [C05]
@@ -364,8 +367,8 @@ Paper 2 (T18).
 For the same corridor the 9 June Sentinel-1 scene contains {{T16|quantity=S1 new dark water, 06-09 scene;region=DNIPRO_CORRIDOR|km2||.0f}} km²
 of new dark water (observed_S1), the label recipe (water on ≥ 2 of 3 peak dates) {{T16|quantity=S1 new dark water, >= 2 of 3 peak dates (label recipe);region=DNIPRO_CORRIDOR|km2||.0f}} km²,
 the U-Net arm U2b {{T16|quantity=U2b predicted event flood (persistent concept);region=DNIPRO_CORRIDOR|km2||.0f}} km² (mapped_UNet), and the
-reconstruction {{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|A_central_km2||.0f}} km² on 9 June and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km² at the peak (terrain_reconstructed). The label contract
+reconstruction {{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|A_p50_km2||.0f}} km² on 9 June and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² at the peak (terrain_reconstructed). The label contract
 is a persistence product and therefore describes the regime around 13 June. The operational figures — UNOSAT product 3616,
 ~620 km² of satellite-detected flooded land cumulative over 6–9 June with the pre-existing water as a separate class,
 preliminary and not field-validated; product 3623, ~180 km² on 13 June against the reference water of 3/5 June (T16,

@@ -30,10 +30,13 @@ LITERATURE = [  # context only; every row must be VERIFIED against the source be
     dict(source="UNOSAT product 3623 (13 June 2023)", quantity="land that appears flooded on 13 June vs reference water of 3/5 June", value_km2=180,
          quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="snapshot_2023-06-13", verify="VERIFY: product id and AOI"),
     dict(source="Kadam et al. 2024 (HEC-RAS 1D/2D, 300 m breach scenario)", quantity="modelled flood extent (scenario, not an observation)", value_km2=823,
-         quantity_semantics="model_extent (definition per source)", temporal_semantics="scenario maximum", verify="VERIFY: extent definition, AOI, scenario"),
-    dict(source="Yale HRL 2023", quantity="flooded area, southern Ukraine, June 2023", value_km2=520, quantity_semantics="unknown", temporal_semantics="unknown", verify="VERIFY: report, date, AOI")]
+         quantity_semantics="model_extent (definition per source)", temporal_semantics="scenario maximum", verify="VERIFY: extent definition, AOI, scenario")]
+    # Yale HRL 2023 (520 km2) dropped 2026-09-28: no source found, unknown semantics (literature audit)
 
 OUT = {}   # tid -> (df, caption, sources, evidence_level)
+CENTRAL_NOTE = ("reported central value = Monte-Carlo MEDIAN (*_p50_*) with the p05-p95 interval; *_central_* = the deterministic nominal run (unperturbed inputs), "
+                "given in brackets -- it lies below its own MC p05 on the peak days, so the interval is not centred on it (cause not yet diagnosed) "
+                "(maintainer decision 2026-09-28 after the literature audit)")
 
 
 def sha(p: Path) -> str:
@@ -224,8 +227,33 @@ def t12_daily():
             tag = f"{name.split(' ')[0]}{'_superseded' if 'superseded' in name else ''}"
             x = pd.read_csv(q)[["date", "region", "new_km2", "potential_km2"]].rename(columns={"new_km2": f"A_{tag}_km2", "potential_km2": f"W_total_{tag}_km2"}); D = D.merge(x, on=["date", "region"], how="left"); src.append(q)
     D["uncertainty_note"] = "PRIMARY interval = p05/p50/p95 of the 40 full spatial Monte-Carlo draws (p95e: spatially correlated DEM error field, closure, gauge, SWOT, interpolation); *_emu_* = 100 000-draw cluster-normal emulator (p95g), a broader SENSITIVITY envelope of the AREA over the parameter space, not the primary interval; the emulator's volume draws are not used (raw, unanchored: ~3x the spatial MC)"
-    D["definition_note"] = "A_* = NEW inundation (cells allowed by the water surface outside the same-rule pre-breach regime); W_total_* = TOTAL water surface on the day (all cells allowed by the water surface, incl. channels, lakes, reed beds) -- the quantity comparable with operational 'flooded area' products; wetland submergence is in T13/T14"
-    put("T12", D, "Daily terrain-reconstructed inundation per region and key date: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds) and reconstructed NEWLY INUNDATED area (A_*) with the volume of new water (V_*). PRIMARY intervals p05/p50/p95 from the 40 spatial Monte-Carlo draws (p95e); *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). Central run (DEM class-bias corrected), p42 HAND rule, ceiling-only, uncorrected-DEM and superseded-closure sensitivities. Daily reconstructed series, not daily observations.", src, "independent_physical")
+    D["definition_note"] = "A_* = NEW inundation (cells allowed by the water surface outside the same-rule pre-breach regime); W_total_* = TOTAL water surface on the day (all cells allowed by the water surface, incl. channels, lakes, reed beds) ; operational 'flooded land' figures (e.g. UNOSAT 3616) exclude pre-existing water and are closer in kind to A_*, but differ in AOI, date and temporal semantics -- context, never validation; wetland submergence is in T13/T14"
+    D["central_value_note"] = CENTRAL_NOTE
+    lead = [c for c in ["date", "region", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2",
+                        "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3"] if c in D.columns]
+    D = D[lead + [c for c in D.columns if c not in lead]]
+    put("T12", D, "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the 40 spatial draws (p95e) with the deterministic nominal run (*_central_*) alongside -- on the peak days the nominal run lies below its own MC p05, so the interval is not centred on it: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds) and reconstructed NEWLY INUNDATED area (A_*) with the volume of new water (V_*). PRIMARY intervals p05/p50/p95 from the 40 spatial Monte-Carlo draws (p95e); *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). Central run (DEM class-bias corrected), p42 HAND rule, ceiling-only, uncorrected-DEM and superseded-closure sensitivities. Daily reconstructed series, not daily observations.", src, "independent_physical")
+
+
+def t12b_daily_series():
+    """Every day of the p95 series with the MC median [p05-p95] and the nominal run (the reported daily series)."""
+    p = T / "p95_daily_area_pooled_connected_ceiling.csv"; pu = T / "p95e_area_volume_uncertainty.csv"
+    if not (p.exists() and pu.exists()):
+        return
+    d = pd.read_csv(p).rename(columns={"new_km2": "A_central_km2", "new_volume_hm3": "V_central_hm3", "potential_km2": "W_total_central_km2"})
+    U = pd.read_csv(pu)
+    D = d[["date", "region", "A_central_km2", "W_total_central_km2", "V_central_hm3", "kherson_gauge_m"]].merge(
+        U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "n_draws"]], on=["date", "region"], how="left")
+    pre = D.date < "2023-06-06"                                         # before the breach A_new = 0 by construction (same-rule baseline), no draws needed
+    for c in ("A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3"):
+        D.loc[pre, c] = 0.0
+    for q in ("p05", "p50", "p95"):
+        D[f"W_total_{q}_km2"] = D.W_total_central_km2 - D.A_central_km2 + D[f"A_{q}_km2"]
+    D["nominal_below_mc_p05"] = (D.A_central_km2 < D.A_p05_km2) | (D.V_central_hm3 < D.V_p05_hm3)
+    D["area_semantics"] = "terrain_reconstructed"; D["central_value_note"] = CENTRAL_NOTE
+    D = D[["date", "region", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2",
+           "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3", "nominal_below_mc_p05", "kherson_gauge_m", "n_draws", "area_semantics", "central_value_note"]]
+    put("T12b", D.sort_values(["region", "date"]), "The daily reconstructed series, every day 26 May - 10 July 2023 and region: Monte-Carlo median [p05-p95] of the 40 spatial draws (p95e, run on every post-breach day) for new inundation A, total water surface W_total and new-water volume V, with the deterministic nominal run (*_central_*) and a flag where it lies below its own MC p05. Before the breach A = V = 0 by construction. Daily reconstructed series, not daily observations.", [p, pu], "independent_physical")
 
 
 def t21_reservoir():
@@ -238,7 +266,7 @@ def t21_reservoir():
     put("T21", R, "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage.", [p], "independent_physical")
     if h.exists():
         H = pd.read_csv(h); H["dV_rel_pct"] = (H.V_dem_km3 - H.V_table19_km3) / H.V_table19_km3 * 100; H["dA_rel_pct"] = (H.A_dem_km2 - H.A_table19_km2) / H.A_table19_km2 * 100
-        put("T22", H, "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives 8-12 % less volume at the same level (open question for Paper 4: reservoir bowl on the historical bathymetry).", [h], "independent_physical")
+        put("T22", H, "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives less volume at the same level: -8.5 % at the full-pool level (17.5 m), -14 % at 13 m, -20 % at 11 m (open question for Paper 4: reservoir bowl on the historical bathymetry).", [h], "independent_physical")
 
 
 def t23_t26_reservoir_maps():
@@ -250,8 +278,8 @@ def t23_t26_reservoir_maps():
     M["area_note"] = np.select([M.source == "MODEL", M.source == "S1"], ["pool water under the p95f sloped surface (whole pool)",
                                "VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"],
                                "S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only")
-    cols = ["date", "source", "semantics", "water_km2", "observed_frac", "iou_vs_model", "model_km2_on_observed", "vh_threshold_db", "orbits", "regime", "mapped", "yi2025_S1_km2", "area_note"]
-    put("T23", M[[c for c in cols if c in M.columns]], "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi 2025 (literature_reported, VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.", [p], "cross_sensor")
+    cols = ["date", "source", "semantics", "water_km2", "observed_frac", "iou_vs_model", "model_km2_on_observed", "vh_threshold_db", "orbits", "regime", "mapped", "yi2025_digitised_km2", "area_note"]
+    put("T23", M[[c for c in cols if c in M.columns]], "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; DIGITISED from a figure of their S1 + S2 water mapping, not quoted in their text; figure number VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.", [p], "cross_sensor")
     c = T / "p95h_s2_classes.csv"
     if c.exists():
         put("T24", pd.read_csv(c), "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).", [c], "contextual")
@@ -261,6 +289,19 @@ def t23_t26_reservoir_maps():
     k = T / "p95h_s2_index_classes.csv"
     if k.exists():
         put("T26", pd.read_csv(k), "Sentinel-2 index display classes inside the pool per date, stratum and index: km2 and % of observed cells per class (bins: NDWI/MNDWI/AWEIsh -0.3/0/0.3; NDVI 0.15/0.3/0.5; NDMI/BSI/NDTI -0.1/0.1). Display classes, not a classifier (the frozen classifier is k10e, T24). FigS09.", [k], "contextual")
+
+
+def t27_capacity_curves():
+    """The design (project) level-area-volume curves of the reservoir and the observed 2023 levels read on them (p95i)."""
+    p = T / "p95i_design_hypsometry.csv"; q = T / "p95i_design_daily.csv"
+    if not p.exists():
+        return
+    put("T27", pd.read_csv(p), "Design hypsometry of the Kakhovka reservoir from the Dnipro-reservoirs monograph (Table 19, Figs 13-15; transcribed from photographed pages in SWOT-DNIPRO): water level (historical Baltic, and +0.185 m to EVRF2019), surface area and volume of the whole pool and of the five reaches (dam - Babyne - Nikopol - Verkhnia Tarasivka - Blahovishchenka - Dnipro HPP) at 17 levels, with the design levels (NUF highest forced 17.5, NPG normal impoundment 16.0, UNS navigation drawdown 14.0, GMO dead volume 12.7 m) and the transcription check that the reaches add up to the total. Design data as published; nothing measured or fitted here. FigS10.", [p], "contextual")
+    if q.exists():
+        put("T27b", pd.read_csv(q), "The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow: Q_out = Q_in - dV_design/dt = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals). NaN once the outlet is below 10.0 m, the lowest level of Table 19. Context for Paper 4.", [q], "independent_physical")
+    w = T / "p95i_design_weekly_2023.csv"
+    if w.exists():
+        put("T27c", pd.read_csv(w), "The filling of the Kakhovka reservoir in spring 2023, week by week on the design curve: Rozumivka level (EVRF2019), design volume and area, weekly change, DniproHES inflow (mean discharge and volume) and the outflow through the Kakhovka HPP implied by the design-curve balance. From ~14.0 m / 13.5 km3 in early February to 17.6 m / 21.3 km3 on 5 May (7.9 km3 stored out of 22.7 km3 of inflow), held at ~17.5 m through May, then ~0.4 m lower in the last ten days before the breach. Design data + gauge + releases; no DEM.", [w], "independent_physical")
 
 
 def t13_terrain_vs_s1():
@@ -398,7 +439,7 @@ def readme():
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t02_labels, t03_split, t04_arms, t05_endpoints, t06_paired, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t21_reservoir,
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t21_reservoir, t27_capacity_curves,
               t23_t26_reservoir_maps):
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

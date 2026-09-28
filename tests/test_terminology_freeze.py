@@ -20,7 +20,7 @@ FILES = [CS / "publication" / "manuscript_template.md", CS / "publication" / "ma
 
 
 def _hits(text: str):
-    low = text.lower()
+    low = re.sub(r"\s+", " ", text).lower()                  # a phrase broken across lines is still the phrase (audit 2026-09-28)
     return [f for f in FORBIDDEN if f.lower() in low]
 
 

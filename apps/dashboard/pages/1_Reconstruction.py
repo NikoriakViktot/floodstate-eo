@@ -17,10 +17,21 @@ s1 = raw("p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
 region = st.selectbox("region", ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"], format_func=lambda r: {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets excluded)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}[r])
 s = d[d.region == region]; uu = u[u.region == region].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t")
 fig = go.Figure()
-if "A_p05_km2" in uu.columns and uu.A_p05_km2.notna().any():
-    fig.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.A_p95_km2) + list(uu.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws), newly inundated area", hoverinfo="skip"))
-fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="reconstructed newly inundated area (central run)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
-fig.add_trace(go.Scatter(x=s.t, y=s.potential_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="reconstructed total water-surface area (incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+try:
+    b = table("T12b"); b = b[b.region == region].copy(); b["t"] = pd.to_datetime(b.date); b = b.sort_values("t")
+except FileNotFoundError:
+    b = None
+if b is not None and b.A_p50_km2.notna().any():                       # the reported daily series: MC median [p05-p95] every day (T12b)
+    bb = b.dropna(subset=["A_p05_km2"])
+    fig.add_trace(go.Scatter(x=list(bb.t) + list(bb.t[::-1]), y=list(bb.A_p95_km2) + list(bb.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws), newly inundated area", hoverinfo="skip"))
+    fig.add_trace(go.Scatter(x=bb.t, y=bb.A_p50_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="reconstructed newly inundated area (MC median)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fig.add_trace(go.Scatter(x=b.t, y=b.W_total_p50_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="reconstructed total water-surface area (MC median, incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=1, dash="dot"), name="deterministic nominal run (below its own p05 on the peak days)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+else:
+    if "A_p05_km2" in uu.columns and uu.A_p05_km2.notna().any():
+        fig.add_trace(go.Scatter(x=list(uu.t) + list(uu.t[::-1]), y=list(uu.A_p95_km2) + list(uu.A_p05_km2[::-1]), fill="toself", fillcolor="rgba(42,120,214,0.18)", line=dict(width=0), name="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws), newly inundated area", hoverinfo="skip"))
+    fig.add_trace(go.Scatter(x=s.t, y=s.new_km2, mode="lines", line=dict(color=C["terrain"], width=3), name="reconstructed newly inundated area (nominal run)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fig.add_trace(go.Scatter(x=s.t, y=s.potential_km2, mode="lines", line=dict(color=C["terrain"], width=1.5, dash="dashdot"), name="reconstructed total water-surface area (incl. pre-breach water)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
 try:
     g = raw("p95g_mc_daily.csv"); gg = g[g.region == region].copy(); gg["t"] = pd.to_datetime(gg.date)
     fig.add_trace(go.Candlestick(x=gg.t, open=gg.W_total_km2_p25, close=gg.W_total_km2_p75, low=gg.W_total_km2_p05, high=gg.W_total_km2_p95, name="SENSITIVITY: 100 000-draw emulator envelope (p05–p95, p25–p75)", increasing_line_color="#2a78d6", decreasing_line_color="#2a78d6", opacity=0.5))
@@ -50,7 +61,7 @@ with c2:
     vv.update_layout(height=260, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="terrain-reconstructed water volume above ground (planar surface, no ponding)"); st.plotly_chart(vv, width="stretch")
 
 st.subheader("Key dates (T12)"); st.caption(caption("T12"))
-cols = [c for c in ["date", "W_total_central_km2", "W_total_p05_km2", "W_total_p95_km2", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_central_hm3", "V_p05_hm3", "V_p95_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
+cols = [c for c in ["date", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3", "A_hand_and_ceiling_km2", "A_ceiling_only_km2", "kherson_gauge_m"] if c in uu.columns]
 st.dataframe(uu[cols], width="stretch", hide_index=True)
 st.subheader("Uncertainty components (T11b) and constants (T11)"); st.caption(caption("T11b")); st.dataframe(table("T11b"), width="stretch", hide_index=True)
 st.dataframe(table("T11"), width="stretch", hide_index=True)
@@ -77,6 +88,13 @@ try:
         f3.update_layout(height=280, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="daily balance"); st.plotly_chart(f3, width="stretch")
     st.dataframe(R, width="stretch", hide_index=True)
     refs(["Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Yi_2025", "Vyshnevskyi_2023", "Shumilova_2025", "Kadam_2024", "Lehnigk_2026"], "📚 Literature: reservoir levels, bathymetry and the breach discharge")
+    try:
+        st.markdown("**Design hypsometry of the reservoir (T27, FigS10)** — the monograph's Table 19 / Figs 13–15 (whole pool and five reaches, design levels NUF / NPG / UNS / GMO) "
+                    "and the observed 2023 levels read on it: design volume at the outlet and at the Rozumivka level (sloped surface → a range). No DEM, nothing fitted.")
+        figure("FigS10"); K27 = table("T27"); st.markdown(caption("T27")); st.dataframe(K27, width="stretch", hide_index=True)
+        st.markdown(caption("T27b")); st.dataframe(table("T27b"), width="stretch", hide_index=True)
+    except FileNotFoundError:
+        st.info("T27 not built (p95i)")
 except FileNotFoundError:
     st.info("reservoir tables not built")
 try:
@@ -88,8 +106,9 @@ try:
     for src_, col, mode in (("MODEL", C["terrain"], "lines+markers"), ("S1", C["s1"], "markers"), ("S2_WATER3", C["rf"], "markers"), ("S2_CROSSCHECK", C["unet"], "markers")):
         q = M[(M.source == src_) & (M.observed_frac >= 0.5)]
         f4.add_trace(go.Scatter(x=q.t, y=q.water_km2, mode=mode, name=f"{src_} (≥ 50 % of the pool observed)", line=dict(color=col), marker=dict(color=col, size=8)))
-    yi = M.dropna(subset=["yi2025_S1_km2"]).drop_duplicates("date")
-    f4.add_trace(go.Scatter(x=yi.t, y=yi.yi2025_S1_km2, mode="markers", name="Yi 2025 S1 (literature_reported, VERIFY)", marker=dict(symbol="x", color=C["gauge"], size=9)))
+    yc = "yi2025_digitised_km2" if "yi2025_digitised_km2" in M.columns else "yi2025_S1_km2"      # renamed 2026-09-28 (digitised, not quoted)
+    yi = M.dropna(subset=[yc]).drop_duplicates("date")
+    f4.add_trace(go.Scatter(x=yi.t, y=yi[yc], mode="markers", name="Yi et al. 2025, digitised from their figure (S1 + S2; literature_reported, VERIFY)", marker=dict(symbol="x", color=C["gauge"], size=9)))
     f4.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", title="pool water area: model vs observations"); st.plotly_chart(f4, width="stretch")
     st.dataframe(M.drop(columns="t"), width="stretch", hide_index=True)
     refs(["reservoir", "Otsu_1979", "Twele_2016", "McFeeters_1996", "Xu_2006", "Main-Knorn_2017"], "📚 Literature: the drained Kakhovka reservoir, S1 VH thresholding and the S2 water rule")

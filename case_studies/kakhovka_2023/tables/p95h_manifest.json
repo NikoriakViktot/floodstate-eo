@@ -5,7 +5,7 @@
   "s2": "/mnt/f/data_kakhovka_dem_swot/zone_spectral/ZONE_1_KAKHOVKA_LOWER_DNIPRO",
   "s2_crosscheck": "/mnt/f/data_kakhovka_dem_swot/ZONE_1_s2_crosscheck",
   "pool": "reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson)",
-  "yi2025": "SWOT-DNIPRO outputs/tables/p61_yi2025_reservoir_area.csv (VERIFY)"
+  "yi2025": "SWOT-DNIPRO outputs/tables/p61_yi2025_reservoir_area.csv: values DIGITISED from a figure of Yi et al. 2025 (fractional days after the breach, assumed hour; S1 + S2 water mapping), NOT quoted in the paper's text (the text gives 2125 km2 on 30 May and decrements of ~280 / 1000 / 460 km2); figure number VERIFY"
  },
  "s1_method": "VH dB < per-date Otsu over all covered cells, clamped to [-24.0, -15.0] dB, 3x3 majority; uncovered = not observed; dark = open water or smooth wet mud; mapped if >= 10% of the pool observed",
  "s1_thresholds_db": {

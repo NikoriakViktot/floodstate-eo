@@ -74,7 +74,7 @@ SERIES = [  # the Kakhovka series; manuscripts have no DOI yet -- the code repos
     ("Paper 5", "HEC-RAS hydrodynamic model calibrated on the daily reconstructed surfaces", "planned", [], None)]
 TOPICS = {  # dashboard section -> bibliography keys (docs/references.bib); every entry keeps its VERIFY status visible
     "series": ["Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026"],
-    "event": ["Vyshnevskyi_2023", "Shumilova_2025", "Kadam_2024", "Yi_2025", "Monti_2024", "Lehnigk_2026", "UNOSAT_3616_2023", "UNOSAT_3623_2023", "UNEP_2023", "CEOBS_2023", "REACH_2023"],
+    "event": ["Vyshnevskyi_2023", "Gleick_2023", "Shumilova_2025", "Kadam_2024", "Yi_2025", "Monti_2024", "Lehnigk_2026", "UNOSAT_3616_2023", "UNOSAT_3623_2023", "UNEP_2023", "CEOBS_2023", "REACH_2023"],
     "terrain": ["Paper2_Nikoriak_2026", "Hawker_2022", "Hawker_2018", "Matheron_1963", "Renno_2008", "Nobre_2011", "Johnson_2019", "Zheng_2018", "Cohen_2019", "Lindsay_2016", "Rosenfeld_Pfaltz_1966", "Hohle_2009", "Olofsson_2014"],
     "water_surface": ["Paper1_Nikoriak_2026", "Biancamaria_2016", "SWOT_RiverSP_v2", "Altenau_2021", "ATL13_v6", "Denker_2013", "Lehnigk_2026"],
     "s1_flood": ["Torres_2012", "Small_2011", "Lee_1980", "Twele_2016", "Martinis_2022", "Bioresita_2019", "Giustarini_2013", "Tupas_2023", "Wagner_2026", "Lopes_1990", "Otsu_1979", "Shen_2019", "Zhao_2021", "Grimaldi_2020", "Monti_2024"],

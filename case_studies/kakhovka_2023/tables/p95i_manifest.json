@@ -1,0 +1,95 @@
+{
+ "sources": {
+  "inflow": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/dniprohes_releases.csv",
+  "rozumivka_2023": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/k5_gauge_levels_evrf2019.csv",
+  "p61": "/home/niko/repo/SWOT-DNIPRO/outputs/tables/p61_pool_levels_2023.csv",
+  "table19": "/home/niko/repo/SWOT-DNIPRO/data/historical/historical_level_area_volume.csv",
+  "table21": "/home/niko/repo/SWOT-DNIPRO/data/historical/historical_reservoir_reaches.csv",
+  "levels": "/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv",
+  "monograph": "Dnipro reservoirs monograph, photographed pages (Tables 19-21, Figs 13-16); transcribed in SWOT-DNIPRO hist1"
+ },
+ "bs_to_evrf_m": 0.185,
+ "design_levels": {
+  "GMO": 12.7,
+  "UNS": 14.0,
+  "NPG": 16.0,
+  "NUF": 17.5
+ },
+ "filling_2023": {
+  "2023-02-01": {
+   "H_rozumivka_m": 14.129,
+   "V_design_km3": 13.868,
+   "A_design_km2": 2035.0
+  },
+  "2023-03-01": {
+   "H_rozumivka_m": 14.579,
+   "V_design_km3": 14.792,
+   "A_design_km2": 2069.0
+  },
+  "2023-04-01": {
+   "H_rozumivka_m": 15.004,
+   "V_design_km3": 15.68,
+   "A_design_km2": 2098.0
+  },
+  "2023-05-01": {
+   "H_rozumivka_m": 17.279,
+   "V_design_km3": 20.567,
+   "A_design_km2": 2191.0
+  },
+  "2023-06-05": {
+   "H_rozumivka_m": 17.084,
+   "V_design_km3": 20.14,
+   "A_design_km2": 2185.0
+  },
+  "minimum": {
+   "date": "2023-02-08",
+   "H": 13.934,
+   "V": 13.478
+  },
+  "maximum": {
+   "date": "2023-05-05",
+   "H": 17.624,
+   "V": 21.326
+  },
+  "filled_min_to_max_km3": 7.85,
+  "inflow_dniprohes_min_to_max_km3": 22.68,
+  "outflow_design_min_to_max_km3": 14.83,
+  "share_of_inflow_stored_pct": 34.6,
+  "breach_release_design_06_06_to_06_08": {
+   "Q_out_at_outlet_level_m3s": [
+    110802.0,
+    12152.0,
+    24160.0
+   ],
+   "Q_out_at_rozumivka_level_m3s": [
+    11797.0,
+    37811.0,
+    20051.0
+   ],
+   "Q_in_m3s": [
+    1960.0,
+    2730.0,
+    1880.0
+   ],
+   "dates": [
+    "2023-06-06",
+    "2023-06-07",
+    "2023-06-08"
+   ]
+  }
+ },
+ "prebreach_design": {
+  "level_outlet_bs_m": 17.35,
+  "V_km3": 21.12,
+  "A_km2": 2200
+ },
+ "last_defined_day": {
+  "date": "2023-06-08",
+  "outlet_level_bs_m": 10.707,
+  "V_design_range_km3": "8.00\u201314.69",
+  "released_range_km3": "13.13\u20136.10"
+ },
+ "reach_sum_check_max_abs_km3": 0.01,
+ "note": "design curve read at observed levels; sloped surface -> range outlet..Rozumivka; nothing fitted",
+ "seconds": 0.1
+}

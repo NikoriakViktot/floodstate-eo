@@ -1,4 +1,4 @@
-date,source,semantics,water_km2,observed_frac,vh_threshold_db,mapped,orbits,iou_vs_model,model_km2_on_observed,regime,yi2025_S1_km2
+date,source,semantics,water_km2,observed_frac,vh_threshold_db,mapped,orbits,iou_vs_model,model_km2_on_observed,regime,yi2025_digitised_km2
 2023-02-10,S2_WATER3,observed_S2,1835.9,0.878,,False,,,,PRE_BREACH,
 2023-05-06,S2_WATER3,observed_S2,2110.1,0.994,,True,,,,PRE_BREACH,
 2023-05-11,S2_WATER3,observed_S2,1142.4,0.539,,False,,,,PRE_BREACH,

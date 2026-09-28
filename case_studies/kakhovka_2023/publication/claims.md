@@ -11,7 +11,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Independent:** yes -- water surface (SWOT nodes + gauge) x terrain; no EO flood mask enters; the timing between acquisitions is model-dependent
 - **Result type / dataset:** observation-constrained terrain inundation reconstruction / SWOT RiverSP nodes 05-26..07-10, Kherson gauge 80805, seamless DEM (Paper 2)
 - **Independent unit:** day; **n:** 16 key dates of the reconstructed series; 11 S1 dates
-- **Value:** A_new 06-06 180, 06-07 235 (maximum), 06-08 225, 06-09 183 km2; Kherson stage 06-07 5.66 m, 06-08 5.78 m (gauge maximum); **uncertainty:** spatial MC p05-p95 on 06-07 238-255 km2; the day of the maximum is not itself bootstrapped
+- **Value:** A_new 06-06 189, 06-07 247 (maximum), 06-08 237, 06-09 196 km2; Kherson stage 06-07 5.66 m, 06-08 5.78 m (gauge maximum); **uncertainty:** spatial MC p05-p95 on 06-07 238-255 km2; the day of the maximum is not itself bootstrapped
 - **Evidence:** tables T12, T17b, T01; figures Fig04, Fig07
 - **Scope:** Dnipro corridor (Inhulets excluded); connected_ceiling rule; closure kherson_paper1
 - **Caveat:** planar water surface per node neighbourhood; no momentum or timing of filling and draining
@@ -20,12 +20,12 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C02 [independent_physical] -- section 4.1 (formerly C01 (part))
 
-**Statement.** The reconstructed total water-surface area of the Dnipro corridor rises from ~488 km2 in the pre-breach regime (5 June) to ~779 km2 at the areal maximum (7 June), while the reconstructed newly inundated area reaches ~235 km2 with a new-water volume of ~509 hm3; each value carries its primary spatial Monte-Carlo interval.
+**Statement.** The reconstructed total water-surface area of the Dnipro corridor rises from ~488 km2 in the pre-breach regime (5 June, observed) to ~790 km2 at the areal maximum (7 June), while the reconstructed newly inundated area reaches ~247 km2 with a new-water volume of ~566 hm3; each value is the Monte-Carlo median with its primary p05-p95 interval, the deterministic nominal run (779 km2, 235 km2, 509 hm3) lying below that interval.
 
 - **Independent:** yes -- as C01
 - **Result type / dataset:** observation-constrained terrain inundation reconstruction / as C01 + p95e spatial Monte-Carlo (40 draws)
 - **Independent unit:** day; **n:** 16 key dates x 40 spatial draws (primary); 100 000 emulator draws (sensitivity)
-- **Value:** W_total 06-05 488 -> 06-07 779 km2; A_new 06-07 235 km2 (DEM as delivered: 347); V_new 06-07 509 hm3; **uncertainty:** PRIMARY spatial MC p05-p95: W_total 781-799 km2, A_new 238-255 km2, V_new 545-596 hm3; emulator envelope (sensitivity): W_total 758-837, A_new 214-293 km2
+- **Value:** W_total 06-05 488 (observed regime) -> 06-07 MC median 790 km2; A_new 06-07 MC median 247 km2 (DEM as delivered, nominal run: 347); V_new 06-07 MC median 566 hm3; nominal runs 779 km2 / 235 km2 / 509 hm3; **uncertainty:** PRIMARY spatial MC p05-p95: W_total 781-799 km2, A_new 238-255 km2, V_new 545-596 hm3; emulator envelope (sensitivity): W_total 758-837, A_new 214-293 km2
 - **Evidence:** tables T12, T11b; figures Fig04, Fig07
 - **Scope:** Dnipro corridor; central run (DEM class-bias corrected)
 - **Caveat:** total water-surface area and newly inundated area are two different quantities and are never called 'flooded area' without their semantics
@@ -39,7 +39,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Independent:** yes -- as C01; the Inhulets valley uses its own SWOT nodes
 - **Result type / dataset:** reconstructed daily series per region / as C01; p42 CUT_RECTS
 - **Independent unit:** day; **n:** 16 key dates x 2 regions
-- **Value:** corridor A_new 06-09 183, 06-13 108, 06-18 34, 06-21 4 km2 (stage 0.74 m); Inhulets A_new maximum 50 km2 on 06-09, W_total 76 km2; **uncertainty:** corridor spatial MC 06-13 114-129 km2; Inhulets 06-09: terrain 20 vs S1 36 km2, POD 0.40, CSI 0.34
+- **Value:** corridor A_new 06-09 196, 06-13 118, 06-18 39, 06-21 3 km2 (stage 0.74 m); Inhulets A_new maximum 50 km2 on 06-09, W_total 76 km2; **uncertainty:** corridor spatial MC 06-13 114-129 km2; Inhulets 06-09: terrain 20 vs S1 36 km2, POD 0.40, CSI 0.34
 - **Evidence:** tables T12, T13 (INHULETS rows); figures Fig04, FigS06
 - **Scope:** Dnipro corridor vs Inhulets valley rectangle
 - **Caveat:** recession is a lower bound (no timing of draining)
@@ -95,7 +95,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Independent:** yes -- propagation of independent error terms
 - **Result type / dataset:** uncertainty budget / p95e 40 spatial draws (primary); p95g emulator (sensitivity)
 - **Independent unit:** draw; **n:** 40 spatial draws x 16 key dates
-- **Value:** 06-07: A_new 235 km2, MC p05-p95 238-255, median 247; V_new 509 hm3, MC p05-p95 545-596, median 566; **uncertainty:** MC relative half-width: area 4 %, volume 5 %; MC median shift above the deterministic run: area +5 %, volume +11 % (06-07); emulator AREA envelope A_new 214-293 km2 (sensitivity); emulator volume draws not used (unanchored)
+- **Value:** 06-07: A_new MC median 247 km2 [p05-p95 238-255] (nominal run 235); V_new MC median 566 hm3 [p05-p95 545-596] (nominal run 509); **uncertainty:** MC relative half-width: area 4 %, volume 5 %; MC median above the deterministic nominal run (which lies below the MC p05): area +5 %, volume +11 % (06-07); emulator AREA envelope A_new 214-293 km2 (sensitivity); emulator volume draws not used (unanchored)
 - **Evidence:** tables T12, T11b; figures Fig04
 - **Scope:** Dnipro corridor, key dates
 - **Caveat:** the spatial MC is the primary interval; the 100 000-draw emulator is a broader sensitivity envelope of the AREA only (its volume draws are unanchored and not used); the two represent different distributions and are never mixed
@@ -111,7 +111,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Independent:** n/a -- definitional accounting
 - **Result type / dataset:** area accounting / p93, p92, p94 + operational figures (context only)
 - **Independent unit:** date / product; **n:** corridor accounting rows of T16
-- **Value:** 06-09 S1 new dark water 300 km2 (observed_S1, snapshot); label recipe 168 km2 (persistence); U2b 241 km2 (mapped_UNet); A_new 06-09 183 km2 (terrain_reconstructed, snapshot); **uncertainty:** literature rows VERIFY (UNOSAT 3616: ~620 km2 flooded land cumulative 6-9 June; 3623: ~180 km2 on 13 June); different AOI, temporal semantics and reference water
+- **Value:** 06-09 S1 new dark water 300 km2 (observed_S1, snapshot); label recipe 168 km2 (persistence); U2b 241 km2 (mapped_UNet); A_new 06-09 196 km2 (terrain_reconstructed, snapshot); **uncertainty:** literature rows VERIFY (UNOSAT 3616: ~620 km2 flooded land cumulative 6-9 June; 3623: ~180 km2 on 13 June); different AOI, temporal semantics and reference water
 - **Evidence:** tables T16, T19; figures Fig04
 - **Scope:** corridor and p42 domain
 - **Caveat:** no probability-sample reference exists; no area here is an unbiased estimate of the true flooded area
@@ -176,7 +176,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C14 [independent_physical] -- section 4.1 (formerly C13)
 
-**Statement.** Under the sloped daily surface the pool released about fourteen cubic kilometres between 6 and 13 June; the daily-mean effective release (-dV/dt + Q_in) reached ~4x10^4 m3/s on 7 June -- a storage-balance estimate, not an instantaneous breach discharge; the peak floodplain storage of new water downstream (~0.65 km3) is only a few per cent of the release, implying that most of the released volume was transmitted downstream rather than stored on the mapped floodplain; the seamless-DEM hypsometry lies below the design table at equal levels (about 9 % at the full-pool level, 15-20 % at 11-13 m; the design table is undefined below 10 m), an open question for Paper 4 (the reservoir bowl on the historical bathymetry).
+**Statement.** Under the sloped daily surface the pool released about fourteen cubic kilometres between 6 and 13 June; the daily-mean effective release (-dV/dt + Q_in) reached ~4x10^4 m3/s on 7 June -- a storage-balance estimate, not an instantaneous breach discharge; the peak floodplain storage of new water downstream (~0.65 km3) is only a few per cent of the release, implying that most of the released volume was transmitted downstream rather than stored on the mapped floodplain; the seamless-DEM hypsometry lies below the design table at equal levels (about 9 % at the full-pool level, 14-20 % at 13-11 m; the design table is undefined below 10 m), an open question for Paper 4 (the reservoir bowl on the historical bathymetry).
 
 - **Independent:** yes -- gauges, SWOT, press levels, DEM, DniproHES releases; no EO flood mask
 - **Result type / dataset:** storage balance (context) / p61 pool levels, dniprohes_releases, seamless DEM, p95 downstream volume

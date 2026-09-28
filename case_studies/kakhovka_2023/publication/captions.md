@@ -32,8 +32,7 @@ the areal maximum (7 June) lies between the Sentinel-1 acquisitions. Areas are t
 **Fig05 Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint:
 A both, B terrain only, C S1 only split by ground elevation relative to the reconstructed surface. (b) B by WorldCover class:
 forest, wetland and built-up dominate (SAR blind spots). (c) C by ground elevation: cells below or within 2 m of the surface
-are mostly normally-wet reed beds where S1 dark-water onset is a submergence signal; cells ≥ 5 m above the surface are false
-SAR water on land (Fig08). Km² are mapped areas (T14).
+are mostly normally-wet reed beds where S1 dark-water onset is a submergence signal; S1-only detections on ground ≥ 5 m above the reconstructed connected water surface are topographically unsupported (Fig08). Km² are mapped areas (T14).
 
 **Fig06 Water surface.** (a) Observed SWOT node medians per 1 km of straight-line distance from the dam (main stem), gauge-anchored
 EGG2015-referenced heights; the reconstruction itself is node-based (no chainage). (b) Daily median of the SWOT nodes within
@@ -67,7 +66,7 @@ new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-b
 **FigS05** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 **FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
-level over the drawdown range (shaded), about −9 % at the full-pool level and −15…−20 % at 11–13 m; the design table is undefined
+level over the drawdown range (shaded), about −9 % at the full-pool level and −14…−20 % at 13–11 m; the design table is undefined
 below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
 **FigS08** Reservoir drawdown maps (p95h; context, no claim). (a–c) Modelled pool on 7, 9 and 13 June: the p95f sloped daily
 surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June
@@ -76,11 +75,25 @@ cells (*observed_S1*); IoU against the model on observed cells 0.98 (1 June), 0.
 dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (2077 vs
 648 km² around 20–21 June) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products,
 *observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l)
-Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²; Yi 2025 report 825 km² from S1 on the same day,
-*literature_reported*). S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
+Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²). For comparison, Yi et al. (2025) map the reservoir from
+Sentinel-1 **and** Sentinel-2; their text gives 2125 km² on 30 May and decrements that imply ~845 km² around 20 June
+(*literature_reported*, VERIFY); the 2089 / 1849 / 825 / 369 km² in T23 are **digitised from their figure** (figure number
+VERIFY), not quoted from their text. S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
 **FigS09** The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool (+1 km) in display classes
 on 5 June (pre-breach), 5 July (drawdown) and 8 September 2023; frozen p25 stacks (offset-corrected reflectance, 20 m); the bins
 are for display only and are not a classifier; blank = not observed.
+**FigS10** Design hypsometry of the Kakhovka reservoir and the observed 2023 levels read on it (p95i, T27; no DEM, nothing fitted).
+(a) Level–volume of the whole pool (monograph Table 19, Figs 13–15) with the volume of the five reaches stacked (dam → Babyne →
+Nikopol → Verkhnia Tarasivka → Blahovishchenka → Dnipro HPP) and the design levels (NUF 17.5, NPG 16.0, UNS 14.0, GMO 12.7 m
+historical Baltic; right axis EVRF2019 = +0.185 m). (b) Level–area, with the observed outlet level before the breach and on
+6–13 June read on the design curve. (c) The design volume from 1 February to 20 June read at the observed levels: before the breach at the Rozumivka gauge
+(the pool was level) — the spring filling from ~13.5 km³ (14.0 m, early February) to 21.3 km³ (17.6 m, 5 May) during the
+April–May DniproHES release (shaded, right axis; 7.9 km³ of 22.7 km³ of inflow stored, the rest passed the Kakhovka HPP), a
+plateau at ~17.5 m through May and ~0.4 m lower in the last ten days before the breach; after the breach at the outlet (SWOT) and
+at the Rozumivka level — the surface sloped by up to 4 m, so the design curve, which assumes a level pool, gives a range, not one
+number; shaded where the outlet falls below 10.0 m and Table 19 is undefined. The storage balance on the design curve at the
+Rozumivka level gives a daily-mean effective release of ~12 000 / 38 000 / 20 000 / 19 000 m³/s on 6–9 June (T27b), the design-curve
+counterpart of the ~40 000 m³/s of T21 on 7 June. The released volume on the sloped surface of Paper 3 is T21/Fig09.
 
 ## Tables
 
@@ -91,4 +104,4 @@ T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreem
 with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T18 DEM accuracy (Paper 2) · T19 per-date series ·
 T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap ·
 T23 pool water area by source (model / S1 / S2 / Yi 2025, observed fraction, IoU vs model) · T24 S2 k10e classes in the pool
-by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes.
+by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes · T27 design hypsometry (monograph Table 19, whole pool and reaches, design levels) · T27b the observed 2023 levels (1 Feb – 10 Jul) read on the design curve with the DniproHES balance · T27c the spring filling week by week · T12b the daily series, MC median [p05–p95] with the nominal run.

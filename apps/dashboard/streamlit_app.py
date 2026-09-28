@@ -30,14 +30,15 @@ refs(["event"], "📚 Literature: the 2023 breach, its consequences and the oper
 d12 = table("T12"); corr = d12[d12.region == "DNIPRO_CORRIDOR"].set_index("date")
 d13 = table("T13"); v = d13[(d13.variant == "connected_ceiling") & (d13.region == "P42_FLOODPLAIN_DOMAIN") & (d13.date == "2023-06-09")]
 d7 = table("T07b"); lab = d7[(d7.A == "U2_B1B2_v1") & (d7.B == "U2_B1B2_v003A") & (d7.endpoint == "R_pred_on_reference_water_km2")]
-pk = corr.A_central_km2.idxmax()
+pk = (corr.A_p50_km2 if "A_p50_km2" in corr.columns and corr.A_p50_km2.notna().any() else corr.A_central_km2).idxmax()   # areal maximum of the MC median
 
 st.markdown("**Primary result — the reconstructed series (terrain_reconstructed, daily snapshots)**")
 c1, c2 = st.columns(2)
-c1.metric("Reconstructed TOTAL water-surface area, Dnipro corridor, areal maximum", f"{corr.loc[pk, 'W_total_central_km2']:.0f} km²" if "W_total_central_km2" in corr.columns else "n/a",
-          (f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'W_total_p05_km2']:.0f}–{corr.loc[pk, 'W_total_p95_km2']:.0f} km² · on {pk}" if "W_total_p05_km2" in corr.columns and pd.notna(corr.loc[pk, 'W_total_p05_km2']) else f"on {pk}"))
-c2.metric("Reconstructed NEWLY inundated area (not water before the breach)", f"{corr.A_central_km2.max():.0f} km²",
-          (f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km² · volume {corr.loc[pk, 'V_central_hm3']:.0f} hm³ ({corr.loc[pk, 'V_p05_hm3']:.0f}–{corr.loc[pk, 'V_p95_hm3']:.0f})" if "A_p05_km2" in corr.columns and corr.A_p05_km2.notna().any() else "terrain_reconstructed"))
+c1.metric("Reconstructed TOTAL water-surface area, Dnipro corridor, areal maximum (MC median)", f"{corr.loc[pk, 'W_total_p50_km2']:.0f} km²",
+          f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'W_total_p05_km2']:.0f}–{corr.loc[pk, 'W_total_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'W_total_central_km2']:.0f} · on {pk}", delta_color="off")
+c2.metric("Reconstructed NEWLY inundated area (not water before the breach; MC median)", f"{corr.loc[pk, 'A_p50_km2']:.0f} km²",
+          f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'A_central_km2']:.0f} · volume {corr.loc[pk, 'V_p50_hm3']:.0f} hm³ ({corr.loc[pk, 'V_p05_hm3']:.0f}–{corr.loc[pk, 'V_p95_hm3']:.0f}; nominal {corr.loc[pk, 'V_central_hm3']:.0f})", delta_color="off")
+st.caption("Central values are Monte-Carlo medians of the 40 spatial draws; the deterministic nominal run lies below its own p05 on the peak days, so it is given only for reference.")
 st.caption("Secondary — checks and weak-label agreement (never accuracy)")
 c3, c4, c5 = st.columns(3)
 c3.metric("Raw agreement with Sentinel-1 on 2023-06-09 (p42 floodplain)", f"POD {float(v.POD.iloc[0]):.2f} · CSI {float(v.CSI.iloc[0]):.2f}" if len(v) else "n/a", "cross_sensor, S1 footprint; conditioned by surface type")

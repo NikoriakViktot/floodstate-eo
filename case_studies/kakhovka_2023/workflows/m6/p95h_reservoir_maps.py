@@ -227,11 +227,11 @@ def main():
         w = to_grid(w, xtr, ztr, zshape).astype(bool) & zpool; v = to_grid(v, xtr, ztr, zshape).astype(bool) & zpool
         rows.append(dict(date=d, source="S2_CROSSCHECK", semantics="observed_S2", water_km2=round(float(w.sum()) * zkm, 1), observed_frac=round(float(v.sum()) / zpool.sum(), 3)))
         print("S2xc", d, rows[-1], flush=True)
-    R = pd.DataFrame(rows); R["yi2025_S1_km2"] = R.date.map(yi); R = R.sort_values(["date", "source"])
+    R = pd.DataFrame(rows); R["yi2025_digitised_km2"] = R.date.map(yi); R = R.sort_values(["date", "source"])
     R.to_csv(CFG.TABLES / "p95h_reservoir_maps.csv", index=False); pd.DataFrame(crows).to_csv(CFG.TABLES / "p95h_s2_classes.csv", index=False)
     pd.DataFrame(irows).to_csv(CFG.TABLES / "p95h_s2_index_stats.csv", index=False); pd.DataFrame(krows).to_csv(CFG.TABLES / "p95h_s2_index_classes.csv", index=False)
     man = dict(sources=dict(model="p95f sloped daily surface (load_levels/load_pool/day_points/sloped_wse), dem_seamless_evrf2019_50m.tif", s1=str(S1DIR), s2=str(S2DIR), s2_crosscheck=str(S2XC),
-                            pool="reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson)", yi2025="SWOT-DNIPRO outputs/tables/p61_yi2025_reservoir_area.csv (VERIFY)"),
+                            pool="reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson)", yi2025="SWOT-DNIPRO outputs/tables/p61_yi2025_reservoir_area.csv: values DIGITISED from a figure of Yi et al. 2025 (fractional days after the breach, assumed hour; S1 + S2 water mapping), NOT quoted in the paper's text (the text gives 2125 km2 on 30 May and decrements of ~280 / 1000 / 460 km2); figure number VERIFY"),
                s1_method=f"VH dB < per-date Otsu over all covered cells, clamped to {list(S1_CLAMP_DB)} dB, 3x3 majority; uncovered = not observed; dark = open water or smooth wet mud; mapped if >= {S1_MIN_OBS:.0%} of the pool observed", s1_thresholds_db=thr_s1,
                s2_method="frozen SWOT-DNIPRO p25 k10e class and water3 (NDWI>0 & MNDWI>0 & SCL-permitted); p15 crosscheck water for the drawdown week; no re-classification",
                index_display_bins={k: dict(edges=v[0], labels=v[1]) for k, v in INDEX_BINS.items()}, s2_table_min_observed_frac=S2_TABLE_MIN_OBS,
