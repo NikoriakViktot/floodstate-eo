@@ -160,7 +160,7 @@ leftover pass; every SUPPORTS/CONTRASTS row carries a quote verified verbatim ag
 in §9. Three findings changed the science, not just the citations:
 
 1. **TH-MET-03.C is contradicted.** The manuscript implied that GeoFlood/FwDET/HAND-type tools impose drainage
-   connectivity. They do not: HAND-type methods "do not preserve hydraulic connectivity" (Bates 2021, Annu. Rev. Fluid
+   connectivity. They do not: HAND-type methods "do not preserve hydraulic connectivity" (Bates 2022, Annu. Rev. Fluid
    Mech.) and GeoFlood flags depressions "even if they are not connected with the main stem river" (Zheng et al. 2018).
    The paper's 8-connectivity rule is therefore its own addition to the index methods; 09 says so (B-09) and cites the
    connected-components precedent of Kulp & Strauss 2019 and the subgrid-connectivity result of Neal et al. 2012.
@@ -234,3 +234,27 @@ paragraph (T27–T27c, FigS10) and the drawdown paragraph (T23–T26, FigS08–S
   the look-alike caveat (no source for wet sediment; B-22).
 `09_manuscript_literature_revised.md` is now built on 21ba34c: 36 documented changes; 9 earlier entries are recorded as
 superseded because the bundle applied them itself.
+
+## 11. Re-audit of bundle 2dca5ae / 38e3375 (2026-09-28, late)
+
+floodstate-eo applied the round-2 actions. Closed there, verified by diff (31 changed lines in manuscript.md, tables and
+captions unchanged): the median-shift mechanism is stated in §4.1 and §6 (Darnell 2008; Hawker 2018 — Cunha 2012 was not
+in `references.bib`), "dark-water rule, not the flood" is gone (Shen 2019, pointer to §4.3), "assessed … by land-cover
+class", VERIFY dropped on Lehnigk/Yi, four bare "peak" fixed, Abstract gives both T15 statistics, README says C01–C14,
+Fig03 is cited in §4.9 with T06/T07b, and the rounding rule (round-half-to-even from the cell) is stated in the preamble —
+accepted: 196 km² stays, the rule is explicit. CHECK A still fires on T12 (nominal run outside its own MC band) by
+design; it is closed by the reporting scheme, not by a table change.
+
+Still open in the bundle after 2dca5ae (all applied in 09 / 09b; `revisions.yaml` now holds 26 entries, 20 superseded):
+- E-02 §5 "changes the peak by about a third", E-03 §6 "no satellite scene on the peak day" — bare "peak".
+- **F-03 (new)** Fig08 caption still says "within a few decimetres" while the Abstract now gives the median/p10–p90 form.
+- G: FigS07 caption rounds the gap to "−15…−20 % at 11–13 m" against T22's −14.4 / −20.4 %.
+- L-01 §6 "literature figures not verified against their sources" is no longer true (73 of 85 bundle keys + 49 corpus
+  keys CrossRef-verified; the UNOSAT/CEOBS/REACH sheets are the exception) — reword.
+- A-06 / A-07 (reservoir-side numbers with their periods; hypsometry sentence) and the 20 B-* literature paragraphs are
+  only in 09; `revisions_for_template.md` gives the `manuscript_template.md` line span and placeholder count of each.
+- Bibliography: `references.bib` (86 keys) holds every key of 07 and 07c; the 49 corpus-only keys the article cites are
+  in `07d_corpus_references.bib` (CrossRef fields; Magas 2023 and Tsiupa 2023 DOIs found by OpenAlex title search at
+  ratio 1.0; the Bates record's DOI was truncated in the corpus and completed from the record name, CrossRef title
+  match confirmed). Four keys were renamed to the CrossRef year and the in-text years corrected: Bates 2022 (not 2021),
+  Tuan 2021, Refice 2018, Arcos González 2024.

@@ -1,4 +1,4 @@
-<!-- Paper3_final.md — assembled 2026-09-28 by tools/paper3_audit/final_article.py: floodstate-eo bundle 21ba34c (manuscript.md filled from publication/tables by fill_manuscript.py) + 36 literature-audit revisions (10_change_log.md) + 4 final-assembly edits (FA-*); figures from publication/figures, tables from publication/tables, references from 07/07c and corpus records. -->
+<!-- Paper3_final.md — assembled 2026-09-28 by tools/paper3_audit/final_article.py: floodstate-eo bundle 21ba34c (manuscript.md filled from publication/tables by fill_manuscript.py) + 26 literature-audit revisions (10_change_log.md) + 4 final-assembly edits (FA-*); figures from publication/figures, tables from publication/tables, references from 07/07c and corpus records. -->
 
 # Daily inundation after the Kakhovka dam breach reconstructed from the observed water surface and terrain, checked against Sentinel-1 and ICESat-2, and what EO-based flood products recover under weak labels
 
@@ -39,10 +39,8 @@ On 9 June, inside the terrain-eligible floodplain, the raw agreement with Sentin
 173 km² of Sentinel-1 "new water" lies on normally-wet reed beds below
 the pre-breach surface (a submergence signal, not inundation onset); 54 km²
 lies ≥ 5 m above the reconstructed surface and is topographically unsupported by the connected water surface, and along the
-night ICESat-2 tracks that sample it the DEM agrees with the altimetry to a few centimetres in the median (with a
-p10–p90 spread of a few decimetres), so the available ICESat-2 observations give no evidence for a DEM bias large
-enough to explain it — an altimetric consistency check along tracks, not a validation of the map;
- 120 km² allowed
+night ICESat-2 tracks that sample it the DEM agrees with the altimetry to a few centimetres in the median (p10–p90 spread of a few decimetres), so the available ICESat-2
+observations give no evidence for a DEM bias large enough to explain it; 120 km² allowed
 by the terrain is invisible to the dark-water rule, 43 km² of it under trees and
 23 km² in built-up areas. Changing the weak-label contract from v002 to
 v003_A at fixed inputs changed the U-Net flood on reference water on the test blocks by
@@ -271,7 +269,7 @@ optical water network (p60 pre-water frequency ≥ 20 %), within 10 km of pre-br
 mapped drainage; a lower bound because the delta drainage is incompletely mapped) and the ceiling without connectivity.
 The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not
 preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded
-whether or not there is a physical flow path to them)" (Bates 2021), and GeoFlood by design flags "local depressions such
+whether or not there is a physical flow path to them)" (Bates 2022), and GeoFlood by design flags "local depressions such
 as ponds or waterbodies … even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing
 connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the
 ceiling into a lower-biased but physically admissible extent; small channels that the 20 m grid does not resolve are a
@@ -581,7 +579,7 @@ In the Dnipro corridor the reconstructed newly inundated area rises from zero on
 a day between the Sentinel-1 acquisitions that no scene covers [C01]; the Kherson stage reaches its maximum one day later
 (5.78 m on 8 June, the daily value of the river yearbook used here;
 the operational record gives 5.68 m at 15:00 on 8 June (Gleick et al. 2023) and Lehnigk et al. 2026 cite 5.6 m, a ~0.1 m spread
-between sources; the downstream peak stages of 10–11 m by 8 June that Lehnigk et al. 2026 report from the same SWOT data are consistent with it) — the areal maximum and the peak stage are different quantities, and the day of the
+between sources; the peak stages by 8 June that Lehnigk et al. 2026 report from the same SWOT data are consistent with it) — the areal maximum and the peak stage are different quantities, and the day of the
 areal maximum is a property of the reconstructed series, not an observation. It is 196 km² on 9 June,
 118 km² on 13 June,
 39 km² on 18 June and
@@ -591,7 +589,7 @@ reaches 566 hm³ (median; p05–p95
 545–596 hm³;
 deterministic nominal run 509 hm³) [C02]. All areas and volumes after 5 June are Monte-Carlo medians unless marked as a nominal run.
 The rule and DEM sensitivities are deterministic runs and compare with the nominal connected run (235 km²), not with the median:
-the p42 HAND rule gives 247 km² at the reconstructed areal maximum (a numerical coincidence with the connected-ceiling median, not the same quantity); the
+the p42 HAND rule gives 247 km² at the reconstructed areal maximum; the
 ceiling without connectivity 254 km². The largest single
 term is definitional: with the DEM as delivered, the reed beds count as new inundation and the areal maximum is
 347 km². Inside the p42 floodplain
@@ -674,7 +672,7 @@ in temporal semantics (cumulative vs daily snapshot) and in reference water (§4
 interval: the medians are +5 % (area) and
 +11 % (volume) above it, and the nominal area and volume fall below the p05 on the peak days
 (T12b flags every such day). The interval is therefore not centred on the nominal run, and the reported central value is the
-Monte-Carlo median with p05–p95, the nominal run in brackets. The mechanism is the one of §3.3 — the spatially correlated DEM perturbations open additional connections and add depth, an asymmetry that correlated error fields are known to produce (Cunha et al. 2012; Hawker et al. 2018) — but which error term carries most of the shift has not been attributed. The emulator sensitivity envelope (§3.3) is wider — newly inundated area
+Monte-Carlo median with p05–p95, the nominal run in brackets. The mechanism is the one of §3.3 — correlated DEM perturbations open additional connections and add depth (Darnell et al. 2008; Hawker et al. 2018) — but which error term carries most of the shift has not been attributed. The emulator sensitivity envelope (§3.3) is wider — newly inundated area
 214–293 km²
 (p25–p75 235–268 km²),
 total water-surface area 758–837 km²
@@ -1033,12 +1031,8 @@ a diagnostic conditional agreement, not a corrected POD. On 13 June the raw POD 
 0.15 and the conditional POD
 0.88. After 18 June the
 Sentinel-1 "new water" outside the floodplain domain (155 km²
-on 21 June in the corridor) is scattered on fields and sand while the gauge is at its pre-breach level and the reconstruction is at 3 km²: these detections are not supported as connected breach-induced inundation by the
-available terrain and water-surface constraints. Their pattern — fields and sand far above any water surface of the
-event — is consistent with a known C-band look-alike behaviour (smooth or wet bare surfaces and shadow scatter like
-water; Shen et al. 2019), but whether they are non-water, local ponding after rain or water outside the assumed
-connectivity is not tested here (§4.3).
- The large-scale
+on 21 June in the corridor) is scattered on fields and sand while the gauge is at its pre-breach level and the reconstruction is
+at 3 km²: these detections are not supported as connected breach-induced inundation by the available terrain and water-surface constraints. Their pattern — fields and sand far above any water surface of the event — is consistent with a known C-band look-alike behaviour (smooth or wet bare surfaces and shadow scatter like water; Shen et al. 2019), but whether they are non-water, local ponding after rain or water outside the assumed connectivity is not tested here (§4.3). The large-scale
 recession seen by Sentinel-1 inside the floodplain (T19) follows the reconstruction and the gauge (Fig04).
 
 **T19.** Per-acquisition-date new water (not water before the breach) inside the Sentinel-1 observable domain, with coverage; S2 only where >= 30 % of the region was cloud-free; estuary zone on its own grid.
@@ -1084,7 +1078,7 @@ below the surface (T15, Fig08). This is a track-based consistency check of the D
 
 ![Fig08](figures/Fig08_icesat2_consistency.png)
 
-**Fig08. ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to within a few decimetres along the tracks and essentially no segment lies below the water, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency check that supports this reading; it does not sample every cell and does not validate the map.
+**Fig08. ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency check that supports this reading; it does not sample every cell and does not validate the map.
 
 ### 4.5 Water-surface input and DEM accuracy [C06]
 
@@ -1133,7 +1127,7 @@ overall agreement does. These are agreement numbers against the training referen
 
 ### 4.9 What EO inputs recover under weak labels [C09–C11]
 
-*Label effect* (Fig03; paired differences in T06 and T07b). At fixed inputs, U2 predicts 15.3 km² of flood on
+*Label effect (Fig03; paired differences in T06 and T07b).* At fixed inputs, U2 predicts 15.3 km² of flood on
 the test-block REFERENCE_WATER under v002 and 1.3 km² under
 v003_A (paired difference -13.4 km²,
 95 % -29.5 to
@@ -1266,20 +1260,10 @@ than the 5.12 km patch plus buffers (the receptive footprint); across it the sig
 ## 5. Discussion
 
 Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum (7 June) lies between the
-Sentinel-1 acquisitions of 6 and 9 June, and it is not the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026
-report downstream peak stages by 8 June from the same SWOT data). This is a general property of satellite flood observation,
-not of this event: the 6- and 12-day Sentinel-1 revisit intervals "are not sufficient to accurately track flood progression
-over time" (DeVries et al. 2020), acquisitions can fall hours before the flood peak (Giordan et al. 2018), and even with two
-constellations and both orbit directions the share of European flood events that can be observed at all rises only to
-about 58 % for Sentinel-1 (Tarpanelli et al. 2022). The closest instrument the literature offers for the maximum between
-two images is InSAR coherence, which acts "as a sort of persistent change detector, registering the maximum extent of
-inundation" between acquisitions (Refice et al. 2017) — a detector of where water passed, not of when or how deep. Maximum
-    extent and maximum stage are different quantities whose timing changes along a 100 km reach — floodplain storage and
-    drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade et al. 2023): Zuo et al. (2024) see the
-largest Sentinel-3 water-surface area around 9 June at 300 m resolution and Lehnigk et al. (2026) the stage maxima by
-8 June; neither observes an areal maximum on 7 June and neither excludes it. The day of the areal maximum is therefore the
-most model-dependent number of this paper: it is where the water-surface-constrained reconstruction adds what no
-acquisition can give, and where Paper 5's hydraulic model will be tested.
+Sentinel-1 acquisitions of 6 and 9 June, and it is not the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report
+downstream peak stages by 8 June from the same SWOT data). Maximum extent and maximum stage are different quantities whose timing
+changes along a 100 km reach — floodplain storage and drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade et al. 2023) — and the day of the areal maximum is the most model-dependent number of this paper: it is where the
+water-surface-constrained reconstruction adds what no acquisition can give, and where Paper 5's hydraulic model will be tested.
 
 The three areas of §4.6 are not three estimates of one quantity. The dark-water rule counts water it can see on the day it
 looks; the label contract counts water that persisted over three peak dates and therefore describes the recession, not the
@@ -1328,7 +1312,7 @@ W_pre circularity of U2b; frame B3 (delta with the liman) not built; no probabil
 hydrograph; the reservoir balance rests on three to four level points and a DEM hypsometry below the design table; the
 design-curve reading assumes a level pool and, before the breach, holds the last SWOT outlet value between passes; the
 Sentinel-1 dark surface over the drained bed is not a water area (no source separates wet sediment from water in C-band);
-the deterministic nominal run lies below its own Monte-Carlo p05 on the peak days — the mechanism is the connection-opening effect of correlated DEM perturbations (§3.3), but its attribution to the individual error terms is open; the
+the deterministic nominal run lies below its own Monte-Carlo p05 on the days of the areal maximum — the mechanism is the connection-opening effect of correlated DEM perturbations (§3.3), but its attribution to the individual error terms is open; the
 S1-only detections above the surface are shown to be topographically unsupported, not attributed to a cause.
 
 ## 7. Conclusions
@@ -1576,9 +1560,9 @@ Verified against CrossRef/OpenAlex on 2026-09-28 (`07_references_verified.bib`, 
 - [Agerbeek_2024] Agerbeek, Bas; Knepflé, Maxim; Witsenburg, Florian; Jonkman, Sebastiaan (2024). Near real-time flood risk modelling in response to increasing uncertainties in flood predictions: Insights from the Kakhovka Dam breach in Ukraine. Journal of Coastal and Riverine Flood Risk. https://doi.org/10.59490/jcrfr.2024.0016 [corpus record, text read; metadata from CrossRef/corpus]
 - [Altenau_2021] Altenau, Elizabeth H. and Pavelsky, Tamlin M. and Durand, Michael T. and Yang, Xiao and Frasson, Renato Prata de Moraes and Bendezu, Liam (2021). The Surface Water and Ocean Topography (SWOT) Mission River Database (SWORD): A Global River Network for Satellite Data Products. Water Resources Research, 57, e2021WR030054. https://doi.org/10.1029/2021WR030054
 - [Amitrano_2024] Amitrano, Donato; Di Martino, Gerardo; Di Simone, Alessio; Imperatore, Pasquale (2024). Flood Detection with SAR: A Review of Techniques and Datasets. Remote Sensing. https://doi.org/10.3390/rs16040656 [corpus record, text read; metadata from CrossRef/corpus]
-- [ArcosGonzalez_2026] Arcos González, Pedro; Gan, Rick; Alsua, Carlos; Aregay, Aron; Assaf Msc, Denise; Bruni, Emanuele (2026). Exploring Cascading Disaster Risk During Complex Emergencies: Chemical Industry Disaster Risk Assessment in the Aftermath of the Kakhovka Dam Bombing in Ukraine. Disaster Medicine and Public Health Preparedness. https://doi.org/10.1017/dmp.2024.41 [corpus record, text read; metadata from CrossRef/corpus]
+- [ArcosGonzalez_2024] Arcos González, Pedro; Gan, Rick; Alsua, Carlos; Aregay, Aron; Assaf Msc, Denise; Bruni, Emanuele (2026). Exploring Cascading Disaster Risk During Complex Emergencies: Chemical Industry Disaster Risk Assessment in the Aftermath of the Kakhovka Dam Bombing in Ukraine. Disaster Medicine and Public Health Preparedness. https://doi.org/10.1017/dmp.2024.41 [corpus record, text read; metadata from CrossRef/corpus]
 - [Bai_2021] Bai, Yanbing and Wu, Wenqi and Yang, Zhengxin and Yu, Jinze and Zhao, Bo and Liu, Xing and Yang, Hanfang and Mas, Erick and Koshimura, Shunichi (2021). Enhancement of Detecting Permanent Water and Temporary Water in Flood Disasters by Fusing Sentinel-1 and Sentinel-2 Imagery Using Deep Learning Algorithms: Demonstration of Sen1Floods11 Benchmark Datasets. Remote Sensing, 13, 2220. https://doi.org/10.3390/rs13112220
-- [Bates_2021] Bates, Paul (2021). Annual Review of Fluid Mechanics Flood Inundation Prediction. . https://doi.org/10.1146/annurev-fluid-030121- [corpus record, text read; metadata from CrossRef/corpus]
+- [Bates_2022] Bates, Paul (2021). Annual Review of Fluid Mechanics Flood Inundation Prediction. . https://doi.org/10.1146/annurev-fluid-030121-113138 [corpus record, text read; metadata from CrossRef/corpus]
 - [Bates_DeRoo_2000] Bates, P; De Roo, A (2000). A simple raster-based model for flood inundation simulation. Journal of Hydrology. https://doi.org/10.1016/s0022-1694(00)00278-x [corpus record, text read; metadata from CrossRef/corpus]
 - [Baugh_2013] Baugh, Calum; Bates, Paul; Schumann, Guy; Trigg, Mark (2013). SRTM vegetation removal and hydrodynamic modeling accuracy. Water Resources Research. https://doi.org/10.1002/wrcr.20412 [corpus record, text read; metadata from CrossRef/corpus]
 - [Bekele_2022] Bekele, Tilaye; Haile, Alemseged; Trigg, Mark; Walsh, Claire (2022). Evaluating a new method of remote sensing for flood mapping in the urban and peri-urban areas: Applied to Addis Ababa and the Akaki catchment in Ethiopia. Natural Hazards Research. https://doi.org/10.1016/j.nhres.2022.03.001 [corpus record, text read; metadata from CrossRef/corpus]
@@ -1656,7 +1640,7 @@ Verified against CrossRef/OpenAlex on 2026-09-28 (`07_references_verified.bib`, 
 - [Pichura_2024] Pichura, Vitalii and Potravka, Larysa and Dudiak, Nataliia and Bahinskyi, Oleksandr (2024). Natural and Climatic Transformation of the Kakhovka Reservoir after the Destruction of the Dam. Journal of Ecological Engineering, 25, 82-104. https://doi.org/10.12911/22998993/187961
 - [Pichura_2025] Pichura, Vitalii and Potravka, Larysa and Boiko, Pavlo (2025). Climatic and hydrological conditions for the formation of vegetation cover in the drained Kakhovka reservoir’s territory. Ecological Engineering \&amp; Environmental Technology, 26, 357-373. https://doi.org/10.12912/27197050/202227
 - [Pohjankukka_2017] Pohjankukka, Jonne and Pahikkala, Tapio and Nevalainen, Paavo and Heikkonen, Jukka (2017). Estimating the prediction performance of spatial models via spatial k-fold cross validation. International Journal of Geographical Information Science, 31, 2001-2019. https://doi.org/10.1080/13658816.2017.1346255
-- [Refice_2017] Refice, Alberto; D’addabbo, Annarita; Capolongo, Domenico (2017). Methods, Techniques and Sensors for Precision Flood Monitoring Through Remote Sensing. . https://doi.org/10.1007/978-3-319-63959-8_1 [corpus record, text read; metadata from CrossRef/corpus]
+- [Refice_2018] Refice, Alberto; D’addabbo, Annarita; Capolongo, Domenico (2017). Methods, Techniques and Sensors for Precision Flood Monitoring Through Remote Sensing. . https://doi.org/10.1007/978-3-319-63959-8_1 [corpus record, text read; metadata from CrossRef/corpus]
 - [Renno_2008] Rennó, Camilo Daleles and Nobre, Antonio Donato and Cuartas, Luz Adriana and Soares, João Vianei and Hodnett, Martin G. and Tomasella, Javier and Waterloo, Maarten J. (2008). HAND, a new terrain descriptor using SRTM-DEM: Mapping terra-firme rainforest environments in Amazonia. Remote Sensing of Environment, 112, 3469-3481. https://doi.org/10.1016/j.rse.2008.03.018
 - [Roberts_2017] Roberts, David R. and Bahn, Volker and Ciuti, Simone and Boyce, Mark S. and Elith, Jane and Guillera‐Arroita, Gurutzeta and Hauenstein, Severin and Lahoz‐Monfort, José J. and Schröder, Boris and Thuiller, Wilfried and Warton, David I. and Wintle, Brendan A. and Hartig, Florian and Dormann, Carsten F. (2017). Cross‐validation strategies for data with temporal, spatial, hierarchical, or phylogenetic structure. Ecography, 40, 913-929. https://doi.org/10.1111/ecog.02881
 - [Ronneberger_2015] Ronneberger, Olaf and Fischer, Philipp and Brox, Thomas (2015). U-Net: Convolutional Networks for Biomedical Image Segmentation. Lecture Notes in Computer Science, 234-241. https://doi.org/10.1007/978-3-319-24574-4_28
@@ -1673,7 +1657,7 @@ Verified against CrossRef/OpenAlex on 2026-09-28 (`07_references_verified.bib`, 
 - [Torres_2012] Torres, Ramon and Snoeij, Paul and Geudtner, Dirk and Bibby, David and Davidson, Malcolm and Attema, Evert and Potin, Pierre and Rommen, BjÖrn and Floury, Nicolas and Brown, Mike and Traver, Ignacio Navas and Deghaye, Patrick and Duesmann, Berthyl and Rosich, Betlem and Miranda, Nuno and Bruno, Claudio and L'Abbate, Michelangelo and Croci, Renato and Pietropaolo, Andrea and Huchler, Markus and Rostan, Friedhelm (2012). GMES Sentinel-1 mission. Remote Sensing of Environment, 120, 9-24. https://doi.org/10.1016/j.rse.2011.05.028
 - [Tsiupa_2023] Tsiupa, I; Shevchenko, Taras; Plichko, L (2023). Study of dynamics of changes in the Kakhovka reservoir based on remote sensing data. . [conference paper (Monitoring 2023, Kyiv); no DOI in the corpus record] [corpus record, text read; metadata from CrossRef/corpus]
 - [Tsyganskaya_2018] Tsyganskaya, Viktoriya; Martinis, Sandro; Marzahn, Philip; Ludwig, Ralf (2018). SAR-based detection of flooded vegetation – a review of characteristics and approaches. International Journal of Remote Sensing. https://doi.org/10.1080/01431161.2017.1420938 [corpus record, text read; metadata from CrossRef/corpus]
-- [Tuan_2020] Tuan, Vu; Quang, Nguyen; Hang, Le (2020). Optimizing flood mapping using multi-synthetic aperture radar images for regions of the lower mekong basin in Vietnam. European Journal of Remote Sensing. https://doi.org/10.1080/22797254.2020.1859340 [corpus record, text read; metadata from CrossRef/corpus]
+- [Tuan_2021] Tuan, Vu; Quang, Nguyen; Hang, Le (2020). Optimizing flood mapping using multi-synthetic aperture radar images for regions of the lower mekong basin in Vietnam. European Journal of Remote Sensing. https://doi.org/10.1080/22797254.2020.1859340 [corpus record, text read; metadata from CrossRef/corpus]
 - [Tucker_1979] Tucker, Compton J. (1979). Red and photographic infrared linear combinations for monitoring vegetation. Remote Sensing of Environment, 8, 127-150. https://doi.org/10.1016/0034-4257(79)90013-0
 - [Tupas_2023] Tupas, Mark Edwin and Roth, Florian and Bauer-Marschallinger, Bernhard and Wagner, Wolfgang (2023). Improving Sentinel-1 Flood Maps Using a Topographic Index as Prior in Bayesian Inference. Water, 15, 4034. https://doi.org/10.3390/w15234034
 - [Tutova_2025] Tutova, H; Lisovets, O; Kunakh, O; Zhukov, O; Khmelnitsky, Bogdan; Honchar, Oles (2025). Procrustean analysis of the set of spectral indices reveals the transformations in plant community hemeroby and functional structure induced by anthropogenic disasters. Biosystems Diversity. https://doi.org/10.15421/012528 [corpus record, text read; metadata from CrossRef/corpus]

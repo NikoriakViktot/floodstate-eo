@@ -70,6 +70,23 @@ half-up rounding was tried and reverted — it also turns 488/790/682 into 489/7
 written 790; the rounding rule (half-to-even) is now stated in the manuscript preamble instead. Item 10 was already closed. The
 literature list of the audit (B-01 … B-22) is NOT yet in the manuscript body or `references.bib` — next pass.
 
+## 4c. Audit round 3 (`docs/AUDIT_ACTIONS_2026-09-28_round3.md`), applied
+
+- Bibliography: `literature_audit/07d_corpus_references.bib` (49 CrossRef-field entries, no key collisions) merged into
+  `docs/references.bib` → 135 keys; years per CrossRef (Bates 2022, Tuan 2021, Refice 2018, Arcos González 2024); every key
+  cited by the new text resolves.
+- All 26 remaining audit revisions carried into `manuscript_template.md` from `literature_audit/revisions_for_template.md`:
+  22 plain spans replaced as given; the four spans with table numbers (A-06, B-05, B-07, B-22) rewritten with `{{…}}`
+  placeholders — the manuscript prints no literature-audit number from a table cell by hand (204 placeholders, 0 unresolved).
+  A-07 not applied: its parenthetical described the old FigS07 rounding, and the FigS07 caption now quotes T22 exactly.
+- Round-3 items C1–C6: bare "peak" ×2, Fig08 caption (both T15 statistics), §6 "literature figures not verified" → verified
+  where the source texts were available (UNOSAT product sheets not obtained), FigS07 caption −9 / −14 / −20 %, p100 thesis
+  wording ("initial breach flow of").
+- Literature values quoted in the new sentences (Yi 20.4 ± 1.4 km³, Vyshnevskyi 19.8 km³ at 16.76 m, Monti ~7.5 km³, Lehnigk
+  ~8 km³, Kadam 823 km² / 3.6 and 4.8 × 10⁴ m³ s⁻¹, Yailymov 473 / 294 km², Magas 2091 / 379.7 km², Novitskyi 655.9 km²,
+  Tsiupa 1.63 / 110 km², Kuzemko ×7, Pichura 135 thousand ha) are the audit's corpus-read values (`02_thesis_evidence.csv`,
+  `kakhovka_numbers.csv`); they are context, never validation, and were not re-read here.
+
 ## 5. Open items (not closed by this validation)
 
 - Figure number of the digitised Yi 2025 series (needs the PDF).

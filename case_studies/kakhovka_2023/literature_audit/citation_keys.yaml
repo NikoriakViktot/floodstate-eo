@@ -2,8 +2,11 @@
 # value = corpus paper_id, or {paper_id, doi, year, journal} when the corpus record lacks them.
 Agerbeek_2024: 10.59490_jcrfr.2024.0016
 Amitrano_2024: remotesensing-16-00656-v2
-ArcosGonzalez_2026: 10.1017_dmp.2024.41
-Bates_2021: annurev-fluid-030121-113138
+ArcosGonzalez_2024: 10.1017_dmp.2024.41
+Bates_2022:
+  paper_id: annurev-fluid-030121-113138
+  doi: 10.1146/annurev-fluid-030121-113138
+  note_doi: corpus DOI truncated; the full DOI is the record's own file name, confirmed by the CrossRef title match
 Bates_DeRoo_2000:
   doi: 10.1016/s0022-1694(00)00278-x
   journal: Journal of Hydrology
@@ -46,7 +49,7 @@ Normandin_2024: 10.3389_frsen.2024.1466695
 Novitskyi_2024: 10.3389_fenvs.2024.1301435
 Nuth_2011: 10.5194_tc-5-271-2011
 Pichura_2025: s42452-025-07404-4
-Refice_2017: refice2017
+Refice_2018: refice2017
 Sharma_2025: 1-s2.0-S2666017225000094-main
 Silwal_2026: earth-07-00044-v2
 Singha_2020: 10.1016_j.isprsjprs.2020.06.011
@@ -57,7 +60,7 @@ Tsiupa_2023:
   paper_id: Mon23-170
   year: '2023'
 Tsyganskaya_2018: 10.1080_01431161.2017.1420938
-Tuan_2020: Optimizing flood mapping using multi-synthetic aperture radar images for
+Tuan_2021: Optimizing flood mapping using multi-synthetic aperture radar images for
   regions of the lower mekong basin in Vietnam
 Tutova_2025: '10.15421_012528'
 Vyshnevskyi_2024: 10.2478_jlecol-2024-0014

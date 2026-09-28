@@ -52,7 +52,7 @@ overrides:
 - atomic_claim_id: TH-MET-03.C
   paper_id: annurev-fluid-030121-113138
   role: CONTRASTS
-  justification: "Bates 2021: HAND-type methods 'do not preserve hydraulic connectivity'. Genuine; the manuscript's connectivity rule is an addition (revision B-09)."
+  justification: "Bates 2022: HAND-type methods 'do not preserve hydraulic connectivity'. Genuine; the manuscript's connectivity rule is an addition (revision B-09)."
   read_by: Claude (Fable 5.1)
   date: 2026-09-28
 - atomic_claim_id: TH-MET-03.C

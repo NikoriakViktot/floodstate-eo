@@ -128,3 +128,13 @@ Still open in the bundle (applied in 09 / 09b, listed in 10):
    in another (T22 values are the reference).
 7. Rounding: A_new on 9 June is written 196 km² (T12b p50 196.5) while every other value rounds half up (189, 247, 118,
    39, 3) — use 197 or state the rule.
+
+## H. Re-audit of bundle 2dca5ae / 38e3375 (2026-09-28, late)
+
+Closed upstream: §G items 1–5 except the two bare "peak" of E-02/E-03; item 6 (README); item 7 accepted as
+round-half-to-even with the rule stated in the preamble. Newly found: Fig08 caption "within a few decimetres" (F-03);
+§6 L-01 sentence now false after the reference verification; FigS07 caption rounding of the T22 gap. The B-* literature
+paragraphs and A-06/A-07 remain outside the bundle — see `revisions_for_template.md`. Four citation years corrected to
+CrossRef (Bates 2022, Tuan 2021, Refice 2018, Arcos González 2024); `07d_corpus_references.bib` supplies the 49 keys
+`references.bib` lacks. Still open as before: the figure number of Yi et al.'s digitised series; "19 m near the dam"
+has no source; the nominal-below-p05 attribution needs a diagnostic run.

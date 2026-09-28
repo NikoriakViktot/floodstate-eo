@@ -1,4 +1,4 @@
-<!-- 09b_captions_revised.md — built 2026-09-28 from publication/captions.md (bundle of 2026-09-25/26) by tools/paper3_audit/revise.py; 1 documented changes (10_change_log.md). Table values unchanged. -->
+<!-- 09b_captions_revised.md — built 2026-09-28 from publication/captions.md (bundle of 2026-09-25/26) by tools/paper3_audit/revise.py; 2 documented changes (10_change_log.md). Table values unchanged. -->
 
 # Figure and table captions (Paper 3)
 
@@ -48,7 +48,7 @@ rasters derived from FABDEM through the seamless DEM (not redistributed).
 **Fig08 ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per
 agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments
 below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
-within a few decimetres along the tracks and essentially no segment lies below the water, so the available ICESat-2
+to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2
 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency
 check that supports this reading; it does not sample every cell and does not validate the map.
 

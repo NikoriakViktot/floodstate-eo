@@ -128,8 +128,8 @@
    "id": "FA-04",
    "old": "*Label effect.* At fixed inputs, U2 predicts",
    "new": "*Label effect* (Fig03; paired differences in T06 and T07b). At fixed inputs, U2 predicts",
-   "n": 1,
-   "reason": "Fig03 (U-Net weak-label experiment) and the paired-difference tables were never cited in the text of bundle 21ba34c"
+   "n": 0,
+   "reason": "Fig03 (U-Net weak-label experiment) and the paired-difference tables were never cited in the text of bundle 21ba34c — already present in the bundle, nothing applied"
   }
  ],
  "references_verified": 123,

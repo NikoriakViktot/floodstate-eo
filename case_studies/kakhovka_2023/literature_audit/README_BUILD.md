@@ -1,7 +1,7 @@
 # Literature audit of Paper 3 (Kakhovka daily inundation) — how the package was built and how to rebuild it
 
 Everything here was produced from the frozen floodstate-eo bundle `case_studies/kakhovka_2023/publication/`
-(commit 21ba34c; the 26 Sep version is kept in `_work/publication_audited_20260926/`) and the GeoHydroAI corpus
+(commit 38e3375; the 21ba34c and 26 Sep versions are kept in `_work/publication_audited_21ba34c/` and `_work/publication_audited_20260926/`) and the GeoHydroAI corpus
 (5 027 normalized papers). Nothing in `publication/` was edited; every text change is a documented entry in
 `revisions.yaml` and appears in `10_change_log.md`.
 
@@ -9,7 +9,7 @@ Everything here was produced from the frozen floodstate-eo bundle `case_studies/
 
 | file | what it is |
 |---|---|
-| `01_scientific_audit.md` | reviewer-style audit: CHECK A–H, Kakhovka comparators, verdicts, novelty, re-audit of 21ba34c (§10) |
+| `01_scientific_audit.md` | reviewer-style audit: CHECK A–H, Kakhovka comparators, verdicts, novelty, re-audits of 21ba34c (§10) and 2dca5ae/38e3375 (§11) |
 | `02_thesis_evidence.csv` | one row per (atomic claim × retained source): role, status, quote, chunk/page, route, lane |
 | `03_source_ledger.csv` | every source touched (3 767): metadata, corpus provenance, CrossRef/OpenAlex status |
 | `04_search_log.jsonl` | per atomic claim: queries (original / extra / counter), hits per route, retained, rejected + reason |
@@ -17,6 +17,8 @@ Everything here was produced from the frozen floodstate-eo bundle `case_studies/
 | `06_unresolved.md` | everything not closed: absent sources, grey products, internal contradictions, T23/Yi, re-audit §G |
 | `07_references_verified.bib` / `07b_…md` | the 85-key bibliography re-verified (73 verified; 12 grey/unresolved) |
 | `07c_method_references*.{md,csv,bib}` | method/index first sources (26 CrossRef-verified; formulas checked in the code) |
+| `07d_corpus_references.bib`, `07d_unresolved.md` | the 49 corpus-only citation keys of the article that `docs/references.bib` (86 keys) lacks — CrossRef fields, ready to append |
+| `revisions_for_template.md` | for every remaining revision: the line span in `manuscript_template.md` and how many `{{…}}` placeholders the span holds |
 | `08_literature_synthesis.md` | synthesis by theme A–H (established / disagreement / closest / how Paper 3 differs / not established) |
 | `09_manuscript_literature_revised.md`, `09b_captions_revised.md` | the revised text and captions (built by `revise`) |
 | `10_change_log.md` | every change: original → revised, reason, thesis ids, references, type |
@@ -47,6 +49,8 @@ $A checks               # deterministic manuscript checks A–H → _work/checks
 $A export               # 02 / 03 / 05 + statuses (rules R1–R6, then overrides.yaml)
 $A report               # novelty verdicts into 05, thesis table, completion_report.md
 $A revise               # publication/manuscript.md + revisions.yaml → 09, 09b, 10
+$P -c "from tools.paper3_audit import rebase; rebase.run('<commit>')"   # after a new bundle: moves applied entries to superseded, writes revisions_for_template.md
+$P -c "from tools.paper3_audit import bib_delta; from pathlib import Path; bib_delta.build(Path('…/references.bib'))"   # 07d
 $P -c "from tools.paper3_audit import final_article, docx_build; final_article.run(); docx_build.run()"   # article/Paper3_final.{md,docx}
 $P -m pytest tests/test_tools_paper3_audit.py -q   # 22 tests, no live stores
 ```
@@ -57,9 +61,9 @@ claims and recording the decisions in `overrides.yaml`, marking `human_verified`
 
 ## The article
 
-`article/Paper3_final.md` = 09 (bundle 21ba34c + the 36 audit revisions of `10_change_log.md`) + four final-assembly edits
-(FA-01…FA-04, logged at the end of `10_change_log.md`: bundle build note removed, `VERIFY` flags of the resolved
-literature values dropped, the bundle's References stub removed, Fig03 / T06 / T07b cited in §4.9) + every figure of the
+`article/Paper3_final.md` = 09 (bundle 38e3375 + the 26 audit revisions of `10_change_log.md`; 20 earlier entries are recorded as superseded because the bundle applied them) + the final-assembly edits
+(FA-01…FA-03, logged at the end of `10_change_log.md`: bundle build note removed, `VERIFY` flags of the resolved
+literature values dropped, the bundle's References stub removed; FA-04 — Fig03 / T06 / T07b cited in §4.9 — is now in the bundle itself) + every figure of the
 bundle placed after its first mention (supplementary figures in their own section) + every table placed after its first
 mention: 25 tables printed in full, 5 wide ones as a compact column view (T12, T14, T20, T21, T24 — the dropped columns are
 named under the table), 9 long ones (> 60 rows: T05, T06, T07, T12b, T13, T19, T25, T26, T27b) cited by caption and shipped

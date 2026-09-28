@@ -27,7 +27,7 @@
   {
    "id": "TH-INT-04",
    "type": "Thesis",
-   "label": "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach discharge of 5.7 ",
+   "label": "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach flow of 5.7 +- 0.",
    "section": "1 Introduction",
    "category": "comparator",
    "priority": "high"
@@ -451,7 +451,7 @@
   {
    "id": "Biancamaria_2016",
    "type": "Reference",
-   "status": "VERIFY"
+   "status": "in bib, no status note"
   },
   {
    "id": "Yi_2025",
@@ -576,7 +576,7 @@
   {
    "id": "Paper1_Nikoriak_2026",
    "type": "Reference",
-   "status": "VERIFY"
+   "status": "in bib, no status note"
   },
   {
    "id": "?Denker_2015_EGG2015",
@@ -591,12 +591,12 @@
   {
    "id": "Lopes_1990",
    "type": "Reference",
-   "status": "VERIFY"
+   "status": "in bib, no status note"
   },
   {
    "id": "Otsu_1979",
    "type": "Reference",
-   "status": "VERIFY"
+   "status": "in bib, no status note"
   },
   {
    "id": "Twele_2016",
@@ -641,7 +641,7 @@
   {
    "id": "Altenau_2021",
    "type": "Reference",
-   "status": "VERIFY"
+   "status": "verified"
   },
   {
    "id": "?SWOT_RiverSP_validation_2024",

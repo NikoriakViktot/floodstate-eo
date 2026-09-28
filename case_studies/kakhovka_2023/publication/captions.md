@@ -27,7 +27,7 @@ sensitivity envelope (candles: 100 000 draws per day, p05–p95 whisker, p25–p
 space), the DEM-as-delivered sensitivity (orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
 coverage). (d–f) Reconstructed newly inundated area (black) with its daily change as bars (blue filling, orange draining) and the
 U-Net U2b persistent-event-flood area. (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
-the areal maximum (7 June) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
+the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
 **Fig05 Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint:
 A both, B terrain only, C S1 only split by ground elevation relative to the reconstructed surface. (b) B by WorldCover class:
@@ -46,7 +46,7 @@ rasters derived from FABDEM through the seamless DEM (not redistributed).
 **Fig08 ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per
 agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments
 below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
-within a few decimetres along the tracks and essentially no segment lies below the water, so the available ICESat-2
+to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2
 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency
 check that supports this reading; it does not sample every cell and does not validate the map.
 
@@ -66,7 +66,7 @@ new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-b
 **FigS05** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 **FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
-level over the drawdown range (shaded), about −9 % at the full-pool level and −14…−20 % at 13–11 m; the design table is undefined
+level over the drawdown range (shaded), −9 % at the full-pool level (17.5 m), −14 % at 13 m and −20 % at 11 m; the design table is undefined
 below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
 **FigS08** Reservoir drawdown maps (p95h; context, no claim). (a–c) Modelled pool on 7, 9 and 13 June: the p95f sloped daily
 surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June

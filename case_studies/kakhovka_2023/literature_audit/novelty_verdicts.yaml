@@ -14,7 +14,7 @@ verdicts:
   statement: "Within the literature reviewed, no study reports a daily downstream inundation extent/depth/volume series for the Kakhovka flood constrained by observed SWOT/gauge water-surface geometry projected on terrain without solving flow equations; the daily series that exist are hydrodynamic-model outputs (Agerbeek; Kadam) or observed water-surface areas at 300 m (Zuo)."
 - nq_id: NQ2
   verdict: PARTIAL
-  denominator: "whole corpus 4 838 canonical papers; 3 co-locate a 'between acquisitions' phrase with a maximum-extent phrase; 1 is a method (Refice 2017)"
+  denominator: "whole corpus 4 838 canonical papers; 3 co-locate a 'between acquisitions' phrase with a maximum-extent phrase; 1 is a method (Refice 2018)"
   closest:
     - "Refice et al. 2017: InSAR coherence 'acts as a sort of persistent change detector, registering the maximum extent of inundation' between two acquisitions — where water passed, not when or how deep"
     - "Tarpanelli et al. 2022; DeVries et al. 2020; Giordan et al. 2018: quantify or document that revisit intervals miss flood maxima (verified quotes) — the problem, not a reconstruction"

@@ -71,7 +71,7 @@ correction (Jarihani et al. 2015; Hawker et al. 2022 — verified).
 
 **Disagreement / qualification found by the screen.** The manuscript's thesis that "FwDET, GeoFlood and HAND-based
 tools impose drainage/stream connectivity" (TH-MET-03.C) is **contradicted**: HAND-type methods "do not preserve
-hydraulic connectivity" (Bates 2021, Annu. Rev. Fluid Mech., verified) and GeoFlood flags depressions "even if they are
+hydraulic connectivity" (Bates 2022, Annu. Rev. Fluid Mech., verified) and GeoFlood flags depressions "even if they are
 not connected with the main stem river" (Zheng et al. 2018, verified). Connectivity enforcement by connected-components
 analysis is documented in coastal bathtub mapping (Kulp & Strauss 2019, verified) and subgrid channel connectivity is "a
 strong control on the hydraulics of the floodplain" (Neal et al. 2012, verified); in flat terrain the inferred flow path

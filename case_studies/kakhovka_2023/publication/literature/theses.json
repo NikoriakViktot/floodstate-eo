@@ -84,7 +84,7 @@
    {
     "key": "Biancamaria_2016",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    }
   ],
   "search_queries": [
@@ -97,7 +97,7 @@
   "id": "TH-INT-04",
   "section": "1 Introduction",
   "category": "comparator",
-  "thesis": "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach discharge of 5.7 +- 0.8 x 10^4 m3/s, a 12.6 +- 1.1 m level drop and 20.4 +- 1.4 km3 lost in 30 days from altimetry, SAR/optical and gravimetry; Kadam et al. (2024) simulate a 300 m breach with HEC-RAS (35 962 m3/s, 823 km2).",
+  "thesis": "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach flow of 5.7 +- 0.8 x 10^4 m3/s, a 12.6 +- 1.1 m level drop and 20.4 +- 1.4 km3 lost in 30 days from altimetry, SAR/optical and gravimetry; Kadam et al. (2024) simulate a 300 m breach with HEC-RAS (35 962 m3/s, 823 km2).",
   "quantitative": "",
   "tables": "T21",
   "needs": "Verify every quoted value in the two papers; note that 'initial breach discharge' and 'scenario peak' are different quantities from our daily-mean effective release.",
@@ -340,7 +340,7 @@
    {
     "key": "Paper1_Nikoriak_2026",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?Denker_2015_EGG2015",
@@ -371,12 +371,12 @@
    {
     "key": "Lopes_1990",
     "relation": "METHOD_FROM",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "Otsu_1979",
     "relation": "METHOD_FROM",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "Twele_2016",
@@ -454,12 +454,12 @@
    {
     "key": "Altenau_2021",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "verified"
    },
    {
     "key": "Biancamaria_2016",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?SWOT_RiverSP_validation_2024",
@@ -486,7 +486,7 @@
    {
     "key": "Paper1_Nikoriak_2026",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?EPSG_9902",
@@ -610,7 +610,7 @@
    {
     "key": "Paper1_Nikoriak_2026",
     "relation": "METHOD_FROM",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?WSE_interpolation_precedent",
@@ -637,7 +637,7 @@
    {
     "key": "Paper1_Nikoriak_2026",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?permanent_tide_IERS",
@@ -1309,7 +1309,7 @@
    {
     "key": "Paper1_Nikoriak_2026",
     "relation": "SUPPORTED_BY",
-    "status": "VERIFY"
+    "status": "in bib, no status note"
    },
    {
     "key": "?SWOT_RiverSP_validation_2024",

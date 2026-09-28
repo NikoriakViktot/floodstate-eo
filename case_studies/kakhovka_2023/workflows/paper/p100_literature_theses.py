@@ -51,7 +51,7 @@ th("TH-INT-03", "1 Introduction", "background",
    [("Lehnigk_2026", SUP), ("Biancamaria_2016", SUP)],
    ["SWOT calibration orbit 1-day repeat 2023 water surface elevation Kakhovka", "Lehnigk Pavelsky Lang SWOT Kakhovka outburst flood model bathymetry"], "high")
 th("TH-INT-04", "1 Introduction", "comparator",
-   "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach discharge of 5.7 +- 0.8 x 10^4 m3/s, a 12.6 +- 1.1 m level drop and 20.4 +- 1.4 km3 lost in 30 days from altimetry, SAR/optical and gravimetry; Kadam et al. (2024) simulate a 300 m breach with HEC-RAS (35 962 m3/s, 823 km2).",
+   "Independent reconstructions of the reservoir drainage exist: Yi et al. (2025) derive an initial breach flow of 5.7 +- 0.8 x 10^4 m3/s, a 12.6 +- 1.1 m level drop and 20.4 +- 1.4 km3 lost in 30 days from altimetry, SAR/optical and gravimetry; Kadam et al. (2024) simulate a 300 m breach with HEC-RAS (35 962 m3/s, 823 km2).",
    "Verify every quoted value in the two papers; note that 'initial breach discharge' and 'scenario peak' are different quantities from our daily-mean effective release.",
    [("Yi_2025", CMP), ("Kadam_2024", CMP)],
    ["Kakhovka dam breach discharge estimate m3/s satellite", "Kakhovka breach HEC-RAS 2D simulation flood extent km2"], "high", "T21")
