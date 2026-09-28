@@ -1,0 +1,85 @@
+atomic_claim_id,paper_id,priority,ref_key,reason
+TH-MET-08.A,10.1002_hyp.9979,high,Stephens_2014,placeholder ?Stephens_2014 exists in corpus (title match)
+TH-MET-08.B,10.1002_hyp.9979,high,Stephens_2014,placeholder ?Stephens_2014 exists in corpus
+TH-MET-08.B,10.1016_s0022-1694_00_00278-x,high,Bates_DeRoo_2000,placeholder ?Bates_DeRoo_2000 exists in corpus
+TH-RES-04.A,10.1002_hyp.9979,high,Stephens_2014,binary measures vs flood size — comparator for a low CSI
+TH-INT-10.A,10.3389_feart.2018.00233,high,Hawker_2018,placeholder ?Hawker_2018 exists in corpus
+TH-INT-10.B,10.3389_feart.2018.00233,high,Hawker_2018,placeholder ?Hawker_2018 exists in corpus
+TH-MET-06.A,10.3389_feart.2018.00233,high,Hawker_2018,placeholder ?Hawker_2018 exists in corpus
+TH-MET-06.B,10.3389_feart.2018.00233,high,Hawker_2018,correlation length of DEM error fields
+TH-MET-06.C,10.3389_feart.2018.00233,high,Hawker_2018,number of realisations
+TH-INT-06.A,10.1080_01431161.2017.1420938,high,Tsyganskaya_2018,placeholder ?Tsyganskaya_2018 exists in corpus
+TH-MET-05.B,10.1080_01431161.2017.1420938,high,Tsyganskaya_2018,placeholder ?Tsyganskaya_2018 exists in corpus
+TH-DIS-02.A,10.1080_01431161.2017.1420938,medium,Tsyganskaya_2018,placeholder ?Tsyganskaya_2018 exists in corpus
+TH-RES-05.A,10.1080_01431161.2017.1420938,medium,Tsyganskaya_2018,flooded-vegetation omission
+TH-MET-09.A,10.1109_tgrs.2018.2860054,medium,Landuyt_2019,placeholder ?Landuyt_2019 exists in corpus
+TH-RES-04.A,10.1109_tgrs.2018.2860054,high,Landuyt_2019,agreement levels of S1 flood maps per land cover
+TH-RES-05.A,10.1109_tgrs.2018.2860054,medium,Landuyt_2019,per-class omission/commission
+TH-RES-11.A,water-15-04034,medium,Tupas_2023,bib key Tupas_2023 in corpus under a non-DOI id
+TH-MET-12.A,10.1109_cvprw50498.2020.00113,medium,Bonafilia_2020,bib key Bonafilia_2020 in corpus
+TH-INT-07.B,10.1109_cvprw50498.2020.00113,medium,Bonafilia_2020,bib key Bonafilia_2020 in corpus
+TH-MET-12.A,10.3390_rs13112220,medium,Bai_2021,bib key Bai_2021 in corpus
+TH-RES-10.A,10.3390_rs13112220,medium,Bai_2021,permanent vs temporary water classes
+TH-RES-05.A,giustarini2013,medium,Giustarini_2013,bib key Giustarini_2013 in corpus under a non-DOI id
+TH-INT-06.A,giustarini2013,high,Giustarini_2013,urban SAR flood detection limits
+TH-DAT-01.B,10.1080_01431161.2016.1192304,medium,Twele_2016,bib key Twele_2016 in corpus
+TH-DAT-01.A,10.3390_rs12152469,medium,,RTC comparison for Sentinel-1 water mapping (placeholder ?Small_2011_RTC surrogate)
+TH-MET-11.A,10.1016_j.isprsjprs.2016.01.011,medium,Belgiu_Dragut_2016,placeholder ?Belgiu_Dragut_2016 exists in corpus
+TH-RES-09.A,10.1016_j.isprsjprs.2016.01.011,low,Belgiu_Dragut_2016,placeholder ?Belgiu_Dragut_2016 exists in corpus
+TH-DAT-02.A,10.1016_j.rse.2013.08.029,low,Feyisa_2014,placeholder ?Feyisa_2014_AWEI exists in corpus
+TH-DIS-01.A,nhess-22-2473-2022,high,,Tarpanelli 2022 named in theses.csv needs
+TH-INT-09.C,Identification_of_flood-prone_areas_with_GeoFlood_,high,,GeoFlood application (Tiber) — lessons learned
+TH-MET-03.C,Identification_of_flood-prone_areas_with_GeoFlood_,high,,GeoFlood connectivity
+TH-RES-04.A,Identification_of_flood-prone_areas_with_GeoFlood_,high,,GeoFlood vs observed extent agreement
+TH-RES-02.A,Flooded_and_Irrigation_Area_Monitoring_After_the_Kakhovka_Dam_Disaster_Based_on_Machine_Learning_and_Satellite_Data,high,,Kakhovka flooded area 9 June 473 km2 (Yailymov 2025)
+TH-RES-02.A,Impact_Assessment_of_Flood_Events_Based_on_Multisource_Satellite_Remote_Sensing_The_Case_of_Kahovka_Dam,high,,Kakhovka Sentinel-3/SWOT flood area series (Zuo 2024)
+TH-RES-02.A,Knowledge-Driven_Flood_Intelligent_Monitoring_KDFIM_Method_Analyzing_the_Kakhovka_Dam_Destruction_Incident,high,,Kakhovka S1 flood extraction (Jiao 2025)
+TH-RES-02.A,10.26565_2410-7360-2025-63-46,high,,Kakhovka >600 km2 6–9 June and 16.4 km3 (secondary)
+TH-RES-02.A,shumilova_farewell_to_a_dam_adn8655,high,Shumilova_2025,Shumilova et al. accepted manuscript adn8655
+TH-RES-02.A,3744743,high,,Kallas 2025 cites 620 km2
+TH-RES-01.A,Impact_Assessment_of_Flood_Events_Based_on_Multisource_Satellite_Remote_Sensing_The_Case_of_Kahovka_Dam,high,,water area maximum around 9 June (Sentinel-3)
+TH-RES-01.A,10.5194_isprs-archives-xlviii-3-2024-251-2024,high,Kadam_2024,1-D peak 8 June 16:00; Kherson depth 5 m on 8 June
+TH-RES-01.A,10.26565_2410-7360-2025-63-46,high,,Kherson +5.37 m on 8 June vs 5 June
+TH-RES-01.C,Impact_Assessment_of_Flood_Events_Based_on_Multisource_Satellite_Remote_Sensing_The_Case_of_Kahovka_Dam,high,,Sentinel-3 scenes 4 and 9 June
+TH-RES-03.A,Impact_Assessment_of_Flood_Events_Based_on_Multisource_Satellite_Remote_Sensing_The_Case_of_Kahovka_Dam,medium,,water area back to previous level ~23 June
+TH-RES-03.A,Flooded_and_Irrigation_Area_Monitoring_After_the_Kakhovka_Dam_Disaster_Based_on_Machine_Learning_and_Satellite_Data,medium,,20 km2 remaining 21 June (cited)
+TH-RES-03.A,10.1029_2025gl120832,medium,Lehnigk_2026,WSE back within 10 % of pre-flood by ~21 June
+TH-RES-03.B,10.1029_2025gl120832,medium,Lehnigk_2026,flood pulse propagated >=150 km up the Inhulets (backwater)
+TH-RES-14.A,Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using,high,Yi_2025,storage-balance / discharge model from satellite level-area-mass
+TH-RES-14.B,shumilova_farewell_to_a_dam_adn8655,high,Shumilova_2025,16.4 km3 over two weeks
+TH-RES-14.B,10.1029_2025gl120832,high,Lehnigk_2026,~8 km3 cited; GLOBathy 48 vs 19 km3
+TH-RES-14.B,10.2478_jlecol-2024-0014,high,,Vyshnevskyi 2024: 19.8 km3 at 16.76 m
+TH-RES-14.B,Mon23-147,high,,19.9 km3 at 16.79 m BS on 5 June
+TH-RES-14.C,Mon23-147,high,,Nikopol level 16.79 m BS on 5 June
+TH-RES-15.A,shumilova_farewell_to_a_dam_adn8655,high,Shumilova_2025,1944 km2 exposed bed; V(H) relation from Nikopol/Kherson (Fig S6A)
+TH-RES-15.A,10.3389_fenvs.2024.1301435,high,,remaining water surface 655.9 km2 (17 June) and ~430 km2 (August)
+TH-RES-15.A,10.5194_isprs-archives-xlviii-5-w3-2025-117-2025,high,,Shults 2025 reservoir changes after collapse
+TH-RES-15.A,Mon23-170,high,,Tsiupa: remote sensing of reservoir shallowing
+TH-RES-15.B,10.1029_2025gl120832,high,Lehnigk_2026,bathymetry sensitivity 1.4 / 5.8 / 6.1 m
+TH-RES-06.B,10.1029_2025gl120832,medium,Lehnigk_2026,ATL08 Aug 2023 on the exposed bed (median offsets 8.64 / 6.10 m)
+TH-DIS-04.A,10.1029_2025gl120832,medium,Lehnigk_2026,bathymetry controls stage and timing
+TH-DIS-04.A,10.5194_isprs-archives-xlviii-3-2024-251-2024,medium,Kadam_2024,HEC-RAS 1D/2D calibrated against remote sensing
+TH-DIS-04.A,10.59490_jcrfr.2024.0016,medium,,Agerbeek 2024 near-real-time flood risk modelling Kakhovka
+TH-INT-03.B,10.1029_2025gl120832,high,Lehnigk_2026,central paper of the thesis
+TH-INT-03.A,10.1029_2025gl120832,high,Lehnigk_2026,1-day orbit 29 March–12 July 2023
+TH-INT-02.A,Flooded_and_Irrigation_Area_Monitoring_After_the_Kakhovka_Dam_Disaster_Based_on_Machine_Learning_and_Satellite_Data,high,,cites UNOSAT 620 km2 6–9 June and HDX 20 km2 21 June
+TH-INT-02.A,3744743,high,,cites 620 km2
+TH-INT-02.A,10.26565_2410-7360-2025-63-46,high,,cites >600 km2 6–9 June
+TH-INT-04.A,Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using,high,Yi_2025,central paper of the thesis
+TH-INT-04.B,10.5194_isprs-archives-xlviii-3-2024-251-2024,high,Kadam_2024,central paper of the thesis
+TH-INT-01.A,10.2478_jlecol-2024-0014,high,,Vyshnevskyi 2024 reservoir facts
+TH-INT-01.A,shumilova_farewell_to_a_dam_adn8655,high,Shumilova_2025,event description (delta 350 km2; reach)
+TH-RES-16.B,Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using,medium,Yi_2025,pool area series (S1/S2) during drainage
+TH-RES-16.B,10.3389_fenvs.2024.1301435,medium,,655.9 km2 remaining on 17 June; ~430 km2 after two months
+TH-RES-16.B,10.24425_agg.2023.146162,medium,Monti_2024,S1 change detection of the reservoir level variation
+TH-RES-16.B,10.5194_isprs-archives-xlviii-5-w3-2025-117-2025,medium,,Shults 2025 reservoir changes after collapse
+TH-RES-16.B,Mon23-147,medium,,Magas: shallowing of the Kakhovka reservoir from satellite images
+TH-RES-16.B,Mon23-170,medium,,Tsiupa: remote sensing of the reservoir shallowing
+TH-RES-16.B,paper37,medium,,Sergieieva: ML monitoring of water bodies at the bottom of the destroyed reservoir
+TH-RES-17.A,Reach_the_bottom_plant_cover_of_the_form,low,,Kuzemko 2024 plant cover of the former reservoir
+TH-RES-17.A,10.2478_jlecol-2024-0014,low,,Vyshnevskyi 2024 natural processes in the former reservoir
+TH-RES-17.A,10.15421_012528,low,,Tutova 2025 spectral indices of the transformation
+TH-RES-17.A,10.3389_fenvs.2024.1301435,low,,Novitskyi 2024 vegetation actively developing in the bed
+TH-RES-17.A,s42452-025-07404-4,low,,Pichura 2025 natural and climatic transformation
+TH-RES-18.A,10.15421_012528,low,,Tutova 2025 procrustean analysis of spectral indices
+TH-RES-18.A,paper37,low,,Sergieieva S1/S2 CNN mapping of the reservoir bottom

@@ -1,0 +1,485 @@
+# 10 — Change log of the revised manuscript (09) and captions (09b)
+
+Generated 2026-09-28 from `revisions.yaml` by `tools/paper3_audit/revise.py`. Every entry was applied mechanically to the frozen `publication/manuscript.md` / `captions.md`; nothing else differs between the originals and 09 / 09b. Table values are unchanged throughout.
+
+| # | id | file | section | type | thesis ids | references used | reason |
+|---|---|---|---|---|---|---|---|
+| 1 | A-06 | manuscript.md | 4.1 Reservoir side of the balance | citation | TH-RES-14, TH-RES-15, TH-INT-04 | Yi_2025, Kadam_2024, Shumilova_2025, Lehnigk_2026, Vyshnevskyi_2023, Monti_2024 | CHECK B/G/H: the 653 hm³ maximum now carries its per-region MC intervals (T12); the published reservoir-side numbers are placed with their periods and quantities (all read in the corpus text: kakhovka_numbers.csv N00414, N00439, N00513, N00002, N00027, N00096); Yi/Kadam values are no longer flagged VERIFY. |
+| 2 | A-07 | manuscript.md | 4.1 Reservoir side of the balance | stylistic | TH-RES-15 |  | CHECK G: the hypsometry gap is stated once with the T22 values; the rounded FigS07/C14 wording is tied to them. |
+| 3 | D-01 | manuscript.md | 4.2 Raw agreement with Sentinel-1 | scientific | TH-RES-04, TH-INT-06 | Shen_2019 | CHECK D: 'the dark-water rule, not the flood' asserted a cause that is not tested; replaced by the frozen wording (topographically unsupported; consistent with a known look-alike mechanism; cause not tested). (re-anchored to the 21ba34c text) |
+| 4 | E-02 | manuscript.md | 5 Discussion | terminology | TH-DIS-02 |  | CHECK E: bare 'peak'. |
+| 5 | E-03 | manuscript.md | 6 Limitations | terminology | TH-DIS-01 |  | CHECK E: bare 'peak day'. |
+| 6 | F-01 | manuscript.md | 1 Introduction | terminology | TH-DAT-05, TH-MET-10 |  | CHECK F: 'validated it against night ICESat-2' (Paper 2's DEM assessment) next to 'not a validation of the map' invites confusion. |
+| 7 | F-02 | manuscript.md | Abstract | scientific | TH-RES-06, TH-MET-10 |  | CHECK F: Abstract ('few decimetres') and C06 ('few centimetres, median') quoted different statistics of T15; one sentence now carries both, and the consistency-check wording is stated in the Abstract. |
+| 8 | L-01 | manuscript.md | 6 Limitations | citation | TH-INT-02, TH-RES-08 |  | After this audit the literature figures quoted in the text were read in the source texts where available (07_references_verified.bib); the UNOSAT product sheets remain unverified (07b). |
+| 9 | C-02 | captions.md | Fig04 caption | terminology | TH-RES-01 |  | CHECK E: the areal maximum in the caption is reconstructed and its exact day interpolation-dependent. |
+| 10 | B-01 | manuscript.md | 1 Introduction ¶1 | citation | TH-INT-01, TH-INT-02, TH-INT-03, TH-INT-04, TH-INT-09, TH-INT-10, TH-RES-02 | Vyshnevskyi_2023, Shumilova_2025, CEOBS_2023, Yailymov_2025, Zuo_2024, Monti_2024, Jiao_2025, Kadam_2024, Agerbeek_2024, Lehnigk_2026, Yi_2025, Renno_2008, Nobre_2011, Zheng_2018, Cohen_2019, Johnson_2019, Hawker_2018, Darnell_2008, Le_2026 | Kakhovka cluster (brief §9A) read in the corpus: every published extent/discharge/volume carries its quantity; Lehnigk/Yi/Kadam values verified in their text (VERIFY flags removed); HAND limitation (Johnson 2019) and the aspatial-vs-autocorrelated DEM-error argument (Hawker 2018) added with verified quotes; UNOSAT figures kept as relayed figures (product sheets unverified, 07b). |
+| 11 | B-02 | manuscript.md | 1 Introduction ¶2 | citation | TH-INT-05, TH-INT-06, TH-INT-07, TH-INT-08 | Olofsson_2014, Grimaldi_2020, Singha_2020, Shen_2019, Tsyganskaya_2018, Martinis_Plank_2018, Zhao_2021, Maiti_2022, He_2024, Apicella_2025 | TH-INT-05/06 verified: quotes from Olofsson 2014, Grimaldi 2020, Singha 2020, Shen 2019 and Martinis et al. 2018 (all quote-verified in 02); Tsyganskaya 2018 (review, in corpus) added for flooded vegetation; Zhao 2021 kept as a metadata-verified citation (not in corpus). |
+| 12 | B-03 | manuscript.md | 4.6 Three areas, three definitions | citation | TH-RES-08, TH-RES-02, TH-INT-02 | Yailymov_2025, Zuo_2024 | Peer-reviewed mappings of the same flood added as literature_reported comparators with their AOI, date, reference water and class semantics (read in the corpus text; kakhovka_numbers.csv N00356, N00379); the wetland-share remark is labelled as interpretation. |
+| 13 | B-04 | manuscript.md | 5 Discussion ¶1 | citation | TH-DIS-01, TH-RES-01 | DeVries_2020, Giordan_2018, Tarpanelli_2022, Refice_2017, Zuo_2024, Lehnigk_2026 | TH-DIS-01 verified: revisit undersampling (DeVries 2020, Giordan 2018, Tarpanelli 2022 quote-verified); closest precedent for a maximum between acquisitions is InSAR coherence (Refice 2017, whole-corpus screen NQ2); timing comparators from Zuo 2024 and Lehnigk 2026 (read). |
+| 14 | B-05 | manuscript.md | 2 Study area and data — SWOT | citation | TH-DAT-03 | Normandin_2024, Yu_2024, Biancamaria_2016 | TH-DAT-03.B verified: published SWOT river-height performance (Normandin 2024: RMSE 0.02 m vs Hydroweb-next on the Congo, quote-verified; Yu 2024: global river error < 0.15 m, quote-verified) justifies node-level wse_u as the per-node uncertainty; mission reference kept. |
+| 15 | B-06 | manuscript.md | 2 Study area and data — seamless DEM | citation | TH-DAT-05, TH-MET-04 | Hawker_2022, Iqbal_2023, Baugh_2013, Yamazaki_2019 | TH-DAT-05 verified: FABDEM's purpose (Hawker 2022, quote-verified) and its residual built-up error (1.12–1.61 m MAE, Iqbal 2023 citing Hawker 2022, quote-verified); the canopy bias of global DEMs on floodplains (Baugh 2013; Yamazaki 2019, quote-verified) motivates the class-median correction. |
+| 16 | B-07 | manuscript.md | 3.3 Uncertainty budget | citation | TH-MET-06, TH-INT-10 | Hawker_2018, Cunha_2012, Darnell_2008 | TH-MET-06.A / TH-INT-10.B: correlated error fields are the documented way to propagate DEM error (Hawker 2018, quote-verified in corpus); the contrast between uncorrelated and correlated error fields in hydrological simulation (Cunha 2012, quote-verified) explains why the draw median is displaced; Darnell 2008 kept as the conditional-simulation precedent (metadata verified, not in corpus). |
+| 17 | B-08 | manuscript.md | 5 Discussion — map of blind spots | citation | TH-DIS-03, TH-INT-06 | Amitrano_2024, Wagner_2020, Zhao_2021 | TH-DIS-03 / TH-INT-06.C: operational services publish exclusion masks (CEMS ensemble, Amitrano et al. 2024, quote-verified; Sentinel-1 data-cube masks 'where Sentinel-1 cannot detect floods', Wagner et al. 2020, quote-verified); Zhao 2021 metadata-verified. |
+| 18 | B-09 | manuscript.md | 3.2 Terrain rule — connectivity | scientific | TH-MET-03, TH-INT-09 | Bates_2021, Zheng_2018, Kulp_Strauss_2019, Neal_2012, Guo_2025 | TH-MET-03.C CONTRADICTED with verified quotes: HAND-type methods 'do not preserve hydraulic connectivity' (Bates 2021) and GeoFlood flags depressions 'even if they are not connected with the main stem river' (Zheng 2018); the connectivity rule of this paper is therefore an addition, with connected-components enforcement (Kulp & Strauss 2019) and subgrid-connectivity results (Neal 2012) as the precedents; flat-terrain caveat from Guo 2025. |
+| 19 | B-10 | manuscript.md | 2 Study area and data — Sentinel-1 / Sentinel-2 | citation | TH-DAT-01, TH-DAT-02 | Torres_2012, Small_2011, McFeeters_1996, Xu_2006, Tucker_1979, Gao_1996, Feyisa_2014, Lacaux_2007, Main-Knorn_2017 | Method/index sources missing from the bibliography (07c): mission/RTC and every optical index now cite its first source, attributions checked against the formulas in floodstate-eo sentinel_preprocess.py; BSI (Rikimaru et al. 2002) has no DOI and is named in the text as grey literature. |
+| 20 | B-11 | manuscript.md | 2 Study area and data — Sentinel-1 | citation | TH-DAT-01 | Torres_2012, Small_2011 | Mission and radiometric-terrain-correction sources (07c, CrossRef-verified; Torres 2012 in corpus). |
+| 21 | B-12 | manuscript.md | 3.5 Surface context: RF20 | citation | TH-MET-11 | Breiman_2001, Belgiu_Dragut_2016 | Random forest had no source (07c): Breiman 2001 (verified, in corpus) and the remote-sensing review Belgiu & Drăguţ 2016 (verified, in corpus). |
+| 22 | B-13 | manuscript.md | 3.6 Weak labels and U-Net arms | citation | TH-MET-13 | Milletari_2016 | Dice loss had no source (07c: Milletari et al. 2016, verified). |
+| 23 | B-14 | manuscript.md | 3.4 Checks — agreement statistics | citation | TH-MET-08 | Schaefer_1990, Stephens_2014 | POD/FAR/CSI had no definition source (07c: Schaefer 1990, verified); the dependence of binary flood-map measures on flood size and domain (Stephens et al. 2014, in corpus) is the reason they are reported per date and per domain. |
+| 24 | B-15 | manuscript.md | 2 Study area and data — seamless DEM (NMAD) | citation | TH-DAT-05 | Hohle_2009 | NMAD is used throughout without a source (07c: Höhle & Höhle 2009, verified). |
+| 25 | B-16 | manuscript.md | 5 Discussion — U-Net experiments | scientific | TH-RES-11, TH-RES-10, TH-INT-07 | Tupas_2023, Garg_2023, Bonafilia_2020, Katiyar_2021, Sharma_2025 | TH-RES-11.A CONTRADICTED_OR_QUALIFIED: Tupas et al. 2023 found a HAND prior reduces false negatives 'at the cost of slightly increasing false positives' (verified quote) — the direction of the terrain effect is design-specific; TH-INT-07 verified: weak-label models 'still end up learning the label mistakes' (Garg et al. 2023) and Sen1Floods11-type weak labels are the norm (Bonafilia 2020; Katiyar 2021; Sharma 2025). |
+| 26 | B-18 | manuscript.md | 3.2 Terrain rule — submergence signal | citation | TH-MET-05 | Grimaldi_2020, Jarrett_2023, Tsyganskaya_2018 | TH-MET-05.B verified: double-bounce enhancement in flooded vegetation reverses once the water rises over the vegetation (Grimaldi 2020, quote-verified) and C-band backscatter 'start[s] to decrease' beyond a certain depth of cover (Jarrett et al. 2023, quote-verified); review: Tsyganskaya 2018. |
+| 27 | B-19 | manuscript.md | 4.7 Inhulets backwater | citation | TH-RES-03 | Lehnigk_2026, DePaiva_2013 | TH-RES-03.B verified: Lehnigk et al. observe the flood pulse ≥150 km up the Inhulets (read); confluence backwater controls stage and flood-wave timing in tributaries (De Paiva et al. 2013, quote-verified). |
+| 28 | B-20 | manuscript.md | 5 Discussion — extent vs stage | citation | TH-RES-01 | FassoniAndrade_2023 | TH-RES-01.B verified: hysteresis between flood extent/volume and stage on floodplains (Fassoni-Andrade et al. 2023, quote-verified) — the mechanism behind an areal maximum that precedes the stage maximum. |
+| 29 | B-22 | manuscript.md | 4.1 Reservoir side of the balance — drawdown observed (supplement) | scientific | TH-RES-16, TH-RES-17, TH-RES-18 | Yi_2025, Magas_2023, Tsiupa_2023, Novitskyi_2024, Shen_2019, Kuzemko_2024, Kuzemko_2025, Vyshnevskyi_2024, Tutova_2025, Pichura_2025 | Author decision 2026-09-28 to include the reservoir-drawdown results (T23–T26, FigS08–S09) in the audit. Numbers from T23/T24; published pool areas and revegetation read in the corpus (kakhovka_numbers N9…; 02 rows TH-RES-16..18); the wet-mud look-alike is labelled as consistent with a documented mechanism for smooth bare surfaces (no corpus source for wet mud specifically). |
+| 30 | A-02b | manuscript.md | 4.1 The daily reconstructed series | citation | TH-RES-01, TH-INT-03 | Lehnigk_2026 | Lehnigk et al. 2026 read in the corpus: 'peak stages of 10-11 m by June 8' and 'Peak stages of 5.6 m were measured at Kherson' (verified quotes, 02 TH-RES-01.A/TH-INT-03.B); the VERIFY flag is no longer needed. |
+| 31 | S-01 | manuscript.md | 4.1 Uncertainty per day | scientific | TH-MET-06 | Hawker_2018, Cunha_2012 | Internal contradiction in 21ba34c: §3.3 (L170–171) states the mechanism of the median shift (correlated DEM noise opens additional connections and adds depth) while §4.1 and §6 say 'the cause of the offset is not yet diagnosed'. Reconciled: the mechanism is stated, the attribution per error term is what remains open. |
+| 32 | S-02 | manuscript.md | 6 Limitations | scientific | TH-MET-06 |  | Same reconciliation as S-01. |
+| 33 | E-04 | manuscript.md | 4.1 / 4.6 | terminology | TH-RES-01 |  | CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage). |
+| 34 | E-05 | manuscript.md | 4.1 / 4.6 | terminology | TH-RES-01 |  | CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage). |
+| 35 | E-06 | manuscript.md | 4.1 / 4.6 | terminology | TH-RES-01 |  | CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage). |
+| 36 | E-07 | manuscript.md | 4.1 / 4.6 | terminology | TH-RES-01 |  | CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage). |
+
+## Full text of each change
+
+### 1. A-06 — manuscript.md — 4.1 Reservoir side of the balance
+
+**Reason.** CHECK B/G/H: the 653 hm³ maximum now carries its per-region MC intervals (T12); the published reservoir-side numbers are placed with their periods and quantities (all read in the corpus text: kakhovka_numbers.csv N00414, N00439, N00513, N00002, N00027, N00096); Yi/Kadam values are no longer flagged VERIFY.
+
+**Original:**
+
+> a daily mean and not an instantaneous breach discharge; the initial breach flow of Yi et al. (2025, 5.7 ± 0.8 × 10⁴ m³ s⁻¹) and the HEC-RAS scenario of Kadam et al. (2024, 3.6 × 10⁴ m³ s⁻¹) are different physical quantities of the same order (VERIFY; context, not validation). The surface gradient across the pool reached 5.0 m on 10 June. Downstream, the reconstructed new water stored above ground peaks at 653 hm³ on 9 June, a few per cent of the release, implying that most of the released volume was transmitted downstream rather than stored on the mapped floodplain (Fig09, T21).
+
+**Revised:**
+
+> a daily mean and not an instantaneous breach discharge. Published estimates are different physical quantities of the same order and are context, not validation: the *initial* breach flow of Yi et al. (2025) from a gravimetry–altimetry–imagery discharge model is (5.7 ± 0.8) × 10⁴ m³ s⁻¹, the HEC-RAS scenario peaks of Kadam et al. (2024) are 3.6 × 10⁴ m³ s⁻¹ (300 m breach) and 4.8 × 10⁴ m³ s⁻¹ (600 m), and Shumilova et al. (2025) model a release of about 16.4 km³ over two weeks. The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ at 16.76 m from the operation rules, Monti et al. (2024) about 7.5 km³, and Lehnigk et al. (2026) cite ∼8 km³; our 14.7 km³ over 5–13 June sits inside that spread, and the −9 % hypsometry gap below is of the same size as the spread among the published pre-breach volumes (18.2–21.1 km³). The surface gradient across the pool reached 5.0 m on 10 June. Downstream, the reconstructed new water stored above ground reaches its maximum on 9 June — 653 hm³ in the nominal run (corridor 453 hm³, MC median 512, p05–p95 488–539; Inhulets 200 hm³, MC median 199, p05–p95 190–207; T12) — a few per cent of the release, implying that most of the released volume was transmitted downstream rather than stored on the mapped floodplain (Fig09, T21).
+
+### 2. A-07 — manuscript.md — 4.1 Reservoir side of the balance
+
+**Reason.** CHECK G: the hypsometry gap is stated once with the T22 values; the rounded FigS07/C14 wording is tied to them.
+
+**Original:**
+
+> lies below the design table at equal levels — -9 % at 17.5 m, -14 % at 13 m, -20 % at 11 m; the design table is undefined below 10 m (T22, FigS07) — so the released volume inherits this gap;
+
+**Revised:**
+
+> lies below the design table at equal levels — −9 % at 17.5 m, −14 % at 13 m, −20 % at 11 m (T22; FigS07 rounds these to −9 % at full pool and −15…−20 % at 11–13 m); the design table is undefined below 10 m — so the released volume inherits this gap;
+
+### 3. D-01 — manuscript.md — 4.2 Raw agreement with Sentinel-1
+
+**Reason.** CHECK D: 'the dark-water rule, not the flood' asserted a cause that is not tested; replaced by the frozen wording (topographically unsupported; consistent with a known look-alike mechanism; cause not tested). (re-anchored to the 21ba34c text)
+
+**Original:**
+
+> is scattered on fields and sand while the gauge is at its pre-breach level and the reconstruction is at 3 km²: the dark-water rule, not the flood.
+
+**Revised:**
+
+> is scattered on fields and sand while the gauge is at its pre-breach level and the reconstruction is at 3 km²: these detections are not supported as connected breach-induced inundation by the available terrain and water-surface constraints. Their pattern — fields and sand far above any water surface of the event — is consistent with a known C-band look-alike behaviour (smooth or wet bare surfaces and shadow scatter like water; Shen et al. 2019), but whether they are non-water, local ponding after rain or water outside the assumed connectivity is not tested here (§4.3).
+
+### 4. E-02 — manuscript.md — 5 Discussion
+
+**Reason.** CHECK E: bare 'peak'.
+
+**Original:**
+
+> changes the peak by about a third (T12).
+
+**Revised:**
+
+> changes the reconstructed areal maximum by about a third (T12).
+
+### 5. E-03 — manuscript.md — 6 Limitations
+
+**Reason.** CHECK E: bare 'peak day'.
+
+**Original:**
+
+> no satellite scene on the peak day;
+
+**Revised:**
+
+> no satellite scene on the day of the reconstructed areal maximum;
+
+### 6. F-01 — manuscript.md — 1 Introduction
+
+**Reason.** CHECK F: 'validated it against night ICESat-2' (Paper 2's DEM assessment) next to 'not a validation of the map' invites confusion.
+
+**Original:**
+
+> and validated it against night ICESat-2;
+
+**Revised:**
+
+> and assessed it against night ICESat-2 ground heights by land-cover class;
+
+### 7. F-02 — manuscript.md — Abstract
+
+**Reason.** CHECK F: Abstract ('few decimetres') and C06 ('few centimetres, median') quoted different statistics of T15; one sentence now carries both, and the consistency-check wording is stated in the Abstract.
+
+**Original:**
+
+> night ICESat-2 tracks that sample it the DEM agrees with the altimetry to within a few decimetres, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain it;
+
+**Revised:**
+
+> night ICESat-2 tracks that sample it the DEM agrees with the altimetry to a few centimetres in the median (with a p10–p90 spread of a few decimetres), so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain it — an altimetric consistency check along tracks, not a validation of the map;
+
+### 8. L-01 — manuscript.md — 6 Limitations
+
+**Reason.** After this audit the literature figures quoted in the text were read in the source texts where available (07_references_verified.bib); the UNOSAT product sheets remain unverified (07b).
+
+**Original:**
+
+> literature figures not verified against their sources;
+
+**Revised:**
+
+> literature figures verified against the source texts where these were available (the UNOSAT product sheets behind the ~620 km² of cumulative flooded land over 6–9 June and the ~180 km² of flooded land on 13 June, reference water separate, were not obtained; those two figures are quoted as cited by OCHA and by Yailymov et al. 2025);
+
+### 9. C-02 — captions.md — Fig04 caption
+
+**Reason.** CHECK E: the areal maximum in the caption is reconstructed and its exact day interpolation-dependent.
+
+**Original:**
+
+> the areal maximum (7 June) lies between the Sentinel-1 acquisitions.
+
+**Revised:**
+
+> the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions.
+
+### 10. B-01 — manuscript.md — 1 Introduction ¶1
+
+**Reason.** Kakhovka cluster (brief §9A) read in the corpus: every published extent/discharge/volume carries its quantity; Lehnigk/Yi/Kadam values verified in their text (VERIFY flags removed); HAND limitation (Johnson 2019) and the aspatial-vs-autocorrelated DEM-error argument (Hawker 2018) added with verified quotes; UNOSAT figures kept as relayed figures (product sheets unverified, 07b).
+
+**Original:**
+
+> The destruction of the Kakhovka dam on 6 June 2023 released the largest reservoir of the Dnipro cascade into a 90 km reach with a densely populated left bank, a reed-wetland delta and the Dnipro–Buh liman (Vyshnevskyi et al. 2023; Shumilova et al. 2025). Operational products reported the flooded area within days (UNOSAT via CEOBS 2023; REACH 2023), hydrodynamic reconstructions of the breach followed (Kadam et al. 2024), and the SWOT mission, on its one-day calibration orbit, observed the reach daily through the event (Lehnigk et al. 2026; Paper 1 of this series). Lehnigk et al. (2026) show with those daily SWOT water-surface elevations that two-dimensional outburst-flood simulations miss the observed stage and timing unless the bathymetry is right, and even then underestimate the peak stage (VERIFY); Yi et al. (2025) reconstruct the reservoir drainage (an initial breach flow of order 5.7 × 10⁴ m³ s⁻¹, VERIFY); Kadam et al. (2024) give a HEC-RAS scenario extent. What is still missing is a description of the inundation that does not depend on which sensor happened to look on which day: an extent, a depth and a volume for every day, tied to the observed water surface, with an uncertainty, and an account of where the satellite flood masks and such a reconstruction disagree and why. Terrain-based approaches that project a water surface or a mapped extent on a DEM (HAND: Rennó et al. 2008, Nobre et al. 2011; GeoFlood: Zheng et al. 2018; FwDET: Cohen et al. 2019) are first-order products, not hydrodynamics, and their depth and extent are sensitive to small vertical errors on low-relief floodplains, which spatially correlated DEM-error realisations propagate correctly (Darnell et al. 2008; Le et al. 2026).
+
+**Revised:**
+
+> The destruction of the Kakhovka dam on 6 June 2023 released the largest reservoir of the Dnipro cascade — 18.2 km³ at its normal retention level of 16.0 m, 19.8 km³ at the 16.76 m held on the eve of the breach (Vyshnevskyi et al. 2023) — into a ~90 km reach with a densely populated left bank, a reed-wetland delta and the Dnipro–Buh liman (Vyshnevskyi et al. 2023; Shumilova et al. 2025). Within days operational products reported the flooded *land*: about 620 km² over 6–9 June and about 180 km² on 13 June in the UNOSAT products relayed by OCHA (CEOBS 2023), figures that later studies cite (Yailymov et al. 2025). The published studies of the event are of three kinds. Satellite mappings give areas with their own definitions: Yailymov et al. (2025) map 473 km² of flooded land as of 9 June by land-cover class, 294 km² of it wetlands, against a pre-flood water map of 5 June; Zuo et al. (2024) follow the water-surface area at 300 m in Sentinel-3 OLCI scenes, which doubled within three days and was largest around 9 June; Monti et al. (2024) map the flooding along ~80 km of river with Sentinel-1 change detection; Jiao et al. (2025) use the event to test a Sentinel-1 flood-extraction method. Hydrodynamic models give scenario extents and stages: Kadam et al. (2024) obtain 823 km² and a peak of 3.6 × 10⁴ m³ s⁻¹ for a 300 m breach in HEC-RAS; Agerbeek et al. (2024) ran a near-real-time model checked against ICEYE extents and geolocated photographs; and Lehnigk et al. (2026) show with the daily SWOT water-surface elevations of the one-day calibration orbit — the data we use here — that two-dimensional outburst-flood simulations underestimate the observed peak stages by 1.4 to 6.1 m and misplace their timing unless reservoir and channel bathymetry are corrected, and even then reproduce neither stage nor timing fully; downstream stages reached 10–11 m by 8 June. Reservoir-side balances give the volume released: Yi et al. (2025) derive an initial breach flow of (5.7 ± 0.8) × 10⁴ m³ s⁻¹ and 20.4 ± 1.4 km³ lost in 30 days from gravimetry, altimetry and imagery; Shumilova et al. (2025) model about 16.4 km³ over two weeks. What none of these gives is a description of the inundation that depends neither on which sensor happened to look on which day nor on a hydrodynamic model whose bathymetry is unknown: an extent, a depth and a volume for every day, tied to the observed water surface, with an uncertainty, and an account of where the satellite flood masks and such a reconstruction disagree and why. Terrain-based approaches that project a water surface or a mapped extent on a DEM — HAND (Rennó et al. 2008; Nobre et al. 2011), GeoFlood (Zheng et al. 2018), FwDET (Cohen et al. 2019) — are first-order products, not hydrodynamics: Johnson et al. (2019) find that a HAND-based method "does not accurately capture inundated cells" while it does highlight regions at risk. Their depth and extent are sensitive to small vertical errors on low-relief floodplains, and because DEM error is spatially autocorrelated whereas accuracy statistics such as RMSE "assume error to [be] aspatial" (Hawker et al. 2018), it must be propagated with spatially correlated error realisations (Darnell et al. 2008; Le et al. 2026), not with independent noise.
+
+### 11. B-02 — manuscript.md — 1 Introduction ¶2
+
+**Reason.** TH-INT-05/06 verified: quotes from Olofsson 2014, Grimaldi 2020, Singha 2020, Shen 2019 and Martinis et al. 2018 (all quote-verified in 02); Tsyganskaya 2018 (review, in corpus) added for flooded vegetation; Zhao 2021 kept as a metadata-verified citation (not in corpus).
+
+**Original:**
+
+> Two well-known properties of satellite flood mapping make this necessary. The area obtained by counting classified pixels is a *mapped* area, not an unbiased estimate of the true flooded area; the good-practice framework of Olofsson et al. (2014) asks for a probability-sample reference that does not exist here. And a C-band dark-water rule does not see water under trees, between buildings or under emergent reeds (Grimaldi et al. 2020; Zhao et al. 2021 formalise such areas as exclusion maps), while smooth non-water surfaces and radar shadow can look like water (Shen et al. 2019).
+
+**Revised:**
+
+> Two well-known properties of satellite flood mapping make this necessary. The area obtained by counting classified pixels is a *mapped* area, not an unbiased estimate of the true flooded area; the good-practice framework of Olofsson et al. (2014) requires an accuracy assessment "based on a sample of higher quality" reference data, which does not exist for this event. And a C-band dark-water rule does not see water under trees, between buildings or under emergent reeds: the backscatter of vegetated and urban targets with and without flood water "represents the biggest challenge for inundation detection" (Grimaldi et al. 2020), flood water under vegetation "could not be detected with the C-band Sentinel-1 SAR" in a paddy landscape (Singha et al. 2020), and detection beneath vegetation and in cities is "not yet satisfactory" (Shen et al. 2019; review of flooded vegetation in SAR: Tsyganskaya et al. 2018). Conversely, "smooth surfaces at the scale of the measuring wavelength and shadowed areas share almost identical scattering properties with water surfaces" (Shen et al. 2019) and sand returns backscatter as low as open water (Martinis et al. 2018), so smooth non-water surfaces and radar shadow can look like water; exclusion maps derived from SAR time series formalise where flood cannot be inferred from intensity (Zhao et al. 2021).
+
+### 12. B-03 — manuscript.md — 4.6 Three areas, three definitions
+
+**Reason.** Peer-reviewed mappings of the same flood added as literature_reported comparators with their AOI, date, reference water and class semantics (read in the corpus text; kakhovka_numbers.csv N00356, N00379); the wetland-share remark is labelled as interpretation.
+
+**Original:**
+
+> area, and differ in AOI, temporal semantics (cumulative vs snapshot) and reference water; they are context, not validation. T16 carries the area, quantity and temporal semantics of every row.
+
+**Revised:**
+
+> area, and differ in AOI, temporal semantics (cumulative vs snapshot) and reference water; they are context, not validation. Two peer-reviewed mappings of the same flood carry their own definitions as well: Yailymov et al. (2025) count 473 km² of flooded land as of 9 June across the Kherson region including the Inhulets valley, relative to a pre-flood water map of 5 June, of which 294 km² are wetlands — the class in which this paper's submergence category lives — and Zuo et al. (2024) follow the total water-surface area at 300 m resolution, largest around 9 June. Neither is the corridor snapshot of this paper. Our reading is that the large wetland share of Yailymov et al. points the same way as §4.3, where most Sentinel-1 "new water" on 9 June lies on normally-wet reed beds. T16 carries the area, quantity and temporal semantics of every row.
+
+### 13. B-04 — manuscript.md — 5 Discussion ¶1
+
+**Reason.** TH-DIS-01 verified: revisit undersampling (DeVries 2020, Giordan 2018, Tarpanelli 2022 quote-verified); closest precedent for a maximum between acquisitions is InSAR coherence (Refice 2017, whole-corpus screen NQ2); timing comparators from Zuo 2024 and Lehnigk 2026 (read).
+
+**Original:**
+
+> Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum (7 June) lies between the Sentinel-1 acquisitions of 6 and 9 June, and it is not the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream peak stages by 8 June from SWOT, VERIFY). Maximum extent and maximum stage are different quantities whose timing changes along a 100 km reach, and the day of the areal maximum is the most model-dependent number of this paper: it is where the water-surface-constrained reconstruction adds what no acquisition can give, and where Paper 5's hydraulic model will be tested.
+
+**Revised:**
+
+> Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum (7 June) lies between the Sentinel-1 acquisitions of 6 and 9 June, and it is not the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream peak stages by 8 June from the same SWOT data). This is a general property of satellite flood observation, not of this event: the 6- and 12-day Sentinel-1 revisit intervals "are not sufficient to accurately track flood progression over time" (DeVries et al. 2020), acquisitions can fall hours before the flood peak (Giordan et al. 2018), and even with two constellations and both orbit directions the share of European flood events that can be observed at all rises only to about 58 % for Sentinel-1 (Tarpanelli et al. 2022). The closest instrument the literature offers for the maximum between two images is InSAR coherence, which acts "as a sort of persistent change detector, registering the maximum extent of inundation" between acquisitions (Refice et al. 2017) — a detector of where water passed, not of when or how deep. Maximum extent and maximum stage are different quantities whose timing changes along a 100 km reach: Zuo et al. (2024) see the largest Sentinel-3 water-surface area around 9 June at 300 m resolution and Lehnigk et al. (2026) the stage maxima by 8 June; neither observes an areal maximum on 7 June and neither excludes it. The day of the areal maximum is therefore the most model-dependent number of this paper: it is where the water-surface-constrained reconstruction adds what no acquisition can give, and where Paper 5's hydraulic model will be tested.
+
+### 14. B-05 — manuscript.md — 2 Study area and data — SWOT
+
+**Reason.** TH-DAT-03.B verified: published SWOT river-height performance (Normandin 2024: RMSE 0.02 m vs Hydroweb-next on the Congo, quote-verified; Yu 2024: global river error < 0.15 m, quote-verified) justifies node-level wse_u as the per-node uncertainty; mission reference kept.
+
+**Original:**
+
+> - **SWOT** L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit, 26 May–10 July 2023, 42 days, 732 nodes/day median; node_q ≤ 1 and dark fraction < 0.5 as in Paper 1.
+
+**Revised:**
+
+> - **SWOT** L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit (Biancamaria et al. 2016), 26 May–10 July 2023, 42 days, 732 nodes/day median; node_q ≤ 1 and dark fraction < 0.5 as in Paper 1. Published comparisons place SWOT river heights at the centimetre-to-decimetre level against gauges and altimetric references (RMSE 0.02 m against Hydroweb-next on the Congo, Normandin et al. 2024; a global river error below 0.15 m, Yu et al. 2024), which is why the product's own node uncertainty wse_u (median 0.092 m here) is used as the per-node term of the Monte-Carlo (§3.3).
+
+### 15. B-06 — manuscript.md — 2 Study area and data — seamless DEM
+
+**Reason.** TH-DAT-05 verified: FABDEM's purpose (Hawker 2022, quote-verified) and its residual built-up error (1.12–1.61 m MAE, Iqbal 2023 citing Hawker 2022, quote-verified); the canopy bias of global DEMs on floodplains (Baugh 2013; Yamazaki 2019, quote-verified) motivates the class-median correction.
+
+**Original:**
+
+> - **Seamless DEM** (Paper 2): kriged bathymetric bed inside the pre-breach water polygons, FABDEM v1.2 elsewhere, EVRF2019, 20 m;
+
+**Revised:**
+
+> - **Seamless DEM** (Paper 2): kriged bathymetric bed inside the pre-breach water polygons, FABDEM v1.2 elsewhere (a Copernicus DEM with buildings and forests removed by machine learning, Hawker et al. 2022; residual mean absolute errors of 1.1–1.6 m remain in built-up areas, Iqbal et al. 2023), EVRF2019, 20 m. Global DEMs carry a positive canopy bias on vegetated floodplains that has to be removed before inundation modelling (Baugh et al. 2013; Yamazaki et al. 2019), which is why the class-median residual against ICESat-2 is subtracted (§3.2);
+
+### 16. B-07 — manuscript.md — 3.3 Uncertainty budget
+
+**Reason.** TH-MET-06.A / TH-INT-10.B: correlated error fields are the documented way to propagate DEM error (Hawker 2018, quote-verified in corpus); the contrast between uncorrelated and correlated error fields in hydrological simulation (Cunha 2012, quote-verified) explains why the draw median is displaced; Darnell 2008 kept as the conditional-simulation precedent (metadata verified, not in corpus).
+
+**Original:**
+
+> error field with the class NMAD of T18 (wetland 0.48 m, trees 1.60 m, cropland 0.20 m). The normal regime is rebuilt per draw.
+
+**Revised:**
+
+> error field with the class NMAD of T18 (wetland 0.48 m, trees 1.60 m, cropland 0.20 m). The correlated field follows the DEM-simulation practice reviewed by Hawker et al. (2018) — DEM error is spatially autocorrelated, and treating it as aspatial understates its effect on inundation — and the stochastic conditional simulation of Darnell et al. (2008); correlated and uncorrelated error fields are known to propagate differently into hydrological outputs (Cunha et al. 2012), which is the reason the draw median is displaced from the nominal run rather than centred on it. The normal regime is rebuilt per draw.
+
+### 17. B-08 — manuscript.md — 5 Discussion — map of blind spots
+
+**Reason.** TH-DIS-03 / TH-INT-06.C: operational services publish exclusion masks (CEMS ensemble, Amitrano et al. 2024, quote-verified; Sentinel-1 data-cube masks 'where Sentinel-1 cannot detect floods', Wagner et al. 2020, quote-verified); Zhao 2021 metadata-verified.
+
+**Original:**
+
+> The most useful product of the comparison is therefore not a single accuracy but the map of where each source is blind.
+
+**Revised:**
+
+> The most useful product of the comparison is therefore not a single accuracy but the map of where each source is blind. Operational SAR flood services have reached the same conclusion from the sensor side: exclusion maps derived from C-band time series mark where flood cannot be inferred from intensity (Zhao et al. 2021), the Copernicus EMS ensemble delivers "an exclusion mask indicating the regions where the detection is prevented" next to its flood layer (Amitrano et al. 2024), and the Sentinel-1 data-cube architecture behind the Global Flood Monitoring service was designed to carry "masks showing where Sentinel-1 cannot detect floods due to physical reasons" (Wagner et al. 2020). What the terrain reconstruction adds to such masks is the other half of the picture — where the radar reports water that the observed water surface cannot reach — and, through ICESat-2, a test of whether the terrain itself is at fault there.
+
+### 18. B-09 — manuscript.md — 3.2 Terrain rule — connectivity
+
+**Reason.** TH-MET-03.C CONTRADICTED with verified quotes: HAND-type methods 'do not preserve hydraulic connectivity' (Bates 2021) and GeoFlood flags depressions 'even if they are not connected with the main stem river' (Zheng 2018); the connectivity rule of this paper is therefore an addition, with connected-components enforcement (Kulp & Strauss 2019) and subgrid-connectivity results (Neal 2012) as the precedents; flat-terrain caveat from Guo 2025.
+
+**Original:**
+
+> (*connected ceiling*). Two other rules bound it: the p42 rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; a lower bound because the delta drainage is incompletely mapped) and the ceiling without connectivity.
+
+**Revised:**
+
+> (*connected ceiling*). Two other rules bound it: the p42 rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; a lower bound because the delta drainage is incompletely mapped) and the ceiling without connectivity. The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)" (Bates 2021), and GeoFlood by design flags "local depressions such as ponds or waterbodies … even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the ceiling into a lower-biased but physically admissible extent; small channels that the 20 m grid does not resolve are a known control on floodplain connectivity (Neal et al. 2012), and in flat terrain the inferred flow path can differ from the real one (Guo et al. 2025) — the two reasons the p42 and connected-ceiling rules are reported as bounds rather than as one answer.
+
+### 19. B-10 — manuscript.md — 2 Study area and data — Sentinel-1 / Sentinel-2
+
+**Reason.** Method/index sources missing from the bibliography (07c): mission/RTC and every optical index now cite its first source, attributions checked against the formulas in floodstate-eo sentinel_preprocess.py; BSI (Rikimaru et al. 2002) has no DOI and is named in the text as grey literature.
+
+**Original:**
+
+> - **Sentinel-2** L2A index stacks per date (NDWI, MNDWI, NDVI, NDMI, BSI, AWEIsh, NDTI, 10 m) and PRE/EVENT/TRACE composites.
+
+**Revised:**
+
+> - **Sentinel-2** L2A scenes (Sen2Cor processing, Main-Knorn et al. 2017) as index stacks per date at 10 m — NDWI (McFeeters 1996), MNDWI (Xu 2006), NDVI (Tucker 1979), NDMI (Gao 1996), BSI (Rikimaru et al. 2002, Tropical Ecology 43, 39–47), AWEIsh (Feyisa et al. 2014) and the turbidity index NDTI (Lacaux et al. 2007) — and PRE/EVENT/TRACE composites.
+
+### 20. B-11 — manuscript.md — 2 Study area and data — Sentinel-1
+
+**Reason.** Mission and radiometric-terrain-correction sources (07c, CrossRef-verified; Torres 2012 in corpus).
+
+**Original:**
+
+> - **Sentinel-1** GRD/RTC, eleven acquisitions 1–30 June 2023 (orbits 14, 65, 87, 138),
+
+**Revised:**
+
+> - **Sentinel-1** (Torres et al. 2012) GRD, radiometrically terrain-corrected (Small 2011), eleven acquisitions 1–30 June 2023 (orbits 14, 65, 87, 138),
+
+### 21. B-12 — manuscript.md — 3.5 Surface context: RF20
+
+**Reason.** Random forest had no source (07c): Breiman 2001 (verified, in corpus) and the remote-sensing review Belgiu & Drăguţ 2016 (verified, in corpus).
+
+**Original:**
+
+> A random forest on PRE-event Sentinel-2 composite predictors, trained on ESA WorldCover 2021 with a purity filter,
+
+**Revised:**
+
+> A random forest (Breiman 2001; for its use in land-cover mapping see Belgiu and Drăguţ 2016) on PRE-event Sentinel-2 composite predictors, trained on ESA WorldCover 2021 with a purity filter,
+
+### 22. B-13 — manuscript.md — 3.6 Weak labels and U-Net arms
+
+**Reason.** Dice loss had no source (07c: Milletari et al. 2016, verified).
+
+**Original:**
+
+> 512-px patches, masked BCE + Dice, 60 epochs,
+
+**Revised:**
+
+> 512-px patches, masked binary cross-entropy + Dice loss (Milletari et al. 2016), 60 epochs,
+
+### 23. B-14 — manuscript.md — 3.4 Checks — agreement statistics
+
+**Reason.** POD/FAR/CSI had no definition source (07c: Schaefer 1990, verified); the dependence of binary flood-map measures on flood size and domain (Stephens et al. 2014, in corpus) is the reason they are reported per date and per domain.
+
+**Original:**
+
+> valid footprint, the owned zone area and outside the cut rectangles: hits, misses, terrain-only cells, POD, FAR and CSI (raw agreement, primary, T13);
+
+**Revised:**
+
+> valid footprint, the owned zone area and outside the cut rectangles: hits, misses, terrain-only cells, POD, FAR and CSI (contingency-table measures, Schaefer 1990; raw agreement, primary, T13) — reported per date and per domain because binary pattern measures depend on the size of the flood and of the domain over which they are computed (Stephens et al. 2014);
+
+### 24. B-15 — manuscript.md — 2 Study area and data — seamless DEM (NMAD)
+
+**Reason.** NMAD is used throughout without a source (07c: Höhle & Höhle 2009, verified).
+
+**Original:**
+
+> give its accuracy by land-cover class (T18): RMSE
+
+**Revised:**
+
+> give its accuracy by land-cover class (T18; robust statistics after Höhle and Höhle 2009): RMSE
+
+### 25. B-16 — manuscript.md — 5 Discussion — U-Net experiments
+
+**Reason.** TH-RES-11.A CONTRADICTED_OR_QUALIFIED: Tupas et al. 2023 found a HAND prior reduces false negatives 'at the cost of slightly increasing false positives' (verified quote) — the direction of the terrain effect is design-specific; TH-INT-07 verified: weak-label models 'still end up learning the label mistakes' (Garg et al. 2023) and Sen1Floods11-type weak labels are the norm (Bonafilia 2020; Katiyar 2021; Sharma 2025).
+
+**Original:**
+
+> water) removes a measurable reference-water artefact with no statistically resolved change in recall; terrain as an input suppresses part of the cropland burden; land cover as an input does not act as a veto; and pre-event water as an input helps but cannot be evaluated independently while it also defines the label. Every one of these statements is agreement with weak labels on a frozen spatial split.
+
+**Revised:**
+
+> water) removes a measurable reference-water artefact with no statistically resolved change in recall; terrain as an input suppresses part of the cropland burden; land cover as an input does not act as a veto; and pre-event water as an input helps but cannot be evaluated independently while it also defines the label. Every one of these statements is agreement with weak labels on a frozen spatial split — labels of the kind that the flood-mapping literature now trains on routinely (Sentinel-1/2 threshold classifications as weak labels: Bonafilia et al. 2020; Katiyar et al. 2021; Sharma et al. 2025) and whose errors a model "still ends up learning" (Garg et al. 2023). The direction of the terrain effect is not general either: with HAND used as a Bayesian prior rather than an input channel, Tupas et al. (2023) reduced false negatives "at the cost of slightly increasing false positives", the opposite trade-off to the cropland result here, so what terrain does to a SAR flood product depends on how it enters the model and on which label it is scored against.
+
+### 26. B-18 — manuscript.md — 3.2 Terrain rule — submergence signal
+
+**Reason.** TH-MET-05.B verified: double-bounce enhancement in flooded vegetation reverses once the water rises over the vegetation (Grimaldi 2020, quote-verified) and C-band backscatter 'start[s] to decrease' beyond a certain depth of cover (Jarrett et al. 2023, quote-verified); review: Tsyganskaya 2018.
+
+**Original:**
+
+> their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation.
+
+**Revised:**
+
+> their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation: in flooded vegetation the double bounce raises C-band backscatter above the non-flooded level, but once the water rises over the plants the signal turns dark (Grimaldi et al. 2020; Jarrett et al. 2023; review: Tsyganskaya et al. 2018), so the date on which a reed bed goes dark is the date its canopy went under, not the date water arrived.
+
+### 27. B-19 — manuscript.md — 4.7 Inhulets backwater
+
+**Reason.** TH-RES-03.B verified: Lehnigk et al. observe the flood pulse ≥150 km up the Inhulets (read); confluence backwater controls stage and flood-wave timing in tributaries (De Paiva et al. 2013, quote-verified).
+
+**Original:**
+
+> The Inhulets valley has its own SWOT nodes and responds as backwater:
+
+**Revised:**
+
+> The Inhulets valley has its own SWOT nodes and responds as backwater — Lehnigk et al. (2026) trace the flood pulse at least 150 km up the tributary, and confluence backwater is a known control on tributary stage and flood-wave timing (De Paiva et al. 2013):
+
+### 28. B-20 — manuscript.md — 5 Discussion — extent vs stage
+
+**Reason.** TH-RES-01.B verified: hysteresis between flood extent/volume and stage on floodplains (Fassoni-Andrade et al. 2023, quote-verified) — the mechanism behind an areal maximum that precedes the stage maximum.
+
+**Original:**
+
+> Maximum extent and maximum stage are different quantities whose timing changes along a 100 km reach:
+
+**Revised:**
+
+> Maximum extent and maximum stage are different quantities whose timing changes along a 100 km reach — floodplain storage and drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade et al. 2023):
+
+### 29. B-22 — manuscript.md — 4.1 Reservoir side of the balance — drawdown observed (supplement)
+
+**Reason.** Author decision 2026-09-28 to include the reservoir-drawdown results (T23–T26, FigS08–S09) in the audit. Numbers from T23/T24; published pool areas and revegetation read in the corpus (kakhovka_numbers N9…; 02 rows TH-RES-16..18); the wet-mud look-alike is labelled as consistent with a documented mechanism for smooth bare surfaces (no corpus source for wet mud specifically).
+
+**Inserted after:** `bowl on the historical bathymetry.…`
+
+**Revised:**
+
+> The modelled pool is checked, not validated, against the sensors inside the pre-breach pool polygon (T23, FigS08, context): the modelled pool of 2132 km² on 5 June agrees with Sentinel-2 water at IoU 0.98 and lies within the published pre-breach areas (2091 km² on 5 June from Sentinel-2, Magas et al. 2023; 2125 km² on 30 May, Yi et al. 2025; design 2155 km²), and the Sentinel-1 VH dark surface agrees with the model at IoU 0.98, 0.97, 0.93 and 0.85 on 1, 8, 9 and 13 June on the cells each scene observed. After about 13 June the VH dark surface also covers the exposed flats (2077 km² on 21 June against 648 km² of Sentinel-2 water on 20 June), which we read as smooth wet mud rather than water — consistent with the documented look-alike behaviour of smooth bare surfaces in C-band (Shen et al. 2019), although no study in the literature reviewed measures it for wet reservoir sediment. Published remnant areas differ by definition rather than by error: about 845 km² by 20 June from the decreases reported by Yi et al. (2025), 655.9 km² on 17 June in the state estimate quoted by Novitskyi et al. (2024), 379.7 km² on 8 September including the restored channel (Magas et al. 2023), and 1.63 km² of open water on 6 September with 110 km² still wet (Tsiupa et al. 2023). On the bed, Sentinel-2 surface classes (T24) show dry bare sediment on 49 % of the observed pool on 5 July and reed or flooded vegetation on 36 % by 8 September (47 % of the flats exposed by 13 June) — the rapid recolonisation that field surveys report, with the number of vascular plant taxa rising about sevenfold between June and October 2023 and mainly willow establishing (Kuzemko et al. 2024, 2025; Vyshnevskyi 2024), and that index-based studies document from Sentinel-2 (Tutova et al. 2025; 135 thousand ha of vegetated bed in 2023–2024, Pichura and Potravka 2025). These are context for Paper 4, not claims of this paper.
+
+### 30. A-02b — manuscript.md — 4.1 The daily reconstructed series
+
+**Reason.** Lehnigk et al. 2026 read in the corpus: 'peak stages of 10-11 m by June 8' and 'Peak stages of 5.6 m were measured at Kherson' (verified quotes, 02 TH-RES-01.A/TH-INT-03.B); the VERIFY flag is no longer needed.
+
+**Original:**
+
+> the peak stages by 8 June that Lehnigk et al. 2026 report from SWOT are consistent with it, VERIFY)
+
+**Revised:**
+
+> the downstream peak stages of 10–11 m by 8 June that Lehnigk et al. 2026 report from the same SWOT data are consistent with it)
+
+### 31. S-01 — manuscript.md — 4.1 Uncertainty per day
+
+**Reason.** Internal contradiction in 21ba34c: §3.3 (L170–171) states the mechanism of the median shift (correlated DEM noise opens additional connections and adds depth) while §4.1 and §6 say 'the cause of the offset is not yet diagnosed'. Reconciled: the mechanism is stated, the attribution per error term is what remains open.
+
+**Original:**
+
+> the nominal run in brackets; the cause of the offset is not yet diagnosed.
+
+**Revised:**
+
+> the nominal run in brackets. The mechanism is the one of §3.3 — the spatially correlated DEM perturbations open additional connections and add depth, an asymmetry that correlated error fields are known to produce (Cunha et al. 2012; Hawker et al. 2018) — but which error term carries most of the shift has not been attributed.
+
+### 32. S-02 — manuscript.md — 6 Limitations
+
+**Reason.** Same reconciliation as S-01.
+
+**Original:**
+
+> the deterministic nominal run lies below its own Monte-Carlo p05 on the peak days for a reason not yet diagnosed;
+
+**Revised:**
+
+> the deterministic nominal run lies below its own Monte-Carlo p05 on the peak days — the mechanism is the connection-opening effect of correlated DEM perturbations (§3.3), but its attribution to the individual error terms is open;
+
+### 33. E-04 — manuscript.md — 4.1 / 4.6
+
+**Reason.** CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage).
+
+**Original:**
+
+> the p42 HAND rule gives 247 km² at the peak;
+
+**Revised:**
+
+> the p42 HAND rule gives 247 km² at the reconstructed areal maximum (a numerical coincidence with the connected-ceiling median, not the same quantity);
+
+### 34. E-05 — manuscript.md — 4.1 / 4.6
+
+**Reason.** CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage).
+
+**Original:**
+
+> the reed beds count as new inundation and the peak is 347 km².
+
+**Revised:**
+
+> the reed beds count as new inundation and the areal maximum is 347 km².
+
+### 35. E-06 — manuscript.md — 4.1 / 4.6
+
+**Reason.** CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage).
+
+**Original:**
+
+> domain the peak is 163 km²;
+
+**Revised:**
+
+> domain the areal maximum is 163 km²;
+
+### 36. E-07 — manuscript.md — 4.1 / 4.6
+
+**Reason.** CHECK E: bare noun 'peak' (TERMINOLOGY L12: never without a noun; areal maximum ≠ peak stage).
+
+**Original:**
+
+> 247 km² at the peak (terrain_reconstructed)
+
+**Revised:**
+
+> 247 km² at the reconstructed areal maximum (terrain_reconstructed)
+
+## Final-assembly edits (article/Paper3_final.md)
+
+Applied by `tools/paper3_audit/final_article.py` on top of the revisions above; not part of 09.
+
+| id | original | revised | reason |
+|---|---|---|---|
+| FA-01 | \*\*Manuscript draft \(Paper 3 of the Kakhovka series\).*?\*\*\n\n | (removed) | bundle build note (fill_manuscript provenance, VERIFY flag) is not article text; provenance moves to the header comment |
+| FA-02 | literature_reported, VERIFY) | literature_reported) | the VERIFY flag of the bundle is resolved: UNOSAT product sheets stay listed under unresolved references, Kadam 2024 is CrossRef-verified |
+| FA-03 | ## References\n\n`docs/references\.bib`; entries added for this paper carry `note = \{VERIFY\}` until checked \(`references_to_verify\.md`\)\.\s*$ | (removed) | replaced by the verified reference list assembled from 07 / 07c / corpus records |
+| FA-04 | *Label effect.* At fixed inputs, U2 predicts | *Label effect* (Fig03; paired differences in T06 and T07b). At fixed inputs, U2 predicts | Fig03 (U-Net weak-label experiment) and the paired-difference tables were never cited in the text of bundle 21ba34c |

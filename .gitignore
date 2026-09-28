@@ -223,3 +223,8 @@ case_studies/kakhovka_2023/runs/**/*.pt
 case_studies/kakhovka_2023/logs/
 # PyCharm project files (local)
 .idea/
+
+# literature audit (GeoHydroAI export, 2026-09-28): the article copies of figures/tables are duplicates of publication/; the .docx is a release asset
+case_studies/kakhovka_2023/literature_audit/article/figures/
+case_studies/kakhovka_2023/literature_audit/article/tables/
+case_studies/kakhovka_2023/literature_audit/article/*.docx

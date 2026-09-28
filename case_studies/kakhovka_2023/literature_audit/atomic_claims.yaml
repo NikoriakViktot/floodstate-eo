@@ -1,0 +1,1538 @@
+# Atomic claims of the 51 theses (publication/literature/theses.csv), hand-written 2026-09-28
+# after reading every thesis, claims.md (C01–C14) and TERMINOLOGY.md.
+#
+# Rules (tools/paper3_audit/claims.py validates them):
+#   * atomic_id = <thesis_id>.<letter>; every thesis has >= 1 claim.
+#   * key_terms_primary is the DISTINGUISHING concept (never a metric or a generic word);
+#     key_terms_support are the qualifier families; a paper is on topic only if the primary
+#     family AND >= 1 support family occur in its full text (src.paper_3.theses.Thesis.is_on_topic).
+#   * The thesis's own search_queries are always run first; extra_queries and
+#     counterevidence_queries are appended, never substituted.
+#   * required_roles: what the literature must supply for this claim (brief §3).
+#   * manuscript_relevance is PROVISIONAL (brief §11); it is confirmed in overrides.yaml.
+queries_version: "1.1.0"
+authored_by: "Claude (Fable 5.1) for V. Nikoriak, 2026-09-28"
+
+claims:
+
+# ── 1 Introduction ────────────────────────────────────────────────────────────
+
+- thesis_id: TH-INT-01
+  atomic_id: TH-INT-01.A
+  statement: "The 6 June 2023 breach of the Kakhovka dam released the largest reservoir of the Dnipro cascade (design volume ~18.2 km3) into a ~90 km reach with a densely populated left bank, a reed-wetland delta and the Dnipro–Buh liman."
+  required_roles: [BACKGROUND, SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "kakhovska", "nova kakhovka"]
+  key_terms_support:
+    - ["breach", "destruction", "collapse", "dam failure", "blown up", "explosion"]
+    - ["18.2", "18,2", "km3", "km³", "cubic kilomet", "largest reservoir", "cascade"]
+    - ["liman", "estuary", "delta", "kherson", "oleshky", "left bank", "downstream"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir volume area Dnipro cascade largest reservoir characteristics"
+    - "Kakhovka dam breach June 2023 downstream flooding Kherson delta liman consequences"
+  counterevidence_queries:
+    - "Kakhovka reservoir volume reported differently 18 km3 19 km3 discrepancy"
+
+
+- thesis_id: TH-INT-02
+  atomic_id: TH-INT-02.A
+  statement: "UNOSAT reported ~620 km2 of cumulative satellite-detected flooded land for 6–9 June 2023 and ~180 km2 on 13 June; these are flooded-land figures with their own AOI, dates and reference water."
+  required_roles: [COMPARATOR, DATASET_DOCUMENTATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["unosat", "unitar", "copernicus emergency", "emergency management service", "ems rapid", "cems"]
+  key_terms_support:
+    - ["kakhovka", "kherson", "dnipro", "dnieper"]
+    - ["flooded area", "flood extent", "inundated area", "flooded land", "flood water extent", "km2", "km²"]
+  negative_terms: []
+  extra_queries:
+    - "UNOSAT satellite detected flood water extent Kherson oblast June 2023 cumulative flooded land"
+    - "Kakhovka dam breach flood extent operational rapid mapping product reference water AOI"
+  counterevidence_queries:
+    - "Kakhovka flood area estimates differ between products reference water definition date"
+
+- thesis_id: TH-INT-02
+  atomic_id: TH-INT-02.B
+  statement: "NASA Harvest / Planet reported ~410–420 km2 of flooded area on 7 June 2023; other published extents exist with their own definitions."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["nasa harvest", "planet", "planetscope", "dove", "skysat"]
+  key_terms_support:
+    - ["kakhovka", "kherson", "dnipro", "dnieper"]
+    - ["flooded area", "flood extent", "inundated area", "km2", "km²", "hectare"]
+  negative_terms: ["exoplanet"]
+  extra_queries:
+    - "Kakhovka dam collapse flooded area estimate 7 June 2023 high resolution optical imagery"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-03
+  atomic_id: TH-INT-03.A
+  statement: "SWOT, on its one-day (calibration) orbit, observed the lower Dnipro reach daily through the Kakhovka event."
+  required_roles: [BACKGROUND, DATASET_DOCUMENTATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["swot", "surface water and ocean topography"]
+  key_terms_support:
+    - ["kakhovka", "dnipro", "dnieper", "kherson"]
+    - ["calibration orbit", "1-day", "one-day", "daily", "fast-sampling", "fast sampling", "cal/val orbit"]
+  negative_terms: []
+  extra_queries:
+    - "SWOT fast-sampling calibration orbit daily revisit 2023 river observations"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-03
+  atomic_id: TH-INT-03.B
+  statement: "Lehnigk et al. (2026) show with daily SWOT water-surface elevations that 2-D outburst-flood simulations miss the observed stage and timing unless the bathymetry is corrected, and underestimate the peak stage even then (best bathymetry ~1.4 m low, others 5.8–6.1 m); downstream peak stages of 10–11 m were reached by 8 June."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["kakhovka", "dnipro", "dnieper"]
+  key_terms_support:
+    - ["swot"]
+    - ["outburst", "dam-break", "dam break", "simulation", "hydrodynamic", "model"]
+    - ["bathymetry", "stage", "water surface elevation", "peak", "timing", "arrival"]
+  negative_terms: []
+  extra_queries:
+    - "Lehnigk SWOT Kakhovka dam break flood outburst flood model limitations bathymetry stage timing"
+    - "Kakhovka flood wave arrival time peak stage downstream Kherson 8 June 2023 water level"
+  counterevidence_queries:
+    - "outburst flood 2D model reproduces observed stage and timing without bathymetry correction"
+
+- thesis_id: TH-INT-04
+  atomic_id: TH-INT-04.A
+  statement: "Yi et al. (2025) derive from altimetry, SAR/optical and gravimetry an initial breach discharge of 5.7 ± 0.8 × 10^4 m3/s, a 12.6 ± 1.1 m level drop and 20.4 ± 1.4 km3 lost in 30 days."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["kakhovka"]
+  key_terms_support:
+    - ["discharge", "outflow", "breach flow", "m3/s", "m³/s", "m3 s-1", "cubic meters per second"]
+    - ["altimetry", "gravimetry", "grace", "sentinel-3", "sentinel-6", "jason", "icesat"]
+    - ["km3", "km³", "cubic kilomet", "water loss", "drop", "drawdown"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir drainage 2023 water volume loss level drop satellite altimetry gravimetry discharge estimate"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-04
+  atomic_id: TH-INT-04.B
+  statement: "Kadam et al. (2024) simulate a 300 m breach of the Kakhovka dam with HEC-RAS 1D/2D (peak 35 962 m3/s, 823 km2 scenario extent) — a scenario, not an observation."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["kakhovka"]
+  key_terms_support:
+    - ["hec-ras", "hec ras", "hydrodynamic", "1d", "2d", "dam breach analysis", "breach width"]
+    - ["m3/s", "m³/s", "km2", "km²", "peak discharge", "inundation extent", "flood extent"]
+  negative_terms: []
+  extra_queries:
+    - "Nova Kakhovka dam breach HEC-RAS 2D simulation peak outflow inundated area scenario"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-05
+  atomic_id: TH-INT-05.A
+  statement: "A pixel-counted area from a classified map is a mapped area, not an unbiased estimate of the true area; good practice requires a probability-sample reference and error-adjusted area estimates (Olofsson et al. 2014)."
+  required_roles: [SUPPORTS, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["probability sample", "probability sampling", "stratified random sample", "stratified random sampling", "stratified sampling", "unbiased area", "error-adjusted area", "area estimation", "estimating area", "good practice"]
+  key_terms_support:
+    - ["accuracy assessment", "confusion matrix", "error matrix", "reference sample", "reference data"]
+    - ["pixel count", "pixel counting", "mapped area", "map area", "bias", "unbiased"]
+    - ["flood", "inundation", "land change", "land cover", "water"]
+  negative_terms: []
+  extra_queries:
+    - "error-adjusted area estimation stratified random sample confusion matrix good practices Olofsson"
+    - "pixel counting area versus sample-based area estimate bias remote sensing classification"
+  counterevidence_queries:
+    - "pixel counted map area sufficient accurate when classification accuracy high no sampling needed"
+
+- thesis_id: TH-INT-05
+  atomic_id: TH-INT-05.B
+  statement: "Flood-extent studies that estimate area from a stratified probability sample rather than by pixel counting exist (flood-specific application of the good-practice framework)."
+  required_roles: [SUPPORTS, METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["stratified random", "probability sample", "stratified sample", "error-adjusted", "area estimation", "unbiased area"]
+  key_terms_support:
+    - ["flood", "inundation", "flooded area", "flood extent"]
+    - ["sar", "sentinel-1", "optical", "sentinel-2", "landsat"]
+  negative_terms: []
+  extra_queries:
+    - "flood extent accuracy assessment stratified random sampling unbiased flooded area estimate"
+  counterevidence_queries:
+    - "flood extent studies report mapped pixel-count areas without probability sample reference"
+
+
+- thesis_id: TH-INT-06
+  atomic_id: TH-INT-06.A
+  statement: "A C-band dark-water rule does not see water under trees, between buildings or under emergent reeds (SAR blind spots / omission under vegetation and in built-up areas)."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["flooded vegetation", "under vegetation", "beneath vegetation", "under the canopy", "beneath the canopy", "flooded forest", "emergent vegetation", "inundated vegetation", "double bounce", "double-bounce", "flooded urban", "urban flood"]
+  key_terms_support:
+    - ["sar", "radar", "sentinel-1", "c-band", "c band", "backscatter"]
+    - ["flood", "inundation"]
+    - ["omission", "undetect", "not detected", "cannot be detected", "invisible", "miss", "underestimat", "limitation", "challenge"]
+  negative_terms: []
+  extra_queries:
+    - "SAR flood detection omission under forest canopy urban buildings emergent reeds C-band limitations"
+    - "flooded vegetation C-band Sentinel-1 detection challenges double bounce vegetation density"
+  counterevidence_queries:
+    - "C-band SAR successfully detects flooded vegetation double bounce increase Sentinel-1 wetland"
+    - "urban flood mapping with Sentinel-1 achieves high accuracy"
+
+- thesis_id: TH-INT-06
+  atomic_id: TH-INT-06.B
+  statement: "Smooth non-water surfaces (wet soil, sand, asphalt, tarmac), radar shadow and wind-roughened water can look like water or hide it in C-band intensity (look-alikes / commission errors)."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["look-alike", "lookalike", "look alike", "radar shadow", "smooth surface", "specular", "false alarm", "false positive", "commission", "overdetection", "over-detection"]
+  key_terms_support:
+    - ["sar", "radar", "sentinel-1", "c-band", "backscatter"]
+    - ["flood", "water", "inundation"]
+    - ["sand", "wet soil", "soil moisture", "asphalt", "tarmac", "road", "airport", "bare soil", "shadow", "wind", "smooth"]
+  negative_terms: []
+  extra_queries:
+    - "SAR water look-alikes low backscatter sand wet soil tarmac radar shadow flood mapping false positives"
+    - "wind roughening water surface SAR backscatter flood detection missed open water"
+  counterevidence_queries:
+    - "SAR flood look-alikes negligible after exclusion of shadow and layover"
+
+- thesis_id: TH-INT-06
+  atomic_id: TH-INT-06.C
+  statement: "Exclusion maps derived from SAR time series formalise where flood cannot be inferred from intensity (Zhao et al. 2021)."
+  required_roles: [METHOD_FROM, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["exclusion map", "exclusion mask", "exclusion layer", "exclusion mapping", "exclusion area"]
+  key_terms_support:
+    - ["sar", "sentinel-1", "c-band", "time series", "time-series"]
+    - ["flood", "floodwater", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "exclusion map from C-band SAR time series where floodwater cannot be mapped Zhao Chini"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-07
+  atomic_id: TH-INT-07.A
+  statement: "Label noise changes semantic-segmentation metrics; a model evaluated against noisy labels measures agreement with those labels."
+  required_roles: [SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["label noise", "noisy label", "noisy labels", "label errors", "annotation noise", "noisy annotation", "imperfect labels", "erroneous labels"]
+  key_terms_support:
+    - ["segmentation", "deep learning", "u-net", "cnn", "neural network", "classification"]
+    - ["remote sensing", "aerial", "satellite", "earth observation"]
+  negative_terms: []
+  extra_queries:
+    - "effect of label noise on semantic segmentation accuracy remote sensing deep learning"
+    - "noisy reference labels evaluation agreement rather than accuracy remote sensing classification"
+  counterevidence_queries:
+    - "deep networks robust to label noise segmentation performance unaffected"
+
+- thesis_id: TH-INT-07
+  atomic_id: TH-INT-07.B
+  statement: "U-Nets for flood mapping are commonly trained on labels derived from SAR/optical water masks (weak supervision; Sen1Floods11, He et al. 2024), inheriting the mask's sensor limits."
+  required_roles: [SUPPORTS, METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["weakly supervised", "weak supervision", "weak label", "weak labels", "weakly labeled", "weakly labelled", "pseudo-label", "pseudo label", "sen1floods11", "sen1flood"]
+  key_terms_support:
+    - ["flood", "inundation", "water"]
+    - ["sar", "sentinel-1", "sentinel-2", "optical"]
+    - ["deep learning", "u-net", "segmentation", "cnn", "convolutional"]
+  negative_terms: []
+  extra_queries:
+    - "weakly supervised flood segmentation Sentinel-1 labels from thresholded water masks deep learning"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-08
+  atomic_id: TH-INT-08.A
+  statement: "An input feature that also contributes to constructing the label is label/target leakage; a model evaluated with such a feature is not independently evaluated (Kaufman et al. 2012; Apicella et al. 2025)."
+  required_roles: [DEFINITION, SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["leakage", "target leakage", "data leakage", "label leakage", "information leak"]
+  key_terms_support:
+    - ["machine learning", "classifier", "model", "predictor", "feature"]
+    - ["evaluation", "test set", "performance", "optimistic", "overestimat", "bias"]
+  negative_terms: ["leakage current", "water leakage", "pipe leakage", "gas leakage", "leakage of water", "seepage"]
+  extra_queries:
+    - "data leakage machine learning feature derived from target optimistic evaluation definition"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-09
+  atomic_id: TH-INT-09.A
+  statement: "HAND (height above nearest drainage) is a terrain descriptor that normalises elevation to the nearest drainage and is used to map inundation as a first-order product (Rennó et al. 2008; Nobre et al. 2011)."
+  required_roles: [METHOD_FROM, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["height above nearest drainage", "height above the nearest drainage", "hand model", "hand-based", "hand based", "hand method", "hand approach", "hand terrain", "hand descriptor", "hand values", "hand raster", "hand index", "hand map"]
+  key_terms_support:
+    - ["inundation", "flood", "floodplain", "terra-firme", "terra firme"]
+    - ["dem", "digital elevation", "terrain", "srtm", "drainage network"]
+  negative_terms: []
+  extra_queries:
+    - "height above nearest drainage terrain descriptor definition normalized drainage potential"
+  counterevidence_queries: []
+
+- thesis_id: TH-INT-09
+  atomic_id: TH-INT-09.B
+  statement: "HAND-based inundation mapping has documented limits (e.g. the NWM–HAND evaluation of Johnson et al. 2019): it is not hydrodynamics and can misrepresent extent and depth."
+  required_roles: [LIMITATION, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["height above nearest drainage", "height above the nearest drainage", "hand model", "hand-based", "hand based", "hand method", "hand approach", "hand flood", "hand inundation", "hand map"]
+  key_terms_support:
+    - ["national water model", "synthetic rating", "rating curve", "catchment", "reach"]
+    - ["evaluat", "validat", "compar", "performance", "assessment"]
+    - ["limitation", "overestimat", "underestimat", "bias", "error", "poor", "disagree", "not capture"]
+  negative_terms: []
+  extra_queries:
+    - "HAND flood inundation mapping evaluation limitations backwater hydraulic structures overestimation"
+    - "height above nearest drainage flood map compared with hydrodynamic model or observed extent performance"
+  counterevidence_queries:
+    - "HAND inundation maps agree well with hydrodynamic model extents high critical success index"
+
+- thesis_id: TH-INT-09
+  atomic_id: TH-INT-09.C
+  statement: "GeoFlood (Zheng et al. 2018) and FwDET (Cohen et al. 2019) project a stage or a mapped extent on a DEM as simplified terrain-analysis approaches, explicitly framed as alternatives to hydrodynamic modelling."
+  required_roles: [METHOD_FROM, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["geoflood", "fwdet", "floodwater depth estimation", "floodwater depth", "flood water depth estimation"]
+  key_terms_support:
+    - ["hydrodynamic", "hydraulic model", "2d model", "hec-ras", "lisflood", "simplified", "first-order", "terrain analysis"]
+    - ["dem", "terrain", "elevation"]
+  negative_terms: []
+  extra_queries:
+    - "FwDET floodwater depth from flood extent and DEM boundary elevation simplified method"
+    - "GeoFlood terrain analysis HAND inundation mapping large scale versus hydrodynamic"
+  counterevidence_queries:
+    - "FwDET depth errors compared with hydrodynamic model evaluation limitations"
+
+- thesis_id: TH-INT-10
+  atomic_id: TH-INT-10.A
+  statement: "On low-relief floodplains small vertical DEM errors strongly change modelled flood depth and extent."
+  required_roles: [SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["low-relief", "low relief", "flat terrain", "flat floodplain", "lowland", "low-lying", "low lying", "vertical error", "vertical accuracy", "elevation error", "elevation bias", "dem error", "dem uncertainty", "topographic uncertainty"]
+  key_terms_support:
+    - ["dem", "digital elevation model", "terrain", "topograph"]
+    - ["flood extent", "inundation extent", "flood depth", "inundated area", "inundation", "flood model"]
+    - ["sensitiv", "uncertainty", "propagat", "impact", "effect"]
+  negative_terms: []
+  extra_queries:
+    - "sensitivity of flood extent to DEM vertical error flat floodplain small elevation errors large extent change"
+    - "elevation bias topographic uncertainty flood modeling lowland floodplain sensitivity mapping"
+  counterevidence_queries:
+    - "flood model results insensitive to DEM vertical error roughness dominates uncertainty"
+
+- thesis_id: TH-INT-10
+  atomic_id: TH-INT-10.B
+  statement: "Spatially correlated DEM-error realisations (stochastic conditional simulation, sequential Gaussian simulation) are the appropriate way to propagate DEM error into flood extent and depth; uncorrelated noise misrepresents it."
+  required_roles: [METHOD_FROM, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["spatially correlated", "spatial correlation", "spatially autocorrelated", "autocorrelated error", "correlated error", "correlated noise", "sequential gaussian simulation", "conditional simulation", "stochastic simulation", "random field", "error field", "semivariogram", "variogram"]
+  key_terms_support:
+    - ["dem", "digital elevation", "elevation", "terrain"]
+    - ["error", "uncertainty", "residual"]
+    - ["monte carlo", "realisation", "realization", "simulation", "propagat", "flood", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "spatially autocorrelated DEM error simulation Monte Carlo flood inundation uncertainty sequential Gaussian"
+    - "uncorrelated versus correlated DEM error realizations effect on modelled flood extent"
+  counterevidence_queries:
+    - "spatially uncorrelated random DEM error adequate for flood uncertainty analysis"
+
+- thesis_id: TH-INT-11
+  atomic_id: TH-INT-11.A
+  statement: "EGG2015 is the European Gravimetric Quasigeoid (Denker 2015) and EVRF2019 the European Vertical Reference Frame realisation (BKG)."
+  required_roles: [DATASET_DOCUMENTATION, DEFINITION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["egg2015", "egg08", "european gravimetric quasigeoid", "evrf2019", "evrf2007", "european vertical reference frame", "evrf", "uelvn"]
+  key_terms_support:
+    - ["geoid", "quasigeoid", "quasi-geoid", "height system", "vertical datum", "vertical reference"]
+    - ["gnss", "levelling", "leveling", "normal height", "orthometric"]
+  negative_terms: []
+  extra_queries:
+    - "European vertical reference frame EVRF2019 realisation levelling network zero tide"
+  counterevidence_queries: []
+
+# ── 2 Data ────────────────────────────────────────────────────────────────────
+
+- thesis_id: TH-DAT-01
+  atomic_id: TH-DAT-01.A
+  statement: "Sentinel-1 pre-processing for water detection uses radiometric terrain correction (terrain flattening), adaptive speckle filtering (Lee/Lopes) and Otsu thresholding of the dark-water class."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["otsu", "speckle filter", "lee filter", "refined lee", "lee sigma", "terrain flattening", "radiometric terrain correction", "gamma0", "gamma-0", "gamma naught", "terrain-flattened"]
+  key_terms_support:
+    - ["sentinel-1", "sar", "grd", "backscatter"]
+    - ["threshold", "water", "flood", "histogram", "bimodal"]
+  negative_terms: []
+  extra_queries:
+    - "Otsu threshold Sentinel-1 backscatter water mask speckle filter Lee terrain flattening preprocessing"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-01
+  atomic_id: TH-DAT-01.B
+  statement: "Change detection between a pre-event and an event Sentinel-1 scene, with automatic (split-based / Otsu) thresholds, is an established flood-mapping approach (Martinis et al. 2015; Twele et al. 2016)."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["change detection", "difference image", "log-ratio", "log ratio", "ratio image", "pre-event", "pre-flood", "bitemporal", "bi-temporal"]
+  key_terms_support:
+    - ["sentinel-1", "sar", "radar", "terrasar"]
+    - ["flood", "inundation"]
+    - ["threshold", "otsu", "automatic", "split-based", "split based", "unsupervised"]
+  negative_terms: []
+  extra_queries:
+    - "automatic Sentinel-1 flood mapping processing chain change detection thresholding fuzzy"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-01
+  atomic_id: TH-DAT-01.C
+  statement: "Operational flood services define a reference/permanent/seasonal water layer from multi-temporal Sentinel-1/2 data so that flood is water outside the reference water (Martinis et al. 2022; GFM, Wagner et al. 2026)."
+  required_roles: [METHOD_FROM, DATASET_DOCUMENTATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["reference water", "permanent water", "seasonal water", "normal water extent", "reference water mask", "reference water layer", "permanent water body", "water occurrence"]
+  key_terms_support:
+    - ["sentinel-1", "sar", "global flood monitoring", "gfm", "copernicus", "sentinel-2"]
+    - ["flood", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "global seasonal and permanent reference water product Sentinel-1/2 flood mapping Martinis"
+    - "Global Flood Monitoring service reference water layer exclusion mask Sentinel-1 Wagner"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-02
+  atomic_id: TH-DAT-02.A
+  statement: "NDWI (McFeeters 1996), MNDWI (Xu 2006) and AWEI (Feyisa et al. 2014) are the standard optical water indices; a water rule NDWI > 0 and MNDWI > 0 is a common zero-threshold rule."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["ndwi", "mndwi", "awei", "normalized difference water index", "normalised difference water index", "modified normalized difference water index", "automated water extraction index"]
+  key_terms_support:
+    - ["sentinel-2", "landsat", "optical", "multispectral"]
+    - ["water", "flood", "threshold"]
+  negative_terms: []
+  extra_queries:
+    - "water index NDWI MNDWI AWEI comparison Sentinel-2 surface water extraction threshold"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-03
+  atomic_id: TH-DAT-03.A
+  statement: "SWOT L2_HR_RiverSP nodes and reaches are defined by the SWORD river database (Altenau et al. 2021); the product carries per-node wse, wse_u, node_q and dark-water fraction fields."
+  required_roles: [DATASET_DOCUMENTATION, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["swot", "surface water and ocean topography"]
+  key_terms_support:
+    - ["riversp", "river single pass", "river single-pass", "node", "reach", "sword", "river database"]
+    - ["wse", "water surface elevation", "wse_u", "node_q", "dark water", "dark_frac", "quality flag"]
+  negative_terms: []
+  extra_queries:
+    - "SWOT river single pass vector product nodes reaches SWORD database definition quality flags"
+    - "SWORD SWOT river database global river network nodes reaches Altenau"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-03
+  atomic_id: TH-DAT-03.B
+  statement: "SWOT river node/reach water-surface elevations agree with in-situ gauges at the decimetre level or better in published cal/val (2024–2025), which justifies using node wse_u as the per-node uncertainty."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["swot"]
+  key_terms_support:
+    - ["gauge", "in situ", "in-situ", "validation", "cal/val", "calval", "calibration/validation", "compar"]
+    - ["node", "reach", "riversp", "river"]
+    - ["cm", "centimet", "rmse", "error", "accuracy", "uncertainty", "bias"]
+  negative_terms: []
+  extra_queries:
+    - "SWOT river water surface elevation validation against gauges accuracy centimeters 2024 2025 KaRIn"
+    - "SWOT node height uncertainty wse_u error budget river validation"
+  counterevidence_queries:
+    - "SWOT water surface elevation errors exceed decimetre level narrow rivers dark water layover"
+
+- thesis_id: TH-DAT-04
+  atomic_id: TH-DAT-04.A
+  statement: "Ukrainian gauge stages are reported in the Baltic 1977 height system; the official EPSG:9902 transformation converts BS-77 to EVRF2019 (~+0.2 m at Kherson)."
+  required_roles: [DATASET_DOCUMENTATION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["baltic 1977", "baltic height system", "bs-77", "bs77", "baltic system", "evrf2019", "epsg:9902", "epsg 9902"]
+  key_terms_support:
+    - ["ukraine", "ukrainian", "dnipro", "dnieper", "kherson"]
+    - ["transformation", "offset", "height", "datum", "gauge"]
+  negative_terms: []
+  extra_queries:
+    - "Baltic 1977 height system Ukraine transformation to EVRF2019 vertical datum offset"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-05
+  atomic_id: TH-DAT-05.A
+  statement: "FABDEM removes forests and buildings from Copernicus DEM; its residual errors are largest under forest and in built-up areas (Hawker et al. 2022)."
+  required_roles: [DATASET_DOCUMENTATION, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["fabdem"]
+  key_terms_support:
+    - ["forest", "building", "tree", "canopy", "urban"]
+    - ["error", "bias", "accuracy", "rmse", "mae", "residual"]
+    - ["icesat", "lidar", "validation", "reference"]
+  negative_terms: []
+  extra_queries:
+    - "FABDEM accuracy assessment forest buildings removed residual error ICESat-2 lidar validation"
+  counterevidence_queries:
+    - "FABDEM residual bias under dense forest remains large compared with lidar"
+
+- thesis_id: TH-DAT-05
+  atomic_id: TH-DAT-05.B
+  statement: "ICESat-2 ATL08 ground (terrain) heights are accurate to a few decimetres over flat/open terrain, with degraded accuracy under dense vegetation and in daytime (Neuenschwander & Pitts 2019; Liu et al. 2021)."
+  required_roles: [DATASET_DOCUMENTATION, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["atl08", "icesat-2", "icesat2", "icesat 2"]
+  key_terms_support:
+    - ["terrain", "ground", "ground height", "elevation", "bare earth"]
+    - ["accuracy", "bias", "rmse", "error", "cm", "decimet"]
+    - ["vegetation", "canopy", "night", "land cover", "slope", "lidar", "airborne"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 ATL08 terrain height accuracy validation airborne lidar land cover night day"
+  counterevidence_queries:
+    - "ICESat-2 ATL08 ground height large errors metre-level over vegetation and slopes"
+
+- thesis_id: TH-DAT-05
+  atomic_id: TH-DAT-05.C
+  statement: "Global DEMs carry a positive vegetation/canopy bias on floodplains and coasts (CoastalDEM, MERIT), which matters for inundation mapping."
+  required_roles: [SUPPORTS, BACKGROUND]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["vegetation bias", "canopy bias", "tree height bias", "coastaldem", "merit dem", "bare-earth", "bare earth", "vegetation removal", "canopy removal"]
+  key_terms_support:
+    - ["dem", "srtm", "global", "elevation model"]
+    - ["floodplain", "coastal", "flood", "inundation", "sea level"]
+  negative_terms: []
+  extra_queries:
+    - "global DEM vegetation bias correction coastal floodplain elevation inundation CoastalDEM MERIT"
+  counterevidence_queries:
+    - "global DEM vegetation bias negligible for flood inundation mapping after correction"
+
+
+- thesis_id: TH-DAT-06
+  atomic_id: TH-DAT-06.A
+  statement: "HAND (elevation above nearest stream) is computed with WhiteboxTools (Lindsay 2016)."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["whitebox"]
+  key_terms_support:
+    - ["hand", "elevation above", "height above", "geomorphometr", "terrain analysis", "flow accumulation"]
+  negative_terms: []
+  extra_queries:
+    - "WhiteboxTools geospatial analysis software terrain analysis HAND elevation above stream"
+  counterevidence_queries: []
+
+- thesis_id: TH-DAT-07
+  atomic_id: TH-DAT-07.A
+  statement: "ESA WorldCover 2021 v200 (10 m) is a global land-cover product with a reported global overall accuracy of ~76.7 % and documented per-class accuracies (validation report)."
+  required_roles: [DATASET_DOCUMENTATION, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["worldcover", "world cover"]
+  key_terms_support:
+    - ["land cover", "land-cover", "10 m", "10-m"]
+    - ["accuracy", "validation", "overall accuracy", "agreement"]
+  negative_terms: []
+  extra_queries:
+    - "ESA WorldCover 10 m 2021 v200 product validation overall accuracy wetland built-up class"
+  counterevidence_queries: []
+
+# ── 3 Methods ─────────────────────────────────────────────────────────────────
+
+- thesis_id: TH-MET-01
+  atomic_id: TH-MET-01.A
+  statement: "Water-surface elevations interpolated from satellite altimetry / SWOT nodes (optionally fused with gauges) have been projected on terrain to map inundation or depth (precedent for node-based water-surface interpolation)."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: CORE
+  key_terms_primary: ["water surface elevation", "water-surface elevation", "water surface height", "water level surface", "wse"]
+  key_terms_support:
+    - ["interpolat", "kriging", "spline", "fused", "fusion", "inverse distance", "nearest"]
+    - ["altimetry", "swot", "icesat", "gauge", "gauges"]
+    - ["inundation", "flood extent", "floodplain", "depth", "dem", "terrain"]
+  negative_terms: []
+  extra_queries:
+    - "interpolated water surface elevation from satellite altimetry projected on DEM flood depth extent mapping"
+    - "SWOT water surface elevation combined with terrain to estimate inundation depth floodplain"
+  counterevidence_queries:
+    - "errors of interpolating water surface between altimetry nodes across floodplain inundation mapping"
+
+- thesis_id: TH-MET-01
+  atomic_id: TH-MET-01.B
+  statement: "Fusing gauge records with satellite altimetry to build water-level series or water surfaces is an established practice."
+  required_roles: [METHOD_FROM, BACKGROUND]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["altimetry", "altimeter", "virtual station", "virtual stations"]
+  key_terms_support:
+    - ["gauge", "in situ", "in-situ", "station"]
+    - ["fusion", "merg", "combin", "interpolat", "assimilat"]
+    - ["water level", "stage", "time series", "water surface"]
+  negative_terms: []
+  extra_queries:
+    - "merging satellite altimetry water levels with gauge records continuous water level series river"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-01
+  atomic_id: TH-MET-01.C
+  statement: "SWORD chainage / node distance is not comparable across branches (tributaries, side channels, multichannel reaches), a known limitation of SWOT river products."
+  required_roles: [LIMITATION, DATASET_DOCUMENTATION]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["sword", "chainage", "centerline", "centreline", "river network database", "dist_out", "distance from outlet"]
+  key_terms_support:
+    - ["swot"]
+    - ["reach", "node", "branch", "multichannel", "multi-channel", "braided", "anabranch", "tributary", "side channel"]
+  negative_terms: ["sword-and", "swordfish"]
+  extra_queries:
+    - "SWORD river database limitations multichannel braided reaches node definition SWOT"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-02
+  atomic_id: TH-MET-02.A
+  statement: "Satellite–gauge comparisons of water level carry a local datum/geoid closure offset that must be measured locally; residuals of a few centimetres are achievable."
+  required_roles: [METHOD_FROM, SUPPORTS]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["datum offset", "datum closure", "datum difference", "vertical offset", "systematic offset", "geoid difference", "local bias", "bias between"]
+  key_terms_support:
+    - ["altimetry", "satellite", "swot", "icesat"]
+    - ["gauge", "in situ", "in-situ"]
+    - ["cm", "centimet", "decimet", "offset"]
+  negative_terms: []
+  extra_queries:
+    - "satellite altimetry versus gauge water level vertical datum offset geoid closure residual river"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-02
+  atomic_id: TH-MET-02.B
+  statement: "Permanent-tide conventions (mean-tide, zero-tide, tide-free) shift heights by up to decimetres and must be consistent between geoid and gauge frames (IERS conventions)."
+  required_roles: [DEFINITION, DATASET_DOCUMENTATION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["permanent tide", "mean tide", "mean-tide", "tide-free", "tide free", "zero tide", "zero-tide"]
+  key_terms_support:
+    - ["geoid", "height", "datum", "conventions", "iers", "reference frame"]
+  negative_terms: []
+  extra_queries:
+    - "permanent tide system conversion mean tide zero tide tide free height differences geoid"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-03
+  atomic_id: TH-MET-03.A
+  statement: "Connectivity-constrained planar ('bathtub') inundation — a cell is flooded only if below the water surface AND hydraulically connected to the source water — is an established approach (Poulter & Halpin 2008; Williams & Luck-Vogel 2020)."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: CORE
+  key_terms_primary: ["bathtub", "bath-tub", "bath tub", "eight-connected", "8-connected", "four-connected", "4-connected", "zero-side", "eight-side", "connectivity rule", "connectivity constraint", "hydrologically connected", "hydraulically connected", "hydrological connectivity", "hydraulic connectivity", "hydrologic connectivity", "connected to the river", "connected to the channel", "connected to the sea", "planar water surface", "planar surface"]
+  key_terms_support:
+    - ["inundation", "flood extent", "flooding", "sea level rise", "sea-level rise", "storm surge", "flood"]
+    - ["dem", "elevation", "terrain", "lidar"]
+    - ["overestimat", "over-predict", "overpredict", "disconnected", "isolated", "depression", "low-lying", "enclosed"]
+  negative_terms: []
+  extra_queries:
+    - "bathtub inundation model with hydrological connectivity versus without connectivity sea level rise DEM"
+    - "connectivity constrained static inundation mapping eight-side rule disconnected low-lying areas"
+  counterevidence_queries:
+    - "bathtub model overestimates inundation extent compared with hydrodynamic model even with connectivity"
+
+- thesis_id: TH-MET-03
+  atomic_id: TH-MET-03.B
+  statement: "Unconstrained planar-surface (no-connectivity) inundation over-predicts extent by flooding disconnected low-lying cells; connectivity and drainage constraints reduce it."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["bathtub", "bath-tub", "planar", "static inundation", "static flood", "simple inundation", "connectivity"]
+  key_terms_support:
+    - ["overestimat", "over-estimat", "overpredict", "over-predict", "disconnected", "isolated", "hydraulically disconnected", "not connected"]
+    - ["inundation", "flood", "extent", "area"]
+    - ["dem", "elevation", "terrain", "hydrodynamic"]
+  negative_terms: []
+  extra_queries:
+    - "static planar inundation without connectivity overestimates flooded area disconnected depressions comparison hydrodynamic"
+  counterevidence_queries:
+    - "bathtub inundation underestimates extent compared with hydrodynamic model"
+
+- thesis_id: TH-MET-03
+  atomic_id: TH-MET-03.C
+  statement: "FwDET, GeoFlood and HAND-based tools impose drainage/stream connectivity when mapping inundation from a stage or an extent."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["geoflood", "fwdet", "floodwater depth estimation", "height above nearest drainage", "height above the nearest drainage"]
+  key_terms_support:
+    - ["connect", "drainage", "stream network", "catchment", "channel"]
+    - ["inundation", "flood", "depth", "extent"]
+  negative_terms: []
+  extra_queries:
+    - "HAND inundation mapping channel connectivity catchment drainage network constraint stage"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-04
+  atomic_id: TH-MET-04.A
+  statement: "Land-cover-stratified bias correction of global DEMs against ICESat-2 (ATL08) ground heights is an established practice (FABDEM, MERIT, CoastalDEM and ICESat-2-based corrections)."
+  required_roles: [METHOD_FROM, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["icesat-2", "icesat2", "icesat 2", "atl08", "icesat"]
+  key_terms_support:
+    - ["bias correction", "correct", "calibrat", "adjust", "residual", "offset", "removal"]
+    - ["land cover", "landcover", "land-cover", "class", "stratif", "vegetation type", "forest", "urban"]
+    - ["dem", "srtm", "fabdem", "merit", "copernicus dem", "tandem", "aw3d", "nasadem", "glo-30"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 ATL08 based DEM bias correction by land cover class random forest global DEM improvement"
+    - "MERIT DEM vegetation bias removal ICESat GLAS tree height correction"
+  counterevidence_queries:
+    - "DEM correction with ICESat-2 without land cover stratification performs equally well"
+
+- thesis_id: TH-MET-04
+  atomic_id: TH-MET-04.B
+  statement: "Reed beds / emergent wetland vegetation induce a positive canopy bias in DEMs (including lidar and radar DEMs), so wetland ground elevations are overestimated."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["reed", "reeds", "reedbed", "reed bed", "phragmites", "marsh", "emergent vegetation", "macrophyte", "wetland vegetation", "salt marsh", "saltmarsh"]
+  key_terms_support:
+    - ["dem", "elevation model", "lidar", "srtm", "terrain", "ground elevation"]
+    - ["bias", "error", "overestimat", "canopy", "vegetation correction", "penetrat"]
+  negative_terms: []
+  extra_queries:
+    - "DEM elevation bias in reed marsh emergent vegetation wetland lidar ground overestimation correction"
+    - "wetland vegetation canopy bias digital elevation model ICESat-2 marsh ground height"
+  counterevidence_queries:
+    - "lidar DEM accurate in wetland vegetation no significant bias marsh"
+
+- thesis_id: TH-MET-05
+  atomic_id: TH-MET-05.A
+  statement: "Operational flood products define flood as water outside a reference / normal water layer built from multi-temporal data (GFM; Martinis et al. 2022)."
+  required_roles: [METHOD_FROM, DATASET_DOCUMENTATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["reference water", "permanent water", "seasonal water", "normal water", "reference water mask", "reference water layer", "water occurrence", "normal extent", "baseline water"]
+  key_terms_support:
+    - ["sentinel-1", "sar", "global flood monitoring", "gfm", "copernicus", "sentinel-2", "landsat"]
+    - ["flood", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "flood defined as water outside reference water layer normal water extent operational flood service"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-05
+  atomic_id: TH-MET-05.B
+  statement: "When emergent vegetation (reeds, macrophytes) is submerged by rising water, C-band backscatter drops from the double-bounce/volume regime to a dark, water-like signal, so a dark-water onset over reed beds indicates submergence depth rather than the onset of inundation."
+  required_roles: [SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["submerg", "emergent vegetation", "emergent macrophyte", "reed", "reeds", "phragmites", "macrophyte", "inundated vegetation", "flooded vegetation", "marsh vegetation"]
+  key_terms_support:
+    - ["backscatter", "sar", "radar", "sentinel-1", "c-band", "c band"]
+    - ["water level", "water depth", "depth", "rise", "rising", "decrease", "drop", "double bounce", "double-bounce", "dark"]
+  negative_terms: []
+  extra_queries:
+    - "SAR backscatter decreases when emergent wetland vegetation becomes submerged water level rise reed"
+    - "water depth effect on C-band backscatter of flooded reeds marsh double bounce to specular"
+  counterevidence_queries:
+    - "flooded reeds increase C-band backscatter double bounce rather than decrease at all water levels"
+
+- thesis_id: TH-MET-06
+  atomic_id: TH-MET-06.A
+  statement: "Spatially correlated DEM error fields (stochastic conditional simulation / sequential Gaussian simulation) are used to propagate DEM error into inundation extent and depth (Darnell et al. 2008; Wechsler 2007; Fisher & Tate 2006; Hawker et al. 2018)."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: CORE
+  key_terms_primary: ["conditional simulation", "sequential gaussian simulation", "stochastic simulation", "spatially correlated", "spatially autocorrelated", "correlated error", "random field", "error field", "monte carlo simulation of dem", "dem error simulation"]
+  key_terms_support:
+    - ["dem", "digital elevation", "elevation", "terrain"]
+    - ["error", "uncertainty"]
+    - ["flood", "inundation", "hydrolog", "realisation", "realization"]
+  negative_terms: []
+  extra_queries:
+    - "stochastic conditional simulation of DEM error propagation hydrological application Monte Carlo"
+    - "perspectives on DEM simulation for flood modeling correlated error fields Hawker"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-06
+  atomic_id: TH-MET-06.B
+  statement: "The spatial correlation length (semivariogram range) of DEM error reported in published assessments is of the order of hundreds of metres."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["correlation length", "semivariogram", "variogram", "autocorrelation length", "correlation distance", "range of", "spatial autocorrelation of error", "autocorrelation of dem error"]
+  key_terms_support:
+    - ["dem", "elevation", "srtm", "lidar", "terrain"]
+    - ["error", "residual", "uncertainty"]
+    - ["m", "metres", "meters", "km"]
+  negative_terms: []
+  extra_queries:
+    - "semivariogram of DEM error residuals correlation range metres global DEM ICESat validation"
+  counterevidence_queries:
+    - "DEM error spatial correlation range several kilometres long-range structure"
+
+- thesis_id: TH-MET-06
+  atomic_id: TH-MET-06.C
+  statement: "Monte-Carlo propagation of DEM error into flood extent needs enough realisations for the percentiles to converge; published studies report the number used and/or a convergence test."
+  required_roles: [METHOD_FROM, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["number of realisations", "number of realizations", "number of simulations", "number of monte carlo", "convergence", "converge", "realisations", "realizations"]
+  key_terms_support:
+    - ["dem", "elevation", "terrain"]
+    - ["flood", "inundation"]
+    - ["uncertainty", "monte carlo", "error"]
+  negative_terms: []
+  extra_queries:
+    - "how many Monte Carlo realisations DEM error flood extent uncertainty convergence percentile stability"
+  counterevidence_queries:
+    - "few Monte Carlo DEM realizations sufficient flood extent uncertainty converges quickly"
+
+- thesis_id: TH-MET-07
+  atomic_id: TH-MET-07.A
+  statement: "Emulators / surrogate models have been used to propagate DEM and stage uncertainty into flood extent as a cheaper alternative to full spatial Monte-Carlo."
+  required_roles: [METHOD_FROM, COMPARATOR]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["emulator", "surrogate", "meta-model", "metamodel", "gaussian process emulat", "response surface"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["uncertainty", "dem", "error", "stage", "sensitivity"]
+  negative_terms: []
+  extra_queries:
+    - "surrogate model emulator flood inundation uncertainty propagation instead of Monte Carlo"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-08
+  atomic_id: TH-MET-08.A
+  statement: "POD (hit rate), FAR (false alarm ratio) and CSI (critical success index / threat score) are standard contingency-table measures of binary agreement (Schaefer 1990; Wilks)."
+  required_roles: [DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["critical success index", "threat score", "probability of detection", "false alarm ratio", "false alarm rate", "hit rate", "contingency table"]
+  key_terms_support:
+    - ["flood", "inundation", "water", "precipitation", "forecast"]
+    - ["verification", "validation", "skill", "agreement", "evaluation", "performance"]
+  negative_terms: []
+  extra_queries:
+    - "critical success index probability of detection false alarm ratio definition contingency table verification"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-08
+  atomic_id: TH-MET-08.B
+  statement: "Binary flood-map performance measures (F / fit statistic of Bates & De Roo 2000; CSI) have known problems: they depend on the flood size and the domain and can mislead (Stephens et al. 2014)."
+  required_roles: [DEFINITION, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["fit statistic", "measure of fit", "f statistic", "f-statistic", "binary pattern", "binary performance", "fit index", "critical success index", "goodness of fit", "goodness-of-fit"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["model", "map", "extent", "prediction"]
+    - ["observed", "reference", "sar", "satellite", "benchmark"]
+  negative_terms: []
+  extra_queries:
+    - "problems with binary pattern measures for flood model evaluation dependence on flood magnitude domain"
+    - "fit statistic F Bates De Roo 2000 flood inundation model observed extent comparison"
+  counterevidence_queries:
+    - "critical success index robust evaluation measure flood inundation maps independent of domain"
+
+- thesis_id: TH-MET-08
+  atomic_id: TH-MET-08.C
+  statement: "Stratified or conditional agreement (excluding an a-priori class from the denominator) is used as a diagnostic in flood-map comparison; it is not a corrected accuracy."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["conditional", "stratified", "excluding", "masked out", "outside the", "per class", "by class"]
+  key_terms_support:
+    - ["flood map", "inundation map", "flood extent"]
+    - ["agreement", "accuracy", "critical success index", "hit rate", "probability of detection", "validation"]
+    - ["land cover", "vegetation", "wetland", "urban", "class"]
+  negative_terms: []
+  extra_queries:
+    - "flood map validation accuracy computed per land cover class excluding vegetated areas diagnostic"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-09
+  atomic_id: TH-MET-09.A
+  statement: "Flood-map disagreement/accuracy is commonly stratified by land-cover class and by height above the water surface to diagnose omission and commission (Landuyt et al. 2019; GFM validation)."
+  required_roles: [METHOD_FROM, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["per land cover", "by land cover", "land cover class", "land-cover class", "land cover type", "land cover classes", "stratified by", "per class", "by class", "height above"]
+  key_terms_support:
+    - ["flood map", "flood mapping", "inundation map", "flood extent", "water map"]
+    - ["disagree", "omission", "commission", "error", "accuracy", "validation", "performance", "false"]
+    - ["sar", "sentinel-1", "radar"]
+  negative_terms: []
+  extra_queries:
+    - "flood mapping comparison of methods Sentinel-1 accuracy per land cover class Landuyt"
+    - "Global Flood Monitoring validation results by land cover Sentinel-1 flood extent"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-10
+  atomic_id: TH-MET-10.A
+  statement: "Night-time ICESat-2 ATL08 acquisitions have lower solar background noise and better ground-height accuracy than daytime ones."
+  required_roles: [SUPPORTS, DATASET_DOCUMENTATION]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["atl08", "icesat-2", "icesat2", "icesat 2"]
+  key_terms_support:
+    - ["night", "nighttime", "night-time", "daytime", "day-time", "solar background", "background noise", "noise rate"]
+    - ["accuracy", "error", "bias", "rmse", "precision"]
+    - ["terrain", "ground", "elevation", "canopy"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 ATL08 night versus day acquisition terrain height accuracy solar background noise"
+  counterevidence_queries:
+    - "ICESat-2 daytime and night-time terrain heights equally accurate"
+
+- thesis_id: TH-MET-10
+  atomic_id: TH-MET-10.B
+  statement: "ICESat-2 samples the surface along tracks only, so a track-based comparison constrains a raster product along lines and does not validate every cell."
+  required_roles: [LIMITATION, DEFINITION]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["along-track", "along track", "ground track", "ground tracks", "transect", "tracks"]
+  key_terms_support:
+    - ["icesat", "altimetr", "lidar", "laser"]
+    - ["sampling", "coverage", "representative", "gap", "spatial coverage", "sparse"]
+    - ["dem", "raster", "validation", "assessment", "grid"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 sparse along-track sampling limits DEM validation spatial coverage representativeness"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-11
+  atomic_id: TH-MET-11.A
+  statement: "Random forest is a standard, robust classifier for land-cover mapping from Sentinel-2 composites (Belgiu & Drăguţ 2016)."
+  required_roles: [METHOD_FROM, BACKGROUND]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["random forest", "random forests"]
+  key_terms_support:
+    - ["land cover", "land-cover", "landcover", "classification"]
+    - ["sentinel-2", "landsat", "optical", "multispectral"]
+    - ["accuracy", "review", "robust", "performance"]
+  negative_terms: []
+  extra_queries:
+    - "random forest in remote sensing land cover classification review applications Belgiu Dragut"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-11
+  atomic_id: TH-MET-11.B
+  statement: "Training a classifier on labels taken from a global land-cover product (with purity/majority filtering) is a documented practice with known label-noise implications."
+  required_roles: [METHOD_FROM, LIMITATION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["worldcover", "global land cover", "training labels from", "labels derived from", "label purity", "purity filter", "pseudo-label", "existing land cover product", "land cover product as reference"]
+  key_terms_support:
+    - ["random forest", "classifier", "classification", "training"]
+    - ["land cover", "land-cover"]
+    - ["noise", "noisy", "error", "accuracy", "agreement"]
+  negative_terms: []
+  extra_queries:
+    - "training samples derived from existing global land cover products label noise classifier accuracy"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-12
+  atomic_id: TH-MET-12.A
+  statement: "Weak-label SAR flood-segmentation datasets (Sen1Floods11, Bonafilia et al. 2020; Bai et al. 2021) derive labels from thresholded water masks and separate permanent from temporary water."
+  required_roles: [METHOD_FROM, DATASET_DOCUMENTATION]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["sen1floods11", "sen1flood", "weak label", "weak labels", "weakly labeled", "weakly labelled", "weak supervision", "weakly supervised"]
+  key_terms_support:
+    - ["sentinel-1", "sar"]
+    - ["flood", "inundation"]
+    - ["deep learning", "segmentation", "u-net", "cnn", "benchmark", "dataset"]
+  negative_terms: []
+  extra_queries:
+    - "Sen1Floods11 dataset weak labels Otsu thresholded water masks permanent water temporary water deep learning"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-12
+  atomic_id: TH-MET-12.B
+  statement: "Labels built from persistence across multiple post-event dates (water on ≥ k dates) describe a persistent flood, not a snapshot; the practice of multi-date label construction is documented."
+  required_roles: [METHOD_FROM, BACKGROUND]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["persistent", "persistence", "multi-date", "multi-temporal", "multitemporal", "multiple dates", "temporal consistency", "flood duration", "recurrence"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["label", "training", "mask", "reference"]
+    - ["sar", "sentinel-1", "time series"]
+  negative_terms: []
+  extra_queries:
+    - "flood labels from multi-temporal SAR water masks persistence rule training deep learning"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-13
+  atomic_id: TH-MET-13.A
+  statement: "U-Net (Ronneberger et al. 2015) with a ResNet encoder (He et al. 2016), Dice loss (Milletari et al. 2016) and masked/ignore-label losses are standard components of remote-sensing semantic segmentation."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["u-net", "unet", "dice loss", "resnet", "residual network", "encoder-decoder", "encoder decoder"]
+  key_terms_support:
+    - ["segmentation"]
+    - ["flood", "water", "remote sensing", "satellite", "sar"]
+  negative_terms: []
+  extra_queries:
+    - "U-Net ResNet encoder Dice loss ignore label masked loss flood water segmentation remote sensing"
+  counterevidence_queries: []
+
+- thesis_id: TH-MET-14
+  atomic_id: TH-MET-14.A
+  statement: "Spatial block cross-validation with block size chosen relative to the autocorrelation range gives less optimistic estimates than random CV (Roberts et al. 2017; Pohjankukka et al. 2017; Valavi et al. 2019; Ploton et al. 2020; Karasiak et al. 2022)."
+  required_roles: [METHOD_FROM, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["spatial cross-validation", "spatial cross validation", "block cross-validation", "block cross validation", "blocked cross-validation", "spatial block", "spatial blocks", "spatial k-fold", "spatial kfold", "blockcv", "spatially blocked", "spatial partition", "spatial split", "spatial hold-out", "spatial holdout"]
+  key_terms_support:
+    - ["autocorrelation", "spatial dependence", "spatial structure", "range", "variogram", "semivariogram"]
+    - ["block size", "block", "fold", "distance"]
+    - ["optimistic", "overestimat", "inflated", "bias", "overfit", "extrapolat"]
+  negative_terms: []
+  extra_queries:
+    - "spatial block cross-validation block size autocorrelation range optimistic random cross-validation remote sensing"
+    - "spatial dependence between training and test sets inflates accuracy remote sensing deep learning"
+  counterevidence_queries:
+    - "spatial cross-validation overly pessimistic random cross-validation adequate when training data dense"
+    - "block cross-validation underestimates map accuracy extrapolation bias Wadoux"
+
+- thesis_id: TH-MET-14
+  atomic_id: TH-MET-14.B
+  statement: "Block / cluster bootstrap over spatial units is used to obtain confidence intervals for map-accuracy or model-comparison statistics under spatial dependence."
+  required_roles: [METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["block bootstrap", "cluster bootstrap", "moving block bootstrap", "spatial bootstrap", "paired bootstrap", "bootstrap over blocks", "bootstrapping blocks"]
+  key_terms_support:
+    - ["confidence interval", "uncertainty", "interval"]
+    - ["accuracy", "f1", "classification", "map", "model comparison", "spatial"]
+  negative_terms: []
+  extra_queries:
+    - "block bootstrap confidence intervals spatially dependent data classification accuracy comparison of models"
+  counterevidence_queries: []
+
+# ── 4 Results ─────────────────────────────────────────────────────────────────
+
+- thesis_id: TH-RES-01
+  atomic_id: TH-RES-01.A
+  statement: "Independent evidence on the timing of the Kakhovka flood: downstream peak stages by 8 June (Lehnigk et al. 2026 from SWOT); Kherson gauge maximum on 8 June."
+  required_roles: [COMPARATOR, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["kakhovka", "kherson", "dnipro", "dnieper"]
+  key_terms_support:
+    - ["peak", "maximum", "8 june", "june 8", "7 june", "june 7", "9 june", "june 9"]
+    - ["stage", "water level", "water surface elevation", "wse", "height"]
+    - ["swot", "gauge", "altimetr", "icesat"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka flood peak water level Kherson June 2023 timing gauge satellite"
+  counterevidence_queries:
+    - "Kakhovka flood extent reached maximum on 9 June or 10 June 2023"
+
+- thesis_id: TH-RES-01
+  atomic_id: TH-RES-01.B
+  statement: "Maximum inundated extent and peak stage are different quantities whose timing can differ (extent–stage hysteresis, floodplain storage and drainage lag)."
+  required_roles: [SUPPORTS, BACKGROUND]
+  manuscript_relevance: CORE
+  key_terms_primary: ["hysteresis", "hysteretic", "lag", "lagged", "time lag", "phase lag", "delay between", "peak extent", "maximum extent", "peak inundation"]
+  key_terms_support:
+    - ["flood extent", "inundation extent", "inundated area", "flooded area", "inundation"]
+    - ["stage", "water level", "discharge", "hydrograph", "peak"]
+    - ["floodplain", "storage", "drainage", "recession", "timing"]
+  negative_terms: []
+  extra_queries:
+    - "lag between peak river stage and maximum inundated area floodplain storage hysteresis extent-stage relation"
+    - "timing of maximum flood extent versus peak discharge along a reach flood wave attenuation"
+  counterevidence_queries:
+    - "inundated area and river stage peak simultaneously monotonic stage-area relation"
+
+- thesis_id: TH-RES-01
+  atomic_id: TH-RES-01.C
+  statement: "Satellite products acquired on 7 June 2023 over the Kakhovka flood (UNOSAT, ICEYE, Planet, others) exist and report an extent for that day."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "kherson"]
+  key_terms_support:
+    - ["7 june", "june 7", "7th june", "june 7th", "07 june", "2023-06-07"]
+    - ["iceye", "planet", "unosat", "capella", "sentinel-2", "landsat", "modis", "viirs", "optical", "sar"]
+    - ["flood extent", "flooded area", "inundat", "water extent"]
+  negative_terms: []
+  extra_queries:
+    - "satellite image of Kakhovka flooding acquired 7 June 2023 extent ICEYE Planet Sentinel"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-02
+  atomic_id: TH-RES-02.A
+  statement: "Published downstream flood extents for the Kakhovka breach exist — UNOSAT (~620 km2 cumulative flooded land 6–9 June; ~180 km2 on 13 June), NASA Harvest (410–420 km2 on 7 June), Kadam et al. 2024 (823 km2 HEC-RAS scenario), Monti et al. 2024 (Sentinel-1 series), Zuo, Yailymov, Jiao and others — each with its own AOI, date, sensor and reference-water definition."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["kakhovka", "nova kakhovka", "kakhovska"]
+  key_terms_support:
+    - ["flooded area", "inundated area", "flood extent", "flooded land", "inundation area", "flood area", "water extent", "extent of flooding", "area flooded", "area inundated"]
+    - ["km2", "km²", "square kilomet", "sq km", "hectare", "ha"]
+    - ["sentinel-1", "sar", "optical", "sentinel-2", "landsat", "planet", "modis", "viirs", "iceye", "unosat"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka dam breach downstream flooded area km2 Sentinel-1 Sentinel-2 estimate June 2023"
+    - "Kherson flooding 2023 inundated area satellite mapping results extent"
+  counterevidence_queries:
+    - "Kakhovka flood extent estimates disagree between studies definition date sensor"
+
+- thesis_id: TH-RES-02
+  atomic_id: TH-RES-02.B
+  statement: "Published estimates of the reservoir side (area drained, volume lost) exist for comparison with the pool balance (Yi et al. 2025; Vyshnevskyi et al. 2023; Shumilova et al. 2025)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "kakhovske", "kakhovka reservoir"]
+  key_terms_support:
+    - ["km3", "km³", "cubic kilomet", "volume", "water loss", "storage"]
+    - ["drained", "drainage", "dried", "exposed", "bottom", "bed", "drawdown", "area decrease", "shrink"]
+    - ["altimetry", "sentinel", "landsat", "modis", "satellite"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir drained area exposed bottom water volume loss June 2023 satellite"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-03
+  atomic_id: TH-RES-03.A
+  statement: "Published products document the recession of the Kakhovka flood after 9 June 2023 (UNOSAT ~180 km2 on 13 June; Monti et al. 2024 Sentinel-1 series; others)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "kherson"]
+  key_terms_support:
+    - ["recession", "receded", "recede", "drain", "declin", "decrease", "13 june", "june 13", "21 june", "june 21", "subsid", "retreat"]
+    - ["flood extent", "flooded area", "inundat", "water extent"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka flood water recession time series Sentinel-1 mid June 2023 flooded area decrease"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-03
+  atomic_id: TH-RES-03.B
+  statement: "Backwater flooding of tributary valleys imposed by main-stem stage at the confluence is a documented mechanism and a recognised treatment in inundation mapping."
+  required_roles: [BACKGROUND, METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["backwater"]
+  key_terms_support:
+    - ["tributary", "confluence", "junction"]
+    - ["flood", "inundation", "stage", "water level", "flooding"]
+  negative_terms: []
+  extra_queries:
+    - "backwater effect tributary confluence main stem flood stage inundation of tributary valley mapping"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-04
+  atomic_id: TH-RES-04.A
+  statement: "Terrain-based inundation extents (HAND / GeoFlood / FwDET / planar) show moderate agreement with SAR-observed extents in published evaluations (CSI / F statistics well below 1)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["height above nearest drainage", "geoflood", "fwdet", "hand-based", "hand model", "hand inundation", "hand flood", "terrain-based", "terrain based", "dem-based inundation", "dem based inundation", "static inundation", "bathtub"]
+  key_terms_support:
+    - ["sar", "sentinel-1", "radar", "observed flood", "flood map", "satellite-derived", "satellite derived", "remote sensing", "observed extent"]
+    - ["critical success index", "csi", "fit", "agreement", "f-statistic", "f statistic", "hit rate", "overlap", "compar", "evaluat", "validat"]
+  negative_terms: []
+  extra_queries:
+    - "HAND inundation map compared with SAR observed flood extent critical success index values"
+    - "agreement between terrain-derived inundation and Sentinel-1 flood maps evaluation results"
+  counterevidence_queries:
+    - "HAND inundation maps agree closely with SAR observed flood extent high CSI"
+
+- thesis_id: TH-RES-04
+  atomic_id: TH-RES-04.B
+  statement: "Wet soil, rain-soaked or irrigated fields, and smooth bare surfaces (sand) produce low C-band backscatter that a dark-water rule classifies as water — a known SAR look-alike mechanism; site-specific attribution requires additional evidence."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["wet soil", "rain-soaked", "after rain", "after rainfall", "recent rainfall", "irrigated field", "irrigated fields", "bare field", "bare fields", "agricultural field", "agricultural fields", "bare soil", "smooth bare", "ploughed", "plowed", "sand dune", "sandy", "sand bar", "sandbar", "look-alike", "lookalike"]
+  key_terms_support:
+    - ["low backscatter", "dark", "water-like", "misclassif", "false", "look-alike", "lookalike", "overestimat", "confus", "commission"]
+    - ["sar", "sentinel-1", "radar", "c-band", "backscatter"]
+    - ["flood", "water"]
+  negative_terms: []
+  extra_queries:
+    - "low backscatter over wet agricultural fields after rainfall misclassified as flood water Sentinel-1"
+    - "sand and bare smooth soil look-alike SAR water detection false positives"
+  counterevidence_queries:
+    - "wet soil increases C-band backscatter rather than decreasing it soil moisture retrieval"
+
+- thesis_id: TH-RES-05
+  atomic_id: TH-RES-05.A
+  statement: "Quantitative omission of SAR flood mapping under forest, reeds and in urban areas, and commission on look-alikes, are documented in validation studies (percent of area or accuracy by class), including urban change-detection approaches (Giustarini et al. 2013)."
+  required_roles: [COMPARATOR, SUPPORTS]
+  manuscript_relevance: CORE
+  key_terms_primary: ["omission", "commission", "false positive", "false negative", "producer's accuracy", "user's accuracy", "producer accuracy", "user accuracy", "missed", "underdetect", "under-detect"]
+  key_terms_support:
+    - ["urban", "built-up", "built up", "building", "forest", "vegetat", "wetland", "reed", "canopy"]
+    - ["sar", "sentinel-1", "terrasar", "radar", "c-band", "x-band"]
+    - ["flood", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "SAR flood map validation omission errors forest urban vegetated areas percentage commission look-alikes"
+    - "change detection flood mapping urban areas TerraSAR-X shadow layover Giustarini"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-06
+  atomic_id: TH-RES-06.A
+  statement: "ICESat-2 ATL08 ground heights over cropland/grassland/flat open terrain are accurate to decimetres or better."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["atl08", "icesat-2", "icesat2", "icesat 2"]
+  key_terms_support:
+    - ["cropland", "grassland", "grass", "agricultur", "bare", "flat", "open", "low vegetation", "farmland"]
+    - ["accuracy", "bias", "rmse", "error", "cm", "decimet", "mae"]
+    - ["terrain", "ground", "elevation", "height"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 ATL08 terrain height accuracy over cropland grassland flat terrain centimetre decimetre validation"
+  counterevidence_queries:
+    - "ICESat-2 ground height errors exceed one metre over agricultural land"
+
+- thesis_id: TH-RES-06
+  atomic_id: TH-RES-06.B
+  statement: "ICESat-2 ATL08 ground heights have been used on the Kakhovka site (e.g. on the exposed reservoir bed after drainage)."
+  required_roles: [METHOD_FROM, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "dnipro", "dnieper"]
+  key_terms_support:
+    - ["icesat", "atl08", "atl13", "laser altimet"]
+    - ["bed", "exposed", "bottom", "drained", "bathymetry", "terrain", "elevation"]
+  negative_terms: []
+  extra_queries:
+    - "ICESat-2 elevation of the exposed Kakhovka reservoir bed after drainage"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-07
+  atomic_id: TH-RES-07.A
+  statement: "SWOT RiverSP node/reach heights agree with gauges at the few-centimetre to decimetre level in cal/val studies; comparing an overpass-time satellite height with a daily gauge value is a known caveat."
+  required_roles: [COMPARATOR, SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["swot"]
+  key_terms_support:
+    - ["gauge", "in situ", "in-situ", "validation", "cal/val", "calval", "gage"]
+    - ["node", "reach", "riversp", "river"]
+    - ["cm", "centimet", "rmse", "error", "accuracy", "bias", "std"]
+  negative_terms: []
+  extra_queries:
+    - "SWOT river reach node water surface elevation validation gauges RMSE centimetres science orbit results"
+    - "SWOT overpass time versus daily mean gauge comparison temporal mismatch"
+  counterevidence_queries:
+    - "SWOT river heights biased by decimetres compared with gauges in narrow or vegetated rivers"
+
+- thesis_id: TH-RES-08
+  atomic_id: TH-RES-08.A
+  statement: "Flood-extent products for one event differ by definition (cumulative vs snapshot vs persistence; reference/permanent water handling; AOI), not only by accuracy — documented in multi-product intercomparisons (e.g. GFM vs CEMS)."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: CORE
+  key_terms_primary: ["intercomparison", "inter-comparison", "comparison of flood", "flood map comparison", "compared flood maps", "multiple flood maps", "different products", "different flood products", "global flood monitoring", "copernicus emergency management", "cems", "product comparison"]
+  key_terms_support:
+    - ["extent", "area", "km2", "km²"]
+    - ["definition", "reference water", "permanent water", "cumulative", "maximum extent", "snapshot", "observation date", "acquisition date", "temporal"]
+    - ["flood", "inundation"]
+  negative_terms: []
+  extra_queries:
+    - "comparison of flood extent products for the same event different reference water and acquisition dates explain differences"
+    - "Global Flood Monitoring versus Copernicus EMS rapid mapping flood extent comparison agreement"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-09
+  atomic_id: TH-RES-09.A
+  statement: "Random-forest land-cover classifications from Sentinel-2 trained on / compared with global products typically report overall agreement of 0.85–0.95 with the reference product."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["worldcover", "global land cover product", "esa cci", "dynamic world", "esri land cover", "copernicus global land"]
+  key_terms_support:
+    - ["random forest", "classif"]
+    - ["overall accuracy", "f1", "kappa", "agreement"]
+    - ["sentinel-2", "landsat"]
+  negative_terms: []
+  extra_queries:
+    - "Sentinel-2 random forest land cover overall accuracy compared with WorldCover Dynamic World agreement"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-10
+  atomic_id: TH-RES-10.A
+  statement: "Treating reference/permanent water as an explicit negative class reduces false flood predictions on recurrent water in flood-mapping models (Martinis et al. 2022; GFM; Sen1Floods11 permanent-water class)."
+  required_roles: [SUPPORTS, METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["reference water", "permanent water", "seasonal water", "water body mask", "open water class", "permanent water class", "water occurrence"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["false positive", "false alarm", "confus", "artefact", "artifact", "misclassif", "overestimat", "exclud"]
+    - ["deep learning", "classif", "segmentation", "sentinel-1", "u-net", "model"]
+  negative_terms: []
+  extra_queries:
+    - "permanent water class in flood segmentation training reduces false positives on lakes rivers deep learning"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-11
+  atomic_id: TH-RES-11.A
+  statement: "Terrain information (HAND / topographic index) as an input or prior to SAR flood mapping reduces false positives on elevated land (Tupas et al. 2023; HAND-guided deep learning; Sen1Floods11 baselines with HAND)."
+  required_roles: [SUPPORTS, METHOD_FROM]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["height above nearest drainage", "hand index", "hand layer", "hand prior", "hand-guided", "hand guided", "topographic index", "topographic prior", "terrain prior", "terrain feature", "terrain information", "elevation as input", "dem as input", "topographic information", "plausibility"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["deep learning", "u-net", "cnn", "bayesian", "classif", "machine learning", "neural"]
+    - ["false positive", "false alarm", "plausib", "improv", "reduc", "exclud", "prior"]
+  negative_terms: []
+  extra_queries:
+    - "HAND as prior or input feature improves Sentinel-1 flood mapping reduces false positives Bayesian deep learning"
+    - "topographic features in deep learning flood segmentation elevation HAND input channels effect"
+  counterevidence_queries:
+    - "adding terrain features does not improve SAR flood segmentation accuracy"
+
+- thesis_id: TH-RES-12
+  atomic_id: TH-RES-12.A
+  statement: "A model comparison in which an input feature also enters the construction of the label is subject to label leakage and yields an optimistic (upper-bound) estimate."
+  required_roles: [DEFINITION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["leakage", "target leakage", "data leakage", "label leakage"]
+  key_terms_support:
+    - ["machine learning", "classifier", "model", "feature"]
+    - ["evaluation", "optimistic", "overestimat", "upper bound", "bias"]
+  negative_terms: ["leakage current", "water leakage", "pipe leakage", "gas leakage", "seepage"]
+  extra_queries:
+    - "label leakage input feature derived from label optimistic evaluation upper bound machine learning"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-13
+  atomic_id: TH-RES-13.A
+  statement: "Block size for spatial CV should exceed the autocorrelation range of the predictors and the model's receptive footprint (patch size); results are reported as a sensitivity across block sizes (Roberts 2017; Valavi 2019; Ploton 2020; Karasiak 2022)."
+  required_roles: [METHOD_FROM, SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["spatial cross-validation", "spatial cross validation", "block cross-validation", "block cross validation", "spatial block", "spatial blocks", "spatial k-fold", "blockcv", "spatially blocked", "spatial split"]
+  key_terms_support:
+    - ["block size", "block sizes", "distance", "range", "scale", "size of the block"]
+    - ["autocorrelation", "semivariogram", "variogram", "correlation length", "spatial dependence"]
+    - ["deep learning", "patch", "cnn", "receptive field", "u-net", "random forest", "model"]
+  negative_terms: []
+  extra_queries:
+    - "choice of block size spatial cross-validation semivariogram range patch size deep learning sensitivity"
+  counterevidence_queries:
+    - "spatial cross-validation results insensitive to block size choice"
+
+- thesis_id: TH-RES-14
+  atomic_id: TH-RES-14.A
+  statement: "Reservoir outflow after a dam breach has been estimated from the storage balance (−dV/dt + Q_in) using satellite-derived water levels/areas and hypsometry, as a daily-mean estimate distinct from instantaneous breach discharge."
+  required_roles: [METHOD_FROM, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["water balance", "storage change", "storage-change", "volume change", "dv/dt", "mass balance", "reservoir storage", "storage balance", "change in storage"]
+  key_terms_support:
+    - ["dam break", "dam breach", "dam failure", "outflow", "discharge", "release", "outburst", "drawdown"]
+    - ["altimetry", "satellite", "remote sensing", "water level", "hypsometr", "area-volume", "stage-storage"]
+    - ["m3/s", "m³/s", "km3", "km³", "daily"]
+  negative_terms: []
+  extra_queries:
+    - "dam breach outflow hydrograph estimated from reservoir storage change satellite water level hypsometric curve"
+    - "reservoir water balance discharge estimation from altimetry level change and inflow daily"
+  counterevidence_queries:
+    - "storage-based daily mean discharge underestimates instantaneous peak breach outflow"
+
+- thesis_id: TH-RES-14
+  atomic_id: TH-RES-14.B
+  statement: "Published reservoir-side quantities for Kakhovka exist: Yi et al. 2025 (20.4 km3 lost in 30 days, 12.6 m drop, initial breach discharge 5.7e4 m3/s), Vyshnevskyi et al. 2023 (design volume 18.2 km3), Kadam et al. 2024 (scenario peak discharge)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka"]
+  key_terms_support:
+    - ["km3", "km³", "cubic kilomet", "volume", "storage"]
+    - ["drawdown", "drop", "level", "water loss", "drain", "outflow", "discharge", "m3/s", "m³/s"]
+    - ["altimetry", "grace", "gravimetry", "sentinel-6", "sentinel-3", "jason", "hec-ras", "design"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir volume 18.2 km3 design characteristics drawdown June 2023 daily levels"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-14
+  atomic_id: TH-RES-14.C
+  statement: "Reservoir level sources for Kakhovka in June 2023 (Nikopol post, G-REALM / Sentinel-6 / Sentinel-3 altimetry, DniproHES releases) are documented in the literature or product documentation."
+  required_roles: [DATASET_DOCUMENTATION, COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka"]
+  key_terms_support:
+    - ["g-realm", "grealm", "dahiti", "hydroweb", "sentinel-6", "sentinel-3", "jason", "altimet", "nikopol", "dniprohes", "dnieper hes", "dnipro hes", "zaporizhzhia"]
+    - ["level", "height", "elevation", "stage", "release", "inflow"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir water level June 2023 satellite altimetry G-REALM Sentinel-6 daily drawdown"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-15
+  atomic_id: TH-RES-15.A
+  statement: "Published Kakhovka reservoir area–volume / bathymetry information exists (design tables, Vyshnevskyi et al. 2023, Yi et al. 2025 altimetry+SAR hypsometry, post-drainage bed surveys)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "kakhovske"]
+  key_terms_support:
+    - ["bathymetr", "hypsometr", "area-volume", "area–volume", "stage-area", "stage–area", "stage-volume", "volume curve", "capacity curve", "depth"]
+    - ["km3", "km³", "volume", "capacity", "18.2", "18,2", "km2", "km²"]
+    - ["bed", "bottom", "sediment", "survey", "exposed", "design", "bathymetric"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir bathymetry depth distribution volume area curve sedimentation bottom survey"
+    - "exposed Kakhovka reservoir bed elevation after drainage DEM ICESat-2 sediment"
+  counterevidence_queries: []
+
+- thesis_id: TH-RES-15
+  atomic_id: TH-RES-15.B
+  statement: "Bathymetry errors of the order of metres change outburst-flood stage by metres (Lehnigk et al. 2026: best bathymetry ~1.4 m low, others 5.8–6.1 m)."
+  required_roles: [COMPARATOR, SUPPORTS]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["kakhovka", "dnipro", "dnieper"]
+  key_terms_support:
+    - ["bathymetr", "channel geometry", "bed elevation", "topograph"]
+    - ["stage", "water level", "peak", "underestimat", "error", "m low", "metres"]
+    - ["swot", "model", "simulation", "outburst"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka outburst flood simulation sensitivity to bathymetry stage underestimation SWOT comparison"
+  counterevidence_queries:
+    - "dam break model stage predictions insensitive to bathymetry uncertainty"
+
+
+# ── 5 Discussion ──────────────────────────────────────────────────────────────
+
+- thesis_id: TH-DIS-01
+  atomic_id: TH-DIS-01.A
+  statement: "Satellite revisit intervals (Sentinel-1 6–12 days, optical cloud-limited) undersample flood hydrographs: the maximum extent of short floods is frequently missed or observed only between acquisitions."
+  required_roles: [SUPPORTS, BACKGROUND]
+  manuscript_relevance: CORE
+  key_terms_primary: ["revisit", "revisit time", "revisit frequency", "revisit interval", "temporal resolution", "temporal sampling", "observation frequency", "sampling frequency", "acquisition frequency", "repeat cycle"]
+  key_terms_support:
+    - ["flood peak", "peak flood", "maximum extent", "peak extent", "maximum inundation", "peak", "maximum"]
+    - ["satellite", "sentinel-1", "sar", "constellation", "optical", "landsat"]
+    - ["miss", "undersampl", "under-sampl", "probability", "capture", "between acquisitions", "gap", "not observed", "timing", "duration"]
+  negative_terms: []
+  extra_queries:
+    - "probability that satellite acquisitions capture the peak of a flood event revisit versus flood duration"
+    - "flood duration shorter than satellite revisit maximum extent missed temporal sampling limitation"
+  counterevidence_queries:
+    - "Sentinel-1 six-day revisit sufficient to capture flood peak for most river floods"
+    - "flood duration exceeds revisit interval most floods observed at maximum extent"
+
+- thesis_id: TH-DIS-01
+  atomic_id: TH-DIS-01.B
+  statement: "Satellite constellations and multi-sensor combination increase the temporal sampling of floods."
+  required_roles: [BACKGROUND]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["constellation", "multi-sensor", "multisensor", "multi-mission", "combined sensors", "sensor combination", "daily revisit", "sub-daily"]
+  key_terms_support:
+    - ["flood", "inundation"]
+    - ["temporal", "revisit", "frequency", "sampling", "dynamics", "time series"]
+  negative_terms: []
+  extra_queries:
+    - "combining SAR and optical satellites improves temporal sampling of flood dynamics constellation revisit"
+  counterevidence_queries: []
+
+- thesis_id: TH-DIS-02
+  atomic_id: TH-DIS-02.A
+  statement: "Whether flooded/submerged wetland vegetation counts as 'flood' is a definitional ambiguity recognised in the flooded-vegetation literature (Tsyganskaya et al. 2018; Grimaldi et al. 2020); it changes the reported extent."
+  required_roles: [SUPPORTS, DEFINITION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["flooded vegetation", "inundated vegetation", "wetland inundation", "emergent vegetation", "submerg", "flooded forest", "flooded marsh", "vegetated flood"]
+  key_terms_support:
+    - ["definition", "defined", "ambigu", "classif", "distinguish", "separat", "confus", "delineat", "boundary"]
+    - ["sar", "radar", "sentinel-1", "remote sensing", "polarimetr"]
+    - ["flood", "inundation", "extent", "area"]
+  negative_terms: []
+  extra_queries:
+    - "SAR-based detection of flooded vegetation review definition of inundation under vegetation extent ambiguity"
+    - "wetland flood extent depends on whether flooded vegetation is included definition mapping"
+  counterevidence_queries:
+    - "flooded vegetation reliably separated from open water and dry vegetation in C-band SAR classification"
+
+- thesis_id: TH-DIS-03
+  atomic_id: TH-DIS-03.A
+  statement: "Operational SAR flood services publish exclusion / uncertainty / likelihood layers that tell users where the flood map is blind (Zhao et al. 2021; GFM, Wagner et al. 2026): the map of blind spots is a recognised product."
+  required_roles: [SUPPORTS, DATASET_DOCUMENTATION]
+  manuscript_relevance: CORE
+  key_terms_primary: ["exclusion", "uncertainty layer", "likelihood layer", "confidence layer", "exclusion mask", "exclusion map", "no-data mask", "reliability layer", "uncertainty product"]
+  key_terms_support:
+    - ["global flood monitoring", "gfm", "operational", "service", "copernicus", "product", "user"]
+    - ["sentinel-1", "sar", "radar"]
+    - ["flood"]
+  negative_terms: []
+  extra_queries:
+    - "operational Sentinel-1 flood service exclusion layer uncertainty layer where flood cannot be detected users"
+  counterevidence_queries: []
+
+- thesis_id: TH-DIS-04
+  atomic_id: TH-DIS-04.A
+  statement: "Bathymetry / channel geometry controls stage and arrival timing in outburst- and dam-break flood modelling; models are calibrated or validated against observed extents, stages or satellite water-surface elevations."
+  required_roles: [SUPPORTS, BACKGROUND]
+  manuscript_relevance: SUPPORTING
+  key_terms_primary: ["outburst flood", "dam-break", "dam break", "dam breach", "glof", "breach flood", "outburst"]
+  key_terms_support:
+    - ["bathymetry", "channel geometry", "river geometry", "topography", "dem", "cross-section", "cross section"]
+    - ["stage", "water level", "timing", "arrival time", "peak", "depth", "extent"]
+    - ["2d", "two-dimensional", "hec-ras", "hydrodynamic", "hydraulic model", "simulation", "calibrat", "validat"]
+  negative_terms: []
+  extra_queries:
+    - "dam break 2D hydrodynamic model sensitivity to bathymetry stage timing calibration observed flood extent satellite"
+    - "outburst flood model validation against observed water surface elevation satellite altimetry SWOT"
+  counterevidence_queries:
+    - "outburst flood model insensitive to bathymetry roughness dominates uncertainty"
+
+# ── Supplementary theses (theses_supplement.yaml; T23–T26, added 2026-09-28, queries_version 1.1.0) ──
+- thesis_id: TH-RES-16
+  atomic_id: TH-RES-16.A
+  statement: "On drained reservoir beds, tidal flats and exposed wet sediment, low C-band backscatter from smooth wet mud resembles open water, so a SAR dark-surface rule overestimates the water area there."
+  required_roles: [SUPPORTS, LIMITATION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["mudflat", "mud flat", "tidal flat", "intertidal", "wet sediment", "exposed sediment", "lake bed", "lakebed", "reservoir bed", "drained reservoir", "dry lake", "playa", "exposed bottom", "exposed shore"]
+  key_terms_support:
+    - ["sar", "sentinel-1", "radar", "backscatter", "c-band"]
+    - ["water", "open water", "misclassif", "confus", "overestimat", "similar", "dark", "low backscatter"]
+  negative_terms: []
+  extra_queries:
+    - "SAR water mapping errors over wet mudflats and exposed lake sediments low backscatter"
+    - "Sentinel-1 intertidal flats wet sand backscatter similar to water classification"
+  counterevidence_queries:
+    - "wet mud increases radar backscatter distinguishable from open water Sentinel-1"
+- thesis_id: TH-RES-16
+  atomic_id: TH-RES-16.B
+  statement: "Published satellite estimates of the Kakhovka pool water area during and after the drawdown exist, each with its own sensor and date (Yi et al. 2025; Novitskyi et al. 2024; Monti et al. 2024; others)."
+  required_roles: [COMPARATOR]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["kakhovka", "kakhovske", "kakhovska"]
+  key_terms_support:
+    - ["reservoir", "pool", "water surface", "water area", "water body", "waterbody"]
+    - ["km2", "km²", "square kilomet", "hectare", "area"]
+    - ["sentinel-1", "sentinel-2", "landsat", "sar", "optical", "satellite", "imagery"]
+  negative_terms: []
+  extra_queries:
+    - "Kakhovka reservoir remaining water area km2 June July 2023 satellite estimate"
+  counterevidence_queries: []
+- thesis_id: TH-RES-16
+  atomic_id: TH-RES-16.C
+  statement: "Intersection over union (Jaccard index) between two binary water maps is a standard agreement measure for flood and water mapping."
+  required_roles: [DEFINITION]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["intersection over union", "jaccard", "iou"]
+  key_terms_support:
+    - ["water", "flood", "inundation", "segmentation"]
+    - ["agreement", "accuracy", "metric", "evaluat", "compar"]
+  negative_terms: []
+  extra_queries:
+    - "intersection over union water map agreement metric flood segmentation evaluation"
+  counterevidence_queries: []
+- thesis_id: TH-RES-17
+  atomic_id: TH-RES-17.A
+  statement: "Field and remote-sensing studies document the colonisation of the drained Kakhovka reservoir bed by vegetation within months of the 2023 drainage."
+  required_roles: [SUPPORTS, COMPARATOR]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["kakhovka", "kakhovske", "kakhovska"]
+  key_terms_support:
+    - ["vegetation", "plant cover", "willow", "reed", "overgrow", "overgrowth", "colonis", "coloniz", "succession", "revegetat"]
+    - ["bottom", "bed", "drained", "exposed", "former reservoir", "dried"]
+  negative_terms: []
+  extra_queries:
+    - "plant cover of the former Kakhovka reservoir bottom after drainage 2023 willow poplar reed"
+  counterevidence_queries: []
+- thesis_id: TH-RES-17
+  atomic_id: TH-RES-17.B
+  statement: "Exposed reservoir sediments are colonised rapidly by vegetation after drawdown or dam removal (general precedent)."
+  required_roles: [SUPPORTS, BACKGROUND]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["dam removal", "reservoir drawdown", "drawdown", "drained reservoir", "former reservoir", "exposed sediment", "exposed reservoir", "reservoir bed"]
+  key_terms_support:
+    - ["vegetation", "revegetat", "colonis", "coloniz", "succession", "plant", "willow", "reed"]
+    - ["sediment", "bed", "bottom", "exposed"]
+  negative_terms: []
+  extra_queries:
+    - "vegetation establishment on exposed reservoir sediments following dam removal Elwha"
+  counterevidence_queries: []
+- thesis_id: TH-RES-18
+  atomic_id: TH-RES-18.A
+  statement: "Sentinel-2 spectral indices (NDVI, NDWI, MNDWI, NDMI, BSI and others) have been used to monitor the drying and vegetation of the drained Kakhovka reservoir bed."
+  required_roles: [COMPARATOR, METHOD_FROM]
+  manuscript_relevance: SUPPLEMENTARY
+  key_terms_primary: ["kakhovka", "kakhovske", "kakhovska"]
+  key_terms_support:
+    - ["ndvi", "ndwi", "mndwi", "ndmi", "bsi", "spectral index", "spectral indices", "vegetation index"]
+    - ["sentinel-2", "landsat", "satellite", "remote sensing"]
+  negative_terms: []
+  extra_queries:
+    - "spectral indices transformation of the Kakhovka reservoir bottom landscape after drainage Sentinel-2"
+  counterevidence_queries: []
+
+# ── Novelty questions (brief §14) — answered by a human from the closest retained papers ──
+novelty_questions:
+  - nq_id: NQ1
+    question: "Has any previous paper produced a daily downstream Kakhovka inundation extent/depth/volume series constrained by observed SWOT/gauge water-surface geometry and terrain?"
+    atomic_claim_ids: [TH-INT-03.B, TH-RES-02.A, TH-MET-01.A, TH-DIS-04.A]
+  - nq_id: NQ2
+    question: "Has any previous paper reconstructed the areal maximum of a flood between discrete flood-mask acquisitions?"
+    atomic_claim_ids: [TH-DIS-01.A, TH-DIS-01.B, TH-RES-01.B, TH-MET-01.A]
+  - nq_id: NQ3
+    question: "Has any Kakhovka study explicitly separated total water surface, newly inundated area, wetland submergence, snapshot SAR dark water and persistent weak-label flood?"
+    atomic_claim_ids: [TH-RES-02.A, TH-RES-08.A, TH-MET-05.B, TH-DIS-02.A]
+  - nq_id: NQ4
+    question: "Has any study on this event combined the terrain/S1 disagreement with ICESat-2 ground-height consistency checks?"
+    atomic_claim_ids: [TH-RES-06.B, TH-RES-06.A, TH-MET-10.B, TH-RES-04.A]
+  - nq_id: NQ5
+    question: "Has any study tested how weak-label ontology changes EO flood segmentation while maintaining spatially blocked evaluation?"
+    atomic_claim_ids: [TH-INT-07.B, TH-MET-12.A, TH-MET-14.A, TH-RES-10.A]

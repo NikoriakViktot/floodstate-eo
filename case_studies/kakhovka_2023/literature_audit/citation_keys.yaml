@@ -1,0 +1,70 @@
+# In-text citation keys used in revisions.yaml that are NOT keys of references.bib.
+# value = corpus paper_id, or {paper_id, doi, year, journal} when the corpus record lacks them.
+Agerbeek_2024: 10.59490_jcrfr.2024.0016
+Amitrano_2024: remotesensing-16-00656-v2
+ArcosGonzalez_2026: 10.1017_dmp.2024.41
+Bates_2021: annurev-fluid-030121-113138
+Bates_DeRoo_2000:
+  doi: 10.1016/s0022-1694(00)00278-x
+  journal: Journal of Hydrology
+  paper_id: 10.1016_s0022-1694_00_00278-x
+  year: '2000'
+Baugh_2013: 10.1002_wrcr.20412
+Bekele_2022: 1-s2.0-S2666592122000130-main
+Belgiu_Dragut_2016: 10.1016_j.isprsjprs.2016.01.011
+Betterle_2024: nhess-24-2817-2024
+Cunha_2012: 10.1029_2012wr012138
+DePaiva_2013: 10.1002_wrcr.20067
+DeVries_2020: 10.1016_j.rse.2020.111664
+FassoniAndrade_2023: model_hec_ras_0609
+Feyisa_2014: 10.1016_j.rse.2013.08.029
+Garg_2023: cross-modal-distillation-for-flood-extent-mapping
+Giordan_2018: nhess-18-1493-2018
+Gleick_2023: Earth s Future - 2023 - Gleick - Rivers and Water Systems as Weapons
+  and Casualties of the Russia‐Ukraine War
+Guo_2025: 1-s2.0-S0022169425007036-main
+Hawker_2018: 10.3389_feart.2018.00233
+Iqbal_2023: AshikIqbal_EffectivenessofDEMsforFloodModeling_jfr3.12937
+Islam_2022: 1-s2.0-S1569843222001911-main
+Jarrett_2023: water-15-02182
+Jiao_2025: Knowledge-Driven_Flood_Intelligent_Monitoring_KDFIM_Method_Analyzing_the_Kakhovka_Dam_Destruction_Incident
+Katiyar_2021: 10.3390_rs13122334
+Kulp_Strauss_2019: 10.1038_s41467-019-12808-z
+Kuzemko_2024: Reach_the_bottom_plant_cover_of_the_form
+Kuzemko_2025: ukrbotj-2025-82-5-488
+Landuyt_2019: 10.1109_tgrs.2018.2860054
+Magas_2023:
+  note: conference paper (Monitoring 2023, Kyiv); no DOI in the corpus record
+  paper_id: Mon23-147
+  year: '2023'
+Martinis_2015: 10.1080_01431161.2015.1060647
+Martinis_Plank_2018: remotesensing-10-00583
+Misra_2025: s41467-025-60973-1
+Neal_2012: Water Resources Research - 2012 - Neal - A subgrid channel model for simulating
+  river hydraulics and floodplain inundation
+Normandin_2024: 10.3389_frsen.2024.1466695
+Novitskyi_2024: 10.3389_fenvs.2024.1301435
+Nuth_2011: 10.5194_tc-5-271-2011
+Pichura_2025: s42452-025-07404-4
+Refice_2017: refice2017
+Sharma_2025: 1-s2.0-S2666017225000094-main
+Silwal_2026: earth-07-00044-v2
+Singha_2020: 10.1016_j.isprsjprs.2020.06.011
+Stephens_2014: 10.1002_hyp.9979
+Tarpanelli_2022: nhess-22-2473-2022
+Tsiupa_2023:
+  note: conference paper (Monitoring 2023, Kyiv); no DOI in the corpus record
+  paper_id: Mon23-170
+  year: '2023'
+Tsyganskaya_2018: 10.1080_01431161.2017.1420938
+Tuan_2020: Optimizing flood mapping using multi-synthetic aperture radar images for
+  regions of the lower mekong basin in Vietnam
+Tutova_2025: '10.15421_012528'
+Vyshnevskyi_2024: 10.2478_jlecol-2024-0014
+Wagner_2020: isprs-annals-V-3-2020-641-2020
+Yailymov_2025: Flooded_and_Irrigation_Area_Monitoring_After_the_Kakhovka_Dam_Disaster_Based_on_Machine_Learning_and_Satellite_Data
+Yamazaki_2017: 10.1002_2017gl072874
+Yamazaki_2019: 10.1029_2019wr024873
+Yu_2024: Validation_of_Mainland_Water_Level_Elevation_Products_From_SWOT_Satellite
+Zhao_2025: Urban_Flood_Mapping_Using_Satellite_Synthetic_Aperture_Radar_Data_A_review_of_characteristics_approaches_and_datasets
+Zuo_2024: Impact_Assessment_of_Flood_Events_Based_on_Multisource_Satellite_Remote_Sensing_The_Case_of_Kahovka_Dam

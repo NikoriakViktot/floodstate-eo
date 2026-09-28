@@ -1,0 +1,59 @@
+# Theses for results added to the floodstate-eo bundle AFTER literature/theses.csv was generated
+# (commit 7932bd0: reservoir drawdown maps and tables, T23–T26, FigS08–S09). Same schema as theses.json.
+# Numbers are copied from the synced tables; the captions call these results "context, no claim".
+# Added 2026-09-28 at the author's request ("Так вносити").
+theses:
+- id: TH-RES-16
+  section: "4.1 Reservoir drawdown (Supplement: T23, FigS08)"
+  category: result
+  priority: medium
+  tables: [T23]
+  thesis: >-
+    Inside the pre-breach pool the modelled water under the sloped daily surface agrees with Sentinel-2 water on 5 June
+    (IoU 0.98) and with the Sentinel-1 VH dark surface on 1, 8, 9 and 13 June (IoU 0.98, 0.97, 0.93, 0.85); after ~13 June
+    the VH dark surface also covers smooth wet mud on the exposed flats (S1 2077 km² on 21 June vs S2 water 648 km² on
+    20 June), so it is not a water area there; Yi et al. (2025) report 825 km² of reservoir water from S1 on 20 June.
+  needs: >-
+    SAR behaviour of wet exposed sediment / drained lake beds (look-alike of open water); every published Kakhovka pool-area
+    series with its sensor and date (Yi 2025; Novitskyi 2024; Monti 2024; Shults 2025; Magas/Tsiupa 2023); where Yi's
+    825 km² comes from (text or figure); IoU/Jaccard as an agreement measure.
+  refs:
+    - {key: Yi_2025, relation: COMPARATOR, status: verified}
+    - {key: Monti_2024, relation: COMPARATOR, status: verified}
+    - {key: "?mudflat_sar_lookalike", relation: NEEDS_SOURCE, status: "missing (search)"}
+  search_queries:
+    - "Kakhovka reservoir water surface area decrease after dam breach Sentinel-1 Sentinel-2 June 2023"
+    - "SAR backscatter exposed wet sediment mudflat drained reservoir bed confused with open water"
+- id: TH-RES-17
+  section: "4.1 Reservoir drawdown (Supplement: T24, FigS08)"
+  category: result
+  priority: low
+  tables: [T24]
+  thesis: >-
+    Sentinel-2 surface classes of the pool show the drained bed as mostly dry bare sediment on 5 July (49 % of the observed
+    pool; 61 % of the flats exposed by 13 June) and recolonised by vegetation by September (reed/flooded vegetation 36–39 %
+    of the pool, 47–50 % of the exposed flats; herbaceous classes ~25–30 %).
+  needs: >-
+    Field and remote-sensing accounts of vegetation on the former Kakhovka bed in 2023 (Kuzemko 2024; Vyshnevskyi 2024;
+    Tutova 2025; Novitskyi 2024); general literature on vegetation colonisation of exposed reservoir beds after drawdown
+    or dam removal.
+  refs:
+    - {key: "?Kuzemko_2024", relation: NEEDS_SOURCE, status: "missing (search)"}
+  search_queries:
+    - "vegetation colonisation of the drained Kakhovka reservoir bed 2023 plant cover"
+    - "revegetation of exposed reservoir sediments after drawdown dam removal first year"
+- id: TH-RES-18
+  section: "4.1 Reservoir drawdown (Supplement: T25, T26, FigS09)"
+  category: result
+  priority: low
+  tables: [T25, T26]
+  thesis: >-
+    The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool track the drying and the
+    greening of the exposed bed between 5 June, 5 July and 8 September 2023; the display bins are not a classifier.
+  needs: >-
+    Studies that used spectral indices to monitor the drained Kakhovka bed (Tutova 2025; Sergieieva; Yailymov 2026) and
+    index-based monitoring of drained lake/reservoir beds in general.
+  refs: []
+  search_queries:
+    - "spectral indices NDVI NDWI monitoring the drained Kakhovka reservoir bottom 2023 Sentinel-2"
+    - "remote sensing indices drying and vegetation succession on exposed lake bed after drainage"

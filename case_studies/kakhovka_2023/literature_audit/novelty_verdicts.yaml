@@ -1,0 +1,45 @@
+# Novelty answers (brief §14) — a HUMAN decision after reading the closest precedents; never "first".
+# Denominators: corpus 5 027 normalized papers; slice K_any = 146 papers mentioning Kakhovka in full text,
+# K_ta = 82 with Kakhovka in title/abstract (keyword screens in 04_search_log / 01 §6). Wording rule:
+# "To our knowledge within the literature reviewed (…)" only where the denominator is named.
+verdicts:
+- nq_id: NQ1
+  verdict: NO EVIDENCE FOUND IN CORPUS
+  denominator: "K_ta = 82; 8 hit all four vocabularies (daily / inundation / water-surface / terrain); all 8 read"
+  closest:
+    - "Lehnigk et al. 2026 (GRL): daily SWOT water-surface elevations of this event used to EVALUATE 2-D GeoClaw simulations; no terrain projection, no inundation series"
+    - "Agerbeek et al. 2024: near-real-time Tygron hydrodynamic model of the breach checked against ICEYE extents and geolocated photographs — model-based daily extents/depths/arrival times"
+    - "Kadam et al. 2024: HEC-RAS 1-D/2-D scenario extents (823/874/681 km²), 1-D maximum on 8 June 16:00"
+    - "Zuo et al. 2024: Sentinel-3 OLCI water-surface area series (300 m) plus SWOT WSE plots — observed, coarse, no terrain projection"
+  statement: "Within the literature reviewed, no study reports a daily downstream inundation extent/depth/volume series for the Kakhovka flood constrained by observed SWOT/gauge water-surface geometry projected on terrain without solving flow equations; the daily series that exist are hydrodynamic-model outputs (Agerbeek; Kadam) or observed water-surface areas at 300 m (Zuo)."
+- nq_id: NQ2
+  verdict: PARTIAL
+  denominator: "whole corpus 4 838 canonical papers; 3 co-locate a 'between acquisitions' phrase with a maximum-extent phrase; 1 is a method (Refice 2017)"
+  closest:
+    - "Refice et al. 2017: InSAR coherence 'acts as a sort of persistent change detector, registering the maximum extent of inundation' between two acquisitions — where water passed, not when or how deep"
+    - "Tarpanelli et al. 2022; DeVries et al. 2020; Giordan et al. 2018: quantify or document that revisit intervals miss flood maxima (verified quotes) — the problem, not a reconstruction"
+    - "Lehnigk et al. 2026: daily SWOT stages resolve the peak stage timing but not extent"
+  statement: "Reconstructing where the maximum lay between two images is established through InSAR coherence (Refice et al. 2017); reconstructing the maximum extent, depth and volume on a specific day from an observed daily water surface and terrain is not found in the corpus."
+- nq_id: NQ3
+  verdict: NO EVIDENCE FOUND IN CORPUS
+  denominator: "K_ta = 82; 6 hit ≥ 3 of the 4 vocabularies (total water / new / submergence / persistent); all 6 read"
+  closest:
+    - "Yailymov et al. 2025: flooded land as of 9 June by land-cover class relative to a pre-flood water map (wetlands 294 of 473 km²) — separates classes, not the five quantities"
+    - "Jiao et al. 2025 (KDFIM): discusses confusion with permanent water in extraction; single-definition extent"
+    - "Zuo et al. 2024: total water-surface area only"
+    - "Monti et al. 2024: change-detection flooded area vs pre-event water; one definition"
+  statement: "No Kakhovka study in the corpus separates total water surface, newly inundated area, wetland submergence, snapshot SAR dark water and persistent weak-label flood; the closest (Yailymov et al. 2025) separates land-cover classes of one flooded-land quantity."
+- nq_id: NQ4
+  verdict: NO EVIDENCE FOUND IN CORPUS
+  denominator: "K_ta = 82; 1 mentions ICESat-2 (Lehnigk et al. 2026)"
+  closest:
+    - "Lehnigk et al. 2026: ICESat-2 ATL08 (Aug 2023) on the exposed reservoir bed to evaluate interpolated bathymetries (median offsets 8.6 / 6.1 m) — upstream, bathymetry, no Sentinel-1 disagreement"
+  statement: "No study on this event combines a terrain/Sentinel-1 disagreement decomposition with ICESat-2 ground-height consistency checks along tracks; ICESat-2 has been used on the site only for the exposed reservoir bed (Lehnigk et al. 2026)."
+- nq_id: NQ5
+  verdict: NO EVIDENCE FOUND IN CORPUS
+  denominator: "whole corpus 4 838; 0 combine weak/noisy flood labels AND spatially blocked evaluation AND flood in their text"
+  closest:
+    - "Bonafilia et al. 2020; Katiyar et al. 2021; Bai et al. 2021: Sen1Floods11 weak-label U-Nets evaluated on held-out EVENTS (blocking by event, not by space)"
+    - "Sharma et al. 2025 (DeepSARFlood): weak optical labels, permanent water by JRC seasonality"
+    - "Roberts et al. 2017 (block CV) and Silwal et al. 2026 (review): spatially blocked evaluation, not with weak flood labels"
+  statement: "No study in the corpus tests how the weak-label ontology (reference-water class, persistence rule) changes EO flood segmentation while holding a spatially blocked evaluation fixed; weak-label flood studies block by event, spatial-CV studies do not use weak flood labels."

@@ -1,0 +1,159 @@
+# Human overrides applied LAST by tools/paper3_audit/export.py (brief §7/§11). Each entry carries
+# who read the passage, when, and why. Per-pair entries change a role; per-claim entries (no paper_id)
+# set a status or the manuscript relevance. Nothing here invents evidence: every role change is a
+# re-reading of a passage that Gemini labelled, quoted verbatim and the quote gate verified.
+overrides:
+
+# ── CONTRASTS rows that are variant definitions or alternative methods, not disagreements ──
+- atomic_claim_id: TH-MET-05.A
+  paper_id: 1-s2.0-S2666017225000094-main
+  role: METHOD_FROM
+  justification: "DeepSARFlood separates permanent water with the JRC seasonality layer (> 5 months) — a different reference-water definition, which supports the claim that flood is defined outside a reference layer rather than contradicting it; recorded as a variant definition in 08 §B."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-MET-06.A
+  paper_id: s40677-025-00309-9
+  role: BACKGROUND
+  justification: "Mukherjee et al. 2025 propose an Elevation Deviation Index as an alternative to stochastic simulation for DEM comparison; an alternative method for a different purpose, not a finding against correlated-field propagation."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-MET-08.A
+  paper_id: model_hec_ras_1478
+  role: BACKGROUND
+  justification: "The paper uses HR/FAR/FB/GSS — the same contingency-table family (GSS = equitable threat score); using GSS instead of CSI does not contradict a definition claim."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-MET-14.B
+  paper_id: 10.1175_jcli-d-12-00502.1
+  role: NOT_RELEVANT
+  justification: "The quoted sentence concerns annual-maximum climate series where a block size of one sufficed; it says nothing about spatial blocks for map-accuracy intervals. Not evidence for or against the claim."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-10.A
+  paper_id: remotesensing-11-02331-v2
+  role: BACKGROUND
+  justification: "A model that does not need a permanent-water mask is an alternative design, not a finding that treating reference water as a negative class fails to reduce false flood on recurrent water."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-04.A
+  paper_id: 10.5194_nhess-19-2405-2019
+  role: NOT_RELEVANT
+  justification: "Unverified BACKGROUND row with the refusal rationale (parse artefact of one lane); Johnson 2019 is retained for TH-INT-09.B with a verified quote instead."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+
+# ── genuine qualifications kept as CONTRASTS (documented so the status is deliberate) ──
+- atomic_claim_id: TH-RES-11.A
+  paper_id: water-15-04034
+  role: CONTRASTS
+  justification: "Tupas et al. 2023: a HAND prior in Bayesian Sentinel-1 flood mapping reduced false negatives 'at the cost of slightly increasing false positives' — the opposite trade-off to this paper's cropland result. Kept as CONTRASTS; the manuscript now says the direction of the terrain effect is design-specific (revision B-16)."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-MET-03.C
+  paper_id: annurev-fluid-030121-113138
+  role: CONTRASTS
+  justification: "Bates 2021: HAND-type methods 'do not preserve hydraulic connectivity'. Genuine; the manuscript's connectivity rule is an addition (revision B-09)."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-MET-03.C
+  paper_id: 10.1029_2018wr023457
+  role: CONTRASTS
+  justification: "Zheng et al. 2018: GeoFlood flags depressions 'even if they are not connected with the main stem river'. Genuine (revision B-09)."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+
+# ── role upgrades after reading (quote verified by the gate; role too weak) ──
+- atomic_claim_id: TH-RES-15.A
+  paper_id: Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using
+  role: LIMITATION
+  justification: "Yi et al. 2025 state that bathymetry data for the reservoir are 'unavailable' and derive the area–height relation instead — this is the documented absence of a published bathymetry, i.e. the limitation the hypsometry gap of §4.1 rests on."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-01.C
+  paper_id: 10.1017_dmp.2024.41
+  role: DATASET_DOCUMENTATION
+  justification: "The passage identifies the HDX dataset FL20230606UKR (UNOSAT) as containing the ICEYE image of 7 June 2023 13:01 UTC — dataset identity for the 7 June product named in theses.csv."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-INT-02.A
+  paper_id: 10.1017_dmp.2024.41
+  role: DATASET_DOCUMENTATION
+  quote_verified: true
+  evidence_quote: "The data on flood extent secondary to the Nova Kakhovka dam bombing, ICEYE satellite image on June 7, 2023, 13:01 UTC, were obtained from OCHA Humanitarian Data Exchange, UNOSAT code FL20230606UKR"
+  justification: "Same passage (verified for TH-RES-01.C) names the UNOSAT/HDX product code behind the operational figures; added to the UNOSAT claim as documentation of the dataset identity (sensor ICEYE, 7 June 13:01 UTC)."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+
+# ── manuscript relevance (brief §11) confirmed after reading ──
+- atomic_claim_id: TH-MET-07.A
+  manuscript_relevance: SUPPLEMENTARY
+  justification: "One ANN-emulator precedent (GLUE surrogate) only; the emulator envelope is a sensitivity aside — keep in Supplement."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-09.A
+  manuscript_relevance: SUPPLEMENTARY
+  justification: "RF20 agreement with WorldCover is context; no comparator paper reports agreement with WorldCover as a training reference."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-12.A
+  manuscript_relevance: SUPPLEMENTARY
+  justification: "Leakage definition rests on metadata-verified sources (Apicella; Kaufman not in corpus); U2b stays a diagnostic in the Supplement."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+- atomic_claim_id: TH-RES-14.C
+  manuscript_relevance: SUPPLEMENTARY
+  justification: "Level-source documentation (Nikopol, G-REALM) belongs to the data statement, not the main text."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+
+# ── status corrections where the rule could not see 07c ──
+- atomic_claim_id: TH-DAT-06.A
+  status: SOURCE_FOUND_METADATA_UNVERIFIED
+  justification: "Lindsay 2016 (WhiteboxTools) is not in the corpus, but its DOI 10.1016/j.cageo.2016.07.003 was verified in 07c (CrossRef title match 1.0); the rule R6 saw no resolved reference because 07 ran before 07c."
+  read_by: Claude (Fable 5.1)
+  date: 2026-09-28
+
+# ── Supplementary theses TH-RES-16..18 (T23–T26): Ollama (mistral-nemo) first pass, every row re-read ──
+- {atomic_claim_id: TH-RES-16.A, paper_id: remotesensing-11-00879, role: LIMITATION, quote_verified: true,
+   evidence_quote: "With sufficiently little roughness relative to wavelength, even bare soil can be misidentified as water.",
+   justification: "No corpus sentence ties wet mud / exposed lake beds to SAR water look-alikes (whole-corpus sentence probe: 0 hits); the documented mechanism is smooth bare surfaces (Shen et al. 2019, quote verified for TH-RES-04.B). Carried over as the closest documented limitation.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.A, paper_id: "DeepSAR Flood Mapper  global flood mapping on google earth engine cloud platform using MLP deep learning model with Sentinel-1 SAR imagery and HAND to", role: LIMITATION, quote_verified: true,
+   evidence_quote: "smooth bare soil and shallow inundation can produce nearly identical VV backscatter",
+   justification: "Same mechanism, verified for TH-RES-04.B; arid smooth bare soil, not wet mud.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: "Ukrainian Journal of Forest and Wood Science_15_1_2024_25-40", role: NOT_RELEVANT, justification: "Quote is about vegetation biomass, not pool water area.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: 10.1080_02508060.2023.2247679, role: NOT_RELEVANT, justification: "Quote is the 8.2 km2 cooling pond of the nuclear plant, not a pool area estimate.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: Mon23-147, role: COMPARATOR, quote_verified: true,
+   evidence_quote: "as of September 8, 2023, 379,742 km 2 remained from the total area of the Kakhovka Reservoir, which was 2,091.48 km 2 on June 5, 2023",
+   justification: "Magas et al. (Sentinel-2, 10 m): 2091.48 km2 on 5 June; on 8 Sept 379.742 km2 remained (restored Dnipro channel 133.066 + lakes and shallow waters 246.676 km2; the comma is a thousands-style decimal in the source). Read in the corpus text.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: Mon23-170, role: COMPARATOR,
+   justification: "Tsiupa et al.: on 6 Sept 2023 dry surface 1710.86 km2, flooded-and-wet 110.15 km2, open water only 1.63 km2 of a 2054.32 km2 OSM pool — a different (open-water-only) definition that disagrees by two orders of magnitude with Magas (379.7 km2) and Novitskyi (~430 km2, August). Recorded as a definitional comparator, not averaged.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: 10.3389_fenvs.2024.1301435, role: COMPARATOR,
+   justification: "Novitskyi et al. 2024 quote a state report (UHMI SES / NAS): 655.9 km2 of remaining shallow areas plus the restored channel on 17 June (31.8 %); ~430 km2 after two months. Not their own satellite estimate.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.B, paper_id: "Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using", role: COMPARATOR, quote_verified: true,
+   evidence_quote: "The inundation area started to reduce by about 280 km 2 in the first 4 days (6-10th June), by about 1,000 km 2 in the next 10 days (11-20th June), and by about 460 km 2 in the last 10 days (21-30th June).",
+   justification: "Ollama's quote failed the gate; this sentence was read in the corpus text (kakhovka_numbers N00440-442). With 2125 km2 on 30 May it implies ~845 km2 by 20 June and ~385 km2 by 30 June; Yi map water with Sentinel-1 SDWI AND Sentinel-2 mNDWI. The 824.76 / 2089.2 / 1848.84 / 369.42 km2 of T23 are not in the text.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.C, paper_id: A_Fine_Agricultural_Flood_Segmentation_Model_for_HJ-2E_S-Band_SAR_Data, role: DEFINITION, justification: "Defines IoU for flood segmentation (verified quote).", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.C, paper_id: paper37, role: DEFINITION, justification: "Sergieieva et al. define the Jaccard index / IoU for water masks of the drained Kakhovka reservoir (verified quote) — same site, same metric.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-16.C, paper_id: "Water Resources Research - 2025 - Yi - Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using", role: NOT_RELEVANT, justification: "Event context only.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.A, paper_id: 10.3389_fenvs.2024.1301435, role: NOT_RELEVANT, justification: "Verified quote is about fish, not vegetation.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.A, paper_id: Mon23-170, role: NOT_RELEVANT, justification: "Quote is a water-area figure, not vegetation.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.A, paper_id: Mon23-147, role: NOT_RELEVANT, justification: "Quote is a water-area figure, not vegetation.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.A, paper_id: ukrbotj-2025-82-5-488, role: SUPPORTS, quote_verified: true,
+   evidence_quote: "taxa of vascular plants in the area increased nearly 14 times during the year, thus contradicting initial pessimistic predictions and scenarios of desertification, ruderalization, and large-scale invasions of invasive alien species",
+   justification: "Initial stages of revegetation at the bottom of the drained Kakhovka Reservoir (Ukr. Bot. J. 2025); verified for TH-RES-17.B, belongs to the Kakhovka claim.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.B, paper_id: ukrbotj-2025-82-5-488, role: BACKGROUND, justification: "Kakhovka itself, not an independent drawdown/dam-removal precedent.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.B, paper_id: Reach_the_bottom_plant_cover_of_the_form, role: BACKGROUND, justification: "Kakhovka itself.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.B, paper_id: shumilova_farewell_to_a_dam_adn8655, role: BACKGROUND, justification: "Mentions colonisation of sediment as a control on contaminant mobilisation; Kakhovka, not a precedent.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.B, status: NO_EVIDENCE_IN_CORPUS, manuscript_relevance: SUPPLEMENTARY,
+   justification: "Only the Kakhovka case itself was retained; no other drawdown or dam-removal revegetation study (e.g. Elwha) is in the corpus text reached by retrieval.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: 10.3389_fenvs.2024.1301435, role: BACKGROUND, justification: "Water-area monitoring with LandViewer, not spectral indices.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: Mon23-147, role: METHOD_FROM, justification: "Sentinel-2 10 m monitoring of the drained reservoir (verified quote).", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: Mon23-170, role: BACKGROUND, justification: "Generic satellite/GIS statement.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: 10.1080_02508060.2023.2247679, role: BACKGROUND, justification: "A figure caption naming a Sentinel-2 image of 30 June 2023; no indices.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: "10.15421_012528", role: METHOD_FROM, quote_verified: true,
+   evidence_quote: "The methodology combines spectral vegetation indices, principal component analysis, and Procrustean analysis to evaluate spatial and functional transformations",
+   justification: "Ollama's quote failed the gate; this sentence was read in the corpus text. Tutova et al. 2025 use spectral vegetation indices to assess the transformation after the Kakhovka drainage.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-18.A, paper_id: s42452-025-07404-4, role: METHOD_FROM, quote_verified: true,
+   evidence_quote: "Changes in the plant growth were identified using the Sentinel 2 L2A data based on the indices of decoded satellite images, namely: Bare soil index (BSI)",
+   justification: "Pichura et al. 2025 use BSI, NDVI and other Sentinel-2 L2A indices — for the irrigation zone of the former reservoir, not its bed.", read_by: Claude (Opus 5.5), date: 2026-09-28}
+- {atomic_claim_id: TH-RES-17.A, paper_id: s42452-025-07404-4, role: COMPARATOR, justification: "Pichura et al. 2025 give a number for the same bed and period (135 thousand ha covered with plants in 2023–2024; verified quote) — a comparator for T24, with its own definition (Sentinel-2 indices).", read_by: Claude (Opus 5.5), date: 2026-09-28}
