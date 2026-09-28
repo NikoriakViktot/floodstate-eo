@@ -91,5 +91,5 @@
  },
  "reach_sum_check_max_abs_km3": 0.01,
  "note": "design curve read at observed levels; sloped surface -> range outlet..Rozumivka; nothing fitted",
- "seconds": 0.1
+ "seconds": 0.2
 }

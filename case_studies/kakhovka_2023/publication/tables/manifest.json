@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-28T14:17:34Z",
- "git_commit": "1bb85749090874d6a69647970b545c54433797e1",
+ "generated_utc": "2026-09-28T14:28:12Z",
+ "git_commit": "7231e2157d8b61601a1e3acaac60442acd8e444c",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -404,13 +404,13 @@
    "sha256": "aa1d9e28d2342a0320554a3c344b9f2ac3110e900e147c3e10ffbced28cdecd1"
   },
   "T27b": {
-   "caption": "The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow: Q_out = Q_in - dV_design/dt = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals). NaN once the outlet is below 10.0 m, the lowest level of Table 19. Context for Paper 4.",
+   "caption": "The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). 'Outlet' = SWOT nodes at 0 km, the pool just above the dam; for comparison the SWOT level 0.5 km below the dam (p59/p60) and the Kherson gauge 80805, with the head across the dam and pool-minus-Kherson. Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow: Q_out = Q_in - dV_design/dt = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals). NaN once the outlet is below 10.0 m, the lowest level of Table 19. Context for Paper 4.",
    "evidence_level": "independent_physical",
    "rows": 160,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95i_design_daily.csv"
    ],
-   "sha256": "b2344a50f233df33a0524c569296c307cf760d9d0d3f785a2c05ac996c159c9c"
+   "sha256": "5bf1b6982f626702f28ec6be4d0427ceee6304492d4084cc54fc5faf2f9fcf48"
   },
   "T27c": {
    "caption": "The filling of the Kakhovka reservoir in spring 2023, week by week on the design curve: Rozumivka level (EVRF2019), design volume and area, weekly change, DniproHES inflow (mean discharge and volume) and the outflow through the Kakhovka HPP implied by the design-curve balance. From ~14.0 m / 13.5 km3 in early February to 17.6 m / 21.3 km3 on 5 May (7.9 km3 stored out of 22.7 km3 of inflow), held at ~17.5 m through May, then ~0.4 m lower in the last ten days before the breach. Design data + gauge + releases; no DEM.",
@@ -514,7 +514,7 @@
   "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16",
   "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3",
   "case_studies/kakhovka_2023/tables/p95i_design_hypsometry.csv": "9ad54540f20d55c1948009df40f816afafee66da681c2031805484ca6e44572c",
-  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "b2344a50f233df33a0524c569296c307cf760d9d0d3f785a2c05ac996c159c9c",
+  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "5bf1b6982f626702f28ec6be4d0427ceee6304492d4084cc54fc5faf2f9fcf48",
   "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "b3ce890f15a934a980fc8c1eb623996c6faa8ce31ea133339a12364ae5b29565"
  }
 }

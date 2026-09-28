@@ -18,6 +18,9 @@
              before the breach (Paper 1 / p1f: pre-breach longitudinal slope ~0.04 cm/km, VERIFY), so one gauge reads the
              whole pool. G-REALM (111 km), ICESat-2 and the SWOT outlet nodes (from 26 May) as independent checks.
              From 26 May: the p95f daily levels (SWOT outlet, Nikopol press, Rozumivka) with their hold / interpolation rules.
+             "Outlet" = the SWOT nodes at 0 km, the pool just ABOVE the dam (upper pool). Downstream for comparison: the SWOT level
+             0.5 km BELOW the dam (p59/p60) and the Kherson gauge 80805 -- the head across the dam (16.7 m before the breach,
+             6.0 m on 6 June, 1.5 m by 14 June) and the pool-minus-Kherson difference.
 
 The design curve assumes a LEVEL pool. During the drawdown the surface sloped (up to 4 m between the outlet and Rozumivka,
 p95f), so the design volume is read at the outlet level (lower value) and at the Rozumivka level (upper value) and the pair is
@@ -70,7 +73,11 @@ def main():
     out = pd.DataFrame(dict(date=DATES.strftime("%Y-%m-%d"), H_rozumivka_m=roz.round(3).values,
                             H_grealm_m=src.get("GREALM_S6A", pd.Series(index=DATES, dtype=float)).round(3).values, H_icesat2_m=src.get("ICESAT2_ATL13", pd.Series(index=DATES, dtype=float)).round(3).values))
     f = lv.set_index("t").reindex(DATES)                                # p95f daily (26 May - 10 July) with its hold / interpolation rules
-    out["H_outlet_m"] = f.H_outlet_m.values; out["H_nikopol_m"] = f.H_nikopol_m.values
+    out["H_outlet_m"] = f.H_outlet_m.values; out["H_nikopol_m"] = f.H_nikopol_m.values                # outlet = SWOT nodes at 0 km: the pool just ABOVE the dam
+    out["H_kherson_m"] = f.kherson_stage_m.values                                                        # downstream: Kherson gauge 80805 (T21)
+    bd = pd.read_csv(SD / "outputs/tables/p60_swot_outlet_drawdown.csv"); bd["date"] = pd.to_datetime(bd[[c for c in bd.columns if "date" in c.lower()][0]])
+    out["H_below_dam_0_5km_m"] = bd.set_index("date").H_below_dam_0_5km_p59.reindex(DATES).round(3).values   # SWOT just below the dam (p59)
+    out["head_across_dam_m"] = (out.H_outlet_m - out.H_below_dam_0_5km_m).round(2); out["pool_minus_kherson_m"] = (out.H_outlet_m - out.H_kherson_m).round(2)
     out["H_rozumivka_m"] = out.H_rozumivka_m.fillna(pd.Series(f.H_rozumivka_m.values)).round(3)
     out["gradient_m"] = (out.H_rozumivka_m - out.H_outlet_m).round(3)
     out["phase"] = np.where(pd.to_datetime(out.date) < P95F.BREACH, "pre-breach", np.where(pd.to_datetime(out.date) <= "2023-06-13", "drawdown", "post-drawdown"))
