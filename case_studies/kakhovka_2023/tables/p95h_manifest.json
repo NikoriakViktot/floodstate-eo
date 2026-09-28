@@ -1,0 +1,122 @@
+{
+ "sources": {
+  "model": "p95f sloped daily surface (load_levels/load_pool/day_points/sloped_wse), dem_seamless_evrf2019_50m.tif",
+  "s1": "/mnt/f/data_kakhovka_dem_swot/s1_zone_cache/ZONE_1_reservoir_corrected",
+  "s2": "/mnt/f/data_kakhovka_dem_swot/zone_spectral/ZONE_1_KAKHOVKA_LOWER_DNIPRO",
+  "s2_crosscheck": "/mnt/f/data_kakhovka_dem_swot/ZONE_1_s2_crosscheck",
+  "pool": "reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson)",
+  "yi2025": "SWOT-DNIPRO outputs/tables/p61_yi2025_reservoir_area.csv (VERIFY)"
+ },
+ "s1_method": "VH dB < per-date Otsu over all covered cells, clamped to [-24.0, -15.0] dB, 3x3 majority; uncovered = not observed; dark = open water or smooth wet mud; mapped if >= 10% of the pool observed",
+ "s1_thresholds_db": {
+  "2023-06-01": -17.24999999999982,
+  "2023-06-02": -17.749999999999826,
+  "2023-06-04": -17.749999999999826,
+  "2023-06-08": -19.049999999999844,
+  "2023-06-09": -18.74999999999984,
+  "2023-06-13": -16.949999999999815,
+  "2023-06-14": -17.44999999999982,
+  "2023-06-16": -17.049999999999816,
+  "2023-06-20": -18.14999999999983,
+  "2023-06-21": -18.14999999999983
+ },
+ "s2_method": "frozen SWOT-DNIPRO p25 k10e class and water3 (NDWI>0 & MNDWI>0 & SCL-permitted); p15 crosscheck water for the drawdown week; no re-classification",
+ "index_display_bins": {
+  "NDWI": {
+   "edges": [
+    -0.3,
+    0.0,
+    0.3
+   ],
+   "labels": [
+    "< \u22120.3",
+    "\u22120.3\u20130",
+    "0\u20130.3",
+    "> 0.3"
+   ]
+  },
+  "MNDWI": {
+   "edges": [
+    -0.3,
+    0.0,
+    0.3
+   ],
+   "labels": [
+    "< \u22120.3",
+    "\u22120.3\u20130",
+    "0\u20130.3",
+    "> 0.3"
+   ]
+  },
+  "AWEIsh": {
+   "edges": [
+    -0.3,
+    0.0,
+    0.3
+   ],
+   "labels": [
+    "< \u22120.3",
+    "\u22120.3\u20130",
+    "0\u20130.3",
+    "> 0.3"
+   ]
+  },
+  "NDVI": {
+   "edges": [
+    0.15,
+    0.3,
+    0.5
+   ],
+   "labels": [
+    "< 0.15",
+    "0.15\u20130.3",
+    "0.3\u20130.5",
+    "> 0.5"
+   ]
+  },
+  "NDMI": {
+   "edges": [
+    -0.1,
+    0.1
+   ],
+   "labels": [
+    "< \u22120.1",
+    "\u22120.1\u20130.1",
+    "> 0.1"
+   ]
+  },
+  "BSI": {
+   "edges": [
+    -0.1,
+    0.1
+   ],
+   "labels": [
+    "< \u22120.1",
+    "\u22120.1\u20130.1",
+    "> 0.1"
+   ]
+  },
+  "NDTI": {
+   "edges": [
+    -0.1,
+    0.1
+   ],
+   "labels": [
+    "< \u22120.1",
+    "\u22120.1\u20130.1",
+    "> 0.1"
+   ]
+  }
+ },
+ "s2_table_min_observed_frac": 0.5,
+ "strata": {
+  "POOL": "pre-breach pool polygon",
+  "EXPOSED_BY_0613": "model: wet on 06-05, dry by 06-13 (exposed_day 6..13)",
+  "WET_ON_0613": "model: still wet on 06-13"
+ },
+ "ref_day": "2023-06-05",
+ "pool_cells_model": 863911,
+ "pool_km2_s1_grid": 2172.9,
+ "pool_km2_s2_grid": 2174.7,
+ "seconds": 290
+}

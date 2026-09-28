@@ -5,6 +5,7 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - `observed_S1`: water seen by the Sentinel-1 dark-water rule on that date, minus pre-breach water (mapped, sensor-limited)
 - `mapped_UNet`: U-Net score >= frozen validation threshold (agreement with weak labels, persistent-water concept)
 - `terrain_reconstructed`: cells the reconstructed water surface allows (DEM < WSE, connected), minus the pre-breach regime
+- `observed_S2`: water or surface class seen by Sentinel-2 on that date (frozen p25 rule), observed cells only (reservoir tables T23-T26)
 - `literature_reported`: figure quoted from an operational or published product with its own AOI, date and reference water; context only
 
 ## Metric definitions
@@ -24,6 +25,9 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - **emulator envelope (SENSITIVITY)**: p05/p25/p50/p75/p95 of 100 000 cluster-normal emulator draws per day (p95g): propagation over a broader parameter space; wider than the spatial MC; never the primary interval
 - **pool volume**: seamless DEM integrated under the sloped daily water surface inside the pre-breach pool polygon (p95f); design Table 19 for reference (T22 gives dV/V_design)
 - **daily-mean effective release**: -dV_pool/dt + Q_in(DniproHES) from the storage balance: a daily mean, not an instantaneous breach discharge (T21)
+- **IoU vs model (T23)**: |sensor water ∩ model water| / |sensor water ∪ model water| on pool cells the sensor observed
+- **observed_frac**: share of the stratum (or pool) with a valid observation on that date; areas never extrapolate to unobserved cells
+- **strata (T24-T26)**: POOL = pre-breach pool polygon; EXPOSED_BY_0613 = wet on 06-05 and dry by 06-13 under the p95f surface; WET_ON_0613 = still wet on 06-13
 - **OA**: overall agreement with the reference classification
 - **macro mean**: unweighted mean over classes
 
@@ -60,3 +64,7 @@ Every model number is *agreement with weak reference labels*, never flood-mappin
 - **T20** [weak_label_agreement] Block-size sensitivity (U2 on v003_A): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences. (5 rows)
 - **T21** [independent_physical] Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage. (46 rows)
 - **T22** [independent_physical] Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives 8-12 % less volume at the same level (open question for Paper 4: reservoir bowl on the historical bathymetry). (27 rows)
+- **T23** [cross_sensor] Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi 2025 (literature_reported, VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08. (53 rows)
+- **T24** [contextual] Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k). (33 rows)
+- **T25** [contextual] Sentinel-2 index statistics inside the pool per date, stratum and index (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI; offset-corrected reflectance, 20 m, frozen p25 stacks): observed km2 and fraction, mean, std and percentiles p10/p25/p50/p75/p90 over observed cells. Strata as T24. FigS09. (231 rows)
+- **T26** [contextual] Sentinel-2 index display classes inside the pool per date, stratum and index: km2 and % of observed cells per class (bins: NDWI/MNDWI/AWEIsh -0.3/0/0.3; NDVI 0.15/0.3/0.5; NDMI/BSI/NDTI -0.1/0.1). Display classes, not a classifier (the frozen classifier is k10e, T24). FigS09. (825 rows)

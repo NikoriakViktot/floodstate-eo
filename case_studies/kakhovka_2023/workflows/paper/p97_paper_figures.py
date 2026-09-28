@@ -12,7 +12,8 @@ Main text (claims decide the figures):
   Fig08 ICESat-2 altimetric consistency check                                                                  [tables]
   Fig09 reservoir drawdown (levels, area, volume, daily balance vs DniproHES inflow and downstream storage)     [tables]
 Supplement: FigS01 training curves, FigS02 rule / closure sensitivity, FigS03 per-date S1/S2 series, FigS04 RF20 confusion
-and per-class F1, FigS05 block-size sensitivity, FigS06 Inhulets profile.
+and per-class F1, FigS05 block-size sensitivity, FigS06 Inhulets profile, FigS07 hypsometry sensitivity,
+FigS08 reservoir drawdown maps (model / S1 / S2 classes / day of exposure, p95h) [bulk], FigS09 the 7 S2 indices over the pool [bulk].
 `--only FigNN`, `--tables-only`. Bulk figures are rendered once locally and committed.
 """
 from __future__ import annotations
@@ -416,8 +417,126 @@ def figS07():
     FS.save(fig, "FigS07_hypsometry_sensitivity", FIG)
 
 
+# ---- FigS08 / FigS09: reservoir drawdown maps (p95h) ------------------------------------------------------------------
+def _res_ctx(step_m=60.0):
+    """Shared frame for the reservoir maps: p95h module, pool (+1 km) geometry, extent in km, hillshade backdrop."""
+    import rasterio
+    from rasterio import features
+    H = _ld("p95h", M6 / "p95h_reservoir_maps.py"); pool = CFG.load_utm("reservoir_full_pool_prebreach"); zone = pool.buffer(1000.0)
+    x0, y0, x1, y1 = zone.bounds; ext = [x0 / 1e3, x1 / 1e3, y0 / 1e3, y1 / 1e3]
+    with rasterio.open(BULK / "dem_seamless" / "dem_seamless_evrf2019_50m.tif") as s:
+        win = rasterio.windows.from_bounds(x0, y0, x1, y1, transform=s.transform)
+        dem = s.read(1, window=win, out_shape=(int(win.height // 2), int(win.width // 2))).astype("f4"); dem[dem == s.nodata] = np.nan
+    hs = LightSource(azdeg=315, altdeg=40).hillshade(np.nan_to_num(dem, nan=np.nanmedian(dem)), vert_exag=8, dx=100, dy=100)
+
+    def read(path, band=1, fill=0):
+        """Read a 20 m tif on the frame window at ~step_m; cells outside pool + 1 km -> `fill`. Returns (array, extent km)."""
+        from affine import Affine
+        with rasterio.open(path) as s:
+            w = rasterio.windows.from_bounds(x0, y0, x1, y1, transform=s.transform).round_offsets().round_lengths(); f = s.res[0] / step_m
+            a = s.read(band, window=w, out_shape=(max(1, int(round(w.height * f))), max(1, int(round(w.width * f)))))
+            tr = rasterio.windows.transform(w, s.transform) * Affine.scale(w.width / a.shape[1], w.height / a.shape[0])
+        inside = features.rasterize([(zone.__geo_interface__, 1)], out_shape=a.shape, transform=tr, fill=0, dtype="uint8").astype(bool)
+        a = a.copy(); a[~inside] = fill
+        return a, [tr.c / 1e3, (tr.c + tr.a * a.shape[1]) / 1e3, (tr.f + tr.e * a.shape[0]) / 1e3, tr.f / 1e3]
+    return H, pool, zone, ext, hs, read
+
+
+def _res_panel(ax, ctx, arr, arr_ext, colours, title, first=False):
+    H, pool, zone, ext, hs, read = ctx
+    ax.imshow(hs, extent=ext, cmap="Greys_r", vmin=0, vmax=1, alpha=0.35, interpolation="bilinear")
+    n = len(colours); m = np.ma.masked_equal(arr, 0)
+    ax.imshow(m, extent=arr_ext, cmap=ListedColormap(colours), vmin=0.5, vmax=n + 0.5, interpolation="nearest")
+    for g in getattr(pool, "geoms", [pool]):
+        xs, ys = g.exterior.xy; ax.plot(np.asarray(xs) / 1e3, np.asarray(ys) / 1e3, color=FS.PALETTE["ink2"], lw=0.35)
+    ax.set_xlim(ext[0], ext[1]); ax.set_ylim(ext[2], ext[3]); ax.set_aspect("equal"); ax.set_xticks([]); ax.set_yticks([])
+    for sp in ax.spines.values():
+        sp.set_visible(True); sp.set_color("#c3c2b7"); sp.set_linewidth(0.5)
+    ax.set_title(title, fontsize=6.3, loc="left")
+    if first:
+        FS.scale_bar(ax, 20000, units_per_m=1e-3); FS.north_arrow(ax, x=0.08, y=0.80)
+
+
+def _leg(ax, colours, labels, title=None, loc="center left", y=0.5):
+    """Legend in a dedicated (axis-off) legend column; several legends per axis stack via add_artist."""
+    ax.axis("off")
+    lg = ax.legend([Patch(facecolor=c, edgecolor="#999", lw=0.3) for c in colours], labels, title=title, title_fontsize=5.8, fontsize=5.5, loc=loc,
+                   bbox_to_anchor=(0.0, y), frameon=False, handlelength=1.0, alignment="left")
+    ax.add_artist(lg)
+
+
+def figS08():
+    """Reservoir drawdown maps: modelled pool (p95f surface) + day of exposure, S1 VH dark surface, S2 k10e classes and water (p95h)."""
+    import rasterio
+    from affine import Affine
+    ctx = _res_ctx(); H, pool, zone, ext, hs, read = ctx
+    R = pd.read_csv(T / "p95h_reservoir_maps.csv"); RM = BULK / "reservoir_maps"
+    fig, axs = plt.subplots(3, 5, figsize=(7.4, 5.0), constrained_layout=True, gridspec_kw=dict(width_ratios=[1, 1, 1, 1, 0.78])); lab = iter("abcdefghijkl")
+    km = lambda tr, shp: [tr.c / 1e3, (tr.c + tr.a * shp[1]) / 1e3, (tr.f + tr.e * shp[0]) / 1e3, tr.f / 1e3]
+    # row 1: model 06-07, 06-09, 06-13 + day of exposure
+    z = np.load(RM / "model" / "wet_daily.npz"); shp = tuple(int(v) for v in z["shape"]); mtr = Affine(*z["transform"])
+    un = lambda k: np.unpackbits(z[k], count=shp[0] * shp[1]).reshape(shp).astype(bool)
+    ref = un("2023-06-05"); mc = ["#1b6ca8", "#d9a441"]
+    for j, d in enumerate(["2023-06-07", "2023-06-09", "2023-06-13"]):
+        w = un(d); c = np.zeros(shp, "u1"); c[w] = 1; c[ref & ~w] = 2
+        a = R[(R.source == "MODEL") & (R.date == d)].water_km2.iloc[0]
+        _res_panel(axs[0, j], ctx, c, km(mtr, shp), mc, f"({next(lab)}) model {d[5:]}\n{a:.0f} km² water", first=(j == 0))
+    with rasterio.open(RM / "model" / "exposed_day.tif") as s:
+        e = s.read(1); etr = s.transform
+    c = np.zeros(e.shape, "u1")
+    for k, (lo, hi) in enumerate([(6, 6), (7, 7), (8, 8), (9, 10), (11, 13)], 1):
+        c[(e >= lo) & (e <= hi)] = k
+    c[e == 255] = 6; ec = ["#7d1d1d", "#c7522a", "#e08214", "#eda100", "#f2d98a", "#1b6ca8"]
+    _res_panel(axs[0, 3], ctx, c, km(etr, e.shape), ec, f"({next(lab)}) model: day the\nbed falls dry")
+    _leg(axs[0, 4], mc, ["pool water", "bed exposed since 06-05"], "model (p95f surface)", loc="upper left", y=1.0)
+    _leg(axs[0, 4], ec, ["06-06", "06-07", "06-08", "06-09–10", "06-11–13", "still wet 06-13"], "day of exposure", loc="lower left", y=0.0)
+    # row 2: S1
+    sc = ["#1b6ca8", "#d9a441", "#c3c2b7"]
+    for j, d in enumerate(["2023-06-01", "2023-06-08", "2023-06-13", "2023-06-21"]):
+        z1 = np.load(RM / "s1" / f"{d}.npz"); sshp = tuple(int(v) for v in z1["shape"]); s_tr = Affine(*z1["transform"])
+        u1 = lambda k: np.unpackbits(z1[k], count=sshp[0] * sshp[1]).reshape(sshp).astype(bool)
+        if j == 0:
+            d0 = u1("water"); spool = H.pool_on(s_tr, sshp)
+        w, o = u1("water"), u1("observed"); c = np.zeros(sshp, "u1"); c[w & spool] = 1; c[o & ~w & d0 & spool] = 2; c[spool & ~o] = 3
+        r = R[(R.source == "S1") & (R.date == d)].iloc[0]
+        iou = f", IoU {r.iou_vs_model:.2f}" if np.isfinite(r.get("iou_vs_model", np.nan)) else ""
+        _res_panel(axs[1, j], ctx, c[::2, ::2], km(s_tr, sshp), sc, f"({next(lab)}) S1 {d[5:]}\n{r.water_km2:.0f} km² dark{iou}")
+    _leg(axs[1, 4], sc, ["VH dark: open water\nor smooth wet mud", "dark on 06-01, not now", "pool not observed"], "Sentinel-1 (VH, Otsu)")
+    # row 3: S2 k10e classes + S2 water on 06-20 (p15 crosscheck, fully observed)
+    for j, d in enumerate(["2023-06-05", "2023-07-05", "2023-09-08"]):
+        c, cext = read(H.S2DIR / f"{d}_class.tif")
+        r = R[(R.source == "S2_WATER3") & (R.date == d)].iloc[0]
+        _res_panel(axs[2, j], ctx, c, cext, [H.K10E[k][1] for k in range(1, 10)], f"({next(lab)}) S2 classes {d[5:]}\n{r.observed_frac:.0%} observed")
+    ztr, zshp = H.s2_grid(); xtr = H.xc_transform(ztr); z2 = np.load(H.S2XC / "2023-06-20.npz")
+    u2 = lambda k: np.unpackbits(z2[k], count=zshp[0] * zshp[1]).reshape(zshp).astype(bool)
+    w, v = u2("water"), u2("valid"); c = np.zeros(zshp, "u1"); c[v & ~w] = 2; c[w] = 1
+    from rasterio import features
+    c[~features.rasterize([(zone.__geo_interface__, 1)], out_shape=zshp, transform=xtr, fill=0, dtype="uint8").astype(bool)] = 0
+    r = R[(R.source == "S2_CROSSCHECK") & (R.date == "2023-06-20")].iloc[0]
+    _res_panel(axs[2, 3], ctx, c[::3, ::3], km(xtr, zshp), ["#1b6ca8", "#efece6"], f"({next(lab)}) S2 water 06-20\n{r.water_km2:.0f} km²")
+    _leg(axs[2, 4], [H.K10E[k][1] for k in range(1, 10)] + ["#efece6"], [H.K10E[k][0].replace("_", " ").lower() for k in range(1, 10)] + ["observed, not water (l)"], "Sentinel-2 (p25 k10e)")
+    fig.suptitle("Kakhovka pool drawdown: modelled surface (terrain-reconstructed) vs Sentinel-1 and Sentinel-2 observations; not observed is not dry", fontsize=7)
+    FS.save(fig, "FigS08_reservoir_drawdown_maps", FIG)
+
+
+def figS09():
+    """All seven S2 indices over the pool in display classes: before the breach, drawdown, after (frozen p25 stacks)."""
+    ctx = _res_ctx(); H, pool, zone, ext, hs, read = ctx
+    dates = ["2023-06-05", "2023-07-05", "2023-09-08"]
+    fig, axs = plt.subplots(len(H.INDEX_NAMES), len(dates) + 1, figsize=(6.6, 11.6), constrained_layout=True, gridspec_kw=dict(width_ratios=[1] * len(dates) + [0.45]))
+    for i, nm in enumerate(H.INDEX_NAMES):
+        edges, labels, cols = H.INDEX_BINS[nm]
+        for j, d in enumerate(dates):
+            v, vext = read(H.S2DIR / f"{d}_indices.tif", band=i + 1, fill=-32768); v = v.astype("f4"); v[v == -32768] = np.nan; v /= 1e4
+            _res_panel(axs[i, j], ctx, H.classify_index(v, nm), vext, cols, f"{nm} · {d}", first=(i == 0 and j == 0))
+        _leg(axs[i, -1], cols, labels, nm)
+    fig.suptitle("Sentinel-2 indices over the Kakhovka pool (+1 km), display classes; 06-05 pre-breach, 07-05 drawdown, 09-08 after; blank = not observed", fontsize=7)
+    FS.save(fig, "FigS09_reservoir_s2_indices", FIG)
+
+
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
-       "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False)}
+       "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
+       "FigS08": (figS08, True), "FigS09": (figS09, True)}
 
 
 def main():

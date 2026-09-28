@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-26T05:11:32Z",
- "git_commit": "6734f31f11b65465ba1c0e958608d90284ac22b8",
+ "generated_utc": "2026-09-28T10:00:23Z",
+ "git_commit": "77cf97366c3cc37f4b45adf1b6836bbee2d5f9f3",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -347,6 +347,42 @@
     "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv"
    ],
    "sha256": "da03b49021e48ac1b38d99c56a6912150ab0ac3ba9d8b8517c89e12cc3819f3b"
+  },
+  "T23": {
+   "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi 2025 (literature_reported, VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.",
+   "evidence_level": "cross_sensor",
+   "rows": 53,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv"
+   ],
+   "sha256": "61f1cdb1b83e119e62f35e4345f07a079bdeaee731f3a647e7131d2bca1c34a7"
+  },
+  "T24": {
+   "caption": "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).",
+   "evidence_level": "contextual",
+   "rows": 33,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv"
+   ],
+   "sha256": "366cd58ba8f14c299123103cbf4ce6f0d0bc7b0018b92c8896a486fa63598c9e"
+  },
+  "T25": {
+   "caption": "Sentinel-2 index statistics inside the pool per date, stratum and index (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI; offset-corrected reflectance, 20 m, frozen p25 stacks): observed km2 and fraction, mean, std and percentiles p10/p25/p50/p75/p90 over observed cells. Strata as T24. FigS09.",
+   "evidence_level": "contextual",
+   "rows": 231,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv"
+   ],
+   "sha256": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16"
+  },
+  "T26": {
+   "caption": "Sentinel-2 index display classes inside the pool per date, stratum and index: km2 and % of observed cells per class (bins: NDWI/MNDWI/AWEIsh -0.3/0/0.3; NDVI 0.15/0.3/0.5; NDMI/BSI/NDTI -0.1/0.1). Display classes, not a classifier (the frozen classifier is k10e, T24). FigS09.",
+   "evidence_level": "contextual",
+   "rows": 825,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv"
+   ],
+   "sha256": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3"
   }
  },
  "sources": {
@@ -435,6 +471,10 @@
   "case_studies/kakhovka_2023/tables/m6_split_s20_manifest.json": "14753b5e4f9ffa41a362345afd5d7287e119154aff27e2096513b5377cdfb028",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s20/eval_d1a/endpoints.csv": "93dac955c12bd6832188868d71be3faa523e2ffea30a155921de5c9b30788f76",
   "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv": "1680fb7da1a8bea0bc08c46eec1b12b3ef779de0fe5da64fb685b94617f5a57e",
-  "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv": "60fa605bbc59112c51498b9c8b1be3d5c9bf84976f85eb947b626d01c5169970"
+  "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv": "60fa605bbc59112c51498b9c8b1be3d5c9bf84976f85eb947b626d01c5169970",
+  "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv": "3df8c262de91ef38421a77b814a51f2e0026d1ddafe7d11b7c92b09cfb4e4497",
+  "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv": "366cd58ba8f14c299123103cbf4ce6f0d0bc7b0018b92c8896a486fa63598c9e",
+  "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16",
+  "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3"
  }
 }

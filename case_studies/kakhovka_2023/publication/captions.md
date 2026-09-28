@@ -69,6 +69,18 @@ new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-b
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
 level over the drawdown range (shaded), about −9 % at the full-pool level and −15…−20 % at 11–13 m; the design table is undefined
 below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
+**FigS08** Reservoir drawdown maps (p95h; context, no claim). (a–c) Modelled pool on 7, 9 and 13 June: the p95f sloped daily
+surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June
+first falls dry; the upper (north-eastern) pool empties first. (e–h) Sentinel-1 VH dark surface, per-date Otsu over all covered
+cells (*observed_S1*); IoU against the model on observed cells 0.98 (1 June), 0.97 (8 June), 0.93 (9 June), 0.85 (13 June). VH
+dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (2077 vs
+648 km² around 20–21 June) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products,
+*observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l)
+Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²; Yi 2025 report 825 km² from S1 on the same day,
+*literature_reported*). S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
+**FigS09** The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool (+1 km) in display classes
+on 5 June (pre-breach), 5 July (drawdown) and 8 September 2023; frozen p25 stacks (offset-corrected reflectance, 20 m); the bins
+are for display only and are not a classifier; blank = not observed.
 
 ## Tables
 
@@ -77,4 +89,6 @@ T05 D1 endpoints with intervals · T06 paired comparisons · T07/T07b v003_A att
 T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T12 daily area/volume with the Monte-Carlo band ·
 T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting
 with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T18 DEM accuracy (Paper 2) · T19 per-date series ·
-T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap.
+T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap ·
+T23 pool water area by source (model / S1 / S2 / Yi 2025, observed fraction, IoU vs model) · T24 S2 k10e classes in the pool
+by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes.

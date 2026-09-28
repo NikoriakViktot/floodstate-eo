@@ -264,6 +264,26 @@ water surface on the day) next to A_* (new inundation); Fig04 shows the total wi
   Inhulets 21 -> 69 -> 76 -> 63 -> 22; S1 total dark water 06-09: 682 + 68 km2. These are the numbers comparable in kind with
   the 600-800 km2 of operational products (which still differ in AOI -- no B3/liman here -- and reference water).
 
+### 2026-09-28 -- reservoir drawdown maps (p95h, FigS08/FigS09, dashboard); context only, no claim
+Maintainer: "також мають бути карти спустошення водосховища ... також S2 то всі класифіковані індекси".
+- p95f refactored into helpers (load_levels / load_pool / day_points / sloped_wse); p95f tables byte-identical after the change.
+- `workflows/m6/p95h_reservoir_maps.py`: MODEL wet mask per day (05-26..06-13) + day of exposure ($BULK/reservoir_maps/model);
+  S1 water from `s1_zone_cache/ZONE_1_reservoir_corrected` = **VH** dB < per-date Otsu over all covered cells, clamped
+  [-24, -15] dB (VV-in-pool Otsu failed: wind-roughened water, IoU 0.61); S2 = frozen SWOT-DNIPRO p25 k10e/water3/7-index
+  stacks + p15 crosscheck water, not re-classified. Tables `p95h_reservoir_maps.csv`, `p95h_s2_classes.csv`.
+- Agreement with the model: S2 06-05 IoU 0.98; S1 0.98 / 0.97 / 0.93 / 0.85 on 06-01 / 06-08 / 06-09 / 06-13. **S1 VH dark
+  = water or wet mud**: from ~06-13 it overcounts (06-20: S1 1702, S2 648, Yi 2025 825 km2) -- do not use S1 as a water
+  area after the drawdown. S2 dates with >= 50 % of the pool observed: 05-06, 06-05, 07-05, 08-17, 09-08 (06-30, 07-25,
+  08-27 are < 7 %). The drawdown week (06-06..06-20) has S2 water only (crosscheck), no index stacks -- a gap if needed later.
+- p98 `--only reservoir`: 73 reservoir layers on their own EPSG:4326 box, clipped to the pool + 1 km (4 MB); Maps page has
+  "zoom to" and a Reservoir drawdown block; Reconstruction page shows model vs S1/S2/Yi areas. FigS08, FigS09 (supplement).
+- Tables (maintainer: "додай таблиці це важливо ... таблиці по індексах"): T23 pool water area by source; T24 k10e classes;
+  T25 index statistics (mean, std, p10..p90); T26 index display classes -- every 2023 p25 date observing >= 50 % of the pool
+  (02-10, 05-06, 05-11, 06-05, 07-05, 08-17, 09-08, 09-23, 09-28, 10-03, 11-07), strata POOL / EXPOSED_BY_0613 /
+  WET_ON_0613. Findings: all water indices flip sign after the breach (MNDWI p50 +0.33 -> -0.26 on 07-05), BSI peaks on
+  07-05 (+0.13); by September reed / flooded vegetation covers 47-50 % of the bed exposed first and 34-37 % of the rest, and
+  NDVI p50 there is 0.44 vs 0.26. Autumn dates observe only ~52-65 % of the pool (one tile).
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

@@ -75,3 +75,38 @@ try:
     st.dataframe(R, width="stretch", hide_index=True)
 except FileNotFoundError:
     st.info("reservoir tables not built")
+try:
+    M = table("T23"); M["t"] = pd.to_datetime(M.date); st.markdown(caption("T23"))
+    st.markdown("**Reservoir drawdown maps** — see *Maps → Reservoir drawdown* (model by day, S1 VH, S2 classes and the 7 classed indices). "
+                "Pool water area by source: MODEL is *terrain_reconstructed*; S1 / S2 are *observed* and count observed cells only "
+                "(S1 dark = open water **or** smooth wet mud, so it exceeds the model on exposed flats after ~13 June).")
+    f4 = go.Figure()
+    for src_, col, mode in (("MODEL", C["terrain"], "lines+markers"), ("S1", C["s1"], "markers"), ("S2_WATER3", C["rf"], "markers"), ("S2_CROSSCHECK", C["unet"], "markers")):
+        q = M[(M.source == src_) & (M.observed_frac >= 0.5)]
+        f4.add_trace(go.Scatter(x=q.t, y=q.water_km2, mode=mode, name=f"{src_} (≥ 50 % of the pool observed)", line=dict(color=col), marker=dict(color=col, size=8)))
+    yi = M.dropna(subset=["yi2025_S1_km2"]).drop_duplicates("date")
+    f4.add_trace(go.Scatter(x=yi.t, y=yi.yi2025_S1_km2, mode="markers", name="Yi 2025 S1 (literature_reported, VERIFY)", marker=dict(symbol="x", color=C["gauge"], size=9)))
+    f4.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", title="pool water area: model vs observations"); st.plotly_chart(f4, width="stretch")
+    st.dataframe(M.drop(columns="t"), width="stretch", hide_index=True)
+except FileNotFoundError:
+    st.info("p95h reservoir maps not built")
+try:
+    I = table("T25"); I["t"] = pd.to_datetime(I.date); K = table("T24")
+    st.markdown("**Sentinel-2 indices and surface classes over the pool (T25, T24)** — frozen p25 products; strata from the modelled day of exposure.")
+    c1, c2 = st.columns(2)
+    with c1:
+        ix = st.selectbox("index", sorted(I["index"].unique()), index=sorted(I["index"].unique()).index("MNDWI"))
+    with c2:
+        strata = st.multiselect("strata", list(I.stratum.unique()), default=list(I.stratum.unique()))
+    f5 = go.Figure()
+    for sn, col in zip(strata, [C["terrain"], "#d9a441", C["rf"]]):
+        q = I[(I["index"] == ix) & (I.stratum == sn)].sort_values("t")
+        f5.add_trace(go.Scatter(x=list(q.t) + list(q.t[::-1]), y=list(q.p90) + list(q.p10[::-1]), fill="toself", fillcolor=col, opacity=0.15, line=dict(width=0), showlegend=False, hoverinfo="skip"))
+        f5.add_trace(go.Scatter(x=q.t, y=q.p50, mode="lines+markers", name=f"{sn} median (band p10–p90)", line=dict(color=col), customdata=q.observed_frac,
+                                hovertemplate="%{x|%Y-%m-%d}: %{y:.3f} (observed %{customdata:.0%})"))
+    f5.add_vline(x=pd.Timestamp("2023-06-06").timestamp() * 1000, line=dict(color="#e34948", dash="dash", width=1))
+    f5.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title=ix, title=f"{ix} inside the pool by date"); st.plotly_chart(f5, width="stretch")
+    st.markdown(caption("T25")); st.dataframe(I[(I["index"] == ix) & I.stratum.isin(strata)].drop(columns="t"), width="stretch", hide_index=True)
+    st.markdown(caption("T24")); st.dataframe(K[K.stratum.isin(strata)], width="stretch", hide_index=True)
+except FileNotFoundError:
+    st.info("reservoir index tables (T24, T25) not built")

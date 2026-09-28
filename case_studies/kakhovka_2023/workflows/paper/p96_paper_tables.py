@@ -1,5 +1,5 @@
 # New in floodstate-eo, 2026-09-25. STATUS: ACTIVE. Assembles the publication tables from committed CSV/JSON only.
-"""P96 -- publication tables T01..T21 for Paper 3 (Kakhovka 2023 inundation), from committed tables and run outputs only.
+"""P96 -- publication tables T01..T26 for Paper 3 (Kakhovka 2023 inundation), from committed tables and run outputs only.
 
 Never reads bulk rasters, never reads stdout. Every table carries an evidence level and area semantics where areas
 appear; tables/README.md defines every metric; tables/manifest.json lists every source file with sha256 and the git
@@ -19,7 +19,8 @@ T = ROOT / "tables"; RUNS = ROOT / "runs"; PUB = ROOT / "publication" / "tables"
 SEMANTICS = {"observed_S1": "water seen by the Sentinel-1 dark-water rule on that date, minus pre-breach water (mapped, sensor-limited)",
              "mapped_UNet": "U-Net score >= frozen validation threshold (agreement with weak labels, persistent-water concept)",
              "terrain_reconstructed": "cells the reconstructed water surface allows (DEM < WSE, connected), minus the pre-breach regime",
-             "literature_reported": "figure quoted from an operational or published product with its own AOI, date and reference water; context only"}
+             "observed_S2": "water or surface class seen by Sentinel-2 on that date (frozen p25 rule), observed cells only (reservoir tables T23-T26)",
+             "literature_reported":"figure quoted from an operational or published product with its own AOI, date and reference water; context only"}
 ARMS_V1 = ["U0d", "U0z", "U1", "U2"]; ARMS_V3 = ["U0d", "U2", "U2b"]
 KEY_DATES = ["2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13",
              "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-18", "2023-06-21", "2023-06-25", "2023-06-30"]
@@ -240,6 +241,28 @@ def t21_reservoir():
         put("T22", H, "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives 8-12 % less volume at the same level (open question for Paper 4: reservoir bowl on the historical bathymetry).", [h], "independent_physical")
 
 
+def t23_t26_reservoir_maps():
+    """Reservoir drawdown maps (p95h): pool water area by source, S2 k10e classes, S2 index statistics and index classes."""
+    p = T / "p95h_reservoir_maps.csv"
+    if not p.exists():
+        return
+    M = pd.read_csv(p)
+    M["area_note"] = np.select([M.source == "MODEL", M.source == "S1"], ["pool water under the p95f sloped surface (whole pool)",
+                               "VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"],
+                               "S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only")
+    cols = ["date", "source", "semantics", "water_km2", "observed_frac", "iou_vs_model", "model_km2_on_observed", "vh_threshold_db", "orbits", "regime", "mapped", "yi2025_S1_km2", "area_note"]
+    put("T23", M[[c for c in cols if c in M.columns]], "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi 2025 (literature_reported, VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.", [p], "cross_sensor")
+    c = T / "p95h_s2_classes.csv"
+    if c.exists():
+        put("T24", pd.read_csv(c), "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).", [c], "contextual")
+    s = T / "p95h_s2_index_stats.csv"
+    if s.exists():
+        put("T25", pd.read_csv(s), "Sentinel-2 index statistics inside the pool per date, stratum and index (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI; offset-corrected reflectance, 20 m, frozen p25 stacks): observed km2 and fraction, mean, std and percentiles p10/p25/p50/p75/p90 over observed cells. Strata as T24. FigS09.", [s], "contextual")
+    k = T / "p95h_s2_index_classes.csv"
+    if k.exists():
+        put("T26", pd.read_csv(k), "Sentinel-2 index display classes inside the pool per date, stratum and index: km2 and % of observed cells per class (bins: NDWI/MNDWI/AWEIsh -0.3/0/0.3; NDVI 0.15/0.3/0.5; NDMI/BSI/NDTI -0.1/0.1). Display classes, not a classifier (the frozen classifier is k10e, T24). FigS09.", [k], "contextual")
+
+
 def t13_terrain_vs_s1():
     rows, src = [], []
     for name, (sfx, man, mp) in _p95_variants().items():
@@ -360,6 +383,9 @@ def readme():
             ("emulator envelope (SENSITIVITY)", "p05/p25/p50/p75/p95 of 100 000 cluster-normal emulator draws per day (p95g): propagation over a broader parameter space; wider than the spatial MC; never the primary interval"),
             ("pool volume", "seamless DEM integrated under the sloped daily water surface inside the pre-breach pool polygon (p95f); design Table 19 for reference (T22 gives dV/V_design)"),
             ("daily-mean effective release", "-dV_pool/dt + Q_in(DniproHES) from the storage balance: a daily mean, not an instantaneous breach discharge (T21)"),
+            ("IoU vs model (T23)", "|sensor water ∩ model water| / |sensor water ∪ model water| on pool cells the sensor observed"),
+            ("observed_frac", "share of the stratum (or pool) with a valid observation on that date; areas never extrapolate to unobserved cells"),
+            ("strata (T24-T26)", "POOL = pre-breach pool polygon; EXPOSED_BY_0613 = wet on 06-05 and dry by 06-13 under the p95f surface; WET_ON_0613 = still wet on 06-13"),
             ("OA", "overall agreement with the reference classification"), ("macro mean", "unweighted mean over classes")]
     lines = ["# Publication tables (generated by workflows/paper/p96_paper_tables.py -- do not edit by hand)", "",
              "Every model number is *agreement with weak reference labels*, never flood-mapping accuracy. Areas carry a semantics column:", ""]
@@ -372,7 +398,8 @@ def readme():
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t02_labels, t03_split, t04_arms, t05_endpoints, t06_paired, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t21_reservoir):
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t21_reservoir,
+              t23_t26_reservoir_maps):
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),
                tables={}, sources={})

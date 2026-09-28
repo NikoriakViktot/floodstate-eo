@@ -9,11 +9,14 @@ Layers (apps/dashboard/data/):
   unet/U2b_v003A.png, unet/U2_v1.png             predicted flood at the frozen thresholds (10 m frames -> 4326 grid)
   labels/v003A.png                                LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN
   rf/p73.png                                      RF20 classes
-  context/*.geojson                               frames, cut rectangles, p42 floodplain (simplified), gauge and dam
+  reservoir/model/<date>.png, reservoir/exposed_day.png     p95h modelled pool (water / bed exposed since 06-05), day of exposure
+  reservoir/s1/<date>.png                         p95h S1 VH dark surface (water or wet mud) / dark on 06-01 but not now / not observed
+  reservoir/s2/<date>_{class,water,<INDEX>}.png   p25 k10e classes, water3 (+ p15 crosscheck water), the 7 indices in display classes
+  context/*.geojson                               frames, cut rectangles, p42 floodplain (simplified), gauge and dam, reservoir pool
   manifest.json                                   id, file, bounds [[S, W], [N, E]], legend, source, sha256, bytes
 """
 from __future__ import annotations
-import hashlib, json, time
+import argparse, hashlib, json, time
 from pathlib import Path
 import numpy as np, rasterio
 from PIL import Image
@@ -30,6 +33,7 @@ DLON, DLAT = 0.001, 0.00072
 BBOX = (32.15, 46.35, 33.55, 47.15)                         # W, S, E, N (both zones)
 NX, NY = int(round((BBOX[2] - BBOX[0]) / DLON)), int(round((BBOX[3] - BBOX[1]) / DLAT))
 TR = from_origin(BBOX[0], BBOX[3], DLON, DLAT); CRS4326 = CRS.from_epsg(4326)
+RBOX = (33.30, 46.70, 35.40, 47.95)                         # W, S, E, N (the Kakhovka pool)
 HEX = {"terrain": "#2a78d6", "s1": "#eb6834", "unet": "#4a3aa7", "unet2": "#8a7fd6", "foot": "#c3c2b7"}
 MAN = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "grid": dict(crs="EPSG:4326", dlon=DLON, dlat=DLAT, nx=NX, ny=NY, bounds=[[BBOX[1], BBOX[0]], [BBOX[3], BBOX[2]]]), "layers": []}
 
@@ -38,9 +42,17 @@ def hexrgb(h):
     return tuple(int(h[i:i + 2], 16) for i in (1, 3, 5))
 
 
-def to_grid(a, transform, crs, nodata=0):
-    d = np.full((NY, NX), nodata, a.dtype)
-    reproject(a, d, src_transform=transform, src_crs=crs, dst_transform=TR, dst_crs=CRS4326, resampling=Resampling.nearest, src_nodata=nodata, dst_nodata=nodata)
+def box_grid(box):
+    return from_origin(box[0], box[3], DLON, DLAT), int(round((box[3] - box[1]) / DLAT)), int(round((box[2] - box[0]) / DLON))
+
+
+def cell_km2(box):
+    lat = np.radians(0.5 * (box[1] + box[3])); return float(DLON * 111.32 * np.cos(lat) * DLAT * 110.574)
+
+
+def to_grid(a, transform, crs, nodata=0, box=BBOX):
+    tr, ny, nx = box_grid(box); d = np.full((ny, nx), nodata, a.dtype)
+    reproject(a, d, src_transform=transform, src_crs=crs, dst_transform=tr, dst_crs=CRS4326, resampling=Resampling.nearest, src_nodata=nodata, dst_nodata=nodata)
     return d
 
 
@@ -53,15 +65,16 @@ def mosaic(per_zone):
     return out
 
 
-def write_png(arr, path: Path, palette: dict, legend: dict, layer_id: str, group: str, source: str, note: str = ""):
-    """arr uint8 classes (0 = transparent); palette code -> hex."""
+def write_png(arr, path: Path, palette: dict, legend: dict, layer_id: str, group: str, source: str, note: str = "", box=BBOX):
+    """arr uint8 classes (0 = transparent) on the EPSG:4326 grid of `box`; palette code -> hex."""
     img = Image.fromarray(arr, "P"); pal = [0, 0, 0] * 256
     for k, h in palette.items():
         r, g, b = hexrgb(h); pal[3 * k:3 * k + 3] = [r, g, b]
     img.putpalette(pal); img.info["transparency"] = 0
     path.parent.mkdir(parents=True, exist_ok=True); img.save(path, optimize=True, transparency=0)
-    MAN["layers"].append(dict(id=layer_id, group=group, file=str(path.relative_to(OUTD)), bounds=[[BBOX[1], BBOX[0]], [BBOX[3], BBOX[2]]], legend=legend, palette={str(k): v for k, v in palette.items()},
-                              source=source, note=note, bytes=path.stat().st_size, sha256=hashlib.sha256(path.read_bytes()).hexdigest(), area_km2_by_class={str(k): round(float((arr == k).sum()) * 0.0061, 1) for k in palette}))
+    ck = 0.0061 if box == BBOX else cell_km2(box)             # 0.0061: the published constant of the downstream box
+    MAN["layers"].append(dict(id=layer_id, group=group, file=str(path.relative_to(OUTD)), bounds=[[box[1], box[0]], [box[3], box[2]]], legend=legend, palette={str(k): v for k, v in palette.items()},
+                              source=source, note=note, bytes=path.stat().st_size, sha256=hashlib.sha256(path.read_bytes()).hexdigest(), area_km2_by_class={str(k): round(float((arr == k).sum()) * ck, 1) for k in palette}))
 
 
 def zone_raster(z, name, sub="floodplain_dyn"):
@@ -171,16 +184,100 @@ def context_layers():
             geom = shape(ft["geometry"]).simplify(60); geom = stf(lambda x, y, z=None: tf.transform(x, y), geom)
             out.append(dict(type="Feature", properties=dict(name="p42 terrain-eligible floodplain", kind="floodplain"), geometry=mapping(geom)))
         (OUTD / "context" / "p42_floodplain.geojson").write_text(json.dumps(dict(type="FeatureCollection", features=out)))
-    for p in (OUTD / "context").glob("*.geojson"):
+    for p in (q for q in (OUTD / "context").glob("*.geojson") if q.stem != "reservoir_pool"):     # reservoir_pool: registered by reservoir_layers
         MAN["layers"].append(dict(id=p.stem, group="context", file=str(p.relative_to(OUTD)), bounds=None, legend={}, source="own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)", bytes=p.stat().st_size, sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 
 
+RES_GROUPS = ("reservoir_model", "reservoir_s1", "reservoir_s2_class", "reservoir_s2_water", "reservoir_s2_index")
+
+
+def reservoir_layers():
+    """p95h products (model / S1 / S2) -> classed overlays on the reservoir box RBOX; pool outline -> context/reservoir_pool.geojson."""
+    import importlib.util
+    import pandas as pd
+    from affine import Affine
+    s = importlib.util.spec_from_file_location("p95h", REPO / "case_studies/kakhovka_2023/workflows/m6/p95h_reservoir_maps.py"); H = importlib.util.module_from_spec(s); s.loader.exec_module(H)
+    from rasterio import features
+    RM = BULK / "reservoir_maps"; utm = CRS.from_epsg(32636); rd = OUTD / "reservoir"
+    zone = CFG.load_utm("reservoir_full_pool_prebreach").buffer(1000.0)       # S1/S2 shown on the pool + 1 km only: the S1 VH rule is not a land classifier
+    clip = lambda tr, shp: features.rasterize([(zone.__geo_interface__, 1)], out_shape=shp, transform=tr, fill=0, dtype="uint8").astype(bool)
+    put =lambda a, tr, path, pal, leg, lid, grp, src, note="": write_png(to_grid(a, tr, utm, box=RBOX), rd / path, pal, leg, lid, grp, src, note, box=RBOX)
+    # ---- model ----
+    src = "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)"
+    z = np.load(RM / "model" / "wet_daily.npz"); shp = tuple(int(v) for v in z["shape"]); mtr = Affine(*z["transform"])
+    un = lambda k: np.unpackbits(z[k], count=shp[0] * shp[1]).reshape(shp).astype(bool)
+    ref = un(str(H.REF_DAY.date()))
+    for d in sorted(k for k in z.files if k.startswith("2023") and k >= "2023-05-31"):
+        w = un(d); c = np.zeros(shp, "u1"); c[w] = 1; c[ref & ~w] = 2
+        put(c, mtr, f"model/{d}.png", {1: "#1b6ca8", 2: "#d9a441"}, {"1": "pool water (model)", "2": "bed exposed since 06-05 (model)"}, f"reservoir_model_{d}", "reservoir_model", src)
+    with rasterio.open(RM / "model" / "exposed_day.tif") as f:
+        e = f.read(1); etr = f.transform
+    c = np.zeros(e.shape, "u1")
+    for k, (lo, hi) in enumerate([(6, 6), (7, 7), (8, 8), (9, 10), (11, 13)], 1):
+        c[(e >= lo) & (e <= hi)] = k
+    c[e == 255] = 6
+    put(c, etr, "exposed_day.png", {1: "#7d1d1d", 2: "#c7522a", 3: "#e08214", 4: "#eda100", 5: "#f2d98a", 6: "#1b6ca8"},
+        {"1": "exposed 06-06", "2": "exposed 06-07", "3": "exposed 06-08", "4": "exposed 06-09–10", "5": "exposed 06-11–13", "6": "still wet on 06-13"},
+        "reservoir_exposed_day", "reservoir_model", src, "day on which a cell wet on 06-05 first falls dry under the modelled surface")
+    # ---- S1 ----
+    T = pd.read_csv(CFG.TABLES / "p95h_reservoir_maps.csv"); s1d = T[(T.source == "S1") & (T.mapped == True)].date.tolist()   # noqa: E712
+    src = "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected"
+    r0 = np.load(RM / "s1" / "2023-06-01.npz"); sshp = tuple(int(v) for v in r0["shape"]); str_ = Affine(*r0["transform"])
+    un1 = lambda z_, k: np.unpackbits(z_[k], count=sshp[0] * sshp[1]).reshape(sshp).astype(bool)
+    dark0 = un1(r0, "water"); spool = H.pool_on(str_, sshp); sclip = clip(str_, sshp)
+    for d in s1d:
+        z1 = np.load(RM / "s1" / f"{d}.npz"); w, o = un1(z1, "water"), un1(z1, "observed")
+        c = np.zeros(sshp, "u1"); c[w] = 1; c[o & ~w & dark0] = 2; c[spool & ~o] = 3; c[~sclip] = 0
+        put(c, str_, f"s1/{d}.png", {1: "#1b6ca8", 2: "#d9a441", 3: "#c3c2b7"}, {"1": "S1 dark surface (open water or smooth wet mud)", "2": "dark on 06-01, not dark now", "3": "pool not observed"},
+            f"reservoir_s1_{d}", "reservoir_s1", src, f"VH threshold {float(z1['threshold_db']):.2f} dB; not observed is not dry")
+    # ---- S2 ----
+    src = "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water"
+    ztr, zshp = H.s2_grid(); zclip = clip(ztr, zshp); nt = "pool + 1 km; transparent = not observed"
+    for d in H.S2_DATES:
+        with rasterio.open(H.S2DIR / f"{d}_class.tif") as f:
+            cl = f.read(1); cl[~zclip] = 0
+        put(cl, ztr, f"s2/{d}_class.png", {k: v[1] for k, v in H.K10E.items()}, {str(k): v[0] for k, v in H.K10E.items()}, f"reservoir_s2_class_{d}", "reservoir_s2_class", src, nt)
+        with rasterio.open(H.S2DIR / f"{d}_water3.tif") as f:
+            w3 = f.read(1)
+        c = np.zeros(w3.shape, "u1"); c[w3 == 1] = 1; c[w3 == 0] = 2; c[~zclip] = 0
+        put(c, ztr, f"s2/{d}_water.png", {1: "#1b6ca8", 2: "#efece6"}, {"1": "S2 water (NDWI>0 & MNDWI>0)", "2": "S2 observed, not water"}, f"reservoir_s2_water_{d}", "reservoir_s2_water", src, nt)
+        with rasterio.open(H.S2DIR / f"{d}_indices.tif") as f:
+            for i, nm in enumerate(H.INDEX_NAMES, 1):
+                v = f.read(i).astype("f4"); v[(v == -32768) | ~zclip] = np.nan; v /= 1e4
+                edges, labels, cols = H.INDEX_BINS[nm]
+                put(H.classify_index(v, nm), ztr, f"s2/{d}_{nm}.png", {k + 1: cols[k] for k in range(len(labels))}, {str(k + 1): f"{nm} {lab}" for k, lab in enumerate(labels)},
+                    f"reservoir_s2_{nm}_{d}", "reservoir_s2_index", src, "display classes only; " + nt)
+    xtr = H.xc_transform(ztr); xclip = clip(xtr, zshp)
+    for d in H.S2XC_DATES:
+        z2 = np.load(H.S2XC / f"{d}.npz"); un2 = lambda k: np.unpackbits(z2[k], count=zshp[0] * zshp[1]).reshape(zshp).astype(bool)
+        w, v = un2("water"), un2("valid"); c = np.zeros(zshp, "u1"); c[v & ~w] = 2; c[w] = 1; c[~xclip] = 0
+        put(c, xtr, f"s2/{d}_water.png", {1: "#1b6ca8", 2: "#efece6"}, {"1": "S2 water (p15 crosscheck)", "2": "S2 observed, not water"}, f"reservoir_s2_water_{d}", "reservoir_s2_water", "p15 ZONE_1_s2_crosscheck (FROZEN)", nt)
+    # ---- pool outline ----
+    from pyproj import Transformer
+    from shapely.geometry import mapping
+    from shapely.ops import transform as stf
+    tf = Transformer.from_crs("EPSG:32636", "EPSG:4326", always_xy=True)
+    g = stf(lambda x, y, z=None: tf.transform(x, y), CFG.load_utm("reservoir_full_pool_prebreach").simplify(100))
+    p = OUTD / "context" / "reservoir_pool.geojson"; p.parent.mkdir(parents=True, exist_ok=True)
+    p.write_text(json.dumps(dict(type="FeatureCollection", features=[dict(type="Feature", properties=dict(name="Kakhovka pool before the breach", kind="reservoir"), geometry=mapping(g))])))
+    MAN["layers"].append(dict(id=p.stem, group="context", file=str(p.relative_to(OUTD)), bounds=None, legend={}, source="reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson), simplified 100 m",
+                              bytes=p.stat().st_size, sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
+
+
 def main():
-    t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
-    terrain_layers(); print("terrain", round(time.time() - t0), flush=True)
-    s1_layers(); print("s1", round(time.time() - t0), flush=True)
-    frame_layers(); print("frames", round(time.time() - t0), flush=True)
-    context_layers()
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir"], help="rebuild only the reservoir layers, keep the rest of the manifest")
+    a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
+    if a.only == "reservoir":
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]
+        reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
+    else:
+        terrain_layers(); print("terrain", round(time.time() - t0), flush=True)
+        s1_layers(); print("s1", round(time.time() - t0), flush=True)
+        frame_layers(); print("frames", round(time.time() - t0), flush=True)
+        reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
+        context_layers()
+    tr, ny, nx = box_grid(RBOX); MAN["reservoir_grid"] = dict(crs="EPSG:4326", dlon=DLON, dlat=DLAT, nx=nx, ny=ny, bounds=[[RBOX[1], RBOX[0]], [RBOX[3], RBOX[2]]])
     MAN["total_bytes"] = int(sum(l["bytes"] for l in MAN["layers"])); MAN["n_layers"] = len(MAN["layers"])
     MAN["licence_note"] = ("Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless DEM; "
                            "provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0.")

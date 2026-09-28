@@ -28,6 +28,7 @@ ANCHORS = [("dam", 33.3667, 46.7783, 0.0), ("nikopol", 34.375355, 47.554451, 159
 ROZ_UTM = (661001.4, 5293107.6)
 BS77_TO_EVRF = 0.185                           # median EPSG:9902 offset at the reservoir gauges (Paper 1: 0.1715-0.2157 m)
 SOURCES = {"SWOT_OUTLET": 0.0, "NIKOPOL_UHE": 159.863, "ROZUMIVKA_GAUGE": 247.512, "GREALM_S6A": 111.28, "ICESAT2_ATL13": None}   # None = chain_km per row
+BREACH = pd.Timestamp("2023-06-06")
 GOOD_Q = {"OK", "FILLED", "SINGLE_NODE", "PRESS", "DERIVED", "PRESS_TIME_UNCERTAIN", "QC_PARTIAL"}                       # excluded: CENSORED, QC_FAIL, ASSUMED_*, FILLED_SUSPECT, ICE
 
 
@@ -43,14 +44,13 @@ def chainage_grid(xs, ys):
     return chain.reshape(XX.shape)
 
 
-def main():
-    t0 = time.time()
+def load_levels():
+    """Daily pool levels per fixed source (held before the breach, gap-limited after) + ICESat-2 passes with their own chainage."""
     lv = pd.read_csv(SD / "p61_pool_levels_2023.csv", parse_dates=["date"]); lv = lv[lv.source.isin(SOURCES) & lv.quality.isin(GOOD_Q)]
     lv = lv[(lv.date >= DATES[0]) & (lv.date <= DATES[-1])].copy()
     lv["chain"] = [SOURCES[s_] if SOURCES[s_] is not None else float(c) for s_, c in zip(lv.source, lv.chain_km)]
     fixed = {k: v for k, v in SOURCES.items() if v is not None}
     daily = lv[lv.source.isin(fixed)].groupby(["date", "source"]).H_evrf2019.median().unstack().reindex(DATES)
-    BREACH = pd.Timestamp("2023-06-06")
     for src in fixed:
         if src in daily.columns:
             pre, post = daily.loc[:BREACH - pd.Timedelta(days=1), src], daily.loc[BREACH:, src]
@@ -58,15 +58,40 @@ def main():
             post = post.interpolate(limit=3, limit_direction="forward") if src == "SWOT_OUTLET" else post.ffill(limit=2)
             daily[src] = pd.concat([pre, post])
     extra = lv[~lv.source.isin(fixed)]                                                  # ICESat-2 passes with their own chainage
-    q = pd.read_csv(SD / "dniprohes_releases.csv", parse_dates=["date"]).set_index("date").discharge_m3s.reindex(DATES)
-    kh = pd.read_csv(CFG.TABLES / "p59_swot_vs_kherson.csv", parse_dates=["date"]).set_index("date").H_gauge_evrf.reindex(DATES)
-    hyp = pd.read_csv(SD / "hist2_hypsometry.csv")
+    return daily, extra, fixed
+
+
+def load_pool():
+    """Seamless 50 m DEM, pre-breach pool mask (plausible bed only), transform, CRS and cell-centre coordinates."""
     pool = CFG.load_utm("reservoir_full_pool_prebreach")
     with rasterio.open(CFG.BULK_ROOT / "dem_seamless" / "dem_seamless_evrf2019_50m.tif") as s:
-        dem = s.read(1).astype("f4"); dem[dem == s.nodata] = np.nan; tr = s.transform
+        dem = s.read(1).astype("f4"); dem[dem == s.nodata] = np.nan; tr = s.transform; crs = s.crs
         mask = features.rasterize([(pool.__geo_interface__, 1)], out_shape=dem.shape, transform=tr, fill=0, dtype="uint8").astype(bool)
         xs = tr.c + tr.a * (np.arange(s.width) + 0.5); ys = tr.f + tr.e * (np.arange(s.height) + 0.5)
     mask &= np.isfinite(dem) & (dem > -30) & (dem < 40)
+    return dem, mask, tr, crs, xs, ys
+
+
+def day_points(d, daily, extra, fixed):
+    """(chainage km, level m) anchors of the sloped surface on day d, sorted by chainage."""
+    pts = [(fixed[s_], daily.loc[d, s_]) for s_ in fixed if s_ in daily.columns and np.isfinite(daily.loc[d, s_])]
+    pts += [(float(r.chain), float(r.H_evrf2019)) for r in extra[extra.date == d].itertuples()]
+    return sorted(pts)
+
+
+def sloped_wse(pts, chain):
+    """Water surface on the pool grid, linear in chainage between the day's anchors."""
+    cs, hs = np.array([p[0] for p in pts]), np.array([p[1] for p in pts])
+    return np.interp(chain, cs, hs).astype("f4")
+
+
+def main():
+    t0 = time.time()
+    daily, extra, fixed = load_levels()
+    q = pd.read_csv(SD / "dniprohes_releases.csv", parse_dates=["date"]).set_index("date").discharge_m3s.reindex(DATES)
+    kh = pd.read_csv(CFG.TABLES / "p59_swot_vs_kherson.csv", parse_dates=["date"]).set_index("date").H_gauge_evrf.reindex(DATES)
+    hyp = pd.read_csv(SD / "hist2_hypsometry.csv")
+    dem, mask, tr, _, xs, ys = load_pool()
     chain = chainage_grid(xs, ys); cell_km2 = abs(tr.a * tr.e) / 1e6
     # DEM hypsometry (level surface) for reference
     hrows = []
@@ -81,9 +106,7 @@ def main():
     ad = dn[dn.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])].groupby("date").potential_km2.sum().reindex(DATES)
     rows = []
     for d in DATES:
-        pts = [(fixed[s_], daily.loc[d, s_]) for s_ in fixed if s_ in daily.columns and np.isfinite(daily.loc[d, s_])]
-        pts += [(float(r.chain), float(r.H_evrf2019)) for r in extra[extra.date == d].itertuples()]
-        pts = sorted(pts)
+        pts = day_points(d, daily, extra, fixed)
         if len(pts) < 2 or d > pd.Timestamp("2023-06-13"):                             # after 13 June the pool is a river at 2-5 m: no pool volume
             rows.append(dict(date=str(d.date()), n_level_sources=len(pts), H_outlet_m=daily.loc[d].get("SWOT_OUTLET", np.nan),
                              kherson_stage_m=float(kh.loc[d]) if np.isfinite(kh.loc[d]) else np.nan, Q_in_dniprohes_m3s=float(q.loc[d]) if np.isfinite(q.loc[d]) else np.nan,
@@ -91,8 +114,7 @@ def main():
                              phase="post-drawdown (pool volume not defined)" if d > pd.Timestamp("2023-06-13") else "insufficient level sources")); continue
         if len(pts) < 2:
             rows.append(dict(date=str(d.date()), n_level_sources=len(pts))); continue
-        cs, hs = np.array([p[0] for p in pts]), np.array([p[1] for p in pts])
-        wse = np.interp(chain, cs, hs).astype("f4")                                   # sloped surface along the chainage
+        hs = np.array([p[1] for p in pts]); wse = sloped_wse(pts, chain)                # sloped surface along the chainage
         w = mask & (dem < wse); A = float(w.sum()) * cell_km2; V = float(np.nansum((wse - dem)[w])) * cell_km2 * 1e6 / 1e9
         rows.append(dict(date=str(d.date()), n_level_sources=len(pts), H_outlet_m=daily.loc[d].get("SWOT_OUTLET", np.nan), H_nikopol_m=daily.loc[d].get("NIKOPOL_UHE", np.nan),
                          H_rozumivka_m=daily.loc[d].get("ROZUMIVKA_GAUGE", np.nan), gradient_m=float(hs[-1] - hs[0]), A_pool_km2=round(A, 1), V_pool_km3=round(V, 3),

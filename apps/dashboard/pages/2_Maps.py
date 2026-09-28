@@ -9,12 +9,19 @@ from streamlit_folium import st_folium
 from lib import DATA, header, layers
 
 st.set_page_config(page_title="Maps", layout="wide")
-header("Maps: terrain-reconstructed inundation by day, Sentinel-1 by date, U-Net, labels, surface classes",
+header("Maps: terrain-reconstructed inundation by day, Sentinel-1 by date, U-Net, labels, surface classes, reservoir drawdown",
        "pre-rendered classed overlays (~76 × 80 m); no numeric raster is served")
 
 L = layers(); by_id = {l["id"]: l for l in L["layers"]}
 daily = sorted(l for l in by_id if l.startswith("terrain_daily_")); s1d = sorted(l for l in by_id if l.startswith("s1_new_"))
+rmod = sorted(l.replace("reservoir_model_", "") for l in by_id if l.startswith("reservoir_model_"))
+rs1 = sorted(l.replace("reservoir_s1_", "") for l in by_id if l.startswith("reservoir_s1_"))
+rs2 = sorted({l.split("_")[-1] for l in by_id if l.startswith("reservoir_s2_") and not l.startswith("reservoir_s2_water_")})
+rs2w = sorted(l.replace("reservoir_s2_water_", "") for l in by_id if l.startswith("reservoir_s2_water_"))
+S2_LAYERS = ["k10e classes", "water", "NDVI", "NDWI", "MNDWI", "NDMI", "BSI", "AWEIsh", "NDTI"]
+VIEWS = {"downstream (dam → liman)": ([46.68, 32.9], 9), "reservoir (Kakhovka pool)": ([47.3, 34.3], 9), "both": ([47.1, 33.6], 8)}
 with st.sidebar:
+    view = st.radio("zoom to", list(VIEWS), index=0)
     st.markdown("**Terrain reconstruction**")
     day = st.select_slider("day", options=[d.replace("terrain_daily_", "") for d in daily], value="2023-06-08")
     show_terrain = st.checkbox("show terrain new inundation for this day", True)
@@ -25,10 +32,18 @@ with st.sidebar:
     st.markdown("**Other products**")
     unet = st.selectbox("U-Net prediction", ["none", "unet_U2b_v003A", "unet_U2_v1"])
     lab = st.checkbox("labels v003_A (frozen)", False); rf = st.checkbox("RF20 surface classes", False)
+    if rmod:
+        st.markdown("**Reservoir drawdown**")
+        rday = st.select_slider("model day (p95f surface over the DEM)", options=["none"] + rmod, value="none")
+        rexp = st.checkbox("model: day of exposure", False)
+        rs1date = st.selectbox("S1 date (VH dark surface)", ["none"] + rs1)
+        s2l = st.selectbox("S2 layer", ["none"] + S2_LAYERS)
+        s2opts = rs2w if s2l == "water" else rs2
+        rs2date = st.selectbox("S2 date", s2opts, index=min(1, len(s2opts) - 1)) if s2l != "none" and s2opts else None
     opacity = st.slider("overlay opacity", 0.2, 1.0, 0.75, 0.05)
     st.caption("Terrain layers derive from FABDEM v1.2 (CC BY-NC-SA 4.0) via the seamless DEM; non-commercial use with attribution.")
 
-m = folium.Map(location=[46.68, 32.9], zoom_start=9, tiles="OpenStreetMap", control_scale=True)
+m = folium.Map(location=VIEWS[view][0], zoom_start=VIEWS[view][1], tiles="OpenStreetMap", control_scale=True)
 def add(lid, op=None, name=None):
     l = by_id[lid]; folium.raster_layers.ImageOverlay(str(DATA / l["file"]), bounds=l["bounds"], opacity=op or opacity, name=name or lid, interactive=False, cross_origin=False, zindex=5).add_to(m)
     return l
@@ -40,6 +55,17 @@ if s1foot and s1date != "none": add(f"s1_footprint_{s1date}", 0.25, "S1 footprin
 if unet != "none": legend.append(add(unet, opacity, unet))
 if s1date != "none": legend.append(add(f"s1_new_{s1date}", opacity, f"S1 new water {s1date}"))
 if show_terrain: legend.append(add(f"terrain_daily_{day}", opacity, f"terrain {day}"))
+if rmod:
+    if s2l != "none" and rs2date:
+        sid = {"k10e classes": f"reservoir_s2_class_{rs2date}", "water": f"reservoir_s2_water_{rs2date}"}.get(s2l, f"reservoir_s2_{s2l}_{rs2date}")
+        if sid in by_id:
+            legend.append(add(sid, opacity, f"S2 {s2l} {rs2date}"))
+    if rs1date != "none": legend.append(add(f"reservoir_s1_{rs1date}", opacity, f"S1 reservoir {rs1date}"))
+    if rexp: legend.append(add("reservoir_exposed_day", opacity, "model day of exposure"))
+    if rday != "none": legend.append(add(f"reservoir_model_{rday}", opacity, f"model pool {rday}"))
+rp = DATA / "context" / "reservoir_pool.geojson"
+if rp.exists():
+    folium.GeoJson(json.loads(rp.read_text()), name="Kakhovka pool before the breach", style_function=lambda f: dict(color="#1b6ca8", weight=1, fill=False, dashArray="3")).add_to(m)
 ctx = DATA / "context" / "frames_and_points.geojson"
 if ctx.exists():
     folium.GeoJson(json.loads(ctx.read_text()), name="frames, cut rectangles, gauge, dam", style_function=lambda f: dict(color="#e34948" if f["properties"]["kind"] == "cut_rect" else "#4a3aa7", weight=1.2, fill=False, dashArray="4" if f["properties"]["kind"] == "cut_rect" else None),

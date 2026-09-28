@@ -6,6 +6,10 @@ rasterio, no FABDEM-derived numeric raster is served.
 
 Run locally: `pip install -r apps/dashboard/requirements.txt && streamlit run apps/dashboard/streamlit_app.py`
 Rebuild layers (needs the bulk root): `python case_studies/kakhovka_2023/workflows/paper/p98_dashboard_layers.py`
+(reservoir layers only: `... p98_dashboard_layers.py --only reservoir`, after `workflows/m6/p95h_reservoir_maps.py`).
+Reservoir drawdown (Maps page, "zoom to → reservoir"): modelled pool by day and day of exposure (p95h/p95f), S1 VH dark surface
+(open water or wet mud) by date, S2 k10e classes, water and the 7 indices in display classes (frozen p25 products), all on
+the pool + 1 km.
 Deploy (Streamlit Community Cloud): repository `NikoriakViktot/floodstate-eo`, branch `main`, main file
 `apps/dashboard/streamlit_app.py`, Python 3.12, no secrets. If the platform does not pick up this directory's
 `requirements.txt`, add a root `requirements.txt` containing `-r apps/dashboard/requirements.txt`.

@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-25T20:24:46Z",
+ "generated_utc": "2026-09-28T09:15:10Z",
  "grid": {
   "crs": "EPSG:4326",
   "dlon": 0.001,
@@ -2206,9 +2206,2574 @@
    "source": "own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)",
    "bytes": 740686,
    "sha256": "40d8c395542fa990381c6625547b674f51e1ce1e250695cf3708796b18cee6be"
+  },
+  {
+   "id": "reservoir_model_2023-05-31",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-05-31.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 13852,
+   "sha256": "ed144632133cded5aa1d3c633ee329af8594c4e70ea3ca767bc2296a6d213d87",
+   "area_km2_by_class": {
+    "1": 2125.4,
+    "2": 0.0
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-01",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-01.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 13851,
+   "sha256": "5ac93bb7bba79fd1c973e0b914734a7ee89694b662aa67d835e73e12e748c9db",
+   "area_km2_by_class": {
+    "1": 2125.3,
+    "2": 0.0
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-02",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-02.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 13924,
+   "sha256": "534e81b7c818860fb5e4d5397eaf7cc3c61f5c05b079d254887b4c56756ee94f",
+   "area_km2_by_class": {
+    "1": 2124.9,
+    "2": 0.2
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-03",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-03.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 13896,
+   "sha256": "2bf4430030afb6af59834bb8acabf0b7b5b36c82d8aaf30deca664b1e430fd9a",
+   "area_km2_by_class": {
+    "1": 2124.6,
+    "2": 0.0
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-04",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-04.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 14475,
+   "sha256": "b8106617375b8f2ddc6a8622ebafd4a2eeb78b40e8d60eacdc823765cc84a354",
+   "area_km2_by_class": {
+    "1": 2105.6,
+    "2": 16.1
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-05",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-05.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 13999,
+   "sha256": "a7ad477991e0e71d674200817b4141bed678e27c1affc8521f02837044db9cfe",
+   "area_km2_by_class": {
+    "1": 2121.7,
+    "2": 0.0
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-06",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-06.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 15655,
+   "sha256": "6ef955d8251d92f0b9e7233d3309926bc48edef34359f7c7ded9ea08744a0054",
+   "area_km2_by_class": {
+    "1": 2081.5,
+    "2": 40.2
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-07",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-07.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 16686,
+   "sha256": "7247ec7b9de3c70a1b20033e7265ebb07df008f78a369b6f4ca1e3250f9e12f9",
+   "area_km2_by_class": {
+    "1": 2044.1,
+    "2": 77.7
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-08",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-08.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 17617,
+   "sha256": "9a793245e74afe42db401cd43ff1869687706a645c9162fd477ee7672231e6ff",
+   "area_km2_by_class": {
+    "1": 2002.3,
+    "2": 119.4
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-09",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-09.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 18439,
+   "sha256": "2d1078ff1e1754362c703b4a261357360fa35ef34fb570b6be4aded90077dcc2",
+   "area_km2_by_class": {
+    "1": 1954.9,
+    "2": 166.8
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-10",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-10.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 19314,
+   "sha256": "8611d495db3af9f6ac280742784d736a6fe61d7150f3f933a1ea46ad929f6864",
+   "area_km2_by_class": {
+    "1": 1905.9,
+    "2": 215.9
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-11",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-11.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 20134,
+   "sha256": "02f67ce226d9a8eb52fdcceb7fbab4fe77d5cbb96c3efe1adad57ef78b3ba855",
+   "area_km2_by_class": {
+    "1": 1861.5,
+    "2": 260.2
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-12",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-12.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 20818,
+   "sha256": "4eaac6cd7a095bcbc11da8fbf2bb4e5408ce6b012aa202fbf6f980ae7962ddb0",
+   "area_km2_by_class": {
+    "1": 1819.9,
+    "2": 301.8
+   }
+  },
+  {
+   "id": "reservoir_model_2023-06-13",
+   "group": "reservoir_model",
+   "file": "reservoir/model/2023-06-13.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "pool water (model)",
+    "2": "bed exposed since 06-05 (model)"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "",
+   "bytes": 20947,
+   "sha256": "8c6296d557071b694b504cb43ff6aa9d632ba2787849ec1ae6ae0e4440483774",
+   "area_km2_by_class": {
+    "1": 1811.6,
+    "2": 310.1
+   }
+  },
+  {
+   "id": "reservoir_exposed_day",
+   "group": "reservoir_model",
+   "file": "reservoir/exposed_day.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "exposed 06-06",
+    "2": "exposed 06-07",
+    "3": "exposed 06-08",
+    "4": "exposed 06-09\u201310",
+    "5": "exposed 06-11\u201313",
+    "6": "still wet on 06-13"
+   },
+   "palette": {
+    "1": "#7d1d1d",
+    "2": "#c7522a",
+    "3": "#e08214",
+    "4": "#eda100",
+    "5": "#f2d98a",
+    "6": "#1b6ca8"
+   },
+   "source": "p95h MODEL: p95f sloped daily surface over the 50 m seamless DEM inside the pre-breach pool (terrain-reconstructed)",
+   "note": "day on which a cell wet on 06-05 first falls dry under the modelled surface",
+   "bytes": 29417,
+   "sha256": "113c2befc28d5c10aa8cf8744435605acee0c3990a933d614dade2d766c9ce1a",
+   "area_km2_by_class": {
+    "1": 40.2,
+    "2": 37.4,
+    "3": 41.8,
+    "4": 96.5,
+    "5": 94.5,
+    "6": 1811.3
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-01",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-01.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -17.25 dB; not observed is not dry",
+   "bytes": 22753,
+   "sha256": "b290bf62a90d80cdc9cf298bbe40003606c2a56b48a59153045633587b0aa7d1",
+   "area_km2_by_class": {
+    "1": 2004.5,
+    "2": 0.0,
+    "3": 153.9
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-04",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-04.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -17.75 dB; not observed is not dry",
+   "bytes": 23813,
+   "sha256": "d03a30b8b49fc694c2625584a6178f5fd2805328a36fb323a8b38f4bccc97d39",
+   "area_km2_by_class": {
+    "1": 1550.7,
+    "2": 11.0,
+    "3": 616.3
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-08",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-08.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -19.05 dB; not observed is not dry",
+   "bytes": 21460,
+   "sha256": "316b19aac7810abfb5cf2fe395256464070c046e21eac0c6a48a1f0375142b1f",
+   "area_km2_by_class": {
+    "1": 1735.2,
+    "2": 19.2,
+    "3": 451.0
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-09",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-09.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -18.75 dB; not observed is not dry",
+   "bytes": 34117,
+   "sha256": "fe8a612738ac1638ed9e63bbf36f13d326aa6a1545888f8a26c197f741326811",
+   "area_km2_by_class": {
+    "1": 2156.6,
+    "2": 48.9,
+    "3": 0.0
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-13",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-13.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -16.95 dB; not observed is not dry",
+   "bytes": 30948,
+   "sha256": "f44c24e94188d65ae2a4d905a6c48d593b9bc0f0ff2b0b1d16456d405cf71d51",
+   "area_km2_by_class": {
+    "1": 1961.7,
+    "2": 57.4,
+    "3": 153.2
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-16",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-16.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -17.05 dB; not observed is not dry",
+   "bytes": 26126,
+   "sha256": "0f9360df9c9229723ee21709c36a3d9471c3b34b71715e93f4be6a3370f79373",
+   "area_km2_by_class": {
+    "1": 1538.4,
+    "2": 21.5,
+    "3": 615.1
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-20",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-20.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -18.15 dB; not observed is not dry",
+   "bytes": 25139,
+   "sha256": "87ac05517fee7be0b333edf272b228320eafbb3912bd4dcb2fe9289fecf3980b",
+   "area_km2_by_class": {
+    "1": 1739.1,
+    "2": 25.5,
+    "3": 449.9
+   }
+  },
+  {
+   "id": "reservoir_s1_2023-06-21",
+   "group": "reservoir_s1",
+   "file": "reservoir/s1/2023-06-21.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S1 dark surface (open water or smooth wet mud)",
+    "2": "dark on 06-01, not dark now",
+    "3": "pool not observed"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#d9a441",
+    "3": "#c3c2b7"
+   },
+   "source": "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected",
+   "note": "VH threshold -18.15 dB; not observed is not dry",
+   "bytes": 39969,
+   "sha256": "61db098efb5c62c73f2f333763e2c337d1e864ec4b75a1b233f3e027235fcdf0",
+   "area_km2_by_class": {
+    "1": 2162.0,
+    "2": 67.4,
+    "3": 0.0
+   }
+  },
+  {
+   "id": "reservoir_s2_class_2023-05-06",
+   "group": "reservoir_s2_class",
+   "file": "reservoir/s2/2023-05-06_class.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "OPEN_WATER",
+    "2": "SHALLOW_OR_MIXED_WATER",
+    "3": "WET_SEDIMENT",
+    "4": "DRY_BARE_SEDIMENT",
+    "5": "SPARSE_HERBACEOUS",
+    "6": "DENSE_HERBACEOUS",
+    "7": "REED_OR_FLOODED_VEGETATION",
+    "8": "BUILT_HARD_SURFACE",
+    "9": "AMBIGUOUS"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#7fb3d5",
+    "3": "#8c6d31",
+    "4": "#d9c58b",
+    "5": "#b8d98d",
+    "6": "#4c9a2a",
+    "7": "#1e6f3f",
+    "8": "#7d7d7d",
+    "9": "#e08214"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 58961,
+   "sha256": "af2f9f329df5026dd7b3dfcc080a20082646340b7bfb523ae35342c3d173d459",
+   "area_km2_by_class": {
+    "1": 2095.7,
+    "2": 22.6,
+    "3": 7.2,
+    "4": 11.7,
+    "5": 83.3,
+    "6": 220.5,
+    "7": 409.1,
+    "8": 0.0,
+    "9": 0.2
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-05-06",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-05-06_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (NDWI>0 & MNDWI>0)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 21556,
+   "sha256": "283030a3b220d75e30b5e2458bc1fe6543f8b55300c6ac5b71ebb4a1d0a12cdb",
+   "area_km2_by_class": {
+    "1": 2117.8,
+    "2": 732.4
+   }
+  },
+  {
+   "id": "reservoir_s2_NDVI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_NDVI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDVI < 0.15",
+    "2": "NDVI 0.15\u20130.3",
+    "3": "NDVI 0.3\u20130.5",
+    "4": "NDVI > 0.5"
+   },
+   "palette": {
+    "1": "#e8d8a0",
+    "2": "#b8d98d",
+    "3": "#4c9a2a",
+    "4": "#1e6f3f"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 52629,
+   "sha256": "603a984ccaca942d95bc2d82b16088bd6f2aa3c0b1e17928210b018462644c94",
+   "area_km2_by_class": {
+    "1": 2130.2,
+    "2": 90.4,
+    "3": 146.6,
+    "4": 483.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDWI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_NDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDWI < \u22120.3",
+    "2": "NDWI \u22120.3\u20130",
+    "3": "NDWI 0\u20130.3",
+    "4": "NDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 44892,
+   "sha256": "a2e1a61e81537d98ac83eddac17fe2ebd74c457bf1f47f0fc18e7e2fdc4fedb2",
+   "area_km2_by_class": {
+    "1": 688.3,
+    "2": 44.3,
+    "3": 1952.4,
+    "4": 165.3
+   }
+  },
+  {
+   "id": "reservoir_s2_MNDWI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_MNDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "MNDWI < \u22120.3",
+    "2": "MNDWI \u22120.3\u20130",
+    "3": "MNDWI 0\u20130.3",
+    "4": "MNDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 50359,
+   "sha256": "8b9b4827608e463764f1f27aba7ffb73a85247db1a943e29840546801dcf8d9c",
+   "area_km2_by_class": {
+    "1": 678.3,
+    "2": 56.7,
+    "3": 404.1,
+    "4": 1711.2
+   }
+  },
+  {
+   "id": "reservoir_s2_NDMI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_NDMI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDMI < \u22120.1",
+    "2": "NDMI \u22120.1\u20130.1",
+    "3": "NDMI > 0.1"
+   },
+   "palette": {
+    "1": "#c7522a",
+    "2": "#f2efe6",
+    "3": "#2a78d6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 59770,
+   "sha256": "275e150ecffa3b1342bec3945fe18224a0ed63c491a2cd5f245e0db28ed04f4e",
+   "area_km2_by_class": {
+    "1": 123.8,
+    "2": 286.0,
+    "3": 2440.5
+   }
+  },
+  {
+   "id": "reservoir_s2_BSI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_BSI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "BSI < \u22120.1",
+    "2": "BSI \u22120.1\u20130.1",
+    "3": "BSI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#c7522a"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 83020,
+   "sha256": "327c442fe716b8e892a7b7b75bd2daea4f802be6b3b436fc5632c2c5ffcfed8b",
+   "area_km2_by_class": {
+    "1": 1356.3,
+    "2": 1343.4,
+    "3": 150.6
+   }
+  },
+  {
+   "id": "reservoir_s2_AWEIsh_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_AWEIsh.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "AWEIsh < \u22120.3",
+    "2": "AWEIsh \u22120.3\u20130",
+    "3": "AWEIsh 0\u20130.3",
+    "4": "AWEIsh > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 29670,
+   "sha256": "af41afdb2b29a6cb8746658d497d2653ca6375337cdb1352b6e96b9ebe1915c9",
+   "area_km2_by_class": {
+    "1": 670.7,
+    "2": 63.9,
+    "3": 2110.2,
+    "4": 5.5
+   }
+  },
+  {
+   "id": "reservoir_s2_NDTI_2023-05-06",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-05-06_NDTI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDTI < \u22120.1",
+    "2": "NDTI \u22120.1\u20130.1",
+    "3": "NDTI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#8c6d31"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 71921,
+   "sha256": "54686190af44331525b85820253d8b265118bab4d0449f08fea08735012e89b6",
+   "area_km2_by_class": {
+    "1": 1264.8,
+    "2": 1533.0,
+    "3": 52.5
+   }
+  },
+  {
+   "id": "reservoir_s2_class_2023-06-05",
+   "group": "reservoir_s2_class",
+   "file": "reservoir/s2/2023-06-05_class.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "OPEN_WATER",
+    "2": "SHALLOW_OR_MIXED_WATER",
+    "3": "WET_SEDIMENT",
+    "4": "DRY_BARE_SEDIMENT",
+    "5": "SPARSE_HERBACEOUS",
+    "6": "DENSE_HERBACEOUS",
+    "7": "REED_OR_FLOODED_VEGETATION",
+    "8": "BUILT_HARD_SURFACE",
+    "9": "AMBIGUOUS"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#7fb3d5",
+    "3": "#8c6d31",
+    "4": "#d9c58b",
+    "5": "#b8d98d",
+    "6": "#4c9a2a",
+    "7": "#1e6f3f",
+    "8": "#7d7d7d",
+    "9": "#e08214"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 53376,
+   "sha256": "800cbe105d6845fa7e7087e19dac48b07f66bbfdd3677ee81fc0807e76011ba6",
+   "area_km2_by_class": {
+    "1": 2089.8,
+    "2": 22.9,
+    "3": 4.4,
+    "4": 10.6,
+    "5": 50.3,
+    "6": 164.9,
+    "7": 507.1,
+    "8": 0.0,
+    "9": 0.2
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-06-05",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-06-05_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (NDWI>0 & MNDWI>0)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 21498,
+   "sha256": "aa9f681de1c4435ae2848166935a8e8efa6fbdddba9888b3a3364fd119db15b7",
+   "area_km2_by_class": {
+    "1": 2112.3,
+    "2": 738.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDVI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_NDVI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDVI < 0.15",
+    "2": "NDVI 0.15\u20130.3",
+    "3": "NDVI 0.3\u20130.5",
+    "4": "NDVI > 0.5"
+   },
+   "palette": {
+    "1": "#e8d8a0",
+    "2": "#b8d98d",
+    "3": "#4c9a2a",
+    "4": "#1e6f3f"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 48460,
+   "sha256": "babb1c7b06ce8b0615609fe39904031153878202d88eeb3a6d551b50f9a6636d",
+   "area_km2_by_class": {
+    "1": 2123.1,
+    "2": 55.1,
+    "3": 125.9,
+    "4": 546.2
+   }
+  },
+  {
+   "id": "reservoir_s2_NDWI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_NDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDWI < \u22120.3",
+    "2": "NDWI \u22120.3\u20130",
+    "3": "NDWI 0\u20130.3",
+    "4": "NDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 38744,
+   "sha256": "5f2d849cf547e5b598331c644ee0fe73bf8b9552d1e507353308711e4469a56f",
+   "area_km2_by_class": {
+    "1": 705.0,
+    "2": 33.0,
+    "3": 1928.0,
+    "4": 184.3
+   }
+  },
+  {
+   "id": "reservoir_s2_MNDWI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_MNDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "MNDWI < \u22120.3",
+    "2": "MNDWI \u22120.3\u20130",
+    "3": "MNDWI 0\u20130.3",
+    "4": "MNDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 53191,
+   "sha256": "17b7f4bfac3e25403564f19413738159832e7e51dd751a3bed095ea0c823a3bb",
+   "area_km2_by_class": {
+    "1": 684.1,
+    "2": 55.9,
+    "3": 770.4,
+    "4": 1339.9
+   }
+  },
+  {
+   "id": "reservoir_s2_NDMI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_NDMI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDMI < \u22120.1",
+    "2": "NDMI \u22120.1\u20130.1",
+    "3": "NDMI > 0.1"
+   },
+   "palette": {
+    "1": "#c7522a",
+    "2": "#f2efe6",
+    "3": "#2a78d6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 65043,
+   "sha256": "a3db284cd5f9c0d8ab1e0ad9e55f72eb4169a4128b96ac18875cabc2d75261ef",
+   "area_km2_by_class": {
+    "1": 91.2,
+    "2": 413.7,
+    "3": 2345.4
+   }
+  },
+  {
+   "id": "reservoir_s2_BSI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_BSI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "BSI < \u22120.1",
+    "2": "BSI \u22120.1\u20130.1",
+    "3": "BSI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#c7522a"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 80201,
+   "sha256": "137bb4b5f46ea72cc1e56b50d8c70d0686e5283cdc268649182295f7448dbee4",
+   "area_km2_by_class": {
+    "1": 938.7,
+    "2": 1809.0,
+    "3": 102.6
+   }
+  },
+  {
+   "id": "reservoir_s2_AWEIsh_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_AWEIsh.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "AWEIsh < \u22120.3",
+    "2": "AWEIsh \u22120.3\u20130",
+    "3": "AWEIsh 0\u20130.3",
+    "4": "AWEIsh > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 28597,
+   "sha256": "a37f1c8e3191f353d2fb258644f929861950240fe87d65e2e5eb3c7adcffd389",
+   "area_km2_by_class": {
+    "1": 686.3,
+    "2": 52.6,
+    "3": 2111.2,
+    "4": 0.3
+   }
+  },
+  {
+   "id": "reservoir_s2_NDTI_2023-06-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-06-05_NDTI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDTI < \u22120.1",
+    "2": "NDTI \u22120.1\u20130.1",
+    "3": "NDTI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#8c6d31"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 77674,
+   "sha256": "c3b28f8f180b046c6063987376bc5d04f1e4f6ff789119601993493947efac9c",
+   "area_km2_by_class": {
+    "1": 812.5,
+    "2": 1983.1,
+    "3": 54.7
+   }
+  },
+  {
+   "id": "reservoir_s2_class_2023-07-05",
+   "group": "reservoir_s2_class",
+   "file": "reservoir/s2/2023-07-05_class.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "OPEN_WATER",
+    "2": "SHALLOW_OR_MIXED_WATER",
+    "3": "WET_SEDIMENT",
+    "4": "DRY_BARE_SEDIMENT",
+    "5": "SPARSE_HERBACEOUS",
+    "6": "DENSE_HERBACEOUS",
+    "7": "REED_OR_FLOODED_VEGETATION",
+    "8": "BUILT_HARD_SURFACE",
+    "9": "AMBIGUOUS"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#7fb3d5",
+    "3": "#8c6d31",
+    "4": "#d9c58b",
+    "5": "#b8d98d",
+    "6": "#4c9a2a",
+    "7": "#1e6f3f",
+    "8": "#7d7d7d",
+    "9": "#e08214"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 144614,
+   "sha256": "b123a997b666afabbaa5ea6d84754a69c33c0e5b1333f8dadca42a4300582b6c",
+   "area_km2_by_class": {
+    "1": 406.6,
+    "2": 354.6,
+    "3": 35.7,
+    "4": 1010.4,
+    "5": 219.1,
+    "6": 293.7,
+    "7": 313.4,
+    "8": 0.0,
+    "9": 12.0
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-07-05",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-07-05_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (NDWI>0 & MNDWI>0)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 67579,
+   "sha256": "3b0f4fcbffd142febf4a82b814908ca814d28a95978475780158184951cda53c",
+   "area_km2_by_class": {
+    "1": 727.8,
+    "2": 1917.8
+   }
+  },
+  {
+   "id": "reservoir_s2_NDVI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_NDVI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDVI < 0.15",
+    "2": "NDVI 0.15\u20130.3",
+    "3": "NDVI 0.3\u20130.5",
+    "4": "NDVI > 0.5"
+   },
+   "palette": {
+    "1": "#e8d8a0",
+    "2": "#b8d98d",
+    "3": "#4c9a2a",
+    "4": "#1e6f3f"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 84932,
+   "sha256": "349ccc6ed91dd37117252003ab7ecd14e2a76641aa6beb7074b2de6cdaaceb43",
+   "area_km2_by_class": {
+    "1": 1728.0,
+    "2": 306.7,
+    "3": 200.9,
+    "4": 410.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDWI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_NDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDWI < \u22120.3",
+    "2": "NDWI \u22120.3\u20130",
+    "3": "NDWI 0\u20130.3",
+    "4": "NDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 65719,
+   "sha256": "bd144edc0136bd31d095cbafcf7f0805530f3fa655c8c157e341737f8ed6c112",
+   "area_km2_by_class": {
+    "1": 638.3,
+    "2": 1638.9,
+    "3": 333.4,
+    "4": 34.9
+   }
+  },
+  {
+   "id": "reservoir_s2_MNDWI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_MNDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "MNDWI < \u22120.3",
+    "2": "MNDWI \u22120.3\u20130",
+    "3": "MNDWI 0\u20130.3",
+    "4": "MNDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 104597,
+   "sha256": "34d3b4458d0e8cec574d789e500bc7b3e0974805e98f67198231e97fef1e0f41",
+   "area_km2_by_class": {
+    "1": 1299.9,
+    "2": 970.7,
+    "3": 144.4,
+    "4": 230.6
+   }
+  },
+  {
+   "id": "reservoir_s2_NDMI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_NDMI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDMI < \u22120.1",
+    "2": "NDMI \u22120.1\u20130.1",
+    "3": "NDMI > 0.1"
+   },
+   "palette": {
+    "1": "#c7522a",
+    "2": "#f2efe6",
+    "3": "#2a78d6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 111500,
+   "sha256": "90938d551653813e73ca691bc70e1f49c97866d678d8ca7cbf0e545d38f37006",
+   "area_km2_by_class": {
+    "1": 1216.3,
+    "2": 818.4,
+    "3": 610.8
+   }
+  },
+  {
+   "id": "reservoir_s2_BSI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_BSI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "BSI < \u22120.1",
+    "2": "BSI \u22120.1\u20130.1",
+    "3": "BSI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#c7522a"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 100860,
+   "sha256": "fc231fafa3b84ed4d4bb2b0b5b30cd579b8cb0249207ecc3d1cbeb4e194599ad",
+   "area_km2_by_class": {
+    "1": 352.4,
+    "2": 862.5,
+    "3": 1430.6
+   }
+  },
+  {
+   "id": "reservoir_s2_AWEIsh_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_AWEIsh.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "AWEIsh < \u22120.3",
+    "2": "AWEIsh \u22120.3\u20130",
+    "3": "AWEIsh 0\u20130.3",
+    "4": "AWEIsh > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 85811,
+   "sha256": "8fd6ae5de9553af295371582238c4b319f65d91d955db3ad8d7339a3ab9696ac",
+   "area_km2_by_class": {
+    "1": 1298.8,
+    "2": 991.3,
+    "3": 355.5,
+    "4": 0.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDTI_2023-07-05",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-07-05_NDTI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDTI < \u22120.1",
+    "2": "NDTI \u22120.1\u20130.1",
+    "3": "NDTI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#8c6d31"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 85071,
+   "sha256": "5a09d5f7fd9df0b629d8575a10e3d7ce937fa2e212e1bd05560e9ee1b8a0ecf6",
+   "area_km2_by_class": {
+    "1": 435.0,
+    "2": 2000.0,
+    "3": 210.5
+   }
+  },
+  {
+   "id": "reservoir_s2_class_2023-08-17",
+   "group": "reservoir_s2_class",
+   "file": "reservoir/s2/2023-08-17_class.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "OPEN_WATER",
+    "2": "SHALLOW_OR_MIXED_WATER",
+    "3": "WET_SEDIMENT",
+    "4": "DRY_BARE_SEDIMENT",
+    "5": "SPARSE_HERBACEOUS",
+    "6": "DENSE_HERBACEOUS",
+    "7": "REED_OR_FLOODED_VEGETATION",
+    "8": "BUILT_HARD_SURFACE",
+    "9": "AMBIGUOUS"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#7fb3d5",
+    "3": "#8c6d31",
+    "4": "#d9c58b",
+    "5": "#b8d98d",
+    "6": "#4c9a2a",
+    "7": "#1e6f3f",
+    "8": "#7d7d7d",
+    "9": "#e08214"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 109190,
+   "sha256": "6c2296b2626c6caf4aa6b1857e1f63a74d40a89c28a762323e7535fe267f174f",
+   "area_km2_by_class": {
+    "1": 185.1,
+    "2": 153.7,
+    "3": 24.8,
+    "4": 344.3,
+    "5": 250.8,
+    "6": 351.5,
+    "7": 293.9,
+    "8": 0.0,
+    "9": 11.5
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-08-17",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-08-17_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (NDWI>0 & MNDWI>0)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 38698,
+   "sha256": "4b0ad84ed9a4863ea01110be067f2c2b8f2d476368b8f5650cd4cd156eb1e3ec",
+   "area_km2_by_class": {
+    "1": 319.3,
+    "2": 1296.2
+   }
+  },
+  {
+   "id": "reservoir_s2_NDVI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_NDVI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDVI < 0.15",
+    "2": "NDVI 0.15\u20130.3",
+    "3": "NDVI 0.3\u20130.5",
+    "4": "NDVI > 0.5"
+   },
+   "palette": {
+    "1": "#e8d8a0",
+    "2": "#b8d98d",
+    "3": "#4c9a2a",
+    "4": "#1e6f3f"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 83605,
+   "sha256": "5633fccbb390db059e714af5fa67d578cb836cec95e534473cdb03544f41e4f9",
+   "area_km2_by_class": {
+    "1": 654.1,
+    "2": 304.5,
+    "3": 261.2,
+    "4": 395.6
+   }
+  },
+  {
+   "id": "reservoir_s2_NDWI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_NDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDWI < \u22120.3",
+    "2": "NDWI \u22120.3\u20130",
+    "3": "NDWI 0\u20130.3",
+    "4": "NDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 56408,
+   "sha256": "3094f1a7e6f662433618ff0a68ddafb0fc082b6507392c39b9c35473bed70f9a",
+   "area_km2_by_class": {
+    "1": 676.4,
+    "2": 746.6,
+    "3": 162.1,
+    "4": 30.4
+   }
+  },
+  {
+   "id": "reservoir_s2_MNDWI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_MNDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "MNDWI < \u22120.3",
+    "2": "MNDWI \u22120.3\u20130",
+    "3": "MNDWI 0\u20130.3",
+    "4": "MNDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 66724,
+   "sha256": "26c46843b1ed883a52cfca740f5624ac26e263ec1c6579a216a8f35d1ded580c",
+   "area_km2_by_class": {
+    "1": 938.4,
+    "2": 477.2,
+    "3": 59.1,
+    "4": 140.7
+   }
+  },
+  {
+   "id": "reservoir_s2_NDMI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_NDMI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDMI < \u22120.1",
+    "2": "NDMI \u22120.1\u20130.1",
+    "3": "NDMI > 0.1"
+   },
+   "palette": {
+    "1": "#c7522a",
+    "2": "#f2efe6",
+    "3": "#2a78d6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 81415,
+   "sha256": "f2b27a9c5e1fe360ca5475a4f055e1e21e8a537ae5c3cbc173cccfccaad30a75",
+   "area_km2_by_class": {
+    "1": 488.4,
+    "2": 658.3,
+    "3": 468.8
+   }
+  },
+  {
+   "id": "reservoir_s2_BSI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_BSI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "BSI < \u22120.1",
+    "2": "BSI \u22120.1\u20130.1",
+    "3": "BSI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#c7522a"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 76954,
+   "sha256": "5c53c6646bc9821c31126979625f4a3e66348c6efa14a1b496dafe74995220b8",
+   "area_km2_by_class": {
+    "1": 257.3,
+    "2": 717.4,
+    "3": 640.8
+   }
+  },
+  {
+   "id": "reservoir_s2_AWEIsh_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_AWEIsh.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "AWEIsh < \u22120.3",
+    "2": "AWEIsh \u22120.3\u20130",
+    "3": "AWEIsh 0\u20130.3",
+    "4": "AWEIsh > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 55805,
+   "sha256": "a399d3852f54c149655c9803d5e4304754f3c1eb5c47af99d3a354b229d5c7b6",
+   "area_km2_by_class": {
+    "1": 958.6,
+    "2": 469.6,
+    "3": 187.3,
+    "4": 0.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDTI_2023-08-17",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-08-17_NDTI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDTI < \u22120.1",
+    "2": "NDTI \u22120.1\u20130.1",
+    "3": "NDTI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#8c6d31"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 56112,
+   "sha256": "249b42d42d195fde9fd07ae74bc8f727e88a08e6c1dac6c0ad66fe84016dcffb",
+   "area_km2_by_class": {
+    "1": 305.3,
+    "2": 1219.6,
+    "3": 90.6
+   }
+  },
+  {
+   "id": "reservoir_s2_class_2023-09-08",
+   "group": "reservoir_s2_class",
+   "file": "reservoir/s2/2023-09-08_class.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "OPEN_WATER",
+    "2": "SHALLOW_OR_MIXED_WATER",
+    "3": "WET_SEDIMENT",
+    "4": "DRY_BARE_SEDIMENT",
+    "5": "SPARSE_HERBACEOUS",
+    "6": "DENSE_HERBACEOUS",
+    "7": "REED_OR_FLOODED_VEGETATION",
+    "8": "BUILT_HARD_SURFACE",
+    "9": "AMBIGUOUS"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#7fb3d5",
+    "3": "#8c6d31",
+    "4": "#d9c58b",
+    "5": "#b8d98d",
+    "6": "#4c9a2a",
+    "7": "#1e6f3f",
+    "8": "#7d7d7d",
+    "9": "#e08214"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 172864,
+   "sha256": "b08970facfd5ce5012e3bffc987f7190a9fee3da6a2c90d2fd81807b0d5b9848",
+   "area_km2_by_class": {
+    "1": 191.1,
+    "2": 132.9,
+    "3": 73.8,
+    "4": 363.6,
+    "5": 450.1,
+    "6": 622.7,
+    "7": 979.8,
+    "8": 0.0,
+    "9": 32.5
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-09-08",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-09-08_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (NDWI>0 & MNDWI>0)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 44545,
+   "sha256": "ce0a95e8841c67af980a7fa6016db0c1b6f872449c26254cea1157b19db3e5d0",
+   "area_km2_by_class": {
+    "1": 306.4,
+    "2": 2540.2
+   }
+  },
+  {
+   "id": "reservoir_s2_NDVI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_NDVI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDVI < 0.15",
+    "2": "NDVI 0.15\u20130.3",
+    "3": "NDVI 0.3\u20130.5",
+    "4": "NDVI > 0.5"
+   },
+   "palette": {
+    "1": "#e8d8a0",
+    "2": "#b8d98d",
+    "3": "#4c9a2a",
+    "4": "#1e6f3f"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 148663,
+   "sha256": "edf6a3eaa295b9599b2209cbcca1fb7a88b1f34d8062724320af229958085933",
+   "area_km2_by_class": {
+    "1": 675.2,
+    "2": 544.5,
+    "3": 673.6,
+    "4": 953.3
+   }
+  },
+  {
+   "id": "reservoir_s2_NDWI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_NDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDWI < \u22120.3",
+    "2": "NDWI \u22120.3\u20130",
+    "3": "NDWI 0\u20130.3",
+    "4": "NDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 90417,
+   "sha256": "d44a1989b6aeb726f09d4440fe7689d94c3013ce3c3936352f7b6a114e4b02ac",
+   "area_km2_by_class": {
+    "1": 1702.3,
+    "2": 949.9,
+    "3": 156.0,
+    "4": 38.4
+   }
+  },
+  {
+   "id": "reservoir_s2_MNDWI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_MNDWI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "MNDWI < \u22120.3",
+    "2": "MNDWI \u22120.3\u20130",
+    "3": "MNDWI 0\u20130.3",
+    "4": "MNDWI > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 102312,
+   "sha256": "db0b410c4aa11d46005e7102ff2af339163cfa6c388bb9604f0cd7174ae3603e",
+   "area_km2_by_class": {
+    "1": 1842.3,
+    "2": 722.0,
+    "3": 102.9,
+    "4": 179.5
+   }
+  },
+  {
+   "id": "reservoir_s2_NDMI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_NDMI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDMI < \u22120.1",
+    "2": "NDMI \u22120.1\u20130.1",
+    "3": "NDMI > 0.1"
+   },
+   "palette": {
+    "1": "#c7522a",
+    "2": "#f2efe6",
+    "3": "#2a78d6"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 127044,
+   "sha256": "1b3a7845a7658e46766648d31d24f601fcef7036813bb0d271bb7c984f7d5a65",
+   "area_km2_by_class": {
+    "1": 552.4,
+    "2": 1077.8,
+    "3": 1216.5
+   }
+  },
+  {
+   "id": "reservoir_s2_BSI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_BSI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "BSI < \u22120.1",
+    "2": "BSI \u22120.1\u20130.1",
+    "3": "BSI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#c7522a"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 127322,
+   "sha256": "be972bade119d25d1754d4ccc2fa00010c9f85ad206dab3a7eb9ecacd23a672f",
+   "area_km2_by_class": {
+    "1": 830.9,
+    "2": 1209.8,
+    "3": 806.0
+   }
+  },
+  {
+   "id": "reservoir_s2_AWEIsh_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_AWEIsh.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "AWEIsh < \u22120.3",
+    "2": "AWEIsh \u22120.3\u20130",
+    "3": "AWEIsh 0\u20130.3",
+    "4": "AWEIsh > 0.3"
+   },
+   "palette": {
+    "1": "#8c6d31",
+    "2": "#d9c58b",
+    "3": "#9cc0ea",
+    "4": "#1b6ca8"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 77614,
+   "sha256": "8fa487fe1c49946c7c9f378a2e216b339679ed8ac82d4f78cc122791ea836430",
+   "area_km2_by_class": {
+    "1": 2111.7,
+    "2": 512.2,
+    "3": 222.7,
+    "4": 0.0
+   }
+  },
+  {
+   "id": "reservoir_s2_NDTI_2023-09-08",
+   "group": "reservoir_s2_index",
+   "file": "reservoir/s2/2023-09-08_NDTI.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "NDTI < \u22120.1",
+    "2": "NDTI \u22120.1\u20130.1",
+    "3": "NDTI > 0.1"
+   },
+   "palette": {
+    "1": "#2a78d6",
+    "2": "#f2efe6",
+    "3": "#8c6d31"
+   },
+   "source": "SWOT-DNIPRO p25 zone_spectral ZONE_1 (FROZEN, 20 m): k10e class, water3, 7 indices; p15 ZONE_1_s2_crosscheck water",
+   "note": "display classes only; pool + 1 km; transparent = not observed",
+   "bytes": 103405,
+   "sha256": "b6c1d0753581b1adf49fc7e3843edf9e20009131b74978121462296ecf08b77b",
+   "area_km2_by_class": {
+    "1": 638.7,
+    "2": 1912.4,
+    "3": 295.5
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-06-08",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-06-08_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (p15 crosscheck)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "p15 ZONE_1_s2_crosscheck (FROZEN)",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 22588,
+   "sha256": "45d170eacfd049ffc75b83d2c7e854ed0ab4745d2244cd3d75e1484ed20558ea",
+   "area_km2_by_class": {
+    "1": 711.3,
+    "2": 378.1
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-06-13",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-06-13_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (p15 crosscheck)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "p15 ZONE_1_s2_crosscheck (FROZEN)",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 19858,
+   "sha256": "afc1a970877354623f59a26c4dec89837f8c4dc083bbb177fc68a71a1537cee9",
+   "area_km2_by_class": {
+    "1": 287.5,
+    "2": 194.5
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-06-15",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-06-15_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (p15 crosscheck)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "p15 ZONE_1_s2_crosscheck (FROZEN)",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 13837,
+   "sha256": "8beae2b36caa8101c3b66359dcf86fae1974e574d97545b547e83f095d3d7ff3",
+   "area_km2_by_class": {
+    "1": 139.5,
+    "2": 135.5
+   }
+  },
+  {
+   "id": "reservoir_s2_water_2023-06-20",
+   "group": "reservoir_s2_water",
+   "file": "reservoir/s2/2023-06-20_water.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "S2 water (p15 crosscheck)",
+    "2": "S2 observed, not water"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#efece6"
+   },
+   "source": "p15 ZONE_1_s2_crosscheck (FROZEN)",
+   "note": "pool + 1 km; transparent = not observed",
+   "bytes": 41618,
+   "sha256": "c7a214415f9ed06be46aea568f8c73865b7772759f305b1f5dbc07ad1f2a55c5",
+   "area_km2_by_class": {
+    "1": 653.7,
+    "2": 2225.5
+   }
+  },
+  {
+   "id": "reservoir_pool",
+   "group": "context",
+   "file": "context/reservoir_pool.geojson",
+   "bounds": null,
+   "legend": {},
+   "source": "reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson), simplified 100 m",
+   "bytes": 39737,
+   "sha256": "dc6c6ccc3ab5c2b2982e0e80e7d26845bf00ed7623062275ff8db4233d27ed97"
   }
  ],
- "total_bytes": 1678779,
- "n_layers": 77,
+ "reservoir_grid": {
+  "crs": "EPSG:4326",
+  "dlon": 0.001,
+  "dlat": 0.00072,
+  "nx": 2100,
+  "ny": 1736,
+  "bounds": [
+   [
+    46.7,
+    33.3
+   ],
+   [
+    47.95,
+    35.4
+   ]
+  ]
+ },
+ "total_bytes": 5713108,
+ "n_layers": 150,
  "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless DEM; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
 }
