@@ -60,6 +60,16 @@ for the next pass, not changed.
 | T12 `definition_note`; Yale HRL row dropped; hypsometry-gap wording; Kherson peak spread 0.1 m (Gleick 2023) | T12, T16, T22/C14/FigS07, §4.1 | corrected per audit |
 | bibliography 52 → 86 entries, all new DOIs Crossref/DataCite-verified; Literature page; RF20 page | dashboard, `docs/references.bib`, `docs/METHOD_REFERENCES.md` | supporting |
 
+## 4b. Audit round 2 (`docs/AUDIT_ACTIONS_2026-09-28_round2.md`), applied the same evening
+
+Items 1–7, 9, 12, 13 applied to `manuscript_template.md` / `README.md`: §3.3 mechanism vs "not diagnosed" reconciled
+(mechanism known, attribution to error terms open); "dark-water rule, not the flood" replaced by the untested-cause wording
+(Shen et al. 2019); "validated against ICESat-2" → "assessed"; VERIFY dropped where the audit read the source (Lehnigk, Yi);
+no "peak" without a noun; abstract gives both T15 statistics; README C01–C14; Fig03 cited in §4.9. Item 8 (196 vs 196.5):
+half-up rounding was tried and reverted — it also turns 488/790/682 into 489/791/683 and breaks the dashboard, C02 and every
+written 790; the rounding rule (half-to-even) is now stated in the manuscript preamble instead. Item 10 was already closed. The
+literature list of the audit (B-01 … B-22) is NOT yet in the manuscript body or `references.bib` — next pass.
+
 ## 5. Open items (not closed by this validation)
 
 - Figure number of the digitised Yi 2025 series (needs the PDF).
