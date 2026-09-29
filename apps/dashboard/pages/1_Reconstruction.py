@@ -124,9 +124,9 @@ try:
     for src_, col, mode in (("MODEL", C["terrain"], "lines+markers"), ("S1", C["s1"], "markers"), ("S2_WATER3", C["rf"], "markers"), ("S2_CROSSCHECK", C["unet"], "markers")):
         q = M[(M.source == src_) & (M.observed_frac >= 0.5)]
         f4.add_trace(go.Scatter(x=q.t, y=q.water_km2, mode=mode, name=f"{src_} (≥ 50 % of the pool observed)", line=dict(color=col), marker=dict(color=col, size=8)))
-    yc = "yi2025_digitised_km2" if "yi2025_digitised_km2" in M.columns else "yi2025_S1_km2"      # renamed 2026-09-28 (digitised, not quoted)
+    yc = next(c for c in ("yi2025_S1_archive_km2", "yi2025_digitised_km2", "yi2025_S1_km2") if c in M.columns)   # review F15: the authors' S1 archive values
     yi = M.dropna(subset=[yc]).drop_duplicates("date")
-    f4.add_trace(go.Scatter(x=yi.t, y=yi[yc], mode="markers", name="Yi et al. 2025, digitised from their figure (S1 + S2; literature_reported, VERIFY)", marker=dict(symbol="x", color=C["gauge"], size=9)))
+    f4.add_trace(go.Scatter(x=yi.t, y=yi[yc], mode="markers", name="Yi et al. 2025, Sentinel-1 reservoir area (authors' archive, Zenodo 14639520; literature_reported)", marker=dict(symbol="x", color=C["gauge"], size=9)))
     f4.update_layout(height=300, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km²", title="pool water area: model vs observations"); st.plotly_chart(f4, width="stretch")
     st.dataframe(M.drop(columns="t"), width="stretch", hide_index=True)
     refs(["reservoir", "Otsu_1979", "Twele_2016", "McFeeters_1996", "Xu_2006", "Main-Knorn_2017"], "📚 Literature: the drained Kakhovka reservoir, S1 VH thresholding and the S2 water rule")

@@ -227,7 +227,7 @@ def main():
         w = to_grid(w, xtr, ztr, zshape).astype(bool) & zpool; v = to_grid(v, xtr, ztr, zshape).astype(bool) & zpool
         rows.append(dict(date=d, source="S2_CROSSCHECK", semantics="observed_S2", water_km2=round(float(w.sum()) * zkm, 1), observed_frac=round(float(v.sum()) / zpool.sum(), 3)))
         print("S2xc", d, rows[-1], flush=True)
-    R = pd.DataFrame(rows); R["yi2025_digitised_km2"] = R.date.map(yi); R = R.sort_values(["date", "source"])
+    R = pd.DataFrame(rows); R["yi2025_S1_archive_km2"] = R.date.map(yi)   # review F15: Sentinel-1 areas of the authors' archive (Zenodo 14639520 obs.A), not digitised; R = R.sort_values(["date", "source"])
     R.to_csv(CFG.TABLES / "p95h_reservoir_maps.csv", index=False); pd.DataFrame(crows).to_csv(CFG.TABLES / "p95h_s2_classes.csv", index=False)
     pd.DataFrame(irows).to_csv(CFG.TABLES / "p95h_s2_index_stats.csv", index=False); pd.DataFrame(krows).to_csv(CFG.TABLES / "p95h_s2_index_classes.csv", index=False)
     man = dict(sources=dict(model="p95f sloped daily surface (load_levels/load_pool/day_points/sloped_wse), dem_seamless_evrf2019_50m.tif", s1=str(S1DIR), s2=str(S2DIR), s2_crosscheck=str(S2XC),

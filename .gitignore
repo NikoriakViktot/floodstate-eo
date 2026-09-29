@@ -233,3 +233,7 @@ case_studies/kakhovka_2023/literature_audit/article/*.docx
 # git keeps the summaries, the manifest and tables/p95e_draws_checksums.csv (sha256, rows, seed, code commit)
 case_studies/kakhovka_2023/tables/_p95e_chunks/
 case_studies/kakhovka_2023/tables/p95e_draws*.csv.gz
+
+# runtime artifacts of the rebuild command and the open example (review F16)
+case_studies/kakhovka_2023/tables/rebuild_runs.jsonl
+examples/tiny_geodomain/output/

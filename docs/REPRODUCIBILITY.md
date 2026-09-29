@@ -1,6 +1,28 @@
 # Reproducibility
 
-Three levels, in increasing cost. Every number in the manuscript and the dashboard resolves to a committed table cell
+Four levels, in increasing cost; the first three with one command each (review 2026-09-28, F16; level 3 is a cross-repository exercise):
+
+```bash
+python case_studies/kakhovka_2023/workflows/paper/rebuild.py --list          # the DAG: 66 steps, dependencies checked
+python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 0       # tiny open geodomain (seconds, no data)
+python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 1       # publication layer from committed tables
+python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 2 --dry-run   # the full chain, in order (days)
+```
+Every executed step appends a run record (git commit, dirty flag, command, seconds, exit code) to
+`case_studies/kakhovka_2023/tables/rebuild_runs.jsonl` (not committed). Environment: `requirements-lock.txt` (pip freeze of the
+development venv, Python 3.12). Every load-bearing input — location, source, version, licence, redistribution status and
+sha256 — is in `case_studies/kakhovka_2023/manifests/load_bearing_inputs.csv` (`workflows/paper/data_manifest.py`; 46 inputs,
+TBD where the repository records no URL / version, never invented).
+
+## Level 0 — the tiny open geodomain (seconds, no data)
+
+`examples/tiny_geodomain/run.py` runs the production chain of the reconstruction on synthetic, openly generated inputs: the
+water surface from river nodes and a gauge (every error term once, through the node heights), terrain realizations on the
+non-bed cells, connected inundation on the union mosaic, the same world's pre-event baseline, new water, and the Monte-Carlo
+ensemble with its quantiles (`--draws N`). `tests/test_tiny_geodomain.py` checks its invariants (no new water before the event,
+ordered quantiles, new within total, reproducible worlds) on every test run.
+
+Three further levels: Every number in the manuscript and the dashboard resolves to a committed table cell
 (`case_studies/kakhovka_2023/publication/tables/manifest.json` lists the source file and sha256 behind every table).
 
 ## Level 1 — manuscript reproduction (minutes, no bulk data)
@@ -59,7 +81,9 @@ S1 caches. Not attempted end-to-end from this repository.
 
 ## Submission snapshot
 
-Manuscript numbers are tied to a tagged release (`v0.3.0-rc1`) and its Zenodo DOI, never to the mutable `main` branch.
+Manuscript numbers are tied to a tagged release (next: `v0.3.0-rc2`, the response to the 2026-09-28 review; `pyproject.toml`,
+`floodstate_eo.__version__` and the README carry the same version, `tests/test_version.py`) and its Zenodo DOI, never to the
+mutable `main` branch.
 The tables manifest records the git commit that generated them.
 
 ## Environment facts

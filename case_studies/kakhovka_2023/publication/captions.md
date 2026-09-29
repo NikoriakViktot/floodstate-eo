@@ -91,8 +91,9 @@ dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Se
 *observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l)
 Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²). For comparison, Yi et al. (2025) map the reservoir from
 Sentinel-1 **and** Sentinel-2; their text gives 2125 km² on 30 May and decrements that imply ~845 km² around 20 June
-(*literature_reported*, VERIFY); the 2089 / 1849 / 825 / 369 km² in T23 are **digitised from their figure** (figure number
-VERIFY), not quoted from their text. S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
+(*literature_reported*, VERIFY); the 2089 / 1849 / 825 / 369 km² in T23 are the **Sentinel-1** reservoir areas of the authors'
+code archive (Zenodo 14639520, `observations.mat`, obs.A — "reservoir area changes by Sentinel-1" in their `main.m`), read from
+the archive, not digitised and not quoted from their text. S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
 **FigS09** The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool (+1 km) in display classes
 on 5 June (pre-breach), 5 July (drawdown) and 8 September 2023; frozen p25 stacks (offset-corrected reflectance, 20 m); the bins
 are for display only and are not a classifier; blank = not observed.

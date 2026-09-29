@@ -5,9 +5,9 @@
 # `scripts/p1_targeted_fetch.py` via importlib for `verified()`, `KeepAuth`, `verify()` and `sidecar()` -- the
 # hardened download/verify/atomic-publish helpers. That file is NOT in 19_MIGRATION_MANIFEST.csv (it is a
 # general SWOT-DNIPRO fetch utility, not classified CANONICAL/CORE_LIBRARY for floodstate-eo), so it was not
-# pulled in silently. `P1F` is left `None` below: `fetch()` will raise `AttributeError` if actually called,
-# which is the honest behaviour for a dependency that has not been migrated yet, rather than a working stub
-# that fakes integrity checking. Porting or reimplementing those four helpers is Phase 6 work.
+# pulled in silently. `P1F` below is a stand-in that raises a clear NotImplementedError naming the missing helper
+# (review 2026-09-28 F16: `None` gave an opaque AttributeError) -- never a working stub that fakes integrity checking.
+# Porting or reimplementing those four helpers is Phase 6 work.
 """P52d -- PASS 1: fetch the missing Sentinel-2 L2A scenes over B1/B2/B3 for the flood-event window.
 
 p52b measured the binding constraint: EVENT-window optical coverage is 73.8 % of B1, 25.7 % of B2 and 2.9 % of B3.
@@ -26,13 +26,22 @@ atomically, memoise the verdict in a sidecar. An aborted download can never be m
 Outputs: $BULK_ROOT/sentinel_event_2023/*.SAFE.zip (+ .verified.json), <case_study>/tables/p52d_fetch_ledger.csv
 """
 from __future__ import annotations
-import json, os, pathlib, sys, time, warnings
-from pathlib import Path
+import json, os, pathlib, time, warnings
 warnings.filterwarnings("ignore")
 import pandas as pd, requests
 from .. import _kakhovka_legacy_config as CFG
 
-P1F = None  # MIGRATION TODO: scripts/p1_targeted_fetch.py not in migration scope -- see module header
+class _MissingFetchHelpers:
+    """Stand-in for SWOT-DNIPRO scripts/p1_targeted_fetch.py (not migrated; provenance/UNRESOLVED_DEPENDENCIES.md). Any use
+    raises NotImplementedError with the reason, instead of an AttributeError on None (review F16)."""
+
+    def __getattr__(self, name):
+        raise NotImplementedError(f"p52d needs {name}() from SWOT-DNIPRO scripts/p1_targeted_fetch.py (hardened download / verify / "
+                                  "atomic publish), which is not migrated -- see provenance/UNRESOLVED_DEPENDENCIES.md; the S2 scenes "
+                                  "the paper used are registered with their product ids in case_studies/<event>/manifests/s2_scenes.csv")
+
+
+P1F = _MissingFetchHelpers()  # MIGRATION TODO: scripts/p1_targeted_fetch.py not in migration scope -- see module header
 
 ODATA = "https://catalogue.dataspace.copernicus.eu/odata/v1/Products"
 TOKEN_URL = "https://identity.dataspace.copernicus.eu/auth/realms/CDSE/protocol/openid-connect/token"
@@ -98,7 +107,7 @@ def main():
     RAW.mkdir(parents=True, exist_ok=True)
     L = pd.read_csv(a.list).drop_duplicates("name").sort_values("date").reset_index(drop=True)
     print(f"{a.tag}: {len(L)} products, {L.size_gb.sum():.1f} GB -> {RAW}")
-    print(f"frames B1/B2/B3, event window, cloudCover <= 20 % (a QUERY ceiling; SCL still decides per pixel)\n", flush=True)
+    print("frames B1/B2/B3, event window, cloudCover <= 20 % (a QUERY ceiling; SCL still decides per pixel)\n", flush=True)
     tok_box = [token()]; rows = []; t0 = time.time(); done_gb = 0.0
     for i, r in L.iterrows():
         print(f"[{i+1:2d}/{len(L)}] {r['date']} {r['tile']} cloud {r['cloud']:.1f} % {r['size_gb']:.2f} GB", flush=True)

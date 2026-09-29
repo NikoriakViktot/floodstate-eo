@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-29T20:17:02Z",
- "git_commit": "0eb0f10ee8560a9cc728c3e5f59d8edafd2c6576",
+ "generated_utc": "2026-09-29T20:45:30Z",
+ "git_commit": "4e84dc94299b0b806a0ede79d773d1096f360f4c",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -693,13 +693,13 @@
    "sha256": "1d5169c18303639184771ff691809172c1c89a820deab7d9b3ebe29b2119b088"
   },
   "T23": {
-   "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; DIGITISED from a figure of their S1 + S2 water mapping, not quoted in their text; figure number VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.",
+   "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; the Sentinel-1 reservoir areas of the authors' code archive, Zenodo 14639520, observations.mat obs.A -- read from the archive, not digitised, not quoted from their text). Areas count observed cells only; not observed is not dry. Maps: FigS08.",
    "evidence_level": "cross_sensor",
    "rows": 53,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv"
    ],
-   "sha256": "9b3edbec5ac6ffdc008d0bbc7e92343107dffc9ab7276050aced27bf5a3650f4"
+   "sha256": "c1231f9a7d33ed156ab794a84e4529a7f77ef6381e7e90add2f63e65140348df"
   },
   "T24": {
    "caption": "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).",
