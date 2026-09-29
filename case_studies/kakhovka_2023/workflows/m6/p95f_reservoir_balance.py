@@ -12,6 +12,9 @@ Rozumivka scaled to the SWORD chainage of those anchors.
 Balance per day: dV/dt of the pool, inflow from DniproHES (daily releases), the implied breach outflow Q_out = Q_in - dV/dt,
 and, downstream, the terrain-reconstructed volume of new water (p95, corridor + Inhulets) and the Kherson stage.
 
+Review F13 (2026-09-29): the design table (Table 19) is read with `terrain.interp.bounded_interp` -- NaN below its first
+level (10 m BS) and above its last, never the endpoint value repeated (np.interp wrote 1443 km2 / 6.95 km3 at 5 m).
+
 Outputs: <case_study>/tables/p95f_reservoir_daily.csv, p95f_hypsometry_dem.csv, p95f_manifest.json
 """
 from __future__ import annotations
@@ -21,6 +24,7 @@ import numpy as np, pandas as pd, rasterio
 from rasterio import features
 from rasterio.warp import transform as tf
 from floodstate_eo import _kakhovka_legacy_config as CFG
+from floodstate_eo.terrain.interp import bounded_interp
 
 SD = Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs" / "tables"
 DATES = pd.date_range("2023-05-26", "2023-07-10", freq="D")
@@ -99,7 +103,8 @@ def main():
         w = mask & (dem < h); hrows.append(dict(level_evrf2019_m=h, A_dem_km2=round(float(w.sum()) * cell_km2, 1), V_dem_km3=round(float(np.nansum((h - dem[w]))) * cell_km2 * 1e6 / 1e9, 3)))
     H = pd.DataFrame(hrows)
     H["level_bs77_m"] = (H.level_evrf2019_m - BS77_TO_EVRF).round(2)
-    H["A_table19_km2"] = np.interp(H.level_bs77_m, hyp.water_level_m[::-1], hyp.A_table19_km2[::-1]); H["V_table19_km3"] = np.interp(H.level_bs77_m, hyp.water_level_m[::-1], hyp.V_table19_km3[::-1])
+    # review F13: the design table is defined from 10 m BS up; outside its range the answer is NaN, never the endpoint plateau
+    H["A_table19_km2"] = bounded_interp(H.level_bs77_m, hyp.water_level_m, hyp.A_table19_km2); H["V_table19_km3"] = bounded_interp(H.level_bs77_m, hyp.water_level_m, hyp.V_table19_km3)
     H.to_csv(CFG.TABLES / "p95f_hypsometry_dem.csv", index=False)
     dn = pd.read_csv(CFG.TABLES / "p95_daily_area_pooled_connected_ceiling.csv"); dn["date"] = pd.to_datetime(dn.date)
     vd = dn[dn.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])].groupby("date").new_volume_hm3.sum().reindex(DATES)
@@ -118,7 +123,7 @@ def main():
         w = mask & (dem < wse); A = float(w.sum()) * cell_km2; V = float(np.nansum((wse - dem)[w])) * cell_km2 * 1e6 / 1e9
         rows.append(dict(date=str(d.date()), n_level_sources=len(pts), H_outlet_m=daily.loc[d].get("SWOT_OUTLET", np.nan), H_nikopol_m=daily.loc[d].get("NIKOPOL_UHE", np.nan),
                          H_rozumivka_m=daily.loc[d].get("ROZUMIVKA_GAUGE", np.nan), gradient_m=float(hs[-1] - hs[0]), A_pool_km2=round(A, 1), V_pool_km3=round(V, 3),
-                         A_table19_at_outlet_km2=float(np.interp(daily.loc[d].get("SWOT_OUTLET", np.nan) - BS77_TO_EVRF, hyp.water_level_m[::-1], hyp.A_table19_km2[::-1])) if np.isfinite(daily.loc[d].get("SWOT_OUTLET", np.nan)) else np.nan,
+                         A_table19_at_outlet_km2=float(bounded_interp(daily.loc[d].get("SWOT_OUTLET", np.nan) - BS77_TO_EVRF, hyp.water_level_m, hyp.A_table19_km2)) if np.isfinite(daily.loc[d].get("SWOT_OUTLET", np.nan)) else np.nan,
                          Q_in_dniprohes_m3s=float(q.loc[d]) if np.isfinite(q.loc[d]) else np.nan, kherson_stage_m=float(kh.loc[d]) if np.isfinite(kh.loc[d]) else np.nan,
                          downstream_new_volume_hm3=float(vd.loc[d]) if np.isfinite(vd.loc[d]) else np.nan, downstream_total_water_km2=float(ad.loc[d]) if np.isfinite(ad.loc[d]) else np.nan,
                          phase="pre-breach" if d < BREACH else "drawdown"))

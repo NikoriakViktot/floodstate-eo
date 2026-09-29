@@ -349,6 +349,14 @@ def fig08():
 
 
 # ---- Fig09 -----------------------------------------------------------------------------------------------------------
+def fig09c_series(R):
+    """The series of Fig09c, in the caption's quantities (review F15): daily-mean effective release from the pool
+    Q_in - dV/dt and the DniproHES inflow Q_in (km³ per day), and the new water stored downstream (km³)."""
+    dd = R[R.V_pool_km3.notna() & (R.t >= "2023-06-05")]
+    return pd.DataFrame(dict(t=dd.t, release_km3_day=dd.Q_out_breach_est_hm3_day / 1000, inflow_km3_day=dd.Q_in_hm3_day / 1000)), \
+        pd.DataFrame(dict(t=R.t, stored_km3=R.downstream_new_volume_hm3 / 1000))
+
+
 def fig09():
     R = pd.read_csv(T / "p95f_reservoir_daily.csv"); R["t"] = pd.to_datetime(R.date); H = pd.read_csv(T / "p95f_hypsometry_dem.csv")
     lv = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_pool_levels_2023.csv", parse_dates=["date"])
@@ -364,14 +372,20 @@ def fig09():
     b.plot(R.t[ok], R.V_pool_km3[ok], "o-", color=FS.PALETTE["terrain"], ms=3, lw=1.5, label="pool volume under the sloped surface (DEM, km³)")
     b2 = b.twinx(); b2.plot(R.t[ok], R.A_pool_km2[ok], "s--", color=FS.PALETTE["rf"], ms=3, lw=1, label="pool water area (DEM, km²)"); b2.set_ylabel("area, km²", fontsize=6.5); b2.tick_params(labelsize=6)
     ya = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_yi2025_reservoir_area.csv")
-    b2.plot(pd.Timestamp("2023-06-06") + pd.to_timedelta(ya.day_after_breach, unit="D"), ya.area_km2_S1, "v", color=FS.PALETTE["s1"], ms=5, label="Yi et al. 2025, digitised from their figure (S1+S2; VERIFY)")
-    b.set_ylabel("volume, km³", fontsize=6.5); FS.date_axis(b, BREACH, every_days=7); b.tick_params(labelsize=6); h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels(); b.legend(h1 + h2, l1 + l2, fontsize=5.5); FS.panel_label(b, "b")
+    b2.plot(pd.Timestamp("2023-06-06") + pd.to_timedelta(ya.day_after_breach, unit="D"), ya.area_km2_S1, "v", color=FS.PALETTE["s1"], ms=5,
+            label="Yi et al. 2025, Sentinel-1 reservoir area\n(authors' archive, Zenodo 14639520)")             # review F15: obs.A of their main.m is Sentinel-1
+    b.set_ylabel("volume, km³", fontsize=6.5); FS.date_axis(b, BREACH, every_days=7); b.tick_params(labelsize=6); h1, l1 = b.get_legend_handles_labels(); h2, l2 = b2.get_legend_handles_labels(); b.legend(h1 + h2, l1 + l2, fontsize=5.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False); FS.panel_label(b, "b")
     b.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-06-15"))
-    c = axs[1, 0]; dd = R[ok & (R.t >= "2023-06-05")]
-    c.bar(dd.t, -dd.dV_pool_hm3 / 1000, width=0.8, color=FS.PALETTE["terrain"], label="released from the pool (−dV/dt)")
-    c.plot(dd.t, dd.Q_in_hm3_day / 1000, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow")
-    c.plot(R.t, R.downstream_new_volume_hm3 / 1000, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream\n(corridor + Inhulets)")
-    c.set_ylabel("km³ per day (bars, inflow) / km³ stored (line)", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.legend(fontsize=5.5, loc="upper right"); c.tick_params(labelsize=6); FS.panel_label(c, "c"); c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
+    # review F15: the bars are the quantity the caption names -- daily-mean effective release Q_in - dV/dt (a storage balance,
+    # not an instantaneous breach discharge) -- and flows (km³/day, left) and stored volume (km³, right) have separate axes
+    c = axs[1, 0]; flows, stored = fig09c_series(R)
+    c.bar(flows.t, flows.release_km3_day, width=0.8, color=FS.PALETTE["terrain"], label="effective release from the pool (Q_in − dV/dt)")
+    c.plot(flows.t, flows.inflow_km3_day, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow Q_in")
+    c.set_ylabel("flow, km³ per day (daily mean)", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.tick_params(labelsize=6); FS.panel_label(c, "c")
+    c2 = c.twinx(); c2.plot(stored.t, stored.stored_km3, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream (corridor + Inhulets)")
+    c2.set_ylabel("stored downstream, km³", fontsize=6.5, color=FS.PALETTE["s1"]); c2.tick_params(labelsize=6, colors=FS.PALETTE["s1"])
+    h1, l1 = c.get_legend_handles_labels(); h2, l2 = c2.get_legend_handles_labels(); c.legend(h1 + h2, l1 + l2, fontsize=5.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False)
+    c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
     dax = axs[1, 1]; dax.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.6, label="seamless DEM, level surface"); dax.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["gauge"], lw=1.2, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
     dax.set_xlabel("pool level, m", fontsize=6.5); dax.set_ylabel("volume, km³", fontsize=6.5); dax.legend(fontsize=5.5); dax.tick_params(labelsize=6); dax.grid(color=FS.PALETTE["grid"]); FS.panel_label(dax, "d")
     fig.suptitle("Reservoir drawdown and the downstream flood: levels, pool area/volume, daily balance and the hypsometry used", fontsize=8)
@@ -464,12 +478,18 @@ def figS05():
     fig.suptitle("Block-size sensitivity (U2): each split has its own TEST geography; values and intervals only", fontsize=7.5); FS.save(fig, "FigS05_block_sensitivity", FIG)
 
 def figS06():
-    p = pd.read_csv(T / "p92_inhulets_profile.csv"); p = p[p.run == "U2b_B1B2_v003A"]
+    """Inhulets valley profile: mapped U2b new flood (v004, the three training seeds; review D-SEEDS) and the v004 EVENT_FLOOD label."""
+    P = pd.read_csv(T / "p92_inhulets_profile.csv")
     fig, ax = plt.subplots(figsize=(4.5, 2.8), constrained_layout=True)
-    ax.plot(p.northing_km, p.predicted_new_on_land_km2, "o-", color=FS.PALETTE["unet"], ms=3, lw=1, label="U2b mapped new flood on land"); ax.plot(p.northing_km, p.EVENT_FLOOD_label_km2, "s-", color=FS.PALETTE["s1"], ms=3, lw=1, label="EVENT_FLOOD label (S1 ≥ 2 peak dates)")
+    for k, run in enumerate(("U2b_B1B2_v004", "U2b_B1B2_v004_s20261001", "U2b_B1B2_v004_s20261002")):
+        p = P[P.run == run]
+        if len(p):
+            ax.plot(p.northing_km, p.predicted_new_on_land_km2, "o-", color=FS.PALETTE["unet"], ms=3 if k == 0 else 2, lw=1 if k == 0 else 0.6, alpha=1 if k == 0 else 0.6,
+                    label="U2b (v004) mapped new flood on land, three seeds" if k == 0 else None)
+    lab = P[P.run == "U2b_B1B2_v004"]
+    ax.plot(lab.northing_km, lab.EVENT_FLOOD_label_km2, "s-", color=FS.PALETTE["s1"], ms=3, lw=1, label="EVENT_FLOOD label (v004)")
     ax.set_xlabel("northing, km (2-km bands up the Inhulets valley)", fontsize=7); ax.set_ylabel("km² per band", fontsize=7); ax.legend(fontsize=6); ax.tick_params(labelsize=6.5)
     FS.save(fig, "FigS06_inhulets_profile", FIG)
-
 
 def figS07():
     """Hypsometry sensitivity: V_DEM(H) vs V_design(H) and dV/V_design (T22) -- the basis of the released volume in T21."""
@@ -478,7 +498,9 @@ def figS07():
     a.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.8, label="seamless DEM, level surface")
     a.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["ink2"], lw=1.5, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
     a.set_xlabel("pool level, m (EVRF2019)", fontsize=7); a.set_ylabel("volume, km³", fontsize=7); a.legend(fontsize=6); a.tick_params(labelsize=6.5); a.grid(color=FS.PALETTE["grid"]); FS.panel_label(a, "a")
-    ok = H.V_table19_km3 > 7.0
+    lo = 10.0 + float((H.level_evrf2019_m - H.level_bs77_m).median())                # review F13: the design table starts at 10 m BS (= 10.185 m EVRF2019)
+    a.axvspan(float(H.level_evrf2019_m.min()), lo, color=FS.PALETTE["grid"], alpha=0.6, lw=0); a.text(lo - 0.2, float(np.nanmax(H.V_dem_km3)) * 0.92, "design table\nundefined\n(< 10 m BS)", ha="right", va="top", fontsize=5.5, color=FS.PALETTE["ink2"])
+    ok = np.isfinite(H.V_table19_km3)
     b.plot(H.level_evrf2019_m[ok], H.dV_rel_pct[ok], color=FS.PALETTE["terrain"], lw=1.8, label="ΔV / V_design")
     b.plot(H.level_evrf2019_m[ok], H.dA_rel_pct[ok], color=FS.PALETTE["s1"], lw=1.4, ls=":", label="ΔA / A_design")
     b.axhline(0, color=FS.PALETTE["ink2"], lw=0.6); b.axvspan(5.6, 17.6, color=FS.PALETTE["gauge"], alpha=0.07, lw=0)

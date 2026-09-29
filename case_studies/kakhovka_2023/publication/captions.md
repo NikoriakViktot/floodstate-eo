@@ -61,11 +61,13 @@ check that supports this reading; it does not sample every cell and does not val
 
 **Fig09 Reservoir drawdown and the downstream flood.** (a) Water levels in one frame: SWOT outlet nodes, Nikopol post
 (press values), Rozumivka gauge, ICESat-2 passes, G-REALM, and the Kherson stage downstream. (b) Pool volume and water area
-under the sloped daily surface integrated on the seamless DEM inside the pre-breach pool polygon; Sentinel-1 water areas of
-Yi et al. (2025) for comparison (VERIFY). (c) Daily balance: daily-mean effective release from the pool (−dV/dt + Q_in; a
-storage-balance estimate, not an instantaneous breach discharge), DniproHES inflow and the reconstructed new water stored
-downstream (corridor + Inhulets). (d) Hypsometry of the seamless DEM against the design Table 19 (T21, T22; FigS07 for the
-relative gap).
+under the sloped daily surface integrated on the seamless DEM inside the pre-breach pool polygon; the Sentinel-1 reservoir
+areas of Yi et al. (2025) for comparison, read from the authors' code archive (Zenodo 14639520, `observations.mat`, obs.A;
+their day axis placed from 00:00 on 6 June). (c) Daily balance — left axis, flows in km³ per day: bars, the daily-mean
+effective release from the pool Q_in − dV/dt (a storage-balance estimate, not an instantaneous breach discharge), and the
+DniproHES inflow Q_in; right axis, volume in km³: the reconstructed new water stored downstream (corridor + Inhulets).
+(d) Hypsometry of the seamless DEM against the design Table 19, which is defined from 10 m BS up and left blank below (T21,
+T22; FigS07 for the relative gap).
 
 ## Supplementary figures
 
@@ -76,7 +78,7 @@ nodes more than 10 km away, and the superseded p59 closure with a +0.5 m margin.
 new-water series per region. **FigS04** RF20 (rev 2: global blocks, frame overlap counted once) row-normalised confusion (spatial-block CV) and per-class F1
 for the CV without and with a 3.5 km buffer and for the transfers outside the overlap.
 **FigS05** block-size sensitivity of U2 on v003_A and on v004 (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
-**FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
+**FigS06** Inhulets valley: mapped U2b new flood on land (v004 labels, three training seeds) and the v004 EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
 level over the drawdown range (shaded), −9 % at the full-pool level (17.5 m), −14 % at 13 m and −20 % at 11 m; the design table is undefined
 below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).

@@ -35,6 +35,7 @@ import importlib.util, json, time
 from pathlib import Path
 import numpy as np, pandas as pd
 from floodstate_eo import _kakhovka_legacy_config as CFG
+from floodstate_eo.terrain.interp import bounded_interp
 
 HERE = Path(__file__).resolve().parent
 SD = Path(CFG._SWOT_DNIPRO_SIBLING)
@@ -55,9 +56,9 @@ def design_curve():
 
 
 def on_curve(D, h_bs, col):
-    """Read the design curve at a historical-Baltic level; NaN outside 10.0-18.0 m (never extrapolated)."""
-    h = np.asarray(h_bs, float); v = np.interp(h, D.level_bs_m, D[col]); v[(h < D.level_bs_m.min()) | (h > D.level_bs_m.max())] = np.nan
-    return v
+    """Read the design curve at a historical-Baltic level; NaN outside 10.0-18.0 m (never extrapolated; the shared
+    `terrain.interp.bounded_interp` of review F13)."""
+    return bounded_interp(np.asarray(h_bs, float), D.level_bs_m.to_numpy(float), D[col].to_numpy(float))
 
 
 def main():
@@ -78,10 +79,11 @@ def main():
     bd = pd.read_csv(SD / "outputs/tables/p60_swot_outlet_drawdown.csv"); bd["date"] = pd.to_datetime(bd[[c for c in bd.columns if "date" in c.lower()][0]])
     out["H_below_dam_0_5km_m"] = bd.set_index("date").H_below_dam_0_5km_p59.reindex(DATES).round(3).values   # SWOT just below the dam (p59)
     out["head_across_dam_m"] = (out.H_outlet_m - out.H_below_dam_0_5km_m).round(2); out["pool_minus_kherson_m"] = (out.H_outlet_m - out.H_kherson_m).round(2)
+    k5_ok = out.H_rozumivka_m.notna()                                                   # review F14: provenance of every value actually used
     out["H_rozumivka_m"] = out.H_rozumivka_m.fillna(pd.Series(f.H_rozumivka_m.values)).round(3)
     out["gradient_m"] = (out.H_rozumivka_m - out.H_outlet_m).round(3)
     out["phase"] = np.where(pd.to_datetime(out.date) < P95F.BREACH, "pre-breach", np.where(pd.to_datetime(out.date) <= "2023-06-13", "drawdown", "post-drawdown"))
-    out["rozumivka_source"] = np.where(pd.to_datetime(out.date) < "2023-05-26", "k5 gauge 80959 terms 08/20 mean", "p95f daily (T21)")
+    out["rozumivka_source"] = np.where(k5_ok, "k5 gauge 80959 terms 08/20 mean", np.where(out.H_rozumivka_m.notna(), "p95f daily (T21; fills a missing k5 day)", ""))
     for nm, col in (("outlet", "H_outlet_m"), ("nikopol", "H_nikopol_m"), ("rozumivka", "H_rozumivka_m"), ("grealm", "H_grealm_m"), ("icesat2", "H_icesat2_m")):
         hb = out[col] - BS; out[f"{nm}_level_bs_m"] = hb.round(3)
         out[f"V_design_at_{nm}_km3"] = on_curve(D, hb, "V_km3").round(3); out[f"A_design_at_{nm}_km2"] = on_curve(D, hb, "A_km2").round(0)
@@ -94,18 +96,31 @@ def main():
     # ---- storage balance on the design curve with the DniproHES inflow ----
     q = pd.read_csv(SD / "outputs/tables/dniprohes_releases.csv", parse_dates=["date"]); q = q[q.quality_flag == "ok"].set_index("date").discharge_m3s.reindex(DATES)
     out["Q_in_dniprohes_m3s"] = q.values; out["Q_in_hm3_day"] = (q.values * 86400 / 1e6).round(1)
-    Vd = pd.Series(np.where(out.phase == "pre-breach", out.V_design_at_rozumivka_km3, out.V_design_at_outlet_km3))    # level pool -> Rozumivka; drawdown -> outlet (lower bound of V)
-    out["dV_design_hm3_day"] = (Vd.diff() * 1000).round(1).values
-    out["Q_out_design_m3s"] = ((out.Q_in_hm3_day - out.dV_design_hm3_day) * 1e6 / 86400).round(0)          # + = leaves the pool (HPP before, breach after)
-    Vr = out.V_design_at_rozumivka_km3.diff() * 1000
-    out["Q_out_design_rozumivka_m3s"] = np.where(out.phase == "drawdown", ((out.Q_in_hm3_day - Vr) * 1e6 / 86400).round(0), np.nan)   # upper-bound level during the drawdown
+    # review F14: one balance series per level source, each over its own days -- never a switch from Rozumivka to the outlet
+    # inside one series (the first difference across a switch is an inter-source step, not a change of storage).
+    # Rozumivka: the whole period (level pool before the breach; the upper-bound level during the drawdown). Outlet: from 26 May
+    # (SWOT; before the breach HELD values, see note), the lower-bound level during the drawdown. + = leaves the pool.
+    for nm in ("rozumivka", "outlet"):
+        dv = out[f"V_design_at_{nm}_km3"].diff() * 1000
+        out[f"dV_design_{nm}_hm3_day"] = dv.round(1)
+        out[f"Q_out_design_{nm}_m3s"] = ((out.Q_in_hm3_day - dv) * 1e6 / 86400).round(0)
     # weekly summary of the filling (Monday weeks): level, design volume / area, change per week
+    # review F14: every term of a week over the SAME days -- the change of storage is the sum of that week's daily changes, i.e.
+    # V(last day of the week) - V(last day of the previous week), never a difference of weekly means; a term with a missing day
+    # is NaN (min_count), and completeness is reported. The levels and means are descriptive only.
     w = out[out.phase == "pre-breach"].copy(); w["week"] = pd.to_datetime(w.date).dt.to_period("W").dt.start_time.dt.strftime("%Y-%m-%d")
-    W = w.groupby("week").agg(H_rozumivka_m=("H_rozumivka_m", "mean"), H_grealm_m=("H_grealm_m", "mean"), H_icesat2_m=("H_icesat2_m", "mean"), H_outlet_swot_m=("H_outlet_m", "mean"),
-                              V_design_km3=("V_design_km3", "mean"), A_design_km2=("A_design_km2", "mean"), Q_in_dniprohes_m3s=("Q_in_dniprohes_m3s", "mean"), Q_in_km3=("Q_in_hm3_day", lambda x: x.sum() / 1000),
-                              Q_out_design_m3s=("Q_out_design_m3s", "mean"), n_days=("date", "size")).round(2)
-    W["dV_week_km3"] = W.V_design_km3.diff().round(2); W["dH_week_m"] = W.H_rozumivka_m.diff().round(2); W["Q_out_design_km3"] = (W.Q_in_km3 - W.dV_week_km3).round(2)
-    W.reset_index().to_csv(CFG.TABLES / "p95i_design_weekly_2023.csv", index=False)
+    def weekly(g):
+        n = len(g); dv = g.dV_design_rozumivka_hm3_day; qi = g.Q_in_hm3_day
+        return pd.Series(dict(date_first=g.date.iloc[0], date_last=g.date.iloc[-1], n_days=n, n_days_dV=int(dv.notna().sum()), n_days_inflow=int(qi.notna().sum()),
+                              H_rozumivka_mean_m=g.H_rozumivka_m.mean(), H_rozumivka_last_m=g.H_rozumivka_m.iloc[-1], H_grealm_mean_m=g.H_grealm_m.mean(),
+                              H_icesat2_mean_m=g.H_icesat2_m.mean(), H_outlet_swot_mean_m=g.H_outlet_m.mean(), V_design_last_km3=g.V_design_km3.iloc[-1],
+                              A_design_last_km2=g.A_design_km2.iloc[-1], Q_in_dniprohes_mean_m3s=qi.mean() * 1e6 / 86400 if qi.notna().any() else np.nan,
+                              Q_in_km3=qi.sum(min_count=n) / 1000, dV_week_km3=dv.sum(min_count=n) / 1000,
+                              Q_out_design_km3=(qi - dv).sum(min_count=n) / 1000, complete=bool(dv.notna().all() and qi.notna().all())))
+    W = w.groupby("week").apply(weekly, include_groups=False)
+    W["Q_out_design_mean_m3s"] = W.Q_out_design_km3 * 1e9 / (W.n_days * 86400)
+    W["source"] = "Rozumivka series only (level pool before the breach); inflow DniproHES post 80039 (quality ok)"
+    W.round(3).reset_index().to_csv(CFG.TABLES / "p95i_design_weekly_2023.csv", index=False)
     out["design_defined"] = out.V_design_at_outlet_km3.notna()
     out["note"] = np.where(out.design_defined, "", "outlet level below 10.0 m (Table 19 undefined) -- no design volume")
     held = (out.phase == "pre-breach") & out.H_outlet_m.notna()
@@ -121,7 +136,7 @@ def main():
     fill["inflow_dniprohes_min_to_max_km3"] = round(float(seg.Q_in_hm3_day.sum()) / 1000, 2); fill["outflow_design_min_to_max_km3"] = round(fill["inflow_dniprohes_min_to_max_km3"] - fill["filled_min_to_max_km3"], 2)
     fill["share_of_inflow_stored_pct"] = round(100 * fill["filled_min_to_max_km3"] / fill["inflow_dniprohes_min_to_max_km3"], 1)
     dd_ = out[(out.phase == "drawdown") & out.design_defined]
-    fill["breach_release_design_06_06_to_06_08"] = dict(Q_out_at_outlet_level_m3s=dd_.Q_out_design_m3s.round(0).tolist(), Q_out_at_rozumivka_level_m3s=dd_.Q_out_design_rozumivka_m3s.round(0).tolist(),
+    fill["breach_release_design_06_06_to_06_08"] = dict(Q_out_at_outlet_level_m3s=dd_.Q_out_design_outlet_m3s.round(0).tolist(), Q_out_at_rozumivka_level_m3s=dd_.Q_out_design_rozumivka_m3s.round(0).tolist(),
                                                         Q_in_m3s=dd_.Q_in_dniprohes_m3s.round(0).tolist(), dates=dd_.date.tolist())
     man = dict(sources=dict(inflow=str(SD / "outputs/tables/dniprohes_releases.csv"), rozumivka_2023=str(SD / "outputs/tables/k5_gauge_levels_evrf2019.csv"), p61=str(SD / "outputs/tables/p61_pool_levels_2023.csv"), table19=str(SD / "data/historical/historical_level_area_volume.csv"), table21=str(SD / "data/historical/historical_reservoir_reaches.csv"),
                             levels=str(CFG.TABLES / "p95f_reservoir_daily.csv"), monograph="Dnipro reservoirs monograph, photographed pages (Tables 19-21, Figs 13-16); transcribed in SWOT-DNIPRO hist1"),
@@ -133,7 +148,7 @@ def main():
     pd.set_option("display.width", 250)
     print(D.sort_values("level_bs_m", ascending=False).to_string(index=False)); print(R21[["reach_id", "extent", "area_npg_km2", "area_gmo_km2", "volume_npg_km3", "volume_gmo_km3", "volume_useful_km3"]].to_string(index=False))
     print(pd.read_csv(CFG.TABLES / "p95i_design_weekly_2023.csv").to_string(index=False)); print(json.dumps(fill, indent=0))
-    print(out[(out.date >= "2023-06-03") & (out.date <= "2023-06-10")][["date", "outlet_level_bs_m", "rozumivka_level_bs_m", "gradient_m", "V_design_at_outlet_km3", "V_design_at_rozumivka_km3", "Q_in_dniprohes_m3s", "dV_design_hm3_day", "Q_out_design_m3s", "Q_out_design_rozumivka_m3s", "note"]].to_string(index=False))
+    print(out[(out.date >= "2023-06-03") & (out.date <= "2023-06-10")][["date", "outlet_level_bs_m", "rozumivka_level_bs_m", "gradient_m", "V_design_at_outlet_km3", "V_design_at_rozumivka_km3", "Q_in_dniprohes_m3s", "dV_design_rozumivka_hm3_day", "dV_design_outlet_hm3_day", "Q_out_design_rozumivka_m3s", "Q_out_design_outlet_m3s", "note"]].to_string(index=False))
     print(json.dumps(man["prebreach_design"]), json.dumps(man["last_defined_day"]), "reach-sum check max |diff|", man["reach_sum_check_max_abs_km3"], "km3"); print("-> tables/p95i_*")
 
 

@@ -74,19 +74,33 @@ def rect_mask(M, rect):
 
 
 def load_layers(M):
-    has, ont, pre, owned = {}, {}, {}, {}
+    """S1 observation, reference ontologies (v003_A; v004 when built), pre-breach water, ownership on the mosaic."""
+    has, ont, ont4, pre, owned = {}, {}, {}, {}, {}
     for f in FRAMES:
         with rasterio.open(OUT / f / "s1_change.tif") as s:
             d = list(s.descriptions); ne = s.read(d.index("n_valid_event") + 1); d0 = s.read(1)
         has[f] = (ne > 0) & (d0 != -32768)
         with rasterio.open(OUT / f / "m6_labels_v003_A.tif") as s:
             ont[f] = s.read(1)
+        if (OUT / f / "m6_labels_v004.tif").exists():
+            with rasterio.open(OUT / f / "m6_labels_v004.tif") as s:
+                ont4[f] = s.read(1)
         with rasterio.open(OUT / f / "labels.tif") as s:
             d = list(s.descriptions); w = s.read(d.index("pre_water_frac") + 1)
         pre[f] = w >= PRE_WATER_PCT
         owned[f] = np.ones(has[f].shape, bool)
     return dict(has=place(M, has, False), ont=place(M, ont, np.uint8(255)), pre=place(M, pre, False),
-                owned=place(M, owned, False))
+                owned=place(M, owned, False), ont_v004=place(M, ont4, np.uint8(255)) if len(ont4) == len(FRAMES) else None)
+
+
+def run_layers(L, run):
+    """The layers with the reference ontology of the run's own label version (review stage 2): v004 for the arms on the
+    corrected labels (v004, v002_notrace), v003_A for the historical arms. Returns (layers, ontology name)."""
+    lab = json.loads((ROOT / "runs" / run / "config.json").read_text()).get("labels", "")
+    if lab in ("m6_labels_v004", "m6_labels_v002_notrace"):
+        assert L["ont_v004"] is not None, "m6_labels_v004.tif not built"
+        return dict(L, ont=L["ont_v004"]), "v004"
+    return L, "v003_A"
 
 
 def load_pred(M, run):
@@ -121,10 +135,10 @@ def floodplain_domain(M):
         return None, None
 
 
-def summarise(L, pred, region, name, run, thr):
+def summarise(L, pred, region, name, run, thr, onto="v003_A"):
     obs = region & L["owned"] & L["has"]; unobs = region & L["owned"] & ~L["has"]
     p = pred & obs
-    return dict(run=run, threshold=thr, region=name,
+    return dict(run=run, threshold=thr, region=name, ontology=onto,
                 area_km2=round(float((region & L["owned"]).sum()) * PX, 1),
                 observed_km2=round(float(obs.sum()) * PX, 1), unobserved_no_s1_event_km2=round(float(unobs.sum()) * PX, 1),
                 predicted_flood_km2=round(float(p.sum()) * PX, 1),
@@ -137,7 +151,7 @@ def summarise(L, pred, region, name, run, thr):
                 EVENT_FLOOD_label_total_km2=round(float((obs & (L["ont"] == 1)).sum()) * PX, 1))
 
 
-def inhulets_profile(M, L, pred, run):
+def inhulets_profile(M, L, pred, run, onto="v003_A"):
     """How far up the Inhulets the predicted flood reaches: per 2 km northing band inside the valley rectangle,
     predicted flood on land (not pre-breach water) and the EVENT_FLOOD label area."""
     R = rect_mask(M, CUT_RECTS["inhulets_valley"]) & L["owned"] & L["has"]
@@ -148,7 +162,7 @@ def inhulets_profile(M, L, pred, run):
         if not band.any():
             continue
         p = pred & band
-        rows.append(dict(run=run, northing_km=y / 1e3, observed_km2=round(float(band.sum()) * PX, 2),
+        rows.append(dict(run=run, ontology=onto, northing_km=y / 1e3, observed_km2=round(float(band.sum()) * PX, 2),
                          predicted_km2=round(float(p.sum()) * PX, 2),
                          predicted_on_pre_water_km2=round(float((p & L["pre"]).sum()) * PX, 2),
                          predicted_new_on_land_km2=round(float((p & ~L["pre"] & (L["ont"] != 2)).sum()) * PX, 2),
@@ -191,7 +205,7 @@ def mosaic_map(M, L, pred, run, thr, cut, fp):
 
 
 def frame_compare(M, L, preds, cut):
-    """Per frame: previous active arm (U2, v002 labels) next to the new one (U2b, v003_A), same style."""
+    """Per frame: the map runs side by side in the same style, each on its own label version's ontology."""
     ds = lambda a: a[::DS, ::DS]
     for f in FRAMES:
         r, c = M["off"][f]; G = M["G"][f]; sl = (slice(r, r + G["ny"]), slice(c, c + G["nx"]))
@@ -200,7 +214,8 @@ def frame_compare(M, L, preds, cut):
         fig, axs = plt.subplots(1, len(preds), figsize=(5.5 * len(preds), 5.5 * G["ny"] / G["nx"] + 1.6),
                                 constrained_layout=True)
         for ax, (run, (pred, thr)) in zip(np.atleast_1d(axs), preds.items()):
-            st = np.zeros((M["ny"], M["nx"]), "u1"); st[L["has"]] = 1; st[L["has"] & (L["ont"] == 2)] = 2
+            Lr = run_layers(L, run)[0]                                   # each panel on its own label version's ontology
+            st = np.zeros((M["ny"], M["nx"]), "u1"); st[Lr["has"]] = 1; st[Lr["has"] & (Lr["ont"] == 2)] = 2
             st[pred & L["has"]] = 3; st[pred & L["has"] & cut] = 4
             cm = ListedColormap(["#ffffff", "#efece6", "#b9c7d6", RUN_COLOR[run], "#eda100"])
             ax.imshow(ds(st[sl]), cmap=cm, vmin=-0.5, vmax=4.5, extent=ext, interpolation="nearest")
@@ -241,12 +256,12 @@ def main():
         regions["P42_FLOODPLAIN_DOMAIN"] = fp; regions["DNIPRO_CORRIDOR_outside_p42_domain"] = ~cut & ~fp
     rows, prof, preds = [], [], {}
     for run in a.runs:
-        pred, thr = load_pred(M, run); preds[run] = (pred, thr)
+        pred, thr = load_pred(M, run); preds[run] = (pred, thr); Lr, onto = run_layers(L, run)
         for nm, reg in regions.items():
-            rows.append(summarise(L, pred, reg, nm, run, thr))
-        prof += inhulets_profile(M, L, pred, run)
+            rows.append(summarise(Lr, pred, reg, nm, run, thr, onto))
+        prof += inhulets_profile(M, Lr, pred, run, onto)
         if run in a.map_runs:
-            mosaic_map(M, L, pred, run, thr, cut, fp)
+            mosaic_map(M, Lr, pred, run, thr, cut, fp)
     T = CFG.TABLES
     S = pd.DataFrame(rows); S.to_csv(T / "p92_flood_area_dam_to_liman.csv", index=False)
     Pf = pd.DataFrame(prof); Pf.to_csv(T / "p92_inhulets_profile.csv", index=False)

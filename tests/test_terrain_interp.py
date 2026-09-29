@@ -26,3 +26,18 @@ def test_refuses_non_monotonic_or_nan_tables():
         bounded_interp(1.0, [1.0, 3.0, 2.0], [0.0, 1.0, 2.0])
     with pytest.raises(ValueError):
         bounded_interp(1.0, [1.0, np.nan], [0.0, 1.0])
+
+
+def test_nan_level_gives_nan():
+    assert np.isnan(bounded_interp(np.nan, [10.0, 12.0], [6.95, 9.0]))
+
+
+def test_committed_hypsometry_has_no_plateau_below_the_table():
+    """p95f_hypsometry_dem.csv: the design columns are NaN below 10 m BS (review F13), finite from 10 m up."""
+    from pathlib import Path
+    import pandas as pd
+    p = Path(__file__).resolve().parents[1] / "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv"
+    H = pd.read_csv(p)
+    below = H.level_bs77_m < 10.0
+    assert below.any() and H.loc[below, ["A_table19_km2", "V_table19_km3"]].isna().all().all()
+    assert H.loc[~below, ["A_table19_km2", "V_table19_km3"]].notna().all().all()

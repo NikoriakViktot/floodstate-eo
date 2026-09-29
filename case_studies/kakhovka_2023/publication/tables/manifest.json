@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-29T17:47:00Z",
- "git_commit": "fac62c3606d45d8b3808a5ace83f935cd846259f",
+ "generated_utc": "2026-09-29T20:17:02Z",
+ "git_commit": "0eb0f10ee8560a9cc728c3e5f59d8edafd2c6576",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -681,7 +681,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv"
    ],
-   "sha256": "e9fe2493c718ab243f707d3b53604b7aa74599865c41d407ccd435029e611f9a"
+   "sha256": "be6f635fccc52eeb9f456200c0c882b982aee81222410ef2107fcf8c9c6c572b"
   },
   "T22": {
    "caption": "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives less volume at the same level: -8.5 % at the full-pool level (17.5 m), -14 % at 13 m, -20 % at 11 m (open question for Paper 4: reservoir bowl on the historical bathymetry).",
@@ -690,7 +690,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv"
    ],
-   "sha256": "da03b49021e48ac1b38d99c56a6912150ab0ac3ba9d8b8517c89e12cc3819f3b"
+   "sha256": "1d5169c18303639184771ff691809172c1c89a820deab7d9b3ebe29b2119b088"
   },
   "T23": {
    "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; DIGITISED from a figure of their S1 + S2 water mapping, not quoted in their text; figure number VERIFY). Areas count observed cells only; not observed is not dry. Maps: FigS08.",
@@ -738,22 +738,23 @@
    "sha256": "aa1d9e28d2342a0320554a3c344b9f2ac3110e900e147c3e10ffbced28cdecd1"
   },
   "T27b": {
-   "caption": "The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). 'Outlet' = SWOT nodes at 0 km, the pool just above the dam; for comparison the SWOT level 0.5 km below the dam (p59/p60) and the Kherson gauge 80805, with the head across the dam and pool-minus-Kherson. Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow: Q_out = Q_in - dV_design/dt = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals). NaN once the outlet is below 10.0 m, the lowest level of Table 19. Context for Paper 4.",
+   "caption": "The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). 'Outlet' = SWOT nodes at 0 km, the pool just above the dam; for comparison the SWOT level 0.5 km below the dam (p59/p60) and the Kherson gauge 80805, with the head across the dam and pool-minus-Kherson. Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow, computed separately for each level source and never switched inside a series (review F14): Q_out = Q_in - dV_design/dt on the Rozumivka series (the whole period; the upper-bound level during the drawdown) and on the outlet series (from 26 May; the lower-bound level) = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals); rozumivka_source names the source of every level used. NaN once a level is below 10.0 m BS, the lowest level of Table 19 (never the endpoint value). Context for Paper 4.",
    "evidence_level": "independent_physical",
    "rows": 160,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95i_design_daily.csv"
    ],
-   "sha256": "5bf1b6982f626702f28ec6be4d0427ceee6304492d4084cc54fc5faf2f9fcf48"
+   "sha256": "1c0e869298abf6172dbe49792ae3f6bf4c81826269a40bcd3d7f86b19f813b24"
   },
   "T27c": {
-   "caption": "The filling of the Kakhovka reservoir in spring 2023, week by week on the design curve: Rozumivka level (EVRF2019), design volume and area, weekly change, DniproHES inflow (mean discharge and volume) and the outflow through the Kakhovka HPP implied by the design-curve balance. From ~14.0 m / 13.5 km3 in early February to 17.6 m / 21.3 km3 on 5 May (7.9 km3 stored out of 22.7 km3 of inflow), held at ~17.5 m through May, then ~0.4 m lower in the last ten days before the breach. Design data + gauge + releases; no DEM.",
-   "evidence_level": "independent_physical",
+   "caption": "The filling of the Kakhovka reservoir in spring 2023, week by week on the design curve (Rozumivka series only; the pool was level before the breach). Every term of a week covers the same days (review F14): the change of storage is the sum of the week's daily changes, i.e. V on the week's last day minus V on the previous week's last day; inflow = DniproHES releases summed over those days; outflow through the Kakhovka HPP = inflow minus the change of storage (a residual: lateral inflow, evaporation and withdrawals are not in it). A week with a missing day has no balance (complete = False). Levels and means are descriptive. From 13.93 m / 13.48 km3 on 2023-02-08 to 17.62 m / 21.33 km3 on 2023-05-05 (7.85 km3 stored out of 22.68 km3 of inflow); 17.08 m / 20.14 km3 on 5 June. Design data + gauge + releases; no DEM.",
+   "evidence_level": "contextual",
    "rows": 19,
    "sources": [
-    "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv"
+    "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv",
+    "case_studies/kakhovka_2023/tables/p95i_manifest.json"
    ],
-   "sha256": "b3ce890f15a934a980fc8c1eb623996c6faa8ce31ea133339a12364ae5b29565"
+   "sha256": "66aa9b15a4400865c0f4f2e0e83015c6efae131c24612b3c8f7e48ead9cf7753"
   }
  },
  "sources": {
@@ -949,7 +950,7 @@
   "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_holdout.csv": "27f81cdaea66eb11b534b89f0485e4bbf333eeaf8b507bcf096af96ea29083df",
   "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_folds.csv": "d9276d7899fe78edef137633b95b1462850aa69cd403e6f340ab31757ae83a3d",
   "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv": "20769157b53a09e1f6e2e1ad7505d1a47f690d3d2d8305a08db5aa31a7bf393a",
-  "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv": "a0f9f46823e7c2c8a1fa7b153cc78b62a6f56b8b908d36598ea1e4a635e84d25",
+  "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv": "788f2cb1ed1f34e49e5670cebd3f9c6d760738edb5bf37736ca6aff19ca3ea39",
   "case_studies/kakhovka_2023/tables/p95k_inhulets_kalynivske.csv": "13c2ccb9e017c39aeac79d2b1c4d8964df286eee13aa403895c65d809e19f316",
   "case_studies/kakhovka_2023/tables/p95k_inhulets_summary.csv": "e97b105f62d49e8859d1d991f7a929439258536a049863226f7a38603d801d6a",
   "case_studies/kakhovka_2023/tables/p95k_liman_mykolaiv.csv": "4cf73f9f20a29e621c343c7cf55f57a8082423633d713e9b8e780c8d708a91e7",
@@ -967,14 +968,15 @@
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s7p5/eval_d1a/endpoints.csv": "261971cd7b7606f81598607aca1a8db3c006fde114ab5833a668bda30d558bb4",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s15/eval_d1a/endpoints.csv": "4cf817bdfa7f017df27f5447d2271251827fe54430e9de16f2111298c66e209f",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s20/eval_d1a/endpoints.csv": "726e7249b5c009b18b2e5528e8c96da68a2f307aebb67484e749394bade6757f",
-  "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv": "43a8a22b721c257be78f342ffd06a20b506d750b91b2fb078acfd7babee44425",
-  "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv": "60fa605bbc59112c51498b9c8b1be3d5c9bf84976f85eb947b626d01c5169970",
+  "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv": "20aa122752c01ba5e14bbd990ec9a54b993819dd0bc7b7902ebb8340484d6f54",
+  "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv": "c9dd87f6840318f5bb9bad34ad82cff5f2dfe752832965c8928e196dba1c3127",
   "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv": "d0086b2415b93d03609c78b4ec7d4970c1ca530e0d52f88655477e0133261d13",
   "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv": "366cd58ba8f14c299123103cbf4ce6f0d0bc7b0018b92c8896a486fa63598c9e",
   "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16",
   "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3",
   "case_studies/kakhovka_2023/tables/p95i_design_hypsometry.csv": "9ad54540f20d55c1948009df40f816afafee66da681c2031805484ca6e44572c",
-  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "5bf1b6982f626702f28ec6be4d0427ceee6304492d4084cc54fc5faf2f9fcf48",
-  "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "b3ce890f15a934a980fc8c1eb623996c6faa8ce31ea133339a12364ae5b29565"
+  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "1c0e869298abf6172dbe49792ae3f6bf4c81826269a40bcd3d7f86b19f813b24",
+  "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "66aa9b15a4400865c0f4f2e0e83015c6efae131c24612b3c8f7e48ead9cf7753",
+  "case_studies/kakhovka_2023/tables/p95i_manifest.json": "5bf2d1008277dd04a8be1104652615874c189f9a2d38742047039af397f1ac40"
  }
 }
