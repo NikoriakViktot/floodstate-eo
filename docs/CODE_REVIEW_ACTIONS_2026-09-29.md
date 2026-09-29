@@ -197,3 +197,48 @@ spatial support of the water surface and of the nonlinearity of the connectivity
 - The literature notes' recommendations for the text (Lehnigk 2026, Dale 2026, Penton & Overton 2007, FLEXTH, c-HAND, Barnes,
   Kasmalkar, Roberts 2017, Olofsson 2014, Dwork 2015 / Feldman 2019) are for the text pass; Roy & Gupta 2021 (Crossref-verified)
   is already cited for the convergence check in §3.3.
+
+## Decisions closing Stage 2 (maintainer, 2026-09-29, after the Stage-2 numbers) — binding for Stage 3 and the text pass
+
+- **D-LABELS** v004 is the canonical manuscript label ontology; v003_A = historical / intermediate (failure-case redesign);
+  v002 = historical initial weak-label version. Old results are kept as sensitivity / provenance, never as equal production
+  label sets. Methods wording: "v004 is the final weak-label ontology used for manuscript analyses after correcting threshold
+  calibration and removing TRACE dependence from the M2 label pathway" — never "better ground truth": still weak labels.
+- **D-C09** keep, narrowed: "Changing the weak-label treatment of pre-event reference water produced a consistent model
+  response across all three training seeds: predictions over reference-water areas decreased by 13.8–48.8 km² under the v004
+  ontology. This demonstrates sensitivity of the learned flood representation to the weak-label definition of pre-event water
+  rather than independent flood-mapping accuracy." (changing label semantics changes learned behaviour, not "labels improved
+  the model").
+- **D-C10** the old statement (HAND reduces the cropland burden) is RETRACTED and replaced by the negative result: "The apparent
+  reduction in unlabelled-cropland predictions previously attributed to HAND did not reproduce under the corrected v004
+  ontology and three training seeds. The effect changed sign across seeds (+1.0, +7.6, and −3.8 km²), indicating that the
+  earlier −9.6 km² result was not robust to label revision and training stochasticity." Discussion: "HAND therefore should
+  not be interpreted as independently demonstrated to suppress cropland false positives."
+- **D-C11** keep only as a diagnostic: "Adding the pre-event water term W_pre consistently reduced the unlabelled-cropland
+  prediction burden across all three training seeds, while its effect over reference-water areas was consistent in two of
+  three seeds. Because W_pre is itself a component of the weak-label construction, this result is interpreted as a diagnostic
+  of label-induced model behaviour rather than independent evidence of improved flood discrimination."
+- **D-RF20 (F08 wording)** "Removing frame-overlap duplication had little effect on within-domain spatial CV but substantially
+  reduced apparent B1→B2 transfer performance, showing that the overlap primarily biased estimates of geographic
+  generalization."
+- **D-F09 (wording)** "The previous threshold-selection procedure used predictions from samples also used to fit the classifier
+  and failed to achieve its nominal 0.90 recall target on held-out data. Replacing it with out-of-fold threshold calibration
+  restored the intended recall."
+- **D-M2** "The M2 score is not interpreted as a flood probability." / "High scores over permanent open water demonstrate that M2
+  separates the training classes used for weak-label construction but is not a standalone flood classifier." (Methods/Results.)
+- **D-SEEDS** for any claim about U-Net arm differences, three training seeds are the minimum evidence unit: figures and tables
+  show the individual seeds, their median/mean and range — never one canonical seed. A production raster may come from one
+  frozen model.
+- **D-STAGE2** status statement: "Stage 2 resolved the principal independence and weak-label concerns. Correcting threshold
+  calibration and overlap handling changed some reported performance estimates but did not destabilize the production RF20
+  surface classification. In contrast, multi-seed retraining showed that some previously reported U-Net ablation effects were
+  not robust, most notably the HAND–cropland effect. Consequently, v004 becomes the canonical weak-label ontology, and ML
+  results are interpreted as behaviour under weak supervision rather than independent flood-map accuracy."
+- **D-NOML** no further ML experiments.
+- **Order from here (strict):** Stage 3 F13–F19 (consistency only, no new science) → ONE rewrite of the manuscript (Abstract →
+  Introduction → Methods → Results → Discussion → Conclusions) under the evidence hierarchy physical reconstruction >
+  independent observations > surface-context diagnostics > weak-label ML, Results in four blocks (physical reconstruction →
+  uncertainty → independent validation / support → ML diagnostics); every claim updated; v002, 40 draws, the HAND effect and
+  nominal-centred uncertainty removed from the production text; the reservoir drawdown maps are mandatory; one final table
+  "what changed after the audit" (old / new / reason / impact on the conclusion) → merge → main → push → Streamlit →
+  Zenodo/DOI → tag release.
