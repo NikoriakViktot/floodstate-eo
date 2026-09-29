@@ -6,6 +6,9 @@
 # LONG_GRID georeference for caches without one (verified by content), June events embedded at a verified integer
 # offset with no resampling, EXCLUDE_EVENT_ORBITS (167_DES: too few matched scenes, never pooled), and a manifest
 # merged per frame instead of overwritten.
+# LOGIC CHANGED 2026-09-29 (review 2026-09-28, F18): n_orbits_event counts DISTINCT relative orbits with a valid event scene
+# (union of the valid masks per orbit, `distinct_orbit_count`), no longer valid scenes capped at the number of orbits. With
+# one event scene per orbit -- the committed products: 4 scenes on 4 orbits in both frames -- the two rules are identical.
 """P71 -- Sentinel-1 event CHANGE channels for a segmentation network, not a classifier.
 
 This file no longer decides anything. It builds the physical evidence a later model will learn from, and it
@@ -42,8 +45,7 @@ Outputs: $BULK_ROOT/frames10/<FRAME>/s1_change.tif  (channels below, on the cano
          <case_study>/tables/p71_s1_change_manifest.csv
 """
 from __future__ import annotations
-import argparse, os, re, sys, time, warnings
-from pathlib import Path
+import argparse, os, re, time, warnings
 warnings.filterwarnings("ignore")
 os.environ.setdefault("GDAL_CACHEMAX", "256")
 import numpy as np, pandas as pd, rasterio
@@ -114,6 +116,18 @@ def to_db(a):
     ok = np.isfinite(a) & (a > 0)
     out[ok] = 10.0 * np.log10(a[ok])
     return out
+
+
+def distinct_orbit_count(valid_by_scene, orbit_of_scene):
+    """Per pixel, the number of DISTINCT relative orbits with at least one valid event scene (review F18). Adding up valid
+    scenes and capping at the number of orbits counts two valid scenes of one orbit as two orbits where another orbit
+    does not see the pixel."""
+    seen = {}
+    for v, o in zip(valid_by_scene, orbit_of_scene):
+        v = np.asarray(v, bool); seen[o] = (seen[o] | v) if o in seen else v.copy()
+    if not seen:
+        raise ValueError("no event scene")
+    return np.sum(np.stack(list(seen.values())), 0).astype("f4")
 
 
 def orbit(pth):
@@ -233,7 +247,7 @@ def main():
                         del P
                 # per EVENT scene, differenced against ITS OWN orbit, then aggregated
                 dvv, dvh, zvv, zvh, evv, evh, dr = [], [], [], [], [], [], []
-                nv = np.zeros((h, shp[1]), "f4"); no = np.zeros((h, shp[1]), "f4")
+                nv = np.zeros((h, shp[1]), "f4"); valid, orbs = [], []
                 for p_ in ev:
                     o = ev_orb[p_]
                     z = np.load(p_)
@@ -244,7 +258,7 @@ def main():
                     zvv.append((vv - base[(o, "vv", "med")]) / base[(o, "vv", "mad")])
                     zvh.append((vh - base[(o, "vh", "med")]) / base[(o, "vh", "mad")])
                     dr.append((vv - vh) - (base[(o, "vv", "med")] - base[(o, "vh", "med")]))
-                    nv += np.isfinite(vv); no += np.isfinite(vv)
+                    nv += np.isfinite(vv); valid.append(np.isfinite(vv)); orbs.append(o)
                 S = lambda L: np.stack(L)
                 acc["d_vv_min"][r0:r1] = np.nanmin(S(dvv), 0); acc["d_vv_max"][r0:r1] = np.nanmax(S(dvv), 0)
                 acc["d_vh_min"][r0:r1] = np.nanmin(S(dvh), 0); acc["d_vh_max"][r0:r1] = np.nanmax(S(dvh), 0)
@@ -253,7 +267,7 @@ def main():
                 acc["z_vv_min"][r0:r1] = np.nanmin(S(zvv), 0); acc["z_vv_max"][r0:r1] = np.nanmax(S(zvv), 0)
                 acc["z_vh_min"][r0:r1] = np.nanmin(S(zvh), 0); acc["z_vh_max"][r0:r1] = np.nanmax(S(zvh), 0)
                 acc["n_valid_event"][r0:r1] = nv
-                acc["n_orbits_event"][r0:r1] = np.minimum(no, len(need))
+                acc["n_orbits_event"][r0:r1] = distinct_orbit_count(valid, orbs)        # review F18: distinct orbits, not scenes
                 # only the COUNT of matched pre-event observations is averaged over orbits: a count carries no
                 # geometry, unlike a backscatter level
                 acc["n_valid_pre_matched"][r0:r1] = np.nanmean(

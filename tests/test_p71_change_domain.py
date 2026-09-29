@@ -76,3 +76,16 @@ def test_linear_subtraction_and_log_ratio_are_not_monotonically_related():
     log = to_db(post) - to_db(pre)                    # -1.76 dB vs -3.01 dB
     assert lin[0] < lin[1], "subtraction ranks the bright pixel as the larger change"
     assert log[0] > log[1], "the log-ratio ranks the dark pixel as the larger change"
+
+
+def test_n_orbits_counts_distinct_orbits_not_scenes():
+    """Review F18: two valid scenes of one orbit are ONE orbit; the old rule (valid scenes capped at the number of orbits)
+    returned 2 where the other orbit does not see the pixel."""
+    import numpy as np
+    from floodstate_eo.sar.p71_s1_event_change import distinct_orbit_count
+    a1 = np.array([True, True, False]); a2 = np.array([True, False, False]); b = np.array([False, False, True])
+    n = distinct_orbit_count([a1, a2, b], ["65_DES", "65_DES", "14_ASC"])
+    assert n.tolist() == [1.0, 1.0, 1.0]
+    old = np.minimum(a1.astype(int) + a2 + b, 2)                          # the superseded rule
+    assert old.tolist() == [2, 1, 1]
+    assert distinct_orbit_count([a1, b], ["65_DES", "14_ASC"]).tolist() == np.minimum(a1.astype(int) + b, 2).tolist()   # one scene per orbit: identical

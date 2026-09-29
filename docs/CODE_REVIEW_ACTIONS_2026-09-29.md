@@ -242,3 +242,7 @@ spatial support of the water surface and of the nonlinearity of the connectivity
   nominal-centred uncertainty removed from the production text; the reservoir drawdown maps are mandatory; one final table
   "what changed after the audit" (old / new / reason / impact on the conclusion) → merge → main → push → Streamlit →
   Zenodo/DOI → tag release.
+- **D-DEPTH** (maintainer, 2026-09-29): the manuscript gets depth maps — (1) the maximum depth of new inundation over the event
+  below the dam (main figure next to Fig07; the raster exists, so far only in the dashboard) and (2) water-depth maps of the
+  reservoir: the full pool on 5 June and the drawdown on 7 / 9 / 13 June (p95f sloped surface minus the seamless terrain–bed
+  model). Both are the geometry of the nominal run, captioned so; areas and volumes in the text come from the ensemble.
