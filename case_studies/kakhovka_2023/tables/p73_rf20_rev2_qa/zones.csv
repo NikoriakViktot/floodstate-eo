@@ -1,0 +1,7 @@
+zone,frame,centre_E,centre_N,rule,p73_WATER_pct,p73_CROPLAND_pct,p73_GRASS_LOW_VEGETATION_pct,p73_FOREST_pct,p73_SHRUB_pct,p73_WETLAND_REED_pct,p73_BUILT_UP_pct,p73_BARE_SAND_pct,p73_OTHER_pct,p73_UNCERTAIN_pct
+Z1_B1_S1_disputed_fields,B1,477600,5199640,max count of S1-disputed (v002 band 7) cells on WorldCover cropland,0.0,81.0,7.8,2.5,0.0,0.3,2.4,0.0,0.0,6.1
+Z2_B1_flooded_fields,B1,485660,5205680,max count of v002 FLOOD cells on WorldCover cropland,3.9,32.1,38.9,4.1,0.0,2.9,5.8,0.0,0.0,12.3
+Z3_B2_wetland_reed,B2,459220,5153740,max count of WorldCover herbaceous wetland,9.8,0.9,2.1,2.4,0.0,78.8,2.3,0.0,0.0,3.6
+Z4_B1_Oleshky_sands,B1,503820,5155180,fixed: Oleshky sands centre 46.55N 33.05E,0.0,0.1,23.6,6.4,0.0,0.0,0.4,66.0,0.0,3.5
+Z5_B1_Kherson_built,B1,470140,5165240,fixed: Kherson city 46.64N 32.61E,7.5,0.1,1.9,11.9,0.0,10.0,61.7,0.2,0.0,6.7
+Z6_B2_preexisting_water_shore,B2,446040,5156960,window whose p60 pre-water share is closest to 50 %,48.8,23.4,5.2,0.7,0.0,17.8,1.5,0.0,0.0,2.7

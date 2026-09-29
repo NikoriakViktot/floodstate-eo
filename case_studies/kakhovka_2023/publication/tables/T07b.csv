@@ -1,40 +1,157 @@
-A,B,endpoint,median,lo,hi,excludes_zero,independent
-U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_km2,-13.41275,-29.52655,-2.45226,True,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,-13.08275,-29.18553,-2.397,True,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,-0.2549,-0.71302,-0.0164,True,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,R_frac_reference_water_above_thr,-0.09737,-0.14481,-0.02741,True,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,E_recall_event_flood,-0.0276,-0.0416,0.0062,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,E_FN_km2,1.13785,-0.0156,3.19471,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,L_FP_on_land_km2,-1.96795,-5.05441,0.06957,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,L_FP_rate_land,-0.00394,-0.01145,0.00013,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,U_pred_on_unknown_km2,-5.7961,-22.79782,20.92061,False,weak-label
-U2_B1B2_v1,U2_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,False,weak-label
-U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_km2,-0.62125,-1.27661,-0.13365,True,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,-0.65865,-1.30767,-0.1628,True,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,0.0304,-0.0138,0.112,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,R_frac_reference_water_above_thr,-0.00428,-0.01202,-0.00102,True,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,E_recall_event_flood,0.0112,-0.01641,0.0162,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,E_FN_km2,-0.46985,-1.39841,0.12742,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,L_FP_on_land_km2,0.6138,-0.24033,1.91501,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,L_FP_rate_land,0.00126,-0.00047,0.00437,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,U_pred_on_unknown_km2,-7.63045,-29.34193,4.38763,False,no (W_pre circularity)
-U2_B1B2_v003A,U2b_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,False,no (W_pre circularity)
-U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_km2,0.0798,-0.28572,0.62324,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,0.11005,-0.26244,0.64036,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,-0.027,-0.10731,0.017,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,R_frac_reference_water_above_thr,0.00055,-0.00258,0.00404,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,E_recall_event_flood,0.0004,-0.0066,0.0367,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,E_FN_km2,-0.01515,-0.40713,0.3468,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,L_FP_on_land_km2,-0.2599,-1.16622,0.46895,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,L_FP_rate_land,-0.00054,-0.00282,0.00099,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,U_pred_on_unknown_km2,0.2795,-14.3863,24.79008,False,weak-label
-U0d_B1B2_v003A,U2_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,False,weak-label
+A,B,endpoint,median,lo,hi,labels,n_defined,excludes_zero,independent
+U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_km2,-13.41275,-29.52655,-2.45226,v003_A,,True,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,-13.08275,-29.18553,-2.397,v003_A,,True,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,-0.2549,-0.71302,-0.0164,v003_A,,True,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,R_frac_reference_water_above_thr,-0.09737,-0.14481,-0.02741,v003_A,,True,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,E_recall_event_flood,-0.0276,-0.0416,0.0062,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,E_FN_km2,1.13785,-0.0156,3.19471,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,L_FP_on_land_km2,-1.96795,-5.05441,0.06957,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,L_FP_rate_land,-0.00394,-0.01145,0.00013,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,U_pred_on_unknown_km2,-5.7961,-22.79782,20.92061,v003_A,,False,weak-label
+U2_B1B2_v1,U2_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_km2,-0.62125,-1.27661,-0.13365,v003_A,,True,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,-0.65865,-1.30767,-0.1628,v003_A,,True,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,0.0304,-0.0138,0.112,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,R_frac_reference_water_above_thr,-0.00428,-0.01202,-0.00102,v003_A,,True,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,E_recall_event_flood,0.0112,-0.01641,0.0162,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,E_FN_km2,-0.46985,-1.39841,0.12742,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,L_FP_on_land_km2,0.6138,-0.24033,1.91501,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,L_FP_rate_land,0.00126,-0.00047,0.00437,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,U_pred_on_unknown_km2,-7.63045,-29.34193,4.38763,v003_A,,False,no (W_pre circularity)
+U2_B1B2_v003A,U2b_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,v003_A,,False,no (W_pre circularity)
+U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_km2,0.0798,-0.28572,0.62324,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_wpre_water_km2,0.11005,-0.26244,0.64036,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,R_pred_on_reference_water_wpre_dry_km2,-0.027,-0.10731,0.017,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,R_frac_reference_water_above_thr,0.00055,-0.00258,0.00404,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,R_reference_water_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,E_recall_event_flood,0.0004,-0.0066,0.0367,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,E_FN_km2,-0.01515,-0.40713,0.3468,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,E_reference_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,L_FP_on_land_km2,-0.2599,-1.16622,0.46895,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,L_FP_rate_land,-0.00054,-0.00282,0.00099,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,L_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,U_pred_on_unknown_km2,0.2795,-14.3863,24.79008,v003_A,,False,weak-label
+U0d_B1B2_v003A,U2_B1B2_v003A,U_evaluated_km2,0.0,0.0,0.0,v003_A,,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,R_pred_on_reference_water_km2,-13.8151,-35.34035,-1.37068,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,R_pred_on_reference_water_wpre_water_km2,-13.45285,-34.61422,-1.31832,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,R_pred_on_reference_water_wpre_dry_km2,-0.3609,-0.99521,-0.0202,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,R_frac_reference_water_above_thr,-0.09881,-0.1678,-0.0165,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,E_recall_event_flood,-0.0336,-0.0481,-0.0089,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,E_FN_km2,1.71735,0.0976,4.2603,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,L_FP_on_land_km2,-3.4679,-8.76609,0.21652,v004,2000.0,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,L_FP_rate_land,-0.00743,-0.02103,0.00046,v004,2000.0,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,U_pred_on_unknown_km2,-15.3496,-31.58246,-3.56875,v004,2000.0,True,weak-label
+U2_B1B2_v002nt,U2_B1B2_v004,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v004,U2b_B1B2_v004,R_pred_on_reference_water_km2,7.44815,-1.01133,23.72182,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,R_pred_on_reference_water_wpre_water_km2,7.38755,-1.1624,23.56895,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,R_pred_on_reference_water_wpre_dry_km2,0.1476,0.0107,0.4116,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,R_frac_reference_water_above_thr,0.04442,-0.01066,0.14237,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,E_recall_event_flood,0.0262,0.0173,0.0375,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,E_FN_km2,-1.2563,-3.1801,-0.12518,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,L_FP_on_land_km2,0.96585,-0.78013,3.14265,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,L_FP_rate_land,0.00209,-0.00163,0.00759,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,U_pred_on_unknown_km2,3.4389,-8.42732,18.79092,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004,U2b_B1B2_v004,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U0d_B1B2_v004,U2_B1B2_v004,R_pred_on_reference_water_km2,-0.5973,-1.49527,-0.01259,v004,2000.0,True,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,R_pred_on_reference_water_wpre_water_km2,-0.5234,-1.23741,-0.0083,v004,2000.0,True,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,R_pred_on_reference_water_wpre_dry_km2,-0.0954,-0.2813,-0.0003,v004,2000.0,True,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,R_frac_reference_water_above_thr,-0.00409,-0.01573,-0.00013,v004,2000.0,True,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,E_recall_event_flood,-0.0099,-0.0212,0.0026,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,E_FN_km2,0.47155,-0.09601,1.51007,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,L_FP_on_land_km2,-0.41245,-1.45192,0.32193,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,L_FP_rate_land,-0.00089,-0.00352,0.00071,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,U_pred_on_unknown_km2,-4.0125,-10.23297,0.82619,v004,2000.0,False,weak-label
+U0d_B1B2_v004,U2_B1B2_v004,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_km2,-25.60965,-62.59644,-3.65778,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_water_km2,-25.37655,-62.37634,-3.56379,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_dry_km2,-0.2222,-0.49059,-0.04319,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,R_frac_reference_water_above_thr,-0.18665,-0.27711,-0.04498,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,E_recall_event_flood,-0.0019,-0.0216,0.0091,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,E_FN_km2,0.0918,-0.1676,0.43371,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,L_FP_on_land_km2,-3.4566,-7.15437,-0.98744,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,L_FP_rate_land,-0.00752,-0.01572,-0.00207,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,U_pred_on_unknown_km2,-23.2692,-32.77757,-14.77345,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261001,U2_B1B2_v004_s20261001,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,R_pred_on_reference_water_km2,-0.73345,-1.96019,-0.0782,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_water_km2,-0.7886,-2.04681,-0.09872,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_dry_km2,0.067,0.0032,0.1862,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,R_frac_reference_water_above_thr,-0.00485,-0.02234,-0.00042,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,E_recall_event_flood,0.0116,0.0037,0.0202,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,E_FN_km2,-0.54635,-1.35884,-0.02649,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,L_FP_on_land_km2,2.46535,0.13913,5.77842,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,L_FP_rate_land,0.00524,0.00027,0.01449,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,U_pred_on_unknown_km2,-2.73315,-14.8104,8.53777,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261001,U2b_B1B2_v004_s20261001,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_km2,-0.33405,-0.91512,0.03091,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_water_km2,-0.3096,-0.83321,0.0318,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,R_pred_on_reference_water_wpre_dry_km2,-0.02685,-0.07741,0.0002,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,R_frac_reference_water_above_thr,-0.0022,-0.00894,0.00032,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,E_recall_event_flood,-0.0077,-0.0172,0.0012,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,E_FN_km2,0.3458,-0.04021,1.04301,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,L_FP_on_land_km2,-0.0378,-0.61442,0.72393,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,L_FP_rate_land,-8e-05,-0.00147,0.00141,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,U_pred_on_unknown_km2,6.15965,-0.1662,14.46098,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261001,U2_B1B2_v004_s20261001,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_km2,-48.8048,-111.30882,-11.09446,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_water_km2,-48.57435,-111.14527,-10.91678,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_dry_km2,-0.2297,-0.61063,-0.0254,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,R_frac_reference_water_above_thr,-0.34783,-0.45392,-0.1846,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,E_recall_event_flood,-0.0055,-0.0188,0.01261,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,E_FN_km2,0.2782,-0.23091,1.15976,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,L_FP_on_land_km2,-2.3795,-6.42346,0.03755,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,L_FP_rate_land,-0.00515,-0.01416,0.0001,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,U_pred_on_unknown_km2,-24.8255,-43.57763,-10.52358,v004,2000.0,True,weak-label
+U2_B1B2_v002nt_s20261002,U2_B1B2_v004_s20261002,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,R_pred_on_reference_water_km2,-0.76935,-1.98447,-0.05968,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_water_km2,-0.83065,-2.01506,-0.0882,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_dry_km2,0.0686,0.00399,0.19181,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,R_frac_reference_water_above_thr,-0.00498,-0.01922,-0.0006,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,E_recall_event_flood,-0.00275,-0.0139,0.011,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,E_FN_km2,0.1524,-0.28572,0.89201,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,L_FP_on_land_km2,1.1068,0.0404,2.56297,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,L_FP_rate_land,0.00237,9e-05,0.00619,v004,2000.0,True,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,U_pred_on_unknown_km2,-4.8495,-14.29624,2.29201,v004,2000.0,False,no (W_pre circularity)
+U2_B1B2_v004_s20261002,U2b_B1B2_v004_s20261002,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,no (W_pre circularity)
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_km2,0.19315,-0.11951,0.62443,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_water_km2,0.14405,-0.1043,0.5105,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,R_pred_on_reference_water_wpre_dry_km2,0.0434,-0.0302,0.1681,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,R_frac_reference_water_above_thr,0.0013,-0.0015,0.00377,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,R_reference_water_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,E_recall_event_flood,0.0088,0.0052,0.0132,v004,2000.0,True,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,E_FN_km2,-0.418,-1.10282,-0.03129,v004,2000.0,True,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,E_reference_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,L_FP_on_land_km2,-0.94775,-2.40337,0.04702,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,L_FP_rate_land,-0.00202,-0.00549,0.00011,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,L_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,U_pred_on_unknown_km2,-5.05355,-11.09856,0.06324,v004,2000.0,False,weak-label
+U0d_B1B2_v004_s20261002,U2_B1B2_v004_s20261002,U_evaluated_km2,0.0,0.0,0.0,v004,2000.0,False,weak-label

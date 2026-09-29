@@ -80,7 +80,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 - **Independent:** yes -- altimetry independent of DEM, SAR and the reconstruction; gauge independent of SWOT
 - **Result type / dataset:** altimetric consistency check + input consistency / ICESat-2 ATL08 night segments 2019-2025 (p57 chain); p59 nodes near Kherson vs gauge
-- **Independent unit:** segment (tracks listed) / day; **n:** ICESat-2: 3205 + 1665 night segments on the S1-only >= 2 m cells (tracks and dates in T15); SWOT vs gauge 36 days
+- **Independent unit:** ICESat-2 pass (acquisition day; segments of one pass are not independent) / day; **n:** ICESat-2: 3205 night segments on 17 passes (delta) + 1665 on 59 passes (floodway) on the S1-only >= 2 m cells (T15); class-bias pass hold-out moves the corrected median by <= 0.04 m (T15b); SWOT vs gauge 36 days
 - **Value:** DEM - ICESat-2 median +0.03 m (delta), +0.02 m (floodway); ground - surface +13.5 m; share below surface 0.0%; gauge - SWOT median +0.01 m, NMAD 0.07 m; **uncertainty:** DEM - ICESat-2 p10-p90 -0.31 to +0.64 m; DEM class NMAD 0.39 m over 841752 segments (Paper 2); supports, does not prove
 - **Evidence:** tables T15, T17, T18; figures Fig08, Fig06
 - **Scope:** categories of the 06-09 agreement raster; Oleshky left-bank box; breach fortnight and full window
@@ -130,7 +130,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Scope:** B1+B2 TEST blocks
 - **Caveat:** global F1 not comparable across label sets (different negatives)
 - **Limitation:** 'no statistically resolved change' is not 'unchanged'
-- **Status:** TABLES_LINKED / draft
+- **Status:** TABLES_LINKED (v002 -> v003_A, original M2, one seed); STAGE 2 RE-TEST v002_notrace -> v004 x 3 seeds (T07b): flood on REFERENCE_WATER lower in 3/3 seeds (intervals exclude 0); EVENT_FLOOD recall resolved in 1/3 (-0.034) -- statement pending review / draft
 
 ### C10 [weak_label_agreement] -- section 4.9 (formerly C10)
 
@@ -144,7 +144,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Scope:** B1+B2 TEST blocks
 - **Caveat:** wording rule binding; group-A fields are elevated so HAND removes them as elevated land
 - **Limitation:** agreement with weak labels on one frozen split
-- **Status:** TABLES_LINKED / draft
+- **Status:** TABLES_LINKED (v002 arms, original M2, one seed); STAGE 2 RE-TEST on v004 x 3 seeds (T06s): the HAND reduction of the unlabelled-cropland burden does NOT replicate (1/3 seeds, signs differ); RF20 context lowers built-up FP (same sign 3/3) but raises the cropland burden (3/3) -- statement pending review / draft
 
 ### C12 [contextual] -- section 4.8 (formerly C11)
 
@@ -152,13 +152,13 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 - **Independent:** no -- WorldCover is the training reference
 - **Result type / dataset:** classification agreement / p73 RF20, 5-fold spatial block CV, B1<->B2 transfer
-- **Independent unit:** 20 m cell / block fold; **n:** 1177260 CV samples
-- **Value:** OA 0.940, macro F1 0.943; transfer B1->B2 macro F1 0.906, B2->B1 0.932; **uncertainty:** agreement with WorldCover (training reference), not validation
+- **Independent unit:** 20 m cell / block fold; **n:** 392420 CV samples (RF20 rev 2: global blocks, overlap counted once)
+- **Value:** OA 0.938, macro F1 0.941 (0.929 with a 3.5 km buffer); transfer outside the overlap B1->B2 macro F1 0.848, B2->B1 0.907; **uncertainty:** agreement with WorldCover (training reference), not validation
 - **Evidence:** tables T09, T10; figures FigS04
 - **Scope:** B1, B2 20 m grid
 - **Caveat:** WorldCover error; 7 documented limitations in the p73 QA verdict
 - **Limitation:** not an independent land-cover accuracy
-- **Status:** TABLES_LINKED / draft
+- **Status:** TABLES_LINKED; RECOMPUTED 2026-09-29 on RF20 rev 2 (F08: global blocks, overlap once, buffered CV, transfers outside the overlap) / draft
 
 ### C13 [weak_label_agreement] -- section 3.7, 4.10 (formerly C12)
 
@@ -202,4 +202,4 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 - **Scope:** B1+B2 TEST blocks
 - **Caveat:** circularity; report only as diagnostic
 - **Limitation:** a W_pre-free label sensitivity was not built
-- **Status:** TABLES_LINKED / draft
+- **Status:** TABLES_LINKED (v003_A, one seed); STAGE 2 RE-TEST on v004 x 3 seeds (T06s, T07b): W_pre lowers the cropland burden (3/3) and flood on REFERENCE_WATER in 2/3 seeds (seed 20260923: +7.4 km2, n.s.); still not independent -- statement pending review / draft

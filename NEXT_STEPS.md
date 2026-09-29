@@ -385,6 +385,38 @@ only, never on bed); everything in EVRF2019 (asserted); no new physics while ans
 - NEXT: Stage 2 = F09 (inner out-of-fold M2 threshold -> labels v004 -> arms retrained) -> F10 (label contracts, lineage) ->
   F08 (global blocks, overlap dedup, RF20 production refit, new freeze) -> F11 -> F12 hold-out.
 
+### 2026-09-29 (afternoon) -- Stage 2 of the review response: independence and ML (F09 -> F10 -> F08 -> F11 -> F12)
+Branch `review-2026-09-28-stage2` (from the frozen Stage 1, 7795cad; code 214bf93). Record of every check:
+`case_studies/kakhovka_2023/publication/VALIDATION_2026-09-29_stage2.md`; ledger rows F08-F12 in `docs/CODE_REVIEW_ACTIONS_2026-09-29.md`.
+- F09: the M2 operating threshold now comes from inner out-of-fold scores (p65b `inner_oof_threshold`, fit and calibration disjoint;
+  the in-sample rule kept per fold as `threshold_insample_superseded`). The corrected M2 (maintainer decision: WITHOUT the
+  post-event TRACE window, 67 features) -- block CV pooled AP 0.924; median threshold 0.266 (OOF) vs 0.446 (in-sample), outer recall
+  0.928 vs 0.860 for the target 0.90 (T02c). Production p67b `--exclude trace`: T50 0.2661 (was 0.5358), overlap QA 0 mismatches.
+- F10: labels v002_notrace and **v004** (the v002 / v003_A rules on that M2); lineage table + contracts + test: v004 does not depend
+  on TRACE. v004 EVENT_FLOOD B1 128.9 -> 141.9, B2 57.5 -> 75.2 km2 (nothing leaves EVENT_FLOOD; T02d); v002 DISPUTED shrinks
+  (285.8 -> 122.9, 337.6 -> 100.4 km2). CAVEAT: without TRACE the M2 scores pre-event open water as flood-like (98 % of PRE-water
+  cells >= 0.5 in B2/B3; B3 23.9 % of all cells vs 1.3 % for the original model) -- outside M2's training domain; the labels are
+  guarded (FLOOD needs pre-breach land), but the M2 masks must not be shown as a flood map on permanent water.
+- F08: RF20 rev 2 (global UTM blocks, B2 owns the overlap, buffered CV, transfers outside the overlap): CV macro F1 0.943 -> 0.941
+  (buffered 0.929); the rev-1 B1->B2 transfer was inflated by the overlap: 0.904 -> 0.848. The map hardly changes (96.9 % / 96.8 %
+  of cells). Consumers switched (U1 input and strata of every stage-2 arm, p95d/T14, T09/T10/T10d, FigS04, dashboard, notebooks);
+  QA verdict `tables/p73_rf20_rev2_qa/QA_VERDICT.md`; the rev-2 freeze waits for its clean-tree reproducibility gate.
+- F11: NaN for undefined ratios (m6_eval, p90) with n_defined; 15 arms on the corrected labels with three seeds (U0d, U2, U2b,
+  U1 on v004; U2 on v002_notrace for the label effect) + U2 v004 block-size runs. Seed noise is large (cropland burden range up
+  to 20.8 km2 within one arm). Across seeds: the label effect on REFERENCE_WATER holds (3/3; C09); the HAND reduction of the
+  cropland burden does NOT replicate (C10); RF20 context lowers built-up FP (3/3 same sign) but raises the cropland burden (3/3);
+  W_pre lowers the cropland burden (3/3) -- C09-C11 marked "re-tested, statement pending review".
+- F12: pass hold-out of the class bias (T15b/T15c): S1-only >= 2 m median moves <= 0.035 m; epochs <= 0.24 m in the delta; the
+  delta class biases rest on few passes (wetland +0.22 m pre-breach vs +0.59 m post-breach passes; not propagated in the MC).
+- Found on the way: T09's MACRO_MEAN also averaged the p73 MACRO / OVERALL_ACCURACY rows (n counted 3x; C12 "1177260 CV samples"
+  -> 392420); the WorldCover frames sit half a cell off the terrain grid (6.9 % of the ICESat-2 check segments get another class).
+- Figures: Fig03 on v004 with one marker per seed and (review F15) areas and recall on separate axes; FigS01 v004 seeds;
+  FigS04 rev 2; FigS05 v003_A + v004. The manuscript §3.5/§4.4/§4.8 carry the stage-2 numbers; §3.6 and §4.9 (labels, arms)
+  still describe the v002 / v003_A arms and wait for the maintainer's decision on C09-C11 (text pass).
+- NEXT: the maintainer's review of the stage-2 numbers (C09-C11 statements; whether v004 becomes the paper's label version in
+  the text); the reproducibility gates (v004 labels -> p77e freeze; RF20 rev 2 -> freeze); the with-TRACE comparison CV (T02c row
+  of the original model); then Stage 3 (F13-F19 + the text pass). No merge / push without the maintainer.
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

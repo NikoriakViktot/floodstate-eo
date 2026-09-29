@@ -1,0 +1,2 @@
+A = U2_B1B2_v004_s20261002/eval_d1a
+B = U2b_B1B2_v004_s20261002/eval_d1a

@@ -1,0 +1,2 @@
+model,n_samples_before_overlap_dedup,n_samples_after_overlap_dedup,n_duplicate_pixels_removed,n_duplicate_blocks_removed,dedup_rule,train_frames,b3_used_for,training_n,training_positive_n,training_negative_n,training_prevalence
+M2_PRODUCTION_CANDIDATE_CORRECTED10M_NOTRACE,22174408,22174408,0,0,"canonical 10 m physical coordinate; B1 owns the shared ground, B2 the rest",B1|B2,nothing,300000,20568,279432,0.06856

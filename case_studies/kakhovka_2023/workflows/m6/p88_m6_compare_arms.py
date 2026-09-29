@@ -15,12 +15,18 @@ RUNS = HERE.parents[1] / "runs"
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("a"); ap.add_argument("b")
-    ap.add_argument("--run", default="v1", help="run-directory suffix: v1 (v002 labels) or v003A (v003_A labels)")
+    ap.add_argument("--run", default="v1", help="run-directory suffix: v1 (v002 labels), v003A, v004, v004_s<seed>, v002nt ...")
+    ap.add_argument("--dir-a", help="evaluation directory of A under runs/ (e.g. U2_B1B2_v003A/eval_d1a_refv004_p73rev2); overrides --run")
+    ap.add_argument("--dir-b", help="evaluation directory of B under runs/"); ap.add_argument("--out", help="comparison directory name under runs/")
     x = ap.parse_args()
     s = importlib.util.spec_from_file_location("m6_eval", HERE / "m6_eval.py")
     E = importlib.util.module_from_spec(s); s.loader.exec_module(E)
-    ra, rb = RUNS / f"{x.a}_B1B2_{x.run}" / "eval_d1a", RUNS / f"{x.b}_B1B2_{x.run}" / "eval_d1a"
-    od = RUNS / (f"compare_{x.a}_vs_{x.b}" + ("" if x.run == "v1" else f"_{x.run}")); od.mkdir(exist_ok=True)
+    ra = RUNS / x.dir_a if x.dir_a else RUNS / f"{x.a}_B1B2_{x.run}" / "eval_d1a"
+    rb = RUNS / x.dir_b if x.dir_b else RUNS / f"{x.b}_B1B2_{x.run}" / "eval_d1a"
+    for r_ in (ra, rb):                                                   # both sides must be scored on the same TEST geography
+        assert (r_ / "blocks.csv").exists(), r_
+    od = RUNS / (x.out or (f"compare_{x.a}_vs_{x.b}" + ("" if x.run == "v1" else f"_{x.run}"))); od.mkdir(exist_ok=True)
+    (od / "SOURCES.txt").write_text(f"A = {ra.relative_to(RUNS)}\nB = {rb.relative_to(RUNS)}\n")
     pa = pd.read_csv(ra / "endpoints.csv", index_col=0).value
     pb = pd.read_csv(rb / "endpoints.csv", index_col=0).value
     P = pd.DataFrame({x.a: pa, x.b: pb}); P.to_csv(od / "pooled.csv")

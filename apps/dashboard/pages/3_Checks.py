@@ -38,6 +38,9 @@ figure("Fig05")
 refs(["s1_flood", "Cohen_2019", "Le_2026", "Darnell_2008"], "📚 Literature: Sentinel-1 flood mapping, where SAR cannot see (vegetation, exclusion maps) and urban flood")
 
 st.subheader("ICESat-2 altimetric consistency check (T15, Fig08)"); st.caption(caption("T15")); st.dataframe(table("T15"), width="stretch", hide_index=True); figure("Fig08")
+with st.expander("Pass hold-out of the class-bias correction (T15b, T15c)"):
+    st.caption(caption("T15b")); st.dataframe(table("T15b"), width="stretch", hide_index=True)
+    st.caption(caption("T15c")); st.dataframe(table("T15c"), width="stretch", hide_index=True)
 refs(["Neuenschwander_2019", "Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Lehnigk_2026"], "📚 Literature: ICESat-2 ATL08 / ATL13 and its use in the series")
 st.subheader("Withheld river gauges: independent validation of the reconstructed water surface (T17c–T17f, FigS15)")
 st.caption("Kherson 80805 is an input (the anchor of the water surface). Kalynivske 80575 (Inhulets) and Mykolaiv 98027 (liman) are withheld: "

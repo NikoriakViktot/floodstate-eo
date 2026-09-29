@@ -174,15 +174,26 @@ def frame_layers():
         return fn, thr
     fn, thr = pred("U2b_B1B2_v003A", "U2b_v003A_score.tif"); write_png(frames_mosaic(fn), OUTD / "unet" / "U2b_v003A.png", {1: HEX["unet"]}, {"1": f"U2b (v003_A) predicted flood, score ≥ {thr}"}, "unet_U2b_v003A", "unet", "runs/U2b_B1B2_v003A", "agreement with weak labels; persistent-water concept")
     fn, thr = pred("U2_B1B2_v1", "U2_score.tif"); write_png(frames_mosaic(fn), OUTD / "unet" / "U2_v1.png", {1: HEX["unet2"]}, {"1": f"U2 (v002) predicted flood, score ≥ {thr}"}, "unet_U2_v1", "unet", "runs/U2_B1B2_v1", "agreement with weak labels")
+    for arm, col in (("U2b", HEX["unet"]), ("U2", HEX["unet2"])):                   # review F09/F10: the arms on the corrected labels (first seed)
+        if (REPO / "case_studies/kakhovka_2023/runs" / f"{arm}_B1B2_v004" / "validation_threshold.json").exists():
+            fn, thr = pred(f"{arm}_B1B2_v004", f"{arm}_v004_score.tif")
+            write_png(frames_mosaic(fn), OUTD / "unet" / f"{arm}_v004.png", {1: col}, {"1": f"{arm} (v004) predicted flood, score ≥ {thr}"}, f"unet_{arm}_v004", "unet",
+                      f"runs/{arm}_B1B2_v004", "agreement with weak labels v004 (M2 without TRACE, out-of-fold threshold); persistent-water concept")
     def lab(f):
         with rasterio.open(FR / f / "m6_labels_v003_A.tif") as s:
             o = s.read(1); c = np.zeros(o.shape, "u1"); c[o == 0] = 1; c[o == 1] = 2; c[o == 2] = 3; c[o == 255] = 4; return c, s.transform
     write_png(frames_mosaic(lab), OUTD / "labels" / "v003A.png", {1: "#efece6", 2: "#2a78d6", 3: "#b9c7d6", 4: "#f7f5f0"}, {"1": "LAND", "2": "EVENT_FLOOD", "3": "REFERENCE_WATER", "4": "UNKNOWN"}, "labels_v003A", "labels", "m6_labels_v003_A (FROZEN)", "weak reference labels")
+    def lab4(f):
+        with rasterio.open(FR / f / "m6_labels_v004.tif") as s:
+            o = s.read(1); c = np.zeros(o.shape, "u1"); c[o == 0] = 1; c[o == 1] = 2; c[o == 2] = 3; c[o == 255] = 4; return c, s.transform
+    if (FR / "B1" / "m6_labels_v004.tif").exists():
+        write_png(frames_mosaic(lab4), OUTD / "labels" / "v004.png", {1: "#efece6", 2: "#2a78d6", 3: "#b9c7d6", 4: "#f7f5f0"}, {"1": "LAND", "2": "EVENT_FLOOD", "3": "REFERENCE_WATER", "4": "UNKNOWN"},
+                  "labels_v004", "labels", "frames10/<F>/m6_labels_v004.tif", "weak labels v004: the v003_A rule on the M2 without TRACE (review F09/F10)")
     def rf(f):
-        with rasterio.open(FR / f / "p73_rf20" / "surface_class_20m.tif") as s:
+        with rasterio.open(FR / f / "p73_rf20_rev2" / "surface_class_20m.tif") as s:            # review F08: the rev-2 refit
             c = s.read(1).astype("u1"); c[c == 255] = 0; return c, s.transform
     write_png(frames_mosaic(rf), OUTD / "rf" / "p73.png", {1: "#5b9bd5", 2: "#eda100", 3: "#b5d33d", 4: "#1b7f3b", 5: "#8fbc8f", 6: "#1baf7a", 7: "#7d3c98", 8: "#e8d8a0", 9: "#95a5a6", 10: "#d8dbdd"},
-              {"1": "WATER", "2": "CROPLAND", "3": "GRASS_LOW_VEGETATION", "4": "FOREST", "5": "SHRUB", "6": "WETLAND_REED", "7": "BUILT_UP", "8": "BARE_SAND", "9": "OTHER", "10": "UNCERTAIN"}, "rf_p73", "rf", "p73 RF20 (FROZEN)", "context, agreement with WorldCover")
+              {"1": "WATER", "2": "CROPLAND", "3": "GRASS_LOW_VEGETATION", "4": "FOREST", "5": "SHRUB", "6": "WETLAND_REED", "7": "BUILT_UP", "8": "BARE_SAND", "9": "OTHER", "10": "UNCERTAIN"}, "rf_p73", "rf", "p73 RF20 rev 2 (global blocks, overlap owned by B2; review F08)", "context, agreement with WorldCover")
 
 
 def context_layers():
@@ -293,7 +304,7 @@ def reservoir_layers():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support"], help="rebuild only the reservoir, terrain or support layers, keep the rest of the manifest")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support", "frames"], help="rebuild only the reservoir, terrain, support or frame (U-Net, labels, RF20) layers, keep the rest of the manifest")
     a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
     if a.only == "terrain":                                               # e.g. after a new p95 run: keep every other layer, terrain first as before
         old = json.loads((OUTD / "manifest.json").read_text())
@@ -303,6 +314,10 @@ def main():
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] != "support_daily" and l["id"] != "gauges"]
         support_layers(); print("support", round(time.time() - t0), flush=True)
+    elif a.only == "frames":                                              # U-Net predictions, labels and RF20 (stage 2 of the review)
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] not in ("unet", "labels", "rf")]
+        frame_layers(); print("frames", round(time.time() - t0), flush=True)
     elif a.only == "reservoir":
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]

@@ -41,7 +41,8 @@ CUT_RECTS = {"west_of_inhulets_mouth": (462000.0, 5175000.0, 481000.0, 5300000.0
              "inhulets_valley": (481000.0, 5180000.0, 503000.0, 5300000.0),
              "terrace_fragments_ne": (503000.0, 5187000.0, 530000.0, 5300000.0)}
 PRE_WATER_PCT = 20
-RUN_COLOR = {"U2_B1B2_v1": "#eb6834", "U0d_B1B2_v003A": "#1baf7a", "U2_B1B2_v003A": "#2a78d6", "U2b_B1B2_v003A": "#4a3aa7"}
+RUN_COLOR = {"U2_B1B2_v1": "#eb6834", "U0d_B1B2_v003A": "#1baf7a", "U2_B1B2_v003A": "#2a78d6", "U2b_B1B2_v003A": "#4a3aa7",
+             "U2_B1B2_v004": "#2a78d6", "U2b_B1B2_v004": "#4a3aa7"}                # arms on the corrected labels (review stage 2)
 DS = 4
 
 

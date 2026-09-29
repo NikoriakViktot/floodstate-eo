@@ -1,0 +1,11 @@
+{
+  "threshold": 0.2,
+  "criterion": "max F1 on all owned, labelled VALIDATION pixels (full-frame blend, unique pixels)",
+  "val_F1": 0.8842,
+  "n_val_px": 2816782,
+  "never_used": [
+    "test",
+    "disputed",
+    "B3"
+  ]
+}

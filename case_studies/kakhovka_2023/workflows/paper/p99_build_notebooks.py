@@ -67,8 +67,8 @@ axs[0].legend(); plt.tight_layout()'''))
     c.append(nbf.v4.new_markdown_cell("## 4. Disagreement ontology (A both / B terrain-only / C S1-only)\nB decomposed by land cover (SAR blind spots); C by ground elevation relative to the surface (submergence of normally-wet reeds vs S1-only detections topographically unsupported by the reconstructed water surface)."))
     c.append(nbf.v4.new_code_cell("o = show('T14'); o[o.date == '2023-06-09']"))
     c.append(nbf.v4.new_code_cell("fig('Fig05')"))
-    c.append(nbf.v4.new_markdown_cell("## 5. ICESat-2 altimetric consistency check\nA track-based consistency check of the DEM and the water surface, not a validation of the inundation map."))
-    c.append(nbf.v4.new_code_cell("show('T15'); fig('Fig08')"))
+    c.append(nbf.v4.new_markdown_cell("## 5. ICESat-2 altimetric consistency check\nA track-based consistency check of the DEM and the water surface, not a validation of the inundation map. The independent units are the passes (acquisition days), far fewer than the segments. The class bias is calibrated on the same night corpus, so T15b repeats the corrected residual with the bias re-estimated without the checked passes (one pass out, five folds of passes, the two epochs either side of the breach); T15c shows how stable each class bias is."))
+    c.append(nbf.v4.new_code_cell("show('T15'); show('T15b'); show('T15c'); fig('Fig08')"))
     c.append(nbf.v4.new_markdown_cell("## 6. Area accounting with semantics and the per-date series"))
     c.append(nbf.v4.new_code_cell("show('T16')"))
     c.append(nbf.v4.new_code_cell("show('T19', 30); fig('FigS03')"))
@@ -82,8 +82,10 @@ def nb02():
          nbf.v4.new_code_cell(HEAD), nbf.v4.new_markdown_cell("## 1. Per-class agreement (spatial-block 5-fold CV and frame transfers)"), nbf.v4.new_code_cell("show('T09')"),
          nbf.v4.new_code_cell("fig('FigS04')"), nbf.v4.new_markdown_cell("## 2. Confusion matrix and class areas"), nbf.v4.new_code_cell("show('T10'); show('T10b')"),
          nbf.v4.new_markdown_cell("## 3. Wall-to-wall agreement with WorldCover (crosswalk, not validation)"), nbf.v4.new_code_cell("show('T10c')"),
-         nbf.v4.new_markdown_cell("## 4. QA verdict and known limitations (p73 freeze)"), nbf.v4.new_code_cell("print((T / 'p73_rf20_qa' / 'QA_VERDICT.md').read_text()[:6000])"),
-         nbf.v4.new_code_cell("for p in sorted((T / 'p73_rf20_qa').glob('Z*.png'))[:3]: display(Image(str(p), width=800))")]
+         nbf.v4.new_markdown_cell("## 4. QA verdict and known limitations (p73 freeze)\nRev 2 (review F08: global blocks, the B1/B2 overlap owned by B2 before sampling, buffered CV) is the product in use once built; rev 1 is the superseded model."),
+         nbf.v4.new_code_cell("QA = T / ('p73_rf20_rev2_qa' if (T / 'p73_rf20_rev2_qa').exists() else 'p73_rf20_qa'); print(QA.name)\n"
+                              "v = QA / 'QA_VERDICT.md'; print(v.read_text()[:6000] if v.exists() else 'no verdict file in ' + QA.name)"),
+         nbf.v4.new_code_cell("for p in sorted(QA.glob('Z*.png'))[:3]: display(Image(str(p), width=800))")]
     return c
 
 

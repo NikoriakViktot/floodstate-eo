@@ -1,141 +1,393 @@
-comparison,labels,endpoint,median,ci_lo,ci_hi,excludes_zero,independent,note
-U0z - U0d,v002,A_FP_area_dry_cropland_km2,-0.4014,-1.151805,0.0079074999999999,False,weak-label,
-U0z - U0d,v002,A_FP_rate_dry_cropland,-0.00125,-0.003349325,3.902499999999984e-05,False,weak-label,
-U0z - U0d,v002,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,weak-label,
-U0z - U0d,v002,B_recall_flooded_open_low_veg,-0.0186,-0.0428999999999999,0.0002,False,weak-label,
-U0z - U0d,v002,B_IoU_open_low_veg,0.0154999999999999,-0.0298025,0.1362024999999999,False,weak-label,
-U0z - U0d,v002,B_FN_area_km2,0.0988999999999999,-0.0001999999999999,0.2501025000000001,False,weak-label,
-U0z - U0d,v002,B_reference_km2,0.0,0.0,0.0,False,weak-label,
-U0z - U0d,v002,C_recall_flooded_cropland_LOWN,0.0035999999999999,-0.0030999999999999,0.0855,False,weak-label,
-U0z - U0d,v002,C_FN_area_km2,-0.0017,-0.0070999999999999,0.0029,False,weak-label,
-U0z - U0d,v002,C_reference_km2,0.0,0.0,0.0,False,weak-label,
-U0z - U0d,v002,W_precision,0.0024,-0.0042999999999999,0.0351,False,weak-label,
-U0z - U0d,v002,W_recall,0.0,-0.0122099999999999,0.0013999999999999,False,weak-label,
-U0z - U0d,v002,W_IoU,0.0021999999999999,-0.003,0.019,False,weak-label,
-U0z - U0d,v002,BU_FP_area_km2,-0.1767,-0.4576175,-0.0032999999999999,True,weak-label,
-U0z - U0d,v002,BU_precision,0.1236999999999999,0.0054249999999999,0.1482,True,weak-label,
-U0z - U0d,v002,BS_FP_area_km2,-0.0008,-0.002,0.0,False,weak-label,
-U0z - U0d,v002,G_F1,0.0076499999999999,0.0006,0.0609024999999999,True,weak-label,
-U0z - U0d,v002,G_IoU,0.0138,0.0011999999999999,0.0883499999999996,True,weak-label,
-U0z - U0d,v002,G_precision,0.019,0.0042999999999999,0.1571574999999997,True,weak-label,
-U0z - U0d,v002,G_recall,-0.0034,-0.01,0.0009,False,weak-label,
-U0z - U0d,v002,A1_isolated_field_FP_km2,-0.3359999999999999,-1.0003025,0.018,False,weak-label,
-U0z - U0d,v002,A2_pred_flood_on_nonflood_cropland_km2,-0.4014,-1.151805,0.0079074999999999,False,weak-label,
-U0z - U0d,v002,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-3.74535,-9.932835,2.24909749999999,False,weak-label,
-U0z - U0d,v002,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,weak-label,
-U0z - U0d,v002,A2_frac_unlabelled_cropland_above_thr,-0.0091299999999999,-0.02826725,0.0048414999999999,False,weak-label,
-U0z - U0d,v002,A2_frac_nonflood_cropland_above_thr,-0.00125,-0.0033405,3.999999999999998e-05,False,weak-label,
-U0z - U0d,v002,A2_isolated_field_like_km2,-3.319750000000001,-9.8561325,2.728322500000001,False,weak-label,
-U0z - U0d,v002,A2_isolated_field_like_on_unlabelled_km2,-3.0337999999999994,-9.0220775,2.527737499999999,False,weak-label,
-U1 - U0d,v002,A_FP_area_dry_cropland_km2,0.0583,-0.0293999999999999,0.1698099999999999,False,weak-label,
-U1 - U0d,v002,A_FP_rate_dry_cropland,0.0001889999999999,-8.799999999999997e-05,0.0004920499999999,False,weak-label,
-U1 - U0d,v002,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,weak-label,
-U1 - U0d,v002,B_recall_flooded_open_low_veg,0.1057499999999999,0.0056975,0.3716024999999999,True,weak-label,
-U1 - U0d,v002,B_IoU_open_low_veg,0.0759,-0.0061049999999999,0.304105,False,weak-label,
-U1 - U0d,v002,B_FN_area_km2,-0.5222500000000001,-1.5423425,-0.0041974999999999,True,weak-label,
-U1 - U0d,v002,B_reference_km2,0.0,0.0,0.0,False,weak-label,
-U1 - U0d,v002,C_recall_flooded_cropland_LOWN,0.0302,0.0046999999999999,0.3938224999999998,True,weak-label,
-U1 - U0d,v002,C_FN_area_km2,-0.0152,-0.0417025,-0.0005,True,weak-label,
-U1 - U0d,v002,C_reference_km2,0.0,0.0,0.0,False,weak-label,
-U1 - U0d,v002,W_precision,0.0128,-0.0121,0.0145999999999999,False,weak-label,
-U1 - U0d,v002,W_recall,-0.0005999999999999,-0.0014,0.0164999999999999,False,weak-label,
-U1 - U0d,v002,W_IoU,0.012,-0.0064999999999999,0.0141024999999999,False,weak-label,
-U1 - U0d,v002,BU_FP_area_km2,-0.3212,-0.8318,-0.0063,True,weak-label,
-U1 - U0d,v002,BU_precision,0.3470000000000001,0.013365,0.4183999999999999,True,weak-label,
-U1 - U0d,v002,BS_FP_area_km2,0.0046999999999999,0.0,0.0119049999999999,False,weak-label,
-U1 - U0d,v002,G_F1,0.0164999999999999,-0.0067024999999999,0.0251,False,weak-label,
-U1 - U0d,v002,G_IoU,0.0301,-0.008705,0.0455024999999999,False,weak-label,
-U1 - U0d,v002,G_precision,0.0227999999999999,-0.01931,0.0302999999999999,False,weak-label,
-U1 - U0d,v002,G_recall,0.0105999999999999,0.0001999999999999,0.0221999999999999,True,weak-label,
-U1 - U0d,v002,A1_isolated_field_FP_km2,0.0786,0.0005975,0.2098099999999999,True,weak-label,
-U1 - U0d,v002,A2_pred_flood_on_nonflood_cropland_km2,0.0583,-0.0293999999999999,0.1698099999999999,False,weak-label,
-U1 - U0d,v002,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,2.59915,-1.91629,9.323619999999998,False,weak-label,
-U1 - U0d,v002,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,weak-label,
-U1 - U0d,v002,A2_frac_unlabelled_cropland_above_thr,0.0065899999999999,-0.00546025,0.0197619999999999,False,weak-label,
-U1 - U0d,v002,A2_frac_nonflood_cropland_above_thr,0.00019,-9.000000000000002e-05,0.00049,False,weak-label,
-U1 - U0d,v002,A2_isolated_field_like_km2,2.871199999999999,-1.5474300000000014,9.655417500000002,False,weak-label,
-U1 - U0d,v002,A2_isolated_field_like_on_unlabelled_km2,2.435249999999999,-1.73046,8.7362275,False,weak-label,
-U2 - U0d,v002,A_FP_area_dry_cropland_km2,-0.41845,-1.1658775,-0.0145825,True,weak-label,
-U2 - U0d,v002,A_FP_rate_dry_cropland,-0.0012799999999999,-0.003403125,-6.597500000000011e-05,True,weak-label,
-U2 - U0d,v002,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v002,B_recall_flooded_open_low_veg,0.0427999999999999,-0.0050999999999999,0.1759,False,weak-label,
-U2 - U0d,v002,B_IoU_open_low_veg,0.08255,0.0004974999999999,0.2328249999999998,True,weak-label,
-U2 - U0d,v002,B_FN_area_km2,-0.21225,-0.7015125,0.0360999999999999,False,weak-label,
-U2 - U0d,v002,B_reference_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v002,C_recall_flooded_cropland_LOWN,0.0146,-0.0017025,0.2314024999999999,False,weak-label,
-U2 - U0d,v002,C_FN_area_km2,-0.0072999999999999,-0.0240075,0.0011999999999999,False,weak-label,
-U2 - U0d,v002,C_reference_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v002,W_precision,-0.0079,-0.0106,0.0145024999999999,False,weak-label,
-U2 - U0d,v002,W_recall,-0.0009,-0.0188175,0.004,False,weak-label,
-U2 - U0d,v002,W_IoU,-0.0082,-0.0142999999999999,0.0070024999999999,False,weak-label,
-U2 - U0d,v002,BU_FP_area_km2,0.37005,0.0383975,1.0257175,True,weak-label,
-U2 - U0d,v002,BU_precision,-0.1246999999999999,-0.2205,-0.016085,True,weak-label,
-U2 - U0d,v002,BS_FP_area_km2,0.0017,0.0,0.0057,False,weak-label,
-U2 - U0d,v002,G_F1,-0.0078,-0.0165024999999999,0.0520349999999998,False,weak-label,
-U2 - U0d,v002,G_IoU,-0.0138,-0.0292999999999999,0.0744074999999999,False,weak-label,
-U2 - U0d,v002,G_precision,-0.0217999999999999,-0.0363025,0.1164324999999997,False,weak-label,
-U2 - U0d,v002,G_recall,0.0064,-0.0093025,0.0164025,False,weak-label,
-U2 - U0d,v002,A1_isolated_field_FP_km2,-0.36585,-1.0287025,-0.0163875,True,weak-label,
-U2 - U0d,v002,A2_pred_flood_on_nonflood_cropland_km2,-0.41845,-1.1658775,-0.0145825,True,weak-label,
-U2 - U0d,v002,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-9.62095,-14.784722499999996,-5.066537500000001,True,weak-label,
-U2 - U0d,v002,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v002,A2_frac_unlabelled_cropland_above_thr,-0.02343,-0.03316225,-0.01513925,True,weak-label,
-U2 - U0d,v002,A2_frac_nonflood_cropland_above_thr,-0.00128,-0.0034,-7e-05,True,weak-label,
-U2 - U0d,v002,A2_isolated_field_like_km2,-8.712150000000001,-14.35868,-4.021702500000002,True,weak-label,
-U2 - U0d,v002,A2_isolated_field_like_on_unlabelled_km2,-8.1665,-13.4651975,-3.81135000000001,True,weak-label,
-U2 - U0d,v003_A,A_FP_area_dry_cropland_km2,-0.2541,-0.630535,-0.0272975,True,weak-label,
-U2 - U0d,v003_A,A_FP_rate_dry_cropland,-0.0010115,-0.0029403249999999,-0.0001109,True,weak-label,
-U2 - U0d,v003_A,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v003_A,B_recall_flooded_open_low_veg,-0.0427,-0.2005249999999999,0.0141024999999999,False,weak-label,
-U2 - U0d,v003_A,B_IoU_open_low_veg,-0.0060999999999999,-0.164105,0.0777124999999999,False,weak-label,
-U2 - U0d,v003_A,B_FN_area_km2,0.2189999999999998,-0.108485,0.8079999999999998,False,weak-label,
-U2 - U0d,v003_A,B_reference_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v003_A,C_recall_flooded_cropland_LOWN,-0.0080999999999999,-0.1680999999999999,0.0074999999999999,False,weak-label,
-U2 - U0d,v003_A,C_FN_area_km2,0.0040999999999999,-0.0063999999999999,0.0169024999999999,False,weak-label,
-U2 - U0d,v003_A,C_reference_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v003_A,W_precision,0.0042999999999999,-0.0122999999999999,0.1941,False,weak-label,
-U2 - U0d,v003_A,W_recall,0.0067,-0.0070125,0.0423024999999998,False,weak-label,
-U2 - U0d,v003_A,W_IoU,0.01,0.0001974999999999,0.1731099999999999,True,weak-label,
-U2 - U0d,v003_A,BU_FP_area_km2,-0.0675,-0.2989175,0.0605124999999999,False,weak-label,
-U2 - U0d,v003_A,BU_precision,0.0131,-0.1284,0.2022,False,weak-label,
-U2 - U0d,v003_A,BS_FP_area_km2,0.0001,-0.0006025,0.0014,False,weak-label,
-U2 - U0d,v003_A,G_F1,0.0024,-0.0102025,0.0442025,False,weak-label,
-U2 - U0d,v003_A,G_IoU,0.0041999999999999,-0.0174025,0.0610075,False,weak-label,
-U2 - U0d,v003_A,G_precision,0.0037,-0.029205,0.069,False,weak-label,
-U2 - U0d,v003_A,G_recall,0.0004,-0.0066,0.0367049999999999,False,weak-label,
-U2 - U0d,v003_A,A1_isolated_field_FP_km2,-0.2417,-0.6065,-0.0343,True,weak-label,
-U2 - U0d,v003_A,A2_pred_flood_on_nonflood_cropland_km2,-0.2541,-0.630535,-0.0272975,True,weak-label,
-U2 - U0d,v003_A,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-3.53635,-12.23463,4.993029999999999,False,weak-label,
-U2 - U0d,v003_A,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,weak-label,
-U2 - U0d,v003_A,A2_frac_unlabelled_cropland_above_thr,-0.0076149999999999,-0.02188075,0.0130832499999999,False,weak-label,
-U2 - U0d,v003_A,A2_frac_nonflood_cropland_above_thr,-0.00101,-0.0029402499999999,-0.00011,True,weak-label,
-U2 - U0d,v003_A,A2_isolated_field_like_km2,-5.8433,-13.24041,-1.5666975,True,weak-label,
-U2 - U0d,v003_A,A2_isolated_field_like_on_unlabelled_km2,-5.4115,-12.70358,-1.3031700000000002,True,weak-label,
-U2b - U2,v003_A,A_FP_area_dry_cropland_km2,-0.081,-0.221685,-0.0005999999999999,True,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A_FP_rate_dry_cropland,-0.0003329999999999,-0.0008179999999999,-3.0000000000000018e-06,True,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,B_recall_flooded_open_low_veg,0.0428999999999999,-0.0040025,0.1846099999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,B_IoU_open_low_veg,0.0496,-0.0003,0.1827,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,B_FN_area_km2,-0.2340999999999999,-0.7469000000000001,0.0272999999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,B_reference_km2,0.0,0.0,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,C_recall_flooded_cropland_LOWN,0.0124999999999999,-0.0029024999999999,0.1530999999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,C_FN_area_km2,-0.0062,-0.0169024999999999,0.0005,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,C_reference_km2,0.0,0.0,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,W_precision,-0.0018999999999999,-0.0041999999999999,0.0264024999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,W_recall,0.0047,-0.0198,0.0111999999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,W_IoU,0.003,-0.0008999999999999,0.008,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,BU_FP_area_km2,0.1867,-0.0746025,0.5547124999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,BU_precision,-0.0701999999999999,-0.2269999999999999,0.1372,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,BS_FP_area_km2,-0.0013,-0.0045,0.0005999999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,G_F1,0.0061999999999999,-0.0010999999999999,0.0536125,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,G_IoU,0.0108,-0.0020025,0.0755,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,G_precision,0.0012,-0.0165,0.1609249999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,G_recall,0.0111999999999999,-0.0164124999999999,0.0161999999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A1_isolated_field_FP_km2,-0.0628,-0.1573174999999999,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_pred_flood_on_nonflood_cropland_km2,-0.081,-0.221685,-0.0005999999999999,True,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-2.3599,-8.4881175,1.1967499999999989,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_frac_unlabelled_cropland_above_thr,-0.00485,-0.0243512499999999,0.0021799999999999,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_frac_nonflood_cropland_above_thr,-0.00033,-0.00082,0.0,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_isolated_field_like_km2,0.1614000000000002,-0.8446575000000001,1.7161149999999987,False,no,not independent: W_pre is a label ingredient
-U2b - U2,v003_A,A2_isolated_field_like_on_unlabelled_km2,0.2100999999999999,-0.7022425000000001,1.6498099999999982,False,no,not independent: W_pre is a label ingredient
+comparison,labels,seed,endpoint,median,ci_lo,ci_hi,excludes_zero,n_defined,independent,note
+U0z - U0d,v002,,A_FP_area_dry_cropland_km2,-0.4014,-1.151805,0.0079074999999999,False,,weak-label,
+U0z - U0d,v002,,A_FP_rate_dry_cropland,-0.00125,-0.003349325,3.902499999999984e-05,False,,weak-label,
+U0z - U0d,v002,,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,,weak-label,
+U0z - U0d,v002,,B_recall_flooded_open_low_veg,-0.0186,-0.0428999999999999,0.0002,False,,weak-label,
+U0z - U0d,v002,,B_IoU_open_low_veg,0.0154999999999999,-0.0298025,0.1362024999999999,False,,weak-label,
+U0z - U0d,v002,,B_FN_area_km2,0.0988999999999999,-0.0001999999999999,0.2501025000000001,False,,weak-label,
+U0z - U0d,v002,,B_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U0z - U0d,v002,,C_recall_flooded_cropland_LOWN,0.0035999999999999,-0.0030999999999999,0.0855,False,,weak-label,
+U0z - U0d,v002,,C_FN_area_km2,-0.0017,-0.0070999999999999,0.0029,False,,weak-label,
+U0z - U0d,v002,,C_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U0z - U0d,v002,,W_precision,0.0024,-0.0042999999999999,0.0351,False,,weak-label,
+U0z - U0d,v002,,W_recall,0.0,-0.0122099999999999,0.0013999999999999,False,,weak-label,
+U0z - U0d,v002,,W_IoU,0.0021999999999999,-0.003,0.019,False,,weak-label,
+U0z - U0d,v002,,BU_FP_area_km2,-0.1767,-0.4576175,-0.0032999999999999,True,,weak-label,
+U0z - U0d,v002,,BU_precision,0.1236999999999999,0.0054249999999999,0.1482,True,,weak-label,
+U0z - U0d,v002,,BS_FP_area_km2,-0.0008,-0.002,0.0,False,,weak-label,
+U0z - U0d,v002,,G_F1,0.0076499999999999,0.0006,0.0609024999999999,True,,weak-label,
+U0z - U0d,v002,,G_IoU,0.0138,0.0011999999999999,0.0883499999999996,True,,weak-label,
+U0z - U0d,v002,,G_precision,0.019,0.0042999999999999,0.1571574999999997,True,,weak-label,
+U0z - U0d,v002,,G_recall,-0.0034,-0.01,0.0009,False,,weak-label,
+U0z - U0d,v002,,A1_isolated_field_FP_km2,-0.3359999999999999,-1.0003025,0.018,False,,weak-label,
+U0z - U0d,v002,,A2_pred_flood_on_nonflood_cropland_km2,-0.4014,-1.151805,0.0079074999999999,False,,weak-label,
+U0z - U0d,v002,,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-3.74535,-9.932835,2.24909749999999,False,,weak-label,
+U0z - U0d,v002,,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,,weak-label,
+U0z - U0d,v002,,A2_frac_unlabelled_cropland_above_thr,-0.0091299999999999,-0.02826725,0.0048414999999999,False,,weak-label,
+U0z - U0d,v002,,A2_frac_nonflood_cropland_above_thr,-0.00125,-0.0033405,3.999999999999998e-05,False,,weak-label,
+U0z - U0d,v002,,A2_isolated_field_like_km2,-3.319750000000001,-9.8561325,2.728322500000001,False,,weak-label,
+U0z - U0d,v002,,A2_isolated_field_like_on_unlabelled_km2,-3.0337999999999994,-9.0220775,2.527737499999999,False,,weak-label,
+U1 - U0d,v002,,A_FP_area_dry_cropland_km2,0.0583,-0.0293999999999999,0.1698099999999999,False,,weak-label,
+U1 - U0d,v002,,A_FP_rate_dry_cropland,0.0001889999999999,-8.799999999999997e-05,0.0004920499999999,False,,weak-label,
+U1 - U0d,v002,,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,,weak-label,
+U1 - U0d,v002,,B_recall_flooded_open_low_veg,0.1057499999999999,0.0056975,0.3716024999999999,True,,weak-label,
+U1 - U0d,v002,,B_IoU_open_low_veg,0.0759,-0.0061049999999999,0.304105,False,,weak-label,
+U1 - U0d,v002,,B_FN_area_km2,-0.5222500000000001,-1.5423425,-0.0041974999999999,True,,weak-label,
+U1 - U0d,v002,,B_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U1 - U0d,v002,,C_recall_flooded_cropland_LOWN,0.0302,0.0046999999999999,0.3938224999999998,True,,weak-label,
+U1 - U0d,v002,,C_FN_area_km2,-0.0152,-0.0417025,-0.0005,True,,weak-label,
+U1 - U0d,v002,,C_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U1 - U0d,v002,,W_precision,0.0128,-0.0121,0.0145999999999999,False,,weak-label,
+U1 - U0d,v002,,W_recall,-0.0005999999999999,-0.0014,0.0164999999999999,False,,weak-label,
+U1 - U0d,v002,,W_IoU,0.012,-0.0064999999999999,0.0141024999999999,False,,weak-label,
+U1 - U0d,v002,,BU_FP_area_km2,-0.3212,-0.8318,-0.0063,True,,weak-label,
+U1 - U0d,v002,,BU_precision,0.3470000000000001,0.013365,0.4183999999999999,True,,weak-label,
+U1 - U0d,v002,,BS_FP_area_km2,0.0046999999999999,0.0,0.0119049999999999,False,,weak-label,
+U1 - U0d,v002,,G_F1,0.0164999999999999,-0.0067024999999999,0.0251,False,,weak-label,
+U1 - U0d,v002,,G_IoU,0.0301,-0.008705,0.0455024999999999,False,,weak-label,
+U1 - U0d,v002,,G_precision,0.0227999999999999,-0.01931,0.0302999999999999,False,,weak-label,
+U1 - U0d,v002,,G_recall,0.0105999999999999,0.0001999999999999,0.0221999999999999,True,,weak-label,
+U1 - U0d,v002,,A1_isolated_field_FP_km2,0.0786,0.0005975,0.2098099999999999,True,,weak-label,
+U1 - U0d,v002,,A2_pred_flood_on_nonflood_cropland_km2,0.0583,-0.0293999999999999,0.1698099999999999,False,,weak-label,
+U1 - U0d,v002,,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,2.59915,-1.91629,9.323619999999998,False,,weak-label,
+U1 - U0d,v002,,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,,weak-label,
+U1 - U0d,v002,,A2_frac_unlabelled_cropland_above_thr,0.0065899999999999,-0.00546025,0.0197619999999999,False,,weak-label,
+U1 - U0d,v002,,A2_frac_nonflood_cropland_above_thr,0.00019,-9.000000000000002e-05,0.00049,False,,weak-label,
+U1 - U0d,v002,,A2_isolated_field_like_km2,2.871199999999999,-1.5474300000000014,9.655417500000002,False,,weak-label,
+U1 - U0d,v002,,A2_isolated_field_like_on_unlabelled_km2,2.435249999999999,-1.73046,8.7362275,False,,weak-label,
+U2 - U0d,v002,,A_FP_area_dry_cropland_km2,-0.41845,-1.1658775,-0.0145825,True,,weak-label,
+U2 - U0d,v002,,A_FP_rate_dry_cropland,-0.0012799999999999,-0.003403125,-6.597500000000011e-05,True,,weak-label,
+U2 - U0d,v002,,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v002,,B_recall_flooded_open_low_veg,0.0427999999999999,-0.0050999999999999,0.1759,False,,weak-label,
+U2 - U0d,v002,,B_IoU_open_low_veg,0.08255,0.0004974999999999,0.2328249999999998,True,,weak-label,
+U2 - U0d,v002,,B_FN_area_km2,-0.21225,-0.7015125,0.0360999999999999,False,,weak-label,
+U2 - U0d,v002,,B_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v002,,C_recall_flooded_cropland_LOWN,0.0146,-0.0017025,0.2314024999999999,False,,weak-label,
+U2 - U0d,v002,,C_FN_area_km2,-0.0072999999999999,-0.0240075,0.0011999999999999,False,,weak-label,
+U2 - U0d,v002,,C_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v002,,W_precision,-0.0079,-0.0106,0.0145024999999999,False,,weak-label,
+U2 - U0d,v002,,W_recall,-0.0009,-0.0188175,0.004,False,,weak-label,
+U2 - U0d,v002,,W_IoU,-0.0082,-0.0142999999999999,0.0070024999999999,False,,weak-label,
+U2 - U0d,v002,,BU_FP_area_km2,0.37005,0.0383975,1.0257175,True,,weak-label,
+U2 - U0d,v002,,BU_precision,-0.1246999999999999,-0.2205,-0.016085,True,,weak-label,
+U2 - U0d,v002,,BS_FP_area_km2,0.0017,0.0,0.0057,False,,weak-label,
+U2 - U0d,v002,,G_F1,-0.0078,-0.0165024999999999,0.0520349999999998,False,,weak-label,
+U2 - U0d,v002,,G_IoU,-0.0138,-0.0292999999999999,0.0744074999999999,False,,weak-label,
+U2 - U0d,v002,,G_precision,-0.0217999999999999,-0.0363025,0.1164324999999997,False,,weak-label,
+U2 - U0d,v002,,G_recall,0.0064,-0.0093025,0.0164025,False,,weak-label,
+U2 - U0d,v002,,A1_isolated_field_FP_km2,-0.36585,-1.0287025,-0.0163875,True,,weak-label,
+U2 - U0d,v002,,A2_pred_flood_on_nonflood_cropland_km2,-0.41845,-1.1658775,-0.0145825,True,,weak-label,
+U2 - U0d,v002,,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-9.62095,-14.784722499999996,-5.066537500000001,True,,weak-label,
+U2 - U0d,v002,,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v002,,A2_frac_unlabelled_cropland_above_thr,-0.02343,-0.03316225,-0.01513925,True,,weak-label,
+U2 - U0d,v002,,A2_frac_nonflood_cropland_above_thr,-0.00128,-0.0034,-7e-05,True,,weak-label,
+U2 - U0d,v002,,A2_isolated_field_like_km2,-8.712150000000001,-14.35868,-4.021702500000002,True,,weak-label,
+U2 - U0d,v002,,A2_isolated_field_like_on_unlabelled_km2,-8.1665,-13.4651975,-3.81135000000001,True,,weak-label,
+U2 - U0d,v003_A,,A_FP_area_dry_cropland_km2,-0.2541,-0.630535,-0.0272975,True,,weak-label,
+U2 - U0d,v003_A,,A_FP_rate_dry_cropland,-0.0010115,-0.0029403249999999,-0.0001109,True,,weak-label,
+U2 - U0d,v003_A,,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v003_A,,B_recall_flooded_open_low_veg,-0.0427,-0.2005249999999999,0.0141024999999999,False,,weak-label,
+U2 - U0d,v003_A,,B_IoU_open_low_veg,-0.0060999999999999,-0.164105,0.0777124999999999,False,,weak-label,
+U2 - U0d,v003_A,,B_FN_area_km2,0.2189999999999998,-0.108485,0.8079999999999998,False,,weak-label,
+U2 - U0d,v003_A,,B_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v003_A,,C_recall_flooded_cropland_LOWN,-0.0080999999999999,-0.1680999999999999,0.0074999999999999,False,,weak-label,
+U2 - U0d,v003_A,,C_FN_area_km2,0.0040999999999999,-0.0063999999999999,0.0169024999999999,False,,weak-label,
+U2 - U0d,v003_A,,C_reference_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v003_A,,W_precision,0.0042999999999999,-0.0122999999999999,0.1941,False,,weak-label,
+U2 - U0d,v003_A,,W_recall,0.0067,-0.0070125,0.0423024999999998,False,,weak-label,
+U2 - U0d,v003_A,,W_IoU,0.01,0.0001974999999999,0.1731099999999999,True,,weak-label,
+U2 - U0d,v003_A,,BU_FP_area_km2,-0.0675,-0.2989175,0.0605124999999999,False,,weak-label,
+U2 - U0d,v003_A,,BU_precision,0.0131,-0.1284,0.2022,False,,weak-label,
+U2 - U0d,v003_A,,BS_FP_area_km2,0.0001,-0.0006025,0.0014,False,,weak-label,
+U2 - U0d,v003_A,,G_F1,0.0024,-0.0102025,0.0442025,False,,weak-label,
+U2 - U0d,v003_A,,G_IoU,0.0041999999999999,-0.0174025,0.0610075,False,,weak-label,
+U2 - U0d,v003_A,,G_precision,0.0037,-0.029205,0.069,False,,weak-label,
+U2 - U0d,v003_A,,G_recall,0.0004,-0.0066,0.0367049999999999,False,,weak-label,
+U2 - U0d,v003_A,,A1_isolated_field_FP_km2,-0.2417,-0.6065,-0.0343,True,,weak-label,
+U2 - U0d,v003_A,,A2_pred_flood_on_nonflood_cropland_km2,-0.2541,-0.630535,-0.0272975,True,,weak-label,
+U2 - U0d,v003_A,,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-3.53635,-12.23463,4.993029999999999,False,,weak-label,
+U2 - U0d,v003_A,,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,,weak-label,
+U2 - U0d,v003_A,,A2_frac_unlabelled_cropland_above_thr,-0.0076149999999999,-0.02188075,0.0130832499999999,False,,weak-label,
+U2 - U0d,v003_A,,A2_frac_nonflood_cropland_above_thr,-0.00101,-0.0029402499999999,-0.00011,True,,weak-label,
+U2 - U0d,v003_A,,A2_isolated_field_like_km2,-5.8433,-13.24041,-1.5666975,True,,weak-label,
+U2 - U0d,v003_A,,A2_isolated_field_like_on_unlabelled_km2,-5.4115,-12.70358,-1.3031700000000002,True,,weak-label,
+U2b - U2,v003_A,,A_FP_area_dry_cropland_km2,-0.081,-0.221685,-0.0005999999999999,True,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A_FP_rate_dry_cropland,-0.0003329999999999,-0.0008179999999999,-3.0000000000000018e-06,True,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,B_recall_flooded_open_low_veg,0.0428999999999999,-0.0040025,0.1846099999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,B_IoU_open_low_veg,0.0496,-0.0003,0.1827,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,B_FN_area_km2,-0.2340999999999999,-0.7469000000000001,0.0272999999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,B_reference_km2,0.0,0.0,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,C_recall_flooded_cropland_LOWN,0.0124999999999999,-0.0029024999999999,0.1530999999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,C_FN_area_km2,-0.0062,-0.0169024999999999,0.0005,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,C_reference_km2,0.0,0.0,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,W_precision,-0.0018999999999999,-0.0041999999999999,0.0264024999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,W_recall,0.0047,-0.0198,0.0111999999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,W_IoU,0.003,-0.0008999999999999,0.008,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,BU_FP_area_km2,0.1867,-0.0746025,0.5547124999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,BU_precision,-0.0701999999999999,-0.2269999999999999,0.1372,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,BS_FP_area_km2,-0.0013,-0.0045,0.0005999999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,G_F1,0.0061999999999999,-0.0010999999999999,0.0536125,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,G_IoU,0.0108,-0.0020025,0.0755,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,G_precision,0.0012,-0.0165,0.1609249999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,G_recall,0.0111999999999999,-0.0164124999999999,0.0161999999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A1_isolated_field_FP_km2,-0.0628,-0.1573174999999999,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_pred_flood_on_nonflood_cropland_km2,-0.081,-0.221685,-0.0005999999999999,True,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-2.3599,-8.4881175,1.1967499999999989,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_frac_unlabelled_cropland_above_thr,-0.00485,-0.0243512499999999,0.0021799999999999,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_frac_nonflood_cropland_above_thr,-0.00033,-0.00082,0.0,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_isolated_field_like_km2,0.1614000000000002,-0.8446575000000001,1.7161149999999987,False,,no,not independent: W_pre is a label ingredient
+U2b - U2,v003_A,,A2_isolated_field_like_on_unlabelled_km2,0.2100999999999999,-0.7022425000000001,1.6498099999999982,False,,no,not independent: W_pre is a label ingredient
+U2 - U0d,v004,20260923.0,A_FP_area_dry_cropland_km2,0.1582,-0.032505,0.489679999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A_FP_rate_dry_cropland,0.0006245,-0.000180025,0.0017860249999999,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,B_recall_flooded_open_low_veg,0.0045,-0.0409324999999999,0.074005,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,B_IoU_open_low_veg,-0.0004,-0.0602075,0.0628025,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,B_FN_area_km2,-0.0312000000000001,-0.3970400000000002,0.2350474999999996,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,C_recall_flooded_cropland_LOWN,-0.0102499999999999,-0.0213999999999999,0.0780324999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,C_FN_area_km2,0.0063,-0.0105999999999999,0.0302999999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,W_precision,0.021,0.0084999999999999,0.1317374999999997,True,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,W_recall,-0.0108,-0.0173999999999999,-0.0008,True,1998.0,weak-label,
+U2 - U0d,v004,20260923.0,W_IoU,0.0088,0.0038,0.0937025,True,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,BU_FP_area_km2,-0.0475,-0.1718125,0.0602349999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,BU_precision,0.0312999999999999,-0.0048,0.325875,False,1991.0,weak-label,
+U2 - U0d,v004,20260923.0,BS_FP_area_km2,-0.0069,-0.0201,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,G_F1,0.0047,-0.0047999999999999,0.0148099999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,G_IoU,0.0081999999999999,-0.006505,0.0230999999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,G_precision,0.0201999999999999,-0.0075049999999999,0.0491099999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,G_recall,-0.0099,-0.0211999999999999,0.0026,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A1_isolated_field_FP_km2,0.1713,-0.0294,0.5273124999999993,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_pred_flood_on_nonflood_cropland_km2,0.1582,-0.032505,0.489679999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,0.98205,-0.5844624999999996,3.027985,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_frac_unlabelled_cropland_above_thr,0.0020799999999999,-0.00153075,0.00562,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_frac_nonflood_cropland_above_thr,0.00062,-0.00018,0.00179,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_isolated_field_like_km2,1.3389500000000003,-0.2515725,3.3397724999999987,False,2000.0,weak-label,
+U2 - U0d,v004,20260923.0,A2_isolated_field_like_on_unlabelled_km2,1.1709,-0.3285000000000002,3.1588249999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A_FP_area_dry_cropland_km2,0.29225,0.0384,0.7540374999999998,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A_FP_rate_dry_cropland,0.0011635,0.000203975,0.0028573249999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,B_recall_flooded_open_low_veg,0.0055999999999999,-0.0831999999999999,0.0855049999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,B_IoU_open_low_veg,-0.00895,-0.122415,0.0709224999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,B_FN_area_km2,-0.0336999999999998,-0.4885100000000001,0.2294,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,C_recall_flooded_cropland_LOWN,-0.0092999999999999,-0.0282999999999999,0.0245199999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,C_FN_area_km2,0.0052499999999999,-0.0020025,0.0188024999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,W_precision,0.0097,0.0048975,0.0206074999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,W_recall,-0.0083,-0.0276074999999999,-0.0045999999999999,True,1998.0,weak-label,
+U2 - U0d,v004,20261001.0,W_IoU,0.0013999999999999,-0.0076999999999999,0.0031000000000001,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,BU_FP_area_km2,-0.0382,-0.1848025,0.0547074999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,BU_precision,0.0016999999999999,-0.0537175,0.1146574999999999,False,1994.0,weak-label,
+U2 - U0d,v004,20261001.0,BS_FP_area_km2,-0.0079,-0.0237,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,G_F1,-0.0009,-0.0384049999999999,0.0041024999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,G_IoU,-0.0015499999999999,-0.049405,0.0073,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,G_precision,0.0061999999999999,-0.0806225,0.0152999999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,G_recall,-0.0077,-0.0171999999999999,0.0012024999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A1_isolated_field_FP_km2,0.17895,0.0131999999999999,0.4739,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_pred_flood_on_nonflood_cropland_km2,0.29225,0.0384,0.7540374999999998,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,7.62375,2.48486,14.85624,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_frac_unlabelled_cropland_above_thr,0.01613,0.0069879999999999,0.0263432499999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_frac_nonflood_cropland_above_thr,0.00116,0.0002097499999999,0.0028599999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_isolated_field_like_km2,6.8866,2.0444025000000003,13.884344999999998,True,2000.0,weak-label,
+U2 - U0d,v004,20261001.0,A2_isolated_field_like_on_unlabelled_km2,6.53785,1.86202,13.409709999999986,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A_FP_area_dry_cropland_km2,-0.62735,-1.9090875,0.1754974999999995,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A_FP_rate_dry_cropland,-0.0024755,-0.006598725,0.0009024749999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,B_recall_flooded_open_low_veg,0.0363,0.0,0.1297024999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,B_IoU_open_low_veg,0.07865,0.0001974999999999,0.1886024999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,B_FN_area_km2,-0.2521,-0.7478975,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,C_recall_flooded_cropland_LOWN,0.004,-0.0178125,0.0301174999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,C_FN_area_km2,-0.0025,-0.0085999999999999,0.0017,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,W_precision,0.00735,-0.0029,0.1718174999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,W_recall,0.0022999999999999,-0.0003999999999999,0.0121999999999999,False,1998.0,weak-label,
+U2 - U0d,v004,20261002.0,W_IoU,0.0091999999999999,0.0005,0.1590224999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,BU_FP_area_km2,0.0245499999999999,-0.1581624999999999,0.1513199999999998,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,BU_precision,0.0189,-0.1104874999999999,0.1141225,False,1994.0,weak-label,
+U2 - U0d,v004,20261002.0,BS_FP_area_km2,0.0017999999999999,-0.0002,0.0046,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,G_F1,0.0117999999999999,0.0029,0.0793724999999996,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,G_IoU,0.0204,0.0050999999999999,0.0965174999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,G_precision,0.0149,-0.0022999999999999,0.1659599999999986,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,G_recall,0.0088,0.0051999999999999,0.0131999999999999,True,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A1_isolated_field_FP_km2,-0.4445,-1.44202,0.2180049999999978,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_pred_flood_on_nonflood_cropland_km2,-0.62735,-1.9090875,0.1754974999999995,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-3.836149999999999,-9.3926525,0.3201599999999997,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_frac_unlabelled_cropland_above_thr,-0.008105,-0.020661,0.0006719999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_frac_nonflood_cropland_above_thr,-0.0024749999999999,-0.00660075,0.0009004999999999,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_isolated_field_like_km2,-3.38995,-8.273555,0.52803,False,2000.0,weak-label,
+U2 - U0d,v004,20261002.0,A2_isolated_field_like_on_unlabelled_km2,-2.8993,-7.053765,0.4841949999999992,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A_FP_area_dry_cropland_km2,0.16655,-0.1582549999999999,0.5826474999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A_FP_rate_dry_cropland,0.000706,-0.00058505,0.0029009749999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,B_recall_flooded_open_low_veg,0.11405,-0.0002999999999999,0.3916024999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,B_IoU_open_low_veg,0.0728999999999999,-0.0423175,0.3124174999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,B_FN_area_km2,-0.7277,-2.1649650000000005,0.0015999999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,C_recall_flooded_cropland_LOWN,0.0470999999999999,-0.0008,0.2828549999999997,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,C_FN_area_km2,-0.0270499999999999,-0.066905,0.0004,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,W_precision,0.0171,0.0099,0.0955199999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,W_recall,-0.0084999999999999,-0.0103999999999999,-0.002,True,1998.0,weak-label,
+U1 - U0d,v004,20260923.0,W_IoU,0.0079,0.0028,0.0770999999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,BU_FP_area_km2,-0.22715,-0.545575,-0.0171725000000001,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,BU_precision,0.1881999999999999,0.09145,0.25525,True,1991.0,weak-label,
+U1 - U0d,v004,20260923.0,BS_FP_area_km2,-0.007,-0.0207,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,G_F1,0.0142999999999999,-0.001005,0.0268025,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,G_IoU,0.0248999999999999,-0.0012175,0.0447999999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,G_precision,0.0291,0.0031849999999999,0.0499,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,G_recall,0.0001999999999999,-0.0183999999999999,0.0255999999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A1_isolated_field_FP_km2,0.13945,-0.0844125,0.4928349999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_pred_flood_on_nonflood_cropland_km2,0.16655,-0.1582549999999999,0.5826474999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,6.8092500000000005,1.3072549999999994,16.241624999999992,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_frac_unlabelled_cropland_above_thr,0.0145949999999999,0.00330875,0.03118025,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_frac_nonflood_cropland_above_thr,0.0007049999999999,-0.0005802499999999,0.0029009999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_isolated_field_like_km2,6.4876,1.1939074999999997,15.931984999999976,True,2000.0,weak-label,
+U1 - U0d,v004,20260923.0,A2_isolated_field_like_on_unlabelled_km2,6.161850000000001,1.00232,15.470607499999996,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A_FP_area_dry_cropland_km2,1.4316,0.4271875,2.7375849999999966,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A_FP_rate_dry_cropland,0.0056295,0.0018478,0.0140214249999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,B_recall_flooded_open_low_veg,0.0680999999999999,-0.0024999999999999,0.280605,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,B_IoU_open_low_veg,-0.02575,-0.2332074999999999,0.1003224999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,B_FN_area_km2,-0.3995999999999999,-1.1617549999999996,0.0131049999999996,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,C_recall_flooded_cropland_LOWN,0.1261999999999999,-0.0042999999999999,0.6791125,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,C_FN_area_km2,-0.0816,-0.2474025,0.0039,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,W_precision,0.017,0.0104999999999999,0.0219,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,W_recall,-0.021,-0.0412074999999999,-0.0115999999999999,True,1998.0,weak-label,
+U1 - U0d,v004,20261001.0,W_IoU,-0.0039,-0.0236099999999999,0.0013,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,BU_FP_area_km2,-0.34235,-0.849925,-0.0278999999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,BU_precision,0.2413,0.1042,0.358375,True,1991.0,weak-label,
+U1 - U0d,v004,20261001.0,BS_FP_area_km2,-0.0127,-0.0366,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,G_F1,-0.0045,-0.1001075,0.0098999999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,G_IoU,-0.008,-0.1322524999999999,0.0175,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,G_precision,0.01,-0.2688225,0.0359024999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,G_recall,-0.0176999999999999,-0.0363,0.0059049999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A1_isolated_field_FP_km2,1.2692,0.265585,2.60989,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_pred_flood_on_nonflood_cropland_km2,1.4316,0.4271875,2.7375849999999966,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,27.274750000000004,12.3453425,47.68071749999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_frac_unlabelled_cropland_above_thr,0.0579449999999999,0.031467,0.0913749999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_frac_nonflood_cropland_above_thr,0.00563,0.0018399999999999,0.0140204999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_isolated_field_like_km2,26.5698,11.633235,48.32202499999998,True,2000.0,weak-label,
+U1 - U0d,v004,20261001.0,A2_isolated_field_like_on_unlabelled_km2,24.46745,10.11042,45.41520499999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A_FP_area_dry_cropland_km2,1.13095,0.1912975,2.46001,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A_FP_rate_dry_cropland,0.0044325,0.000801775,0.0119181749999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,B_recall_flooded_open_low_veg,0.0584999999999999,0.0082999999999999,0.1777024999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,B_IoU_open_low_veg,-0.0034999999999999,-0.1476999999999999,0.0844324999999998,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,B_FN_area_km2,-0.3628500000000001,-1.0382299999999998,-0.0177975,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,C_recall_flooded_cropland_LOWN,0.0292999999999999,0.0064,0.1608024999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,C_FN_area_km2,-0.0176,-0.0396025,-0.0018975,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,W_precision,-0.0024,-0.0119999999999999,0.1698125,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,W_recall,0.0051999999999999,-0.0023999999999999,0.0127525,False,1998.0,weak-label,
+U1 - U0d,v004,20261002.0,W_IoU,0.0028999999999999,-0.0063,0.1566524999999996,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,BU_FP_area_km2,-0.35655,-0.93767,0.0005024999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,BU_precision,0.2039,-0.0097924999999999,0.3790999999999999,False,1994.0,weak-label,
+U1 - U0d,v004,20261002.0,BS_FP_area_km2,-0.003,-0.0098,0.0005999999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,G_F1,-0.0003999999999999,-0.0428075,0.0092024999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,G_IoU,-0.0006999999999999,-0.0548025,0.0159,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,G_precision,-0.0081999999999999,-0.0892,0.0050024999999999,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,G_recall,0.0088999999999999,0.0026,0.0163999999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A1_isolated_field_FP_km2,1.0999500000000002,0.1682699999999999,2.4329974999999995,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_pred_flood_on_nonflood_cropland_km2,1.13095,0.1912975,2.46001,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,21.1314,7.070267500000002,42.784815,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_frac_unlabelled_cropland_above_thr,0.044835,0.01970775,0.0783617499999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_frac_nonflood_cropland_above_thr,0.004435,0.00080975,0.0119209999999999,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_isolated_field_like_km2,22.2883,7.746987499999999,44.6658175,True,2000.0,weak-label,
+U1 - U0d,v004,20261002.0,A2_isolated_field_like_on_unlabelled_km2,20.40445,6.6273,41.76927,True,2000.0,weak-label,
+U2b - U2,v004,20260923.0,A_FP_area_dry_cropland_km2,-0.6272500000000001,-1.4640575000000002,-0.0650675000000001,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A_FP_rate_dry_cropland,-0.0025245,-0.005450225,-0.000358975,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,B_recall_flooded_open_low_veg,0.0374999999999999,0.0015,0.1508949999999994,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,B_IoU_open_low_veg,0.0828,0.0038975,0.2400124999999999,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,B_FN_area_km2,-0.2340000000000002,-0.5224025000000002,-0.0024000000000001,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,C_recall_flooded_cropland_LOWN,0.0201999999999999,-0.0209324999999999,0.0714099999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,C_FN_area_km2,-0.0118999999999999,-0.0365999999999999,0.002,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,W_precision,-0.0173999999999999,-0.0541,-0.0093,True,1998.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,W_recall,0.02,0.0107924999999999,0.0476,True,1998.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,W_IoU,0.0022999999999999,-0.0115299999999999,0.0125,False,1998.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,BU_FP_area_km2,0.25805,-0.0209025,0.6602075,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,BU_precision,-0.0938999999999999,-0.272575,0.0417249999999999,False,1991.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,BS_FP_area_km2,0.0029,0.0,0.007,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,G_F1,-0.05205,-0.3489024999999999,0.0426099999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,G_IoU,-0.08705,-0.39241,0.0630624999999996,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,G_precision,-0.1232999999999999,-0.52119,0.0668174999999998,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,G_recall,0.0262,0.0172999999999999,0.0374999999999999,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A1_isolated_field_FP_km2,-0.5487500000000001,-1.2695024999999998,-0.0506,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_pred_flood_on_nonflood_cropland_km2,-0.6272500000000001,-1.4640575000000002,-0.0650675000000001,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-6.0332,-11.6283,-1.190960000000001,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_frac_unlabelled_cropland_above_thr,-0.0127099999999999,-0.0212715,-0.0034085,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_frac_nonflood_cropland_above_thr,-0.00252,-0.00545025,-0.00036,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_isolated_field_like_km2,-6.530749999999999,-11.818885,-2.3789350000000056,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20260923.0,A2_isolated_field_like_on_unlabelled_km2,-5.786,-10.6818225,-2.091255000000001,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A_FP_area_dry_cropland_km2,-0.19765,-0.6160225000000001,0.0844324999999998,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A_FP_rate_dry_cropland,-0.000785,-0.002781025,0.0003769999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,B_recall_flooded_open_low_veg,0.0231,-0.0012999999999999,0.0470025,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,B_IoU_open_low_veg,0.0383,-0.0008025,0.0704025,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,B_FN_area_km2,-0.1411,-0.3496949999999997,0.0016999999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,C_recall_flooded_cropland_LOWN,0.0161999999999999,-0.0270074999999999,0.0296074999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,C_FN_area_km2,-0.00945,-0.0326025,0.0024024999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,W_precision,-0.0359999999999999,-0.4544175,0.0018,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,W_recall,0.0072499999999999,-0.0017,0.0331074999999999,False,1998.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,W_IoU,-0.0278999999999999,-0.3754749999999999,0.0015999999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,BU_FP_area_km2,0.42795,-0.1171,1.2210224999999988,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,BU_precision,-0.1123499999999999,-0.366305,0.2026,False,1994.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,BS_FP_area_km2,-0.0018999999999999,-0.0108,0.0050999999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,G_F1,-0.0094999999999999,-0.0848199999999999,0.0203075,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,G_IoU,-0.0164999999999999,-0.1138199999999999,0.0340024999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,G_precision,-0.0302,-0.1960525,0.0327274999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,G_recall,0.0115999999999999,0.003695,0.0201999999999999,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A1_isolated_field_FP_km2,-0.1432,-0.55092,0.1355474999999997,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_pred_flood_on_nonflood_cropland_km2,-0.19765,-0.6160225000000001,0.0844324999999998,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-8.571,-17.210037500000002,-2.8923700000000045,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_frac_unlabelled_cropland_above_thr,-0.018175,-0.0311122499999999,-0.0081895,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_frac_nonflood_cropland_above_thr,-0.00078,-0.0027799999999999,0.0003799999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_isolated_field_like_km2,-7.9206,-16.45659,-2.464850000000004,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261001.0,A2_isolated_field_like_on_unlabelled_km2,-7.54865,-15.863395,-2.260550000000002,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A_FP_area_dry_cropland_km2,-0.36555,-0.96686,0.0831049999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A_FP_rate_dry_cropland,-0.001441,-0.005079675,0.0003280499999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A_evaluated_dry_cropland_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,B_recall_flooded_open_low_veg,-0.0415999999999999,-0.18401,0.0089,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,B_IoU_open_low_veg,-0.0020499999999999,-0.1473,0.107905,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,B_FN_area_km2,0.3058,-0.0821125,1.015415,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,B_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,C_recall_flooded_cropland_LOWN,-0.0090999999999999,-0.1232099999999999,0.0121999999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,C_FN_area_km2,0.0054,-0.0034025,0.0168,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,C_reference_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,W_precision,-0.0134999999999999,-0.0810999999999999,-0.0059999999999998,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,W_recall,0.0042999999999999,0.0016,0.0122300000000001,True,1998.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,W_IoU,-0.0089,-0.061925,0.0019024999999998,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,BU_FP_area_km2,0.1805,-0.0690325,0.5321424999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,BU_precision,-0.1048499999999999,-0.1744174999999999,0.1003875,False,1994.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,BS_FP_area_km2,-0.0023,-0.0052,-0.0002,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,G_F1,-0.0049,-0.0151025,0.0349025,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,G_IoU,-0.0084999999999999,-0.0261,0.0586024999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,G_precision,-0.0070999999999999,-0.0214999999999999,0.0601049999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,G_recall,-0.0027499999999999,-0.0139,0.0109025,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A1_isolated_field_FP_km2,-0.3329999999999999,-0.9396,0.1062274999999998,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_pred_flood_on_nonflood_cropland_km2,-0.36555,-0.96686,0.0831049999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2,-7.5044,-15.4137625,-2.301860000000004,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_unlabelled_cropland_evaluated_km2,0.0,0.0,0.0,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_frac_unlabelled_cropland_above_thr,-0.01591,-0.0287805,-0.0059195,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_frac_nonflood_cropland_above_thr,-0.0014399999999999,-0.0050807499999999,0.0003299999999999,False,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_isolated_field_like_km2,-6.855,-14.5830525,-2.1680375000000067,True,2000.0,no,not independent: W_pre is a label ingredient
+U2b - U2,v004,20261002.0,A2_isolated_field_like_on_unlabelled_km2,-6.2945,-13.979960000000002,-1.822857500000001,True,2000.0,no,not independent: W_pre is a label ingredient

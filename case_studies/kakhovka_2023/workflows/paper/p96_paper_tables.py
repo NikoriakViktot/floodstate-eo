@@ -21,7 +21,8 @@ SEMANTICS = {"observed_S1": "water seen by the Sentinel-1 dark-water rule on tha
              "terrain_reconstructed": "cells the reconstructed water surface allows (terrain < WSE, connected), minus the pre-breach regime",
              "observed_S2": "water or surface class seen by Sentinel-2 on that date (frozen p25 rule), observed cells only (reservoir tables T23-T26)",
              "literature_reported":"figure quoted from an operational or published product with its own AOI, date and reference water; context only"}
-ARMS_V1 = ["U0d", "U0z", "U1", "U2"]; ARMS_V3 = ["U0d", "U2", "U2b"]
+ARMS_V1 = ["U0d", "U0z", "U1", "U2"]; ARMS_V3 = ["U0d", "U2", "U2b"]; ARMS_V4 = ["U0d", "U1", "U2", "U2b"]
+SEEDS_V4 = (20260923, 20261001, 20261002)                          # the p86 default seed first (review F11: seed variability)
 KEY_DATES = ["2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13",
              "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-18", "2023-06-21", "2023-06-25", "2023-06-30"]
 LITERATURE = [  # context only; every row must be VERIFIED against the source before submission
@@ -84,10 +85,43 @@ def t02_labels():
     A = a[(a.reference_domain == "ALL") & (~a.ontology.str.startswith("event_water"))].pivot(index="frame", columns="ontology", values="km2").reset_index()
     A.columns.name = None; A = A.rename(columns={c: f"v003A_{c}_km2" for c in A.columns if c != "frame"})
     V = v2.rename(columns={"flood_km2": "v002_FLOOD_km2", "nonflood_km2": "v002_NON_FLOOD_km2", "ignore_km2": "v002_IGNORE_km2"})[["frame", "v002_FLOOD_km2", "v002_NON_FLOOD_km2", "v002_IGNORE_km2"]]
-    D = V.merge(A, on="frame"); D["area_semantics"] = "weak_reference_label"
-    Tr = tr.pivot_table(index=["frame", "v002"], columns="v003_final", values="km2", aggfunc="sum").reset_index(); Tr.columns.name = None
-    put("T02", D, "Weak reference labels per frame: v002 (FLOOD / NON_FLOOD / IGNORE) and v003_A (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN), km2. EVENT_FLOOD is pixel-identical to v002 FLOOD.", [p1, p2, p3], "weak_label_agreement")
-    put("T02b", Tr, "Transition v002 -> v003_A per frame, km2 (the change is on the negative side and in the UNKNOWN domain).", [p3], "weak_label_agreement")
+    D = V.merge(A, on="frame"); src = [p1, p2, p3]
+    Tr = tr.pivot_table(index=["frame", "v002"], columns="v003_final", values="km2", aggfunc="sum").reset_index(); Tr.columns.name = None; Tr.insert(0, "labels", "v002 -> v003_A")
+    q2, q4, q4t = T / "p77_labels_v002_summary_notrace.csv", T / "p77d_v004_areas.csv", T / "p77d_v004_transition_v002.csv"
+    if q2.exists() and q4.exists():
+        v2n = pd.read_csv(q2).rename(columns={"flood_km2": "v002_notrace_FLOOD_km2", "nonflood_km2": "v002_notrace_NON_FLOOD_km2", "ignore_km2": "v002_notrace_IGNORE_km2"})
+        a4 = pd.read_csv(q4); A4 = a4[(a4.reference_domain == "ALL") & (~a4.ontology.str.startswith("event_water"))].pivot(index="frame", columns="ontology", values="km2").reset_index()
+        A4.columns.name = None; A4 = A4.rename(columns={c: f"v004_{c}_km2" for c in A4.columns if c != "frame"})
+        D = D.merge(v2n[["frame", "v002_notrace_FLOOD_km2", "v002_notrace_NON_FLOOD_km2", "v002_notrace_IGNORE_km2"]], on="frame").merge(A4, on="frame"); src += [q2, q4]
+    if q4t.exists():
+        t4 = pd.read_csv(q4t).pivot_table(index=["frame", "v002"], columns="v003_final", values="km2", aggfunc="sum").reset_index(); t4.columns.name = None
+        t4.insert(0, "labels", "v002_notrace -> v004"); Tr = pd.concat([Tr, t4], ignore_index=True); src.append(q4t)
+    D["area_semantics"] = "weak_reference_label"
+    put("T02", D, "Weak reference labels per frame, km2: v002 (FLOOD / NON_FLOOD / IGNORE) and v003_A (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN), built on the original M2 (with the post-event TRACE window, in-sample threshold; frozen history), and v002_notrace and v004, the same rules on the corrected M2 (no TRACE, out-of-fold threshold; review F09/F10). EVENT_FLOOD is pixel-identical to the FLOOD of the v002 version it inherits.", src, "weak_label_agreement")
+    put("T02b", Tr, "Transition v002 -> v003_A and v002_notrace -> v004 per frame, km2 (the v003 rule changes the negative side and the UNKNOWN domain).", [p3] + ([q4t] if q4t.exists() else []), "weak_label_agreement")
+    q = T / "p77g_label_transitions.csv"
+    if q.exists():
+        put("T02d", pd.read_csv(q), "What the corrected M2 changed in the weak labels: pixel transitions v003_A -> v004 and v002 -> v002_notrace per frame (km2 and share of the source class). The S1 inputs, the May reference state and W_pre are identical in both versions of a pair, so every change comes from the M2 masks (review F09/F10).", [q], "weak_label_agreement")
+
+
+def t02c_m2_threshold():
+    """Review F09/F10: the optical model M2 behind the labels -- operating threshold from the fit set (superseded) vs from inner
+    out-of-fold scores, and the outer-TEST recall each gives; the original model (with TRACE) next to the corrected one."""
+    rows, src = [], []
+    for tag, model in (("", "M2 original (84 features, 17 from the post-event TRACE window)"), ("_notrace", "M2 corrected (67 PRE + EVENT features; labels v004)")):
+        p = T / f"p65b_m2_folds{tag}.csv"
+        if not p.exists():
+            continue
+        f = pd.read_csv(p); f = f[f.baseline == "preall"].copy(); f.insert(0, "model", model); src.append(p)
+        f = f.rename(columns={"threshold": "threshold_oof", "recall": "recall_at_oof", "precision": "precision_at_oof", "F1": "F1_at_oof"})
+        rows.append(f[["model", "regime", "outer_fold", "n_test", "test_prevalence", "inner_AP", "AP", "threshold_insample_superseded", "recall_at_insample_superseded",
+                       "threshold_oof", "n_calibration", "recall_at_oof", "precision_at_oof", "F1_at_oof"]])
+        for rg, g in f.groupby("regime"):
+            rows.append(pd.DataFrame([dict(model=model, regime=rg, outer_fold="median", n_test=int(g.n_test.sum()), inner_AP=g.inner_AP.median(), AP=g.AP.median(),
+                                           threshold_insample_superseded=g.threshold_insample_superseded.median(), recall_at_insample_superseded=g.recall_at_insample_superseded.median(),
+                                           threshold_oof=g.threshold_oof.median(), recall_at_oof=g.recall_at_oof.median(), precision_at_oof=g.precision_at_oof.median(), F1_at_oof=g.F1_at_oof.median())]))
+    if rows:
+        put("T02c", pd.concat(rows, ignore_index=True), "The optical model M2 behind the weak labels (review F09/F10): nested spatial cross-validation on 5 km blocks (PRE_ALL baseline; outer folds block and buffered). Per outer fold, the operating threshold for a target recall of 0.90 set on the forest's own fit cells (in-sample, superseded) and on inner out-of-fold scores (fit and calibration cells disjoint, whole blocks), and the recall each reaches on the outer TEST blocks; the fold median gives T50 of the label masks. Original model (84 features incl. 17 from the post-event TRACE window, labels v002 / v003_A) next to the corrected model (67 PRE + EVENT features, labels v004). M2 is trained on S1-derived weak labels (p60): agreement with them, not accuracy.", src, "weak_label_agreement")
 
 
 def t03_split():
@@ -108,6 +142,11 @@ def _runs():
         R.append((a, "v002", RUNS / f"{a}_B1B2_v1"))
     for a in ARMS_V3:
         R.append((a, "v003_A", RUNS / f"{a}_B1B2_v003A"))
+    for a in ARMS_V4:
+        for sd in SEEDS_V4:
+            R.append((a, "v004", RUNS / (f"{a}_B1B2_v004" + ("" if sd == SEEDS_V4[0] else f"_s{sd}"))))
+    for sd in SEEDS_V4:                                                  # U2 on the v002 rule of the corrected M2: the label-effect pair of v004
+        R.append(("U2", "v002_notrace", RUNS / ("U2_B1B2_v002nt" + ("" if sd == SEEDS_V4[0] else f"_s{sd}"))))
     return [(a, l, r) for a, l, r in R if (r / "config.json").exists()]
 
 
@@ -129,36 +168,64 @@ def t05_endpoints():
                 val = float(v)
             except (TypeError, ValueError):
                 continue
-            rows.append(dict(arm=arm, labels=lab, endpoint=k, value=val, ci_lo=float(ci.lo.get(k, np.nan)), ci_hi=float(ci.hi.get(k, np.nan))))
+            seed = json.loads((rd / "config.json").read_text()).get("seed")
+            rows.append(dict(arm=arm, labels=lab, run=rd.name, seed=seed, endpoint=k, value=val, ci_lo=float(ci.lo.get(k, np.nan)), ci_hi=float(ci.hi.get(k, np.nan)),
+                             n_defined=float(ci.n_defined.get(k, np.nan)) if "n_defined" in ci.columns else np.nan))
     D = pd.DataFrame(rows); D["meaning"] = "agreement with held-out weak reference labels (TEST blocks), not flood-mapping accuracy"
-    put("T05", D, "D1 endpoints per arm on the frozen TEST blocks with 95 % spatial-block bootstrap intervals (2000 resamples).", src, "weak_label_agreement")
+    put("T05", D, "D1 endpoints per arm on the frozen TEST blocks with 95 % spatial-block bootstrap intervals (2000 resamples; n_defined = resamples in which the endpoint is defined, review F11). v004 arms are trained with three seeds (run suffix _s<seed>; the first seed has no suffix).", src, "weak_label_agreement")
 
 
 def t06_paired():
     rows, src = [], []
-    for name, a, b, lab in [("compare_U0d_vs_U0z", "U0d", "U0z", "v002"), ("compare_U0d_vs_U1", "U0d", "U1", "v002"), ("compare_U0d_vs_U2", "U0d", "U2", "v002"),
-                            ("compare_U0d_vs_U2_v003A", "U0d", "U2", "v003_A"), ("compare_U2_vs_U2b_v003A", "U2", "U2b", "v003_A")]:
+    todo = [("compare_U0d_vs_U0z", "U0d", "U0z", "v002", None), ("compare_U0d_vs_U1", "U0d", "U1", "v002", None), ("compare_U0d_vs_U2", "U0d", "U2", "v002", None),
+            ("compare_U0d_vs_U2_v003A", "U0d", "U2", "v003_A", None), ("compare_U2_vs_U2b_v003A", "U2", "U2b", "v003_A", None)]
+    for a, b in (("U0d", "U2"), ("U0d", "U1"), ("U2", "U2b")):
+        for sd in SEEDS_V4:
+            todo.append((f"compare_{a}_vs_{b}_v004" + ("" if sd == SEEDS_V4[0] else f"_s{sd}"), a, b, "v004", sd))
+    for name, a, b, lab, sd in todo:
         p = RUNS / name / "paired_bootstrap.csv"
         if not p.exists():
             continue
         pb = pd.read_csv(p, index_col=0); src.append(p)
         for k, r in pb.iterrows():
-            rows.append(dict(comparison=f"{b} - {a}", labels=lab, endpoint=k, median=r["median"], ci_lo=r["lo"], ci_hi=r["hi"], excludes_zero=bool((r["lo"] > 0) or (r["hi"] < 0)),
-                             independent="no" if b == "U2b" else "weak-label", note="not independent: W_pre is a label ingredient" if b == "U2b" else ""))
-    put("T06", pd.DataFrame(rows), "Paired arm comparisons (B minus A) on identical spatial blocks, 2000 resamples, 95 % intervals.", src, "weak_label_agreement")
+            rows.append(dict(comparison=f"{b} - {a}", labels=lab, seed=sd, endpoint=k, median=r["median"], ci_lo=r["lo"], ci_hi=r["hi"], excludes_zero=bool((r["lo"] > 0) or (r["hi"] < 0)),
+                             n_defined=r.get("n_defined", np.nan), independent="no" if b == "U2b" else "weak-label", note="not independent: W_pre is a label ingredient" if b == "U2b" else ""))
+    put("T06", pd.DataFrame(rows), "Paired arm comparisons (B minus A) on identical spatial blocks, 2000 resamples, 95 % intervals; v004 per training seed (both arms of a pair share the seed).", src, "weak_label_agreement")
+
+
+def t05s_seeds():
+    """Review F11: training-seed variability of the arms on the corrected labels (p86s)."""
+    q, r = T / "m6_seed_summary.csv", T / "m6_seed_paired.csv"
+    if q.exists():
+        put("T05s", pd.read_csv(q), "Training-seed variability of the U-Net arms on the corrected labels (v004; U2 also on v002_notrace): D1 endpoints of three seeds per arm on the frozen TEST blocks (same split, labels and recipe; each run at its own frozen validation threshold), with mean, SD and range across seeds -- the training noise a between-arm difference has to exceed (review F11). Agreement with weak labels, not accuracy.", [q], "weak_label_agreement")
+    if r.exists():
+        put("T06s", pd.read_csv(r), "Paired arm comparisons (B minus A) on the v004 labels for each training seed: median and 95 % block-bootstrap interval per seed, the number of seeds whose interval excludes zero, and whether all seeds agree in sign (review F11).", [r], "weak_label_agreement")
 
 
 def t07_attribution():
-    e, p1 = read("p90_v003A_endpoints.csv"); pr, p2 = read("p90_v003A_paired.csv")
-    keep = [c for c in e.columns if not c.endswith(("_lo", "_hi"))]
-    L = e.melt(id_vars=["run", "threshold"], value_vars=[c for c in keep if c not in ("run", "threshold")], var_name="endpoint", value_name="value")
-    lo = e.melt(id_vars=["run"], value_vars=[c for c in e.columns if c.endswith("_lo")], var_name="endpoint", value_name="ci_lo"); lo["endpoint"] = lo.endpoint.str[:-3]
-    hi = e.melt(id_vars=["run"], value_vars=[c for c in e.columns if c.endswith("_hi")], var_name="endpoint", value_name="ci_hi"); hi["endpoint"] = hi.endpoint.str[:-3]
-    D = L.merge(lo, on=["run", "endpoint"], how="left").merge(hi, on=["run", "endpoint"], how="left")
-    D["area_semantics"] = np.where(D.endpoint.str.contains("km2"), "mapped_UNet", "")
-    put("T07", D, "v003_A attribution endpoints per finished run at its own frozen threshold: predicted flood on TEST REFERENCE_WATER, EVENT_FLOOD recall, LAND false positives, UNKNOWN burden; 95 % block-bootstrap intervals.", [p1], "weak_label_agreement")
+    Ds, Ps, s1, s2 = [], [], [], []
+    for tag, lab in (("v003A", "v003_A"), ("v004", "v004")):
+        p = T / f"p90_{tag}_endpoints.csv"
+        if not p.exists():
+            continue
+        e = pd.read_csv(p); s1.append(p)
+        e["labels"] = e["labels"] if "labels" in e.columns else lab
+        base = [c for c in e.columns if c not in ("run", "threshold", "labels") and not c.endswith(("_lo", "_hi", "_n_defined"))]
+        L = e.melt(id_vars=["run", "labels", "threshold"], value_vars=base, var_name="endpoint", value_name="value")
+        for suf, col in (("_lo", "ci_lo"), ("_hi", "ci_hi"), ("_n_defined", "n_defined")):
+            cols = [c for c in e.columns if c.endswith(suf)]
+            if cols:
+                m = e.melt(id_vars=["run"], value_vars=cols, var_name="endpoint", value_name=col); m["endpoint"] = m.endpoint.str[:-len(suf)]
+                L = L.merge(m, on=["run", "endpoint"], how="left")
+        Ds.append(L)
+        q = T / f"p90_{tag}_paired.csv"
+        if q.exists():
+            pr = pd.read_csv(q); pr["labels"] = pr["labels"] if "labels" in pr.columns else lab; Ps.append(pr); s2.append(q)
+    D = pd.concat(Ds, ignore_index=True); D["area_semantics"] = np.where(D.endpoint.str.contains("km2"), "mapped_UNet", "")
+    put("T07", D, "Attribution endpoints of the v003_A ontology per finished run at its own frozen threshold, against the v003_A labels (v002 / v003_A runs) and against the v004 labels (v004 runs): predicted flood on TEST REFERENCE_WATER, EVENT_FLOOD recall, LAND false positives, UNKNOWN burden; 95 % block-bootstrap intervals; ratio endpoints undefined (NaN) on empty support, n_defined resamples (review F11).", s1, "weak_label_agreement")
+    pr = pd.concat(Ps, ignore_index=True)
     pr["excludes_zero"] = (pr.lo > 0) | (pr.hi < 0); pr["independent"] = np.where(pr.B.str.startswith("U2b"), "no (W_pre circularity)", "weak-label")
-    put("T07b", pr, "Paired differences (B minus A) of the v003_A attribution endpoints across label sets and inputs.", [p2], "weak_label_agreement")
+    put("T07b", pr, "Paired differences (B minus A) of the attribution endpoints across label sets, inputs and (v004) training seeds.", s2, "weak_label_agreement")
 
 
 def t08_audit():
@@ -168,21 +235,46 @@ def t08_audit():
     put("T08b", r, "Retention of U0d candidate area by the other v002 arms (fraction of km2).", [p2], "weak_label_agreement")
 
 
-def t09_rf():
-    m, p1 = read("p73_rf20_metrics.csv"); cm, p2 = read("p73_rf20_confusion_matrix.csv", index_col=0)
-    M = m.copy(); M["evaluation"] = M.evaluation.astype(str)
-    macro = M.groupby("evaluation")[["precision", "recall", "F1"]].mean().round(4).reset_index(); macro["cls"] = "MACRO_MEAN"; macro["n"] = M.groupby("evaluation").n.sum().values
-    C = cm.values.astype(float); oa = np.trace(C) / C.sum(); pe = (C.sum(0) * C.sum(1)).sum() / C.sum() ** 2; kappa = (oa - pe) / (1 - pe)
-    D = pd.concat([M, macro], ignore_index=True); D["OA_spatial_cv"] = np.where(D.evaluation == "spatial_block_cv_5fold", round(float(oa), 4), np.nan)
-    D["kappa_spatial_cv_csv_only"] = np.where(D.evaluation == "spatial_block_cv_5fold", round(float(kappa), 4), np.nan)
-    D["reference"] = "ESA WorldCover 2021 (training reference; agreement, not validation)"
-    put("T09", D, "RF20 surface classification: per-class precision / recall / F1 with support, macro means and overall agreement, spatial-block 5-fold CV and frame transfers. Reference = WorldCover 2021, the training reference.", [p1, p2], "contextual")
-    cm2 = cm.copy(); cm2.index.name = "reference \\ predicted"
-    put("T10", cm2.reset_index(), "RF20 confusion matrix (spatial-block CV, counts).", [p2], "contextual")
-    ca, p3 = read("p73_rf20_class_area.csv"); wc, p4 = read("p73_rf20_qa/worldcover_walltowall.csv")
-    put("T10b", ca, "RF20 class areas per frame, km2 (mapped areas of a context product).", [p3], "contextual")
-    put("T10c", wc, "RF20 vs WorldCover wall-to-wall agreement on WorldCover-pure cells (recall / precision vs the training reference).", [p4], "contextual")
+def _oa_kappa(cm):
+    C = cm.values.astype(float); oa = np.trace(C) / C.sum(); pe = (C.sum(0) * C.sum(1)).sum() / C.sum() ** 2
+    return round(float(oa), 4), round(float((oa - pe) / (1 - pe)), 4)
 
+
+def t09_rf():
+    """RF20 agreement with WorldCover. Rev 2 (review F08) is the product in use; rev 1 is kept as the superseded row set.
+    MACRO_MEAN = mean over the per-class rows only (the p73 tables carry their own MACRO and OVERALL_ACCURACY rows, which must
+    not enter the mean; before 2026-09-29 they did, and n was counted three times)."""
+    rows, src, cms = [], [], {}
+    for rev, tg, status in ((2, "_rev2", "in use (review F08: global UTM blocks, B1/B2 overlap owned by B2 before sampling, CV with and without a 3.5 km buffer, transfers outside the overlap)"),
+                            (1, "", "superseded (frame-local block ids, the B1/B2 overlap sampled from both frames)")):
+        p = T / f"p73_rf20{tg}_metrics.csv"
+        if not p.exists():
+            continue
+        m = pd.read_csv(p); m["evaluation"] = m.evaluation.astype(str); src.append(p)
+        per = m[~m.cls.isin(["MACRO", "OVERALL_ACCURACY"])]
+        macro = per.groupby("evaluation")[["precision", "recall", "F1"]].mean().round(4).reset_index(); macro["cls"] = "MACRO_MEAN"
+        macro["n"] = per.groupby("evaluation").n.sum().values
+        D = pd.concat([m, macro], ignore_index=True); D["OA_spatial_cv"] = np.nan; D["kappa_spatial_cv_csv_only"] = np.nan
+        for ev, suf in (("spatial_block_cv_5fold", ""), ("spatial_block_cv_5fold_buffered", "_buffered")):
+            c = T / f"p73_rf20_confusion_matrix{tg}{suf}.csv"
+            if c.exists():
+                cm = pd.read_csv(c, index_col=0); oa, kappa = _oa_kappa(cm); src.append(c); cms[(rev, ev)] = cm
+                D.loc[D.evaluation == ev, "OA_spatial_cv"] = oa; D.loc[D.evaluation == ev, "kappa_spatial_cv_csv_only"] = kappa
+        D.insert(0, "rev", rev); D["status"] = status; rows.append(D)
+    D = pd.concat(rows, ignore_index=True); D["reference"] = "ESA WorldCover 2021 (training reference; agreement, not validation)"
+    put("T09", D, "RF20 surface classification: per-class precision / recall / F1 with support, macro means (over the classes) and overall agreement, spatial-block 5-fold CV (rev 2 also with a 3.5 km buffer around the test blocks) and frame transfers (rev 2: outside the B1/B2 overlap). Reference = WorldCover 2021, the training reference. Rev 2 is the product in use (review F08); rev 1 rows are the superseded model.", src, "contextual")
+    rv = 2 if (2, "spatial_block_cv_5fold") in cms else 1
+    cm2 = cms[(rv, "spatial_block_cv_5fold")].copy(); cm2.index.name = "reference \\ predicted"
+    put("T10", cm2.reset_index(), f"RF20 confusion matrix (spatial-block CV, counts; rev {rv}).", [T / f"p73_rf20_confusion_matrix{'_rev2' if rv == 2 else ''}.csv"], "contextual")
+    if (2, "spatial_block_cv_5fold_buffered") in cms:
+        cb = cms[(2, "spatial_block_cv_5fold_buffered")].copy(); cb.index.name = "reference \\ predicted"
+        put("T10d", cb.reset_index(), "RF20 rev 2 confusion matrix, spatial-block CV with a 3.5 km buffer around the test blocks (counts; review F08).", [T / "p73_rf20_confusion_matrix_rev2_buffered.csv"], "contextual")
+    tg = "_rev2" if rv == 2 else ""
+    ca, p3 = read(f"p73_rf20{tg}_class_area.csv")
+    put("T10b", ca, f"RF20 class areas per frame, km2 (mapped areas of a context product; rev {rv}).", [p3], "contextual")
+    q = T / f"p73_rf20{tg}_qa" / "worldcover_walltowall.csv"
+    if q.exists():
+        put("T10c", pd.read_csv(q), f"RF20 vs WorldCover wall-to-wall agreement on WorldCover-pure cells (recall / precision vs the training reference; rev {rv}).", [q], "contextual")
 
 P95_VARIANTS = [("_connected_ceiling", "connected_ceiling"), ("_hand_and_ceiling", "hand_and_ceiling"), ("_ceiling_only", "ceiling_only"),
                 ("_connected_ceiling_dem_uncorrected", "connected_ceiling_dem_uncorrected"),
@@ -384,7 +476,17 @@ def t15_icesat():
     p = T / "p95c_icesat2_check_0609.csv"
     if p.exists():
         D = pd.read_csv(p); D["check_type"] = "altimetric consistency check (night ATL08 ground segments vs seamless DEM and the 06-09 water surface); not a validation of the inundation map"
-        put("T15", D, "ICESat-2 altimetric consistency check per zone and agreement category on 9 June (categories inside the S1 valid footprint only, review F12): residual of the FABDEM-sourced terrain minus night ICESat-2 ground, raw (res_*) and after the class-bias correction used by the reconstruction (res_corr_*; median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface; N segments, n_dates acquisition dates, n_bed_source segments on bed-sourced cells (excluded from the residual statistics). The same p57 night corpus also calibrates the class bias, so this is a consistency check, not an independent validation.", [p], "independent_physical")
+        put("T15", D, "ICESat-2 altimetric consistency check per zone and agreement category on 9 June (categories inside the S1 valid footprint only, review F12): residual of the FABDEM-sourced terrain minus night ICESat-2 ground, raw (res_*) and after the class-bias correction used by the reconstruction (res_corr_*; median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface; N segments on n_dates passes (acquisition days: the independent units, far fewer than the segments), n_bed_source segments on bed-sourced cells (excluded from the residual statistics). The same p57 night corpus also calibrates the class bias, so the corrected residual here is in-sample; its pass hold-out is T15b. A consistency check, not an independent validation.", [p], "independent_physical")
+    q = T / "p95c_icesat2_bias_holdout.csv"
+    if q.exists():
+        put("T15b", pd.read_csv(q), "Pass hold-out of the class-bias correction (review F12), FABDEM-sourced check segments only: the class bias is re-estimated with the reconstruction's rule from the ICESat-2 calibration population WITHOUT the passes being checked (a pass = one acquisition day; leave one pass out, five folds of whole passes, and the two epochs either side of the breach) and applied to the held-out passes. Per zone, category and scheme: N segments and n_passes, raw, in-sample and hold-out corrected residual (median; hold-out p10-p90 = spread of the sampled residuals, not a confidence interval), the largest bias shift met by a checked segment, the share of segments whose terrain lies below the 06-09 surface in-sample and with the hold-out bias, the share of ICESat-2 ground below the surface (does not involve the bias), and the number of S1-only segments that change side of the 2 m split.", [q], "independent_physical")
+    f = T / "p95c_icesat2_bias_folds.csv"
+    if f.exists():
+        F = pd.read_csv(f)
+        agg = F.groupby(["scheme", "zone", "wc_class"], as_index=False).agg(b_insample=("b_insample", "first"), n_folds=("fold", "nunique"), max_abs_delta=("delta", lambda d: round(float(d.abs().max()), 3)),
+                                                                              min_cal_passes=("n_cal_passes", "min"), row_used=("row_used", lambda u: "/".join(sorted(set(u)))))
+        ep = F[F.scheme == "epoch"].pivot_table(index=["zone", "wc_class"], columns="fold", values="b_holdout").reset_index().rename(columns={"calibrate_pre_check_post": "b_pre_breach_passes", "calibrate_post_check_pre": "b_post_breach_passes"})
+        put("T15c", agg.merge(ep, on=["zone", "wc_class"], how="left"), "Stability of the class residual bias b_c across the pass hold-out folds of T15b (FABDEM - ICESat-2 ground, p95 rule): per scheme, zone and WorldCover class the in-sample b_c, the largest |shift| over the folds, the fewest calibration passes left in a fold, whether the own-zone or the pooled row was used, and b_c estimated from the pre-breach and from the post-breach passes alone. b_c enters the reconstruction as a fixed correction (not perturbed in the Monte-Carlo ensemble).", [f], "independent_physical")
 
 
 def t16_accounting():
@@ -396,8 +498,10 @@ def t16_accounting():
                  dict(region=r.region, quantity="S1 total dark water, 06-09 (incl. pre-breach water)", km2=r.peak_0609_total_water_km2, area_semantics="observed_S1", quantity_semantics="total_water", temporal_semantics="snapshot_2023-06-09"),
                  dict(region=r.region, quantity="pre-breach water (S1 06-01/02 or p60 pre_water_frac >= 20 %)", km2=r.pre_breach_water_km2, area_semantics="observed_S1", quantity_semantics="reference_water", temporal_semantics="reference_2023-06-01/02"),
                  dict(region=r.region, quantity="U2b predicted event flood (persistent concept)", km2=r.U2b_predicted_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)")]
-    for _, r in ar[ar.run == "U2b_B1B2_v003A"].iterrows():
-        rows.append(dict(region=r.region, quantity="U2b predicted flood (p92 accounting)", km2=r.predicted_flood_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)", unobserved_km2=r.unobserved_no_s1_event_km2))
+    for run_, lab_ in (("U2b_B1B2_v003A", "v003_A labels, original M2"), ("U2b_B1B2_v004", "v004 labels, corrected M2, seed 20260923"),
+                       ("U2b_B1B2_v004_s20261001", "v004 labels, corrected M2, seed 20261001"), ("U2b_B1B2_v004_s20261002", "v004 labels, corrected M2, seed 20261002")):
+        for _, r in ar[ar.run == run_].iterrows():
+            rows.append(dict(region=r.region, quantity=f"U2b predicted flood (p92 accounting; {lab_})", km2=r.predicted_flood_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)", unobserved_km2=r.unobserved_no_s1_event_km2))
     pu = T / "p95_daily_area_pooled_connected_ceiling.csv"
     if pu.exists():
         d = pd.read_csv(pu)
@@ -463,21 +567,23 @@ def t19_series():
 
 def t20_block_sensitivity():
     rows, src = [], []
-    for sp, km in [("m6_split_v1", 10.0), ("m6_split_s5", 5.0), ("m6_split_s7p5", 7.5), ("m6_split_s15", 15.0), ("m6_split_s20", 20.0)]:
-        man = T / f"{sp}_manifest.json"; rd = RUNS / ("U2_B1B2_v003A" if sp == "m6_split_v1" else f"U2_B1B2_v003A_{sp.split('_')[-1]}")
-        status = "split built" if man.exists() else "split infeasible (no validation patch survives the buffer)" if sp == "m6_split_s5" else "not built"
-        row = dict(split=sp, block_km=km, status=status)
-        if man.exists():
-            m = json.loads(man.read_text()); row.update(n_blocks=str(m.get("n_blocks")), n_patches=str(m.get("n_patches"))); src.append(man)
-        if (rd / "eval_d1a/endpoints.csv").exists():
-            e = pd.read_csv(rd / "eval_d1a/endpoints.csv", index_col=0).value; ci = pd.read_csv(rd / "eval_d1a/endpoints_ci.csv", index_col=0); src += [rd / "eval_d1a/endpoints.csv"]
-            row["status"] = "U2 v003_A trained and evaluated"
-            for k in ("G_F1", "G_IoU", "G_PR_AUC", "A_FP_area_dry_cropland_km2", "B_recall_flooded_open_low_veg", "W_IoU", "BU_FP_area_km2", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2"):
-                row[k] = float(e.get(k, np.nan)); row[f"{k}_lo"] = float(ci.lo.get(k, np.nan)); row[f"{k}_hi"] = float(ci.hi.get(k, np.nan))
-            th = json.loads((rd / "validation_threshold.json").read_text()); row["threshold"] = th["threshold"]
-        rows.append(row)
-    put("T20", pd.DataFrame(rows), "Block-size sensitivity (U2 on v003_A): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences.", src, "weak_label_agreement")
-
+    for lab, run in (("v003_A", "v003A"), ("v004", "v004")):                  # v004: the same recipe on the corrected labels (stage 2)
+        for sp, km in [("m6_split_v1", 10.0), ("m6_split_s5", 5.0), ("m6_split_s7p5", 7.5), ("m6_split_s15", 15.0), ("m6_split_s20", 20.0)]:
+            man = T / f"{sp}_manifest.json"; rd = RUNS / (f"U2_B1B2_{run}" if sp == "m6_split_v1" else f"U2_B1B2_{run}_{sp.split('_')[-1]}")
+            status = "split built" if man.exists() else "split infeasible (no validation patch survives the buffer)" if sp == "m6_split_s5" else "not built"
+            row = dict(labels=lab, split=sp, block_km=km, status=status)
+            if man.exists():
+                m = json.loads(man.read_text()); row.update(n_blocks=str(m.get("n_blocks")), n_patches=str(m.get("n_patches"))); src.append(man)
+            if (rd / "eval_d1a/endpoints.csv").exists():
+                e = pd.read_csv(rd / "eval_d1a/endpoints.csv", index_col=0).value; ci = pd.read_csv(rd / "eval_d1a/endpoints_ci.csv", index_col=0); src += [rd / "eval_d1a/endpoints.csv"]
+                row["status"] = f"U2 {lab} trained and evaluated"
+                for k in ("G_F1", "G_IoU", "G_PR_AUC", "A_FP_area_dry_cropland_km2", "B_recall_flooded_open_low_veg", "W_IoU", "BU_FP_area_km2", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2"):
+                    row[k] = float(e.get(k, np.nan)); row[f"{k}_lo"] = float(ci.lo.get(k, np.nan)); row[f"{k}_hi"] = float(ci.hi.get(k, np.nan))
+                th = json.loads((rd / "validation_threshold.json").read_text()); row["threshold"] = th["threshold"]
+            elif lab == "v004":
+                continue                                                      # only the v004 splits that were trained
+            rows.append(row)
+    put("T20", pd.DataFrame(rows), "Block-size sensitivity (U2 on v003_A and on the corrected v004 labels): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences.", src, "weak_label_agreement")
 
 def readme():
     defs = [("POD", "hit / (hit + miss): share of S1 new dark water that the reconstruction allows, on the observation domain"),
@@ -506,7 +612,7 @@ def readme():
 
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
-    for f in (t01_inventory, t02_labels, t03_split, t04_arms, t05_endpoints, t06_paired, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
+    for f in (t01_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
               t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t27_capacity_curves,
               t23_t26_reservoir_maps):
         f()

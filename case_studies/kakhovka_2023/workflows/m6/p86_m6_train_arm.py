@@ -69,7 +69,9 @@ LABELS = {
     "v002": dict(file="m6_labels_v002.tif", band=1, map=None, run="v1", tag=""),
     "v003_A": dict(file="m6_labels_v003_A.tif", band=1, map={0: 0, 1: 1, 2: 0, 255: 255}, run="v003A", tag="_v003A"),
     "v004": dict(file="m6_labels_v004.tif", band=1, map={0: 0, 1: 1, 2: 0, 255: 255}, run="v004", tag="_v004"),
+    "v002_notrace": dict(file="m6_labels_v002_notrace.tif", band=1, map=None, run="v002nt", tag="_v002nt"),   # the v002 rule on the corrected M2 (F09/F10)
 }
+STAGE2_LABELS = ("v004", "v002_notrace")                              # labels on the corrected M2: RF20 rev 2 by default (F08)
 HANDZ = {"B1": "ZONE_4_DAM_TO_KHERSON_FLOODWAY", "B2": "ZONE_2_KHERSON_DELTA"}
 
 
@@ -141,14 +143,14 @@ def main():
     ap.add_argument("--lr", type=float, default=3e-4); ap.add_argument("--stride", type=int, default=256)
     ap.add_argument("--smoke", action="store_true", help="pipeline check: separate dir, stops BEFORE test is read")
     ap.add_argument("--seed", type=int, default=SEED, help="training seed; a non-default seed gets its own run directory and score (_s<seed>)")
-    ap.add_argument("--p73-rev", type=int, default=None, choices=[1, 2], help="RF20 version for U1 input and the evaluation strata; default 2 for v004 (F08), else 1")
+    ap.add_argument("--p73-rev", type=int, default=None, choices=[1, 2], help="RF20 version for U1 input and the evaluation strata; default 2 for v004 / v002_notrace (F08), else 1")
     a = ap.parse_args()
     import torch, torch.nn as nn, segmentation_models_pytorch as smp
     E = _load("m6_eval"); P84 = _load("p84_m6_split_b1b2")
     SPLIT = a.split; SSFX = "" if a.split == "m6_split_v1" else "_" + a.split.split("_")[-1]
     L = LABELS[a.labels]; SEEDSFX = "" if a.seed == SEED else f"_s{a.seed}"
-    P73REV = a.p73_rev or (2 if a.labels == "v004" else 1)
-    if ARMS[a.arm].get("wpre") and a.labels == "v002":
+    P73REV = a.p73_rev or (2 if a.labels in STAGE2_LABELS else 1)
+    if ARMS[a.arm].get("wpre") and a.labels in ("v002", "v002_notrace"):
         raise SystemExit("U2b cannot be supervised under v002 (0 labelled pixels with pre-breach water); use --labels v003_A")
     RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}{SSFX}{SEEDSFX}")
     if a.smoke and RUN.exists():

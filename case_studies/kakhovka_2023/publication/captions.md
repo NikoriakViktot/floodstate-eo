@@ -14,11 +14,14 @@ SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gau
 connectivity; no momentum or continuity equations) is the main axis; Sentinel-1 per date, ICESat-2 and the SWOT–gauge comparison check it; the RF20 surface classes and the elevation
 above the surface explain the disagreements; the U-Net arms show what EO inputs recover under weak labels.
 
-**Fig03 U-Net weak-label experiment.** (a, b) Flood-state map of arm U2b (labels v003_A) on frames B1 and B2 at its frozen
-validation threshold: predicted flood on labelled EVENT_FLOOD, on REFERENCE_WATER (attribution candidates) and elsewhere;
-TEST blocks outlined. (c) Paired differences on identical spatial blocks (median, 95 % block-bootstrap interval): the HAND
-and RF20 inputs on v002, the label effect v002 → v003_A at fixed inputs, and the W_pre input (grey: not independent, W_pre is
-a label ingredient). All numbers are agreement with weak reference labels (T06, T07b).
+**Fig03 U-Net weak-label experiment on the corrected labels.** (a, b) Flood-state map of arm U2b (labels v004, first training
+seed) on frames B1 and B2 at its frozen validation threshold: predicted flood on labelled EVENT_FLOOD, on REFERENCE_WATER
+(attribution candidates) and elsewhere; TEST blocks outlined. (c, d) Paired differences on identical spatial blocks (median,
+95 % block-bootstrap interval), one marker per training seed (three seeds; both arms of a pair share the seed), areas in km²
+(c) and recall (d) on separate axes: the HAND and RF20 inputs, the label effect of the v002 → v004 rules at fixed inputs (U2 on
+v002_notrace vs v004, both on the M2 without the post-event window) and the W_pre input (grey: not independent, W_pre is a
+label ingredient). The spread across seeds is training noise that an input effect has to exceed (T06s). All numbers are
+agreement with weak reference labels (T06, T07b); the frozen v002 / v003_A arms are in the same tables.
 
 **Fig04 Daily reconstructed series, dam → liman.** (a–c) Reconstructed total water-surface area per day (all water on the day,
 including pre-breach channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley:
@@ -47,9 +50,12 @@ rasters derived from FABDEM through the seamless terrain–bed model (not redist
 **Fig08 ICESat-2 altimetric consistency check.** FABDEM-sourced terrain minus night ICESat-2 ATL08 ground height (median,
 p10–p90) per agreement category of 2023-06-09 (categories inside the Sentinel-1 valid footprint only), as delivered (circles) and
 after the residual class-bias correction used by the reconstruction (diamonds), with the ground elevation relative to the
-reconstructed surface and the share of segments below it (n segments and acquisition dates in T15; the same night corpus also
-calibrates the class bias, so this is a consistency check, not an independent validation): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
-to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2
+reconstructed surface and the share of segments below it. ATL08 night passes 2019–2025; n segments and passes (acquisition
+days, the independent units) in T15. The p10–p90 bars are the spread of the sampled residuals, not a confidence interval of the
+median and not a map-wide uncertainty. The same night corpus calibrates the class bias, so the diamonds are in-sample; with the
+bias re-estimated without the checked passes (T15b) the medians of the S1-only ≥ 2 m category move by a few centimetres at most.
+Where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to a few centimetres in the median (p10–p90
+spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2
 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency
 check that supports this reading; it does not sample every cell and does not validate the map.
 
@@ -67,8 +73,9 @@ relative gap).
 the rule (connected ceiling = primary, p42 HAND rule, ceiling only), the terrain as delivered (no residual bias removed),
 4-connectivity, the main-stem seed, nodes unavailable beyond a 3-day gap, a river-aware water surface, no water surface from
 nodes more than 10 km away, and the superseded p59 closure with a +0.5 m margin. None of these is in the Monte-Carlo budget. **FigS03** per-date S1 and reliable S2
-new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-block CV) and per-class F1 for CV and transfers.
-**FigS05** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
+new-water series per region. **FigS04** RF20 (rev 2: global blocks, frame overlap counted once) row-normalised confusion (spatial-block CV) and per-class F1
+for the CV without and with a 3.5 km buffer and for the transfers outside the overlap.
+**FigS05** block-size sensitivity of U2 on v003_A and on v004 (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 **FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
 level over the drawdown range (shaded), −9 % at the full-pool level (17.5 m), −14 % at 13 m and −20 % at 11 m; the design table is undefined

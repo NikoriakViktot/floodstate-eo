@@ -1,0 +1,4 @@
+pair,n_common_score,n_mismatch_score,max_abs_diff_score,n_common_state,n_mismatch_state,max_abs_diff_state,n_common_valid,n_mismatch_valid,max_abs_diff_valid
+B1|B2,14716081,0,0,14716081,0,0,14721357,0,0
+B1|B3,6895816,0,0,6895816,0,0,6896800,0,0
+B2|B3,20672024,0,0,20672024,0,0,20673900,0,0

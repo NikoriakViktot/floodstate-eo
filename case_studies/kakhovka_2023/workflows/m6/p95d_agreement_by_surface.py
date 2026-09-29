@@ -14,6 +14,7 @@ cut rectangles (corridor), one 20 m cell once (ZONE_2 owns the overlap).
 
 Reads (bulk): p95 rev-4 daily_new.npz + the WSE of the date from the same node-based engine (p95.load_engine),
 seamless DEM, S1 zone caches, WorldCover frames, p73 classes; the same-rule pre-breach baseline is rebuilt from the table.
+RF20 classes: rev 2 (review F08 refit: global blocks, overlap owned by B2; `--p73-rev 1` = the superseded rev-1 products).
 Outputs: <case_study>/tables/p95d_agreement_<date>.csv (zone x category x worldcover x p73 x elev_bin x normally_wet x km2)
          <case_study>/tables/p95d_agreement_<date>_summary.csv (zone x category x km2 + the paper's headline splits)
 """
@@ -40,7 +41,8 @@ def _ld(name):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--date", default="2023-06-09"); ap.add_argument("--rule", default="connected_ceiling")
-    a = ap.parse_args(); d = a.date
+    ap.add_argument("--p73-rev", type=int, default=2, choices=[1, 2], help="RF20 products: 2 = the F08 refit (default), 1 = superseded")
+    a = ap.parse_args(); d = a.date; sub73 = "p73_rf20" if a.p73_rev == 1 else "p73_rf20_rev2"
     P95 = _ld("p95_hand_daily_inundation"); P = P95.load_p92()
     W, dxm, dym, _ = P95.load_engine()
     mp = CFG.TABLES / f"p95_manifest_{a.rule}.json"                   # rev 6: the rule suffix is always explicit
@@ -61,7 +63,7 @@ def main():
         cat = np.full(base.shape, "", dtype="U1"); cat[v] = "N"; cat[v & new & ~s1] = "B"; cat[v & s1 & ~new] = "C"; cat[v & s1 & new] = "A"
         with rasterio.open(CFG.BULK_ROOT / "worldcover_frames" / zone / "wc_2021_20m.tif") as s:
             wc = np.full((G["ny"], G["nx"]), 0, "u1"); reproject(s.read(1), wc, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)
-        with rasterio.open(P.OUT / L["frame"] / "p73_rf20" / "surface_class_20m.tif") as s:
+        with rasterio.open(P.OUT / L["frame"] / sub73 / "surface_class_20m.tif") as s:
             p73 = np.full((G["ny"], G["nx"]), 255, "u1"); reproject(s.read(1), p73, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)
         ebin = np.full(base.shape, "", dtype="U16")
         for lo, hi, nm in BINS:
@@ -70,7 +72,7 @@ def main():
         df = pd.DataFrame(dict(category=cat[m], worldcover=[WC.get(int(k), str(k)) for k in wc[m]], p73=[P73.get(int(k), str(k)) for k in p73[m]],
                                elev_bin=ebin[m], normally_wet=normally_wet[m]))
         g = df.groupby(["category", "worldcover", "p73", "elev_bin", "normally_wet"]).size().reset_index(name="cells")
-        g["km2"] = (g.cells * CELL_KM2).round(3); g.insert(0, "zone", zone); g.insert(1, "date", d); rows.append(g)
+        g["km2"] = (g.cells * CELL_KM2).round(3); g.insert(0, "zone", zone); g.insert(1, "date", d); g["p73_rev"] = a.p73_rev; rows.append(g)
         for c in "ABCN":
             mc = cat == c
             summ.append(dict(zone=zone, date=d, category=c, km2=round(float(mc.sum()) * CELL_KM2, 2),
@@ -83,7 +85,8 @@ def main():
                              km2_wc_built=round(float((mc & (wc == 50)).sum()) * CELL_KM2, 2), km2_wc_cropland=round(float((mc & (wc == 40)).sum()) * CELL_KM2, 2),
                              km2_wc_grass=round(float((mc & (wc == 30)).sum()) * CELL_KM2, 2), km2_wc_bare=round(float((mc & (wc == 60)).sum()) * CELL_KM2, 2),
                              km2_p73_reed=round(float((mc & (p73 == 6)).sum()) * CELL_KM2, 2), km2_p73_forest=round(float((mc & (p73 == 4)).sum()) * CELL_KM2, 2),
-                             km2_p73_built=round(float((mc & (p73 == 7)).sum()) * CELL_KM2, 2), km2_p73_cropland=round(float((mc & (p73 == 2)).sum()) * CELL_KM2, 2)))
+                             km2_p73_built=round(float((mc & (p73 == 7)).sum()) * CELL_KM2, 2), km2_p73_cropland=round(float((mc & (p73 == 2)).sum()) * CELL_KM2, 2),
+                             p73_rev=a.p73_rev))
         print(zone, {c: round(float((cat == c).sum()) * CELL_KM2, 1) for c in "ABC"}, flush=True)
     tag = d.replace("-", "")
     pd.concat(rows, ignore_index=True).to_csv(CFG.TABLES / f"p95d_agreement_{tag}.csv", index=False)

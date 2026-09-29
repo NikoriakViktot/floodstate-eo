@@ -1,0 +1,13 @@
+frame,rule,kept,dropped
+B1,worldcover_4cell_pure,13363493.0,1865707.0
+B1,WATER needs MNDWI_pre_med > 0,,59812.0
+B1,vegetated classes need NDVI_pre_max > 0.3,,242012.0
+B1,non-water classes need MNDWI_pre_med < 0.3,,252.0
+B1,BARE_SAND needs NDVI_pre_max < 0.4,,63.0
+B1,final_targets,13061450.0,
+B2,worldcover_4cell_pure,6362547.0,849405.0
+B2,WATER needs MNDWI_pre_med > 0,,26947.0
+B2,vegetated classes need NDVI_pre_max > 0.3,,133762.0
+B2,non-water classes need MNDWI_pre_med < 0.3,,10.0
+B2,BARE_SAND needs NDVI_pre_max < 0.4,,48.0
+B2,final_targets,6201780.0,

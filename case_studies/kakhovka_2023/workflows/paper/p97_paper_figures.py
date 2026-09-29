@@ -140,40 +140,73 @@ def fig02():
 
 # ---- Fig03 -----------------------------------------------------------------------------------------------------------
 def fig03():
+    """U-Net arms: (a, b) the U2b prediction in the reference ontology, (c) paired comparisons on identical TEST blocks.
+    Arms on the corrected labels (v004, three training seeds; review F09/F10/F11) once trained, else the v003_A history."""
     P91 = _ld("p91", M6 / "p91_m6_maps_v003A.py")
-    fig = plt.figure(figsize=(7.2, 8.0)); gs = fig.add_gridspec(2, 2, height_ratios=[1.35, 1], hspace=0.32, wspace=0.18, bottom=0.08)
+    V4 = (RUNS / "U2b_B1B2_v004" / "validation_threshold.json").exists()
+    LAB, RUNMAP = ("v004", "U2b_B1B2_v004") if V4 else ("v003_A", "U2b_B1B2_v003A")
+    fig = plt.figure(figsize=(7.2, 9.6)); gs = fig.add_gridspec(3, 2, height_ratios=[1.35, 0.85, 0.55], hspace=0.38, wspace=0.18, bottom=0.07)
     cm = ListedColormap([c for _, c in FS.STATE_COLOURS.values()])
     for j, fid in enumerate(("B1", "B2")):
-        ax = fig.add_subplot(gs[0, j]); L = P91.load(fid); sc, thr = P91.score(fid, "U2b_B1B2_v003A"); pred = sc >= thr
+        ax = fig.add_subplot(gs[0, j]); L = P91.load(fid, LAB); sc, thr = P91.score(fid, RUNMAP); pred = sc >= thr
         st = np.zeros(sc.shape, "u1"); st[L["has"]] = 1; st[L["has"] & (L["ont"] == 2)] = 2; st[pred & L["has"]] = 5; st[pred & (L["ont"] == 1)] = 4; st[pred & (L["ont"] == 2)] = 3
         ax.imshow(st, cmap=cm, vmin=-0.5, vmax=5.5, extent=L["ext"], interpolation="nearest", rasterized=True); P91.test_outline(ax, L["role"], L["ext"])
-        furniture(ax, L["ext"], 10); FS.panel_label(ax, "ab"[j]); ax.set_title(f"frame {fid}: U2b (v003_A), score ≥ {thr:.2f}", fontsize=8, loc="left")
-    ax = fig.add_subplot(gs[1, :])
+        furniture(ax, L["ext"], 10); FS.panel_label(ax, "ab"[j]); ax.set_title(f"frame {fid}: U2b ({LAB}), score ≥ {thr:.2f}", fontsize=8, loc="left")
     pb = pd.read_csv(PT / "T06.csv"); pb7 = pd.read_csv(PT / "T07b.csv")
-    rows = []
-    for comp, lab, ep, name in [("U2 - U0d", "v002", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U2 (+HAND): unlabelled-cropland burden, km²"),
-                                ("U2 - U0d", "v002", "B_recall_flooded_open_low_veg", "U0d→U2 (+HAND): recall on flooded open low vegetation"),
-                                ("U1 - U0d", "v002", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U1 (+RF20 context): unlabelled-cropland burden, km²")]:
-        r = pb[(pb.comparison == comp) & (pb.labels == lab) & (pb.endpoint == ep)]
-        if len(r):
-            rows.append((name, float(r["median"].iloc[0]), float(r.ci_lo.iloc[0]), float(r.ci_hi.iloc[0]), FS.PALETTE["unet"]))
-    for A, B, ep, name in [("U2_B1B2_v1", "U2_B1B2_v003A", "R_pred_on_reference_water_km2", "label effect v002→v003_A (U2): flood on reference water, km²"),
-                           ("U2_B1B2_v1", "U2_B1B2_v003A", "E_recall_event_flood", "label effect v002→v003_A (U2): EVENT_FLOOD recall"),
-                           ("U2_B1B2_v003A", "U2b_B1B2_v003A", "R_pred_on_reference_water_km2", "U2→U2b (+W_pre, diagnostic): flood on reference water, km²"),
-                           ("U2_B1B2_v003A", "U2b_B1B2_v003A", "E_recall_event_flood", "U2→U2b (+W_pre, diagnostic): EVENT_FLOOD recall")]:
-        r = pb7[(pb7.A == A) & (pb7.B == B) & (pb7.endpoint == ep)]
-        if len(r):
-            rows.append((name, float(r["median"].iloc[0]), float(r.lo.iloc[0]), float(r.hi.iloc[0]), FS.PALETTE["muted"] if "diagnostic" in name else FS.PALETTE["unet"]))
-    labels = [r[0] for r in rows]; y = np.arange(len(rows))[::-1]
-    for (name, m, lo, hi, c), yy in zip(rows, y):
-        ax.hlines(yy, lo, hi, color=c, lw=1.6); ax.plot(m, yy, "o", color=c, ms=5)
-    ax.set_yticks(y); ax.set_yticklabels(labels, fontsize=6.5); ax.axvline(0, color=FS.PALETTE["ink2"], lw=0.8, ls=":"); ax.grid(axis="x", color=FS.PALETTE["grid"])
-    ax.set_xlabel("paired difference on identical spatial blocks (median, 95 % interval); km² or recall", fontsize=7); FS.panel_label(ax, "c")
-    ax.set_title("Paired arm comparisons on the frozen TEST blocks (agreement with weak labels; grey = not independent, W_pre is a label ingredient)", fontsize=7.5, loc="left")
+    rows = []                                                                   # (name, [(median, lo, hi), ...one per seed], colour)
+    if V4:
+        seeds = sorted(pb[pb.labels == "v004"].seed.dropna().unique())
+        sfx = lambda sd: "" if sd == seeds[0] else f"_s{int(sd)}"
+        for comp, ep, name in [("U2 - U0d", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U2 (+HAND): unlabelled-cropland burden, km²"),
+                               ("U2 - U0d", "B_recall_flooded_open_low_veg", "U0d→U2 (+HAND): recall on flooded open low vegetation"),
+                               ("U1 - U0d", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U1 (+RF20 context): unlabelled-cropland burden, km²")]:
+            r = pb[(pb.comparison == comp) & (pb.labels == "v004") & (pb.endpoint == ep)].sort_values("seed")
+            if len(r):
+                rows.append((name, list(zip(r["median"], r.ci_lo, r.ci_hi)), FS.PALETTE["unet"]))
+        for A, B, ep, name, col in [("U2_B1B2_v002nt", "U2_B1B2_v004", "R_pred_on_reference_water_km2", "label effect v002→v004 rule (U2): flood on reference water, km²", FS.PALETTE["unet"]),
+                                    ("U2_B1B2_v002nt", "U2_B1B2_v004", "E_recall_event_flood", "label effect v002→v004 rule (U2): EVENT_FLOOD recall", FS.PALETTE["unet"]),
+                                    ("U2_B1B2_v004", "U2b_B1B2_v004", "R_pred_on_reference_water_km2", "U2→U2b (+W_pre, diagnostic): flood on reference water, km²", FS.PALETTE["muted"]),
+                                    ("U2_B1B2_v004", "U2b_B1B2_v004", "E_recall_event_flood", "U2→U2b (+W_pre, diagnostic): EVENT_FLOOD recall", FS.PALETTE["muted"])]:
+            v = []
+            for sd in seeds:
+                r = pb7[(pb7.A == A + sfx(sd)) & (pb7.B == B + sfx(sd)) & (pb7.endpoint == ep)]
+                if len(r):
+                    v.append((float(r["median"].iloc[0]), float(r.lo.iloc[0]), float(r.hi.iloc[0])))
+            if v:
+                rows.append((name, v, col))
+    else:
+        for comp, lab, ep, name in [("U2 - U0d", "v002", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U2 (+HAND): unlabelled-cropland burden, km²"),
+                                    ("U2 - U0d", "v002", "B_recall_flooded_open_low_veg", "U0d→U2 (+HAND): recall on flooded open low vegetation"),
+                                    ("U1 - U0d", "v002", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "U0d→U1 (+RF20 context): unlabelled-cropland burden, km²")]:
+            r = pb[(pb.comparison == comp) & (pb.labels == lab) & (pb.endpoint == ep)]
+            if len(r):
+                rows.append((name, [(float(r["median"].iloc[0]), float(r.ci_lo.iloc[0]), float(r.ci_hi.iloc[0]))], FS.PALETTE["unet"]))
+        for A, B, ep, name in [("U2_B1B2_v1", "U2_B1B2_v003A", "R_pred_on_reference_water_km2", "label effect v002→v003_A (U2): flood on reference water, km²"),
+                               ("U2_B1B2_v1", "U2_B1B2_v003A", "E_recall_event_flood", "label effect v002→v003_A (U2): EVENT_FLOOD recall"),
+                               ("U2_B1B2_v003A", "U2b_B1B2_v003A", "R_pred_on_reference_water_km2", "U2→U2b (+W_pre, diagnostic): flood on reference water, km²"),
+                               ("U2_B1B2_v003A", "U2b_B1B2_v003A", "E_recall_event_flood", "U2→U2b (+W_pre, diagnostic): EVENT_FLOOD recall")]:
+            r = pb7[(pb7.A == A) & (pb7.B == B) & (pb7.endpoint == ep)]
+            if len(r):
+                rows.append((name, [(float(r["median"].iloc[0]), float(r.lo.iloc[0]), float(r.hi.iloc[0]))], FS.PALETTE["muted"] if "diagnostic" in name else FS.PALETTE["unet"]))
+    # review F15: areas (km²) and recall on separate axes -- one axis made the recall rows unreadable
+    for k, (unit, sel) in enumerate((("km²", lambda n: "km²" in n), ("recall", lambda n: "km²" not in n))):
+        rr = [r for r in rows if sel(r[0])]
+        if not rr:
+            continue
+        ax = fig.add_subplot(gs[1 + k, :]); y = np.arange(len(rr))[::-1]
+        for (name, v, c), yy in zip(rr, y):
+            offs = np.linspace(-0.22, 0.22, len(v)) if len(v) > 1 else [0.0]
+            for (m, lo, hi), dy in zip(v, offs):
+                ax.hlines(yy + dy, lo, hi, color=c, lw=1.4 if len(v) > 1 else 1.6); ax.plot(m, yy + dy, "o", color=c, ms=4 if len(v) > 1 else 5)
+        ax.set_yticks(y); ax.set_yticklabels([r[0].replace(", km²", "") for r in rr], fontsize=6.5); ax.axvline(0, color=FS.PALETTE["ink2"], lw=0.8, ls=":")
+        ax.grid(axis="x", color=FS.PALETTE["grid"]); ax.tick_params(axis="x", labelsize=6.5); ax.set_ylim(-0.6, len(rr) - 0.4)
+        ax.set_xlabel(f"paired difference B − A on identical spatial blocks, {unit} (median, 95 % interval)", fontsize=7); FS.panel_label(ax, "cd"[k])
+        if k == 0:
+            ax.set_title("Paired arm comparisons on the frozen TEST blocks (agreement with weak labels; grey = not independent, W_pre is a label ingredient)"
+                         + ("; one marker per training seed" if V4 else ""), fontsize=7.5, loc="left")
     fig.legend(handles=[Patch(fc=c, ec="#c3c2b7", label=n) for n, c in FS.STATE_COLOURS.values()] + [Patch(fc="none", ec="#0b0b0b", ls="--", label="TEST blocks")],
                loc="lower center", bbox_to_anchor=(0.5, -0.01), ncol=4, fontsize=6.2, frameon=False)
     FS.save(fig, "Fig03_unet_experiment", FIG)
-
 
 # ---- Fig04 -----------------------------------------------------------------------------------------------------------
 def fig04():
@@ -347,16 +380,28 @@ def fig09():
 
 # ---- Supplement ------------------------------------------------------------------------------------------------------
 def figS01():
-    fig, (a1, a2) = plt.subplots(1, 2, figsize=(7.2, 2.8), constrained_layout=True)
+    """Training curves: the v002 / v003_A history (top) and, once trained, the arms on the corrected labels v004 with three seeds
+    each (bottom; the first seed solid, the others thin) -- the seed spread is the training noise (review F11)."""
+    SEEDS = (20260923, 20261001, 20261002)
+    v4 = [(arm, c) for arm, c in (("U0d", FS.PALETTE["rf"]), ("U2", FS.PALETTE["terrain"]), ("U2b", FS.PALETTE["unet"]), ("U1", FS.PALETTE["s2"]))
+          if (RUNS / f"{arm}_B1B2_v004" / "training_history.csv").exists()]
+    fig, axs = plt.subplots(2 if v4 else 1, 2, figsize=(7.2, 5.4 if v4 else 2.8), constrained_layout=True, squeeze=False)
     for run, c in [("U2_B1B2_v1", FS.PALETTE["s1"]), ("U0d_B1B2_v003A", FS.PALETTE["rf"]), ("U2_B1B2_v003A", FS.PALETTE["terrain"]), ("U2b_B1B2_v003A", FS.PALETTE["unet"])]:
         p = RUNS / run / "training_history.csv"
         if p.exists():
-            h = pd.read_csv(p); a1.plot(h.epoch, h.train_loss, color=c, lw=1.5, label=run); a2.plot(h.epoch, h.val_patch_F1_at_0p5, color=c, lw=1.5, label=run)
-    a1.set_title("train loss (masked BCE + Dice)", fontsize=7.5, loc="left"); a2.set_title("validation patch F1 @ 0.5 (weak labels)", fontsize=7.5, loc="left")
-    for ax in (a1, a2):
-        ax.set_xlabel("epoch", fontsize=7); ax.grid(color=FS.PALETTE["grid"]); ax.tick_params(labelsize=6.5)
-    a1.legend(fontsize=6); FS.save(fig, "FigS01_training_curves", FIG)
-
+            h = pd.read_csv(p); axs[0, 0].plot(h.epoch, h.train_loss, color=c, lw=1.5, label=run); axs[0, 1].plot(h.epoch, h.val_patch_F1_at_0p5, color=c, lw=1.5, label=run)
+    for arm, c in v4:
+        for k, sd in enumerate(SEEDS):
+            p = RUNS / (f"{arm}_B1B2_v004" + ("" if k == 0 else f"_s{sd}")) / "training_history.csv"
+            if p.exists():
+                h = pd.read_csv(p); kw = dict(color=c, lw=1.5 if k == 0 else 0.7, alpha=1.0 if k == 0 else 0.6, label=f"{arm} v004" if k == 0 else None)
+                axs[1, 0].plot(h.epoch, h.train_loss, **kw); axs[1, 1].plot(h.epoch, h.val_patch_F1_at_0p5, **kw)
+    for r, what in enumerate(["v002 / v003_A (original M2)"] + (["v004 (corrected M2), three seeds per arm"] if v4 else [])):
+        axs[r, 0].set_title(f"train loss (masked BCE + Dice) -- {what}", fontsize=7.5, loc="left"); axs[r, 1].set_title(f"validation patch F1 @ 0.5 (weak labels) -- {what}", fontsize=7.5, loc="left")
+        for ax in axs[r]:
+            ax.set_xlabel("epoch", fontsize=7); ax.grid(color=FS.PALETTE["grid"]); ax.tick_params(labelsize=6.5)
+        axs[r, 0].legend(fontsize=6)
+    FS.save(fig, "FigS01_training_curves", FIG)
 
 def figS02():
     fig, ax = plt.subplots(figsize=(7.2, 3.2), constrained_layout=True)
@@ -385,16 +430,19 @@ def figS03():
 
 def figS04():
     cm = pd.read_csv(PT / "T10.csv", index_col=0); m = pd.read_csv(PT / "T09.csv")
+    rv = int(m.rev.max()) if "rev" in m.columns else 1; m = m[m.rev == rv] if "rev" in m.columns else m     # the RF20 in use (rev 2 after review F08)
     fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.2), constrained_layout=True, gridspec_kw=dict(width_ratios=[1.1, 1]))
     C = cm.values.astype(float); Cn = C / C.sum(1, keepdims=True)
     a.imshow(Cn, cmap=FS.SEQ_SCORE, vmin=0, vmax=1); a.set_xticks(range(len(cm.columns))); a.set_xticklabels(cm.columns, rotation=60, ha="right", fontsize=5.5); a.set_yticks(range(len(cm.index))); a.set_yticklabels(cm.index, fontsize=5.5)
     for i in range(C.shape[0]):
         for j in range(C.shape[1]):
             a.text(j, i, f"{Cn[i, j]:.2f}", ha="center", va="center", fontsize=5, color="white" if Cn[i, j] > 0.5 else FS.PALETTE["ink"])
-    a.set_xlabel("predicted (RF20)", fontsize=7); a.set_ylabel("reference (WorldCover 2021)", fontsize=7); a.set_title("row-normalised confusion, spatial-block CV", fontsize=7.5, loc="left"); FS.panel_label(a, "a", x=-0.35)
-    mm = m[m.cls != "MACRO_MEAN"]; ev = list(mm.evaluation.unique()); w = 0.8 / len(ev); cls = list(mm[mm.evaluation == ev[0]].cls)
+    a.set_xlabel("predicted (RF20)", fontsize=7); a.set_ylabel("reference (WorldCover 2021)", fontsize=7); a.set_title(f"row-normalised confusion, spatial-block CV (rev {rv})", fontsize=7.5, loc="left"); FS.panel_label(a, "a", x=-0.35)
+    mm = m[~m.cls.isin(["MACRO_MEAN", "OVERALL_ACCURACY"])]; ev = list(mm.evaluation.unique()); w = 0.8 / len(ev); cls = list(mm[mm.evaluation == ev[0]].cls)
     for k, e in enumerate(ev):
-        g = mm[mm.evaluation == e].set_index("cls").reindex(cls); b.bar(np.arange(len(cls)) + k * w, g.F1, w, label=e, color=[FS.PALETTE["rf"], FS.PALETTE["terrain"], FS.PALETTE["s2"]][k % 3])
+        g = mm[mm.evaluation == e].set_index("cls").reindex(cls)
+        b.bar(np.arange(len(cls)) + k * w, g.F1, w, label=e.replace("spatial_block_cv_5fold", "block CV").replace("_buffered", ", 3.5 km buffer").replace("transfer_", "transfer "),
+              color=[FS.PALETTE["rf"], FS.PALETTE["gauge"], FS.PALETTE["terrain"], FS.PALETTE["s2"]][k % 4])
     b.set_xticks(np.arange(len(cls)) + 0.4 - w / 2); b.set_xticklabels(cls, rotation=60, ha="right", fontsize=5.5); b.set_ylabel("F1 vs WorldCover", fontsize=7); b.legend(fontsize=5.5); b.tick_params(labelsize=6); FS.panel_label(b, "b", x=-0.2)
     FS.save(fig, "FigS04_rf20_agreement", FIG)
 
@@ -403,11 +451,17 @@ def figS05():
     d = pd.read_csv(PT / "T20.csv"); d = d[d.status.str.contains("trained")]
     if len(d) == 0:
         return
+    if "labels" not in d.columns:
+        d["labels"] = "v003_A"
     fig, axs = plt.subplots(1, 3, figsize=(7.2, 2.6), constrained_layout=True)
+    style = {"v003_A": (FS.PALETTE["muted"], -0.25, "v003_A (original M2)"), "v004": (FS.PALETTE["unet"], 0.25, "v004 (corrected M2)")}
     for ax, k, lab in zip(axs, ["G_F1", "A_FP_area_dry_cropland_km2", "B_recall_flooded_open_low_veg"], ["global F1 (weak labels)", "dry-cropland FP, km²", "recall, flooded open low veg."]):
-        ax.errorbar(d.block_km, d[k], yerr=[d[k] - d[f"{k}_lo"], d[f"{k}_hi"] - d[k]], fmt="o", color=FS.PALETTE["unet"], capsize=3); ax.set_xlabel("block size, km", fontsize=7); ax.set_title(lab, fontsize=7.5, loc="left"); ax.tick_params(labelsize=6.5)
-    fig.suptitle("Block-size sensitivity (U2, v003_A): each split has its own TEST geography; values and intervals only", fontsize=7.5); FS.save(fig, "FigS05_block_sensitivity", FIG)
-
+        for lv, g in d.groupby("labels"):
+            c, dx, name = style.get(lv, (FS.PALETTE["ink2"], 0.0, lv))
+            ax.errorbar(g.block_km + dx, g[k], yerr=[g[k] - g[f"{k}_lo"], g[f"{k}_hi"] - g[k]], fmt="o", color=c, capsize=3, label=name)
+        ax.set_xlabel("block size, km", fontsize=7); ax.set_title(lab, fontsize=7.5, loc="left"); ax.tick_params(labelsize=6.5); ax.grid(color=FS.PALETTE["grid"])
+    axs[0].legend(fontsize=6, frameon=False)
+    fig.suptitle("Block-size sensitivity (U2): each split has its own TEST geography; values and intervals only", fontsize=7.5); FS.save(fig, "FigS05_block_sensitivity", FIG)
 
 def figS06():
     p = pd.read_csv(T / "p92_inhulets_profile.csv"); p = p[p.run == "U2b_B1B2_v003A"]

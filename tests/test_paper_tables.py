@@ -34,8 +34,22 @@ def test_t12_matches_p95_daily_table():
 
 
 def test_t09_overall_agreement_from_confusion():
-    cm = pd.read_csv(T / "p73_rf20_confusion_matrix.csv", index_col=0).values.astype(float); oa = np.trace(cm) / cm.sum()
-    t = pd.read_csv(PT / "T09.csv"); assert abs(float(t.OA_spatial_cv.dropna().iloc[0]) - oa) < 1e-3
+    t = pd.read_csv(PT / "T09.csv")
+    for rev, tg in ((1, ""), (2, "_rev2")):
+        f = T / f"p73_rf20_confusion_matrix{tg}.csv"
+        if not f.exists() or rev not in set(t.rev):
+            continue
+        cm = pd.read_csv(f, index_col=0).values.astype(float); oa = np.trace(cm) / cm.sum()
+        r = t[(t.rev == rev) & (t.evaluation == "spatial_block_cv_5fold")]
+        assert abs(float(r.OA_spatial_cv.dropna().iloc[0]) - oa) < 1e-3
+
+
+def test_t09_macro_mean_is_over_the_classes_only():
+    """The p73 tables carry MACRO and OVERALL_ACCURACY rows; averaging them in counted n three times (fixed 2026-09-29)."""
+    t = pd.read_csv(PT / "T09.csv")
+    for (rev, ev), g in t.groupby(["rev", "evaluation"]):
+        per = g[~g.cls.isin(["MACRO", "OVERALL_ACCURACY", "MACRO_MEAN"])]; mm = g[g.cls == "MACRO_MEAN"].iloc[0]
+        assert int(mm.n) == int(per.n.sum()) and abs(float(mm.F1) - per.F1.mean()) < 1e-4, (rev, ev)
 
 
 def test_t18_is_a_faithful_copy_of_p57():
@@ -45,8 +59,13 @@ def test_t18_is_a_faithful_copy_of_p57():
 
 
 def test_t07b_paired_effects_from_p90():
-    t = pd.read_csv(PT / "T07b.csv"); s = pd.read_csv(T / "p90_v003A_paired.csv")
-    assert len(t) == len(s) and np.allclose(t["median"], s["median"])
+    t = pd.read_csv(PT / "T07b.csv")
+    for tag, lab in (("v003A", "v003_A"), ("v004", "v004")):
+        f = T / f"p90_{tag}_paired.csv"
+        if not f.exists():
+            continue
+        s = pd.read_csv(f); g = t[t.labels == lab]
+        assert len(g) == len(s) and np.allclose(g["median"], s["median"])
 
 
 def test_no_withdrawn_inhulets_numbers_in_claims():

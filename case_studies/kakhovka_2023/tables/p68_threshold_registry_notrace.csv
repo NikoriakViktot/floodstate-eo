@@ -1,0 +1,6 @@
+baseline,regime,outer_fold,threshold,AP,recall,precision,role,estimator
+preall,block,1,0.23,0.95743,0.93817,0.8591,envelope_member,"PRE_ALL / BLOCK, corrected run; the population whose median is T50"
+preall,block,2,0.2167,0.92532,0.92782,0.76568,envelope_member,"PRE_ALL / BLOCK, corrected run; the population whose median is T50"
+preall,block,3,0.3924,0.90992,0.87588,0.80134,envelope_member,"PRE_ALL / BLOCK, corrected run; the population whose median is T50"
+preall,block,4,0.3292,0.94133,0.91314,0.84668,envelope_member,"PRE_ALL / BLOCK, corrected run; the population whose median is T50"
+preall,block,5,0.2661,0.90639,0.94161,0.70689,envelope_member,"PRE_ALL / BLOCK, corrected run; the population whose median is T50"

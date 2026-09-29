@@ -15,7 +15,8 @@ into p73.
    chosen from data by declared rules (ZONES below), each shown as NDVI_pre_max | MNDWI_pre_med | WorldCover |
    BASE_CLASS | p73 class | p73 top probability.
 
-Outputs: <case_study>/tables/p73_rf20_baseclass_crosswalk.csv and <case_study>/tables/p73_rf20_qa/ (tables, maps)
+Outputs: <case_study>/tables/p73_rf20_baseclass_crosswalk.csv and <case_study>/tables/p73_rf20_qa/ (tables, maps);
+         `--rev 2` (review F08 refit): the rev-2 products, into p73_rf20_rev2_baseclass_crosswalk.csv and p73_rf20_rev2_qa/
 """
 from __future__ import annotations
 import importlib.util, json
@@ -80,6 +81,12 @@ def best_window(mask, half=HALF):
 
 
 def main():
+    global QAD, FIGD
+    import argparse
+    ap = argparse.ArgumentParser(); ap.add_argument("--rev", type=int, default=1, choices=[1, 2]); a = ap.parse_args()
+    SUB = "p73_rf20" if a.rev == 1 else "p73_rf20_rev2"; TG = "" if a.rev == 1 else "_rev2"
+    if a.rev == 2:
+        QAD = FIGD = CFG.TABLES / "p73_rf20_rev2_qa"
     import matplotlib; matplotlib.use("Agg")
     import matplotlib.pyplot as plt
     from matplotlib.colors import ListedColormap, BoundaryNorm
@@ -89,9 +96,9 @@ def main():
     frames = {}
     for fid in ("B1", "B2"):
         g = P.grid20(fid)
-        with rasterio.open(OUT / fid / "p73_rf20" / "surface_class_20m.tif") as s:
+        with rasterio.open(OUT / fid / SUB / "surface_class_20m.tif") as s:
             cls = s.read(1)
-        with rasterio.open(OUT / fid / "p73_rf20" / "surface_max_score_20m.tif") as s:
+        with rasterio.open(OUT / fid / SUB / "surface_max_score_20m.tif") as s:
             top = s.read(1)
         valid = cls != 255
         for c, n in CL.items():
@@ -147,7 +154,7 @@ def main():
     T = CFG.TABLES
     pd.DataFrame(area).to_csv(QAD / "class_areas.csv", index=False)
     pd.DataFrame(wcagr).to_csv(QAD / "worldcover_walltowall.csv", index=False)
-    B = pd.DataFrame(bct); B.to_csv(T / "p73_rf20_baseclass_crosswalk.csv", index=False)
+    B = pd.DataFrame(bct); B.to_csv(T / f"p73_rf20{TG}_baseclass_crosswalk.csv", index=False)
     pd.DataFrame(unc).to_csv(QAD / "uncertain_where.csv", index=False)
     (QAD / "cross_frame_agreement.json").write_text(json.dumps(xagree, indent=2))
     print("\nVEGETATION_AGRICULTURE decomposed by p73:")
@@ -232,7 +239,7 @@ def main():
     pd.DataFrame(zones_t).to_csv(QAD / "zones.csv", index=False)
     legend = ", ".join(f"{k}={v}" for k, v in CL.items())
     (FIGD / "LEGEND.txt").write_text(f"p73 colours: {json.dumps(COL)}\nclasses: {legend}\n")
-    print("-> tables/p73_rf20_baseclass_crosswalk.csv, tables/p73_rf20_qa/")
+    print(f"-> tables/p73_rf20{TG}_baseclass_crosswalk.csv, {QAD.relative_to(CFG.TABLES.parent)}/")
 
 
 if __name__ == "__main__":

@@ -16,7 +16,11 @@ Spatial-block bootstrap CI (2000 resamples of the 10 km blocks) per arm; paired 
 blocks for every requested pair. Arms trained on v002 (runs/<ARM>_B1B2_v1) can be listed next to arms trained on
 v003_A (runs/<ARM>_B1B2_v003A): the label effect and the input effect are then separable.
 
-Output: <case_study>/tables/p90_v003A_{endpoints,by_frame,ci,paired,blocks}.csv
+--labels v004 (2026-09-29): the same endpoints against the v004 ontology (the v003_A rule on the corrected M2 without TRACE,
+docs/LABEL_CONTRACTS.md); outputs tagged p90_v004_*. Review F11: a ratio endpoint whose denominator is empty in a (re)sample
+is UNDEFINED (NaN), never 0; every bootstrap reports how many resamples defined it (<endpoint>_n_defined, paired n_defined).
+
+Output: <case_study>/tables/p90_{v003A|v004}_{endpoints,by_frame,paired,blocks}.csv
 """
 from __future__ import annotations
 import argparse, importlib.util, json
@@ -40,27 +44,34 @@ def _load(name):
     return m
 
 
+RATIOS = ("R_frac_reference_water_above_thr", "E_recall_event_flood", "L_FP_rate_land")
+
+
+def _ratio(num, den, nd):
+    return round(num / den, nd) if den > 0 else float("nan")                  # F11: empty support -> undefined, not 0
+
+
 def endpoints(c):
     g = lambda k: float(c[k])
     return dict(R_pred_on_reference_water_km2=round(g("R_pred_px") * PX, 4),
                 R_pred_on_reference_water_wpre_water_km2=round(g("R_pred_wpre_water_px") * PX, 4),
                 R_pred_on_reference_water_wpre_dry_km2=round(g("R_pred_wpre_dry_px") * PX, 4),
-                R_frac_reference_water_above_thr=round(g("R_pred_px") / max(g("R_ref_px"), 1), 5),
+                R_frac_reference_water_above_thr=_ratio(g("R_pred_px"), g("R_ref_px"), 5),
                 R_reference_water_evaluated_km2=round(g("R_ref_px") * PX, 2),
-                E_recall_event_flood=round(g("E_pred_px") / max(g("E_px"), 1), 4),
+                E_recall_event_flood=_ratio(g("E_pred_px"), g("E_px"), 4),
                 E_FN_km2=round((g("E_px") - g("E_pred_px")) * PX, 4), E_reference_km2=round(g("E_px") * PX, 2),
-                L_FP_on_land_km2=round(g("L_pred_px") * PX, 4), L_FP_rate_land=round(g("L_pred_px") / max(g("L_px"), 1), 6),
+                L_FP_on_land_km2=round(g("L_pred_px") * PX, 4), L_FP_rate_land=_ratio(g("L_pred_px"), g("L_px"), 6),
                 L_evaluated_km2=round(g("L_px") * PX, 2),
                 U_pred_on_unknown_km2=round(g("U_pred_px") * PX, 4), U_evaluated_km2=round(g("U_px") * PX, 2))
 
 
-def frame_layers(fid, P84, P86):
+def frame_layers(fid, P84, P86, labels="v003_A"):
     F = CG.frame_grid(fid)
     with rasterio.open(OUT / fid / "s1_change.tif") as s:
         d = list(s.descriptions); ne = s.read(d.index("n_valid_event") + 1); d0 = s.read(1)
     has = (ne > 0) & (d0 != P86.ND)
     role = P86.read(fid, f"{P86.SPLIT}_role.tif", 1)[0]
-    with rasterio.open(OUT / fid / "m6_labels_v003_A.tif") as s:
+    with rasterio.open(OUT / fid / f"m6_labels_{labels}.tif") as s:
         d = list(s.descriptions); ont = s.read(1); wp = s.read(d.index("w_pre_state") + 1)
     geo = (role == 3) & has
     gx = F["transform"].c + 10.0 * np.arange(F["nx"]); gy = F["transform"].f - 10.0 * np.arange(F["ny"])
@@ -84,9 +95,10 @@ def main():
     ap.add_argument("--runs", nargs="+", required=True, help="run dirs under runs/, e.g. U2_B1B2_v1 U2b_B1B2_v003A")
     ap.add_argument("--pairs", nargs="*", default=[], help="A:B pairs of run dirs for paired block bootstrap")
     ap.add_argument("--n-boot", type=int, default=2000)
-    a = ap.parse_args()
+    ap.add_argument("--labels", default="v003_A", choices=["v003_A", "v004"], help="reference ontology raster m6_labels_<labels>.tif")
+    a = ap.parse_args(); tag = a.labels.replace("_", "")
     P84, P86 = _load("p84_m6_split_b1b2"), _load("p86_m6_train_arm")
-    L = {f: frame_layers(f, P84, P86) for f in FRAMES}
+    L = {f: frame_layers(f, P84, P86, a.labels) for f in FRAMES}
     rows, byf, blocks = [], [], {}
     for run in a.runs:
         rd = ROOT / "runs" / run
@@ -111,11 +123,12 @@ def main():
         D = pd.DataFrame(bs)
         rows[-1].update({f"{k}_lo": round(float(D[k].quantile(0.025)), 5) for k in D.columns})
         rows[-1].update({f"{k}_hi": round(float(D[k].quantile(0.975)), 5) for k in D.columns})
+        rows[-1].update({f"{k}_n_defined": int(D[k].notna().sum()) for k in RATIOS})
         print(run, {k: v for k, v in rows[-1].items() if not k.endswith(("_lo", "_hi"))})
     T = CFG.TABLES
-    pd.DataFrame(rows).to_csv(T / "p90_v003A_endpoints.csv", index=False)
-    pd.DataFrame(byf).to_csv(T / "p90_v003A_by_frame.csv", index=False)
-    pd.concat([b.assign(run=r) for r, b in blocks.items()]).to_csv(T / "p90_v003A_blocks.csv")
+    pd.DataFrame(rows).assign(labels=a.labels).to_csv(T / f"p90_{tag}_endpoints.csv", index=False)
+    pd.DataFrame(byf).assign(labels=a.labels).to_csv(T / f"p90_{tag}_by_frame.csv", index=False)
+    pd.concat([b.assign(run=r) for r, b in blocks.items()]).to_csv(T / f"p90_{tag}_blocks.csv")
     pr = []
     for pair in a.pairs:
         ra, rb = pair.split(":")
@@ -128,12 +141,12 @@ def main():
         D = pd.DataFrame(out)
         for k in D.columns:
             pr.append(dict(A=ra, B=rb, endpoint=k, median=round(float(D[k].median()), 5),
-                           lo=round(float(D[k].quantile(0.025)), 5), hi=round(float(D[k].quantile(0.975)), 5)))
+                           lo=round(float(D[k].quantile(0.025)), 5), hi=round(float(D[k].quantile(0.975)), 5), n_defined=int(D[k].notna().sum())))
     if pr:
-        P = pd.DataFrame(pr); P.to_csv(T / "p90_v003A_paired.csv", index=False)
+        P = pd.DataFrame(pr).assign(labels=a.labels); P.to_csv(T / f"p90_{tag}_paired.csv", index=False)
         print(P[P.endpoint.isin(["R_pred_on_reference_water_km2", "E_recall_event_flood", "L_FP_on_land_km2",
                                  "U_pred_on_unknown_km2"])].to_string(index=False))
-    print("-> tables/p90_v003A_*.csv")
+    print(f"-> tables/p90_{tag}_*.csv")
 
 
 if __name__ == "__main__":

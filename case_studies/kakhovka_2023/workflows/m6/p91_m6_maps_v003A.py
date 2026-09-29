@@ -47,12 +47,13 @@ def ds(a):
     return a[::DS, ::DS]
 
 
-def load(fid):
+def load(fid, labels="v003_A"):
+    """S1 observation mask, the reference ontology (v003_A, or v004 for the arms on the corrected labels), split roles."""
     with rasterio.open(OUT / fid / "s1_change.tif") as s:
         d = list(s.descriptions); ne = s.read(d.index("n_valid_event") + 1); d0 = s.read(1)
         T = s.transform
     has = (ne > 0) & (d0 != -32768)
-    with rasterio.open(OUT / fid / "m6_labels_v003_A.tif") as s:
+    with rasterio.open(OUT / fid / f"m6_labels_{labels}.tif") as s:
         ont = s.read(1)
     with rasterio.open(OUT / fid / "m6_split_v1_role.tif") as s:
         role = s.read(1)

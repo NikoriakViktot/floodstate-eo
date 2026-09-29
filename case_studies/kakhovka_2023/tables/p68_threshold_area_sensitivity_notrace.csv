@@ -1,0 +1,6 @@
+threshold,mapped_flood_km2,delta_from_central_km2,delta_percent,is_central,stable_flood_km2,threshold_sensitive_km2,stable_nonflood_km2,invalid_km2
+0.2167,4516.62,169.62,3.9,False,4065.76,450.87,15401.83,1.36
+0.23,4464.09,117.09,2.69,False,4065.76,450.87,15401.83,1.36
+0.2661,4347.0,0.0,0.0,True,4065.76,450.87,15401.83,1.36
+0.3292,4190.79,-156.21,-3.59,False,4065.76,450.87,15401.83,1.36
+0.3924,4065.76,-281.24,-6.47,False,4065.76,450.87,15401.83,1.36

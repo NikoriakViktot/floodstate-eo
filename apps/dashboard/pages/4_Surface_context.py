@@ -14,8 +14,9 @@ st.set_page_config(page_title="Surface context", layout="wide")
 header("Surface context: RF20 PRE-event surface classification of the lower Dnipro (frames B1 + B2)",
        "random forest on PRE-event Sentinel-2 composites, trained on ESA WorldCover 2021; agreement with the training reference, not validation; not flood detection")
 
-QA = T / "p73_rf20_qa"
-man = json.loads((T / "p73_rf20_manifest.json").read_text()) if (T / "p73_rf20_manifest.json").exists() else {}
+REV = "_rev2" if (T / "p73_rf20_rev2_manifest.json").exists() else ""       # the RF20 in use: rev 2 after the review (F08)
+QA = T / f"p73_rf20{REV}_qa"
+man = json.loads((T / f"p73_rf20{REV}_manifest.json").read_text()) if (T / f"p73_rf20{REV}_manifest.json").exists() else {}
 
 # ---- the map --------------------------------------------------------------------------------------------------------
 st.subheader("RF20 surface classes — map")
@@ -44,7 +45,7 @@ else:
     st.info("RF20 layer not rendered (p98)")
 
 # ---- class areas ----------------------------------------------------------------------------------------------------
-ca = T / "p73_rf20_class_area.csv"
+ca = T / f"p73_rf20{REV}_class_area.csv"
 if ca.exists():
     A = pd.read_csv(ca); A = A[A.km2 > 0]
     pal = rf["palette"] if rf else {}; code = {v: k for k, v in rf["legend"].items()} if rf else {}
@@ -92,7 +93,7 @@ refs(["Olofsson_2014", "Zanaga_2022", "Roberts_2017", "Pohjankukka_2017"], "📚
 
 # ---- QA panels ------------------------------------------------------------------------------------------------------
 if QA.exists():
-    st.subheader("Visual QA (frozen, p73q)")
+    st.subheader(f"Visual QA (p73q, RF20 {'rev 2' if REV else 'rev 1'})")
     v = QA / "QA_VERDICT.md"
     if v.exists():
         with st.expander("QA verdict"):

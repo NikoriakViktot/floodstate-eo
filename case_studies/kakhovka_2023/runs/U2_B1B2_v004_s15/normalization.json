@@ -1,0 +1,48 @@
+{
+  "channels": [
+    "d_vv_min",
+    "d_vh_min",
+    "d_vv_max",
+    "d_vh_max",
+    "d_vv_mean",
+    "d_vh_mean",
+    "d_vvvh_min",
+    "d_vvvh_max",
+    "n_valid_pre_matched",
+    "n_valid_event",
+    "n_orbits_event",
+    "hand_m",
+    "has_event",
+    "has_hand"
+  ],
+  "median": [
+    -1.190000057220459,
+    -0.1899999976158142,
+    3.450000047683716,
+    4.099999904632568,
+    1.1299999952316284,
+    1.8700000047683716,
+    -3.130000114440918,
+    1.5099999904632568,
+    13.0,
+    4.0,
+    4.0,
+    25.315540313720703
+  ],
+  "iqr": [
+    2.4600000381469727,
+    2.6399998664855957,
+    2.2899997234344482,
+    3.31000018119812,
+    1.869999885559082,
+    2.7800002098083496,
+    2.8299999237060547,
+    2.9100000858306885,
+    13.0,
+    1.0,
+    1.0,
+    37.88710021972656
+  ],
+  "source": "TRAIN patch pixels with an S1 event, both frames, 1M-pixel sample per frame",
+  "has_event": "appended unnormalised (1 = >= 1 S1 event observed)"
+}

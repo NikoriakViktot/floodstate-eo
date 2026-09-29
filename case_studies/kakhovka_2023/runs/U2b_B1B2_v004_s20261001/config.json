@@ -1,0 +1,42 @@
+{
+  "arm": "U2b",
+  "channels": [
+    "d_vv_min",
+    "d_vh_min",
+    "d_vv_max",
+    "d_vh_max",
+    "d_vv_mean",
+    "d_vh_mean",
+    "d_vvvh_min",
+    "d_vvvh_max",
+    "n_valid_pre_matched",
+    "n_valid_event",
+    "n_orbits_event",
+    "hand_m",
+    "has_event",
+    "has_hand",
+    "w_pre_state",
+    "has_wpre"
+  ],
+  "note": "U2 + W_pre (S1 06-01/06-02 water state) + has_wpre. Requires --labels v003_A.",
+  "split": "m6_split_v1",
+  "split_manifest": "m6_split_v1",
+  "labels": "m6_labels_v004",
+  "label_map": {
+    "0": 0,
+    "1": 1,
+    "2": 0,
+    "255": 255
+  },
+  "wpre_source": "m6_labels_v004.tif bands w_pre_state/w_pre_valid (S1 2023-06-01/02 observation layers)",
+  "epochs": 60,
+  "batch": 6,
+  "lr": 0.0003,
+  "seed": 20261001,
+  "stride": 256,
+  "p73_rev": 2,
+  "architecture": "smp.Unet resnet34, encoder_weights=None",
+  "loss": "masked BCE + Dice",
+  "meaning": "agreement with held-out weak reference labels; NOT flood-mapping accuracy",
+  "seconds": 189
+}

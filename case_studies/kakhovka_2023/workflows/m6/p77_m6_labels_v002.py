@@ -144,7 +144,7 @@ def main():
     M2_TAG = a.m2_tag
     S = [build(fid) for fid in a.frames]
     pd.DataFrame(S).to_csv(CFG.TABLES / f"p77_labels_v002_summary{M2_TAG}.csv", index=False)
-    print("-> <case_study>/tables/p77_labels_v002_summary.csv  (compare with v001: p77b_labels_v002_vs_v001.py)")
+    print(f"-> <case_study>/tables/p77_labels_v002_summary{M2_TAG}.csv  (compare with v001: p77b_labels_v002_vs_v001.py)")
 
 
 if __name__ == "__main__":

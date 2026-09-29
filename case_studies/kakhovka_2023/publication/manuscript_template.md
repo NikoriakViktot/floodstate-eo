@@ -213,7 +213,9 @@ class and by ground elevation relative to the reconstructed surface (< 0, 0–2,
 segments (Paper 2 chain) sampled on the 9 June categories (inside the S1 valid footprint only) give, per category, the
 residual terrain − ICESat-2 on the FABDEM cells, as delivered and after the class-bias correction, and the share of segments
 whose ground lies below the reconstructed surface (T15): an altimetric consistency check of the terrain and the surface along
-tracks, not a validation of the inundation map — the same night corpus also calibrates the class bias. Three river gauges of
+tracks, not a validation of the inundation map. Because the same night corpus calibrates the class bias, the corrected residual
+is also computed with the bias re-estimated without the passes being checked (a pass is one acquisition day; one pass left
+out, five folds of whole passes, and the two epochs either side of the breach; T15b, T15c). Three river gauges of
 the 2023 hydrological yearbook have distinct roles: Kherson (80805) is an input and the anchor of the water surface; the
 Inhulets gauge Kalynivske (80575) and the liman gauge Mykolaiv (98027) are withheld from the reconstruction and serve as
 independent validation sites for two different failure modes — the tributary backwater and the western delta. Their daily
@@ -226,9 +228,13 @@ highest level of the year (T17c–T17f).
 
 A random forest (Breiman 2001; for its use in land-cover mapping see Belgiu and Drăguţ 2016) on PRE-event Sentinel-2 composite predictors, trained on ESA WorldCover 2021 with a purity filter, classifies
 the surface at 20 m into water, cropland, grass/low vegetation, forest, wetland/reed, built-up, bare sand and uncertain
-(p73, frozen before any arm was trained). Its per-class precision, recall and F1 in spatial-block 5-fold cross-validation and in
-the frame transfers B1↔B2 are agreement with the training reference (T09, T10), not validation. It supplies the evaluation
-strata of the arms and the classes of the ontology.
+(p73). The 5 km cross-validation blocks are defined from the map coordinates of the 20 m cells, so a physical cell lies in one
+block in both frames; where the frames overlap only B2 contributes training cells, so a physical cell enters the sample once;
+the cross-validation is repeated with a 3.5 km buffer around the test blocks, and the frame transfers B1↔B2 are trained and
+tested outside the overlap (the first version of the classifier, frozen before the first arms were trained, used frame-local
+block identifiers and sampled the overlap from both frames; it is kept as the superseded row set of T09). Per-class
+precision, recall and F1 are agreement with the training reference (T09, T10), not validation. The classifier supplies the
+evaluation strata of the arms, the input of arm U1 and the classes of the ontology.
 
 ### 3.6 Weak labels and U-Net arms
 
@@ -421,13 +427,26 @@ Where Sentinel-1 reports water at least 2 m above the reconstructed surface, the
 heights to {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_median||+.2f}} m (p10–p90
 {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_p10||+.2f}} to
 {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_p90||+.2f}} m, n =
-{{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|N||.0f}} segments) in the delta and
+{{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|N||.0f}} segments on
+{{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|n_dates||.0f}} passes) in the delta and
 {{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|res_median||+.2f}} m (n =
-{{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|N||.0f}}) in the floodway; the ICESat-2 ground lies
+{{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|N||.0f}} segments on
+{{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|n_dates||.0f}} passes) in the floodway; the ICESat-2 ground lies
 {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|ice_minus_wse_median||+.1f}} m above the surface in the delta and
 essentially no segment ({{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|share_ice_below_wse||.1%}}) lies below it.
+The passes, not the segments, are the independent units. These are the raw residuals; after the class-bias correction, which is
+calibrated on the same corpus, re-estimating the bias without the checked passes moves the median of this category by at most
+{{T15b|category=S1_only_ground_ge2m_above|median_change_abs|max|.2f}} m in any hold-out scheme, and at most
+{{T15b|category=S1_only_ground_ge2m_above|n_s1only_across_2m_split|max|.0f}} segments per zone change side of the 2 m split
+(T15b). Over all categories, leaving out one pass or a fifth of the passes changes the corrected medians by at most
+{{T15b|scheme=five_fold_passes|median_change_abs|max|.2f}} m; calibrating on the passes of one epoch and checking the other
+changes them by up to {{T15b|scheme=epoch|median_change_abs|max|.2f}} m in the delta, whose class biases rest on few passes — the
+delta wetland bias is {{T15c|scheme=epoch,zone=ZONE_2_KHERSON_DELTA,wc_class=wetland|b_pre_breach_passes||+.2f}} m from the
+{{T15c|scheme=epoch,zone=ZONE_2_KHERSON_DELTA,wc_class=wetland|min_cal_passes||.0f}} pre-breach passes and
+{{T15c|scheme=epoch,zone=ZONE_2_KHERSON_DELTA,wc_class=wetland|b_post_breach_passes||+.2f}} m from the post-breach passes (T15c).
+The class bias is a fixed correction in the reconstruction; this epoch dependence is not propagated into the ensemble.
 The available ICESat-2 observations therefore provide no evidence for a DEM bias large enough to explain those S1-only
-detections; they support the reading of §4.3 without proving it, because the tracks (listed with their dates in T15) sample
+detections; they support the reading of §4.3 without proving it, because the passes (counted per category in T15) sample
 the category along lines, not every cell of the {{T14|date=2023-06-09,category=C|km2_ground_ge5m_above|sum|.0f}} km². Where the
 reconstruction and Sentinel-1 agree, {{T15|zone=ZONE_2_KHERSON_DELTA,category=both|share_ice_below_wse||.1%}} of the segments lie
 below the surface (T15, Fig08). This is a track-based consistency check of the DEM and the surface, not a validation of the map.
@@ -500,12 +519,16 @@ western delta at Mykolaiv — which a single error statistic would average away.
 
 ### 4.8 Surface context [C12]
 
-RF20 reaches an overall agreement of {{T09|evaluation=spatial_block_cv_5fold,cls=MACRO_MEAN|OA_spatial_cv||.3f}} with WorldCover
-in spatial-block cross-validation (macro F1 {{T09|evaluation=spatial_block_cv_5fold,cls=MACRO_MEAN|F1||.3f}}), wetland/reed F1
-{{T09|evaluation=spatial_block_cv_5fold,cls=WETLAND_REED|F1||.3f}} and built-up F1 {{T09|evaluation=spatial_block_cv_5fold,cls=BUILT_UP|F1||.3f}};
-the frame transfers B1→B2 and B2→B1 reach macro F1 {{T09|evaluation=transfer_B1_to_B2,cls=MACRO_MEAN|F1||.3f}} and
-{{T09|evaluation=transfer_B2_to_B1,cls=MACRO_MEAN|F1||.3f}} (T09), which speaks to stability across spatial frames more than the
-overall agreement does. These are agreement numbers against the training reference, not an independent land-cover accuracy.
+RF20 (spatial blocks from map coordinates, the overlap of the two frames counted once) reaches an overall agreement of
+{{T09|rev=2,evaluation=spatial_block_cv_5fold,cls=MACRO_MEAN|OA_spatial_cv||.3f}} with WorldCover in spatial-block
+cross-validation (macro F1 {{T09|rev=2,evaluation=spatial_block_cv_5fold,cls=MACRO_MEAN|F1||.3f}};
+{{T09|rev=2,evaluation=spatial_block_cv_5fold_buffered,cls=MACRO_MEAN|F1||.3f}} with a 3.5 km buffer around the test blocks),
+wetland/reed F1 {{T09|rev=2,evaluation=spatial_block_cv_5fold,cls=WETLAND_REED|F1||.3f}} and built-up F1
+{{T09|rev=2,evaluation=spatial_block_cv_5fold,cls=BUILT_UP|F1||.3f}}; the frame transfers B1→B2 and B2→B1, trained and tested
+outside the overlap of the frames, reach macro F1 {{T09|rev=2,evaluation=transfer_B1_to_B2,cls=MACRO_MEAN|F1||.3f}} and
+{{T09|rev=2,evaluation=transfer_B2_to_B1,cls=MACRO_MEAN|F1||.3f}} (T09). The transfer is the harder test: with the overlap left
+in the test set, as in the first version of the classifier, B1→B2 read {{T09|rev=1,evaluation=transfer_B1_to_B2,cls=MACRO_MEAN|F1||.3f}}.
+These are agreement numbers against the training reference, not an independent land-cover accuracy.
 
 ### 4.9 What EO inputs recover under weak labels [C09–C11]
 
@@ -535,9 +558,9 @@ a diagnostic upper bound, not as a best model.
 
 ### 4.10 Block-size sensitivity [C13]
 
-U2 on v003_A gives global F1 {{T20|split=m6_split_v1|G_F1||.3f}} on the frozen 10 km split,
-{{T20|split=m6_split_s7p5|G_F1||.3f}} at 7.5 km, {{T20|split=m6_split_s15|G_F1||.3f}} at 15 km and
-{{T20|split=m6_split_s20|G_F1||.3f}} at 20 km (each with its own test geography and interval, T20, FigS05); a 5 km split
+U2 on v003_A gives global F1 {{T20|labels=v003_A,split=m6_split_v1|G_F1||.3f}} on the frozen 10 km split,
+{{T20|labels=v003_A,split=m6_split_s7p5|G_F1||.3f}} at 7.5 km, {{T20|labels=v003_A,split=m6_split_s15|G_F1||.3f}} at 15 km and
+{{T20|labels=v003_A,split=m6_split_s20|G_F1||.3f}} at 20 km (each with its own test geography and interval, T20, FigS05); a 5 km split
 leaves no validation patch inside the buffers. The tested range is meaningful because every block is larger than the local
 object scale (fields, reed beds), comparable to or larger than the spatial correlation length of the change channels, and larger
 than the 5.12 km patch plus buffers (the receptive footprint); across it the signs of the paired comparisons are unchanged

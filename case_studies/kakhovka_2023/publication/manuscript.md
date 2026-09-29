@@ -213,7 +213,9 @@ class and by ground elevation relative to the reconstructed surface (< 0, 0–2,
 segments (Paper 2 chain) sampled on the 9 June categories (inside the S1 valid footprint only) give, per category, the
 residual terrain − ICESat-2 on the FABDEM cells, as delivered and after the class-bias correction, and the share of segments
 whose ground lies below the reconstructed surface (T15): an altimetric consistency check of the terrain and the surface along
-tracks, not a validation of the inundation map — the same night corpus also calibrates the class bias. Three river gauges of
+tracks, not a validation of the inundation map. Because the same night corpus calibrates the class bias, the corrected residual
+is also computed with the bias re-estimated without the passes being checked (a pass is one acquisition day; one pass left
+out, five folds of whole passes, and the two epochs either side of the breach; T15b, T15c). Three river gauges of
 the 2023 hydrological yearbook have distinct roles: Kherson (80805) is an input and the anchor of the water surface; the
 Inhulets gauge Kalynivske (80575) and the liman gauge Mykolaiv (98027) are withheld from the reconstruction and serve as
 independent validation sites for two different failure modes — the tributary backwater and the western delta. Their daily
@@ -226,9 +228,13 @@ highest level of the year (T17c–T17f).
 
 A random forest (Breiman 2001; for its use in land-cover mapping see Belgiu and Drăguţ 2016) on PRE-event Sentinel-2 composite predictors, trained on ESA WorldCover 2021 with a purity filter, classifies
 the surface at 20 m into water, cropland, grass/low vegetation, forest, wetland/reed, built-up, bare sand and uncertain
-(p73, frozen before any arm was trained). Its per-class precision, recall and F1 in spatial-block 5-fold cross-validation and in
-the frame transfers B1↔B2 are agreement with the training reference (T09, T10), not validation. It supplies the evaluation
-strata of the arms and the classes of the ontology.
+(p73). The 5 km cross-validation blocks are defined from the map coordinates of the 20 m cells, so a physical cell lies in one
+block in both frames; where the frames overlap only B2 contributes training cells, so a physical cell enters the sample once;
+the cross-validation is repeated with a 3.5 km buffer around the test blocks, and the frame transfers B1↔B2 are trained and
+tested outside the overlap (the first version of the classifier, frozen before the first arms were trained, used frame-local
+block identifiers and sampled the overlap from both frames; it is kept as the superseded row set of T09). Per-class
+precision, recall and F1 are agreement with the training reference (T09, T10), not validation. The classifier supplies the
+evaluation strata of the arms, the input of arm U1 and the classes of the ontology.
 
 ### 3.6 Weak labels and U-Net arms
 
@@ -421,13 +427,26 @@ Where Sentinel-1 reports water at least 2 m above the reconstructed surface, the
 heights to +0.03 m (p10–p90
 -0.31 to
 +0.64 m, n =
-3205 segments) in the delta and
+3205 segments on
+17 passes) in the delta and
 +0.02 m (n =
-1665) in the floodway; the ICESat-2 ground lies
+1665 segments on
+59 passes) in the floodway; the ICESat-2 ground lies
 +13.5 m above the surface in the delta and
 essentially no segment (0.0%) lies below it.
+The passes, not the segments, are the independent units. These are the raw residuals; after the class-bias correction, which is
+calibrated on the same corpus, re-estimating the bias without the checked passes moves the median of this category by at most
+0.04 m in any hold-out scheme, and at most
+2 segments per zone change side of the 2 m split
+(T15b). Over all categories, leaving out one pass or a fifth of the passes changes the corrected medians by at most
+0.04 m; calibrating on the passes of one epoch and checking the other
+changes them by up to 0.24 m in the delta, whose class biases rest on few passes — the
+delta wetland bias is +0.22 m from the
+6 pre-breach passes and
++0.59 m from the post-breach passes (T15c).
+The class bias is a fixed correction in the reconstruction; this epoch dependence is not propagated into the ensemble.
 The available ICESat-2 observations therefore provide no evidence for a DEM bias large enough to explain those S1-only
-detections; they support the reading of §4.3 without proving it, because the tracks (listed with their dates in T15) sample
+detections; they support the reading of §4.3 without proving it, because the passes (counted per category in T15) sample
 the category along lines, not every cell of the 54 km². Where the
 reconstruction and Sentinel-1 agree, 99.5% of the segments lie
 below the surface (T15, Fig08). This is a track-based consistency check of the DEM and the surface, not a validation of the map.
@@ -500,12 +519,16 @@ western delta at Mykolaiv — which a single error statistic would average away.
 
 ### 4.8 Surface context [C12]
 
-RF20 reaches an overall agreement of 0.940 with WorldCover
-in spatial-block cross-validation (macro F1 0.943), wetland/reed F1
-0.953 and built-up F1 0.938;
-the frame transfers B1→B2 and B2→B1 reach macro F1 0.906 and
-0.932 (T09), which speaks to stability across spatial frames more than the
-overall agreement does. These are agreement numbers against the training reference, not an independent land-cover accuracy.
+RF20 (spatial blocks from map coordinates, the overlap of the two frames counted once) reaches an overall agreement of
+0.938 with WorldCover in spatial-block
+cross-validation (macro F1 0.941;
+0.929 with a 3.5 km buffer around the test blocks),
+wetland/reed F1 0.947 and built-up F1
+0.938; the frame transfers B1→B2 and B2→B1, trained and tested
+outside the overlap of the frames, reach macro F1 0.848 and
+0.907 (T09). The transfer is the harder test: with the overlap left
+in the test set, as in the first version of the classifier, B1→B2 read 0.904.
+These are agreement numbers against the training reference, not an independent land-cover accuracy.
 
 ### 4.9 What EO inputs recover under weak labels [C09–C11]
 
