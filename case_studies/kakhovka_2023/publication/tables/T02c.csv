@@ -1,4 +1,10 @@
 model,regime,outer_fold,n_test,test_prevalence,inner_AP,AP,threshold_insample_superseded,recall_at_insample_superseded,threshold_oof,n_calibration,recall_at_oof,precision_at_oof,F1_at_oof
+"M2 original (84 features, 17 from the post-event TRACE window)",block,1,4435424,0.0689,0.88882,0.96431,0.5131,0.9251,0.412,900000.0,0.94605,0.87885,0.91121
+"M2 original (84 features, 17 from the post-event TRACE window)",block,2,4434572,0.0689,0.91329,0.9319,0.4667,0.85194,0.28,900000.0,0.91874,0.80188,0.85635
+"M2 original (84 features, 17 from the post-event TRACE window)",block,3,4435500,0.0689,0.90767,0.92926,0.5358,0.75266,0.3059,900000.0,0.88284,0.84518,0.8636
+"M2 original (84 features, 17 from the post-event TRACE window)",block,4,4434452,0.0689,0.90151,0.94974,0.6429,0.82136,0.2924,900000.0,0.93147,0.83958,0.88314
+"M2 original (84 features, 17 from the post-event TRACE window)",block,5,4434460,0.0689,0.92364,0.9214,0.6636,0.87693,0.4777,900000.0,0.93093,0.7519,0.83189
+"M2 original (84 features, 17 from the post-event TRACE window)",block,median,22174408,,0.90767,0.9319,0.5358,0.85194,0.3059,,0.93093,0.83958,0.8636
 M2 corrected (67 PRE + EVENT features; labels v004),block,1,4435424,0.0689,0.87698,0.95743,0.328,0.90643,0.23,900000.0,0.93817,0.8591,0.8969
 M2 corrected (67 PRE + EVENT features; labels v004),block,2,4434572,0.0689,0.8984,0.92532,0.41,0.8601,0.2167,900000.0,0.92782,0.76568,0.83899
 M2 corrected (67 PRE + EVENT features; labels v004),block,3,4435500,0.0689,0.88875,0.90992,0.6411,0.78357,0.3924,900000.0,0.87588,0.80134,0.83695

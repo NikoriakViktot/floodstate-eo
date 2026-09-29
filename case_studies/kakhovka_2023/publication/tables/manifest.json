@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-29T16:09:33Z",
- "git_commit": "214bf9301c03147b20c62127ebbcebbe714145e0",
+ "generated_utc": "2026-09-29T17:47:00Z",
+ "git_commit": "fac62c3606d45d8b3808a5ace83f935cd846259f",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -42,11 +42,12 @@
   "T02c": {
    "caption": "The optical model M2 behind the weak labels (review F09/F10): nested spatial cross-validation on 5 km blocks (PRE_ALL baseline; outer folds block and buffered). Per outer fold, the operating threshold for a target recall of 0.90 set on the forest's own fit cells (in-sample, superseded) and on inner out-of-fold scores (fit and calibration cells disjoint, whole blocks), and the recall each reaches on the outer TEST blocks; the fold median gives T50 of the label masks. Original model (84 features incl. 17 from the post-event TRACE window, labels v002 / v003_A) next to the corrected model (67 PRE + EVENT features, labels v004). M2 is trained on S1-derived weak labels (p60): agreement with them, not accuracy.",
    "evidence_level": "weak_label_agreement",
-   "rows": 12,
+   "rows": 18,
    "sources": [
+    "case_studies/kakhovka_2023/tables/p65b_m2_folds.csv",
     "case_studies/kakhovka_2023/tables/p65b_m2_folds_notrace.csv"
    ],
-   "sha256": "866013dccd5868923857dd24a406fb364f9bd35de6044cb4661219a6b76072f5"
+   "sha256": "a165668eedc640074e386971bda4416a48ff445d669c3869173a3afca53db1ea"
   },
   "T02d": {
    "caption": "What the corrected M2 changed in the weak labels: pixel transitions v003_A -> v004 and v002 -> v002_notrace per frame (km2 and share of the source class). The S1 inputs, the May reference state and W_pre are identical in both versions of a pair, so every change comes from the M2 masks (review F09/F10).",
@@ -767,6 +768,7 @@
   "case_studies/kakhovka_2023/tables/p77_labels_v002_summary_notrace.csv": "0380ea5c8bc10f8b4c2356de42d575b2f86ece4c62c71a491a45e51daa4bb77b",
   "case_studies/kakhovka_2023/tables/p77d_v004_areas.csv": "97c227ae7375f2f025b5e2906e260bc95ec9dc264a4e9b74c768511e00655c15",
   "case_studies/kakhovka_2023/tables/p77d_v004_transition_v002.csv": "eac6e0ba5835ff4da39abdc2af3c31107abb827c2ac35c071d4397b535ec4f72",
+  "case_studies/kakhovka_2023/tables/p65b_m2_folds.csv": "686a82110862128a6fbe26945d80dea19f8a1d918142f8d1a73eeabe3566208b",
   "case_studies/kakhovka_2023/tables/p65b_m2_folds_notrace.csv": "87c02c28251c609b7980d45864477e2902ea8c1aa0000b07010bde2fd22c31ab",
   "case_studies/kakhovka_2023/tables/p77g_label_transitions.csv": "2ce4b82247c2456a0b46d48fece4a82aa3934056113de495d4e2b2351c56f2ca",
   "case_studies/kakhovka_2023/tables/m6_split_v1_composition.csv": "cda60a948714f1c63c3bf78079c885d0f9c14ca34b54374d97875f0ff105da64",

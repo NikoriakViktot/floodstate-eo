@@ -15,6 +15,12 @@ tables named next to it.
   of the five folds (0.784–0.906), the out-of-fold one meets it on four (0.876–0.942).
 - **Buffered regime (3.5 km):** pooled AP 0.830; median threshold 0.209 vs 0.458; test recall 0.808 vs 0.575 — with the buffer
   even the out-of-fold threshold falls short (the inner folds are not buffered), the in-sample one by far.
+- **The original model (84 features incl. TRACE), re-run with the same code (block regime; 1 h 46 min):** all five folds reproduce
+  the frozen registry exactly (AP, in-sample threshold 0.5131 / 0.4667 / 0.5358 / 0.6429 / 0.6636, and its recall), and the
+  outer-fold score vector (22 174 408 cells) is **bitwise identical** to the 2026-09-22 run — the only change in p65b is the
+  threshold rule. Its out-of-fold thresholds: 0.412 / 0.280 / 0.306 / 0.292 / 0.478 (median 0.306 vs 0.536 in-sample); outer
+  recall 0.931 vs 0.852 at the median fold (the in-sample threshold undershot the target on four folds, down to 0.753). Pooled
+  AP 0.930 with TRACE vs 0.924 without (T02c) — dropping the post-event window costs 0.006 AP.
 - Tests `tests/test_p65b_threshold_oof.py` (disjoint fit and calibration cells, whole blocks, an in-sample threshold is higher).
 
 ## F10 — M2 without the post-event TRACE window; labels v002_notrace and v004 (T02, T02b, T02d; lineage)
