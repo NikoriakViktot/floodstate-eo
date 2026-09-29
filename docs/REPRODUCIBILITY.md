@@ -40,7 +40,8 @@ before and once after `p95 --inhulets-gauge-node`, whose gauge node it supplies)
 needs the SWOT-DNIPRO environment) → `p95d` (disagreement ontology) → `p95e` (Monte-Carlo rev 2: `--n 1000` primary, `--mode
 ablation --n 250`, `--mode convergence --seed 20261001 --days key`, `--mode wse-threshold`; forked workers, resumable chunks in
 `tables/_p95e_chunks/`; about 50 s per world and core; the full draw tables `p95e_draws*.csv.gz` are release assets, not in git —
-`tables/p95e_draws_checksums.csv` gives their sha256, rows, seed and code commit) → `p95l` (support classes of the new area) →
+`tables/p95e_draws_checksums.csv` gives their sha256, rows, seed and code commit) → `p95l` (support classes of the new area; writes
+`$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif`, used by FigS14 and by `p98 --only support`) →
 `p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i` → `p96`, `p97`, `p98`, `p99`.
 Determinism: fixed seeds (20260923 for splits/bootstraps, 20260929 / 20261001 for the Monte-Carlo, one RNG stream per draw
 index, so results do not depend on the number of workers; 20260929 for the p95j variogram pair sampling); GPU training is deterministic up to

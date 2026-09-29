@@ -136,7 +136,7 @@ cell is also classed by the distance of its nearest SWOT node: *direct* (≤ 3 k
 *extrapolated* (3–10 km) or *weak* (> 10 km, weakly constrained), with two independent flags — capped at the Kherson gauge, and,
 in the Inhulets valley, served by a node of another river (*cross-river*). The 3 and 10 km limits are operational thresholds,
 not physical constants: the full reconstruction remains the primary product, its *supported core* (direct + extrapolated) is
-reported next to it (T11k, T11l), and a run with no surface from nodes farther than 10 km is a separate sensitivity.
+reported next to it (T11k, T11l, FigS14), and a run with no surface from nodes farther than 10 km is a separate sensitivity.
 After re-anchoring, the daily median of the nodes within 3 km of the gauge differs from the gauge by
 +0.01 m (NMAD 0.07 m, RMSE 0.06 m,
 n = 36 days; T17, Fig06) — an input-consistency check; the frame validation is Paper 1.
@@ -278,7 +278,7 @@ These values describe the full terrain-connectivity reconstruction. Its support 
 25% rests on water-surface support farther than 10 km (weakly
 constrained); the supported core is 182 km² of the nominal
 243 km², and a run with no surface from nodes beyond 10 km — which also
-changes the connectivity — gives 180 km² (FigS02). The
+changes the connectivity — gives 180 km² (FigS02, FigS14). The
 weak share falls to 7% on 9 June and
 2% on 13 June, and inside the p42 floodplain domain it is
 6% on 7 June: the distant support concerns mainly the first
@@ -470,7 +470,7 @@ valley the absolute error reached +9.50 m on 2023-06-06; the reconstruction peak
 +5.87 m at the gauge (daily means). The event-relative error, free of any constant datum offset
 between the two series, shows that the close absolute agreement after the peak (+0.04 .. +0.92 m) is a
 coincidence of the pre-breach offset and a recession that runs ahead of the valley
-(-0.72 m on 2023-06-14); the two agree within ±0.25 m only from 2023-06-26 (T17c, T17d).
+(-0.72 m on 2023-06-14); the two agree within ±0.25 m only from 2023-06-26 (T17c, T17d, FigS15).
 Because the support never changed, the error follows the hydraulic state: large during the transient, small once main stem and
 valley stand at one level. A separate gauge-assisted sensitivity, not used for any reported number, adds the gauge as a
 local water-surface node: the valley's reconstructed new area on 7 June falls from
@@ -487,7 +487,7 @@ The liman gauge Mykolaiv (98027), also withheld, tests the western end of the do
 1.05 m to 1.22 m EVRF2019 on 2023-06-08, a record for the station, on the day of the Kherson peak stage;
 the reconstructed western delta takes its surface from the westernmost SWOT node, which has no observation from
 2023-06-06 .. 2023-06-22 and is interpolated flat across the flood, so at the gauge the reconstruction misses
-the rise (-0.82 m on 2023-06-08 in absolute terms; T17e, T17f). The two withheld gauges expose two different
+the rise (-0.82 m on 2023-06-08 in absolute terms; T17e, T17f, FigS15). The two withheld gauges expose two different
 structural limits — the propagation time of the tributary backwater at Kalynivske and the sampling of the water surface in the
 western delta at Mykolaiv — which a single error statistic would average away.
 
@@ -555,7 +555,7 @@ Inhulets gauge measures this limit directly: while the backwater travelled up th
 from the main stem, stood above the gauge by +9.50 m on 2023-06-06; the reconstructed maximum came
 3 days before the observed one; and in the recession the reconstruction drained ahead of the valley
 (-0.72 m on 2023-06-14 in event-relative terms), so that the close absolute agreement after the peak is a
-coincidence of two errors (§4.7). Adding the gauge as a water-surface node improves the reconstruction (T12, T13) but cannot
+coincidence of two errors (§4.7, FigS15). Adding the gauge as a water-surface node improves the reconstruction (T12, T13) but cannot
 give it a clock. Nor can the lighter extensions of the geometric method: path-based attenuation damps depths along the flow
 paths to mimic friction and a transient forcing (Kasmalkar et al. 2024), and depression routing such as Fill–Spill–Merge
 conserves the volume that fills and spills between depressions (Barnes et al. 2021), but neither resolves time. Propagation,
@@ -626,7 +626,8 @@ bathymetry, followed by the hydraulic model (Paper 5).
 ## Data and code availability
 
 Code, tables, figures, notebooks and the dashboard: https://github.com/NikoriakViktot/floodstate-eo (release candidate `v0.3.0-rc1`; Zenodo
-DOI to be minted from the release). Processed rasters (≈ 100 GB) are documented in `docs/REPRODUCIBILITY.md` (three levels);
+DOI to be minted from the release); interactive dashboard: https://floodstate-eo.streamlit.app. The full Monte-Carlo draw tables
+are release assets (checksums in `tables/p95e_draws_checksums.csv`). Processed rasters (≈ 100 GB) are documented in `docs/REPRODUCIBILITY.md` (three levels);
 FABDEM-derived rasters are not redistributed (CC BY-NC-SA 4.0). SWOT (PO.DAAC), ICESat-2 (NSIDC), Sentinel (Copernicus) and
 WorldCover (ESA) are open archives; gauge data from the UkrHMC yearbooks as in Paper 1.
 

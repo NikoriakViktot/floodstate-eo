@@ -141,5 +141,6 @@ rev-6 intervals are about twice as wide for A_new and three times for W_total; t
 | claims C01–C03, C07 | statements rewritten with the rev-6 numbers, the day-of-maximum distribution, the support classes, the withheld gauge and the baseline-connectivity mechanism |
 | full draw tables | release assets; `tables/p95e_draws_checksums.csv` in git (sha256, rows, seed, code commit) |
 | hydraulic modelling | manuscript §3.2 (static model) and §5 (why a hydraulic model is needed; Dale et al. 2026, Kasmalkar et al. 2024, Barnes et al. 2021 — Crossref-verified, quotes checked against the article page / Europe PMC / Crossref abstracts) |
+| figures and dashboard | FigS14 (support map on 7 June; daily core vs full; weak share) and FigS15 (withheld gauges) rendered from the committed tables and the p95l raster; dashboard AppTest: 8 / 8 pages without exception, the Maps page also with the support colouring on; notebook 01: 18 / 18 cells executed |
 
 Stage 2 (F09 → F10 → F08 → F11 → F12 hold-out) and Stage 3 (F13–F19, text pass) are separate passes.

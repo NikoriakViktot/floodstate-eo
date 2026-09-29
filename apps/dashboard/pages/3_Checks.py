@@ -1,5 +1,6 @@
 from __future__ import annotations
 
+import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
@@ -38,6 +39,44 @@ refs(["s1_flood", "Cohen_2019", "Le_2026", "Darnell_2008"], "📚 Literature: Se
 
 st.subheader("ICESat-2 altimetric consistency check (T15, Fig08)"); st.caption(caption("T15")); st.dataframe(table("T15"), width="stretch", hide_index=True); figure("Fig08")
 refs(["Neuenschwander_2019", "Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Lehnigk_2026"], "📚 Literature: ICESat-2 ATL08 / ATL13 and its use in the series")
+st.subheader("Withheld river gauges: independent validation of the reconstructed water surface (T17c–T17f, FigS15)")
+st.caption("Kherson 80805 is an input (the anchor of the water surface). Kalynivske 80575 (Inhulets) and Mykolaiv 98027 (liman) are withheld: "
+           "never inputs, they test two failure modes — the propagation of the tributary backwater and the water surface of the western delta. "
+           "Daily means of the 2023 yearbook (cm above the gauge zero read from the sheet), EVRF2019; e_rise is free of any constant datum offset.")
+def _val(tid, rid):
+    t = table(tid); r = t[t.id == rid]
+    return str(r.value.iloc[0]) if len(r) else "n/a"
+gk, gm = st.columns(2)
+for col, tid, sid, name, rows in ((gk, "T17c", "T17d", "Inhulets – Kalynivske 80575 (tributary backwater)",
+                                   [("highest level", "highest_evrf"), ("maximum earlier than the gauge by", "peak_lag"), ("largest error on the rising limb", "e_abs_rising_max"),
+                                    ("most negative event-relative error", "e_rise_recession_min")]),
+                                  (gm, "T17e", "T17f", "Southern Bug – Mykolaiv 98027 (liman, western delta)",
+                                   [("highest level", "highest_evrf"), ("rise to the highest level", "rise_m"), ("error on the liman's maximum day", "e_abs_at_max"),
+                                    ("serving SWOT node without observation", "serving_node_unobserved")])):
+    with col:
+        st.markdown(f"**{name}**")
+        for lab, rid in rows:
+            st.markdown(f"- {lab}: **{_val(sid, rid)}**")
+        g_ = table(tid).copy(); g_["t"] = pd.to_datetime(g_.date)
+        fl = go.Figure()
+        fl.add_trace(go.Scatter(x=g_.t, y=g_.kherson_gauge_m, mode="lines", line=dict(color=C["muted"], width=1.2), name="Kherson (input)"))
+        fl.add_trace(go.Scatter(x=g_.t, y=g_.H_reconstructed_primary_m, mode="lines", line=dict(color=C["terrain"], width=2.5), name="reconstruction at the gauge"))
+        fl.add_trace(go.Scatter(x=g_.t, y=g_.H_evrf2019_m, mode="lines+markers", line=dict(color="#0b0b0b", width=2), marker=dict(size=4), name="gauge (withheld)"))
+        fl.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
+        fl.update_layout(height=300, margin=dict(l=10, r=10, t=10, b=10), yaxis_title="m EVRF2019", legend=dict(orientation="h", y=-0.25), xaxis=dict(range=["2023-05-28", "2023-07-05"]))
+        st.plotly_chart(fl, width="stretch")
+        fe = go.Figure()
+        fe.add_trace(go.Scatter(x=g_.t, y=g_.recon_minus_gauge_m, mode="lines", line=dict(color=C["terrain"], width=2), name="e_abs = reconstruction − gauge"))
+        fe.add_trace(go.Scatter(x=g_.t, y=g_.e_rise_m, mode="lines", line=dict(color=C["s1"], width=2, dash="dash"), name="e_rise = reconstructed rise − gauge rise"))
+        fe.add_hline(y=0, line=dict(color="#52514e", width=1)); fe.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
+        fe.update_layout(height=240, margin=dict(l=10, r=10, t=10, b=10), yaxis_title="m", legend=dict(orientation="h", y=-0.3), xaxis=dict(range=["2023-05-28", "2023-07-05"]))
+        st.plotly_chart(fe, width="stretch")
+st.caption("The static reconstruction has no propagation time, friction or transient backwater: at Kalynivske it is metres too high while the backwater "
+           "travels up the valley and peaks three days early; at Mykolaiv the westernmost SWOT node is interpolated flat across the flood. "
+           "Why a hydraulic model is the next step: manuscript §5.")
+with st.expander("FigS15 — the withheld gauges"):
+    figure("FigS15")
+
 st.subheader("SWOT input vs Kherson gauge (T17) and DEM accuracy (T18, Paper 2)"); st.caption(caption("T17")); st.dataframe(table("T17"), width="stretch", hide_index=True)
 st.caption(caption("T18")); st.dataframe(table("T18"), width="stretch", hide_index=True)
 refs(["water_surface", "terrain"], "📚 Literature: SWOT input, gauge frame and DEM accuracy (Paper 2, FABDEM)")

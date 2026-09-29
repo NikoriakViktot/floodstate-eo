@@ -373,6 +373,12 @@ only, never on bed); everything in EVRF2019 (asserted); no new physics while ans
   tables are release assets (checksums in tables/p95e_draws_checksums.csv); no gravity layer (z < H already carries it);
   manuscript §3.2 states the static model and §5 why hydraulic modelling (Paper 5) is needed, with the withheld gauges as
   evidence (Dale 2026, Kasmalkar 2024, Barnes 2021 added, Crossref-verified).
+- Figures, maps and the dashboard for these results: FigS14 (map of the support classes of the new inundation on 7 June with
+  the SWOT nodes and the three gauges; daily full vs supported core; weak share), FigS15 (the two withheld gauges: levels,
+  e_abs, e_rise); dashboard: daily support overlays + gauge markers on the Maps page, an observational-support section on the
+  Reconstruction page, a withheld-gauge section on the Checks page. README and apps/dashboard/README link the live app
+  https://floodstate-eo.streamlit.app -- it becomes live when the maintainer deploys `apps/dashboard/streamlit_app.py` from
+  `main` on Streamlit Community Cloud with the App URL `floodstate-eo` (after the Stage-1 branch is merged and pushed).
 - NEXT: Stage 2 = F09 (inner out-of-fold M2 threshold -> labels v004 -> arms retrained) -> F10 (label contracts, lineage) ->
   F08 (global blocks, overlap dedup, RF20 production refit, new freeze) -> F11 -> F12 hold-out.
 

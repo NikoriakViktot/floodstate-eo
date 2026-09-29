@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-29T10:44:08Z",
- "git_commit": "997b4739715a6e123914e20ab4d6c628a6516dad",
+ "generated_utc": "2026-09-29T11:13:48Z",
+ "git_commit": "0e9400a8124f5cafcbf59644b39dc27a2aed92ca",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",

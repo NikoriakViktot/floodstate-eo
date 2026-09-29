@@ -16,7 +16,10 @@ Consistency: per zone, region and day the classes add up to the new area of the 
 
 Outputs: <case_study>/tables/p95l_support_domain.csv (date x region x class x flags, km2),
          p95l_supported_core.csv (per date and region: full, direct, extrapolated, weak, core, weak share, cross-river, cap
-         sensitivity), p95l_manifest.json
+         sensitivity), p95l_manifest.json;
+         $BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif -- the support class of every cell (static: the nearest
+         node does not change from day to day; the class of the new inundation of a day = daily_new.npz x this raster):
+         1 direct, 2 extrapolated, 3 weak, 4 cross-river (Inhulets region), 5 capped at the Kherson gauge, 0 no surface / outside
 """
 from __future__ import annotations
 
@@ -34,6 +37,8 @@ from floodstate_eo import _kakhovka_legacy_config as CFG
 HERE = Path(__file__).resolve().parent
 RULE = "connected_ceiling"
 CLASSES = ((3.0, "direct"), (10.0, "extrapolated"), (np.inf, "weak"))       # upper distance limit (km) of each class
+CODES = {1: "direct (nearest SWOT node <= 3 km)", 2: "extrapolated (3-10 km)", 3: "weak (> 10 km)", 4: "cross-river (Inhulets valley, node of another river)",
+         5: "capped at the Kherson gauge (> 15 km from any node)"}
 TRIBUTARY = ("INHULETS_VALLEY_rect", "Inhulets")                           # region with a river identity -> cross-river flag
 
 
@@ -76,6 +81,11 @@ def main():
         cls = np.full(dkm.shape, len(CLASSES) - 1, "u1")
         for k in range(len(CLASSES) - 2, -1, -1):
             cls[dkm <= CLASSES[k][0]] = k
+        code = (cls + 1).astype("u1"); code[R["INHULETS_VALLEY_rect"] & cross] = 4; code[capped] = 5
+        with rasterio.open(f.parent / "support_class.tif", "w", driver="GTiff", height=G["ny"], width=G["nx"], count=1, dtype="uint8", crs=G["crs"],
+                           transform=G["transform"], nodata=0, compress="deflate", tiled=True) as o:
+            o.write(code, 1)
+            o.update_tags(producer="p95l_support_domain.py", codes=json.dumps(CODES), note="static per cell; the class of a day's new inundation = daily_new.npz x this raster")
         npz = np.load(f); ny, nx = G["ny"], G["nx"]
         for dt in W.dates:
             ds = str(dt.date())
@@ -124,6 +134,7 @@ def main():
                  "surfaces from nodes > 10 km and is a sensitivity, not the core")
     C.to_csv(CFG.TABLES / "p95l_supported_core.csv", index=False)
     man = dict(producer="p95l_support_domain.py", rule=RULE, classes={n: f"<= {u:g} km" for u, n in CLASSES}, flags=["gauge_capped (p95 WSE.far)", "cross_river (Inhulets region)"],
+               raster="$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif", raster_codes=CODES,
                consistency_rows_checked=checked, decision="D-SUPPORT (maintainer, 2026-09-29): full reconstruction primary; supported core and the cap run reported next to it")
     (CFG.TABLES / "p95l_manifest.json").write_text(json.dumps(man, indent=1))
     pd.set_option("display.width", 250)

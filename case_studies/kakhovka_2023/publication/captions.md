@@ -114,6 +114,21 @@ seeds (solid / dashed), with a bootstrap 95 % interval of each quantile estimato
 (T11e): (a) newly inundated area of the Dnipro corridor on 7, 9 and 13 June for δ = −0.20 … +0.20 m; (b) the local derivative
 dA/dH. It shows where the connected area is sensitive to the water surface (connectivity thresholds); it is not a new model.
 
+**FigS14 Observational support of the terrain-connectivity reconstruction (D-SUPPORT).** (a) Newly inundated area on
+7 June 2023 (nominal run) coloured by the distance of its nearest SWOT node: direct (≤ 3 km), extrapolated (3–10 km), weak
+(> 10 km); cross-river: cells of the Inhulets valley served by a node of another river. SWOT nodes (grey; Inhulets green), the
+Kherson gauge (input and anchor) and the two withheld gauges Kalynivske and Mykolaiv. (b) Daily new area of the Dnipro corridor:
+full reconstruction (the primary product), supported core (≤ 10 km), direct part, and the run without surfaces from nodes
+farther than 10 km (a sensitivity that also changes the connectivity). (c) Share of the new area with weak support per region.
+The 3 and 10 km limits are operational thresholds, not physical constants (T11k, T11l).
+
+**FigS15 The two withheld gauges.** (a) Inhulets – Kalynivske 80575 and (b) Southern Bug – Mykolaiv 98027 (liman): yearbook
+daily means (EVRF2019; star: the highest level of the year), the reconstructed water surface at the gauge and the Kherson gauge
+(input). (c, d) Absolute error e_abs = reconstruction − gauge and event-relative error e_rise = (H_rec − H_rec,pre) −
+(H_gauge − H_gauge,pre), free of any constant datum offset. Neither gauge is an input; at Kalynivske the static reconstruction
+is metres too high while the backwater travels up the tributary and peaks three days early, at Mykolaiv the westernmost SWOT
+node is interpolated flat across the flood (T17c–T17f; §4.7, §5).
+
 ## Tables
 
 See `tables/README.md` (generated): T01 data inventory · T02/T02b labels and transition · T03/T03b/T03c split · T04 arms ·

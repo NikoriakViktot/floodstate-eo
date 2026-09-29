@@ -25,6 +25,9 @@ with st.sidebar:
     st.markdown("**Terrain reconstruction**")
     day = st.select_slider("day", options=[d.replace("terrain_daily_", "") for d in daily], value="2023-06-08")
     show_terrain = st.checkbox("show terrain new inundation for this day", True)
+    by_support = st.checkbox("colour it by water-surface support (direct / extrapolated / weak)", False,
+                             help="Distance of the nearest SWOT node: direct <= 3 km, extrapolated 3-10 km, weak > 10 km (operational thresholds); "
+                                  "cross-river = Inhulets valley served by a node of another river. The full reconstruction stays the primary product (T11k).")
     summary = st.selectbox("terrain summary layer", ["none", "terrain_duration", "terrain_max_depth", "terrain_depth_20230608"])
     st.markdown("**Sentinel-1**")
     s1date = st.selectbox("S1 date", ["none"] + [d.replace("s1_new_", "") for d in s1d], index=4)
@@ -54,7 +57,9 @@ if summary != "none": legend.append(add(summary, opacity, summary))
 if s1foot and s1date != "none": add(f"s1_footprint_{s1date}", 0.25, "S1 footprint")
 if unet != "none": legend.append(add(unet, opacity, unet))
 if s1date != "none": legend.append(add(f"s1_new_{s1date}", opacity, f"S1 new water {s1date}"))
-if show_terrain: legend.append(add(f"terrain_daily_{day}", opacity, f"terrain {day}"))
+if show_terrain:
+    sid = f"support_daily_{day}"
+    legend.append(add(sid, opacity, f"support of the new inundation {day}") if by_support and sid in by_id else add(f"terrain_daily_{day}", opacity, f"terrain {day}"))
 if rmod:
     if s2l != "none" and rs2date:
         sid = {"k10e classes": f"reservoir_s2_class_{rs2date}", "water": f"reservoir_s2_water_{rs2date}"}.get(s2l, f"reservoir_s2_{s2l}_{rs2date}")
@@ -73,6 +78,14 @@ if ctx.exists():
 fp = DATA / "context" / "p42_floodplain.geojson"
 if fp.exists():
     folium.GeoJson(json.loads(fp.read_text()), name="p42 terrain-eligible floodplain", style_function=lambda f: dict(color="#2a78d6", weight=1, fill=False)).add_to(m)
+gp = DATA / "context" / "gauges.geojson"
+if gp.exists():
+    fg = folium.FeatureGroup(name="river gauges (Kherson = input; Kalynivske, Mykolaiv = withheld)")
+    for f in json.loads(gp.read_text())["features"]:
+        lon, lat = f["geometry"]["coordinates"]; withheld = f["properties"]["role"].startswith("withheld")
+        folium.CircleMarker([lat, lon], radius=7, color="#0b0b0b", weight=2, fill=True, fill_color="#ffffff" if withheld else "#0b0b0b", fill_opacity=1,
+                            tooltip=f"{f['properties']['name']}: {f['properties']['role']}").add_to(fg)
+    fg.add_to(m)
 folium.LayerControl(collapsed=False).add_to(m)
 st_folium(m, use_container_width=True, height=620, returned_objects=[])
 

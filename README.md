@@ -1,5 +1,14 @@
 # FloodState-EO
 
+[![Open the dashboard in Streamlit](https://static.streamlit.io/badges/streamlit_badge_black_white.svg)](https://floodstate-eo.streamlit.app)
+
+**Interactive dashboard — Kakhovka 2023: <https://floodstate-eo.streamlit.app>.** The daily terrain-connectivity reconstruction
+with its Monte-Carlo band and the support classes of its water surface, maps by day (new inundation, support, Sentinel-1,
+U-Net, labels, surface classes, reservoir drawdown), the Sentinel-1 / ICESat-2 / withheld-gauge checks, the U-Net experiments
+and the data provenance. Source: `apps/dashboard/`; run it locally with
+`pip install -r apps/dashboard/requirements.txt && streamlit run apps/dashboard/streamlit_app.py`; deployment notes in
+`apps/dashboard/README.md`.
+
 **Status: v0.3.0-rc1 — canonical EO preprocessing and temporal-composite pipeline, plus the Kakhovka 2023 case study
 of Paper 3: a physical daily-inundation reconstruction (SWOT + gauge water surface × terrain, with an uncertainty budget),
 its cross-sensor and altimetric checks, an RF20 surface-context product, and U-Net experiments on frozen weak labels

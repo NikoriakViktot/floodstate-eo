@@ -10,6 +10,14 @@
   "gauge_capped (p95 WSE.far)",
   "cross_river (Inhulets region)"
  ],
+ "raster": "$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif",
+ "raster_codes": {
+  "1": "direct (nearest SWOT node <= 3 km)",
+  "2": "extrapolated (3-10 km)",
+  "3": "weak (> 10 km)",
+  "4": "cross-river (Inhulets valley, node of another river)",
+  "5": "capped at the Kherson gauge (> 15 km from any node)"
+ },
  "consistency_rows_checked": 276,
  "decision": "D-SUPPORT (maintainer, 2026-09-29): full reconstruction primary; supported core and the cap run reported next to it"
 }

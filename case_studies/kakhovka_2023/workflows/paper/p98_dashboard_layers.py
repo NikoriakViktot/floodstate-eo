@@ -109,6 +109,35 @@ def terrain_layers():
         write_png(mosaic(pz), OUTD / "terrain" / f"{lid}.png", {i + 1: ramp[i] for i in range(len(labels))}, {str(i + 1): l for i, l in enumerate(labels)}, lid, "terrain_summary", src)
 
 
+SUPPORT = {1: ("direct (nearest SWOT node <= 3 km)", "#0b2a5c"), 2: ("extrapolated (3-10 km)", "#5a93da"), 3: ("weak (> 10 km)", "#eda100"),
+           4: ("cross-river (Inhulets valley, node of another river)", "#e34948"), 5: ("capped at the Kherson gauge", "#4a3aa7")}
+GAUGES = [("Kherson 80805", 32.612026, 46.623750, "input (anchor of the water surface)"),
+          ("Kalynivske 80575 (Inhulets)", 32 + 57 / 60 + 38 / 3600, 47 + 6 / 60 + 59 / 3600, "withheld: independent tributary validation site"),
+          ("Mykolaiv 98027 (liman)", 31 + 58 / 60 + 19.46 / 3600, 46 + 59 / 60 + 3.75 / 3600, "withheld: independent validation of the western delta")]
+
+
+def support_layers():
+    """D-SUPPORT: the new inundation of every day coloured by the support class of its water surface (p95l support_class.tif
+    x daily_new.npz), and the three river gauges with their roles."""
+    src = "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation"
+    per = {}
+    for z in ZONES:
+        d = BULK / "floodplain_dyn" / f"{z}_connected_ceiling"
+        with rasterio.open(d / "support_class.tif") as s:
+            code, tr, crs = s.read(1), s.transform, s.crs
+        zz = np.load(d / "daily_new.npz"); per[z] = (code, zz, tuple(int(v) for v in zz["shape"]), tr, crs)
+    dates = [k for k in np.load(BULK / "floodplain_dyn" / "ZONE_2_KHERSON_DELTA_connected_ceiling" / "daily_new.npz").files if k.startswith("2023")]
+    for dd in dates:
+        m = mosaic({z: (np.where(np.unpackbits(zz[dd], count=shp[0] * shp[1]).reshape(shp).astype(bool), code, 0).astype("u1"), tr, crs) for z, (code, zz, shp, tr, crs) in per.items()})
+        write_png(m, OUTD / "support" / "daily" / f"{dd}.png", {k: c for k, (_, c) in SUPPORT.items()}, {str(k): lab for k, (lab, _) in SUPPORT.items()}, f"support_daily_{dd}", "support_daily", src,
+                  note="the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)")
+    feats = [dict(type="Feature", properties=dict(name=nm, role=role, kind="gauge"), geometry=dict(type="Point", coordinates=[lon, lat])) for nm, lon, lat, role in GAUGES]
+    (OUTD / "context").mkdir(parents=True, exist_ok=True); gp = OUTD / "context" / "gauges.geojson"
+    gp.write_text(json.dumps(dict(type="FeatureCollection", features=feats)))
+    MAN["layers"].append(dict(id="gauges", group="context", file=str(gp.relative_to(OUTD)), bounds=None, legend={}, source="UkrHMC hydrological yearbook 2023 station positions (station catalogues); roles per D-INHULETS",
+                              bytes=gp.stat().st_size, sha256=hashlib.sha256(gp.read_bytes()).hexdigest()))
+
+
 def s1_layers():
     for z, cache in S1CACHE.items():
         pass
@@ -264,18 +293,23 @@ def reservoir_layers():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain"], help="rebuild only the reservoir or the terrain layers, keep the rest of the manifest")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support"], help="rebuild only the reservoir, terrain or support layers, keep the rest of the manifest")
     a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
     if a.only == "terrain":                                               # e.g. after a new p95 run: keep every other layer, terrain first as before
         old = json.loads((OUTD / "manifest.json").read_text())
         kept = [l for l in old["layers"] if l["group"] not in ("terrain_daily", "terrain_summary")]
         MAN["layers"] = []; terrain_layers(); MAN["layers"] = MAN["layers"] + kept; print("terrain", round(time.time() - t0), flush=True)
+    elif a.only == "support":                                             # support classes of the new inundation + the gauges (p95l)
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] != "support_daily" and l["id"] != "gauges"]
+        support_layers(); print("support", round(time.time() - t0), flush=True)
     elif a.only == "reservoir":
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
     else:
         terrain_layers(); print("terrain", round(time.time() - t0), flush=True)
+        support_layers(); print("support", round(time.time() - t0), flush=True)
         s1_layers(); print("s1", round(time.time() - t0), flush=True)
         frame_layers(); print("frames", round(time.time() - t0), flush=True)
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)

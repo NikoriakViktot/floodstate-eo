@@ -14,7 +14,11 @@ Main text (claims decide the figures):
 Supplement: FigS01 training curves, FigS02 rule / closure sensitivity, FigS03 per-date S1/S2 series, FigS04 RF20 confusion
 and per-class F1, FigS05 block-size sensitivity, FigS06 Inhulets profile, FigS07 hypsometry sensitivity,
 FigS08 reservoir drawdown maps (model / S1 / S2 classes / day of exposure, p95h) [bulk], FigS09 the 7 S2 indices over the pool [bulk],
-FigS10 the design level-area-volume curves (monograph Table 19) with the observed 2023 levels on them (p95i) [tables].
+FigS10 the design level-area-volume curves (monograph Table 19) with the observed 2023 levels on them (p95i) [tables],
+FigS11-FigS13 terrain-error variogram, Monte-Carlo convergence, water-surface offset sensitivity [tables],
+FigS14 observational support of the new inundation: map of the support classes on 7 June with the SWOT nodes and the three
+gauges, and the daily full reconstruction vs its supported core (p95l) [bulk], FigS15 the two withheld gauges (Kalynivske,
+Mykolaiv): levels, absolute and event-relative errors (p95k) [tables].
 `--only FigNN`, `--tables-only`. Bulk figures are rendered once locally and committed.
 """
 from __future__ import annotations
@@ -647,9 +651,106 @@ def figS13():
     FS.save(fig, "FigS13_wse_threshold_sensitivity", FIG)
 
 
+SUPPORT_COLOURS = {1: ("direct (nearest SWOT node ≤ 3 km)", "#0b2a5c"), 2: ("extrapolated (3–10 km)", "#5a93da"), 3: ("weak (> 10 km)", "#eda100"),
+                   4: ("cross-river (Inhulets valley, node of another river)", "#e34948"), 5: ("capped at the Kherson gauge", "#4a3aa7")}
+GAUGES = {"Kherson 80805\n(input, anchor)": (32.612026, 46.623750, "s", FS.PALETTE["ink"], FS.PALETTE["ink"], (-6, 10), "right"),
+          "Kalynivske 80575\n(withheld)": (32 + 57 / 60 + 38 / 3600, 47 + 6 / 60 + 59 / 3600, "^", "white", FS.PALETTE["ink"], (7, -3), "left"),
+          "Mykolaiv 98027\n(withheld)": (31 + 58 / 60 + 19.46 / 3600, 46 + 59 / 60 + 3.75 / 3600, "^", "white", FS.PALETTE["ink"], (7, -3), "left")}
+
+
+def figS14(day="2023-06-07"):
+    """D-SUPPORT: where the reconstructed new inundation of a day rests on direct, extrapolated or weak water-surface support."""
+    import rasterio
+    from pyproj import Transformer
+    arrs = {}
+    for z in ZONES:
+        d = BULK / "floodplain_dyn" / f"{z}_connected_ceiling"
+        with rasterio.open(d / "support_class.tif") as src:
+            code = src.read(1); G = dict(transform=src.transform, ny=src.height, nx=src.width)
+        nz = np.load(d / "daily_new.npz"); shp = tuple(int(v) for v in nz["shape"])
+        new = np.unpackbits(nz[day], count=shp[0] * shp[1]).reshape(shp).astype(bool)
+        arrs[z] = (np.where(new, code, 0).astype("u1"), G)
+    K, ext = zone_mosaic(arrs, np.uint8(0))
+    with rasterio.open(BULK / "dem_seamless" / "dem_seamless_evrf2019_50m.tif") as src:
+        dem = src.read(1).astype("f4"); dem[dem == src.nodata] = np.nan; tr = src.transform
+        dext = [tr.c / 1e3, (tr.c + tr.a * src.width) / 1e3, (tr.f + tr.e * src.height) / 1e3, tr.f / 1e3]
+    hs = LightSource(azdeg=315, altdeg=40).hillshade(np.nan_to_num(dem, nan=0), vert_exag=3, dx=50, dy=50)
+    C = pd.read_csv(T / "p95l_supported_core.csv")
+    fig = plt.figure(figsize=(7.4, 8.2), constrained_layout=True); gs = fig.add_gridspec(2, 2, height_ratios=[2.3, 1.0])
+    a = fig.add_subplot(gs[0, :])
+    a.imshow(hs, cmap="gray", extent=dext, vmin=0, vmax=1, alpha=0.55, interpolation="bilinear", rasterized=True)
+    cm = ListedColormap(["#ffffff"] + [SUPPORT_COLOURS[k][1] for k in sorted(SUPPORT_COLOURS)])
+    a.imshow(np.ma.masked_where(K[::2, ::2] == 0, K[::2, ::2]), cmap=cm, vmin=0, vmax=len(SUPPORT_COLOURS), extent=ext, interpolation="nearest", rasterized=True)
+    n = pd.read_csv(T / "p59_swot_flood_nodes.csv", usecols=["node_id", "x", "y", "river_name"]).drop_duplicates("node_id")
+    inh = n.river_name.eq("Inhulets")
+    a.scatter(n.x[~inh] / 1e3, n.y[~inh] / 1e3, s=1.2, color=FS.PALETTE["ink2"], lw=0, label="SWOT nodes")
+    a.scatter(n.x[inh] / 1e3, n.y[inh] / 1e3, s=1.2, color=FS.PALETTE["rf"], lw=0, label="SWOT nodes, Inhulets")
+    tfm = Transformer.from_crs("EPSG:4326", "EPSG:32636", always_xy=True)
+    for nm, (lon, lat, mk, fc, ec, off, ha) in GAUGES.items():
+        x, y = tfm.transform(lon, lat); a.plot(x / 1e3, y / 1e3, mk, ms=7, mfc=fc, mec=ec, mew=1.2, zorder=6)
+        a.annotate(nm, (x / 1e3, y / 1e3), xytext=off, textcoords="offset points", fontsize=6, va="top", ha=ha, zorder=6,
+                   bbox=dict(fc="white", ec="none", alpha=0.7, pad=0.5))
+    view = [415, 545, 5130, 5226]; furniture(a, view, 20)
+    c7 = C[(C.date == day) & (C.region == "DNIPRO_CORRIDOR")].iloc[0]
+    a.text(0.99, 0.22, f"Dnipro corridor, nominal run, {day}:\ndirect {c7.A_direct_km2:.0f} km², extrapolated {c7.A_extrapolated_km2:.0f} km²,\n"
+                        f"weak {c7.A_weak_km2:.0f} km² ({c7.share_weak:.0%}); supported core {c7.A_core_le10km_km2:.0f} of {c7.A_full_km2:.0f} km²",
+           transform=a.transAxes, fontsize=6.3, va="bottom", ha="right", bbox=dict(fc="white", ec="#c3c2b7", alpha=0.9))
+    h = [Patch(fc=col, label=lab) for k, (lab, col) in sorted(SUPPORT_COLOURS.items()) if k != 5] + a.get_legend_handles_labels()[0]
+    a.legend(handles=h, loc="upper left", fontsize=6, frameon=True, framealpha=0.85, title=f"new inundation on {day} by water-surface support", title_fontsize=6.5)
+    a.set_title("Observational support of the terrain-connectivity reconstruction (support classes: operational thresholds, T11k)", fontsize=8, loc="left"); FS.panel_label(a, "a")
+    b = fig.add_subplot(gs[1, 0]); q = C[C.region == "DNIPRO_CORRIDOR"].copy(); q["t"] = pd.to_datetime(q.date); q = q.sort_values("t")
+    b.plot(q.t, q.A_full_km2, color=FS.PALETTE["ink"], lw=1.6, label="full reconstruction (nominal)")
+    b.plot(q.t, q.A_core_le10km_km2, color=FS.PALETTE["terrain"], lw=1.4, label="supported core (≤ 10 km)")
+    b.plot(q.t, q.A_direct_km2, color=SUPPORT_COLOURS[1][1], lw=1.0, label="direct (≤ 3 km)")
+    if "A_cap10km_sensitivity_km2" in q.columns:
+        b.plot(q.t, q.A_cap10km_sensitivity_km2, color=FS.PALETTE["muted"], lw=1.2, ls="--", label="run without surfaces from nodes > 10 km")
+    FS.date_axis(b, BREACH, every_days=7); b.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-25")); b.set_ylim(0, None)
+    b.set_ylabel("new inundation, km² (Dnipro corridor)", fontsize=6.5); b.tick_params(labelsize=6); b.legend(fontsize=5.8, frameon=False); FS.panel_label(b, "b")
+    c = fig.add_subplot(gs[1, 1])
+    for r, col in (("DNIPRO_CORRIDOR", FS.PALETTE["ink"]), ("P42_FLOODPLAIN_DOMAIN", FS.PALETTE["terrain"]), ("INHULETS_VALLEY_rect", FS.PALETTE["rf"])):
+        w = C[C.region == r].copy(); w["t"] = pd.to_datetime(w.date); w = w.sort_values("t")
+        c.plot(w.t, np.where(w.A_full_km2 >= 1.0, 100 * w.share_weak, np.nan), color=col, lw=1.4, marker="o", ms=2, label=REG_TITLE[r])  # < 1 km2: share undefined
+    FS.date_axis(c, BREACH, every_days=7); c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-25")); c.set_ylim(0, 100)
+    c.set_ylabel("share of the new area with support > 10 km, %", fontsize=6.5); c.tick_params(labelsize=6); c.legend(fontsize=5.8, frameon=False); FS.panel_label(c, "c")
+    FS.save(fig, "FigS14_support_domain", FIG)
+
+
+def figS15():
+    """The two withheld gauges: what the static reconstruction gets wrong in the tributary and in the western delta (p95k)."""
+    K = pd.read_csv(PT / "T17c.csv"); L = pd.read_csv(PT / "T17e.csv"); man = json.loads((T / "p95k_manifest.json").read_text())
+    for d in (K, L):
+        d["t"] = pd.to_datetime(d.date)
+    fig, axs = plt.subplots(2, 2, figsize=(7.4, 5.6), sharex=True, height_ratios=(1.7, 1.0), constrained_layout=True)
+    a = axs[0, 0]
+    a.plot(K.t, K.kherson_gauge_m, color=FS.PALETTE["muted"], lw=1.0, label="Kherson gauge (input)")
+    a.plot(K.t, K.H_reconstructed_primary_m, color=FS.PALETTE["terrain"], lw=1.6, label="reconstructed surface at the gauge")
+    a.plot(K.t, K.H_evrf2019_m, "o-", color=FS.PALETTE["ink"], ms=2.5, lw=1.3, label="gauge Kalynivske, daily means (withheld)")
+    hi = man.get("highest", {})
+    if hi:
+        a.plot(pd.Timestamp(hi["date"]), hi["H_evrf2019_m"], "*", color=FS.PALETTE["ink"], ms=8, label=f"highest level {hi['printed']} cm")
+    a.set_ylabel("water level, m EVRF2019", fontsize=6.5); a.set_title("Inhulets – Kalynivske 80575 (tributary backwater)", fontsize=7.5, loc="left"); FS.panel_label(a, "a")
+    b = axs[0, 1]; hl = man.get("liman", {}).get("highest", {})
+    b.plot(L.t, L.kherson_gauge_m, color=FS.PALETTE["muted"], lw=1.0, label="Kherson gauge (input)")
+    b.plot(L.t, L.H_reconstructed_primary_m, color=FS.PALETTE["terrain"], lw=1.6, label="reconstructed surface at the gauge")
+    b.plot(L.t, L.H_evrf2019_m, "o-", color=FS.PALETTE["ink"], ms=2.5, lw=1.3, label="gauge Mykolaiv, daily means (withheld)")
+    if hl:
+        b.plot(pd.Timestamp(hl["date"]), hl["H_evrf2019_m"], "*", color=FS.PALETTE["ink"], ms=8, label=f"highest level {hl['printed']} cm")
+    b.set_title("Southern Bug – Mykolaiv 98027 (liman, western delta)", fontsize=7.5, loc="left"); FS.panel_label(b, "b")
+    for ax, D in ((axs[1, 0], K), (axs[1, 1], L)):
+        ax.axhline(0, color=FS.PALETTE["ink2"], lw=0.6)
+        ax.plot(D.t, D.recon_minus_gauge_m, color=FS.PALETTE["terrain"], lw=1.4, label="e_abs = reconstruction − gauge")
+        ax.plot(D.t, D.e_rise_m, color=FS.PALETTE["s1"], lw=1.4, ls="--", label="e_rise = reconstructed rise − gauge rise")
+        ax.set_ylabel("error at the gauge, m", fontsize=6.5)
+    FS.panel_label(axs[1, 0], "c"); FS.panel_label(axs[1, 1], "d")
+    for ax in axs.ravel():
+        FS.date_axis(ax, BREACH, every_days=7); ax.set_xlim(pd.Timestamp("2023-05-28"), pd.Timestamp("2023-07-05")); ax.tick_params(labelsize=6); ax.legend(fontsize=5.6, frameon=False)
+    FS.save(fig, "FigS15_withheld_gauges", FIG)
+
+
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
-       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False)}
+       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False),
+       "FigS14": (figS14, True), "FigS15": (figS15, False)}
 
 
 def main():

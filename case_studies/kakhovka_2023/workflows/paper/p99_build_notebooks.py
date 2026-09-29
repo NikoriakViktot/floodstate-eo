@@ -41,6 +41,8 @@ def nb01():
     c.append(nbf.v4.new_markdown_cell("## 1. The water surface\nSWOT node heights (EGG2015-referenced, gauge-anchored with the Kherson-local closure of Paper 1) and the Kherson gauge; node-based interpolation (no chainage)."))
     c.append(nbf.v4.new_code_cell("show('T11')"))
     c.append(nbf.v4.new_code_cell("fig('Fig06'); show('T17')"))
+    c.append(nbf.v4.new_markdown_cell("### Withheld gauges (never inputs): Kalynivske 80575 tests the tributary backwater, Mykolaiv 98027 the western delta; absolute and event-relative errors (T17c-T17f, FigS15)"))
+    c.append(nbf.v4.new_code_cell("show('T17d'); show('T17f'); fig('FigS15')"))
     c.append(nbf.v4.new_markdown_cell("## 2. Daily reconstructed series: total water-surface area, newly inundated area, volume — PRIMARY interval = the coherent Monte-Carlo worlds of p95e rev 2 (T11b-T11d)"))
     c.append(nbf.v4.new_code_cell("d = show('T12'); d[d.region == 'DNIPRO_CORRIDOR'][['date','W_total_central_km2','W_total_p05_km2','W_total_p95_km2','A_central_km2','A_p05_km2','A_p95_km2','V_central_hm3','V_p05_hm3','V_p95_hm3','A_hand_and_ceiling_km2','A_ceiling_only_km2']]"))
     c.append(nbf.v4.new_code_cell('''u = pd.read_csv(T / "p95e_area_volume_uncertainty.csv") if (T / "p95e_area_volume_uncertainty.csv").exists() else None
@@ -54,7 +56,7 @@ for ax, r in zip(axs, ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VAL
 axs[0].legend(); plt.tight_layout()'''))
     c.append(nbf.v4.new_code_cell("show('T11b')"))
     c.append(nbf.v4.new_markdown_cell("### Observational support of the new area (D-SUPPORT): the full terrain-connectivity reconstruction is the primary product; its direct (<= 3 km), extrapolated (3-10 km) and weak (> 10 km) parts, the supported core and the 10 km cap sensitivity"))
-    c.append(nbf.v4.new_code_cell("show('T11k')"))
+    c.append(nbf.v4.new_code_cell("show('T11k'); fig('FigS14')"))
     c.append(nbf.v4.new_markdown_cell("### Computational diagnostic, not evidence (D-EMU): the 100 000-draw emulator (p95g) has no connectivity and a total built around the nominal run; no reported number rests on it"))
     c.append(nbf.v4.new_code_cell("show('T12d')"))
     c.append(nbf.v4.new_markdown_cell("### Reservoir side of the balance (T21, T22, Fig09, FigS07): daily-MEAN effective release (-dV/dt + Q_in), not an instantaneous breach discharge; hypsometry DEM vs design is the open question of Paper 4 (historical bathymetry)"))

@@ -44,6 +44,30 @@ fig.update_layout(height=430, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="
 st.plotly_chart(fig, width="stretch")
 refs(["terrain", "water_surface", "Twele_2016", "Martinis_2022"], "📚 Literature: terrain reconstruction (HAND, DEM), water surface (SWOT, Paper 1) and the S1 check")
 
+st.subheader("Observational support of the new inundation (T11k, FigS14)")
+st.caption(caption("T11k"))
+try:
+    sc = raw("p95l_supported_core.csv"); sc = sc[sc.region == region].copy(); sc["t"] = pd.to_datetime(sc.date); sc = sc.sort_values("t")
+    fs = go.Figure()
+    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_full_km2, mode="lines", line=dict(color="#0b0b0b", width=3), name="full reconstruction (nominal run, the primary product)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_core_le10km_km2, mode="lines", line=dict(color=C["terrain"], width=2), name="supported core (nearest SWOT node <= 10 km)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_direct_km2, mode="lines", line=dict(color="#0b2a5c", width=1.5), name="direct (<= 3 km)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    if "A_cap10km_sensitivity_km2" in sc.columns:
+        fs.add_trace(go.Scatter(x=sc.t, y=sc.A_cap10km_sensitivity_km2, mode="lines", line=dict(color=C["muted"], width=1.5, dash="dash"), name="sensitivity: no surface from nodes > 10 km", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    ws = sc.share_weak.where(sc.A_full_km2 >= 1.0) * 100
+    fs.add_trace(go.Scatter(x=sc.t, y=ws, mode="lines+markers", line=dict(color="#eda100", width=1.5), marker=dict(size=4), name="share with support > 10 km (weak), %", yaxis="y2", hovertemplate="%{x|%d %b}: %{y:.0f} %"))
+    fs.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
+    fs.update_layout(height=360, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="new inundation, km²", legend=dict(orientation="h", y=-0.2),
+                     yaxis2=dict(title="weak share, %", overlaying="y", side="right", range=[0, 100], showgrid=False), xaxis=dict(range=["2023-06-03", "2023-06-28"]))
+    st.plotly_chart(fs, width="stretch")
+    st.caption("Direct: the surface is the median of SWOT nodes within 3 km; extrapolated: the nearest node 3-10 km away; weak: farther than 10 km "
+               "(operational thresholds, not physical constants). The capped run recomputes the connectivity without distant surfaces and is a "
+               "sensitivity, not the core. In the Inhulets valley the Dnipro nodes serving it are flagged cross-river (map: FigS14, Maps page).")
+    with st.expander("FigS14 — the support classes on 7 June and the daily core"):
+        figure("FigS14")
+except FileNotFoundError:
+    st.info("support classes not computed (run workflows/m6/p95l_support_domain.py)")
+
 c1, c2 = st.columns(2)
 with c1:
     g = go.Figure(); g.add_trace(go.Scatter(x=s.t, y=s.kherson_gauge_m, mode="lines", line=dict(color=C["gauge"], width=2), name="Kherson stage, m (EVRF2019)"))

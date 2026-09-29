@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-09-29T08:28:12Z",
+ "generated_utc": "2026-09-29T11:09:59Z",
  "grid": {
   "crs": "EPSG:4326",
   "dlon": 0.001,
@@ -4754,6 +4754,1856 @@
    "source": "reservoir_full_pool_prebreach (Kakhovka_SA_2.geojson), simplified 100 m",
    "bytes": 39737,
    "sha256": "dc6c6ccc3ab5c2b2982e0e80e7d26845bf00ed7623062275ff8db4233d27ed97"
+  },
+  {
+   "id": "support_daily_2023-05-26",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-26.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-05-27",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-05-28",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-05-29",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-29.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-05-30",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-05-31",
+   "group": "support_daily",
+   "file": "support/daily/2023-05-31.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-01",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-01.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-02",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-03",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-04",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-04.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-05",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-05.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-06",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-06.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 15231,
+   "sha256": "9105c12b5c9acbb6b395878012a54476c797b55133c51fab4437c0067c648c70",
+   "area_km2_by_class": {
+    "1": 55.0,
+    "2": 74.1,
+    "3": 77.9,
+    "4": 7.7,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-07",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 17525,
+   "sha256": "33a2cceb1febb6baeefa4f983633f4d153504106be15d935864d965049a30391",
+   "area_km2_by_class": {
+    "1": 73.8,
+    "2": 109.8,
+    "3": 88.7,
+    "4": 7.9,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-08",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 17780,
+   "sha256": "acf0291b527631e4d0ae2a1b37c48f187286d0ce2577b25f9db21bfbdf84fe66",
+   "area_km2_by_class": {
+    "1": 75.7,
+    "2": 117.3,
+    "3": 78.5,
+    "4": 7.5,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-09",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-09.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 16369,
+   "sha256": "6fac8b6ebd74b1a3624f5e386c8a1e0b12866b2a25ff12c5a221007645fc345d",
+   "area_km2_by_class": {
+    "1": 71.1,
+    "2": 107.2,
+    "3": 45.7,
+    "4": 7.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-10",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 14920,
+   "sha256": "c299f96d9737734d7bd19b4aa5142a0f08063fa2e9c88df2e66369b603fdfd8c",
+   "area_km2_by_class": {
+    "1": 65.2,
+    "2": 89.0,
+    "3": 41.4,
+    "4": 6.6,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-11",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-11.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 13647,
+   "sha256": "6eac5bcc8fd860167c613e76c94eca56d668212f20cd938e4376baf8ea6209c1",
+   "area_km2_by_class": {
+    "1": 59.0,
+    "2": 76.9,
+    "3": 36.8,
+    "4": 6.2,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-12",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-12.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 13374,
+   "sha256": "ca0f897499c47dcb373072070292d80d36933f14237da1a27620313e4ba286b0",
+   "area_km2_by_class": {
+    "1": 54.1,
+    "2": 69.4,
+    "3": 32.7,
+    "4": 5.7,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-13",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-13.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 13082,
+   "sha256": "56bf8751863cd28a7c7846b24b4e0852f2b958f1684db40c927298ed09c1c003",
+   "area_km2_by_class": {
+    "1": 48.0,
+    "2": 59.9,
+    "3": 28.7,
+    "4": 5.2,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-14",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-14.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 12687,
+   "sha256": "553df21077f52c6be288f8efd5e663b71b9130ffe7a394f56a5a6316a4ff297a",
+   "area_km2_by_class": {
+    "1": 41.0,
+    "2": 45.4,
+    "3": 26.3,
+    "4": 3.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-15",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-15.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 12133,
+   "sha256": "2794a77a5359154a9a57545586c4e097b96a2771c44c123da9144a9ba3c283ff",
+   "area_km2_by_class": {
+    "1": 36.3,
+    "2": 35.7,
+    "3": 22.8,
+    "4": 1.7,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-16",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-16.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 11094,
+   "sha256": "3264ce8e72080c32da5194031b7cb1364621eab07b109dc9de91d74f7c5e63ec",
+   "area_km2_by_class": {
+    "1": 31.1,
+    "2": 24.3,
+    "3": 17.1,
+    "4": 1.1,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-17",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-17.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 10316,
+   "sha256": "c7712e9692e52fd05c5b93bedf2c3ad7610d8877d5ef1e5ddf9c9649d4d3e6ae",
+   "area_km2_by_class": {
+    "1": 26.6,
+    "2": 17.0,
+    "3": 12.3,
+    "4": 0.8,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-18",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 9083,
+   "sha256": "61d8cac56f4e47e5a0a305f0ecee757d02de12f7deb54f9a4c65ce5c33d5d811",
+   "area_km2_by_class": {
+    "1": 21.5,
+    "2": 10.8,
+    "3": 8.4,
+    "4": 0.7,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-19",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-19.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 7755,
+   "sha256": "2e84f6e1a6eddc28758946fa76f9d77806a62fadefd245e975ab38373677eb9f",
+   "area_km2_by_class": {
+    "1": 15.8,
+    "2": 7.7,
+    "3": 5.1,
+    "4": 0.6,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-20",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-20.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 5381,
+   "sha256": "4e5d6120963d3ae88128865fc446c3f0cc43dc2b65f45e2a3233377d28ef6289",
+   "area_km2_by_class": {
+    "1": 7.8,
+    "2": 3.6,
+    "3": 1.2,
+    "4": 0.5,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-21",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-21.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 3289,
+   "sha256": "73acb28c7dd167d3441302bb95c8b09022be35b27cb917554796cc81aac00c87",
+   "area_km2_by_class": {
+    "1": 2.4,
+    "2": 0.7,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-22",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-22.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2560,
+   "sha256": "b2c472061cdc57c4c254e9f2362a53c5aced9ae6c85536217ddccd742e9a2647",
+   "area_km2_by_class": {
+    "1": 0.3,
+    "2": 0.2,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-23",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-23.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2405,
+   "sha256": "414841f6abae67d54e68c44d3fe1aa7fe9ddea0a04a8716c1bf4941f3a030e6d",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-24",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-24.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2388,
+   "sha256": "e8327168afd8e99cadbfa412c4fd1b9c3357c4beb460ed111ebd5a55622b9220",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-25",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-25.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-26",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-26.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-27",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2390,
+   "sha256": "e5c1a7182641a05c607888096749869fdb3a5cb208d3d92b83a5d57058ac5dc0",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-28",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2395,
+   "sha256": "10a2210e5507ba712f09d20d158ff6f9391717c2ea6e5a4eea8981ea17faa6e8",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-29",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-29.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2392,
+   "sha256": "9e94ca27455c17d6b0f90cc7d1b9470a5a80ddf4bae5bf827a2517f5557c333c",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-06-30",
+   "group": "support_daily",
+   "file": "support/daily/2023-06-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2418,
+   "sha256": "28bde021444468d9b64e0a76ea74d546ff6b708c288996915c56ffccc4db3f20",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-01",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-01.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2809,
+   "sha256": "119cb885c2495c865006d2bbff2c1c8dcae21c4e04cead3dfb09a6560dfa24d9",
+   "area_km2_by_class": {
+    "1": 0.1,
+    "2": 0.7,
+    "3": 0.3,
+    "4": 0.0,
+    "5": 0.1
+   }
+  },
+  {
+   "id": "support_daily_2023-07-02",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2402,
+   "sha256": "eba19a3d8405e7e42a77e11f2a629337f0ab65a2d07bebfd26eb4de43f401481",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-03",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2398,
+   "sha256": "8ddc6fa95077860bad96e338f1240e8392846697c441788f909d179909cb7e4f",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-04",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-04.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2387,
+   "sha256": "fa68ddb33322c3dc1136fdf9f05b82ed39a4160c4f09e1a2a25754bab5ff4705",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-05",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-05.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-06",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-06.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-07",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-08",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-09",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-09.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "support_daily_2023-07-10",
+   "group": "support_daily",
+   "file": "support/daily/2023-07-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "direct (nearest SWOT node <= 3 km)",
+    "2": "extrapolated (3-10 km)",
+    "3": "weak (> 10 km)",
+    "4": "cross-river (Inhulets valley, node of another river)",
+    "5": "capped at the Kherson gauge"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#eda100",
+    "4": "#e34948",
+    "5": "#4a3aa7"
+   },
+   "source": "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation",
+   "note": "the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)",
+   "bytes": 2380,
+   "sha256": "e66d334bc5c17fa2ab2e8f8d5c44c4feed734e55357898e3a2a7cc1949967a96",
+   "area_km2_by_class": {
+    "1": 0.0,
+    "2": 0.0,
+    "3": 0.0,
+    "4": 0.0,
+    "5": 0.0
+   }
+  },
+  {
+   "id": "gauges",
+   "group": "context",
+   "file": "context/gauges.geojson",
+   "bounds": null,
+   "legend": {},
+   "source": "UkrHMC hydrological yearbook 2023 station positions (station catalogues); roles per D-INHULETS",
+   "bytes": 707,
+   "sha256": "4195a9803b894268f9b66f6c0febf359f377f1fff3f3c1707621f6d0bfe5683c"
   }
  ],
  "reservoir_grid": {
@@ -4773,7 +6623,7 @@
    ]
   ]
  },
- "total_bytes": 5711350,
- "n_layers": 150,
+ "total_bytes": 5977887,
+ "n_layers": 197,
  "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
 }

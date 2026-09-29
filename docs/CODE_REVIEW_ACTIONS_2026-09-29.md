@@ -94,6 +94,10 @@ spatial support of the water surface and of the nonlinearity of the connectivity
   static terrain-connectivity model in §3.2, and the Discussion (§5) states that propagation, storage, friction and transient
   backwater need hydraulic modelling (Dale et al. 2026; Kasmalkar et al. 2024; Barnes et al. 2021 — Crossref-verified, quotes
   checked), with the withheld gauges as the evidence and the reconstruction as the calibration target (Paper 5).
+- **Figures, maps, dashboard (maintainer's request):** FigS14 (support map + daily core), FigS15 (withheld gauges); the dashboard
+  shows the support classes by day on the Maps page, the gauges with their roles, an observational-support section and a
+  withheld-gauge section; the README links the live app (https://floodstate-eo.streamlit.app, deployed from `main` by the
+  maintainer on Streamlit Community Cloud).
 - **Next:** Stage 1 frozen after this pass; Stage 2 = F09 → F10 → F08.
 
 ## Decisions recorded (Stage 1)
