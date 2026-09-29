@@ -58,7 +58,9 @@ tables named next to it.
   by the overlap: 0.904 → 0.848 outside it** (B2 → B1 0.932 → 0.907).
 - The map hardly changes: 96.9 % (B1) / 96.8 % (B2) of cells keep their class, 99.6 % / 99.5 % outside UNCERTAIN; class areas
   ±12.5 km²; SHRUB/OTHER never predicted (the U1 encoding loses nothing). T14 (p95d on rev 2): category areas unchanged, RF20
-  splits ≤ 4.7 km². Reproducibility gate of rev 2: pending (after the U-Net arms, which read the products).
+  splits ≤ 4.7 km². **Reproducibility gate PASS → P73_RF20_REV2_FROZEN:** the clean-tree re-run at acf190c reproduces all eight
+  product rasters bit for bit (after the arms had been trained on them); the joblib model file is not byte-reproducible (its
+  predictions are).
 
 ## F11 and the retrained arms — v004 × 3 seeds, U2 on v002_notrace × 3 seeds (T04, T05, T05s, T06, T06s, T07, T07b, T20)
 

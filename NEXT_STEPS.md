@@ -400,7 +400,7 @@ Branch `review-2026-09-28-stage2` (from the frozen Stage 1, 7795cad; code 214bf9
 - F08: RF20 rev 2 (global UTM blocks, B2 owns the overlap, buffered CV, transfers outside the overlap): CV macro F1 0.943 -> 0.941
   (buffered 0.929); the rev-1 B1->B2 transfer was inflated by the overlap: 0.904 -> 0.848. The map hardly changes (96.9 % / 96.8 %
   of cells). Consumers switched (U1 input and strata of every stage-2 arm, p95d/T14, T09/T10/T10d, FigS04, dashboard, notebooks);
-  QA verdict `tables/p73_rf20_rev2_qa/QA_VERDICT.md`; the rev-2 freeze waits for its clean-tree reproducibility gate.
+  QA verdict `tables/p73_rf20_rev2_qa/QA_VERDICT.md`; FROZEN after the clean-tree gate (8 product rasters bitwise, acf190c).
 - F11: NaN for undefined ratios (m6_eval, p90) with n_defined; 15 arms on the corrected labels with three seeds (U0d, U2, U2b,
   U1 on v004; U2 on v002_notrace for the label effect) + U2 v004 block-size runs. Seed noise is large (cropland burden range up
   to 20.8 km2 within one arm). Across seeds: the label effect on REFERENCE_WATER holds (3/3; C09); the HAND reduction of the
@@ -414,8 +414,8 @@ Branch `review-2026-09-28-stage2` (from the frozen Stage 1, 7795cad; code 214bf9
   FigS04 rev 2; FigS05 v003_A + v004. The manuscript §3.5/§4.4/§4.8 carry the stage-2 numbers; §3.6 and §4.9 (labels, arms)
   still describe the v002 / v003_A arms and wait for the maintainer's decision on C09-C11 (text pass).
 - NEXT: the maintainer's review of the stage-2 numbers (C09-C11 statements; whether v004 becomes the paper's label version in
-  the text); the reproducibility gates (v004 labels -> p77e freeze; RF20 rev 2 -> freeze); the with-TRACE comparison CV (T02c row
-  of the original model); then Stage 3 (F13-F19 + the text pass). No merge / push without the maintainer.
+  the text); v004 labels and RF20 rev 2 are FROZEN (both clean-tree gates bitwise); the with-TRACE comparison CV (T02c row of
+  the original model); then Stage 3 (F13-F19 + the text pass). No merge / push without the maintainer.
 
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /

@@ -1,4 +1,5 @@
 # New in floodstate-eo, 2026-09-23. STATUS: P73_RF20_FROZEN (products of commit 5f875ce; QA: tables/p73_rf20_qa/QA_VERDICT.md).
+# Rev 2 FROZEN 2026-09-29 (products reproduced bit for bit at acf190c; QA: tables/p73_rf20_rev2_qa/QA_VERDICT.md) -- the RF20 in use.
 # May enter a U-Net only as INPUT context (U1) after the B1+B2 split is frozen; never in label construction.
 # Rev 2 (2026-09-29, review 2026-09-28 F08; `--rev 2`, versioned outputs `_rev2`, rev 1 untouched): 5 km blocks from the
 # UTM coordinates of the 20 m cells (one physical cell, one block, in both frames); B2 owns the B1/B2 overlap and B1

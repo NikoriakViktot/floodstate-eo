@@ -1,4 +1,4 @@
-# p73 RF20 rev 2 — QA verdict: PASS (statistics, agreement with rev 1); FREEZE after the clean-tree reproducibility gate
+# p73 RF20 rev 2 — QA verdict: PASS → P73_RF20_REV2_FROZEN (2026-09-29; clean-tree reproducibility gate PASS)
 
 Rev 2 answers review F08 (2026-09-28): 5 km blocks from the UTM coordinates of the 20 m cells (one physical cell, one block,
 in both frames); B2 owns the B1/B2 overlap and B1 contributes no target there (3 093 025 B1 target cells dropped), so a
@@ -7,8 +7,13 @@ the frame transfers train and test outside the overlap only. Rev 1 (`../p73_rf20
 
 Run: `p73_rf20_surface.py --rev 2 --jobs 12` on 2026-09-29 (15 min, 9.6 GB peak); the p73 code and every module it imports
 are identical to commit 214bf93 (the working tree had uncommitted edits in other files); model sha256 in
-`../p73_rf20_rev2_manifest.json`. **Reproducibility gate: PENDING** — a clean-tree re-run must reproduce the class and
-max-score rasters bit for bit before the status becomes FROZEN (run after the U-Net arms, which read these products).
+`../p73_rf20_rev2_manifest.json`.
+
+## Reproducibility gate — PASS
+The clean-worktree re-run at `acf190c` (`dirty_tracked: false`, 14 min, 10.2 GB) reproduces all eight rev-2 product rasters
+(class, max score, uncertain and scores; B1 and B2) **bit for bit** (sha256 before = after), after the stage-2 U-Net arms had
+been trained on them. The persisted model file is not byte-reproducible (joblib sha256 `fd6d48f0…` → `f8e55fdb…`, the manifest
+records the current one); its predictions are, on every valid cell of both frames.
 
 ## Statistical QA (against WorldCover 2021, itself a weak reference; balanced samples of pure cells)
 | evaluation | CROPLAND F1 | WETLAND_REED F1 | BUILT_UP F1 | BARE_SAND F1 | WATER F1 | macro F1 | OA |
