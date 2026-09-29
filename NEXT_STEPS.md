@@ -325,6 +325,57 @@ Maintainer: "також мають бути карти спустошення в
   Surface context = RF20 map of B1+B2, class areas, method from the p73 manifest, QA panels. Bibliography 52 -> 85 entries,
   every new DOI Crossref/DataCite-verified (Yi_2025 corrected to 8 authors); Rikimaru_2002 (BSI) and Pedregosa_2011 have no DOI.
 
+### 2026-09-29 -- response to the scientific / code review of 2026-09-28 (F01-F20), Stage 1: the uncertainty engine
+Review and literature notes moved to `case_studies/kakhovka_2023/reviews/`; action ledger `docs/CODE_REVIEW_ACTIONS_2026-09-29.md`
+(every finding checked against 06441cf: F01-F19 confirmed; decisions D-BIAS, D-BED, D-CORR, D-INTERP, D-MC1, D-N, D-SEAM,
+D-RULE, D-VERT; D-EMU open). Maintainer scope: Stage 1 now, then STOP for the new numbers; Stage 2 = F09 -> labels v004 ->
+arms retrained, F10, F08 with the RF20 production refit (new freeze), F11, F12 hold-out; Stage 3 = F13-F19 + the text pass.
+Conceptual corrections: FABDEM is a bare-earth DTM; the terrain layer is the seamless terrain-bed model (FABDEM outside the
+surveyed channel, bed inside, source mask 1-5); the WorldCover class median is a RESIDUAL terrain-elevation bias (FABDEM cells
+only, never on bed); everything in EVRF2019 (asserted); no new physics while answering the review.
+- New event-agnostic core `src/floodstate_eo/terrain/` (fields, connectivity, mosaic, interp, vertical) with tests.
+- p95 rev 6: union mosaic (ownership for accounting), Hmat-only error contract, per-zone FABDEM-only residual table, support
+  flags, `connected_ceiling` default with explicit suffixes, repository gauge copy, legacy mode = exact rev-5 reproduction gate
+  (all 138 / 276 / 33 rows identical); attribution T11h (A_new 06-07 nominal 235.3 -> 243.2 km2, almost all from the terrain
+  table; the mosaic changes nothing on the real rasters, T11i).
+- p95j: FABDEM - ICESat-2 residuals per zone/class (T18b) and the semivariogram of the standardized residual: pooled robust nested
+  fit nugget 0.08 + 0.50 exp(-h/123 m) + 0.42 exp(-h/1172 m) (T18c, FigS11).
+- p95e rev 2: coherent worlds (one terrain field over the mosaic, one water-surface realization, baseline rebuilt), W_total /
+  A_new / volumes from their own ensembles, gap-matched interpolation CV (T11f), 1000 worlds + convergence (2 seeds, T11c) +
+  ablation (T11d) + day-of-maximum distribution (T12c) + WSE-offset sensitivity (T11e). np.nanmedian replaced by a bit-identical
+  row median (its per-row warnings were 40 % of the run time); exact cropping to the base bounding box.
+- p95c: F12 mask fixed (ZONE_4 terrain-only 6764 -> 4821 ICESat-2 segments), raw and corrected residuals, n_dates.
+- Structural finding for the maintainer: the delta far from the SWOT nodes takes the nearest node's level; dropping nodes with a
+  > 3-day gap raises the corridor A_new on 9 June from 188 to 252 km2 (7 June unchanged) -- not in the Monte-Carlo budget.
+- Monte-Carlo, 1000 coherent worlds (seed 20260929; gate: draw 0 == the p95 nominal run on 276/276 rows, identical cell counts;
+  field std 1.000, 0.985-1.016; new area 0 before the breach in every world): corridor 7 June A_new 262 [250-278] km2 (nominal
+  243, below p05), W_total 791 [767-819] (nominal 797 inside), V_new 627 [585-674] hm3; areal maximum on 7 June in 77 % of the
+  worlds, 8 June in 23 %. Convergence (2nd seed), ablation and WSE-offset runs: see the ledger / T11c-T11e.
+- Independent gauges (p95k, T17c-T17f). The maintainer's check of the cm-above-zero conversion found a SIGN error: Kalynivske
+  80575 has its zero at -1.34 m BS (yearbook sheet header), p95k had +1.34 -- every Kalynivske level was 2.68 m too high;
+  corrected, zeros now read from the sheet headers (80564 is 56.34, not 56.44). Table 1.2 holds daily MEANS: peaks, rises and
+  records now use the yearbook's highest level ('Вищий'): Kalynivske 772 cm = 6.59 m EVRF2019 on 10 June (record since 1927),
+  Mykolaiv 602 cm = 1.22 m on 8 June (record since 1963, rise 1.05 m); the Kherson series of the engine equals the yearbook.
+- D-INHULETS DECIDED (maintainer): Kalynivske withheld from the primary, kept as an independent tributary validation site
+  (e_abs, e_rise, peak timing, recession); the gauge-node run is a separate sensitivity (it lowers the valley's new area on
+  7 June 41.4 -> 19.2 km2 and raises the S1 CSI on every event date). Results: e_abs +9.5 m on 6 June, peak -3 d, e_rise
+  -0.72 m on 14 June (the reconstruction drains ahead of the valley; the close absolute agreement on 13-18 June is a
+  coincidence of two errors), support at the gauge constant (Dnipro node 39.5 km). 86 % of the valley's new area on 7 June
+  comes from nodes > 20 km away (27 % cross-river): claims above the lower valley are weakly constrained -- the exact
+  restriction criterion is for the text pass (C03).
+- Liman (Mykolaiv 98027): the serving node of the western delta (E 457.6 km) is unobserved 6-22 June and interpolated flat
+  across the flood (-0.82 m vs the liman on 8 June): F05 confirmed by an independent gauge; Mykolaiv is the second withheld
+  validation site (Kherson = input/anchor).
+- Maintainer's review of the numbers (same day) -> Stage 1 FROZEN after these decisions: D-SUPPORT = full reconstruction
+  primary + support classes direct <= 3 km / extrapolated 3-10 km / weak > 10 km (cross-river and gauge-capped as flags; p95l,
+  T11k/T11l; corridor 7 June: 25 % weak, core 182 of 243 km2, the 10 km cap run 180 km2); D-EMU = the emulator is a diagnostic
+  only (T12d); claims C01-C03/C07 rewritten with the rev-6 numbers and the baseline-connectivity mechanism; the full draw
+  tables are release assets (checksums in tables/p95e_draws_checksums.csv); no gravity layer (z < H already carries it);
+  manuscript §3.2 states the static model and §5 why hydraulic modelling (Paper 5) is needed, with the withheld gauges as
+  evidence (Dale 2026, Kasmalkar 2024, Barnes 2021 added, Crossref-verified).
+- NEXT: Stage 2 = F09 (inner out-of-fold M2 threshold -> labels v004 -> arms retrained) -> F10 (label contracts, lineage) ->
+  F08 (global blocks, overlap dedup, RF20 production refit, new freeze) -> F11 -> F12 hold-out.
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

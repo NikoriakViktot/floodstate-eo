@@ -80,12 +80,31 @@ benchmark practice separates the same quantities: observed water, observed flood
     Ontology LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN; arms U0d, U0z, U1 (+RF20), U2 (+HAND) on v002 and U0d, U2, U2b
     (+W_pre) on v003_A; paired spatial-block bootstrap on identical blocks. U2b is a diagnostic upper bound because W_pre is
     also a label ingredient. Every number is agreement with weak labels. Tables T02–T08, T20.
-24. **Terrain reconstruction of the daily inundation (p95)** `[implemented: workflows/m6/p95_hand_daily_inundation.py, rev 5]`.
+24. **Terrain reconstruction of the daily inundation (p95)** `[implemented: workflows/m6/p95_hand_daily_inundation.py, rev 6 (2026-09-29, code-review response)]`.
     Water surface per day from SWOT L2_HR_RiverSP nodes (EGG2015-referenced heights shifted by the Kherson-local closure of
-    Paper 1; node-based interpolation, no chainage) and the Kherson gauge; projected on the seamless DEM (Paper 2) minus its
-    class-median bias vs ICESat-2; rules: connected ceiling (primary), p42 HAND rule (lower bound), ceiling only; same-rule
-    pre-breach baseline; Monte-Carlo uncertainty (p95e: closure, gauge, SWOT node height, per-node interpolation, class-wise
-    correlated DEM error). Tables T11/T11b/T12; rasters under `$BULK_ROOT/floodplain_dyn/` (not redistributed).
+    Paper 1; node-based interpolation with observed / interpolated / held flags, no chainage) and the Kherson gauge; projected on
+    the seamless terrain–bed elevation model of Paper 2 (FABDEM bare-earth DTM outside the surveyed channel, bed inside; source
+    mask), with the residual class-dependent terrain bias against night ICESat-2 ground removed on FABDEM cells only (per zone,
+    p95j); every height in EVRF2019, asserted from declarations (`floodstate_eo.terrain.vertical`). Rules: connected ceiling
+    (primary, CLI default), p42 HAND rule, ceiling only; evaluated once on the union mosaic of the zones
+    (`floodstate_eo.terrain.mosaic`), ownership for accounting only; same-rule pre-breach baseline. Sensitivities: 4-connectivity,
+    main-stem seed, 3-day maximum gap, river-aware median, terrain as delivered, superseded closure, no surface from nodes > 10 km
+    away, the Kalynivske gauge as an extra water-surface node (the gauge then an input). A legacy mode reproduces rev 5
+    exactly (reproduction gate, T11h). Uncertainty (p95e rev 2): coherent Monte-Carlo worlds — one terrain-error field over the
+    mosaic (unit-variance FFT field, `floodstate_eo.terrain.fields`, covariance fitted in p95j) and one water-surface realization
+    per draw, every error term once; W_total, A_new and volumes from their own ensembles; 1000 draws with convergence (two
+    seeds), ablation and the distribution of the day of the maximum. Tables T11–T11j, T12–T12c, T18b/T18c; rasters under
+    `$BULK_ROOT/floodplain_dyn/` (not redistributed). Response ledger: `docs/CODE_REVIEW_ACTIONS_2026-09-29.md`.
+    Support of the new inundation (p95l, T11k/T11l; D-SUPPORT): every newly inundated cell classed by the distance of its nearest
+    SWOT node — direct ≤ 3 km, extrapolated 3–10 km, weak > 10 km (operational thresholds) — with gauge-capped and cross-river
+    flags; the full reconstruction is the primary product, the supported core (≤ 10 km) and the 10 km cap run are reported next
+    to it. The 100 000-draw emulator (p95g) is a computational diagnostic outside the evidence path (T12d; D-EMU). The model is
+    static: no momentum or continuity, no propagation time; hydraulic modelling is the next step (manuscript §5).
+    Independent in-situ checks (p95k, T17c–T17f; not inputs): Inhulets – Kalynivske 80575, withheld from the primary water surface
+    as a tributary validation site (absolute error, event-relative error free of a constant datum offset, peak timing, recession;
+    the valley's new area split by the distance and river of its serving SWOT node), and the liman gauge Mykolaiv 98027. Yearbook
+    table 1.2 daily means in cm above the gauge zero, the zero read from the sheet header, EVRF2019 by the EPSG:9902 grid step;
+    peaks, rises and records from the yearbook's highest level of the year.
 25. **Checks and disagreement ontology** `[implemented: p94, p95c, p95d, p96 T13–T19]`. Sentinel-1 per acquisition date
     (POD/FAR/CSI on the S1 observation domain; POD excluding normally-wet cells as an a-priori sensitivity); A/B/C ontology by
     WorldCover/RF20 class and ground elevation above the surface; ICESat-2 altimetric consistency check (night ATL08 vs DEM

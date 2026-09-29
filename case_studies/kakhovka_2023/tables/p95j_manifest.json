@@ -1,0 +1,123 @@
+{
+ "seed": 20260929,
+ "qc": "p57 load_points: night, gnd_ph_count >= 8, snow-free, |h_te| < 500 m, outside the former pool; WorldCover != water; source in (3, 4)",
+ "support": "ATL08 100 m segments (kakhovka pull) and 20 m segments (lower_dnipro / liman pulls) vs 20 m terrain cells",
+ "ZONE_4_DAM_TO_KHERSON_FLOODWAY": {
+  "n_points": 477213,
+  "n_dates": 92,
+  "by_source": {
+   "3": 476784,
+   "4": 429
+  },
+  "bed_points_excluded": 6993
+ },
+ "ZONE_2_KHERSON_DELTA": {
+  "n_points": 153233,
+  "n_dates": 23,
+  "by_source": {
+   "3": 152606,
+   "4": 627
+  },
+  "bed_points_excluded": 15446
+ },
+ "p57_reference_rows": [
+  {
+   "set": "A FABDEM->EVRF2019 (land below dam)",
+   "N": 830554,
+   "median": 0.085,
+   "NMAD": 0.387,
+   "RMSE": 0.976
+  },
+  {
+   "set": "A source DEM, ZONE_2_KHERSON_DELTA",
+   "N": 153342,
+   "median": -0.002,
+   "NMAD": 0.299,
+   "RMSE": 0.968
+  },
+  {
+   "set": "A source DEM, ZONE_3_DNIPRO_BUG_ESTUARY",
+   "N": 200667,
+   "median": -0.126,
+   "NMAD": 0.261,
+   "RMSE": 0.675
+  },
+  {
+   "set": "A source DEM, ZONE_4_DAM_TO_KHERSON_FLOODWAY",
+   "N": 476545,
+   "median": 0.224,
+   "NMAD": 0.385,
+   "RMSE": 1.08
+  },
+  {
+   "set": "A FABDEM, low floodplain (< 5 m)",
+   "N": 79712,
+   "median": 0.347,
+   "NMAD": 0.682,
+   "RMSE": 0.826
+  },
+  {
+   "set": "A FABDEM, WorldCover trees",
+   "N": 46781,
+   "median": 1.509,
+   "NMAD": 1.649,
+   "RMSE": 2.733
+  },
+  {
+   "set": "A FABDEM, WorldCover grass",
+   "N": 166113,
+   "median": 0.226,
+   "NMAD": 0.611,
+   "RMSE": 1.332
+  },
+  {
+   "set": "A FABDEM, WorldCover cropland",
+   "N": 539784,
+   "median": 0.018,
+   "NMAD": 0.293,
+   "RMSE": 0.325
+  },
+  {
+   "set": "A FABDEM, WorldCover built",
+   "N": 29822,
+   "median": 0.098,
+   "NMAD": 0.692,
+   "RMSE": 1.252
+  },
+  {
+   "set": "A FABDEM, WorldCover bare",
+   "N": 4106,
+   "median": 0.238,
+   "NMAD": 1.005,
+   "RMSE": 1.657
+  },
+  {
+   "set": "A FABDEM, WorldCover wetland",
+   "N": 43771,
+   "median": 0.489,
+   "NMAD": 0.524,
+   "RMSE": 0.854
+  }
+ ],
+ "correlation_model_for_p95e": {
+  "model": "nested_2exp+nugget",
+  "nugget_share": 0.0796,
+  "structures": [
+   [
+    0.5006,
+    122.8,
+    "exponential"
+   ],
+   [
+    0.4198,
+    1172.0,
+    "exponential"
+   ]
+  ],
+  "sill_standardized": 0.9622,
+  "fit_rmse_rel": 0.0106,
+  "single_fit_rmse_rel": 0.0932,
+  "source": "POOLED standardized residual (r - b_c) / sigma_c, Cressie-Hawkins estimator, Cressie WLS fit; the nested model is used when its relative RMS misfit is < half that of the single exponential",
+  "note": "p95e: sigma_c per class (marginal) x a unit field with these structures and nugget -- a stated modelling assumption; the nugget includes ICESat-2 segment noise and point-to-cell support mismatch (upper bound of the cell-level white error)"
+ }
+}

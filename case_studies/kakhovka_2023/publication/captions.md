@@ -22,10 +22,10 @@ a label ingredient). All numbers are agreement with weak reference labels (T06, 
 
 **Fig04 Daily reconstructed series, dam → liman.** (a–c) Reconstructed total water-surface area per day (all water on the day,
 including pre-breach channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley:
-central run (black), the PRIMARY interval (shaded: p05–p95 of the 40 spatial Monte-Carlo draws, key dates), the emulator
-sensitivity envelope (candles: 100 000 draws per day, p05–p95 whisker, p25–p75 body, median; area only, a broader parameter
-space), the DEM-as-delivered sensitivity (orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
-coverage). (d–f) Reconstructed newly inundated area (black) with its daily change as bars (blue filling, orange draining) and the
+Monte-Carlo median (black) and deterministic nominal run (dotted), the PRIMARY interval (shaded: p05–p95 of the coherent
+Monte-Carlo worlds of the total water surface itself, every day; n in T12b), the terrain-as-delivered
+sensitivity (orange; no residual bias removed) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
+coverage). (d–f) Reconstructed newly inundated area (Monte-Carlo median, black; shaded p05–p95) with its daily change as bars (blue filling, orange draining) and the
 U-Net U2b persistent-event-flood area. (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
 the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
@@ -40,12 +40,15 @@ EGG2015-referenced heights; the reconstruction itself is node-based (no chainage
 SWOT (T17).
 
 **Fig07 Event-scale spatial result.** (a) Depth of the reconstructed newly inundated area on 2023-06-08, one day after the
-reconstructed areal maximum and without a satellite scene. (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, central run;
-rasters derived from FABDEM through the seamless DEM (not redistributed).
+reconstructed areal maximum and without a full-coverage satellite scene of the corridor (SWOT observed the channel nodes that
+day). (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, nominal run on the union mosaic;
+rasters derived from FABDEM through the seamless terrain–bed model (not redistributed).
 
-**Fig08 ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per
-agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments
-below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
+**Fig08 ICESat-2 altimetric consistency check.** FABDEM-sourced terrain minus night ICESat-2 ATL08 ground height (median,
+p10–p90) per agreement category of 2023-06-09 (categories inside the Sentinel-1 valid footprint only), as delivered (circles) and
+after the residual class-bias correction used by the reconstruction (diamonds), with the ground elevation relative to the
+reconstructed surface and the share of segments below it (n segments and acquisition dates in T15; the same night corpus also
+calibrates the class bias, so this is a consistency check, not an independent validation): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to
 to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2
 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency
 check that supports this reading; it does not sample every cell and does not validate the map.
@@ -60,8 +63,10 @@ relative gap).
 
 ## Supplementary figures
 
-**FigS01** training loss and validation patch F1 per arm. **FigS02** rule and closure sensitivity of the daily corridor area
-(connected, HAND, ceiling only, superseded p59 closure with +0.5 m margin, uncorrected DEM). **FigS03** per-date S1 and reliable S2
+**FigS01** training loss and validation patch F1 per arm. **FigS02** structural sensitivity of the daily corridor new area (nominal runs, T12):
+the rule (connected ceiling = primary, p42 HAND rule, ceiling only), the terrain as delivered (no residual bias removed),
+4-connectivity, the main-stem seed, nodes unavailable beyond a 3-day gap, a river-aware water surface, no water surface from
+nodes more than 10 km away, and the superseded p59 closure with a +0.5 m margin. None of these is in the Monte-Carlo budget. **FigS03** per-date S1 and reliable S2
 new-water series per region. **FigS04** RF20 row-normalised confusion (spatial-block CV) and per-class F1 for CV and transfers.
 **FigS05** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 **FigS06** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band. **FigS07** Reservoir hypsometry
@@ -95,13 +100,27 @@ number; shaded where the outlet falls below 10.0 m and Table 19 is undefined. Th
 Rozumivka level gives a daily-mean effective release of ~12 000 / 38 000 / 20 000 / 19 000 m³/s on 6–9 June (T27b), the design-curve
 counterpart of the ~40 000 m³/s of T21 on 7 June. The released volume on the sloped surface of Paper 3 is T21/Fig09.
 
+**FigS11** The terrain-error model of the Monte-Carlo (p95j, T18b/T18c). (a) Semivariograms of the FABDEM − night ICESat-2
+ground residual after the class median, per WorldCover class (pooled zones, same-date pairs; FABDEM-sourced cells only), with
+single-exponential fits. (b) The standardized residual (r − b_c)/σ_c, robust (Cressie–Hawkins) and classical estimators, with the
+nested fit used by the Monte-Carlo (a nugget plus two exponential structures) and the single exponential for comparison; the
+dotted line marks unit variance. One pooled correlation with class-wise scales is a modelling assumption.
+
+**FigS12** Convergence of the Monte-Carlo quantiles with the ensemble size (T11c): p05, p50 and p95 of the newly inundated
+area, the total water-surface area and the new-water volume on 7 June from the first n = 40 … 1000 worlds of two independent
+seeds (solid / dashed), with a bootstrap 95 % interval of each quantile estimator (shaded).
+
+**FigS13** Sensitivity of the connected reconstruction to a uniform offset δ of the water surface on the nominal terrain
+(T11e): (a) newly inundated area of the Dnipro corridor on 7, 9 and 13 June for δ = −0.20 … +0.20 m; (b) the local derivative
+dA/dH. It shows where the connected area is sensitive to the water surface (connectivity thresholds); it is not a new model.
+
 ## Tables
 
 See `tables/README.md` (generated): T01 data inventory · T02/T02b labels and transition · T03/T03b/T03c split · T04 arms ·
 T05 D1 endpoints with intervals · T06 paired comparisons · T07/T07b v003_A attribution endpoints · T08/T08b audit and retention ·
-T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T12 daily area/volume with the Monte-Carlo band ·
+T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T11c Monte-Carlo convergence · T11d ablation of the budget · T11e water-surface offset sensitivity · T11f gap-matched interpolation error · T11g water-surface support · T11h rev 5 → rev 6 attribution (reproduction gate) · T11i seam check · T11j terrain source of the new area · T11k/T11l observational support of the new area (direct / extrapolated / weak, supported core, cross-river flag) · T12 daily area/volume with the Monte-Carlo band · T12c day of the areal maximum across the worlds · T12d emulator (computational diagnostic, not evidence) ·
 T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting
-with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T18 DEM accuracy (Paper 2) · T19 per-date series ·
+with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T17c/T17d Inhulets gauge Kalynivske (withheld, independent validation site) vs the reconstruction · T17e/T17f liman gauge Mykolaiv (independent) vs the reconstructed surface · T18 terrain accuracy (Paper 2) · T18b FABDEM − ICESat-2 residual by zone and class · T18c residual semivariograms and fits · T19 per-date series ·
 T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap ·
 T23 pool water area by source (model / S1 / S2 / Yi 2025, observed fraction, IoU vs model) · T24 S2 k10e classes in the pool
 by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes · T27 design hypsometry (monograph Table 19, whole pool and reaches, design levels) · T27b the observed 2023 levels (1 Feb – 10 Jul) read on the design curve with the DniproHES balance · T27c the spring filling week by week · T12b the daily series, MC median [p05–p95] with the nominal run.

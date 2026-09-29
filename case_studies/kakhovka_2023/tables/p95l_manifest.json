@@ -1,0 +1,15 @@
+{
+ "producer": "p95l_support_domain.py",
+ "rule": "connected_ceiling",
+ "classes": {
+  "direct": "<= 3 km",
+  "extrapolated": "<= 10 km",
+  "weak": "<= inf km"
+ },
+ "flags": [
+  "gauge_capped (p95 WSE.far)",
+  "cross_river (Inhulets region)"
+ ],
+ "consistency_rows_checked": 276,
+ "decision": "D-SUPPORT (maintainer, 2026-09-29): full reconstruction primary; supported core and the cap run reported next to it"
+}

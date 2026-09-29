@@ -1,9 +1,10 @@
 component,sigma_m,note
-wse_total_per_day,0.098,"closure 0.05 + gauge 0.05 + swot wse_u/sqrt(5) + interpolation, in quadrature; one offset per day per draw"
-dem_class_10,1.055,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_30,0.323,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_40,0.128,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_50,0.458,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_60,0.782,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_90,0.314,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
-dem_class_0,0.197,class NMAD x cell-level std 0.658 of the 500 m bilinear field (as in p95e); clusters of 625 cells
+wse_total_per_day,0.105,"closure 0.05 + gauge 0.05 + swot wse_u/sqrt(5) + interpolation, in quadrature; one offset per day per draw"
+dem_class_10,1.693,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_30,0.606,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_40,0.293,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_50,0.634,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_60,0.986,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_90,0.43,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_0,0.387,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"
+dem_class_254,0.001,"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of 1460 cells from the p95j correlation model; bed cells sigma ~0"

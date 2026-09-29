@@ -1,0 +1,3 @@
+file,sha256,bytes,rows,n_draws,seed,mode,days,code_commit,location
+p95e_draws.csv.gz,8877c29517310ef3b2a2025b61d033ac44440f323346a44ce976f7ba8a7bd657,4217048,276276,1000,20260929,primary,all,7b1e76c3d8f9 (run on the identical tree before the commit; record_draws added after the run),"release asset (GitHub release / Zenodo), not in git"
+p95e_draws_seed20261001.csv.gz,190abb7e8f09847164815e0a91ec61d906c6dc56f6bb5746e0d8ecd9cee2f72b,1064207,54054,1000,20261001,convergence,key,7b1e76c3d8f9 (run on the identical tree before the commit; record_draws added after the run),"release asset (GitHub release / Zenodo), not in git"

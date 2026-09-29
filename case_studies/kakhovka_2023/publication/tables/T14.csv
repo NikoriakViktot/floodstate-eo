@@ -1,25 +1,25 @@
 zone,date,category,km2,km2_ground_below_surface,km2_ground_0_2m_above,km2_ground_2_5m_above,km2_ground_ge5m_above,km2_normally_wet,km2_wc_trees,km2_wc_wetland,km2_wc_built,km2_wc_cropland,km2_wc_grass,km2_wc_bare,km2_p73_reed,km2_p73_forest,km2_p73_built,km2_p73_cropland,category_meaning
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,A,25.82,25.82,0.0,0.0,0.0,0.0,0.93,6.15,0.65,0.98,16.65,0.07,5.46,1.44,1.48,1.06,terrain+ / S1+
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,B,66.28,66.28,0.0,0.0,0.0,0.0,27.8,5.75,9.52,1.12,21.41,0.05,4.94,25.65,11.55,1.31,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,C,109.07,75.09,1.44,3.46,29.08,74.29,2.78,69.09,0.13,25.63,9.26,0.21,69.9,2.75,0.34,5.94,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,N,1870.95,305.79,96.6,199.53,1268.69,57.96,250.69,18.88,81.21,866.96,404.95,7.24,30.36,210.29,81.92,442.01,neither
-ZONE_2_KHERSON_DELTA,2023-06-09,A,32.98,32.98,0.0,0.0,0.0,0.0,0.48,24.06,1.02,0.37,6.54,0.08,21.59,0.65,2.27,0.46,terrain+ / S1+
-ZONE_2_KHERSON_DELTA,2023-06-09,B,53.39,53.39,0.0,0.0,0.0,0.0,15.56,14.39,13.75,0.18,8.98,0.08,12.2,13.98,16.43,0.18,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_2_KHERSON_DELTA,2023-06-09,C,151.55,91.47,32.09,3.02,24.96,99.2,1.78,119.27,0.25,12.55,16.33,0.08,118.48,1.0,1.02,10.81,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_2_KHERSON_DELTA,2023-06-09,N,883.09,168.62,51.5,36.28,619.94,36.41,117.21,59.55,75.86,289.25,205.21,2.01,67.21,102.38,85.97,246.57,neither
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,A,12.55,12.55,0.0,0.0,0.0,0.0,0.82,4.43,0.12,0.08,6.69,0.01,4.51,0.99,0.51,0.18,terrain+ / S1+
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,B,26.64,26.64,0.0,0.0,0.0,0.0,11.39,5.43,3.32,0.11,5.95,0.01,4.43,11.42,4.3,0.13,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,C,78.01,73.28,0.93,0.86,2.94,71.72,3.38,66.17,0.18,0.15,5.64,0.31,68.6,1.8,0.41,0.17,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,N,1954.93,269.34,37.29,137.81,1510.13,60.52,266.61,23.84,87.89,894.35,433.99,7.24,33.11,225.93,90.07,449.84,neither
-ZONE_2_KHERSON_DELTA,2023-06-13,A,10.88,10.88,0.0,0.0,0.0,0.0,0.09,8.96,0.12,0.02,1.38,0.03,8.33,0.1,0.47,0.13,terrain+ / S1+
-ZONE_2_KHERSON_DELTA,2023-06-13,B,57.86,57.86,0.0,0.0,0.0,0.0,11.93,27.83,9.2,0.13,8.18,0.04,24.01,11.13,11.76,0.17,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_2_KHERSON_DELTA,2023-06-13,C,63.46,56.9,3.57,0.25,2.73,57.93,0.81,58.52,0.04,0.26,3.01,0.13,57.79,0.36,0.45,0.43,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_2_KHERSON_DELTA,2023-06-13,N,1157.71,277.95,107.27,60.07,704.75,90.16,137.2,134.41,83.71,328.22,276.54,2.85,133.46,121.51,97.87,278.81,neither
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,A,5.77,5.77,0.0,0.0,0.0,0.0,0.41,1.31,0.03,0.0,3.71,0.0,1.7,0.47,0.26,0.05,terrain+ / S1+
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,B,24.74,24.74,0.0,0.0,0.0,0.0,10.02,7.71,1.91,0.09,4.51,0.01,6.88,10.31,2.6,0.12,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,C,53.42,47.17,1.77,0.62,3.87,46.39,2.02,42.44,0.14,0.07,6.96,0.11,44.44,0.77,0.32,0.09,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,N,1233.79,176.38,27.01,110.23,919.82,85.85,243.12,48.35,69.26,393.16,372.19,7.37,57.48,226.52,84.2,354.18,neither
-ZONE_2_KHERSON_DELTA,2023-06-14,A,5.97,5.97,0.0,0.0,0.0,0.0,0.03,4.76,0.04,0.01,0.91,0.02,4.33,0.04,0.25,0.08,terrain+ / S1+
-ZONE_2_KHERSON_DELTA,2023-06-14,B,50.79,50.79,0.0,0.0,0.0,0.0,9.7,29.75,5.89,0.04,4.8,0.04,26.27,9.15,7.97,0.13,terrain+ / S1- (sensor blind spot or reconstruction excess)
-ZONE_2_KHERSON_DELTA,2023-06-14,C,34.14,17.53,3.46,2.4,10.75,18.06,0.37,18.76,0.03,1.06,13.32,0.09,17.8,0.13,0.36,1.13,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
-ZONE_2_KHERSON_DELTA,2023-06-14,N,1199.01,317.92,113.64,60.26,699.53,130.03,139.94,176.45,87.12,327.51,270.08,2.91,175.19,123.77,101.97,278.2,neither
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,A,24.07,24.07,0.0,0.0,0.0,0.0,0.81,4.62,0.66,1.33,16.26,0.07,3.86,1.24,1.47,1.25,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,B,72.66,72.66,0.0,0.0,0.0,0.0,29.04,5.1,10.62,1.56,25.7,0.08,4.25,26.58,13.01,1.71,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,C,110.82,77.02,1.54,3.6,28.67,76.68,2.9,70.62,0.12,25.27,9.65,0.21,71.51,2.95,0.34,5.74,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-09,N,1864.58,309.4,97.6,208.66,1248.57,60.4,249.45,19.53,80.11,866.52,400.66,7.22,31.04,209.36,80.47,441.61,neither
+ZONE_2_KHERSON_DELTA,2023-06-09,A,32.41,32.41,0.0,0.0,0.0,0.0,0.47,23.58,1.01,0.37,6.55,0.07,21.05,0.64,2.25,0.46,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-09,B,53.2,53.2,0.0,0.0,0.0,0.0,15.53,14.24,13.78,0.18,8.98,0.1,12.03,13.94,16.46,0.18,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-09,C,152.12,92.91,31.23,3.03,24.95,100.58,1.79,119.75,0.26,12.55,16.32,0.09,119.01,1.0,1.04,10.81,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_2_KHERSON_DELTA,2023-06-09,N,883.28,170.36,50.06,36.24,619.86,37.29,117.24,59.7,75.83,289.25,205.21,1.99,67.39,102.43,85.93,246.57,neither
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,A,11.9,11.9,0.0,0.0,0.0,0.0,0.71,3.18,0.14,0.09,7.46,0.01,2.95,0.86,0.52,0.22,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,B,27.42,27.42,0.0,0.0,0.0,0.0,10.55,4.77,3.52,0.15,8.06,0.03,3.59,10.36,4.77,0.17,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,C,78.66,74.37,0.59,0.86,2.84,73.91,3.49,67.43,0.16,0.14,4.87,0.31,70.16,1.92,0.4,0.13,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-13,N,1954.14,271.16,42.58,142.51,1497.55,63.17,267.45,24.5,87.69,894.31,431.88,7.23,33.95,226.99,89.6,449.8,neither
+ZONE_2_KHERSON_DELTA,2023-06-13,A,10.55,10.55,0.0,0.0,0.0,0.0,0.08,8.7,0.12,0.02,1.38,0.02,8.04,0.1,0.45,0.13,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-13,B,57.46,57.46,0.0,0.0,0.0,0.0,11.89,27.46,9.22,0.13,8.19,0.09,23.61,11.08,11.78,0.17,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-13,C,63.79,57.37,3.44,0.25,2.73,58.39,0.82,58.78,0.04,0.26,3.01,0.15,58.08,0.36,0.46,0.43,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_2_KHERSON_DELTA,2023-06-13,N,1158.11,280.69,105.08,59.99,704.67,91.98,137.24,134.78,83.69,328.22,276.53,2.81,133.86,121.56,97.85,278.81,neither
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,A,5.41,5.41,0.0,0.0,0.0,0.0,0.34,1.03,0.03,0.0,3.76,0.0,1.16,0.4,0.26,0.06,terrain+ / S1+
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,B,23.96,23.96,0.0,0.0,0.0,0.0,9.1,6.33,1.95,0.12,6.04,0.02,5.18,9.31,2.88,0.18,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,C,53.78,48.26,1.08,0.69,3.75,47.42,2.09,42.71,0.14,0.07,6.92,0.11,44.99,0.83,0.32,0.09,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_4_DAM_TO_KHERSON_FLOODWAY,2023-06-14,N,1234.56,179.72,27.8,119.37,907.33,89.66,244.05,49.74,69.21,393.13,370.66,7.36,59.17,227.52,83.92,354.12,neither
+ZONE_2_KHERSON_DELTA,2023-06-14,A,5.83,5.83,0.0,0.0,0.0,0.0,0.03,4.67,0.04,0.01,0.91,0.0,4.22,0.04,0.24,0.08,terrain+ / S1+
+ZONE_2_KHERSON_DELTA,2023-06-14,B,50.33,50.33,0.0,0.0,0.0,0.0,9.75,29.26,5.92,0.04,4.81,0.07,25.72,9.17,8.02,0.13,terrain+ / S1- (sensor blind spot or reconstruction excess)
+ZONE_2_KHERSON_DELTA,2023-06-14,C,34.28,17.75,3.38,2.39,10.75,18.28,0.37,18.85,0.03,1.06,13.31,0.1,17.91,0.13,0.37,1.13,"terrain- / S1+ (submergence signal on normally-wet ground, or S1-only detections topographically unsupported by the reconstructed surface)"
+ZONE_2_KHERSON_DELTA,2023-06-14,N,1199.46,320.82,111.36,60.15,699.46,132.09,139.89,176.94,87.09,327.51,270.07,2.88,175.74,123.75,101.92,278.2,neither

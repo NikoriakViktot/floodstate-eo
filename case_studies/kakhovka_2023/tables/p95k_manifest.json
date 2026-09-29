@@ -1,0 +1,146 @@
+{
+ "producer": "p95k_inhulets_gauge_check.py",
+ "independent_of_reconstruction": true,
+ "ingestion_job": "378b6706-0e1d-45eb-b815-e07e6bff5dd4",
+ "yearbook_remark": "114. \u0440. \u0406\u043d\u0433\u0443\u043b\u0435\u0446\u044c \u2013 \u0441. \u041a\u0430\u043b\u0438\u043d\u0456\u0432\u0441\u044c\u043a\u0435. \u0412\u043d\u0430\u0441\u043b\u0456\u0434\u043e\u043a \u0421\u0413\u042f \u0437\u043c\u0456\u043d\u0438\u043b\u0430 \u043f\u0440\u0438\u0432\u043e\u0434\u043a\u0443 \u043f\u0430\u043b\u044f \u2116 5. \u0417 07-18.06.2023 \u0440\u043e\u043a\u0443 \u0440\u0456\u0437\u043a\u043e \u043f\u0456\u0434\u043d\u044f\u0432\u0441\u044f \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043e\u0434\u0438. \u041c\u0430\u043a\u0441\u0438\u043c\u0430\u043b\u044c\u043d\u0438\u0439 \u0440\u0456\u0432\u0435\u043d\u044c \u0432\u043e\u0434\u0438 \u0441\u0444\u043e\u0440\u043c\u0443\u0432\u0430\u0432\u0441\u044f \u0432\u043d\u0430\u0441\u043b\u0456\u0434\u043e\u043a \u043f\u0456\u0434\u0440\u0438\u0432\u0443 \u041a\u0430\u0445\u043e\u0432\u0441\u044c\u043a\u043e\u0457 \u0413\u0415\u0421. \u0411\u0443\u043b\u0438 \u043f\u0440\u043e\u0432\u0435\u0434\u0435\u043d\u0456 \u043f\u043e\u0447\u0430\u0449\u0435\u043d\u0456 \u0441\u043f\u043e\u0441\u0442\u0435\u0440\u0435\u0436\u0435\u043d\u043d\u044f. \u041d\u0435\u0433\u0430\u0442\u0438\u0432\u043d\u0456 \u043d\u0430\u0441\u043b\u0456\u0434\u043a\u0438 \u0437\u0430\u0442\u043e\u043f\u043b\u0435\u043d\u043d\u044f \u0436\u0438\u0442\u043b\u043e\u0432\u0438\u0445 \u0431\u0443\u0434\u0438\u043d\u043a\u0456\u0432, \u0430\u0432\u0442\u043e\u043c\u043e\u0431\u0456\u043b\u044c\u043d\u043e\u0433\u043e \u043c\u043e\u0441\u0442\u0430 (0,75 \u043a\u043c \u0432\u0438\u0449\u0435 \u043f\u043e\u0441\u0442\u0430).",
+ "remark_reading": "the yearbook attributes the maximum to the destruction of the Kakhovka HPP; high water 7-18 June; observations were made more often than the two daily terms during the event (daily values are means of them); houses and the road bridge 0.75 km upstream were flooded; CAVEAT: the levelling of pile No. 5 changed during the hazard (date and size not given), so levels read on it may carry a datum step -- post-event levels are not comparable with pre-event levels without that correction",
+ "vertical": "H_EVRF2019 = zero_BS77 (header of the yearbook sheet) + stage_cm / 100 + delta_EPSG9902 (ua_2019z.asc, bilinear; Paper 1)",
+ "levels": "table 1.2 daily means (day-by-day comparison); the yearbook's highest level of the year for peak, rise and record",
+ "highest": {
+  "stage_cm": 772,
+  "date": "2023-06-10",
+  "printed": "(772*)",
+  "record_period": "1927-1941, 1944-2023",
+  "source": "80575U_2023.xls (vol. 2, table 1.2): June '\u0412\u0438\u0449\u0438\u0439' 772; '\u0417\u0430 \u0440\u0456\u043a' (772*) 10.06; '1927-1941, 1944-2023' (772*) 10.06.2023",
+  "checked_against_monthly_parquet": true,
+  "bs77_m": 6.38,
+  "H_evrf2019_m": 6.589
+ },
+ "role": "D-INHULETS (maintainer, 2026-09-29): withheld from the primary water surface; independent tributary validation (absolute error, event-relative error, peak timing, recession); the gauge-node run is a separate sensitivity; the support of the valley's new area is classified in p95l (direct / extrapolated / weak, cross-river flag)",
+ "posts": {
+  "80575": {
+   "name": "Inhulets - Kalynivske",
+   "lat": 47.11638888888889,
+   "lon": 32.96055555555556,
+   "coord_source": "station catalogue, Kakhovka hydrometeorological observatory (Kherson oblast): 47\u00b06'59\" N 32\u00b057'38\" E",
+   "lat_bridge_estimate": 47.11628141526601,
+   "lon_bridge_estimate": 32.96271606822572,
+   "lat_passport": 47.11666666666667,
+   "lon_passport": 32.96666666666667,
+   "zero_bs77_m": -1.34,
+   "zero_source": "yearbook 2023 vol. 2 table 1.2 header, 80575U_2023.xls: '\u0412\u0456\u0434\u043c\u0456\u0442\u043a\u0430 \u043d\u0443\u043b\u044f \u043f\u043e\u0441\u0442\u0430 -1.34 \u043c \u0411\u0421' (passport table: '1.34', no sign)",
+   "floodplain_exit_cm": 490,
+   "extremes_cm": [
+    1,
+    710
+   ],
+   "source_file": "80575U_2023.xls",
+   "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=80575/year=2023/data.parquet",
+   "sha256": "5dbd689b87b51dff672b571cc8888672788cb4cbfb4defd9a8426dd1a21ee076",
+   "delta_epsg9902_m": 0.20904862313663244
+  },
+  "80568": {
+   "name": "Inhulets - Kryvyi Rih",
+   "lat": 47.89727777777778,
+   "lon": 33.337097222222226,
+   "lat_passport": 47.9,
+   "lon_passport": 33.35,
+   "coord_source": "station catalogue, Dnipropetrovsk regional hydrometeorological centre: 47\u00b053'50.20\" N 33\u00b020'13.55\" E",
+   "zero_bs77_m": 27.57,
+   "zero_source": "yearbook 2023 vol. 2 table 1.2 header, 80568U_2023.xls: '\u0412\u0456\u0434\u043c\u0456\u0442\u043a\u0430 \u043d\u0443\u043b\u044f \u043f\u043e\u0441\u0442\u0430 27.57 \u043c \u0411\u0421-77'",
+   "floodplain_exit_cm": 500,
+   "extremes_cm": [
+    280,
+    811
+   ],
+   "source_file": "80568U_2023.xls",
+   "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=80568/year=2023/data.parquet",
+   "sha256": "9a1a88b4f0478fd97e30f6bfe3e64cb35f9a502411eca1c253df327a3e24e78b",
+   "delta_epsg9902_m": 0.1617750398732833
+  },
+  "80564": {
+   "name": "Inhulets - Iskrivka",
+   "lat": 48.2,
+   "lon": 33.38333333333333,
+   "zero_bs77_m": 56.34,
+   "floodplain_exit_cm": null,
+   "extremes_cm": [
+    384,
+    1028
+   ],
+   "zero_source": "yearbook 2023 vol. 2 table 1.2 header, 80564U_2023.xls: '\u0412\u0456\u0434\u043c\u0456\u0442\u043a\u0430 \u043d\u0443\u043b\u044f \u043f\u043e\u0441\u0442\u0430 56.34 \u043c \u0411\u0421-77' (passport table: 56.44)",
+   "source_file": "80564U_2023.xls",
+   "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=80564/year=2023/data.parquet",
+   "sha256": "f84f35cdedd8e0e3e7e8302d8bbd2f846cededd1f2a25d471775fc700ee880d3",
+   "delta_epsg9902_m": 0.15096158119746575
+  },
+  "80561": {
+   "name": "Inhulets - Oleksandro-Stepanivka",
+   "lat": 48.61666666666667,
+   "lon": 33.15,
+   "zero_bs77_m": 81.99,
+   "floodplain_exit_cm": null,
+   "extremes_cm": [
+    44,
+    497
+   ],
+   "zero_source": "yearbook 2023 vol. 2 table 1.2 header, 80561U_2023.xls: '\u0412\u0456\u0434\u043c\u0456\u0442\u043a\u0430 \u043d\u0443\u043b\u044f \u043f\u043e\u0441\u0442\u0430 81.99 \u043c \u0411\u0421'",
+   "source_file": "80561U_2023.xls",
+   "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=80561/year=2023/data.parquet",
+   "sha256": "3574e074a5a5952ee5bf9f44e6b230910884f94b3f7459399fcda9f567d2b5d8",
+   "delta_epsg9902_m": 0.12326806671026422
+  }
+ },
+ "gauge_xy_epsg32636": [
+  497007.7,
+  5218098.9
+ ],
+ "gauge_cell": {
+  "zone": "ZONE_4_DAM_TO_KHERSON_FLOODWAY",
+  "row": 258,
+  "col": 2067,
+  "channel_cell_terrain_raw_m": 4.463326930999756,
+  "channel_cell_worldcover": 80,
+  "channel_cell_source": 3,
+  "floodplain_radius_m": 250.0,
+  "floodplain_land_cells": 409,
+  "terrain_m": 5.152402153015137,
+  "terrain_p25_m": 4.113466762542725
+ },
+ "engines": [
+  "primary",
+  "gauge_node_sensitivity"
+ ],
+ "discharge_80568": {
+  "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=80568/year=2023/data.parquet",
+  "sha256": "9a1a88b4f0478fd97e30f6bfe3e64cb35f9a502411eca1c253df327a3e24e78b"
+ },
+ "liman": {
+  "post": 98027,
+  "parquet": "/home/niko/repo/icesat2-atl13-kakhovka/data/1_data/data/parquet/tmp_4831112984a7410fa5dcd31a546424e6/daily/post_id=98027/year=2023/data.parquet",
+  "sha256": "c151d1a5fe4f08eefd7edda8a72b10d84d47c841239fcb6ee76fe7ceab169f0a",
+  "delta_epsg9902_m": 0.19970467565274985,
+  "xy_epsg32636": [
+   421828.7,
+   5203940.5
+  ],
+  "highest": {
+   "stage_cm": 602,
+   "date": "2023-06-08",
+   "printed": "602*",
+   "record_period": "1963-2023",
+   "source": "98027U_2023.xls (vol. 1, table 1.2): June '\u0412\u0438\u0449\u0438\u0439' 602; '\u0417\u0430 \u0440\u0456\u043a' 602* 08.06; '1963-2023' 602* 08.06.2023",
+   "checked_against_monthly_parquet": true,
+   "bs77_m": 1.02,
+   "H_evrf2019_m": 1.22
+  },
+  "name": "Southern Bug - Mykolaiv",
+  "lat": 46.984375,
+  "lon": 31.97207222222222,
+  "coord_source": "station catalogue, Mykolaiv hydrometeorological centre: 46\u00b059'3.75\" N 31\u00b058'19.46\" E",
+  "lat_surveyed": 46.98430555555556,
+  "lon_surveyed": 31.970916666666664,
+  "zero_bs77_m": -5.0,
+  "zero_source": "yearbook 2023 vol. 1 table 1.2 header, 98027U_2023.xls, and the 2021 yearbook: '\u0412\u0456\u0434\u043c\u0456\u0442\u043a\u0430 \u043d\u0443\u043b\u044f \u043f\u043e\u0441\u0442\u0430 -5.00 \u043c \u0411\u0421'"
+ }
+}

@@ -7,7 +7,7 @@ synonyms. `tests/test_terminology_freeze.py` forbids the phrases in the last sec
 
 | term | meaning | never |
 |---|---|---|
-| **observation-constrained terrain inundation reconstruction** (short: *terrain reconstruction*) | the observed water-surface elevations (SWOT nodes + gauge, Paper-1 frame) projected on the seamless DEM with a connectivity rule; no momentum or continuity equations | *physical reconstruction*, *hydrodynamic reconstruction*, *simulation* |
+| **observation-constrained terrain inundation reconstruction** (short: *terrain reconstruction*) | the observed water-surface elevations (SWOT nodes + gauge, Paper-1 frame) projected on the seamless terrain–bed elevation model (FABDEM DTM outside the surveyed channel, bed inside; EVRF2019) with a connectivity rule evaluated once over the whole domain; no momentum or continuity equations | *physical reconstruction*, *hydrodynamic reconstruction*, *simulation* |
 | **daily reconstructed series** / *daily estimates constrained by the available observations* | the per-day values 26 May – 10 July; between observation days they are interpolation + model | *daily observed* |
 | **reconstructed areal maximum** | the day of maximum reconstructed newly inundated area (7 June, between S1 acquisitions) | *flood peak* without a noun (peak *stage* at Kherson is 8 June and is a different quantity) |
 
@@ -49,8 +49,10 @@ closer in kind to A_new than to W_total and is context, never validation. Never 
 
 | term | definition |
 |---|---|
-| **primary interval** | p05–p95 of the 40 full spatial Monte-Carlo draws (p95e): correlated DEM error field, closure, gauge, SWOT, interpolation |
-| **emulator sensitivity envelope** | p05–p95 (p25–p75) of the 100 000-draw cluster-normal emulator (p95g), area only: a broader parameter space; never the primary interval |
+| **primary interval** | p05–p95 of the coherent Monte-Carlo worlds of p95e rev 2 (n in T12): per draw one terrain-error field over the whole domain (FABDEM cells, class NMAD × a unit field with the covariance fitted to the FABDEM − ICESat-2 residuals) and one water-surface realization (datum, gauge, SWOT, gap-dependent interpolation; every term once), the pre-breach regime rebuilt with it; W_total, A_new and volumes each from their own ensemble |
+| **emulator (diagnostic)** | the 100 000-draw cluster-normal emulator (p95g): no connectivity, total built around the nominal total; a computational diagnostic outside the evidence path (T12d; D-EMU 2026-09-29) — never an uncertainty estimate, never quoted as a result |
+| **full terrain-connectivity reconstruction** | the primary product: every cell the observed water surface reaches through the terrain with connectivity, whatever the distance of its SWOT support |
+| **support classes** | distance of the nearest SWOT node of a newly inundated cell: *direct* ≤ 3 km, *extrapolated* 3–10 km, *weak* > 10 km (operational thresholds, not physical constants); flags: capped at the Kherson gauge, cross-river (Inhulets); **supported core** = direct + extrapolated (T11k) |
 | volumes | always with their p05–p95 and MC median; the volume interval is not centred on the deterministic run |
 
 ## Reservoir balance (context, claim C14)

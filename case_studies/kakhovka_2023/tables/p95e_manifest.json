@@ -1,0 +1,92 @@
+{
+ "mode": "primary",
+ "n_draws": 1000,
+ "seed": 20260929,
+ "workers": 9,
+ "seconds": 5027,
+ "rule": "connected_ceiling",
+ "days": "all",
+ "params": {
+  "seed": 20260929,
+  "rule": "connected_ceiling",
+  "margin": 0.0,
+  "connectivity": 8,
+  "sigma_datum": 0.05,
+  "sigma_gauge": 0.05,
+  "sigma_swot": 0.09207,
+  "sigma_gap": {
+   "1": {
+    "0": 0.06622838367819786,
+    "1": 0.11764853389307857,
+    "2": 0.32722558912833527,
+    "3": 1.1463538426830218,
+    "4": 1.1463538426830218
+   },
+   "2": {
+    "0": 0.08854846389591693,
+    "1": 0.06277882254123687,
+    "2": 0.07547681831717491,
+    "3": 0.25334128240942955,
+    "4": 0.25334128240942955
+   }
+  },
+  "sigma_gap_rmse": {
+   "1": {
+    "0": 0.7454743679231809,
+    "1": 1.2061826129911428,
+    "2": 1.7907622181335352,
+    "3": 2.6028304353430554,
+    "4": 2.6028304353430554
+   },
+   "2": {
+    "0": 0.13276847460840124,
+    "1": 0.11478143262452897,
+    "2": 0.16031602095170233,
+    "3": 2.8109903592929713,
+    "4": 2.8109903592929713
+   }
+  },
+  "sigma_pass": 0.0,
+  "range_m": 1172.0,
+  "range_source": "POOLED standardized residual (r - b_c) / sigma_c, Cressie-Hawkins estimator, Cressie WLS fit; the nested model is used when its relative RMS misfit is < half that of the single exponential",
+  "nugget": 0.0796,
+  "corr": {
+   "model": "nested_2exp+nugget",
+   "nugget_share": 0.0796,
+   "structures": [
+    [
+     0.5006,
+     122.8,
+     "exponential"
+    ],
+    [
+     0.4198,
+     1172.0,
+     "exponential"
+    ]
+   ],
+   "source": "POOLED standardized residual (r - b_c) / sigma_c, Cressie-Hawkins estimator, Cressie WLS fit; the nested model is used when its relative RMS misfit is < half that of the single exponential",
+   "single": {
+    "nugget_share": 0.15889781859931112,
+    "structures": [
+     [
+      0.8411021814006889,
+      314.5,
+      "exponential"
+     ]
+    ]
+   }
+  },
+  "field": "primary",
+  "terrain": true,
+  "wse": true,
+  "baseline_fixed": false
+ },
+ "field_std_on_base_cells": {
+  "mean": 0.9997973622719072,
+  "min": 0.9852264523506165,
+  "max": 1.016211748123169
+ },
+ "eps_std_fabdem_mean": 0.6426622885156352,
+ "nominal_is_draw0": "draw 0 = unperturbed world, excluded from the quantiles; == p95 central tables (gate)"
+}

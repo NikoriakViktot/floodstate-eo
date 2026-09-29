@@ -1,0 +1,213 @@
+{
+ "rev": 6,
+ "rule": " (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters):\n    H_t(cell)   = median H_t of the K = 5 nearest SWOT nodes within 3 km (+ margin, central 0.0 m); each node time-filled\n                  between its own observations (observed / interpolated / held flags kept); the Kherson gauge is one more\n                  node; cells > 15 km from a node and west of the gauge: min(that, gauge_t). Coarse 100 m lattice anchored\n                  in map coordinates (so zonal and mosaic evaluations coincide), replicated to 20 m.\n    C_t         = z_terrain < H_t  AND  dist to pre-breach water <= 10 km  AND  downstream of the dam (x < dam - 1 km)\n    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach optical water network (p60 pre_water_frac\n                  >= 20 %), the published flood-fill logic (terrain below the surface AND connected to known water);\n                  hand_and_ceiling (p42 rule, additionally HAND < H_t - 1 m; lower bound where the delta drainage is unmapped)\n                  and ceiling_only (no connectivity; upper bound) are sensitivities.  depth_t = H_t - z_terrain.\n    N_t         = P_t AND NOT B,  B = observed pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %) OR P on ANY\n                  pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the breach by construction).\n                  The model-only part of B (\"normally wet\": low reed beds below the normal surface that no optical/SAR mask\n                  lists as water) is its own validation category -- S1 dark-water onset there is a DEPTH signal.\n",
+ "constants": {
+  "SWOT_MARGIN_M": 0.0,
+  "RIVER_LEVEL_M": 1.0,
+  "SWOT_MAX_DIST_M": 15000.0,
+  "DIST_MAX_M": 10000.0,
+  "baseline_until": "2023-06-05",
+  "margin_m": 0.0,
+  "connectivity": 8,
+  "seed_network": "all_prewater",
+  "max_gap_days": null,
+  "wse_river_aware": true,
+  "coarse_m": 100.0
+ },
+ "evaluation": "union mosaic of the zones (one terrain graph, one water surface); ownership only for accounting and the per-zone rasters (review F06)",
+ "legacy_flags": {
+  "terrain_table": "fabdem_zone",
+  "evaluation": "mosaic",
+  "coarse_anchor": "map"
+ },
+ "wse_method": "node-based: median of K=5 nearest SWOT nodes within 3 km, per-node time interpolation (observed/interpolated/held flags), gauge as a node, gauge cap beyond 15 km west of the gauge; coarse 100 m lattice anchored in map coordinates (rev 6; the p59 chainage is not comparable across SWORD branches)",
+ "wse_support": {
+  "coarse_within_3km_frac": 0.058136089117795595,
+  "coarse_far_cap_frac": 0.17717712954885995
+ },
+ "terrain": {
+  "product": "seamless terrain-bed elevation model (p55): FABDEM bare-earth DTM outside the surveyed channel (source 3, 4), observed/reconstructed bed inside (1, 2, 5)",
+  "bias_correction": "class",
+  "bias_meaning": "residual class-dependent terrain-elevation bias (median FABDEM - ICESat-2 ground by WorldCover class), FABDEM cells only; bed cells uncorrected",
+  "source_codes": {
+   "0": "nodata",
+   "1": "zone_bed_p53",
+   "2": "reservoir_bed_hist20",
+   "3": "FABDEM",
+   "4": "FABDEM_tapered_edge",
+   "5": "gap_fill"
+  },
+  "fabdem_sources": [
+   3,
+   4
+  ],
+  "bed_sources": [
+   1,
+   2,
+   5
+  ]
+ },
+ "vertical_frame": {
+  "datum": "EVRF2019",
+  "chains": {
+   "terrain": "p55 seamless terrain-bed model, raster tag vertical_datum (FABDEM -> EVRF2019 by p56; bed by p53/hist20)",
+   "swot": "H = wse + geoid_hght - zeta_EGG2015 + c_Kherson (Paper 1; EGG2015-referenced heights re-anchored at Kherson)",
+   "gauge": "river yearbook BS-77 -> EVRF2019 (EPSG:9902 at the post), column H_gauge_evrf",
+   "icesat2": "ATL08 h_te + free2mean - zeta_EGG2015 + c (Paper 2 / p57 chain)"
+  },
+  "checked": "assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column"
+ },
+ "rule_variant": "connected_ceiling",
+ "closure": "kherson_paper1",
+ "closure_chain": "H = wse + geoid_hght - zeta_EGG2015 + c_Kherson (c = 0.00 m, NMAD 0.05 m; Paper 1 Table 5 / Sec. 5.12)",
+ "closure_offset_vs_p59_H_evrf_m": 0.2086,
+ "c_kherson_m": 0.0,
+ "c_kherson_nmad_m": 0.05,
+ "zones": {
+  "ZONE_4_DAM_TO_KHERSON_FLOODWAY": {
+   "outputs": "(no rasters: --no-rasters)",
+   "residual_rows_used": {
+    "10": {
+     "bias": 1.698,
+     "sigma": 1.711,
+     "rmse": 2.88,
+     "n": 30023,
+     "cls": "trees",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "30": {
+     "bias": 0.385,
+     "sigma": 0.621,
+     "rmse": 1.5,
+     "n": 98993,
+     "cls": "grass",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "40": {
+     "bias": 0.151,
+     "sigma": 0.295,
+     "rmse": 0.351,
+     "n": 307849,
+     "cls": "cropland",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "50": {
+     "bias": 0.172,
+     "sigma": 0.597,
+     "rmse": 1.116,
+     "n": 15309,
+     "cls": "built",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "60": {
+     "bias": 0.307,
+     "sigma": 0.936,
+     "rmse": 1.421,
+     "n": 3525,
+     "cls": "bare",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "90": {
+     "bias": 0.589,
+     "sigma": 0.412,
+     "rmse": 0.974,
+     "n": 21514,
+     "cls": "wetland",
+     "transferred": false,
+     "zone_used": "ZONE_4_DAM_TO_KHERSON_FLOODWAY"
+    },
+    "other": {
+     "bias": 0.167,
+     "sigma": 0.387,
+     "rmse": 1.054,
+     "n": 630446,
+     "cls": "all",
+     "transferred": true,
+     "zone_used": "POOLED"
+    }
+   },
+   "residual_source": "/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p95j_terrain_residual_stats.csv"
+  },
+  "ZONE_2_KHERSON_DELTA": {
+   "outputs": "(no rasters: --no-rasters)",
+   "residual_rows_used": {
+    "10": {
+     "bias": 1.486,
+     "sigma": 1.596,
+     "rmse": 2.86,
+     "n": 8064,
+     "cls": "trees",
+     "transferred": false,
+     "zone_used": "ZONE_2_KHERSON_DELTA"
+    },
+    "30": {
+     "bias": 0.107,
+     "sigma": 0.491,
+     "rmse": 1.274,
+     "n": 29225,
+     "cls": "grass",
+     "transferred": false,
+     "zone_used": "ZONE_2_KHERSON_DELTA"
+    },
+    "40": {
+     "bias": -0.059,
+     "sigma": 0.195,
+     "rmse": 0.281,
+     "n": 95454,
+     "cls": "cropland",
+     "transferred": false,
+     "zone_used": "ZONE_2_KHERSON_DELTA"
+    },
+    "50": {
+     "bias": 0.156,
+     "sigma": 0.698,
+     "rmse": 1.25,
+     "n": 7848,
+     "cls": "built",
+     "transferred": false,
+     "zone_used": "ZONE_2_KHERSON_DELTA"
+    },
+    "60": {
+     "bias": 0.278,
+     "sigma": 0.986,
+     "rmse": 1.651,
+     "n": 3812,
+     "cls": "bare",
+     "transferred": true,
+     "zone_used": "POOLED"
+    },
+    "90": {
+     "bias": 0.519,
+     "sigma": 0.474,
+     "rmse": 0.77,
+     "n": 12355,
+     "cls": "wetland",
+     "transferred": false,
+     "zone_used": "ZONE_2_KHERSON_DELTA"
+    },
+    "other": {
+     "bias": 0.167,
+     "sigma": 0.387,
+     "rmse": 1.054,
+     "n": 630446,
+     "cls": "all",
+     "transferred": true,
+     "zone_used": "POOLED"
+    }
+   },
+   "residual_source": "/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p95j_terrain_residual_stats.csv"
+  }
+ },
+ "seam_check": null,
+ "sources": {
+  "swot_nodes": "tables/p59_swot_flood_nodes.csv (SWOT-DNIPRO p59)",
+  "gauge": "/home/niko/repo/floodstate-eo/case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv",
+  "hand": "floodplain/<ZONE>_hand_m.tif (p42)",
+  "terrain": "dem_seamless/<ZONE>_dem_evrf2019_20m.tif + _dem_source_20m.tif (p55)"
+ }
+}

@@ -32,10 +32,18 @@ DEM, HAND and WorldCover frames, the terrain reconstruction products (`floodplai
 Scripts, in order (each writes its own tables/manifest): `workflows/m6/p77d` (labels v003_A; frozen, reproduces bit for bit
 on the committed tree, `tables/m6_labels_v003_A_FROZEN.json`) → `p84` (split; `--block-m` for the sensitivity splits) →
 `p86 --arm … --labels …` (arms; ~3 min each on an RTX A4000) → `p88`, `p90` (comparisons) → `p92`, `p93`, `p94` (accounting,
-per-date series) → `p95` (terrain reconstruction; rules `--rule`, closure `--closure`, `--dem-bias`, `--margin`) → `p95c`
-(ICESat-2 check; the second step needs the SWOT-DNIPRO environment with the ATL08 pull) → `p95d` (disagreement ontology) →
-`p95e` (Monte-Carlo, ~8 min) → `p96`, `p97`, `p98`, `p99`.
-Determinism: fixed seeds (20260923 for splits/bootstraps, 20260925 for the Monte-Carlo); GPU training is deterministic up to
+per-date series) → `p95j` (FABDEM − ICESat-2 residual statistics and variogram; SWOT-DNIPRO environment for the ATL08 pull)
+→ `p95` (terrain reconstruction, rev 6; primary `connected_ceiling`, sensitivities `--rule`, `--closure`, `--dem-bias`, `--margin`,
+`--connectivity`, `--seed-network`, `--max-gap-days`, `--wse-river-aware`, `--fallback-max-km`, `--inhulets-gauge-node`; `--terrain-table legacy_c_seamless --evaluation
+zonal_legacy --coarse-anchor grid_legacy --no-rasters` reproduces rev 5 exactly) → `p95k` (independent gauges Kalynivske / Mykolaiv from the UkrHMC 2023 yearbook store of icesat2-atl13-kakhovka; run once
+before and once after `p95 --inhulets-gauge-node`, whose gauge node it supplies) → `p95c` (ICESat-2 check; the second step
+needs the SWOT-DNIPRO environment) → `p95d` (disagreement ontology) → `p95e` (Monte-Carlo rev 2: `--n 1000` primary, `--mode
+ablation --n 250`, `--mode convergence --seed 20261001 --days key`, `--mode wse-threshold`; forked workers, resumable chunks in
+`tables/_p95e_chunks/`; about 50 s per world and core; the full draw tables `p95e_draws*.csv.gz` are release assets, not in git —
+`tables/p95e_draws_checksums.csv` gives their sha256, rows, seed and code commit) → `p95l` (support classes of the new area) →
+`p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i` → `p96`, `p97`, `p98`, `p99`.
+Determinism: fixed seeds (20260923 for splits/bootstraps, 20260929 / 20261001 for the Monte-Carlo, one RNG stream per draw
+index, so results do not depend on the number of workers; 20260929 for the p95j variogram pair sampling); GPU training is deterministic up to
 cuDNN non-determinism (thresholds are re-frozen on validation per run and stored).
 
 ## Level 3 — full raw-data reproduction (days; licences)
