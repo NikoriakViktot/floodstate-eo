@@ -22,7 +22,6 @@ import argparse, importlib.util, json
 from pathlib import Path
 import numpy as np, pandas as pd, rasterio
 from rasterio.warp import reproject, Resampling
-from scipy import ndimage
 from floodstate_eo import _kakhovka_legacy_config as CFG
 
 HERE = Path(__file__).resolve().parent
@@ -44,29 +43,19 @@ def main():
     a = ap.parse_args(); d = a.date
     P95 = _ld("p95_hand_daily_inundation"); P = P95.load_p92()
     W, dxm, dym, _ = P95.load_engine()
-    mp = CFG.TABLES / ("p95_manifest.json" if a.rule == "hand_and_ceiling" else f"p95_manifest_{a.rule}.json")
+    mp = CFG.TABLES / f"p95_manifest_{a.rule}.json"                   # rev 6: the rule suffix is always explicit
     margin = float(json.loads(mp.read_text())["constants"]["margin_m"])
     rows, summ = [], []
     for zone in P95.ZONES:
         L = P95.zone_layers(zone, P); G = L["G"]; Z = W.prepare(L)
         def wse_on(day, mg):
             return W.field(Z, day, mg)
-        base = np.isfinite(L["dem"]) & (L["dist"] <= P95.DIST_MAX_M) & (L["xs"] < dxm - P95.DAM_BUFFER_M)[None, :] & L["own"]
-        def potential(day, mg):
-            w = wse_on(day, mg); cand = base & (L["dem"] < w)
-            if a.rule == "ceiling_only":
-                return cand
-            if a.rule == "hand_and_ceiling":
-                return cand & np.isfinite(L["hand"]) & (L["hand"] < w - P95.RIVER_LEVEL_M)
-            lab, n = ndimage.label(cand, structure=np.ones((3, 3), bool))
-            keep = np.zeros(n + 1, bool); keep[np.unique(lab[cand & L["seed"]])] = True; keep[0] = False
-            return keep[lab]
-        normally_wet = np.zeros(base.shape, bool)
-        for day in P95.DATES[P95.DATES <= pd.Timestamp(P95.BASELINE_DATE)]:
-            normally_wet |= potential(day, P95.BASE_MARGIN_M)
-        normally_wet &= ~L["pre"]
-        z = np.load(CFG.BULK_ROOT / "floodplain_dyn" / (zone + ("" if a.rule == "hand_and_ceiling" else f"_{a.rule}")) / "daily_new.npz")
-        new = np.unpackbits(z[d], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
+        base = np.isfinite(L["dem"])
+        # rev 6: new inundation AND the normally-wet class come from the p95 run itself (evaluated on the union mosaic), so the
+        # decomposition uses exactly the reconstruction it describes -- no second, per-zone implementation of the rule (review F06)
+        z = np.load(CFG.BULK_ROOT / "floodplain_dyn" / (zone + f"_{a.rule}") / "daily_new.npz")
+        un = lambda k: np.unpackbits(z[k], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
+        new, normally_wet = un(d), un("normally_wet")
         w = wse_on(d, margin); dz = L["dem"] - w
         v = L["V"][d] & L["own"] & ~L["cut"]; s1 = L["W"][d] & ~L["pre"] & v
         cat = np.full(base.shape, "", dtype="U1"); cat[v] = "N"; cat[v & new & ~s1] = "B"; cat[v & s1 & ~new] = "C"; cat[v & s1 & new] = "A"

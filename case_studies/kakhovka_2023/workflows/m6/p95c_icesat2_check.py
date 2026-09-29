@@ -47,13 +47,17 @@ def rasters():
         z = np.load(CFG.BULK_ROOT / "floodplain_dyn" / (zone + "_connected_ceiling") / "daily_new.npz")
         new = np.unpackbits(z[DATE], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
         v = L["V"][DATE] & L["own"] & ~L["cut"]; s1 = L["W"][DATE] & ~L["pre"] & v; dz = L["dem"] - w
-        cat = np.zeros((G["ny"], G["nx"]), "u1"); cat[v] = 1; cat[new & ~s1] = 4; cat[s1 & new] = 3
+        cat = np.zeros((G["ny"], G["nx"]), "u1"); cat[v] = 1; cat[v & new & ~s1] = 4; cat[s1 & new] = 3      # review F12: terrain-only inside the S1 footprint only
         cat[s1 & ~new & (dz < 2)] = 2; cat[s1 & ~new & (dz >= 2)] = 5
+        assert not cat[~v].any(), "a category outside the S1 valid footprint (review F12)"
         prof = dict(driver="GTiff", height=G["ny"], width=G["nx"], count=1, crs=G["crs"], transform=G["transform"], compress="deflate")
         with rasterio.open(out / f"{zone}_cat0609.tif", "w", dtype="uint8", nodata=0, **prof) as o:
             o.write(cat, 1); o.update_tags(categories=str(CAT), producer="p95c_icesat2_check.py")
         with rasterio.open(out / f"{zone}_wse0609.tif", "w", dtype="float32", nodata=-9999, **prof) as o:
             o.write(np.where(np.isfinite(w), w, -9999).astype("f4"), 1)
+        with rasterio.open(out / f"{zone}_terrain_corrected.tif", "w", dtype="float32", nodata=-9999, **prof) as o:   # the terrain the categories use
+            o.write(np.where(np.isfinite(L["dem"]), L["dem"], -9999).astype("f4"), 1); o.update_tags(vertical_datum=P95.VERTICAL_DATUM,
+                    meaning="seamless terrain-bed model minus the residual class bias on FABDEM-sourced cells (p95 rev 6)")
         print(zone, {CAT[k]: round(float((cat == k).sum()) * 4e-4, 1) for k in CAT}, flush=True)
 
 
@@ -66,15 +70,25 @@ def icesat():
     for zone in ("ZONE_2_KHERSON_DELTA", "ZONE_4_DAM_TO_KHERSON_FLOODWAY"):
         cat = P57.sample(out / f"{zone}_cat0609.tif", P.x.values, P.y.values); wse = P57.sample(out / f"{zone}_wse0609.tif", P.x.values, P.y.values)
         seam = P57.sample(B / "dem_seamless" / f"{zone}_dem_evrf2019_20m.tif", P.x.values, P.y.values)
+        corr = P57.sample(out / f"{zone}_terrain_corrected.tif", P.x.values, P.y.values)
+        src = P57.sample(B / "dem_seamless" / f"{zone}_dem_source_20m.tif", P.x.values, P.y.values)
         wc = P57.sample(B / "worldcover_frames" / zone / "wc_2021_20m.tif", P.x.values, P.y.values)
         ok = np.isfinite(cat) & (cat > 0) & np.isfinite(seam) & np.isfinite(wse)
-        D = P[ok].assign(cat=cat[ok].astype(int), wse=wse[ok], seam=seam[ok], wc=wc[ok])
-        D["res"] = D.seam - D.H_ice; D["ice_below_wse"] = D.H_ice < D.wse; D["dem_below_wse"] = D.seam < D.wse
+        D = P[ok].assign(cat=cat[ok].astype(int), wse=wse[ok], seam=seam[ok], terrain_corr=corr[ok], src=src[ok], wc=wc[ok])
+        D["fabdem"] = D.src.isin([3, 4])
+        D["res"] = D.seam - D.H_ice; D["res_corr"] = D.terrain_corr - D.H_ice
+        D["ice_below_wse"] = D.H_ice < D.wse; D["dem_below_wse"] = D.seam < D.wse; D["terrain_corr_below_wse"] = D.terrain_corr < D.wse
         x0, y0, x1, y1 = OLESHKY_BOX; D["oleshky_box"] = (D.x > x0) & (D.x < x1) & (D.y > y0) & (D.y < y1)
         def row(label, g):
-            return dict(zone=zone, category=label, N=len(g), res_median=round(float(g.res.median()), 2), res_p10=round(float(g.res.quantile(.1)), 2),
-                        res_p90=round(float(g.res.quantile(.9)), 2), ice_minus_wse_median=round(float((g.H_ice - g.wse).median()), 2),
-                        share_ice_below_wse=round(float(g.ice_below_wse.mean()), 3), share_dem_below_wse=round(float(g.dem_below_wse.mean()), 3))
+            f = g[g.fabdem]                                                  # residual statistics of the FABDEM-sourced terrain (the modelled error)
+            return dict(zone=zone, category=label, N=len(g), n_dates=int(g.date.dt.date.nunique()), n_fabdem_source=len(f), n_bed_source=int((~g.fabdem).sum()),
+                        res_median=round(float(f.res.median()), 2) if len(f) else np.nan, res_p10=round(float(f.res.quantile(.1)), 2) if len(f) else np.nan,
+                        res_p90=round(float(f.res.quantile(.9)), 2) if len(f) else np.nan,
+                        res_corr_median=round(float(f.res_corr.median()), 2) if len(f) else np.nan, res_corr_p10=round(float(f.res_corr.quantile(.1)), 2) if len(f) else np.nan,
+                        res_corr_p90=round(float(f.res_corr.quantile(.9)), 2) if len(f) else np.nan,
+                        ice_minus_wse_median=round(float((g.H_ice - g.wse).median()), 2),
+                        share_ice_below_wse=round(float(g.ice_below_wse.mean()), 3), share_dem_below_wse=round(float(g.dem_below_wse.mean()), 3),
+                        share_terrain_corr_below_wse=round(float(g.terrain_corr_below_wse.mean()), 3))
         for k, g in D.groupby("cat"):
             rows.append(row(CAT[int(k)], g))
         for (box, w_), g in D[D.cat == 5].groupby(["oleshky_box", "wc"]):

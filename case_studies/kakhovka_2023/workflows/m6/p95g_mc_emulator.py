@@ -24,7 +24,7 @@ from __future__ import annotations
 import argparse, importlib.util, json, time
 from pathlib import Path
 import numpy as np, pandas as pd, rasterio
-from rasterio.warp import reproject, Resampling, transform as tf
+from rasterio.warp import reproject, Resampling
 from scipy import ndimage
 from floodstate_eo import _kakhovka_legacy_config as CFG
 
@@ -34,7 +34,8 @@ BIN = 0.01                                     # histogram bin, m
 MMAX = 8.0                                     # margins above +8 m never flood within the sampled errors
 CELL_KM2 = 0.0004
 SIGMA_CLOSURE, SIGMA_GAUGE = 0.05, 0.05
-KCELL = 625                                    # cells per independent DEM-error cluster: (500 m / 20 m)^2, the correlation length of p95e
+BED = 254                                      # pseudo-class of the bed cells of the seamless terrain-bed model
+KCELL_FALLBACK = 625                           # cells per independent terrain-error cluster, (500 m / 20 m)^2 -- only without a p95j fit
 
 
 def _ld(name):
@@ -48,17 +49,22 @@ def main():
     W, dxm, dym, nodes = P95.load_engine()
     E, _ = P95.dem_error_table(); sig_swot = float(nodes.wse_u.median())
     comp = pd.read_csv(CFG.TABLES / "p95e_uncertainty_components.csv") if (CFG.TABLES / "p95e_uncertainty_components.csv").exists() else None
-    sig_interp = float(comp[comp.component == "H(s,t)_interpolation"].sigma_m.iloc[0]) if comp is not None else 0.054
+    ci = comp[comp.component.isin(["interpolation_gap_cv", "H(s,t)_interpolation"])] if comp is not None else None
+    sig_interp = float(ci.sigma_m.iloc[0]) if ci is not None and len(ci) else 0.054        # p95e rev 2: the 1-day gap-matched NMAD
     sig_wse = float(np.sqrt(SIGMA_CLOSURE ** 2 + SIGMA_GAUGE ** 2 + (sig_swot / np.sqrt(P95.WSE.K)) ** 2 + sig_interp ** 2))
-    # p95e perturbs the DEM with a 500 m white field bilinearly zoomed to 20 m: its cell-level standard deviation is below 1,
-    # so the class NMAD acts on the cells with that factor. Measured here on a synthetic field, not assumed.
-    f = ndimage.zoom(rng.standard_normal((40, 40)).astype("f4"), 25, order=1); FIELD_STD = float(f.std())
-    classes = {c: v["sigma"] * FIELD_STD for c, v in E.items() if c != "default"}; classes[0] = E["default"]["sigma"] * FIELD_STD
+    # rev 2 (2026-09-29): p95e draws a UNIT-variance field (review F02), so the class NMAD is the cell sigma (FIELD_STD = 1);
+    # the cluster size follows the fitted correlation (sum of w_i L_i^2 over the nested structures, in cells); bed cells (p55
+    # source 1/2/5) carry no FABDEM statistics -> a negligible sigma
+    FIELD_STD = 1.0
+    mf = CFG.TABLES / "p95j_manifest.json"
+    cm = json.loads(mf.read_text()).get("correlation_model_for_p95e") if mf.exists() else None
+    KCELL = max(1, int(round(sum(w * r * r for w, r, _ in cm["structures"]) / 400.0))) if cm and cm.get("structures") else KCELL_FALLBACK
+    classes = {c: v["sigma"] * FIELD_STD for c, v in E.items() if c != "other"}; classes[0] = E["other"]["sigma"] * FIELD_STD; classes[BED] = 1e-3
     pd.DataFrame([dict(component="wse_total_per_day", sigma_m=round(sig_wse, 3), note="closure 0.05 + gauge 0.05 + swot wse_u/sqrt(5) + interpolation, in quadrature; one offset per day per draw")] +
-                 [dict(component=f"dem_class_{c}", sigma_m=round(s, 3), note=f"class NMAD x cell-level std {FIELD_STD:.3f} of the 500 m bilinear field (as in p95e); clusters of {KCELL} cells") for c, s in classes.items()]).to_csv(CFG.TABLES / "p95g_mc_sigmas.csv", index=False)
-    edges = np.arange(-MMAX, MMAX + BIN, BIN); nb = len(edges) - 1; centres = edges[:-1] + BIN / 2
+                 [dict(component=f"dem_class_{c}", sigma_m=round(s, 3), note=f"class NMAD (FABDEM - ICESat-2, p95j) x unit field; clusters of {KCELL} cells from the p95j correlation model; bed cells sigma ~0") for c, s in classes.items()]).to_csv(CFG.TABLES / "p95g_mc_sigmas.csv", index=False)
+    edges = np.arange(-MMAX, MMAX + BIN, BIN); centres = edges[:-1] + BIN / 2
     pre_days = [d for d in P95.DATES if d <= pd.Timestamp(P95.BASELINE_DATE)]
-    rows, cmp_rows = [], []
+    rows = []
     # class offsets shared across zones/regions within a draw; per day a fresh wse offset
     gclass = {c: rng.standard_normal(a.n).astype("f4") for c in classes}      # per-class standard normal for the cluster-count noise
     dwse_day = {str(d.date()): rng.normal(0, sig_wse, a.n).astype("f4") for d in P95.DATES}
@@ -69,7 +75,8 @@ def main():
         base = np.isfinite(L["dem"]) & (L["dist"] <= P95.DIST_MAX_M) & (L["xs"] < dxm - P95.DAM_BUFFER_M)[None, :] & L["own"]
         with rasterio.open(CFG.BULK_ROOT / "worldcover_frames" / zone / "wc_2021_20m.tif") as s:
             wc = np.zeros((G["ny"], G["nx"]), "u1"); reproject(s.read(1), wc, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)
-        wcl = np.where(np.isin(wc, list(c for c in classes if c)), wc, 0)
+        wcl = np.where(np.isin(wc, list(c for c in classes if c and c != BED)), wc, 0)
+        wcl = np.where(L["is_fabdem"], wcl, BED).astype("u1")                # bed cells: no FABDEM statistics
         zz = np.load(CFG.BULK_ROOT / "floodplain_dyn" / f"{zone}_connected_ceiling" / "daily_new.npz")
         ever = np.zeros(base.shape, bool)
         for k in zz.files:

@@ -41,7 +41,7 @@ def nb01():
     c.append(nbf.v4.new_markdown_cell("## 1. The water surface\nSWOT node heights (EGG2015-referenced, gauge-anchored with the Kherson-local closure of Paper 1) and the Kherson gauge; node-based interpolation (no chainage)."))
     c.append(nbf.v4.new_code_cell("show('T11')"))
     c.append(nbf.v4.new_code_cell("fig('Fig06'); show('T17')"))
-    c.append(nbf.v4.new_markdown_cell("## 2. Daily reconstructed series: total water-surface area, newly inundated area, volume — PRIMARY interval = 40 spatial Monte-Carlo draws"))
+    c.append(nbf.v4.new_markdown_cell("## 2. Daily reconstructed series: total water-surface area, newly inundated area, volume — PRIMARY interval = the coherent Monte-Carlo worlds of p95e rev 2 (T11b-T11d)"))
     c.append(nbf.v4.new_code_cell("d = show('T12'); d[d.region == 'DNIPRO_CORRIDOR'][['date','W_total_central_km2','W_total_p05_km2','W_total_p95_km2','A_central_km2','A_p05_km2','A_p95_km2','V_central_hm3','V_p05_hm3','V_p95_hm3','A_hand_and_ceiling_km2','A_ceiling_only_km2']]"))
     c.append(nbf.v4.new_code_cell('''u = pd.read_csv(T / "p95e_area_volume_uncertainty.csv") if (T / "p95e_area_volume_uncertainty.csv").exists() else None
 dd = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); dd["t"] = pd.to_datetime(dd.date)
@@ -53,12 +53,10 @@ for ax, r in zip(axs, ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VAL
     ax.set_title(r); ax.set_ylabel("reconstructed newly inundated area, km²"); ax.tick_params(axis="x", rotation=45)
 axs[0].legend(); plt.tight_layout()'''))
     c.append(nbf.v4.new_code_cell("show('T11b')"))
-    c.append(nbf.v4.new_markdown_cell("### SENSITIVITY envelope: 100 000 draws per day (cluster-normal emulator, p95g) -- candles of the total water-surface area; the primary interval is the spatial MC above"))
-    c.append(nbf.v4.new_code_cell('''g = pd.read_csv(T / "p95g_mc_daily.csv"); gg = g[g.region == "DNIPRO_CORRIDOR"].copy(); gg["t"] = pd.to_datetime(gg.date)
-fig_, ax = plt.subplots(figsize=(12, 4))
-for _, q in gg.iterrows():
-    ax.plot([q.t, q.t], [q.W_total_km2_p05, q.W_total_km2_p95], color=C["terrain"], lw=1); ax.plot([q.t, q.t], [q.W_total_km2_p25, q.W_total_km2_p75], color=C["terrain"], lw=5, alpha=0.5)
-ax.plot(gg.t, gg.W_total_central_km2, color="k", lw=1.5, label="deterministic total"); ax.set_ylabel("reconstructed total water-surface area, km²"); ax.legend(); ax.set_title("Dnipro corridor: emulator sensitivity envelope, 100 000 draws per day (p05-p95 whisker, p25-p75 body)")'''))
+    c.append(nbf.v4.new_markdown_cell("### Observational support of the new area (D-SUPPORT): the full terrain-connectivity reconstruction is the primary product; its direct (<= 3 km), extrapolated (3-10 km) and weak (> 10 km) parts, the supported core and the 10 km cap sensitivity"))
+    c.append(nbf.v4.new_code_cell("show('T11k')"))
+    c.append(nbf.v4.new_markdown_cell("### Computational diagnostic, not evidence (D-EMU): the 100 000-draw emulator (p95g) has no connectivity and a total built around the nominal run; no reported number rests on it"))
+    c.append(nbf.v4.new_code_cell("show('T12d')"))
     c.append(nbf.v4.new_markdown_cell("### Reservoir side of the balance (T21, T22, Fig09, FigS07): daily-MEAN effective release (-dV/dt + Q_in), not an instantaneous breach discharge; hypsometry DEM vs design is the open question of Paper 4 (historical bathymetry)"))
     c.append(nbf.v4.new_code_cell("show('T21'); show('T22'); fig('Fig09'); fig('FigS07')"))
     c.append(nbf.v4.new_markdown_cell("## 3. Cross-sensor check against Sentinel-1 (per acquisition date)\nRaw POD / FAR / CSI on the S1 observation domain are primary; the conditional POD outside the normally-wet class is a diagnostic conditional agreement (a-priori class), never a corrected POD."))
@@ -123,9 +121,9 @@ NARRATIVE = [
     ("M0–M5", "Not defined. The arm ladder U0d → U0z → U1 → U2 → U2b on v002 / v003_A is the experiment matrix (T04–T07).", "not defined"),
     ("Spatial CV", "Frozen 10 km spatial-block split with 640 m buffers and paired block bootstrap; block-size sensitivity 7.5 / 15 / 20 km (T03, T20).", "implemented"),
     ("Leave-one-zone-out", "For RF20 the frame transfers B1→B2 and B2→B1 (T09); the legacy p51 LOZO is not migrated.", "implemented for RF20"),
-    ("Uncertainty", "Terrain: PRIMARY interval = 40 spatial Monte-Carlo draws (T11b, T12); the 100 000-draw emulator is a broader sensitivity envelope; volume uncertainty exceeds area uncertainty and volumes always carry p05–p95. Arms: block-bootstrap intervals. No per-cell uncertainty product.", "partial"),
+    ("Uncertainty", "Terrain: PRIMARY interval = the coherent Monte-Carlo worlds of p95e rev 2 (T11b, T11c convergence, T11d ablation, T12); the 100 000-draw emulator is a computational diagnostic outside the evidence path (T12d); the support of the new area is classified in T11k (supported core <= 10 km); volumes always carry p05–p95. Arms: block-bootstrap intervals. No per-cell uncertainty product.", "partial"),
     ("Final products and maps", "Fig03 (U-Net), Fig04 (dynamics), Fig05 (disagreement), Fig07 (peak-day depth and duration); rasters under $BULK_ROOT/floodplain_dyn are not redistributed (FABDEM licence).", "figures committed"),
-    ("Limitations", "Planar water surface per reach, no timing; DEM under canopy; SWOT nodes on channels only; no scene at the peak; weak labels; W_pre circularity; B3 missing; no probability-sample reference for areas.", "stated"),
+    ("Limitations", "Planar water surface per node neighbourhood, no timing; residual terrain error under reeds, forest and buildings (FABDEM DTM, T18b); bed cells without a stochastic terrain term; SWOT nodes on channels only; no scene at the peak; weak labels; W_pre circularity; B3 missing; no probability-sample reference for areas.", "stated"),
     ("Conclusions", "See `publication/claims.md` — the claims register is the source of every statement. Next step (separate paper, Paper 4): the reservoir bowl reconstructed on the historical bathymetry, resolving the DEM-vs-design hypsometry gap; Paper 5: HEC-RAS calibrated on these daily surfaces.", "draft")]
 
 
@@ -141,23 +139,29 @@ def fill_narrative():
     nbf.write(nb, p); print("narrative filled:", p.name)
 
 
-def build():
-    for name, cells in (("01_physical_reconstruction_and_checks", nb01()), ("02_surface_context", nb02()), ("03_unet_weak_label_experiments", nb03())):
+def build(only=None):
+    for name, make in (("01_physical_reconstruction_and_checks", nb01), ("02_surface_context", nb02), ("03_unet_weak_label_experiments", nb03)):
+        if only and name[:2] not in only:
+            continue
+        cells = make()
         nb = nbf.v4.new_notebook(); nb.cells = cells; nb.metadata["kernelspec"] = {"name": "python3", "display_name": "Python 3", "language": "python"}
         nbf.write(nb, NB / f"{name}.ipynb"); print("built", name)
 
 
-def execute():
+def execute(only=None):
     for name in ("01_physical_reconstruction_and_checks", "02_surface_context", "03_unet_weak_label_experiments"):
+        if only and name[:2] not in only:
+            continue
         cmd = [sys.executable, "-m", "jupyter", "nbconvert", "--to", "notebook", "--execute", "--inplace", "--ExecutePreprocessor.timeout=600", str(NB / f"{name}.ipynb")]
         r = subprocess.run(cmd, capture_output=True, text=True, cwd=str(ROOT)); print(name, "exit", r.returncode); print(r.stderr[-800:] if r.returncode else "")
 
 
 if __name__ == "__main__":
-    ap = argparse.ArgumentParser(); ap.add_argument("--build", action="store_true"); ap.add_argument("--execute", action="store_true"); ap.add_argument("--fill-narrative", action="store_true"); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--build", action="store_true"); ap.add_argument("--execute", action="store_true"); ap.add_argument("--fill-narrative", action="store_true")
+    ap.add_argument("--only", nargs="*", help="notebook numbers to build/execute, e.g. --only 01"); a = ap.parse_args()
     if a.build:
-        build()
+        build(a.only)
     if a.fill_narrative:
         fill_narrative()
     if a.execute:
-        execute()
+        execute(a.only)

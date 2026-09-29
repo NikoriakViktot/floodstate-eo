@@ -45,11 +45,14 @@ def test_t13_uses_conditional_pod_name():
     assert "POD_cond_outside_normally_wet" in head and "POD_excl" not in head
 
 
-def test_t12_has_primary_and_sensitivity_columns():
+def test_t12_has_primary_columns_and_no_emulator():
+    # D-EMU (maintainer, 2026-09-29): the 100 000-draw emulator is a diagnostic outside the evidence path -- T12d, never T12
     head = (CS / "publication" / "tables" / "T12.csv").read_text(encoding="utf-8").splitlines()[0]
-    for c in ("W_total_p05_km2", "W_total_p95_km2", "A_p05_km2", "V_p05_hm3", "W_total_emu_km2_p05", "uncertainty_note", "mc_shift_V_pct"):
+    for c in ("W_total_p05_km2", "W_total_p95_km2", "A_p05_km2", "V_p05_hm3", "uncertainty_note", "mc_shift_V_pct"):
         assert c in head, c
-    assert "V_emu" not in head
+    assert "emu" not in head
+    d = (CS / "publication" / "tables" / "T12d.csv").read_text(encoding="utf-8")
+    assert "DIAGNOSTIC, not evidence" in d
 
 
 def test_t21_release_is_named_daily_mean():

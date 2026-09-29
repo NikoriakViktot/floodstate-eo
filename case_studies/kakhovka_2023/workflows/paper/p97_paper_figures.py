@@ -48,7 +48,6 @@ def km_ext(G):
 
 def zone_mosaic(arrays: dict, fill):
     """Mosaic two 20 m zone arrays (dict zone -> (array, G)) onto their union grid; ZONE_2 owns the overlap."""
-    import rasterio
     Gs = {z: g for z, (a, g) in arrays.items()}
     x0 = min(g["transform"].c for g in Gs.values()); y1 = max(g["transform"].f for g in Gs.values())
     x1 = max(g["transform"].c + 20 * g["nx"] for g in Gs.values()); y0 = min(g["transform"].f - 20 * g["ny"] for g in Gs.values())
@@ -81,7 +80,6 @@ def furniture(ax, ext, scale_km=10):
 # ---- Fig01 -----------------------------------------------------------------------------------------------------------
 def fig01():
     import rasterio
-    from rasterio import features
     P92 = _ld("p92", M6 / "p92_flood_area_dam_to_liman.py")
     with rasterio.open(BULK / "dem_seamless" / "dem_seamless_evrf2019_50m.tif") as s:
         dem = s.read(1).astype("f4"); dem[dem == s.nodata] = np.nan; tr = s.transform
@@ -175,26 +173,20 @@ def fig03():
 
 # ---- Fig04 -----------------------------------------------------------------------------------------------------------
 def fig04():
-    """Daily reconstructed series, dam -> liman: total water-surface area with the PRIMARY spatial-MC band and the emulator
-    sensitivity envelope as candles, daily change of the newly inundated area as bars, S1, U-Net, gauge."""
+    """Daily reconstructed series, dam -> liman: total water-surface area with the PRIMARY Monte-Carlo band, daily change of the
+    newly inundated area as bars, S1, U-Net, gauge. The emulator is a diagnostic outside the evidence path (D-EMU) and is not drawn."""
     d = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
     t12 = pd.read_csv(PT / "T12b.csv") if (PT / "T12b.csv").exists() else (pd.read_csv(PT / "T12.csv") if (PT / "T12.csv").exists() else None)   # T12b: every day
-    g = pd.read_csv(T / "p95g_mc_daily.csv") if (T / "p95g_mc_daily.csv").exists() else None
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
     p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
     regs = ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"]
     fig, axs = plt.subplots(3, 3, figsize=(7.4, 7.6), gridspec_kw=dict(height_ratios=[3, 1.4, 1.0]), sharex="col", constrained_layout=True)
     for j, r in enumerate(regs):
         a, b, c = axs[0, j], axs[1, j], axs[2, j]; s = d[d.region == r].sort_values("t")
-        if g is not None:
-            gg = g[g.region == r].copy(); gg["t"] = pd.to_datetime(gg.date); gg = gg.sort_values("t")
-            for _, q in gg.iterrows():                                              # candles: p05-p95 whisker, p25-p75 body, p50 tick
-                a.plot([q.t, q.t], [q.W_total_km2_p05, q.W_total_km2_p95], color=FS.PALETTE["terrain"], lw=0.7, alpha=0.8)
-                a.add_patch(Rectangle((q.t - pd.Timedelta(hours=9), q.W_total_km2_p25), pd.Timedelta(hours=18), q.W_total_km2_p75 - q.W_total_km2_p25, fc="#b9d1ee", ec=FS.PALETTE["terrain"], lw=0.5))
-                a.plot([q.t - pd.Timedelta(hours=9), q.t + pd.Timedelta(hours=9)], [q.W_total_km2_p50] * 2, color=FS.PALETTE["terrain"], lw=1.0)
         if t12 is not None and "W_total_p05_km2" in t12.columns:
             tt = t12[t12.region == r].dropna(subset=["W_total_p05_km2"]).copy(); tt["t"] = pd.to_datetime(tt.date); tt = tt.sort_values("t")
-            a.fill_between(tt.t, tt.W_total_p05_km2, tt.W_total_p95_km2, color=FS.PALETTE["terrain"], alpha=0.28, lw=0, label="PRIMARY: spatial Monte-Carlo p05–p95 (40 draws)", zorder=3)
+            nd = int(tt.n_draws.dropna().max()) if "n_draws" in tt.columns and tt.n_draws.notna().any() else 0
+            a.fill_between(tt.t, tt.W_total_p05_km2, tt.W_total_p95_km2, color=FS.PALETTE["terrain"], alpha=0.28, lw=0, label=f"PRIMARY: Monte-Carlo p05–p95 ({nd} coherent worlds)", zorder=3)
         med = None
         if t12 is not None and "W_total_p50_km2" in t12.columns:
             med = t12[t12.region == r].dropna(subset=["W_total_p50_km2"]).copy(); med["t"] = pd.to_datetime(med.date); med = med.sort_values("t")
@@ -205,7 +197,7 @@ def fig04():
             a.plot(s.t, s.potential_km2, color=FS.PALETTE["ink"], lw=1.6, label="reconstructed total water-surface area, nominal run")
         pun = T / "p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv"
         if pun.exists():
-            un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.potential_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="total, DEM as delivered")
+            un = pd.read_csv(pun); un = un[un.region == r]; a.plot(pd.to_datetime(un.date), un.potential_km2, color=FS.PALETTE["s2"], lw=1, ls="-", label="total, terrain as delivered (no residual bias removed)")
         o = s1[s1.region == r]; full, part = o[o.coverage >= 0.9], o[o.coverage < 0.9]
         a.plot(full.t, full.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, label="S1 total dark water"); a.plot(part.t, part.water_km2, "D", color=FS.PALETTE["s1"], ms=4.5, mfc="white", label="S1, partial coverage")
         a.set_title(REG_TITLE[r], fontsize=7.5, loc="left"); a.set_ylabel("reconstructed total water-surface area, km²", fontsize=6.5); FS.panel_label(a, "abc"[j], x=0.02, y=0.98)
@@ -225,7 +217,7 @@ def fig04():
             FS.date_axis(ax, BREACH, every_days=7); ax.tick_params(labelsize=6); ax.set_xlim(pd.Timestamp("2023-05-31"), pd.Timestamp("2023-07-05"))
         a.set_ylim(0, None)
     h, l = axs[0, 0].get_legend_handles_labels(); h2, l2 = axs[1, 0].get_legend_handles_labels()
-    fig.legend(h + [Patch(fc="#b9d1ee", ec=FS.PALETTE["terrain"], label="emulator sensitivity envelope")] + h2, l + ["SENSITIVITY: 100 000-draw emulator per day (p05–p95 whisker, p25–p75 body, median)"] + l2,
+    fig.legend(h + h2, l + l2,
                loc="lower center", ncol=3, fontsize=5.8, frameon=False, bbox_to_anchor=(0.5, -0.09))
     FS.save(fig, "Fig04_daily_inundation", FIG)
 
@@ -290,7 +282,7 @@ def fig07():
     fig, axs = plt.subplots(2, 1, figsize=(7.2, 8.0), constrained_layout=True)
     a = axs[0]; im = a.imshow(D[::2, ::2], cmap=FS.SEQ_DEPTH, vmin=0, vmax=6, extent=ext, interpolation="nearest", rasterized=True)
     furniture(a, [ext[0], min(ext[1], 540), 5136, ext[3]], 10); fig.colorbar(im, ax=a, shrink=0.6, pad=0.01).set_label("depth of new inundation, m (2023-06-08)", fontsize=6.5); FS.panel_label(a, "a")
-    a.set_title("Terrain-reconstructed new inundation on 2023-06-08 (no satellite scene): depth above ground", fontsize=8, loc="left")
+    a.set_title("Terrain-reconstructed new inundation on 2023-06-08 (no full-coverage scene of the corridor): depth above ground", fontsize=8, loc="left")
     b = axs[1]; im2 = b.imshow(np.ma.masked_where(U[::2, ::2] == 0, U[::2, ::2]), cmap=FS.SEQ_DAYS, vmin=1, vmax=20, extent=ext, interpolation="nearest", rasterized=True)
     furniture(b, [ext[0], min(ext[1], 540), 5136, ext[3]], 10); fig.colorbar(im2, ax=b, shrink=0.6, pad=0.01).set_label("days with new inundation (26 May – 10 Jul)", fontsize=6.5); FS.panel_label(b, "b")
     b.set_title("Duration of terrain-reconstructed new inundation", fontsize=8, loc="left")
@@ -305,11 +297,16 @@ def fig08():
     fig, axs = plt.subplots(1, 2, figsize=(7.2, 3.0), constrained_layout=True)
     for j, zone in enumerate(sorted(D.zone.unique())):
         g = D[D.zone == zone].set_index("category").reindex(order); y = np.arange(len(order))[::-1]
-        ax = axs[j]; ax.hlines(y, g.res_p10, g.res_p90, color=FS.PALETTE["terrain"], lw=1.6); ax.plot(g.res_median, y, "o", color=FS.PALETTE["terrain"], ms=5)
+        ax = axs[j]; ax.hlines(y, g.res_p10, g.res_p90, color=FS.PALETTE["terrain"], lw=1.6); ax.plot(g.res_median, y, "o", color=FS.PALETTE["terrain"], ms=5, label="as delivered")
+        if "res_corr_median" in g.columns:
+            ax.hlines(y - 0.18, g.res_corr_p10, g.res_corr_p90, color=FS.PALETTE["rf"], lw=1.2); ax.plot(g.res_corr_median, y - 0.18, "D", color=FS.PALETTE["rf"], ms=3.5, label="after the residual class bias (used)")
+            if j == 0:
+                ax.legend(fontsize=5.5, loc="lower right")
         for yy, (k, r) in zip(y, g.iterrows()):
-            ax.text(2.1, yy, f"ground − surface {r.ice_minus_wse_median:+.1f} m\n{100 * r.share_ice_below_wse:.0f} % below; n = {int(r.N)}", fontsize=5.4, va="center", color=FS.PALETTE["ink2"])
+            nd = f", {int(r.n_dates)} dates" if "n_dates" in g.columns and np.isfinite(r.n_dates) else ""
+            ax.text(2.1, yy, f"ground − surface {r.ice_minus_wse_median:+.1f} m\n{100 * r.share_ice_below_wse:.0f} % below; n = {int(r.N)}{nd}", fontsize=5.4, va="center", color=FS.PALETTE["ink2"])
         ax.set_yticks(y); ax.set_yticklabels([lab[k] for k in order], fontsize=6.5); ax.axvline(0, color=FS.PALETTE["ink2"], lw=0.8, ls=":"); ax.set_xlim(-1.7, 5.0)
-        ax.set_xlabel("seamless DEM − ICESat-2 ground, m (median, p10–p90)", fontsize=6.5); ax.set_title(zone.replace("_", " ").title(), fontsize=7.5, loc="left"); FS.panel_label(ax, "ab"[j]); ax.tick_params(labelsize=6)
+        ax.set_xlabel("FABDEM-sourced terrain − ICESat-2 ground, m (median, p10–p90)", fontsize=6.5); ax.set_title(zone.replace("_", " ").title(), fontsize=7.5, loc="left"); FS.panel_label(ax, "ab"[j]); ax.tick_params(labelsize=6)
     fig.suptitle("ICESat-2 altimetric consistency check on the 2023-06-09 agreement categories (night ATL08 ground segments)", fontsize=8)
     FS.save(fig, "Fig08_icesat2_consistency", FIG)
 
@@ -359,8 +356,11 @@ def figS01():
 
 def figS02():
     fig, ax = plt.subplots(figsize=(7.2, 3.2), constrained_layout=True)
-    for sfx, lab, c, ls in [("_connected_ceiling", "connected ceiling, DEM class-bias corrected (primary)", FS.PALETTE["terrain"], "-"), ("", "p42 HAND rule", FS.PALETTE["terrain"], "--"), ("_ceiling_only", "ceiling only", FS.PALETTE["terrain"], ":"),
-                            ("_connected_ceiling_dem_uncorrected", "connected ceiling, DEM as delivered (reed beds count as new)", FS.PALETTE["s2"], "-"),
+    for sfx, lab, c, ls in [("_connected_ceiling", "connected ceiling, residual terrain bias removed (primary)", FS.PALETTE["terrain"], "-"), ("_hand_and_ceiling", "p42 HAND rule", FS.PALETTE["terrain"], "--"), ("_ceiling_only", "ceiling only", FS.PALETTE["terrain"], ":"),
+                            ("_connected_ceiling_dem_uncorrected", "connected ceiling, terrain as delivered (reed beds count as new)", FS.PALETTE["s2"], "-"),
+                            ("_connected_ceiling_conn4", "4-connectivity", FS.PALETTE["unet"], ":"), ("_connected_ceiling_seed_mainstem", "main-stem seed only", FS.PALETTE["unet"], "--"),
+                            ("_connected_ceiling_maxgap3", "nodes unavailable beyond a 3-day gap", FS.PALETTE["rf"], ":"), ("_connected_ceiling_riveraware", "river-aware water surface", FS.PALETTE["rf"], "--"),
+                            ("_connected_ceiling_fallback10km", "no water surface from nodes > 10 km away (Kherson cap kept)", FS.PALETTE["gauge"], "-."),
                             ("_connected_ceiling_closure_p59_m050", "superseded closure (+0.5 m margin)", FS.PALETTE["muted"], "-")]:
         p = T / f"p95_daily_area_pooled{sfx}.csv"
         if p.exists():
@@ -383,7 +383,7 @@ def figS04():
     cm = pd.read_csv(PT / "T10.csv", index_col=0); m = pd.read_csv(PT / "T09.csv")
     fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.2), constrained_layout=True, gridspec_kw=dict(width_ratios=[1.1, 1]))
     C = cm.values.astype(float); Cn = C / C.sum(1, keepdims=True)
-    im = a.imshow(Cn, cmap=FS.SEQ_SCORE, vmin=0, vmax=1); a.set_xticks(range(len(cm.columns))); a.set_xticklabels(cm.columns, rotation=60, ha="right", fontsize=5.5); a.set_yticks(range(len(cm.index))); a.set_yticklabels(cm.index, fontsize=5.5)
+    a.imshow(Cn, cmap=FS.SEQ_SCORE, vmin=0, vmax=1); a.set_xticks(range(len(cm.columns))); a.set_xticklabels(cm.columns, rotation=60, ha="right", fontsize=5.5); a.set_yticks(range(len(cm.index))); a.set_yticklabels(cm.index, fontsize=5.5)
     for i in range(C.shape[0]):
         for j in range(C.shape[1]):
             a.text(j, i, f"{Cn[i, j]:.2f}", ha="center", va="center", fontsize=5, color="white" if Cn[i, j] > 0.5 else FS.PALETTE["ink"])
@@ -590,9 +590,66 @@ def figS09():
     FS.save(fig, "FigS09_reservoir_s2_indices", FIG)
 
 
+def figS11():
+    """The terrain-error model (p95j): FABDEM - ICESat-2 residual semivariograms per class and the standardized pooled fit used by p95e."""
+    V = pd.read_csv(T / "p95j_terrain_residual_variogram.csv"); F = pd.read_csv(T / "p95j_terrain_variogram_fit.csv")
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 3.0), constrained_layout=True)
+    cols = {"cropland": FS.PALETTE["s2"], "grass": FS.PALETTE["rf"], "wetland": FS.PALETTE["terrain"], "trees": FS.PALETTE["unet"], "built": FS.PALETTE["s1"]}
+    hh = np.linspace(1, 3000, 300)
+    for nm, c in cols.items():
+        v = V[(V.zone == "POOLED") & (V.wc_class == nm) & (V.n_pairs >= 200)]; f = F[(F.zone == "POOLED") & (F.wc_class == nm) & (F.estimator == "classical") & (F.model == "exponential+nugget")]
+        a.plot(v.lag_mid_m, v.gamma_m2, "o", ms=2.8, color=c, label=nm)
+        if len(f) and f.status.iloc[0] == "ok":
+            a.plot(hh, f.c0.iloc[0] + f.s2.iloc[0] * (1 - np.exp(-hh / f.L_m.iloc[0])), "-", lw=0.9, color=c)
+    a.set_xscale("log"); a.set_xlabel("lag, m", fontsize=6.5); a.set_ylabel("semivariance, m²", fontsize=6.5); a.legend(fontsize=5.5); a.tick_params(labelsize=6); a.grid(color=FS.PALETTE["grid"]); FS.panel_label(a, "a")
+    a.set_title("FABDEM − ICESat-2 residual after the class median (pooled)", fontsize=7, loc="left")
+    v = V[(V.zone == "POOLED") & (V.wc_class == "all_standardized") & (V.n_pairs >= 200)]
+    b.plot(v.lag_mid_m, v.gamma_robust, "o", ms=3, color=FS.PALETTE["ink"], label="robust (Cressie–Hawkins)"); b.plot(v.lag_mid_m, v.gamma_m2, "x", ms=3, color=FS.PALETTE["muted"], label="classical")
+    fn = F[(F.zone == "POOLED") & (F.wc_class == "all_standardized") & (F.estimator == "cressie_hawkins") & (F.model == "nested_2exp+nugget")]
+    fs = F[(F.zone == "POOLED") & (F.wc_class == "all_standardized") & (F.estimator == "cressie_hawkins") & (F.model == "exponential+nugget")]
+    if len(fn):
+        q = fn.iloc[0]; b.plot(hh, q.c0 + q.s1 * (1 - np.exp(-hh / q.L1_m)) + q.s2 * (1 - np.exp(-hh / q.L2_m)), "-", color=FS.PALETTE["terrain"], lw=1.4,
+                               label=f"nested: nugget {q.nugget_share:.2f}, {q.L1_m:.0f} m + {q.L2_m:.0f} m (used)")
+    if len(fs):
+        q = fs.iloc[0]; b.plot(hh, q.c0 + q.s2 * (1 - np.exp(-hh / q.L_m)), ":", color=FS.PALETTE["s1"], lw=1.1, label=f"single exponential: nugget {q.nugget_share:.2f}, {q.L_m:.0f} m")
+    b.axhline(1.0, color=FS.PALETTE["ink2"], lw=0.5, ls=":"); b.set_xscale("log"); b.set_xlabel("lag, m", fontsize=6.5); b.set_ylabel("semivariance of (r − b_c) / σ_c", fontsize=6.5)
+    b.legend(fontsize=5.3); b.tick_params(labelsize=6); b.grid(color=FS.PALETTE["grid"]); FS.panel_label(b, "b"); b.set_title("standardized residual: the correlation model of the terrain field", fontsize=7, loc="left")
+    FS.save(fig, "FigS11_terrain_error_variogram", FIG)
+
+
+def figS12():
+    """Convergence of the Monte-Carlo quantiles with the ensemble size (T11c)."""
+    C = pd.read_csv(T / "p95e_convergence.csv")
+    fig, axs = plt.subplots(1, 3, figsize=(7.2, 2.6), constrained_layout=True, sharex=True)
+    for ax, (q, lab) in zip(axs, (("A", "newly inundated area, km²"), ("W_total", "total water-surface area, km²"), ("V", "new-water volume, hm³"))):
+        for (seed, d), g in C[C.date == "2023-06-07"].groupby(["seed", "date"]):
+            g = g.sort_values("n_draws"); ls = "-" if seed == C.seed.min() else "--"
+            for p_, c in (("p05", FS.PALETTE["terrain"]), ("p50", FS.PALETTE["ink"]), ("p95", FS.PALETTE["terrain"])):
+                ax.plot(g.n_draws, g[f"{q}_{p_}"], ls, color=c, lw=1.1, marker="o", ms=2.5)
+                ax.fill_between(g.n_draws, g[f"{q}_{p_}_boot_lo"], g[f"{q}_{p_}_boot_hi"], color=c, alpha=0.08, lw=0)
+        ax.set_xscale("log"); ax.set_xlabel("ensemble size n", fontsize=6.5); ax.set_title(lab + ", 7 June", fontsize=6.8, loc="left"); ax.tick_params(labelsize=6); ax.grid(color=FS.PALETTE["grid"])
+    fig.suptitle("Monte-Carlo quantiles p05 / p50 / p95 against the ensemble size (two seeds: solid / dashed; shaded: bootstrap 95 % of the quantile estimator)", fontsize=7)
+    FS.save(fig, "FigS12_mc_convergence", FIG)
+
+
+def figS13():
+    """Sensitivity of the connected reconstruction to a uniform water-surface offset (T11e)."""
+    S = pd.read_csv(T / "p95e_wse_threshold_sensitivity.csv"); S = S[S.region == "DNIPRO_CORRIDOR"]
+    fig, (a, b) = plt.subplots(1, 2, figsize=(7.2, 2.8), constrained_layout=True)
+    for d, c in (("2023-06-07", FS.PALETTE["terrain"]), ("2023-06-09", FS.PALETTE["s1"]), ("2023-06-13", FS.PALETTE["unet"])):
+        g = S[S.date == d].sort_values("delta_m")
+        a.plot(g.delta_m, g.A_new_km2, "o-", color=c, ms=3, lw=1.2, label=d); b.plot(g.delta_m, g.dA_dH_km2_per_m, "o-", color=c, ms=3, lw=1.2, label=d)
+    a.set_xlabel("water-surface offset δ, m", fontsize=6.5); a.set_ylabel("newly inundated area, km² (corridor)", fontsize=6.5); a.legend(fontsize=6); FS.panel_label(a, "a")
+    b.set_xlabel("water-surface offset δ, m", fontsize=6.5); b.set_ylabel("dA/dH, km² per m", fontsize=6.5); FS.panel_label(b, "b")
+    for ax in (a, b):
+        ax.axvline(0, color=FS.PALETTE["ink2"], lw=0.5, ls=":"); ax.tick_params(labelsize=6); ax.grid(color=FS.PALETTE["grid"])
+    fig.suptitle("Connectivity thresholds: the reconstructed area under a uniform water-surface offset on the nominal terrain (a sensitivity, not a model)", fontsize=7)
+    FS.save(fig, "FigS13_wse_threshold_sensitivity", FIG)
+
+
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
-       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False)}
+       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False)}
 
 
 def main():

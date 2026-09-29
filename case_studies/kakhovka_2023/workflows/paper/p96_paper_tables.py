@@ -18,7 +18,7 @@ REPO = ROOT.parents[1]
 T = ROOT / "tables"; RUNS = ROOT / "runs"; PUB = ROOT / "publication" / "tables"
 SEMANTICS = {"observed_S1": "water seen by the Sentinel-1 dark-water rule on that date, minus pre-breach water (mapped, sensor-limited)",
              "mapped_UNet": "U-Net score >= frozen validation threshold (agreement with weak labels, persistent-water concept)",
-             "terrain_reconstructed": "cells the reconstructed water surface allows (DEM < WSE, connected), minus the pre-breach regime",
+             "terrain_reconstructed": "cells the reconstructed water surface allows (terrain < WSE, connected), minus the pre-breach regime",
              "observed_S2": "water or surface class seen by Sentinel-2 on that date (frozen p25 rule), observed cells only (reservoir tables T23-T26)",
              "literature_reported":"figure quoted from an operational or published product with its own AOI, date and reference water; context only"}
 ARMS_V1 = ["U0d", "U0z", "U1", "U2"]; ARMS_V3 = ["U0d", "U2", "U2b"]
@@ -34,9 +34,16 @@ LITERATURE = [  # context only; every row must be VERIFIED against the source be
     # Yale HRL 2023 (520 km2) dropped 2026-09-28: no source found, unknown semantics (literature audit)
 
 OUT = {}   # tid -> (df, caption, sources, evidence_level)
-CENTRAL_NOTE = ("reported central value = Monte-Carlo MEDIAN (*_p50_*) with the p05-p95 interval; *_central_* = the deterministic nominal run (unperturbed inputs), "
-                "given in brackets -- it lies below its own MC p05 on the peak days, so the interval is not centred on it (cause not yet diagnosed) "
-                "(maintainer decision 2026-09-28 after the literature audit)")
+CENTRAL_NOTE = ("reported central value = Monte-Carlo MEDIAN (*_p50_*) with the p05-p95 interval of the coherent Monte-Carlo worlds (p95e rev 2); *_central_* = the "
+                "deterministic nominal run (draw 0, unperturbed inputs), a diagnostic given in brackets; its position relative to the ensemble is attributed to "
+                "the error components in T11d (maintainer decision 2026-09-28; recomputed 2026-09-29 after the code review)")
+UNCERTAINTY_NOTE = ("PRIMARY interval = p05/p50/p95 of the coherent Monte-Carlo worlds of p95e rev 2 (review F01-F05): per draw ONE terrain-error realization over the "
+                    "union mosaic (FABDEM-sourced cells only; class NMAD x a unit-variance field with the nested covariance fitted to the FABDEM - ICESat-2 residuals, "
+                    "p95j) and ONE water-surface realization over all nodes and days (datum closure, gauge, SWOT wse_u, gap-dependent interpolation error; every term "
+                    "once, through the node heights), the pre-breach baseline rebuilt with the same realization; W_total, A_new and both volumes are quantiles of "
+                    "their OWN ensembles (no shift construction). The 100 000-draw cluster-normal emulator (p95g) is a computational DIAGNOSTIC outside the evidence "
+                    "path (maintainer decision D-EMU, 2026-09-29): it has no connectivity and its W_total is the nominal total plus its new-area deviations; it is "
+                    "reported in T12d only")
 
 
 def sha(p: Path) -> str:
@@ -177,11 +184,21 @@ def t09_rf():
     put("T10c", wc, "RF20 vs WorldCover wall-to-wall agreement on WorldCover-pure cells (recall / precision vs the training reference).", [p4], "contextual")
 
 
+P95_VARIANTS = [("_connected_ceiling", "connected_ceiling"), ("_hand_and_ceiling", "hand_and_ceiling"), ("_ceiling_only", "ceiling_only"),
+                ("_connected_ceiling_dem_uncorrected", "connected_ceiling_dem_uncorrected"),
+                ("_connected_ceiling_closure_p59_m050", "connected_ceiling (superseded closure, +0.5 m)"),
+                ("_connected_ceiling_conn4", "connected_ceiling_conn4"), ("_connected_ceiling_seed_mainstem", "connected_ceiling_seed_mainstem"),
+                ("_connected_ceiling_maxgap3", "connected_ceiling_maxgap3"), ("_connected_ceiling_riveraware", "connected_ceiling_riveraware"),
+                ("_connected_ceiling_inhulets_gauge_node", "connected_ceiling_inhulets_gauge_node"), ("_connected_ceiling_fallback10km", "connected_ceiling_fallback10km")]
+P95_ATTRIBUTION = [("_connected_ceiling_legacyTZA", "rev 5 reproduced: rev-5 terrain table on every cell, per-zone evaluation, grid-anchored lattice"),
+                   ("_connected_ceiling_legacyTZ", "+ lattice anchored in map coordinates"),
+                   ("_connected_ceiling_legacyT", "+ connectivity on the union mosaic (ownership for accounting only)"),
+                   ("_connected_ceiling", "+ FABDEM-only residual table per zone, bed cells uncorrected = rev 6")]
+
+
 def _p95_variants():
     V = {}
-    for sfx, name in [("", "hand_and_ceiling"), ("_ceiling_only", "ceiling_only"), ("_connected_ceiling", "connected_ceiling"),
-                      ("_connected_ceiling_dem_uncorrected", "connected_ceiling_dem_uncorrected"),
-                      ("_connected_ceiling_closure_p59_m050", "connected_ceiling (superseded closure, +0.5 m)")]:
+    for sfx, name in P95_VARIANTS:
         p = T / f"p95_manifest{sfx}.json"
         if p.exists():
             V[name] = (sfx, json.loads(p.read_text()), p)
@@ -192,13 +209,49 @@ def t11_terrain():
     rows, src = [], []
     for name, (sfx, man, p) in _p95_variants().items():
         src.append(p); c = man["constants"]
-        rows.append(dict(variant=name, suffix=sfx or "(default)", rule=man.get("rule_variant"), closure=man.get("closure"), closure_offset_vs_p59_m=man.get("closure_offset_vs_p59_H_evrf_m"),
+        ter = man.get("terrain", {}); vf = man.get("vertical_frame", {})
+        rows.append(dict(variant=name, suffix=sfx, rev=man.get("rev"), rule=man.get("rule_variant"), closure=man.get("closure"), closure_offset_vs_p59_m=man.get("closure_offset_vs_p59_H_evrf_m"),
                          margin_m=c.get("margin_m"), river_floor_m=c["RIVER_LEVEL_M"], swot_max_dist_m=c["SWOT_MAX_DIST_M"], dist_to_prewater_max_m=c["DIST_MAX_M"],
-                         baseline_until=c["baseline_until"], wse_method=man.get("wse_method", ""), status="superseded" if "p59" in (man.get("closure") or "") else "current"))
-    put("T11", pd.DataFrame(rows), "Terrain reconstruction: rules, closure, constants and the water-surface method per variant. The superseded closure row is kept for traceability.", src, "independent_physical")
+                         baseline_until=c["baseline_until"], connectivity=c.get("connectivity"), seed_network=c.get("seed_network"), max_gap_days=c.get("max_gap_days"),
+                         wse_river_aware=c.get("wse_river_aware"), terrain_bias=ter.get("bias_correction"), vertical_datum=vf.get("datum"),
+                         evaluation="union mosaic" if "mosaic" in str(man.get("evaluation", "")) else man.get("evaluation"), wse_method=man.get("wse_method", ""),
+                         status="superseded" if "p59" in (man.get("closure") or "") else "current"))
+    put("T11", pd.DataFrame(rows), "Terrain reconstruction (rev 6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias and vertical datum per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.", src, "independent_physical")
     p = T / "p95e_uncertainty_components.csv"
     if p.exists():
-        put("T11b", pd.read_csv(p), "Uncertainty components of the terrain reconstruction (Monte-Carlo inputs): closure, gauge, SWOT node height, per-node time interpolation, DEM error by WorldCover class (Paper 2 / p57).", [p], "independent_physical")
+        put("T11b", pd.read_csv(p), "Uncertainty components of the terrain reconstruction (Monte-Carlo inputs, p95e rev 2): datum closure of the SWOT chain, gauge, SWOT node height, gap-dependent interpolation error, the correlation model of the terrain-error field (nugget + nested exponential structures fitted to the standardized FABDEM - ICESat-2 residuals, p95j) and the class-wise FABDEM residual scale per zone (own zone where N >= 500, else pooled and flagged transferred); bed cells of the seamless terrain-bed model carry no stochastic term (limitation).", [p], "independent_physical")
+    extra = [("T11c", "p95e_convergence.csv", "Convergence of the Monte-Carlo quantiles with the ensemble size (corridor; 7, 9 and 13 June): p05 / p50 / p95 and the p05-p95 width of A_new, W_total and V_new from the first n = 40, 100, 250, 500, 1000 draws of two independent seeds, with a bootstrap 95 % interval of each quantile estimator and the share of draws with the areal maximum on 7 / 8 June (finite ensembles carry their own sampling uncertainty of tail quantiles)."),
+             ("T11d", "p95e_ablation.csv", "Ablation of the uncertainty budget (250 draws per variant, key dates): the full budget; terrain only; water surface only; baseline fixed at the nominal regime; with a per-day SWOT term of 0.05 m; without the interpolation term; without the nugget; with a single exponential instead of the nested covariance -- attribution of the width and of the offset between the nominal run and the ensemble median."),
+             ("T11e", "p95e_wse_threshold_sensitivity.csv", "Sensitivity of the connected reconstruction to a uniform offset of the water surface (-0.20 ... +0.20 m) on the nominal terrain with the nominal baseline: W_total, A_new, V_new and the local derivatives dA/dH, dW/dH (corridor, Inhulets, p42 domain; 7, 9, 13 June). A sensitivity of the connectivity thresholds, not a new model."),
+             ("T11f", "p95e_interp_cv.csv", "Error of the per-node time interpolation from a whole-date hold-out: residual NMAD / RMSE by gap length (1, 2, 3-4, 5-8, > 8 days) for interpolated and end-held node-days; the superseded one-day triplet estimate for comparison.")]
+    for tid, fn, cap in extra:
+        q = T / fn
+        if q.exists():
+            put(tid, pd.read_csv(q), cap, [q], "independent_physical")
+    sc_, sd_ = T / "p95l_supported_core.csv", T / "p95l_support_domain.csv"
+    if sc_.exists() and sd_.exists():
+        put("T11k", pd.read_csv(sc_).query("date in @KEY_DATES"), "Observational support of the reconstructed new inundation (nominal run of the primary rule; maintainer decision D-SUPPORT): per region and key date the FULL terrain-connectivity reconstruction (the primary product), its DIRECT (nearest SWOT node <= 3 km), EXTRAPOLATED (3-10 km) and WEAK (> 10 km) parts, the SUPPORTED CORE (<= 10 km), the weak share, the parts capped at the Kherson gauge and, in the Inhulets valley, served by a node of another river (cross-river flag), and the 10 km cap run of p95 as a sensitivity (it recomputes the connectivity; it is not the core). The 3 and 10 km limits are operational thresholds, not physical constants.", [sc_], "independent_physical")
+        put("T11l", pd.read_csv(sd_).query("date in @KEY_DATES"), "The support classes of T11k with their flags and the median distance of the serving node, per region and key date.", [sd_], "independent_physical")
+    sup = T / "p95_wse_support_cells_connected_ceiling.csv"; nod = T / "p95_wse_support_nodes_connected_ceiling.csv"
+    if sup.exists() and nod.exists():
+        S_ = pd.read_csv(sup); N_ = pd.read_csv(nod); S_ = S_[S_.date.isin(KEY_DATES)].merge(N_, on="date", how="left")
+        put("T11g", S_, "Support of the reconstructed water surface on the key dates: share of the corridor base cells whose surface is the median of nodes within 3 km, the nearest-node fallback beyond 3 km, or capped at the Kherson gauge (> 15 km from a node, west of the gauge), with the water cells in each class, and the number of SWOT nodes observed / interpolated / held at an end on the day.", [sup, nod], "independent_physical")
+    rows, src = [], []
+    for sfx, step in P95_ATTRIBUTION:
+        q = T / f"p95_daily_area_pooled{sfx}.csv"
+        if q.exists():
+            d = pd.read_csv(q); d = d[d.date.isin(["2023-06-05", "2023-06-07", "2023-06-09", "2023-06-13", "2023-06-18"])]; d.insert(0, "step", step); d.insert(1, "suffix", sfx); rows.append(d); src.append(q)
+    if rows:
+        A = pd.concat(rows, ignore_index=True); A["area_semantics"] = "terrain_reconstructed"
+        A["note"] = "nominal runs (no Monte-Carlo); each step adds one change to the previous one; the first row reproduces the committed rev-5 tables exactly (reproduction gate)"
+        put("T11h", A, "From rev 5 to rev 6 of the reconstruction (nominal runs, key dates): the committed rev-5 result reproduced exactly by the rev-6 code in legacy mode, then one change at a time -- the water-surface lattice anchored in map coordinates, connectivity on the union mosaic with ownership for accounting only (review F06), and the FABDEM-only residual terrain bias per zone with bed cells uncorrected (review F07).", src, "independent_physical")
+    sc = T / "p95_seam_check_connected_ceiling.csv"
+    if sc.exists():
+        put("T11i", pd.read_csv(sc), "Seam check (review F06): water-surface-allowed area on 7, 9 and 13 June per zone and region, evaluated on the union mosaic versus the superseded per-zone evaluation (ownership applied before the connectivity), with the cells found by only one of the two.", [sc], "independent_physical")
+    ss = T / "p95_source_share_connected_ceiling.csv"
+    if ss.exists():
+        s_ = pd.read_csv(ss); s_ = s_[s_.date.isin(KEY_DATES) & (s_.new_km2 > 0)]
+        put("T11j", s_, "Terrain source of the reconstructed newly inundated area (corridor, key dates): FABDEM DTM (p55 source 3), FABDEM tapered at a bathymetric edge (4), surveyed or reconstructed bed (1, 2) and gap fill (5). The terrain-error model perturbs FABDEM-sourced cells only; the bed share is the part of the new area without a stochastic terrain term.", [ss], "independent_physical")
 
 
 def t12_daily():
@@ -207,32 +260,33 @@ def t12_daily():
     pu = T / "p95e_area_volume_uncertainty.csv"
     if pu.exists():
         U = pd.read_csv(pu); src.append(pu)
-        D = D.merge(U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "n_draws"]], on=["date", "region"], how="left")
-        # PRIMARY interval of the total: the pre-breach water is observed (not propagated), so W_total draws = W_total_central + (A_draw - A_central)
-        for q in ("p05", "p50", "p95"):
-            D[f"W_total_{q}_km2"] = D.W_total_central_km2 - D.A_central_km2 + D[f"A_{q}_km2"]
+        D = D.merge(U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "W_total_p05_km2", "W_total_p50_km2", "W_total_p95_km2",
+                       "Vtot_p05_hm3", "Vtot_p50_hm3", "Vtot_p95_hm3", "baseline_p05_km2", "baseline_p50_km2", "baseline_p95_km2", "n_draws"]], on=["date", "region"], how="left")
+        # PRIMARY interval of the total = quantiles of the total-water ensemble itself (review F04; the shift construction is withdrawn)
+        D["rel_halfwidth_W_total_pct"] = (D.W_total_p95_km2 - D.W_total_p05_km2) / 2 / D.W_total_central_km2 * 100
         D["rel_halfwidth_A_pct"] = (D.A_p95_km2 - D.A_p05_km2) / 2 / D.A_central_km2 * 100; D["rel_halfwidth_V_pct"] = (D.V_p95_hm3 - D.V_p05_hm3) / 2 / D.V_central_hm3 * 100
         D["mc_shift_A_pct"] = (D.A_p50_km2 - D.A_central_km2) / D.A_central_km2 * 100; D["mc_shift_V_pct"] = (D.V_p50_hm3 - D.V_central_hm3) / D.V_central_hm3 * 100
-    pg = T / "p95g_mc_daily.csv"
-    if pg.exists():
-        G = pd.read_csv(pg); src.append(pg)
-        # emulator AREA envelope only: its volume draws are raw (unanchored, inflated by the symmetric DEM error under canopy) and are not fit for use
-        emu = {c: c.replace("W_total_km2_", "W_total_emu_km2_").replace("A_new_km2_", "A_emu_km2_") for c in
-               ["W_total_km2_p05", "W_total_km2_p25", "W_total_km2_p50", "W_total_km2_p75", "W_total_km2_p95", "A_new_km2_p05", "A_new_km2_p25", "A_new_km2_p50", "A_new_km2_p75", "A_new_km2_p95"]}
-        emu["n_draws"] = "n_draws_emulator"
-        D = D.merge(G[["date", "region"] + list(emu)].rename(columns=emu), on=["date", "region"], how="left")
     for name, (sfx, man, mp) in _p95_variants().items():
         q = T / f"p95_daily_area_pooled{sfx}.csv"
         if q.exists() and name != "connected_ceiling":
             tag = f"{name.split(' ')[0]}{'_superseded' if 'superseded' in name else ''}"
             x = pd.read_csv(q)[["date", "region", "new_km2", "potential_km2"]].rename(columns={"new_km2": f"A_{tag}_km2", "potential_km2": f"W_total_{tag}_km2"}); D = D.merge(x, on=["date", "region"], how="left"); src.append(q)
-    D["uncertainty_note"] = "PRIMARY interval = p05/p50/p95 of the 40 full spatial Monte-Carlo draws (p95e: spatially correlated DEM error field, closure, gauge, SWOT, interpolation); *_emu_* = 100 000-draw cluster-normal emulator (p95g), a broader SENSITIVITY envelope of the AREA over the parameter space, not the primary interval; the emulator's volume draws are not used (raw, unanchored: ~3x the spatial MC)"
+    D["uncertainty_note"] = UNCERTAINTY_NOTE
     D["definition_note"] = "A_* = NEW inundation (cells allowed by the water surface outside the same-rule pre-breach regime); W_total_* = TOTAL water surface on the day (all cells allowed by the water surface, incl. channels, lakes, reed beds) ; operational 'flooded land' figures (e.g. UNOSAT 3616) exclude pre-existing water and are closer in kind to A_*, but differ in AOI, date and temporal semantics -- context, never validation; wetland submergence is in T13/T14"
     D["central_value_note"] = CENTRAL_NOTE
     lead = [c for c in ["date", "region", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2",
                         "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3"] if c in D.columns]
     D = D[lead + [c for c in D.columns if c not in lead]]
-    put("T12", D, "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the 40 spatial draws (p95e) with the deterministic nominal run (*_central_*) alongside -- on the peak days the nominal run lies below its own MC p05, so the interval is not centred on it: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds) and reconstructed NEWLY INUNDATED area (A_*) with the volume of new water (V_*). PRIMARY intervals p05/p50/p95 from the 40 spatial Monte-Carlo draws (p95e); *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). Central run (DEM class-bias corrected), p42 HAND rule, ceiling-only, uncorrected-DEM and superseded-closure sensitivities. Daily reconstructed series, not daily observations.", src, "independent_physical")
+    put("T12", D, "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2; n_draws per row) with the deterministic nominal run (*_central_*, draw 0, a diagnostic) alongside: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; quantiles of the total-water ensemble), reconstructed NEWLY INUNDATED area (A_*), the volume of new water (V_*) and of all water (Vtot_*), and the draw's own pre-breach baseline (baseline_*). *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). The 100 000-draw emulator is not part of this table (a diagnostic, T12d). Sensitivities (nominal runs): p42 HAND rule, ceiling only, terrain as delivered (no residual bias removed), superseded closure, 4-connectivity, main-stem seed, 3-day maximum gap, river-aware water surface, the Kalynivske gauge as an extra water-surface node (the gauge then an input), nearest-node fallback capped at 10 km. Daily reconstructed series, not daily observations.", src, "independent_physical")
+
+
+def t12d_emulator_diagnostic():
+    """D-EMU (maintainer, 2026-09-29): the 100 000-draw emulator stays a computational diagnostic outside the evidence path."""
+    pg, pv = T / "p95g_mc_daily.csv", T / "p95g_vs_p95e.csv"
+    if pg.exists():
+        G = pd.read_csv(pg); G = G[G.date.isin(KEY_DATES)].copy()
+        G["status"] = "DIAGNOSTIC, not evidence (D-EMU): cluster-normal emulator without connectivity; W_total = nominal total + emulator new-area deviations; volumes unanchored"
+        put("T12d", G, "Computational diagnostic, not evidence (maintainer decision D-EMU, 2026-09-29): the 100 000-draw cluster-normal emulator (p95g) per region and key date. It has no connectivity, its total water-surface envelope is built around the nominal total, and its volumes are unanchored; it is not an uncertainty estimate and no reported number rests on it. The primary interval is the Monte-Carlo ensemble (T12).", [pg] + ([pv] if pv.exists() else []), "contextual")
 
 
 def t12b_daily_series():
@@ -243,17 +297,16 @@ def t12b_daily_series():
     d = pd.read_csv(p).rename(columns={"new_km2": "A_central_km2", "new_volume_hm3": "V_central_hm3", "potential_km2": "W_total_central_km2"})
     U = pd.read_csv(pu)
     D = d[["date", "region", "A_central_km2", "W_total_central_km2", "V_central_hm3", "kherson_gauge_m"]].merge(
-        U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "n_draws"]], on=["date", "region"], how="left")
-    pre = D.date < "2023-06-06"                                         # before the breach A_new = 0 by construction (same-rule baseline), no draws needed
-    for c in ("A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3"):
-        D.loc[pre, c] = 0.0
-    for q in ("p05", "p50", "p95"):
-        D[f"W_total_{q}_km2"] = D.W_total_central_km2 - D.A_central_km2 + D[f"A_{q}_km2"]
+        U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "W_total_p05_km2", "W_total_p50_km2", "W_total_p95_km2", "n_draws"]], on=["date", "region"], how="left")
+    # every day, including the pre-breach days (A_new = V_new = 0 there by construction; W_total from its own ensemble)
     D["nominal_below_mc_p05"] = (D.A_central_km2 < D.A_p05_km2) | (D.V_central_hm3 < D.V_p05_hm3)
     D["area_semantics"] = "terrain_reconstructed"; D["central_value_note"] = CENTRAL_NOTE
     D = D[["date", "region", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2",
            "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3", "nominal_below_mc_p05", "kherson_gauge_m", "n_draws", "area_semantics", "central_value_note"]]
-    put("T12b", D.sort_values(["region", "date"]), "The daily reconstructed series, every day 26 May - 10 July 2023 and region: Monte-Carlo median [p05-p95] of the 40 spatial draws (p95e, run on every post-breach day) for new inundation A, total water surface W_total and new-water volume V, with the deterministic nominal run (*_central_*) and a flag where it lies below its own MC p05. Before the breach A = V = 0 by construction. Daily reconstructed series, not daily observations.", [p, pu], "independent_physical")
+    put("T12b", D.sort_values(["region", "date"]), "The daily reconstructed series, every day 26 May - 10 July 2023 and region: Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2, every day) for new inundation A, total water surface W_total (its own ensemble, also before the breach) and new-water volume V, with the deterministic nominal run (*_central_*) and a flag where it lies below its own MC p05. Before the breach A = V = 0 by construction. Daily reconstructed series, not daily observations.", [p, pu], "independent_physical")
+    pk = T / "p95e_peak_date.csv"
+    if pk.exists():
+        put("T12c", pd.read_csv(pk), "Day of the reconstructed areal maximum across the Monte-Carlo worlds: for A_new and W_total per region, the share of draws with the maximum on each day, and the day of the nominal run. A distribution conditional on the uncertainty model, not a probability of the true day.", [pk], "independent_physical")
 
 
 def t21_reservoir():
@@ -331,7 +384,7 @@ def t15_icesat():
     p = T / "p95c_icesat2_check_0609.csv"
     if p.exists():
         D = pd.read_csv(p); D["check_type"] = "altimetric consistency check (night ATL08 ground segments vs seamless DEM and the 06-09 water surface); not a validation of the inundation map"
-        put("T15", D, "ICESat-2 altimetric consistency check per zone and agreement category: residual seamless DEM minus ICESat-2 (median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface.", [p], "independent_physical")
+        put("T15", D, "ICESat-2 altimetric consistency check per zone and agreement category on 9 June (categories inside the S1 valid footprint only, review F12): residual of the FABDEM-sourced terrain minus night ICESat-2 ground, raw (res_*) and after the class-bias correction used by the reconstruction (res_corr_*; median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface; N segments, n_dates acquisition dates, n_bed_source segments on bed-sourced cells (excluded from the residual statistics). The same p57 night corpus also calibrates the class bias, so this is a consistency check, not an independent validation.", [p], "independent_physical")
 
 
 def t16_accounting():
@@ -377,13 +430,27 @@ def t17_swot_gauge():
                              sign="gauge - satellite (Paper 1 convention); satellite = EGG2015-referenced SWOT height with c_Kherson = 0"))
     put("T17", pd.DataFrame(rows), "SWOT-input consistency at Kherson after re-anchoring: nodes within 3 km of the gauge, daily median vs the daily gauge (river yearbook, EVRF2019). The frame validation itself is Paper 1; this only checks the p95 input.", [p1, p2], "independent_physical")
     day["date"] = day.date.dt.strftime("%Y-%m-%d"); put("T17b", day.round(3), "Daily values behind T17.", [p1, p2], "independent_physical")
+    k, s = T / "p95k_inhulets_kalynivske.csv", T / "p95k_inhulets_summary.csv"
+    if k.exists() and s.exists():
+        put("T17c", pd.read_csv(k), "Inhulets gauge Kalynivske (80575; UkrHMC yearbook 2023 table 1.2, daily means in cm above the gauge zero, zero -1.34 m BS from the sheet header -> EVRF2019 by the EPSG:9902 grid step) per day against the reconstructed water surface at the gauge (not an input of the reconstruction; in the gauge-node sensitivity it is), with the support of that surface (nearest SWOT node, river, distance), the Kherson gauge, the upstream Inhulets posts (Kryvyi Rih 80568, Iskrivka 80564: no flood from upstream, i.e. the rise is Dnipro backwater), the terrain at the gauge cell and the days with reconstructed new inundation there. Gauge position 47°6'59\" N 32°57'38\" E (station catalogue, Kakhovka hydrometeorological observatory); date-only daily values (means of more frequent observations during the event). The yearbook remark (vol. 2, item 114) attributes the maximum to the destruction of the Kakhovka HPP, gives high water on 7-18 June with houses and the road bridge 0.75 km upstream flooded, and notes that the levelling of pile No. 5 changed during the hazard (a possible datum step of unknown size and date: post-event levels are not comparable with pre-event levels without it).", [k], "independent_physical")
+        lm, ls = T / "p95k_liman_mykolaiv.csv", T / "p95k_liman_summary.csv"
+        if lm.exists() and ls.exists():
+            put("T17e", pd.read_csv(lm), "The Dnipro-Buh liman at Mykolaiv (Southern Bug 98027; UkrHMC yearbook 2023 table 1.2, daily means in cm above the gauge zero, zero -5.00 m BS in the sheet header, EPSG:9902 grid step to EVRF2019; station catalogue position) per day, with the Kherson gauge and the reconstructed water surface extrapolated to the gauge (outside the terrain domain: water surface only; not an input of the reconstruction). The event days carry the yearbook flag '/' (meaning to be confirmed from the legend); wind setup / setdown of +-0.3-0.5 m is part of the regime.", [lm], "independent_physical")
+            put("T17f", pd.read_csv(ls), "Summary of T17e: the liman's highest level of the year (instantaneous, from the yearbook) and highest daily mean, its rise and timing against Kherson, the Kherson - Mykolaiv head, and the reconstructed surface at the liman, which comes from the westernmost SWOT node (E 457.6 km), unobserved from 6 to 22 June and therefore interpolated flat across the flood.", [ls], "independent_physical")
+        put("T17d", pd.read_csv(s), "Summary of T17c. Kalynivske is withheld from the primary water surface and kept as an independent tributary validation site (maintainer decision D-INHULETS, 2026-09-29): the backwater hydrograph (the yearbook's highest level of the year -- an instantaneous value, not a daily mean -- and the highest daily mean, rise, days above the floodplain exit, record exceedance, lag after the Kherson peak stage), the validation of the reconstruction at the gauge (absolute error e_abs; event-relative error e_rise, free of any constant datum offset; peak timing; recession), the water-surface support at the gauge, and the water-surface support at the gauge (the support of the valley's whole new area is classified in T11k/T11l).", [s], "independent_physical")
 
 
 def t18_dem():
     d, p = read("p57_dem_accuracy_night.csv")
     keep = d[d.set.str.contains("C seamless") & (d.set.str.contains("ALL night") | d.set.str.contains("ZONE_2_KHERSON_DELTA") | d.set.str.contains("ZONE_4_DAM_TO_KHERSON_FLOODWAY") | d.set.str.contains("low terrain"))].copy()
     keep["source"] = "Paper 2 / SWOT-DNIPRO p57 (night ICESat-2 ATL08 vs seamless DEM), copied with provenance; not re-validated here"
-    put("T18", keep, "Seamless DEM accuracy against night ICESat-2 ground segments (Paper 2): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class; the class rows feed the DEM error model of T11b.", [p], "independent_physical")
+    put("T18", keep, "Seamless terrain-bed model accuracy against night ICESat-2 ground segments (Paper 2 / p57): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class, all sources together (context; the uncertainty model uses the FABDEM-only rows of T18b).", [p], "independent_physical")
+    q = T / "p95j_terrain_residual_stats.csv"
+    if q.exists():
+        put("T18b", pd.read_csv(q), "FABDEM-DTM residual against night ICESat-2 ground on FABDEM-sourced cells of the seamless terrain-bed model (p55 source 3/4), per zone and WorldCover class and pooled: N, median (the residual class-dependent terrain-elevation bias removed on FABDEM cells), NMAD (the marginal scale of the perturbed terrain realizations), RMSE, mean, acquisition dates. FABDEM is a bare-earth DTM: the class median is a residual bias, not a canopy correction.", [q], "independent_physical")
+    f = T / "p95j_terrain_variogram_fit.csv"
+    if f.exists():
+        put("T18c", pd.read_csv(f), "Spatial structure of the FABDEM-DTM residual (p95j): empirical semivariograms of same-date ICESat-2 pairs, fitted per zone and class (classical estimator, residual after the class median, m2) and for the standardized residual (r - b_c) / sigma_c (classical and robust Cressie-Hawkins estimators; single exponential + nugget and nested two-exponential + nugget models, Cressie WLS). The pooled robust nested fit is the correlation model of the Monte-Carlo terrain field (T11b); its nugget includes ICESat-2 segment noise and point-to-cell support mismatch.", [f], "independent_physical")
 
 
 def t19_series():
@@ -420,8 +487,9 @@ def readme():
             ("A1 / A2", "A1 = predicted flood on labelled dry cropland (false positive vs weak label); A2 = predicted flood burden on UNLABELLED cropland (never called false positive)"),
             ("bias / MAE / RMSE", "mean, mean absolute and root-mean-square of the residual (sign stated per table)"), ("NMAD", "1.4826 x median |r - median(r)|"), ("LE90 / LE95", "90th / 95th percentile of |r|"),
             ("95 % interval", "percentile 2.5 / 97.5 of 2000 spatial-block bootstrap resamples (seed 20260923); paired comparisons resample identical physical blocks"),
-            ("Monte-Carlo band (PRIMARY)", "p05 / p50 / p95 over 40 full spatial draws of a spatially correlated DEM error field, closure, gauge, SWOT and interpolation errors (p95e): the primary uncertainty interval of every reconstructed area and volume"),
-            ("emulator envelope (SENSITIVITY)", "p05/p25/p50/p75/p95 of 100 000 cluster-normal emulator draws per day (p95g): propagation over a broader parameter space; wider than the spatial MC; never the primary interval"),
+            ("Monte-Carlo band (PRIMARY)", "p05 / p50 / p95 over the coherent Monte-Carlo worlds of p95e rev 2 (one terrain-error realization over the union mosaic and one water-surface realization per draw, baseline rebuilt with it): the primary uncertainty interval of every reconstructed area and volume; W_total, A_new, V_new and Vtot each from their own ensemble"),
+            ("emulator (DIAGNOSTIC)", "100 000 cluster-normal emulator draws per day (p95g) without connectivity: a computational diagnostic outside the evidence path (D-EMU, T12d); never an uncertainty estimate"),
+            ("support classes (p95l)", "distance of the nearest SWOT node of a newly inundated cell: direct <= 3 km, extrapolated 3-10 km, weak > 10 km (operational thresholds); flags: capped at the Kherson gauge, cross-river (Inhulets); supported core = direct + extrapolated"),
             ("pool volume", "seamless DEM integrated under the sloped daily water surface inside the pre-breach pool polygon (p95f); design Table 19 for reference (T22 gives dV/V_design)"),
             ("daily-mean effective release", "-dV_pool/dt + Q_in(DniproHES) from the storage balance: a daily mean, not an instantaneous breach discharge (T21)"),
             ("IoU vs model (T23)", "|sensor water ∩ model water| / |sensor water ∪ model water| on pool cells the sensor observed"),
@@ -439,7 +507,7 @@ def readme():
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t02_labels, t03_split, t04_arms, t05_endpoints, t06_paired, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t21_reservoir, t27_capacity_curves,
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t27_capacity_curves,
               t23_t26_reservoir_maps):
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

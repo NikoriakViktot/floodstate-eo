@@ -52,3 +52,23 @@ def test_t07b_paired_effects_from_p90():
 def test_no_withdrawn_inhulets_numbers_in_claims():
     txt = (CS / "publication" / "claims.md").read_text() + (CS / "publication" / "evidence_matrix.csv").read_text()
     assert "0.78-0.98" not in txt.replace("–", "-") or "withdrawn" in txt.lower()
+
+
+def test_t12_total_interval_is_the_total_ensemble():
+    """Review F04: W_total quantiles in T12 are the quantiles of the total-water ensemble (p95e), never a shift of the new-area interval."""
+    t = pd.read_csv(PT / "T12.csv"); u = pd.read_csv(T / "p95e_area_volume_uncertainty.csv")
+    m = t.merge(u, on=["date", "region"], suffixes=("", "_u"))
+    assert len(m) == len(t)
+    for q in ("p05", "p50", "p95"):
+        assert np.allclose(m[f"W_total_{q}_km2"], m[f"W_total_{q}_km2_u"])
+    shifted = m.W_total_central_km2 - m.A_central_km2 + m.A_p05_km2           # the withdrawn construction must not reappear
+    assert not np.allclose(shifted, m.W_total_p05_km2)
+
+
+def test_uncertainty_budget_tables_rev2():
+    """p95e rev 2: terrain components per zone (no 'dem_*' rows), convergence and ablation tables present, >= 1000 worlds."""
+    b = pd.read_csv(PT / "T11b.csv")
+    assert not b.component.astype(str).str.startswith("dem_").any() and b.component.astype(str).str.startswith("terrain_").any()
+    c = pd.read_csv(PT / "T11c.csv"); assert c.seed.nunique() >= 2 and c.n_draws.max() >= 1000
+    d = pd.read_csv(PT / "T11d.csv"); assert {"full", "terrain_only", "water_surface_only", "baseline_fixed"} <= set(d.variant)
+    assert int(pd.read_csv(PT / "T12.csv").n_draws.min()) >= 1000

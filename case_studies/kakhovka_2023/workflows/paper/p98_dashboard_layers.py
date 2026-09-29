@@ -84,7 +84,7 @@ def zone_raster(z, name, sub="floodplain_dyn"):
 
 
 def terrain_layers():
-    src = "p95 rev 5 (DEM class-bias corrected), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
+    src = "p95 rev 6 (seamless terrain-bed model, residual FABDEM class bias removed on FABDEM cells, union mosaic), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
     per = {}
     for z in ZONES:
         zz = np.load(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "daily_new.npz"); shp = tuple(int(v) for v in zz["shape"])
@@ -132,7 +132,6 @@ def s1_layers():
 
 def frame_layers():
     import json as _j
-    from floodstate_eo.spatial import canonical_grid as CG
     def frames_mosaic(fn):
         out = np.zeros((NY, NX), "u1")
         for f in ("B1", "B2"):
@@ -265,9 +264,13 @@ def reservoir_layers():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir"], help="rebuild only the reservoir layers, keep the rest of the manifest")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain"], help="rebuild only the reservoir or the terrain layers, keep the rest of the manifest")
     a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
-    if a.only == "reservoir":
+    if a.only == "terrain":                                               # e.g. after a new p95 run: keep every other layer, terrain first as before
+        old = json.loads((OUTD / "manifest.json").read_text())
+        kept = [l for l in old["layers"] if l["group"] not in ("terrain_daily", "terrain_summary")]
+        MAN["layers"] = []; terrain_layers(); MAN["layers"] = MAN["layers"] + kept; print("terrain", round(time.time() - t0), flush=True)
+    elif a.only == "reservoir":
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
@@ -279,7 +282,7 @@ def main():
         context_layers()
     tr, ny, nx = box_grid(RBOX); MAN["reservoir_grid"] = dict(crs="EPSG:4326", dlon=DLON, dlat=DLAT, nx=nx, ny=ny, bounds=[[RBOX[1], RBOX[0]], [RBOX[3], RBOX[2]]])
     MAN["total_bytes"] = int(sum(l["bytes"] for l in MAN["layers"])); MAN["n_layers"] = len(MAN["layers"])
-    MAN["licence_note"] = ("Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless DEM; "
+    MAN["licence_note"] = ("Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; "
                            "provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0.")
     (OUTD / "manifest.json").write_text(json.dumps(MAN, indent=1)); print(f"-> {OUTD}: {MAN['n_layers']} layers, {MAN['total_bytes'] / 1e6:.1f} MB ({round(time.time() - t0)} s)")
 

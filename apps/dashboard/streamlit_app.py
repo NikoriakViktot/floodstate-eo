@@ -5,10 +5,9 @@ the pre-rendered layers in apps/dashboard/data only.
 """
 from __future__ import annotations
 
-import pandas as pd
 import streamlit as st
 
-from lib import C, SERIES, caption, figure, header, layers, manifest, refs, table
+from lib import SERIES, caption, figure, header, layers, manifest, refs, table
 
 st.set_page_config(page_title="FloodState-EO · Kakhovka 2023", page_icon="🌊", layout="wide")
 header("Kakhovka 2023 — inundation after the dam breach",
@@ -35,16 +34,21 @@ pk = (corr.A_p50_km2 if "A_p50_km2" in corr.columns and corr.A_p50_km2.notna().a
 st.markdown("**Primary result — the reconstructed series (terrain_reconstructed, daily snapshots)**")
 c1, c2 = st.columns(2)
 c1.metric("Reconstructed TOTAL water-surface area, Dnipro corridor, areal maximum (MC median)", f"{corr.loc[pk, 'W_total_p50_km2']:.0f} km²",
-          f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'W_total_p05_km2']:.0f}–{corr.loc[pk, 'W_total_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'W_total_central_km2']:.0f} · on {pk}", delta_color="off")
+          f"PRIMARY Monte-Carlo p05–p95 {corr.loc[pk, 'W_total_p05_km2']:.0f}–{corr.loc[pk, 'W_total_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'W_total_central_km2']:.0f} · on {pk}", delta_color="off")
 c2.metric("Reconstructed NEWLY inundated area (not water before the breach; MC median)", f"{corr.loc[pk, 'A_p50_km2']:.0f} km²",
-          f"PRIMARY spatial MC p05–p95 {corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'A_central_km2']:.0f} · volume {corr.loc[pk, 'V_p50_hm3']:.0f} hm³ ({corr.loc[pk, 'V_p05_hm3']:.0f}–{corr.loc[pk, 'V_p95_hm3']:.0f}; nominal {corr.loc[pk, 'V_central_hm3']:.0f})", delta_color="off")
-st.caption("Central values are Monte-Carlo medians of the 40 spatial draws; the deterministic nominal run lies below its own p05 on the peak days, so it is given only for reference.")
+          f"PRIMARY Monte-Carlo p05–p95 {corr.loc[pk, 'A_p05_km2']:.0f}–{corr.loc[pk, 'A_p95_km2']:.0f} km² · nominal run {corr.loc[pk, 'A_central_km2']:.0f} · volume {corr.loc[pk, 'V_p50_hm3']:.0f} hm³ ({corr.loc[pk, 'V_p05_hm3']:.0f}–{corr.loc[pk, 'V_p95_hm3']:.0f}; nominal {corr.loc[pk, 'V_central_hm3']:.0f})", delta_color="off")
+st.caption(f"Central values are Monte-Carlo medians of {int(corr.loc[pk, 'n_draws'])} coherent Monte-Carlo worlds (one terrain and one water-surface realization per draw); the deterministic nominal run is a diagnostic, given only for reference.")
 st.caption("Secondary — checks and weak-label agreement (never accuracy)")
 c3, c4, c5 = st.columns(3)
 c3.metric("Raw agreement with Sentinel-1 on 2023-06-09 (p42 floodplain)", f"POD {float(v.POD.iloc[0]):.2f} · CSI {float(v.CSI.iloc[0]):.2f}" if len(v) else "n/a", "cross_sensor, S1 footprint; conditioned by surface type")
 if len(lab):
     c4.metric("Label effect v002 → v003_A (U2): flood on reference water", f"{float(lab['median'].iloc[0]):+.1f} km²", f"95 % [{float(lab.lo.iloc[0]):.1f}, {float(lab.hi.iloc[0]):.1f}] · weak_label_agreement")
-c5.metric("Emulator sensitivity envelope on the areal maximum (100 000 draws)", f"{corr.loc[pk, 'W_total_emu_km2_p05']:.0f}–{corr.loc[pk, 'W_total_emu_km2_p95']:.0f} km²" if "W_total_emu_km2_p05" in corr.columns and pd.notna(corr.loc[pk, 'W_total_emu_km2_p05']) else "n/a", "broader parameter space; not the primary interval")
+try:                                                                 # D-SUPPORT: how much of the new area rests on distant water-surface support
+    sk = table("T11k"); sk = sk[(sk.region == "DNIPRO_CORRIDOR") & (sk.date == pk)]
+    c5.metric("New area on the areal maximum with water-surface support > 10 km (weakly constrained)", f"{float(sk.share_weak.iloc[0]):.0%}" if len(sk) else "n/a",
+              f"supported core <= 10 km: {float(sk.A_core_le10km_km2.iloc[0]):.0f} of {float(sk.A_full_km2.iloc[0]):.0f} km² (nominal run, T11k)" if len(sk) else "", delta_color="off")
+except FileNotFoundError:
+    pass
 n05 = corr.loc["2023-06-05", "W_total_central_km2"] if "W_total_central_km2" in corr.columns and "2023-06-05" in corr.index else None
 if n05 is not None:
     st.caption(f"Normal regime on 2023-06-05: {n05:.0f} km² of water in the corridor; the Inhulets valley is reported separately (Reconstruction page).")

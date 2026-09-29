@@ -1,8 +1,9 @@
 # New in floodstate-eo, 2026-09-25. STATUS: ACTIVE. Summary figure + table over the p95 variants; computes nothing new.
 """P95b -- the dynamics figure and table of the paper: daily inundation dam -> liman, three independent lines of evidence.
 
-    terrain (p95)   connected_ceiling, margin 0.5 m (primary), band = margins 0.3 / 0.8 m, and hand_and_ceiling (p42 rule,
-                    channel-connected lower bound);  what the observed water surface ALLOWS, every day incl. 06-07/08
+    terrain (p95)   connected_ceiling (primary; nominal run), band = the p95e Monte-Carlo p05-p95 of the newly inundated area
+                    (rev 2, 2026-09-29; the 0.3 / 0.8 m margin variants were withdrawn on 2026-09-25), and hand_and_ceiling (p42
+                    rule, channel-connected lower bound);  what the observed water surface ALLOWS, every day incl. 06-07/08
     S1 observed     p94 new dark water per acquisition date (what the sensor SAW, dark-water rule: blind under reeds,
                     forest and buildings; noisy on fields and sand after 06-18)
     U-Net (M6)      U2b_v003A predicted event flood (persistent water, >= 2 of the 06-09/13/14 peak dates) -- one number
@@ -34,32 +35,35 @@ def pooled(sfx):
 
 
 def main():
-    prim, lo, hi, hand = pooled("_connected_ceiling"), pooled("_connected_ceiling_m030"), pooled("_connected_ceiling_m080"), pooled("")
+    prim, hand = pooled("_connected_ceiling"), pooled("_hand_and_ceiling")
+    U = pd.read_csv(T / "p95e_area_volume_uncertainty.csv"); U["t"] = pd.to_datetime(U.date)
+    lo = U.rename(columns={"A_p05_km2": "new_km2"})[["t", "region", "new_km2"]]; hi = U.rename(columns={"A_p95_km2": "new_km2"})[["t", "region", "new_km2"]]
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
     p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
     rows = []
     for r in REGIONS:
         a, b, c, h = (x[x.region == r].set_index("t") for x in (prim, lo, hi, hand))
+        b, c = b.reindex(a.index), c.reindex(a.index)
         s = s1[s1.region == r].set_index("t")
         for t in a.index:
-            rows.append(dict(date=str(t.date()), region=r, terrain_connected_m050_km2=a.new_km2[t], terrain_m030_km2=b.new_km2[t],
-                             terrain_m080_km2=c.new_km2[t], terrain_hand_rule_km2=h.new_km2[t], volume_m050_hm3=a.new_volume_hm3[t],
+            rows.append(dict(date=str(t.date()), region=r, terrain_connected_nominal_km2=a.new_km2[t], terrain_mc_p05_km2=b.new_km2[t],
+                             terrain_mc_p95_km2=c.new_km2[t], terrain_hand_rule_km2=h.new_km2[t], volume_nominal_hm3=a.new_volume_hm3[t],
                              s1_observed_new_km2=s.new_water_km2.get(t, np.nan), s1_coverage=s.coverage.get(t, np.nan),
                              kherson_gauge_m=a.kherson_gauge_m[t]))
     S = pd.DataFrame(rows); S.to_csv(T / "p95b_dynamics_summary.csv", index=False)
     fig, axs = plt.subplots(2, 3, figsize=(15.5, 6.6), constrained_layout=True, gridspec_kw=dict(height_ratios=[3, 1.1]))
     for j, r in enumerate(REGIONS):
         a, b = axs[0, j], axs[1, j]; s = S[S.region == r].copy(); s["t"] = pd.to_datetime(s.date)
-        a.fill_between(s.t, s.terrain_m030_km2, s.terrain_m080_km2, color=C_TERR, alpha=0.18, lw=0, label="terrain, WSE margin 0.3–0.8 m")
-        a.plot(s.t, s.terrain_connected_m050_km2, color=C_TERR, lw=2.2, label="terrain: DEM < WSE, connected (margin 0.5 m)")
+        a.fill_between(s.t, s.terrain_mc_p05_km2.fillna(0), s.terrain_mc_p95_km2.fillna(0), color=C_TERR, alpha=0.18, lw=0, label="terrain, Monte-Carlo p05–p95 (p95e)")
+        a.plot(s.t, s.terrain_connected_nominal_km2, color=C_TERR, lw=2.2, label="terrain: terrain < WSE, connected (nominal run)")
         a.plot(s.t, s.terrain_hand_rule_km2, color=C_LOW, lw=1.4, ls="--", label="terrain: p42 HAND rule (lower bound)")
         o = s.dropna(subset=["s1_observed_new_km2"]); full, part = o[o.s1_coverage >= 0.9], o[o.s1_coverage < 0.9]
         a.plot(full.t, full.s1_observed_new_km2, color=C_S1, lw=0, marker="o", ms=6, label="S1 observed new dark water")
         a.plot(part.t, part.s1_observed_new_km2, color=C_S1, lw=0, marker="o", ms=6, mfc="white", label="S1, partial coverage (orbit 138)")
         if r in u2b.index:
             a.axhline(u2b[r], color=C_UNET, lw=1.2, ls=":", label=f"U-Net U2b event flood, persistent ({u2b[r]:.0f} km²)")
-        pk = s.loc[s.terrain_connected_m050_km2.idxmax()]
-        a.annotate(f"{pk.terrain_connected_m050_km2:.0f} km² on {pk.date[5:]}", (pk.t, pk.terrain_connected_m050_km2), fontsize=7.5,
+        pk = s.loc[s.terrain_connected_nominal_km2.idxmax()]
+        a.annotate(f"{pk.terrain_connected_nominal_km2:.0f} km² on {pk.date[5:]}", (pk.t, pk.terrain_connected_nominal_km2), fontsize=7.5,
                    color="#0b0b0b", xytext=(6, 2), textcoords="offset points")
         a.axvline(pd.Timestamp("2023-06-06"), color="#e34948", lw=0.8, ls="--")
         a.set_title({"DNIPRO_CORRIDOR": "Dnipro corridor (dam → liman, without the Inhulets)", "P42_FLOODPLAIN_DOMAIN": "p42 terrain-eligible floodplain",
@@ -75,7 +79,7 @@ def main():
     fig.savefig(FIG / "hand_dyn_summary.png", dpi=125, bbox_inches="tight"); plt.close(fig)
     pd.set_option("display.width", 250)
     k = S[(S.region == "DNIPRO_CORRIDOR") & (S.date >= "2023-06-05") & (S.date <= "2023-06-22")]
-    print(k[["date", "terrain_connected_m050_km2", "terrain_m030_km2", "terrain_m080_km2", "terrain_hand_rule_km2", "volume_m050_hm3", "s1_observed_new_km2", "kherson_gauge_m"]].to_string(index=False))
+    print(k[["date", "terrain_connected_nominal_km2", "terrain_mc_p05_km2", "terrain_mc_p95_km2", "terrain_hand_rule_km2", "volume_nominal_hm3", "s1_observed_new_km2", "kherson_gauge_m"]].to_string(index=False))
     print("-> tables/p95b_dynamics_summary.csv, figures/m6_v003A/hand_dyn_summary.png")
 
 

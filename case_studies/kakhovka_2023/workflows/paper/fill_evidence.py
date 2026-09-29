@@ -2,7 +2,7 @@
 """fill_evidence -- writes the numeric fields of publication/evidence_matrix.csv from publication tables (same placeholder
 syntax as fill_manuscript), then sets validation_status = TABLES_LINKED. Statements are never rewritten here."""
 from __future__ import annotations
-import re
+
 from pathlib import Path
 import pandas as pd
 from fill_manuscript import PAT, resolve
@@ -18,10 +18,10 @@ def t12(d, c, f=".0f"):
 FILL = {
     "C01": dict(n="{{T12|region=DNIPRO_CORRIDOR|date|count|}} key dates of the reconstructed series; 11 S1 dates",
                 value="A_new 06-06 %s, 06-07 %s (maximum), 06-08 %s, 06-09 %s km2; Kherson stage 06-07 %s m, 06-08 %s m (gauge maximum)" % (t12("2023-06-06","A_p50_km2"), t12("2023-06-07","A_p50_km2"), t12("2023-06-08","A_p50_km2"), t12("2023-06-09","A_p50_km2"), t12("2023-06-07","kherson_gauge_m",".2f"), t12("2023-06-08","kherson_gauge_m",".2f")),
-                uncertainty="spatial MC p05-p95 on 06-07 %s-%s km2; the day of the maximum is not itself bootstrapped" % (t12("2023-06-07","A_p05_km2"), t12("2023-06-07","A_p95_km2"))),
-    "C02": dict(n="%s key dates x 40 spatial draws (primary); 100 000 emulator draws (sensitivity)" % "{{T12|region=DNIPRO_CORRIDOR|date|count|}}",
-                value="W_total 06-05 %s (observed regime) -> 06-07 MC median %s km2; A_new 06-07 MC median %s km2 (DEM as delivered, nominal run: %s); V_new 06-07 MC median %s hm3; nominal runs %s km2 / %s km2 / %s hm3" % (t12("2023-06-05","W_total_central_km2"), t12("2023-06-07","W_total_p50_km2"), t12("2023-06-07","A_p50_km2"), t12("2023-06-07","A_connected_ceiling_dem_uncorrected_km2"), t12("2023-06-07","V_p50_hm3"), t12("2023-06-07","W_total_central_km2"), t12("2023-06-07","A_central_km2"), t12("2023-06-07","V_central_hm3")),
-                uncertainty="PRIMARY spatial MC p05-p95: W_total %s-%s km2, A_new %s-%s km2, V_new %s-%s hm3; emulator envelope (sensitivity): W_total %s-%s, A_new %s-%s km2" % (t12("2023-06-07","W_total_p05_km2"), t12("2023-06-07","W_total_p95_km2"), t12("2023-06-07","A_p05_km2"), t12("2023-06-07","A_p95_km2"), t12("2023-06-07","V_p05_hm3"), t12("2023-06-07","V_p95_hm3"), t12("2023-06-07","W_total_emu_km2_p05"), t12("2023-06-07","W_total_emu_km2_p95"), t12("2023-06-07","A_emu_km2_p05"), t12("2023-06-07","A_emu_km2_p95"))),
+                uncertainty="Monte-Carlo p05-p95 on 06-07 %s-%s km2; share of Monte-Carlo worlds with the areal maximum on 7 June {{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%%}} (T12c)" % (t12("2023-06-07","A_p05_km2"), t12("2023-06-07","A_p95_km2"))),
+    "C02": dict(n="%s key dates x %s coherent Monte-Carlo worlds (primary)" % ("{{T12|region=DNIPRO_CORRIDOR|date|count|}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|n_draws||.0f}}"),
+                value="W_total 06-05 %s (observed regime) -> 06-07 MC median %s km2; A_new 06-07 MC median %s km2 (terrain as delivered, nominal run: %s); V_new 06-07 MC median %s hm3; nominal runs %s km2 / %s km2 / %s hm3" % (t12("2023-06-05","W_total_central_km2"), t12("2023-06-07","W_total_p50_km2"), t12("2023-06-07","A_p50_km2"), t12("2023-06-07","A_connected_ceiling_dem_uncorrected_km2"), t12("2023-06-07","V_p50_hm3"), t12("2023-06-07","W_total_central_km2"), t12("2023-06-07","A_central_km2"), t12("2023-06-07","V_central_hm3")),
+                uncertainty="PRIMARY Monte-Carlo p05-p95: W_total %s-%s km2, A_new %s-%s km2, V_new %s-%s hm3; support: {{T11k|region=DNIPRO_CORRIDOR,date=2023-06-07|share_weak||.0%%}} of the nominal new area rests on water-surface support > 10 km (supported core {{T11k|region=DNIPRO_CORRIDOR,date=2023-06-07|A_core_le10km_km2||.0f}} km2, T11k)" % (t12("2023-06-07","W_total_p05_km2"), t12("2023-06-07","W_total_p95_km2"), t12("2023-06-07","A_p05_km2"), t12("2023-06-07","A_p95_km2"), t12("2023-06-07","V_p05_hm3"), t12("2023-06-07","V_p95_hm3"))),
     "C03": dict(n="{{T12|region=DNIPRO_CORRIDOR|date|count|}} key dates x 2 regions",
                 value="corridor A_new 06-09 %s, 06-13 %s, 06-18 %s, 06-21 %s km2 (stage %s m); Inhulets A_new maximum %s km2 on 06-09, W_total %s km2" % (t12("2023-06-09","A_p50_km2"), t12("2023-06-13","A_p50_km2"), t12("2023-06-18","A_p50_km2"), t12("2023-06-21","A_p50_km2"), t12("2023-06-21","kherson_gauge_m",".2f"), "{{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|A_p50_km2||.0f}}", "{{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|W_total_p50_km2||.0f}}"),
                 uncertainty="corridor spatial MC 06-13 %s-%s km2; Inhulets 06-09: terrain %s vs S1 %s km2, POD {{T13|%s,date=2023-06-09|POD||.2f}}, CSI {{T13|%s,date=2023-06-09|CSI||.2f}}" % (t12("2023-06-13","A_p05_km2"), t12("2023-06-13","A_p95_km2"), "{{T13|%s,date=2023-06-09|hand_new_km2||.0f}}" % I, "{{T13|%s,date=2023-06-09|s1_new_km2||.0f}}" % I, I, I)),
@@ -34,9 +34,9 @@ FILL = {
     "C06": dict(n="ICESat-2: {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|N||.0f}} + {{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|N||.0f}} night segments on the S1-only >= 2 m cells (tracks and dates in T15); SWOT vs gauge {{T17|period=all days|n_days||.0f}} days",
                 value="DEM - ICESat-2 median {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_median||+.2f}} m (delta), {{T15|zone=ZONE_4_DAM_TO_KHERSON_FLOODWAY,category=S1_only_ground_ge2m_above|res_median||+.2f}} m (floodway); ground - surface {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|ice_minus_wse_median||+.1f}} m; share below surface {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|share_ice_below_wse||.1%}}; gauge - SWOT median {{T17|period=all days|median_m||+.2f}} m, NMAD {{T17|period=all days|NMAD_m||.2f}} m",
                 uncertainty="DEM - ICESat-2 p10-p90 {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_p10||+.2f}} to {{T15|zone=ZONE_2_KHERSON_DELTA,category=S1_only_ground_ge2m_above|res_p90||+.2f}} m; DEM class NMAD {{T18|set=C seamless DEM (p55) -- ALL night points (land below dam + exposed bed)|NMAD||.2f}} m over {{T18|set=C seamless DEM (p55) -- ALL night points (land below dam + exposed bed)|N||.0f}} segments (Paper 2); supports, does not prove"),
-    "C07": dict(n="40 spatial draws x {{T12|region=DNIPRO_CORRIDOR|date|count|}} key dates",
+    "C07": dict(n="{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|n_draws||.0f}} coherent Monte-Carlo worlds x {{T12|region=DNIPRO_CORRIDOR|date|count|}} key dates",
                 value="06-07: A_new MC median %s km2 [p05-p95 %s-%s] (nominal run %s); V_new MC median %s hm3 [p05-p95 %s-%s] (nominal run %s)" % (t12("2023-06-07","A_p50_km2"), t12("2023-06-07","A_p05_km2"), t12("2023-06-07","A_p95_km2"), t12("2023-06-07","A_central_km2"), t12("2023-06-07","V_p50_hm3"), t12("2023-06-07","V_p05_hm3"), t12("2023-06-07","V_p95_hm3"), t12("2023-06-07","V_central_hm3")),
-                uncertainty="MC relative half-width: area %s %%, volume %s %%; MC median above the deterministic nominal run (which lies below the MC p05): area %s %%, volume %s %% (06-07); emulator AREA envelope A_new %s-%s km2 (sensitivity); emulator volume draws not used (unanchored)" % ("{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_A_pct||.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_V_pct||.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_A_pct||+.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_V_pct||+.0f}}", t12("2023-06-07","A_emu_km2_p05"), t12("2023-06-07","A_emu_km2_p95"))),
+                uncertainty="MC relative half-width: area %s %%, volume %s %%; MC median relative to the deterministic nominal run: area %s %%, volume %s %% (06-07; attribution to the error components in T11d: the pre-breach regime of the perturbed worlds {{T11d|variant=terrain_only,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.0f}} km2 against {{T11d|variant=baseline_fixed,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.0f}} km2 nominal)" % ("{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_A_pct||.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_V_pct||.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_A_pct||+.0f}}", "{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|mc_shift_V_pct||+.0f}}")),
     "C08": dict(n="corridor accounting rows of T16", value="06-09 S1 new dark water {{T16|quantity=S1 new dark water, 06-09 scene;region=DNIPRO_CORRIDOR|km2||.0f}} km2 (observed_S1, snapshot); label recipe {{T16|quantity=S1 new dark water, >= 2 of 3 peak dates (label recipe);region=DNIPRO_CORRIDOR|km2||.0f}} km2 (persistence); U2b {{T16|quantity=U2b predicted event flood (persistent concept);region=DNIPRO_CORRIDOR|km2||.0f}} km2 (mapped_UNet); A_new 06-09 %s km2 (terrain_reconstructed, snapshot)" % t12("2023-06-09","A_p50_km2"),
                 uncertainty="literature rows VERIFY (UNOSAT 3616: ~620 km2 flooded land cumulative 6-9 June; 3623: ~180 km2 on 13 June); different AOI, temporal semantics and reference water"),
     "C09": dict(n="TEST blocks, paired bootstrap 2000", value="flood on REFERENCE_WATER {{T07|run=U2_B1B2_v1,endpoint=R_pred_on_reference_water_km2|value||.1f}} -> {{T07|run=U2_B1B2_v003A,endpoint=R_pred_on_reference_water_km2|value||.1f}} km2; paired {{T07b|A=U2_B1B2_v1,B=U2_B1B2_v003A,endpoint=R_pred_on_reference_water_km2|median||.1f}} km2; EVENT_FLOOD recall diff {{T07b|A=U2_B1B2_v1,B=U2_B1B2_v003A,endpoint=E_recall_event_flood|median||+.3f}}",
@@ -54,12 +54,17 @@ FILL = {
 }
 
 
+# claims whose numbers were recomputed after the code review of 2026-09-28 (p95 rev 6, p95e rev 2); their statements were rewritten
+# on the maintainer's direction of 2026-09-29 (rev-6 numbers, support classes, the withheld gauge, the baseline-connectivity mechanism)
+REVIEW_PENDING = {c: "TABLES_LINKED; RECOMPUTED 2026-09-29 (p95 rev 6 / p95e rev 2); statement revised on the maintainer's direction 2026-09-29" for c in ("C01", "C02", "C03", "C07")}
+
+
 def main():
     M = pd.read_csv(PUB / "evidence_matrix.csv").fillna("")
     for cid, f in FILL.items():
         for k, v in f.items():
             M.loc[M.claim_id == cid, k] = PAT.sub(resolve, v)
-        M.loc[M.claim_id == cid, "validation_status"] = "TABLES_LINKED"
+        M.loc[M.claim_id == cid, "validation_status"] = "TABLES_LINKED" if cid not in REVIEW_PENDING else REVIEW_PENDING[cid]
     M.to_csv(PUB / "evidence_matrix.csv", index=False)
     miss = [(cid, k) for cid in FILL for k in ("n", "value", "uncertainty") if "[[MISSING" in str(M.loc[M.claim_id == cid, k].iloc[0])]
     print("evidence matrix filled;", "unresolved:", miss if miss else "none")

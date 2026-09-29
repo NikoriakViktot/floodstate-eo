@@ -17,7 +17,7 @@ def main():
            "Every model number is agreement with weak reference labels, never flood-mapping accuracy. "
            "Areas carry their semantics (observed_S1 / mapped_UNet / terrain_reconstructed / literature_reported) and are named as "
            "'reconstructed total water-surface area' (W_total) or 'reconstructed newly inundated area' (A_new). Primary uncertainty = "
-           "40 spatial Monte-Carlo draws; the 100 000-draw emulator is a sensitivity envelope. Terminology is frozen in TERMINOLOGY.md. "
+           "1000 coherent Monte-Carlo worlds (p95e rev 2; convergence with a second seed in T11c); the 100 000-draw emulator is a computational diagnostic outside the evidence path (T12d). Terminology is frozen in TERMINOLOGY.md. "
            "Each claim: claim -> evidence class -> table cell -> uncertainty -> limitation.", ""]
     for tier in ORDER:
         out.append(f"## {tier.capitalize()} claims"); out.append("")
