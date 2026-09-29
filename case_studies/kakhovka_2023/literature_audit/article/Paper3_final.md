@@ -1,5 +1,11 @@
 <!-- Paper3_final.md — assembled 2026-09-28 by tools/paper3_audit/final_article.py: floodstate-eo bundle 21ba34c (manuscript.md filled from publication/tables by fill_manuscript.py) + 26 literature-audit revisions (10_change_log.md) + 4 final-assembly edits (FA-*); figures from publication/figures, tables from publication/tables, references from 07/07c and corpus records. -->
 
+> **HISTORICAL SNAPSHOT — assembled 2026-09-28, before the scientific / code review of that day.** Its numbers and claims
+> are superseded by the review response (Stages 1–3, `docs/CODE_REVIEW_ACTIONS_2026-09-29.md`). The canonical text is
+> `case_studies/kakhovka_2023/publication/manuscript_template.md`, filled to `manuscript.md` from the publication tables.
+> Image links point to the tracked `publication/figures/` (review F17); those figures are the CURRENT ones.
+
+
 # Daily inundation after the Kakhovka dam breach reconstructed from the observed water surface and terrain, checked against Sentinel-1 and ICESat-2, and what EO-based flood products recover under weak labels
 
 ## Abstract
@@ -113,7 +119,7 @@ throughout: model numbers are agreement with weak reference labels, never flood-
 and every area carries its semantics — observed by Sentinel-1, mapped by the U-Net, reconstructed from terrain, or reported
 in the literature.
 
-![Fig02](figures/Fig02_evidence_hierarchy.png)
+![Fig02](../../publication/figures/Fig02_evidence_hierarchy.png)
 
 **Fig02. Evidence hierarchy.** The observation-constrained terrain inundation reconstruction (gauge-anchored SWOT water surface × terrain connectivity; no momentum or continuity equations) is the main axis; Sentinel-1 per date, ICESat-2 and the SWOT–gauge comparison check it; the RF20 surface classes and the elevation above the surface explain the disagreements; the U-Net arms show what EO inputs recover under weak labels.
 
@@ -134,7 +140,7 @@ joins from the north with its own regime and is reported separately; the cut rec
 terrace fragments were fixed in Paper 2 before any result of this paper existed. Table T01 lists every dataset with its
 role and evidence level:
 
-![Fig01](figures/Fig01_study_area.png)
+![Fig01](../../publication/figures/Fig01_study_area.png)
 
 **Fig01. Study area.** Lower Dnipro from the Kakhovka dam to the Dnipro–Buh liman: hillshade of the seamless DEM (Paper 2), terrain below 1 m (channels, lakes), frames B1 (dam → Kherson) and B2 (Kherson delta) on one 10 m lattice, the p42 terrain-eligible floodplain, the cut rectangles that separate the Inhulets valley and the terraces from the Dnipro reach, SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gauge 80805 and the dam.
 
@@ -236,7 +242,7 @@ After re-anchoring, the daily median of the nodes within 3 km of the gauge diffe
 +0.01 m (NMAD 0.07 m, RMSE 0.06 m,
 n = 36 days; T17, Fig06) — an input-consistency check; the frame validation is Paper 1.
 
-![Fig06](figures/Fig06_water_surface.png)
+![Fig06](../../publication/figures/Fig06_water_surface.png)
 
 **Fig06. Water surface.** (a) Observed SWOT node medians per 1 km of straight-line distance from the dam (main stem), gauge-anchored EGG2015-referenced heights; the reconstruction itself is node-based (no chainage). (b) Daily median of the SWOT nodes within 3 km of the Kherson gauge against the gauge after re-anchoring to the Kherson-local closure of Paper 1. (c) Residuals gauge − SWOT (T17).
 
@@ -598,11 +604,11 @@ backwater with its own SWOT nodes, peaks at 50 km² on 9 June.
 The depth and duration maps (Fig07) show the 7–8 June water more than 4 m deep on the right-bank floodplain below the dam and
 the delta channels, and inundation lasting more than a week only in the floodplain lows and the delta.
 
-![Fig04](figures/Fig04_daily_inundation.png)
+![Fig04](../../publication/figures/Fig04_daily_inundation.png)
 
 **Fig04. Daily reconstructed series, dam → liman.** (a–c) Reconstructed total water-surface area per day (all water on the day, including pre-breach channels, lakes and reed beds) for the Dnipro corridor, the p42 floodplain domain and the Inhulets valley: central run (black), the PRIMARY interval (shaded: p05–p95 of the 40 spatial Monte-Carlo draws, key dates), the emulator sensitivity envelope (candles: 100 000 draws per day, p05–p95 whisker, p25–p75 body, median; area only, a broader parameter space), the DEM-as-delivered sensitivity (orange) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial coverage). (d–f) Reconstructed newly inundated area (black) with its daily change as bars (blue filling, orange draining) and the U-Net U2b persistent-event-flood area. (g–i) Kherson stage. Values between observation days are reconstructed, not observed; the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
-![Fig07](figures/Fig07_event_scale_reconstruction.png)
+![Fig07](../../publication/figures/Fig07_event_scale_reconstruction.png)
 
 **Fig07. Event-scale spatial result.** (a) Depth of the reconstructed newly inundated area on 2023-06-08, one day after the reconstructed areal maximum and without a satellite scene. (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, central run; rasters derived from FABDEM through the seamless DEM (not redistributed).
 
@@ -713,7 +719,7 @@ volume inherits this gap;
 underwater part of the seamless DEM, shoreline geometry, the original survey) is the subject of Paper 4, which reconstructs the
 bowl on the historical bathymetry.
 
-![Fig09](figures/Fig09_reservoir_balance.png)
+![Fig09](../../publication/figures/Fig09_reservoir_balance.png)
 
 **Fig09. Reservoir drawdown and the downstream flood.** (a) Water levels in one frame: SWOT outlet nodes, Nikopol post (press values), Rozumivka gauge, ICESat-2 passes, G-REALM, and the Kherson stage downstream. (b) Pool volume and water area under the sloped daily surface integrated on the seamless DEM inside the pre-breach pool polygon; Sentinel-1 water areas of Yi et al. (2025) for comparison (VERIFY). (c) Daily balance: daily-mean effective release from the pool (−dV/dt + Q_in; a storage-balance estimate, not an instantaneous breach discharge), DniproHES inflow and the reconstructed new water stored downstream (corridor + Inhulets). (d) Hypsometry of the seamless DEM against the design Table 19 (T21, T22; FigS07 for the relative gap).
 
@@ -1055,7 +1061,7 @@ surface, on cropland and grass: S1-only detections that are topographically inco
 surface. Whether they are smooth non-water surfaces, radar shadow, local ponding after rain, water outside the assumed
 connectivity, timing or registration effects is not tested here; what §4.4 tests is whether a DEM error could explain them.
 
-![Fig05](figures/Fig05_disagreement_ontology.png)
+![Fig05](../../publication/figures/Fig05_disagreement_ontology.png)
 
 **Fig05. Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint: A both, B terrain only, C S1 only split by ground elevation relative to the reconstructed surface. (b) B by WorldCover class: forest, wetland and built-up dominate (SAR blind spots). (c) C by ground elevation: cells below or within 2 m of the surface are mostly normally-wet reed beds where S1 dark-water onset is a submergence signal; S1-only detections on ground ≥ 5 m above the reconstructed connected water surface are topographically unsupported (Fig08). Km² are mapped areas (T14).
 
@@ -1076,7 +1082,7 @@ the category along lines, not every cell of the 54 km². Where the
 reconstruction and Sentinel-1 agree, 99.4% of the segments lie
 below the surface (T15, Fig08). This is a track-based consistency check of the DEM and the surface, not a validation of the map.
 
-![Fig08](figures/Fig08_icesat2_consistency.png)
+![Fig08](../../publication/figures/Fig08_icesat2_consistency.png)
 
 **Fig08. ICESat-2 altimetric consistency check.** Seamless DEM minus night ICESat-2 ATL08 ground height (median, p10–p90) per agreement category of 2023-06-09, with the ground elevation relative to the reconstructed surface and the share of segments below it (n segments and tracks in T15): where S1 reports water ≥ 2 m above the surface the DEM agrees with the altimetry to to a few centimetres in the median (p10–p90 spread of a few decimetres) along the tracks and essentially no segment lies below the water, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain those S1-only detections. A track-based consistency check that supports this reading; it does not sample every cell and does not validate the map.
 
@@ -1151,7 +1157,7 @@ reference water by a further -0.62 km²
 independent, because pre-event water information also contributes to the label ontology (label leakage), and U2b is reported as
 a diagnostic upper bound, not as a best model.
 
-![Fig03](figures/Fig03_unet_experiment.png)
+![Fig03](../../publication/figures/Fig03_unet_experiment.png)
 
 **Fig03. U-Net weak-label experiment.** (a, b) Flood-state map of arm U2b (labels v003_A) on frames B1 and B2 at its frozen validation threshold: predicted flood on labelled EVENT_FLOOD, on REFERENCE_WATER (attribution candidates) and elsewhere; TEST blocks outlined. (c) Paired differences on identical spatial blocks (median, 95 % block-bootstrap interval): the HAND and RF20 inputs on v002, the label effect v002 → v003_A at fixed inputs, and the W_pre input (grey: not independent, W_pre is a label ingredient). All numbers are agreement with weak reference labels (T06, T07b).
 
@@ -1334,43 +1340,43 @@ WorldCover (ESA) are open archives; gauge data from the UkrHMC yearbooks as in P
 
 ## Supplementary figures
 
-![FigS01](figures/FigS01_training_curves.png)
+![FigS01](../../publication/figures/FigS01_training_curves.png)
 
 **FigS01.** training loss and validation patch F1 per arm.
 
-![FigS02](figures/FigS02_rule_closure_sensitivity.png)
+![FigS02](../../publication/figures/FigS02_rule_closure_sensitivity.png)
 
 **FigS02.** rule and closure sensitivity of the daily corridor area (connected, HAND, ceiling only, superseded p59 closure with +0.5 m margin, uncorrected DEM).
 
-![FigS03](figures/FigS03_per_date_series.png)
+![FigS03](../../publication/figures/FigS03_per_date_series.png)
 
 **FigS03.** per-date S1 and reliable S2 new-water series per region.
 
-![FigS04](figures/FigS04_rf20_agreement.png)
+![FigS04](../../publication/figures/FigS04_rf20_agreement.png)
 
 **FigS04.** RF20 row-normalised confusion (spatial-block CV) and per-class F1 for CV and transfers.
 
-![FigS05](figures/FigS05_block_sensitivity.png)
+![FigS05](../../publication/figures/FigS05_block_sensitivity.png)
 
 **FigS05.** block-size sensitivity of U2 on v003_A (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 
-![FigS06](figures/FigS06_inhulets_profile.png)
+![FigS06](../../publication/figures/FigS06_inhulets_profile.png)
 
 **FigS06.** Inhulets valley: mapped U2b new flood and EVENT_FLOOD label per 2-km northing band.
 
-![FigS07](figures/FigS07_hypsometry_sensitivity.png)
+![FigS07](../../publication/figures/FigS07_hypsometry_sensitivity.png)
 
 **FigS07.** Reservoir hypsometry sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per level over the drawdown range (shaded), about −9 % at the full-pool level and −14…−20 % at 13–11 m; the design table is undefined below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
 
-![FigS08](figures/FigS08_reservoir_drawdown_maps.png)
+![FigS08](../../publication/figures/FigS08_reservoir_drawdown_maps.png)
 
 **FigS08.** Reservoir drawdown maps (p95h; context, no claim). (a–c) Modelled pool on 7, 9 and 13 June: the p95f sloped daily surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June first falls dry; the upper (north-eastern) pool empties first. (e–h) Sentinel-1 VH dark surface, per-date Otsu over all covered cells (*observed_S1*); IoU against the model on observed cells 0.98 (1 June), 0.97 (8 June), 0.93 (9 June), 0.85 (13 June). VH dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (S1 dark 1702 km² on 20 June and 2077 km² on 21 June against 648 km² of S2 water on 20 June, T23) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products, *observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l) Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²). For comparison, Yi et al. (2025) map the reservoir from Sentinel-1 **and** Sentinel-2; their text gives 2125 km² on 30 May and decrements that imply ~845 km² around 20 June (*literature_reported*, VERIFY); the 2089 / 1849 / 825 / 369 km² in T23 are **digitised from their figure** (figure number VERIFY), not quoted from their text. S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
 
-![FigS09](figures/FigS09_reservoir_s2_indices.png)
+![FigS09](../../publication/figures/FigS09_reservoir_s2_indices.png)
 
 **FigS09.** The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool (+1 km) in display classes on 5 June (pre-breach), 5 July (drawdown) and 8 September 2023; frozen p25 stacks (offset-corrected reflectance, 20 m); the bins are for display only and are not a classifier; blank = not observed.
 
-![FigS10](figures/FigS10_reservoir_design_hypsometry.png)
+![FigS10](../../publication/figures/FigS10_reservoir_design_hypsometry.png)
 
 **FigS10.** Design hypsometry of the Kakhovka reservoir and the observed 2023 levels read on it (p95i, T27; no DEM, nothing fitted). (a) Level–volume of the whole pool (monograph Table 19, Figs 13–15) with the volume of the five reaches stacked (dam → Babyne → Nikopol → Verkhnia Tarasivka → Blahovishchenka → Dnipro HPP) and the design levels (NUF 17.5, NPG 16.0, UNS 14.0, GMO 12.7 m historical Baltic; right axis EVRF2019 = +0.185 m). (b) Level–area, with the observed outlet level before the breach and on 6–13 June read on the design curve. (c) The design volume from 1 February to 20 June read at the observed levels: before the breach at the Rozumivka gauge (the pool was level) — the spring filling from ~13.5 km³ (14.0 m, early February) to 21.3 km³ (17.6 m, 5 May) during the April–May DniproHES release (shaded, right axis; 7.9 km³ of 22.7 km³ of inflow stored, the rest passed the Kakhovka HPP), a plateau at ~17.5 m through May and ~0.4 m lower in the last ten days before the breach; after the breach at the outlet (SWOT) and at the Rozumivka level — the surface sloped by up to 4 m, so the design curve, which assumes a level pool, gives a range, not one number; shaded where the outlet falls below 10.0 m and Table 19 is undefined. The storage balance on the design curve at the Rozumivka level gives a daily-mean effective release of ~12 000 / 38 000 / 20 000 / 19 000 m³/s on 6–9 June (T27b), the design-curve counterpart of the ~40 000 m³/s of T21 on 7 June. The released volume on the sloped surface of Paper 3 is T21/Fig09.
 
