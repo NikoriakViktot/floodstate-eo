@@ -44,6 +44,11 @@ tables named next to it.
   pre-breach land; permanent water is IGNORE / UNKNOWN in every version); B3 enters no label, arm or result of the paper. The
   M2 masks must not be shown as a flood map on permanent water.
 
+- **Freeze of v004 (and the v002_notrace rule behind it):** reproducibility gate PASS — from the clean tracked tree at e1fad3e,
+  p77 `--m2-tag _notrace` and p77d `--variant A --m2-tag _notrace` rebuilt `m6_labels_v002_notrace.tif` and `m6_labels_v004.tif`
+  (B1, B2) bitwise identical to the rasters the arms were trained on; freeze record `tables/m6_labels_v004_FROZEN.json` written
+  from a clean tree (freeze commit c15b98f, `freeze_tree_dirty_tracked: false`).
+
 ## F08 — RF20 rev 2 (T09, T10, T10b–d, FigS04; `tables/p73_rf20_rev2_qa/QA_VERDICT.md`)
 
 - Global UTM block ids; B2 owns the B1/B2 overlap (3 093 025 B1 target cells dropped; unique physical cells asserted); CV with

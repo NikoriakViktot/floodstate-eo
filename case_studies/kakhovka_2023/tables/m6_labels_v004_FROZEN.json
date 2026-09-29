@@ -1,0 +1,29 @@
+{
+ "product": "m6_labels_v004",
+ "status": "M6_LABELS_V004_FROZEN",
+ "frozen_utc": "2026-09-29T16:26:24Z",
+ "set_by": "maintainer decisions 2026-09-29 (Stage 2 of the response to the 2026-09-28 review: F09 inner out-of-fold thresholds; M2 without the post-event TRACE window)",
+ "meaning": "WEAK REFERENCE labels, frozen for supervision and scoring; not ground truth; not flood-mapping accuracy",
+ "rule": "the frozen v003_A rule (docs/LABEL_CONTRACTS.md) on M2_PRODUCTION_CANDIDATE_CORRECTED10M_NOTRACE and the v002 rule on it",
+ "rasters": {
+  "B1": "/mnt/f/data_kakhovka_dem_swot/frames10/B1/m6_labels_v004.tif",
+  "B2": "/mnt/f/data_kakhovka_dem_swot/frames10/B2/m6_labels_v004.tif"
+ },
+ "sha256": {
+  "B1": "fc02964fd91935336b8cf85d5b72c535e76a3128c39a89b9d339ff5660b4fab8",
+  "B2": "fe88137abbb559069ff3f7187450b226fcd8127e340dffd9d8afbb8cd20a0f0b"
+ },
+ "build_manifest": "tables/p77d_v004_manifest.json",
+ "build_commit": "e1fad3e705180ffef08aa78eee4d400a68aef294",
+ "build_created_utc": "2026-09-29T16:25:55Z",
+ "sources_sha256": {
+  "/mnt/f/data_kakhovka_dem_swot/s1_zone_cache/ZONE_4_FLOODWAY_june2023_s32_pre2023/per_scene_water_ext.npz": "a66f838ea820442c6e52dfc6e19d7ca6e73a08233eb050d81e60948f715a1e93",
+  "/mnt/f/data_kakhovka_dem_swot/s1_zone_cache/ZONE_2_KHERSON_DELTA_flood_june2023_pre2023/per_scene_water_ext.npz": "d3055cc7d4225e79b7a85075e7d24cfa085d7153392daf7376279abbbbd1af0e"
+ },
+ "freeze_commit": "c15b98f667fb9420efb303707603c7ede513b51d",
+ "freeze_tree_dirty_tracked": false,
+ "reproducibility_gate": "PASS 2026-09-29: clean tracked tree at e1fad3e; p77 --m2-tag _notrace and p77d --variant A --m2-tag _notrace rebuilt m6_labels_v002_notrace.tif and m6_labels_v004.tif (B1, B2) bitwise identical to the rasters the stage-2 arms were trained on (sha256 before = after)",
+ "lineage": "tables/m6_label_lineage.csv (uses_trace_transitively = False)",
+ "test_prediction_read_by_the_label_script": false,
+ "change_policy": "any change of rule, scene QA, M2 or sources = a new version; v004 is never edited"
+}

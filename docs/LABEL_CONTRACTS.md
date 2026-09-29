@@ -61,7 +61,7 @@ identical to the hash recorded in both production manifests), and **17 of them c
 accepted TRACE observations in place of EVENT ones. v002 and v003_A therefore depend on TRACE evidence through M2.
 The operating thresholds were, in addition, calibrated on in-sample scores (F09).
 
-## 5. v004 (`m6_labels_v004.tif`) — the v003_A rule on the corrected M2 (maintainer decision 2026-09-29)
+## 5. v004 (`m6_labels_v004.tif`) — the v003_A rule on the corrected M2 (maintainer decision 2026-09-29); frozen 2026-09-29 (`tables/m6_labels_v004_FROZEN.json`)
 
 Identical rules to §2–§3, with M2 replaced by `M2_PRODUCTION_CANDIDATE_CORRECTED10M_NOTRACE`:
 
@@ -72,6 +72,13 @@ Identical rules to §2–§3, with M2 replaced by `M2_PRODUCTION_CANDIDATE_CORRE
   `p65b_m2_folds_notrace.csv`, `p68_threshold_registry_notrace.csv`);
 - the v002 rule on this M2 is written as `m6_labels_v002_notrace.tif` and feeds v004 exactly as v002 feeds v003_A;
 - no label step reads a TEST prediction (the pre-registered U0d TEST look of v003 is not run for v004, F11).
+
+Built and frozen 2026-09-29: production M2 threshold T50 = 0.2661 (envelope 0.2167 … 0.3924); a clean-tree rebuild at e1fad3e
+reproduced both versions bit for bit (the reproducibility gate of the freeze record). What changed against v003_A (T02, T02d):
+EVENT_FLOOD B1 128.9 → 141.9 km², B2 57.5 → 75.2 km² (from UNKNOWN and a little from REFERENCE_WATER; < 0.1 km² leaves it), LAND
+−2 to −3 % (to UNKNOWN), REFERENCE_WATER unchanged; v002 DISPUTED B1 285.8 → 122.9, B2 337.6 → 100.4 km². Without TRACE the M2
+scores pre-event open water as flood-like (outside its training domain); the rules keep it out of FLOOD (p60 pre-breach land)
+and out of NON_FLOOD / LAND, so the labels are unaffected — the M2 masks themselves must not be read as a flood map there.
 
 v002 and v003_A stay frozen as history; every arm trained on them keeps its label version in its run name.
 
