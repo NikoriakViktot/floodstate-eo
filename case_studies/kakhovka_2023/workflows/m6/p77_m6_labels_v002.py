@@ -1,4 +1,7 @@
 # New in floodstate-eo, 2026-09-23. STATUS: ACTIVE. Supersedes label contract v001 for every context-model ablation.
+# 2026-09-29 (review F09/F10): `--m2-tag _notrace` reads the M2 masks of the model without the post-event TRACE window and
+# the inner out-of-fold thresholds, and writes <VERSION><tag>.tif (the v002 rule on the corrected M2, the input of v004);
+# the guard now forbids 'trace' except in that explicit variant tag. Defaults reproduce v002 unchanged.
 """P77 -- m6_labels_v002: three-state weak supervision whose construction reads NO land-cover semantics.
 
 WHY A NEW VERSION. Contract v001 (built inside p75) set FLOOD = p60 positive AND S1 peak water AND
@@ -50,9 +53,10 @@ BANDS = ("label", "evidence_s1_n_pos_peak", "evidence_m2", "evidence_external", 
          "n_supporting_sources", "disputed")
 #: evidence_m2 codes: 0 no flood even at the most permissive threshold, 1 flood only at permissive thresholds,
 #: 2 flood at T50 (central), 255 no optical prediction support
-ALLOWED = re.compile(r"(labels\.tif|flood_central\.tif|flood_possible\.tif|per_scene_water\.npz)$")
-FORBIDDEN = re.compile(r"p69a|p69b|base_class|p73|worldcover|wc_20|dw_20|dynamic_world|hand|unosat|trace|u0_",
+ALLOWED = re.compile(r"(labels\.tif|flood_central(_notrace)?\.tif|flood_possible(_notrace)?\.tif|per_scene_water\.npz)$")
+FORBIDDEN = re.compile(r"p69a|p69b|base_class|p73|worldcover|wc_20|dw_20|dynamic_world|hand|unosat|(?<!_no)trace|u0_",
                        re.IGNORECASE)
+M2_TAG = ""                                                                  # set by --m2-tag
 _opened: list[str] = []
 
 
@@ -90,8 +94,8 @@ def build(fid):
     lab, _ = read_band(fid, "labels.tif", 1)
     npos, _ = read_band(fid, "labels.tif", 3)            # p60 n_pos_peak
     npost, _ = read_band(fid, "labels.tif", 4)           # p60 n_post_obs
-    cen, cen_nd = read_band(fid, "flood_central.tif")
-    pos, pos_nd = read_band(fid, "flood_possible.tif")
+    cen, cen_nd = read_band(fid, f"flood_central{M2_TAG}.tif")
+    pos, pos_nd = read_band(fid, f"flood_possible{M2_TAG}.tif")
     s1w = s1_peak(fid, F)
     m2_ok = (cen != 255) & (pos != 255)
     m2 = np.full(lab.shape, 255, np.uint8)
@@ -111,12 +115,12 @@ def build(fid):
     prof = dict(driver="GTiff", height=F["ny"], width=F["nx"], count=len(BANDS), dtype="uint8", nodata=None,
                 crs=CFG.CRS_METRIC, transform=F["transform"], compress="deflate", tiled=True,
                 blockxsize=512, blockysize=512)
-    p = OUT / fid / f"{VERSION}.tif"
+    p = OUT / fid / f"{VERSION}{M2_TAG}.tif"
     with rasterio.open(p.with_suffix(".tif.part"), "w", **prof) as d:
         for i, (nm, arr) in enumerate(zip(BANDS, (y, np.where(npos < 0, 255, np.clip(npos, 0, 254)).astype("u1"), m2, ext, stable, nsup,
                                                     disputed.astype("u1"))), 1):
             d.write(arr, i); d.set_band_description(i, nm)
-        d.update_tags(version=VERSION, codes="label: 1 FLOOD, 0 NON_FLOOD, 255 IGNORE",
+        d.update_tags(version=VERSION + M2_TAG, codes="label: 1 FLOOD, 0 NON_FLOOD, 255 IGNORE", m2_variant=M2_TAG or "original (84 features incl. TRACE)",
                       inputs_read=json.dumps(sorted(set(_opened))),
                       forbidden_not_read="p69a/BASE_CLASS, p69b, p73, WorldCover, Dynamic World, HAND, UNOSAT, TRACE",
                       meaning="weak supervision, NOT ground truth and NOT an independent evaluation reference",
@@ -134,9 +138,12 @@ def build(fid):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=["B2", "B1"]); a = ap.parse_args()
+    global M2_TAG
+    ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=["B2", "B1"])
+    ap.add_argument("--m2-tag", default="", choices=["", "_notrace"], help="M2 mask variant (p68 --tag)"); a = ap.parse_args()
+    M2_TAG = a.m2_tag
     S = [build(fid) for fid in a.frames]
-    pd.DataFrame(S).to_csv(CFG.TABLES / "p77_labels_v002_summary.csv", index=False)
+    pd.DataFrame(S).to_csv(CFG.TABLES / f"p77_labels_v002_summary{M2_TAG}.csv", index=False)
     print("-> <case_study>/tables/p77_labels_v002_summary.csv  (compare with v001: p77b_labels_v002_vs_v001.py)")
 
 

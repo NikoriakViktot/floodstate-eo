@@ -1,6 +1,10 @@
 # Provenance: SWOT-DNIPRO scripts/p67b_production_candidate.py, source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766
 # copy_date=2026-09-23. CANONICAL, per 19_MIGRATION_MANIFEST.csv row 13 (migration_phase=5).
 # Import block only: swot_dnipro package imports -> floodstate_eo; `git rev-parse` now runs against this repo.
+# Logic changed 2026-09-29 (review 2026-09-28, F09/F10; maintainer decision: the v004 labels use an M2 without the
+# post-event TRACE window): `--exclude` drops features by name pattern; hyperparameters and the state threshold then come
+# from the equally tagged p65b tables, prediction validity needs EVENT observations only, every output carries the tag
+# (the untagged products of the original model stay untouched), and the feature list is written to a table.
 """P67b -- M2_PRODUCTION_CANDIDATE_CORRECTED10M: one model, three frames, and the overlap invariant on its output.
 
 THIS IS A CANDIDATE, NOT THE FINAL PRODUCTION MODEL, and the name says so everywhere it is written.
@@ -35,7 +39,7 @@ Outputs: <frame>/cand_score.tif, cand_state.tif, cand_valid.tif; production_cand
          <case_study>/tables/p67b_{training_qa,overlap_score_qa,union_area_qa}.csv
 """
 from __future__ import annotations
-import argparse, hashlib, itertools, json, os, subprocess, sys, time
+import argparse, hashlib, itertools, json, os, re, subprocess, sys, time
 from pathlib import Path
 os.environ.setdefault("GDAL_CACHEMAX", "256")
 import numpy as np, pandas as pd, rasterio
@@ -65,8 +69,8 @@ def sha256(p: Path, buf=1 << 24) -> str:
     return h.hexdigest()
 
 
-def choose_params():
-    t = pd.read_csv(CFG.TABLES / "p65b_m2_tuning.csv")
+def choose_params(tag=""):
+    t = pd.read_csv(CFG.TABLES / f"p65b_m2_tuning{tag}.csv")
     s = t[(t.baseline == "preall") & (t.regime == "buffered")]
     g = s.groupby(["n_estimators", "max_depth", "min_samples_leaf", "max_features"],
                   dropna=False).inner_AP.median().sort_values(ascending=False)
@@ -98,16 +102,24 @@ def overlap_bounds(a, b):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--fit-n", type=int, default=FIT_N)
     ap.add_argument("--jobs", type=int, default=32); ap.add_argument("--threshold", type=float, default=None)
+    ap.add_argument("--exclude", default=None, help="regex on feature names to drop (e.g. 'trace'); outputs tagged _no<regex>")
     a = ap.parse_args()
     t0 = time.time()
-    names = pd.read_csv(CFG.TABLES / "p65a_feature_manifest.csv").feature.tolist()
-    params, med_ap = choose_params()
-    print(f"{NAME}\n  hyperparameters (inner AP only): {params}  median inner AP {med_ap:.5f}", flush=True)
+    names_all = pd.read_csv(CFG.TABLES / "p65a_feature_manifest.csv").feature.tolist()
+    keep = [i for i, f in enumerate(names_all) if not (a.exclude and re.search(a.exclude, f, re.IGNORECASE))]
+    names = [names_all[i] for i in keep]
+    tag = "" if not a.exclude else "_no" + re.sub(r"[^a-z0-9]+", "", a.exclude.lower())
+    name = NAME + tag.upper()
+    trace_used = any("trace" in f.lower() for f in names)
+    pd.DataFrame(dict(feature=names, index_in_manifest=[i + 1 for i in keep])).to_csv(CFG.TABLES / f"p67b_features{tag}.csv", index=False)
+    params, med_ap = choose_params(tag)
+    print(f"{name}\n  {len(names)} of {len(names_all)} features; hyperparameters (inner AP only): {params}  median inner AP {med_ap:.5f}", flush=True)
 
     # ---- training population, deduplicated by PHYSICAL pixel ------------------------------------------------------
     I = pd.read_parquet(ML / "index.parquet")
     y = I.label.to_numpy().astype(np.int8)
     X = np.load(ML / "X_preall.i2", mmap_mode="r")
+    assert X.shape[1] == len(names_all), X.shape
     assert set(I.frame.unique()) <= set(TRAIN_FRAMES), f"B3 must not be in the population: {I.frame.unique()}"
     # the index was built under frame ownership, so a physical cell appears once; VERIFY rather than trust
     # FLOOR, never round. The stored x and y are cell CENTRES, so x / CELL always ends in .5, and numpy's
@@ -120,7 +132,7 @@ def main():
     dup_px = n_before - n_unique
     blocks_per_frame = I.groupby("blk5").frame.nunique()
     dup_blocks = int((blocks_per_frame > 1).sum())
-    qa = dict(model=NAME, n_samples_before_overlap_dedup=n_before, n_samples_after_overlap_dedup=n_unique,
+    qa = dict(model=name, n_samples_before_overlap_dedup=n_before, n_samples_after_overlap_dedup=n_unique,
               n_duplicate_pixels_removed=dup_px, n_duplicate_blocks_removed=dup_blocks,
               dedup_rule="canonical 10 m physical coordinate; B1 owns the shared ground, B2 the rest",
               train_frames="|".join(TRAIN_FRAMES), b3_used_for="nothing")
@@ -128,24 +140,25 @@ def main():
           f"{dup_px:,} duplicates, {dup_blocks} blocks spanning two frames", flush=True)
     if dup_px:
         print("  STOP: the same physical location occurs more than once in the fitting population.")
-        pd.DataFrame([qa]).to_csv(CFG.TABLES / "p67b_training_qa.csv", index=False); sys.exit(1)
+        pd.DataFrame([qa]).to_csv(CFG.TABLES / f"p67b_training_qa{tag}.csv", index=False); sys.exit(1)
 
     rng = np.random.default_rng(SEED)
     fit = np.sort(rng.choice(np.arange(n_before), min(a.fit_n, n_before), replace=False))
     rf = RandomForestClassifier(**params, class_weight="balanced_subsample", n_jobs=a.jobs, random_state=SEED)
-    rf.fit(X[fit].astype("f4"), y[fit])
+    rf.fit(np.asarray(X[fit])[:, keep].astype("f4"), y[fit])
     qa.update(training_n=int(len(fit)), training_positive_n=int((y[fit] == 1).sum()),
               training_negative_n=int((y[fit] == 0).sum()), training_prevalence=round(float(y[fit].mean()), 5))
-    pd.DataFrame([qa]).to_csv(CFG.TABLES / "p67b_training_qa.csv", index=False)
+    pd.DataFrame([qa]).to_csv(CFG.TABLES / f"p67b_training_qa{tag}.csv", index=False)
     print(f"  fitted on {len(fit):,} cells ({qa['training_positive_n']:,} positive) in {time.time()-t0:.0f}s",
           flush=True)
 
     thr = a.threshold if a.threshold is not None else float(
-        np.median(pd.read_csv(CFG.TABLES / "p65b_m2_folds.csv").query(
+        np.median(pd.read_csv(CFG.TABLES / f"p65b_m2_folds{tag}.csv").query(
             "baseline=='preall' and regime=='block'").threshold))
     print(f"  state threshold {thr:.4f} (median of the frozen per-fold thresholds; NOT re-tuned here)", flush=True)
 
-    meta = dict(model=NAME, status="PRODUCTION_CANDIDATE_NOT_FINAL", baseline="PRE_ALL",
+    meta = dict(model=name, status="PRODUCTION_CANDIDATE_NOT_FINAL", baseline="PRE_ALL", features=names,
+                trace_window_used=trace_used, excluded_features_regex=a.exclude,
                 baseline_rationale="largest temporal support; no consistent evidence that seasonal restriction or "
                                    "date-count matching improves performance; highest corrected pooled AP on the "
                                    "main layer. A methodological choice, not a claim of universal superiority.",
@@ -154,7 +167,7 @@ def main():
                 label_status="WEAK_REFERENCE_NOT_GROUND_TRUTH",
                 output_semantics="score = random-forest discrimination score, NOT a calibrated probability",
                 hyperparameters=params, hyperparameter_selection="best median inner AP, outer test never consulted",
-                state_threshold=thr, threshold_selection="median of the frozen per-fold thresholds from p65b",
+                state_threshold=thr, threshold_selection=f"median of the per-fold inner out-of-fold thresholds from p65b (p65b_m2_folds{tag}.csv)",
                 class_weight="balanced_subsample", random_state=SEED, **{k: v for k, v in qa.items() if k != "model"},
                 feature_manifest_hash=sha256(CFG.TABLES / "p65a_feature_manifest.csv"),
                 git=subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=CFG.REPO_ROOT, capture_output=True,
@@ -168,7 +181,7 @@ def main():
                     transform=F["transform"], compress="deflate", predictor=2, tiled=True, blockxsize=512,
                     blockysize=ROWS, nodata=SCORE_ND, BIGTIFF="IF_SAFER")
         vprof = dict(prof); vprof.update(dtype="uint8", nodata=255, predictor=1)
-        sp, cp, vp = (OUT / fid / f"cand_{k}.tif" for k in ("score", "state", "valid"))
+        sp, cp, vp = (OUT / fid / f"cand_{k}{tag}.tif" for k in ("score", "state", "valid"))
         n_valid = 0
         with rasterio.open(comp) as cs, rasterio.open(sp.with_suffix(".tif.part"), "w", **prof) as ds, \
                 rasterio.open(cp.with_suffix(".tif.part"), "w", **vprof) as dc, \
@@ -179,8 +192,8 @@ def main():
                 cube = cs.read(window=win)
                 Xb = cube[bidx].reshape(len(names), -1).T
                 nob = {k: cube[cn.index(k)].reshape(-1) for k in ("n_obs_pre", "n_obs_event", "n_obs_trace")}
-                ok = (~(Xb == ND).any(1)) & (nob["n_obs_pre"] > 0) & \
-                     ((nob["n_obs_event"] > 0) | (nob["n_obs_trace"] > 0))
+                post = (nob["n_obs_event"] > 0) | (nob["n_obs_trace"] > 0) if trace_used else (nob["n_obs_event"] > 0)   # no TRACE feature: EVENT only
+                ok = (~(Xb == ND).any(1)) & (nob["n_obs_pre"] > 0) & post
                 sc = np.full(Xb.shape[0], SCORE_ND, np.uint16); st = np.full(Xb.shape[0], 255, np.uint8)
                 if ok.any():
                     pr = rf.predict_proba(Xb[ok].astype("f4"))[:, 1]
@@ -193,10 +206,10 @@ def main():
                 del cube, Xb, sc, st
             for d, desc in ((ds, "score"), (dc, "state"), (dv, "prediction_valid")):
                 d.set_band_description(1, desc)
-                d.update_tags(model=NAME, status="PRODUCTION_CANDIDATE_NOT_FINAL", frame=fid,
+                d.update_tags(model=name, status="PRODUCTION_CANDIDATE_NOT_FINAL", frame=fid, n_features=str(len(names)), trace_window_used=str(trace_used),
                               semantics="discrimination score, not a calibrated probability" if desc == "score"
                               else ("score >= threshold" if desc == "state" else
-                                    "all 84 features present AND pre and post optical observations exist"))
+                                    f"all {len(names)} features present AND pre and post optical observations exist"))
         for s_, d_ in ((sp, sp), (cp, cp), (vp, vp)):
             src = d_.with_suffix(".tif.part")
             with rasterio.open(src) as chk:
@@ -213,7 +226,7 @@ def main():
             continue
         r = dict(pair=f"{A}|{B}")
         for kind in ("score", "state", "valid"):
-            pa, pb = OUT / A / f"cand_{kind}.tif", OUT / B / f"cand_{kind}.tif"
+            pa, pb = OUT / A / f"cand_{kind}{tag}.tif", OUT / B / f"cand_{kind}{tag}.tif"
             wa, wb = aligned_window(pa, bnds), aligned_window(pb, bnds)
             nmis = 0; mx = 0; ncom = 0
             with rasterio.open(pa) as sa, rasterio.open(pb) as sb:
@@ -232,7 +245,7 @@ def main():
             r[f"max_abs_diff_{kind}"] = mx
             print(f"  {A}|{B} {kind:6s}: {ncom:,} common, {nmis:,} mismatch, max |d| {mx}", flush=True)
         rows.append(r)
-    pd.DataFrame(rows).to_csv(CFG.TABLES / "p67b_overlap_score_qa.csv", index=False)
+    pd.DataFrame(rows).to_csv(CFG.TABLES / f"p67b_overlap_score_qa{tag}.csv", index=False)
     bad = sum(r[f"n_mismatch_{k}"] for r in rows for k in ("score", "state", "valid"))
 
     # ---- union area, every physical cell counted once ---------------------------------------------------------------
@@ -249,7 +262,7 @@ def main():
             c0 = int(round((x0 - F["x0"]) / CG.CELL)); c1 = int(round((x1 - F["x0"]) / CG.CELL))
             r0 = int(round((F["y1"] - y1) / CG.CELL)); r1 = int(round((F["y1"] - y0) / CG.CELL))
             own[r0:r1, c0:c1] = False
-        with rasterio.open(OUT / fid / "cand_state.tif") as s:
+        with rasterio.open(OUT / fid / f"cand_state{tag}.tif") as s:
             st = s.read(1)
         ua.append(dict(frame=fid, frame_km2=round(F["ny"] * F["nx"] * 1e-4, 1),
                        owned_km2=round(float(own.sum()) * 1e-4, 1),
@@ -258,17 +271,17 @@ def main():
                        state1_owned_km2=round(float(((st == 1) & own).sum()) * 1e-4, 2),
                        state1_all_cells_km2=round(float((st == 1).sum()) * 1e-4, 2)))
         del st, own
-    U = pd.DataFrame(ua); U.to_csv(CFG.TABLES / "p67b_union_area_qa.csv", index=False)
+    U = pd.DataFrame(ua); U.to_csv(CFG.TABLES / f"p67b_union_area_qa{tag}.csv", index=False)
     meta["union_state1_km2_deduplicated"] = round(float(U.state1_owned_km2.sum()), 2)
     meta["naive_sum_state1_km2_double_counted"] = round(float(U.state1_all_cells_km2.sum()), 2)
     meta["overlap_qa_mismatches"] = int(bad)
     meta["verdict"] = "PASS" if bad == 0 else "HOLD"
-    (OUT / "production_candidate_manifest.json").write_text(json.dumps(meta, indent=2, default=str))
+    (OUT / f"production_candidate{tag}_manifest.json").write_text(json.dumps(meta, indent=2, default=str))
     print(f"\nunion state=1 deduplicated {meta['union_state1_km2_deduplicated']:,.1f} km2 "
           f"(naive sum would be {meta['naive_sum_state1_km2_double_counted']:,.1f} km2)")
     print(f"VERDICT: {meta['verdict']}")
     print("-> <case_study>/tables/p67b_{training_qa,overlap_score_qa,union_area_qa}.csv")
-    print(f"-> {OUT}/production_candidate_manifest.json")
+    print(f"-> {OUT}/production_candidate{tag}_manifest.json")
     sys.exit(0 if bad == 0 else 1)
 
 

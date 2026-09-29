@@ -1,7 +1,10 @@
 # Provenance: SWOT-DNIPRO scripts/p68_threshold_uncertainty.py, source_commit_sha=f3e3e1afe91902a82a73f3c09354d1f9eb847766
 # migration_date=2026-09-23. M6 recovery (not in the Phase-5 manifest; removed from SWOT-DNIPRO by 9419ea3).
 # STATUS: ACTIVE -- M2 threshold envelope -> flood_core/central/possible.tif (cand_score >= T50 0.5358 for central); WorldCover used ONLY for strata tables, never in the masks.
-# Import/path block only: swot_dnipro -> floodstate_eo; ROOT -> case_studies/kakhovka_2023. Logic unchanged.
+# Import/path block only: swot_dnipro -> floodstate_eo; ROOT -> case_studies/kakhovka_2023. Logic unchanged, except
+# 2026-09-29 (review F09/F10): `--tag` (e.g. _notrace) reads the equally tagged p65b fold table (inner out-of-fold
+# thresholds) and cand_score, and writes every raster, table and manifest with the tag -- the untagged products behind the
+# frozen v002/v003_A labels are never overwritten.
 """P68 -- how much of the mapped flood depends on where exactly the decision threshold was put.
 
 THIS IS THRESHOLD SENSITIVITY, NOT A CONFIDENCE INTERVAL. The five thresholds come from the five outer folds of the
@@ -81,15 +84,16 @@ def aligned_window(path, bnds):
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=list(FRAMES)); a = ap.parse_args()
+    ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=list(FRAMES))
+    ap.add_argument("--tag", default="", help="variant tag of the p65b tables and the cand_score raster, e.g. _notrace"); a = ap.parse_args(); tag = a.tag
     # ---- the frozen threshold population, named and nothing else --------------------------------------------------
-    f = pd.read_csv(CFG.TABLES / "p65b_m2_folds.csv").query("baseline=='preall' and regime=='block'")
+    f = pd.read_csv(CFG.TABLES / f"p65b_m2_folds{tag}.csv").query("baseline=='preall' and regime=='block'")
     thr = np.sort(f.threshold.values)
     T50 = float(np.median(thr)); TLO, THI = float(thr.min()), float(thr.max())
     reg = f[["baseline", "regime", "outer_fold", "threshold", "AP", "recall", "precision"]].copy()
     reg["role"] = ["envelope_member"] * len(reg)
     reg["estimator"] = "PRE_ALL / BLOCK, corrected run; the population whose median is T50"
-    reg.to_csv(CFG.TABLES / "p68_threshold_registry.csv", index=False)
+    reg.to_csv(CFG.TABLES / f"p68_threshold_registry{tag}.csv", index=False)
     print(f"frozen threshold population (n={len(thr)}): {list(np.round(thr,4))}")
     print(f"  min {TLO:.4f}  Q25 {np.percentile(thr,25):.4f}  median(T50) {T50:.4f}  "
           f"Q75 {np.percentile(thr,75):.4f}  max {THI:.4f}")
@@ -101,7 +105,7 @@ def main():
     for i, fid in enumerate(a.frames):
         F = CG.frame_grid(fid)
         own = owner(fid, FRAMES.index(fid))
-        with rasterio.open(OUT / fid / "cand_score.tif") as s:
+        with rasterio.open(OUT / fid / f"cand_score{tag}.tif") as s:
             sc = s.read(1)
         valid = sc != SCORE_ND
         cls = np.zeros((F["ny"], F["nx"]), np.uint8)
@@ -111,7 +115,7 @@ def main():
         prof = dict(driver="GTiff", height=F["ny"], width=F["nx"], count=1, dtype="uint8", crs=CFG.CRS_METRIC,
                     transform=F["transform"], compress="deflate", tiled=True, blockxsize=512, blockysize=512,
                     nodata=255, BIGTIFF="IF_SAFER")
-        p = OUT / fid / "thr_class.tif"
+        p = OUT / fid / f"thr_class{tag}.tif"
         with rasterio.open(p.with_suffix(".tif.part"), "w", **prof) as d:
             d.write(cls, 1); d.set_band_description(1, "threshold_class")
             d.update_tags(classes="|".join(f"{k}={v}" for k, v in CLS.items()),
@@ -129,10 +133,10 @@ def main():
         for nm, q in (("flood_core", qhi), ("flood_central", q50), ("flood_possible", qlo)):
             arr = np.full((F["ny"], F["nx"]), 255, np.uint8)
             arr[valid] = (sc[valid] >= q).astype(np.uint8)
-            bp = OUT / fid / f"{nm}.tif"
+            bp = OUT / fid / f"{nm}{tag}.tif"
             with rasterio.open(bp.with_suffix(".tif.part"), "w", **bprof) as d:
                 d.write(arr, 1); d.set_band_description(1, nm)
-                d.update_tags(threshold=f"{q/SCALE:.4f}", model="M2_PRODUCTION_CANDIDATE_CORRECTED10M",
+                d.update_tags(threshold=f"{q/SCALE:.4f}", model="M2_PRODUCTION_CANDIDATE_CORRECTED10M" + tag.upper(),
                               semantics="1 = mapped flood at this threshold; 255 = no prediction support. "
                                         "THRESHOLD SENSITIVITY, not a probability and not a confidence interval",
                               envelope=f"{TLO:.4f}..{THI:.4f}", central=f"{T50:.4f}",
@@ -141,7 +145,7 @@ def main():
             del arr
         arr = np.full((F["ny"], F["nx"]), 255, np.uint8)
         arr[valid] = ((sc[valid] >= qlo) & (sc[valid] < qhi)).astype(np.uint8)
-        bp = OUT / fid / "threshold_uncertain.tif"
+        bp = OUT / fid / f"threshold_uncertain{tag}.tif"
         with rasterio.open(bp.with_suffix(".tif.part"), "w", **bprof) as d:
             d.write(arr, 1); d.set_band_description(1, "threshold_uncertain")
             d.update_tags(semantics="1 = the flood/non-flood decision CHANGES inside the frozen threshold envelope",
@@ -214,8 +218,8 @@ def main():
     # column name, which only surfaced three statements later inside round().
     for col in ("stable_flood_km2", "threshold_sensitive_km2", "stable_nonflood_km2", "invalid_km2"):
         tot[col] = round(float(sm[col].sum()), 2)   # union totals, identical on every row: they are envelope-wide
-    tot.to_csv(CFG.TABLES / "p68_threshold_area_sensitivity.csv", index=False)
-    S = pd.DataFrame(spat); S.to_csv(CFG.TABLES / "p68_threshold_spatial_summary.csv", index=False)
+    tot.to_csv(CFG.TABLES / f"p68_threshold_area_sensitivity{tag}.csv", index=False)
+    S = pd.DataFrame(spat); S.to_csv(CFG.TABLES / f"p68_threshold_spatial_summary{tag}.csv", index=False)
 
     # ---- the overlap invariant, on the new product ------------------------------------------------------------------
     orows = []; bad = 0
@@ -226,7 +230,7 @@ def main():
         if x1 <= x0 or y1 <= y0:
             continue
         for prod in ("thr_class", "flood_core", "flood_central", "flood_possible", "threshold_uncertain"):
-            pa, pb = OUT / A_ / f"{prod}.tif", OUT / B_ / f"{prod}.tif"
+            pa, pb = OUT / A_ / f"{prod}{tag}.tif", OUT / B_ / f"{prod}{tag}.tif"
             wa, wb = aligned_window(pa, (x0, y0, x1, y1)), aligned_window(pb, (x0, y0, x1, y1))
             nmis = 0; ncom = 0
             with rasterio.open(pa) as sa, rasterio.open(pb) as sb:
@@ -238,7 +242,7 @@ def main():
             orows.append(dict(pair=f"{A_}|{B_}", product=prod, n_common=ncom, n_mismatch=nmis))
             bad += nmis
             print(f"  overlap {A_}|{B_} {prod:20s}: {ncom:,} cells, {nmis:,} mismatch", flush=True)
-    pd.DataFrame(orows).to_csv(CFG.TABLES / "p68_threshold_overlap_qa.csv", index=False)
+    pd.DataFrame(orows).to_csv(CFG.TABLES / f"p68_threshold_overlap_qa{tag}.csv", index=False)
 
     st = S[S.stratum == "frame_total"]
     meta = dict(product="M2_THRESHOLD_SENSITIVITY_v1", model="M2_PRODUCTION_CANDIDATE_CORRECTED10M",
@@ -259,7 +263,7 @@ def main():
                 git=subprocess.run(["git", "rev-parse", "--short", "HEAD"], cwd=ROOT, capture_output=True,
                                    text=True).stdout.strip())
     meta["verdict"] = "PASS" if bad == 0 else "HOLD"
-    (OUT / "p68_threshold_manifest.json").write_text(json.dumps(meta, indent=2))
+    (OUT / f"p68_threshold_manifest{tag}.json").write_text(json.dumps(meta, indent=2))
     print("\n=== MAPPED-AREA SENSITIVITY TO THE FROZEN DECISION THRESHOLD (deduplicated union) ===")
     print(tot.to_string(index=False))
     print(f"\nVERDICT: {meta['verdict']}")

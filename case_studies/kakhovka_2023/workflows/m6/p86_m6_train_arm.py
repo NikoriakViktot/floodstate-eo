@@ -1,6 +1,9 @@
 # New in floodstate-eo, 2026-09-23. STATUS: ACTIVE. One trainer for every M6 arm on the frozen m6_split_v1.
 # Rev 2 (2026-09-25): --labels {v002,v003_A} and arm U2b (+W_pre). v002 runs (<ARM>_B1B2_v1) are untouched:
 #   a v003_A run lives in <ARM>_B1B2_v003A and writes <ARM>_v003A_score.tif. Geography, recipe, seed unchanged.
+# Rev 3 (2026-09-29, review F09/F10/F11): --labels v004 (the v003_A rule on the corrected M2: no TRACE feature, inner
+#   out-of-fold thresholds; runs/<ARM>_B1B2_v004[_s<seed>]); --seed for training-seed replicates (F11; the default seed
+#   keeps every existing run name); W_pre is read from the chosen label product's S1 bands.
 """P86 -- train and evaluate one M6 arm (U0d, U0z, U1, ...) on B1+B2, frozen geography, D1 harness.
 
 ARMS differ ONLY in their input channels (ARMS below). Everything else is identical and inherited from the frozen
@@ -65,6 +68,7 @@ ARMS = {
 LABELS = {
     "v002": dict(file="m6_labels_v002.tif", band=1, map=None, run="v1", tag=""),
     "v003_A": dict(file="m6_labels_v003_A.tif", band=1, map={0: 0, 1: 1, 2: 0, 255: 255}, run="v003A", tag="_v003A"),
+    "v004": dict(file="m6_labels_v004.tif", band=1, map={0: 0, 1: 1, 2: 0, 255: 255}, run="v004", tag="_v004"),
 }
 HANDZ = {"B1": "ZONE_4_DAM_TO_KHERSON_FLOODWAY", "B2": "ZONE_2_KHERSON_DELTA"}
 
@@ -110,9 +114,9 @@ def frame_tensor(fid, arm):
     return X, has
 
 
-def wpre_10m(fid):
-    """W_pre channel (0/1) and its validity mask from the v003_A S1 observation bands (never the ontology band)."""
-    with rasterio.open(OUT / fid / LABELS["v003_A"]["file"]) as s:
+def wpre_10m(fid, lab="v003_A"):
+    """W_pre channel (0/1) and its validity mask from the S1 observation bands of the label product (never the ontology band)."""
+    with rasterio.open(OUT / fid / LABELS[lab]["file"]) as s:
         d = list(s.descriptions)
         st = s.read(d.index("w_pre_state") + 1); nv = s.read(d.index("w_pre_valid") + 1)
     return (st == 1).astype("f4"), (nv > 0)
@@ -136,20 +140,23 @@ def main():
     ap.add_argument("--epochs", type=int, default=60); ap.add_argument("--batch", type=int, default=6)
     ap.add_argument("--lr", type=float, default=3e-4); ap.add_argument("--stride", type=int, default=256)
     ap.add_argument("--smoke", action="store_true", help="pipeline check: separate dir, stops BEFORE test is read")
+    ap.add_argument("--seed", type=int, default=SEED, help="training seed; a non-default seed gets its own run directory and score (_s<seed>)")
+    ap.add_argument("--p73-rev", type=int, default=None, choices=[1, 2], help="RF20 version for U1 input and the evaluation strata; default 2 for v004 (F08), else 1")
     a = ap.parse_args()
     import torch, torch.nn as nn, segmentation_models_pytorch as smp
     E = _load("m6_eval"); P84 = _load("p84_m6_split_b1b2")
     SPLIT = a.split; SSFX = "" if a.split == "m6_split_v1" else "_" + a.split.split("_")[-1]
-    L = LABELS[a.labels]
+    L = LABELS[a.labels]; SEEDSFX = "" if a.seed == SEED else f"_s{a.seed}"
+    P73REV = a.p73_rev or (2 if a.labels == "v004" else 1)
     if ARMS[a.arm].get("wpre") and a.labels == "v002":
         raise SystemExit("U2b cannot be supervised under v002 (0 labelled pixels with pre-breach water); use --labels v003_A")
-    RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}{SSFX}")
+    RUN = ROOT / "runs" / (f"_smoke_{a.arm}{L['tag']}" if a.smoke else f"{a.arm}_B1B2_{L['run']}{SSFX}{SEEDSFX}")
     if a.smoke and RUN.exists():
         import shutil; shutil.rmtree(RUN)
     if RUN.exists():
         raise SystemExit(f"{RUN} exists -- a run directory is immutable (TEST must not be evaluated twice)")
     RUN.mkdir(parents=True)
-    rng = np.random.default_rng(SEED); torch.manual_seed(SEED)
+    rng = np.random.default_rng(a.seed); torch.manual_seed(a.seed)
     man = json.loads((CFG.TABLES / f"{SPLIT}_manifest.json").read_text())
     C = pd.read_csv(CFG.TABLES / f"{SPLIT}_patches.csv")
     D = {}
@@ -162,10 +169,10 @@ def main():
         y = labels_10m(f, a.labels)
         y = np.where(np.isin(role, (1, 2, 3)) & has, y, 255).astype(np.uint8)
         if ARMS[a.arm].get("wpre"):
-            D[f] = dict(wpre=wpre_10m(f))
+            D[f] = dict(wpre=wpre_10m(f, a.labels))
         else:
             D[f] = {}
-        p73 = P84.p73_10m(f, F)
+        p73 = P84.p73_10m(f, F, P73REV)
         gx = F["transform"].c + 10.0 * np.arange(F["nx"]); gy = F["transform"].f - 10.0 * np.arange(F["ny"])
         BM = float(man.get("block_m", P84.BLOCK_M))
         blk = np.floor(gy / BM).astype("i8")[:, None] * 100000 + np.floor(gx / BM).astype("i8")[None, :]
@@ -270,7 +277,7 @@ def main():
         sc = acc / np.maximum(ws, 1e-9); sc[~D[f]["has"]] = np.nan; D[f]["score"] = sc
         (OUT / f / "m6").mkdir(exist_ok=True)
         q = np.where(np.isfinite(sc), np.round(sc * 10000), 65535).astype("u2")
-        with rasterio.open(OUT / f / "m6" / f"{a.arm}{L['tag']}{SSFX}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
+        with rasterio.open(OUT / f / "m6" / f"{a.arm}{L['tag']}{SSFX}{SEEDSFX}_score.tif", "w", driver="GTiff", height=F["ny"], width=F["nx"],
                            count=1, dtype="uint16", nodata=65535, crs=CFG.CRS_METRIC, transform=F["transform"],
                            compress="deflate", tiled=True, blockxsize=512, blockysize=512) as o:
             o.write(q, 1); o.update_tags(arm=a.arm, split=SPLIT, labels=L["file"],
@@ -301,7 +308,7 @@ def main():
                    labels=L["file"].replace(".tif", ""), label_map=L["map"],
                    wpre_source=(f"{L['file']} bands w_pre_state/w_pre_valid (S1 2023-06-01/02 observation layers)"
                                 if ARMS[a.arm].get("wpre") else None),
-                   epochs=a.epochs, batch=a.batch, lr=a.lr, seed=SEED, stride=a.stride,
+                   epochs=a.epochs, batch=a.batch, lr=a.lr, seed=a.seed, stride=a.stride, p73_rev=P73REV,
                    architecture="smp.Unet resnet34, encoder_weights=None", loss="masked BCE + Dice",
                    meaning="agreement with held-out weak reference labels; NOT flood-mapping accuracy",
                    seconds=round(time.time() - t0)), open(RUN / "config.json", "w"), indent=2)

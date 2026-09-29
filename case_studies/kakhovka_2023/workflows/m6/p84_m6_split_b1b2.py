@@ -69,9 +69,10 @@ def read(fid, name, band=1):
         return s.read(band)
 
 
-def p73_10m(fid, F):
-    """Frozen p73 (20 m) onto this frame's 10 m lattice by exact 2x2 replication (the grids nest)."""
-    with rasterio.open(OUT / fid / "p73_rf20" / "surface_class_20m.tif") as s:
+def p73_10m(fid, F, rev=1):
+    """Frozen p73 (20 m) onto this frame's 10 m lattice by exact 2x2 replication (the grids nest). rev 2 = the RF20
+    refit with global blocks and overlap ownership (review F08, p73 --rev 2); rev 1 = the frozen original."""
+    with rasterio.open(OUT / fid / ("p73_rf20" if rev == 1 else "p73_rf20_rev2") / "surface_class_20m.tif") as s:
         c = s.read(1); t = s.transform
     r0 = int(round((F["transform"].f - t.f) / 10.0)); c0 = int(round((t.c - F["transform"].c) / 10.0))
     out = np.full((F["ny"], F["nx"]), 255, np.uint8)

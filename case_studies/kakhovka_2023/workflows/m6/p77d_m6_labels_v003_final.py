@@ -1,5 +1,8 @@
 # New in floodstate-eo, 2026-09-24. STATUS: variant A FROZEN 2026-09-25 (p77e, tables/m6_labels_v003_A_FROZEN.json); variant B = sensitivity only.
 # Rev 2 (2026-09-24): scene QA + temporal-persistence pixel rule; REFERENCE_WATER no longer vetoes EVENT_FLOOD.
+# 2026-09-29 (review F09/F10/F11): `--variant A --m2-tag _notrace` applies the frozen v003_A rule to the corrected M2 (no
+# post-event TRACE feature, inner out-of-fold thresholds) and to the v002 rule on it -> m6_labels_v004.tif; for v004 the
+# pre-registered look at the U0d TEST prediction is NOT run (no label decision may read TEST). Defaults reproduce v003_A/B.
 """P77d -- m6_labels_v003_final: water retrieval target + reference state + event attribution (LAND / EVENT_FLOOD /
 REFERENCE_WATER / UNKNOWN). Supersedes the v003 CANDIDATE (p77c). v002 and every arm trained on it stay frozen.
 
@@ -129,13 +132,13 @@ def sha(p):
     return h.hexdigest()
 
 
-def build(fid, variant):
+def build(fid, variant, m2_tag="", out_version=None):
     F = CG.frame_grid(fid)
-    with rasterio.open(OUT / fid / "m6_labels_v002.tif") as s:
+    with rasterio.open(OUT / fid / f"m6_labels_v002{m2_tag}.tif") as s:
         y2 = s.read(1)
     with rasterio.open(OUT / fid / "labels.tif") as s:
         npos = s.read(3)
-    with rasterio.open(OUT / fid / "flood_central.tif") as s:
+    with rasterio.open(OUT / fid / f"flood_central{m2_tag}.tif") as s:
         cen = s.read(1) == 1
     may, ext, src = per_date(fid, F, *MAY, admit=scene_qa(fid, variant))
     wpre, _, _ = per_date(fid, F, *WPRE)
@@ -168,11 +171,12 @@ def build(fid, variant):
     prof = dict(driver="GTiff", height=F["ny"], width=F["nx"], count=len(BANDS), dtype="uint8", nodata=None,
                 crs=CFG.CRS_METRIC, transform=F["transform"], compress="deflate", tiled=True, blockxsize=512,
                 blockysize=512)
-    p = OUT / fid / f"m6_labels_v003_{variant}.tif"
+    p = OUT / fid / f"m6_labels_{out_version or 'v003_' + variant}.tif"
     with rasterio.open(p.with_suffix(".tif.part"), "w", **prof) as o:
         for b, (a, nm) in enumerate(zip(arrs, BANDS), 1):
             o.write(a, b); o.set_band_description(b, nm)
-        o.update_tags(version=VERSION, ontology="0 LAND, 1 EVENT_FLOOD, 2 REFERENCE_WATER, 255 UNKNOWN",
+        o.update_tags(version=out_version or VERSION, m2_variant=m2_tag or "original (84 features incl. TRACE, in-sample thresholds)",
+                      ontology="0 LAND, 1 EVENT_FLOOD, 2 REFERENCE_WATER, 255 UNKNOWN",
                       event_water="1 water during event, 0 dry, 255 unknown (STAGE-1 target)",
                       reference_state="0 LAND, 2 REFERENCE_WATER, 255 UNKNOWN", reference_reason=json.dumps(REASON),
                       reference_domain="0 UNOBSERVED, 1 ANCHORED, 2 EXTRAPOLATED",
@@ -199,11 +203,15 @@ def build(fid, variant):
 
 def main():
     import argparse
-    ap = argparse.ArgumentParser(); ap.add_argument("--variant", choices=["A", "B"], required=True); a = ap.parse_args()
-    v = a.variant; tag = f"v003_{v}"
+    ap = argparse.ArgumentParser(); ap.add_argument("--variant", choices=["A", "B"], required=True)
+    ap.add_argument("--m2-tag", default="", choices=["", "_notrace"], help="_notrace: the v003_A rule on the corrected M2 -> v004"); a = ap.parse_args()
+    v = a.variant; out_version = "v004" if a.m2_tag == "_notrace" else None
+    if out_version and v != "A":
+        raise SystemExit("v004 is the frozen v003_A rule on the corrected M2: use --variant A")
+    tag = out_version or f"v003_{v}"
     A, T, srcs, S = [], [], {}, {}
     for fid in ("B1", "B2"):
-        r, t, src, st = build(fid, v); A += r; T += t; srcs[src] = sha(Path(src)); S[fid] = st
+        r, t, src, st = build(fid, v, a.m2_tag, out_version); A += r; T += t; srcs[src] = sha(Path(src)); S[fid] = st
         print(fid, "done", flush=True)
     pd.concat(ADMITTED.values()).to_csv(CFG.TABLES / f"p77d_{tag}_scene_qa.csv", index=False)
     pd.DataFrame(A).to_csv(CFG.TABLES / f"p77d_{tag}_areas.csv", index=False)
@@ -217,7 +225,7 @@ def main():
         for k, c in zip(*np.unique((st["frac"][m] // 10) * 10, return_counts=True)):
             dist.append(dict(variant=v, frame=fid, what="may_water_fraction_decile", value=int(k), km2=round(float(c) * PX, 3)))
     pd.DataFrame(dist).to_csv(CFG.TABLES / f"p77d_{tag}_refwater_distributions.csv", index=False)
-    # canonical failure cases (pre-registered): component masks of the frozen U0d TEST prediction
+    # canonical failure cases (pre-registered for v003): component masks of the frozen U0d TEST prediction -- not for v004
     import importlib.util
     here = Path(__file__).resolve().parent
     ld = lambda n: (lambda s: (s.loader.exec_module(m := importlib.util.module_from_spec(s)), m)[1])(
@@ -225,7 +233,7 @@ def main():
     E, P84 = ld("m6_eval"), ld("p84_m6_split_b1b2")
     thr = json.loads((here.parents[1] / "runs" / "U0d_B1B2_v1" / "validation_threshold.json").read_text())["threshold"]
     cand = []
-    for fid, comp in (("B1", 22), ("B2", 78)):
+    for fid, comp in ((("B1", 22), ("B2", 78)) if not out_version else ()):
         st = S[fid]; F = st["F"]
         role = rasterio.open(OUT / fid / "m6_split_v1_role.tif").read(1)
         s1 = rasterio.open(OUT / fid / "s1_change.tif"); d = list(s1.descriptions)
@@ -241,7 +249,8 @@ def main():
         for k, rn in REASON.items():
             r[f"reason_{rn}_frac"] = round(float((st["reason"][m] == k).mean()), 3)
         cand.append(r)
-    pd.DataFrame(cand).to_csv(CFG.TABLES / f"p77d_{tag}_candidates.csv", index=False)
+    if cand:
+        pd.DataFrame(cand).to_csv(CFG.TABLES / f"p77d_{tag}_candidates.csv", index=False)
     # SEASONALLY_WET_BUT_DRY_AT_EVENT_ONSET: component audit (8-connected)
     from scipy import ndimage
     comps = []
@@ -273,7 +282,8 @@ def main():
                               reason="SEASONALLY_WET_BUT_DRY_AT_EVENT_ONSET"))
     pd.DataFrame(comps).to_csv(CFG.TABLES / f"p77d_{tag}_seasonal_components.csv", index=False)
     git = subprocess.run(["git", "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip()
-    man = dict(version=tag, status="CANDIDATE_NOT_FROZEN" if v == "A" else "SENSITIVITY_ONLY",
+    man = dict(version=tag, status="CANDIDATE_NOT_FROZEN" if v == "A" else "SENSITIVITY_ONLY", m2_variant=a.m2_tag or "original",
+               test_prediction_read=not out_version,
                created_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), code_commit=git, rules=__doc__,
                sources_sha256=srcs, outputs={f: str(OUT / f / f"m6_labels_{tag}.tif") for f in S},
                output_sha256={f: sha(OUT / f / f"m6_labels_{tag}.tif") for f in S})

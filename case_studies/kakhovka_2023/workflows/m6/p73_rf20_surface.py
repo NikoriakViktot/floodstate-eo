@@ -1,5 +1,9 @@
 # New in floodstate-eo, 2026-09-23. STATUS: P73_RF20_FROZEN (products of commit 5f875ce; QA: tables/p73_rf20_qa/QA_VERDICT.md).
 # May enter a U-Net only as INPUT context (U1) after the B1+B2 split is frozen; never in label construction.
+# Rev 2 (2026-09-29, review 2026-09-28 F08; `--rev 2`, versioned outputs `_rev2`, rev 1 untouched): 5 km blocks from the
+# UTM coordinates of the 20 m cells (one physical cell, one block, in both frames); B2 owns the B1/B2 overlap and B1
+# contributes no target there, so a physical cell enters the sample once (asserted); the CV is reported without and with a
+# 3.5 km buffer around the test blocks; the frame transfers train and test outside the overlap only.
 """P73 -- RF20: PRE-EVENT SURFACE CLASSIFICATION on the global native-aligned 20 m Sentinel-2 grid. Not flood detection.
 
 PURPOSE. U0 separates delta/wetland inundation well and agricultural false water badly (VEG_AGRI F1 0.39 against
@@ -48,6 +52,7 @@ CLASSES = {1: "WATER", 2: "CROPLAND", 3: "GRASS_LOW_VEGETATION", 4: "FOREST", 5:
 WC2P73 = {80: 1, 40: 2, 30: 3, 10: 4, 20: 5, 90: 6, 50: 7, 60: 8, 70: 9, 95: 9, 100: 9}
 UNCERTAIN_P = 0.5
 BLOCK_M = 5000.0
+BUFFER_M = 3500.0            # rev 2: the predictor autocorrelation range measured for the same S2 composites (p65b)
 PER_CLASS = 30000            # training cells per class per frame (a sample, never the whole population)
 SEED = 20260923
 FORBIDDEN = re.compile(r"cand_|flood_|p69|base_class|s1_change|labels|m6_label|hand|unosat|trace|event|u0_",
@@ -157,7 +162,12 @@ def target(fid, g, X, names):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--frames", nargs="*", default=["B1", "B2"])
     ap.add_argument("--trees", type=int, default=200); ap.add_argument("--jobs", type=int, default=16)
+    ap.add_argument("--rev", type=int, default=1, choices=[1, 2], help="2: global UTM blocks, B2 owns the overlap before sampling, buffered CV, transfer outside the overlap (F08)")
     a = ap.parse_args()
+    R2 = a.rev == 2; TG = "_rev2" if R2 else ""
+    global MODEL
+    if R2:
+        MODEL = OUT / "_m6" / "p73_rf20_rev2_model.joblib"
     from sklearn.ensemble import RandomForestClassifier
     from sklearn.metrics import confusion_matrix, precision_recall_fscore_support
     git0 = _git()          # captured BEFORE this run writes any tracked table, so "dirty" means the code state
@@ -170,16 +180,31 @@ def main():
         ok = np.all(np.isfinite(X), axis=0) & (nobs >= 5)
         y[~ok] = 0
         by, bx = np.indices(y.shape)
-        blk = (by * 20 // BLOCK_M).astype("i4") * 1000 + (bx * 20 // BLOCK_M).astype("i4")
-        D[fid] = dict(g=g, X=X, y=y, ok=ok, blk=blk)
+        if R2:                                       # global UTM blocks; the overlap belongs to B2
+            xc = g["transform"].c + 20.0 * (bx + 0.5); yc = g["transform"].f - 20.0 * (by + 0.5)
+            blk = np.floor(yc / BLOCK_M).astype("i8") * 100000 + np.floor(xc / BLOCK_M).astype("i8")
+            ovl = np.zeros(y.shape, bool)
+            for other in (f for f in ("B1", "B2") if f != fid):
+                go = grid20(other); X0, Y1 = go["transform"].c, go["transform"].f
+                ovl |= (xc >= X0) & (xc < X0 + 20.0 * go["nx"]) & (yc <= Y1) & (yc > Y1 - 20.0 * go["ny"])
+            n_drop = int(((y > 0) & ovl).sum()) if fid == "B1" else 0
+            if fid == "B1":
+                y[ovl] = 0
+            D[fid] = dict(g=g, X=X, y=y, ok=ok, blk=blk, xc=xc, yc=yc, ovl=ovl, n_overlap_targets_dropped=n_drop)
+        else:
+            blk = (by * 20 // BLOCK_M).astype("i4") * 1000 + (bx * 20 // BLOCK_M).astype("i4")
+            D[fid] = dict(g=g, X=X, y=y, ok=ok, blk=blk)
         inv.append(dict(frame=fid, ny20=g["ny"], nx20=g["nx"], row_offset_10m=g["r0"], col_offset_10m=g["c0"],
                         x0=g["transform"].c, y1=g["transform"].f, n_features=len(names),
                         valid_cells=int(ok.sum()), target_cells=int((y > 0).sum()),
                         **{f"target_{CLASSES[c]}": int((y == c).sum()) for c in range(1, 10)}))
         print(f"{fid}: 20 m grid {g['ny']}x{g['nx']} (offset {g['r0']},{g['c0']}), {len(names)} PRE features, "
               f"{int((y > 0).sum()):,} target cells, {time.time() - t0:.0f}s", flush=True)
-    pd.DataFrame(inv).to_csv(CFG.TABLES / "p73_inventory.csv", index=False)
-    pd.DataFrame(filt).to_csv(CFG.TABLES / "p73_target_filter.csv", index=False)
+    if R2:
+        for r_ in inv:
+            r_["overlap_targets_dropped_B2_owns"] = D[r_["frame"]]["n_overlap_targets_dropped"]
+    pd.DataFrame(inv).to_csv(CFG.TABLES / f"p73_inventory{TG}.csv", index=False)
+    pd.DataFrame(filt).to_csv(CFG.TABLES / f"p73_target_filter{TG}.csv", index=False)
 
     def sample(fid):
         d = D[fid]; idx = []
@@ -188,45 +213,67 @@ def main():
             if len(w):
                 idx.append(rng.choice(w, size=min(PER_CLASS, len(w)), replace=False))
         idx = np.concatenate(idx)
+        if R2:
+            return (d["X"].reshape(len(names), -1)[:, idx].T, d["y"].ravel()[idx], d["blk"].ravel()[idx],
+                    d["xc"].ravel()[idx], d["yc"].ravel()[idx], d["ovl"].ravel()[idx])
         return d["X"].reshape(len(names), -1)[:, idx].T, d["y"].ravel()[idx], d["blk"].ravel()[idx] + \
             (0 if fid == "B1" else 10**6)
     S = {fid: sample(fid) for fid in D}
     Xs = np.concatenate([S[f][0] for f in S]); ys = np.concatenate([S[f][1] for f in S])
     gs = np.concatenate([S[f][2] for f in S])
+    if R2:
+        cx = np.concatenate([S[f][3] for f in S]); cy = np.concatenate([S[f][4] for f in S])
+        key = np.round(cx).astype("i8") * 10_000_000 + np.round(cy).astype("i8")
+        assert len(np.unique(key)) == len(key), "a physical cell entered the sample twice"
+
+        def far_from(test):                          # training cells farther than BUFFER_M from every test block
+            x0, y1 = cx.min() - BLOCK_M, cy.max() + BLOCK_M; cell = 100.0
+            nx = int((cx.max() + BLOCK_M - x0) // cell) + 2; ny = int((y1 - cy.min() + BLOCK_M) // cell) + 2
+            from scipy import ndimage
+            ub_t = np.unique(gs[test]); gxx = x0 + cell * (np.arange(nx) + 0.5); gyy = y1 - cell * (np.arange(ny) + 0.5)
+            gb = np.floor(gyy / BLOCK_M).astype("i8")[:, None] * 100000 + np.floor(gxx / BLOCK_M).astype("i8")[None, :]
+            dist = ndimage.distance_transform_edt(~np.isin(gb, ub_t), sampling=cell)
+            return dist[((y1 - cy) // cell).astype(int), ((cx - x0) // cell).astype(int)] >= BUFFER_M
     mk = lambda: RandomForestClassifier(n_estimators=a.trees, min_samples_leaf=5, n_jobs=a.jobs,
                                         class_weight="balanced_subsample", random_state=SEED)
     labels = [c for c in range(1, 10) if (ys == c).any()]
 
-    # ---- 5-fold spatial-block CV ---------------------------------------------------------------------------------
+    # ---- 5-fold spatial-block CV (rev 2: also with a buffer around the test blocks) ------------------------------------
     ub = np.unique(gs); rng.shuffle(ub); fold = {b: i % 5 for i, b in enumerate(ub)}
-    fv = np.vectorize(fold.get)(gs); pred = np.zeros_like(ys)
-    for k in range(5):
-        m = mk().fit(Xs[fv != k], ys[fv != k]); pred[fv == k] = m.predict(Xs[fv == k])
-    met = []
-    P, R, F1, N = precision_recall_fscore_support(ys, pred, labels=labels, zero_division=0)
-    met += [dict(evaluation="spatial_block_cv_5fold", cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4),
-                 F1=round(f_, 4), n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
-    met.append(dict(evaluation="spatial_block_cv_5fold", cls="MACRO", precision=round(P.mean(), 4),
-                    recall=round(R.mean(), 4), F1=round(F1.mean(), 4), n=int(N.sum())))
-    met.append(dict(evaluation="spatial_block_cv_5fold", cls="OVERALL_ACCURACY", F1=round(float((pred == ys).mean()), 4),
-                    n=int(N.sum())))
-    pd.DataFrame(confusion_matrix(ys, pred, labels=labels), index=[CLASSES[c] for c in labels],
-                 columns=[CLASSES[c] for c in labels]).to_csv(CFG.TABLES / "p73_rf20_confusion_matrix.csv")
+    fv = np.vectorize(fold.get)(gs); met = []
+    for ev, buffered in (("spatial_block_cv_5fold", False),) + ((("spatial_block_cv_5fold_buffered", True),) if R2 else ()):
+        pred = np.zeros_like(ys); kept = []
+        for k in range(5):
+            tr = fv != k
+            if buffered:
+                tr &= far_from(fv == k); kept.append(round(float(tr.sum() / max((fv != k).sum(), 1)), 4))
+            m = mk().fit(Xs[tr], ys[tr]); pred[fv == k] = m.predict(Xs[fv == k])
+        P, R, F1, N = precision_recall_fscore_support(ys, pred, labels=labels, zero_division=0)
+        met += [dict(evaluation=ev, cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4),
+                     F1=round(f_, 4), n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
+        met.append(dict(evaluation=ev, cls="MACRO", precision=round(P.mean(), 4),
+                        recall=round(R.mean(), 4), F1=round(F1.mean(), 4), n=int(N.sum()),
+                        **({"train_kept_share_per_fold": str(kept)} if buffered else {})))
+        met.append(dict(evaluation=ev, cls="OVERALL_ACCURACY", F1=round(float((pred == ys).mean()), 4),
+                        n=int(N.sum())))
+        pd.DataFrame(confusion_matrix(ys, pred, labels=labels), index=[CLASSES[c] for c in labels],
+                     columns=[CLASSES[c] for c in labels]).to_csv(CFG.TABLES / f"p73_rf20_confusion_matrix{TG}{'_buffered' if buffered else ''}.csv")
     print(pd.DataFrame([r for r in met]).to_string(index=False), flush=True)
 
     # ---- geographic transfer between frames ----------------------------------------------------------------------
     if len(S) > 1:
         for src, dst in (("B1", "B2"), ("B2", "B1")):
-            m = mk().fit(S[src][0], S[src][1]); pr = m.predict(S[dst][0])
-            P, R, F1, N = precision_recall_fscore_support(S[dst][1], pr, labels=labels, zero_division=0)
+            ms = ~S[src][5] if R2 else slice(None); md = ~S[dst][5] if R2 else slice(None)   # rev 2: outside the overlap only
+            m = mk().fit(S[src][0][ms], S[src][1][ms]); pr = m.predict(S[dst][0][md])
+            P, R, F1, N = precision_recall_fscore_support(S[dst][1][md], pr, labels=labels, zero_division=0)
             ev = f"transfer_{src}_to_{dst}"
             met += [dict(evaluation=ev, cls=CLASSES[c], precision=round(p_, 4), recall=round(r_, 4), F1=round(f_, 4),
                          n=int(n_)) for c, p_, r_, f_, n_ in zip(labels, P, R, F1, N)]
             met.append(dict(evaluation=ev, cls="MACRO", precision=round(P.mean(), 4), recall=round(R.mean(), 4),
                             F1=round(F1.mean(), 4), n=int(N.sum())))
-            met.append(dict(evaluation=ev, cls="OVERALL_ACCURACY", F1=round(float((pr == S[dst][1]).mean()), 4),
+            met.append(dict(evaluation=ev, cls="OVERALL_ACCURACY", F1=round(float((pr == S[dst][1][md]).mean()), 4),
                             n=int(N.sum())))
-    pd.DataFrame(met).to_csv(CFG.TABLES / "p73_rf20_metrics.csv", index=False)
+    pd.DataFrame(met).to_csv(CFG.TABLES / f"p73_rf20{TG}_metrics.csv" if R2 else CFG.TABLES / "p73_rf20_metrics.csv", index=False)
 
     # ---- final model on all sampled targets, persisted, then wall-to-wall prediction ----------------------------
     import joblib, sklearn
@@ -235,8 +282,8 @@ def main():
     joblib.dump(dict(model=M, features=names, classes=CLASSES, uncertain_p=UNCERTAIN_P), MODEL, compress=3)
     areas = []
     for fid, d in D.items():
-        areas += write_products(M, names, fid, d["g"], d["X"], d["ok"])
-    pd.DataFrame(areas).to_csv(CFG.TABLES / "p73_rf20_class_area.csv", index=False)
+        areas += write_products(M, names, fid, d["g"], d["X"], d["ok"], sub="p73_rf20" + TG)
+    pd.DataFrame(areas).to_csv(CFG.TABLES / f"p73_rf20{TG}_class_area.csv", index=False)
 
     rf = mk().get_params()
     man = dict(product="p73_rf20", status="FREEZE_CANDIDATE (set to P73_RF20_FROZEN only after visual + statistical QA)",
@@ -252,16 +299,19 @@ def main():
                            rule="all four half-cell-shifted WorldCover cells agree, then PRE-S2 consistency filters "
                                 "(tables/p73_target_filter.csv); conflict -> IGNORE",
                            classes_without_targets=[CLASSES[c] for c in range(1, 10) if c not in labels]),
-               split=dict(cv="5-fold spatial block CV", block_m=BLOCK_M, block_to_fold="shuffled block ids, i % 5",
-                          transfer="B1->B2 and B2->B1", sample_per_class_per_frame=PER_CLASS),
+               split=dict(cv="5-fold spatial block CV" + (" (+ buffered)" if R2 else ""), block_m=BLOCK_M, block_to_fold="shuffled block ids, i % 5",
+                          block_ids="UTM coordinates of the 20 m cell centres (global)" if R2 else "frame-local row/col, +1e6 for B2 (superseded, review F08)",
+                          overlap="B2 owns; B1 contributes no target there; unique physical cells asserted" if R2 else "not deduplicated (superseded)",
+                          buffer_m=BUFFER_M if R2 else None,
+                          transfer="B1->B2 and B2->B1" + (", outside the overlap only" if R2 else ""), sample_per_class_per_frame=PER_CLASS),
                random_forest={k: rf[k] for k in ("n_estimators", "min_samples_leaf", "class_weight", "random_state")},
                seed=SEED, uncertainty=dict(rule=f"top class probability < {UNCERTAIN_P} -> UNCERTAIN (10)",
                                            fixed_before_results=True),
                software=dict(sklearn=sklearn.__version__, numpy=np.__version__, rasterio=rasterio.__version__),
                model=dict(path=str(MODEL), sha256=_sha(MODEL)),
                sources={p_: _sha(Path(p_)) for p_ in sorted(set(_opened))},
-               products={f: [str(OUT / f / "p73_rf20" / n) for n in PRODUCTS] for f in D})
-    (CFG.TABLES / "p73_rf20_manifest.json").write_text(json.dumps(man, indent=1, default=str))
+               products={f: [str(OUT / f / ("p73_rf20" + TG) / n) for n in PRODUCTS] for f in D}, rev=a.rev)
+    (CFG.TABLES / f"p73_rf20{TG}_manifest.json").write_text(json.dumps(man, indent=1, default=str))
     print(f"-> tables/p73_rf20_{{metrics,confusion_matrix,class_area,manifest}}; model {MODEL}", flush=True)
 
 
@@ -290,7 +340,7 @@ def _git():
                 worktree=str(root))
 
 
-def write_products(M, names, fid, g, X, ok):
+def write_products(M, names, fid, g, X, ok, sub="p73_rf20"):
     """Four 20 m products per frame. Never upsampled here."""
     flat = X.reshape(len(names), -1).T; okf = ok.ravel(); nc = len(M.classes_)
     cls = np.full(okf.shape, 255, np.uint8); top = np.full(okf.shape, 255, np.uint8)
@@ -301,7 +351,7 @@ def write_products(M, names, fid, g, X, ok):
         best = M.classes_[pp.argmax(1)].astype("u1"); mx = pp.max(1)
         u = mx < UNCERTAIN_P; best[u] = 10
         cls[ii] = best; top[ii] = np.round(mx * 100); unc[ii] = u; sc[:, ii] = np.round(pp.T * 100)
-    d = OUT / fid / "p73_rf20"; d.mkdir(exist_ok=True)
+    d = OUT / fid / sub; d.mkdir(exist_ok=True)
     base = dict(driver="GTiff", height=g["ny"], width=g["nx"], dtype="uint8", nodata=255, crs=CFG.CRS_METRIC,
                 transform=g["transform"], compress="deflate", tiled=True, blockxsize=512, blockysize=512)
     tags = dict(classes=json.dumps(CLASSES), uncertain_rule=f"top probability < {UNCERTAIN_P}", producer="p73_rf20_surface.py",

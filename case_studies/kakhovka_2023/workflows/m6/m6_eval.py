@@ -26,9 +26,13 @@ EIGHT = np.ones((3, 3), bool)
 
 
 def _m(tp, fp, fn):
-    P = tp / max(tp + fp, 1); R = tp / max(tp + fn, 1)
-    return dict(TP=int(tp), FP=int(fp), FN=int(fn), precision=round(P, 4), recall=round(R, 4),
-                F1=round(2 * P * R / max(P + R, 1e-9), 4), IoU=round(tp / max(tp + fp + fn, 1), 4))
+    """Precision / recall / F1 / IoU. A metric whose denominator is empty is UNDEFINED (NaN), never zero (review F11,
+    2026-09-29): an empty (re)sample is not a failed classification; tp = 0 with fp or fn present is a genuine 0."""
+    nan = float("nan")
+    P = tp / (tp + fp) if tp + fp else nan; R = tp / (tp + fn) if tp + fn else nan
+    F1 = nan if (P != P or R != R) else (2 * P * R / (P + R) if P + R else 0.0)
+    IoU = tp / (tp + fp + fn) if tp + fp + fn else nan
+    return dict(TP=int(tp), FP=int(fp), FN=int(fn), precision=round(P, 4), recall=round(R, 4), F1=round(F1, 4), IoU=round(IoU, 4))
 
 
 def evaluate_frame(pred, score, y, p73, role_mask, blk):
@@ -112,8 +116,9 @@ def bootstrap(blocks: pd.DataFrame, n=2000, seed=20260923):
     for _ in range(n):
         s = B[rng.integers(0, len(B), len(B))].sum(0)
         out.append(endpoints(dict(zip(cols, s))))
-    D = pd.DataFrame(out)
-    return pd.DataFrame(dict(lo=D.quantile(0.025, numeric_only=True), hi=D.quantile(0.975, numeric_only=True)))
+    D = pd.DataFrame(out)          # quantiles over the resamples in which an endpoint is defined; n_defined says how many
+    return pd.DataFrame(dict(lo=D.quantile(0.025, numeric_only=True), hi=D.quantile(0.975, numeric_only=True),
+                             n_defined=D.select_dtypes("number").notna().sum()))
 
 
 def paired_bootstrap(blocks_a: pd.DataFrame, blocks_b: pd.DataFrame, n=2000, seed=20260923):
@@ -129,8 +134,8 @@ def paired_bootstrap(blocks_a: pd.DataFrame, blocks_b: pd.DataFrame, n=2000, see
         i = rng.integers(0, len(A), len(A))
         ea, eb = full(dict(zip(cols, A[i].sum(0)))), full(dict(zip(cols, Bm[i].sum(0))))
         out.append({k: (eb[k] - ea[k]) for k in ea if isinstance(ea[k], (int, float)) and isinstance(eb[k], (int, float))})
-    D = pd.DataFrame(out)
-    return pd.DataFrame(dict(median=D.median(), lo=D.quantile(0.025), hi=D.quantile(0.975)))
+    D = pd.DataFrame(out)          # undefined differences (an arm without support in a resample) are counted, not zeroed
+    return pd.DataFrame(dict(median=D.median(), lo=D.quantile(0.025), hi=D.quantile(0.975), n_defined=D.notna().sum()))
 
 
 # =====================================================================================================================
