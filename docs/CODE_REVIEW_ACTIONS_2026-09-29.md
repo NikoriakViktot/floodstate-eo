@@ -98,7 +98,18 @@ spatial support of the water surface and of the nonlinearity of the connectivity
   shows the support classes by day on the Maps page, the gauges with their roles, an observational-support section and a
   withheld-gauge section; the README links the live app (https://floodstate-eo.streamlit.app, deployed from `main` by the
   maintainer on Streamlit Community Cloud).
-- **Next:** Stage 1 frozen after this pass; Stage 2 = F09 → F10 → F08.
+- **c-HAND (maintainer's lead, verified):** Wang, Passalacqua, Cai & Dawson (2024), Frontiers in Water 6:1329109 — Crossref and
+  full text checked: cells "lower than the gage elevation" and "connected to the ocean", depth = gauge − cell, "a static
+  equilibrium assumption"; against ADCIRC 99 % of the flooded cells found, the area over-predicted by about 27 %. Cited in §3.2
+  (the operator's precedent, extended here to a distributed, observation-constrained H(x, y, t) with a baseline and an
+  uncertainty), in the Limitations and in §5.
+- **Claims C01–C03, C07 checked against the tables and the corrected method** (every number matches T12/T12c/T11k/T11d/T17d);
+  four precision fixes: C01 — 8 June (23 % of the worlds) is the Kherson peak-stage day; C02 — the pre-breach start is the
+  Monte-Carlo median (473 km², nominal 501 km² above its p95) so both ends come from the ensemble; C03 — the three-day
+  mismatch is of the water-level maximum at the gauge, not of the valley's areal maximum (9 June); C07 — 775.2 km² is the
+  regime with the terrain alone perturbed (the full budget: 787.6 km²).
+- **Next:** Stage 1 frozen (this commit); merge/push to `main` after the maintainer's review of C01–C03/C07; then Stage 2 =
+  F09 → F10 → F08.
 
 ## Decisions recorded (Stage 1)
 

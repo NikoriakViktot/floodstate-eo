@@ -379,6 +379,9 @@ only, never on bed); everything in EVRF2019 (asserted); no new physics while ans
   Reconstruction page, a withheld-gauge section on the Checks page. README and apps/dashboard/README link the live app
   https://floodstate-eo.streamlit.app -- it becomes live when the maintainer deploys `apps/dashboard/streamlit_app.py` from
   `main` on Streamlit Community Cloud with the App URL `floodstate-eo` (after the Stage-1 branch is merged and pushed).
+- c-HAND (Wang et al. 2024, Frontiers in Water; verified) cited as the static terrain-connectivity precedent (§3.2, Limitations,
+  §5); claims C01-C03/C07 checked against the tables, four precision fixes. Stage 1 FROZEN; the branch
+  `review-2026-09-28-stage1` is merged/pushed only after the maintainer has reviewed C01-C03/C07.
 - NEXT: Stage 2 = F09 (inner out-of-fold M2 threshold -> labels v004 -> arms retrained) -> F10 (label contracts, lineage) ->
   F08 (global blocks, overlap dedup, RF20 production refit, new freeze) -> F11 -> F12 hold-out.
 

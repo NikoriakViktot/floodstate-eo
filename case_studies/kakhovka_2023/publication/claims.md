@@ -6,7 +6,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C01 [independent_physical] -- section 4.1 (formerly C01 (part))
 
-**Statement.** In the daily terrain-connectivity reconstruction constrained by the observed water surface, the maximum of the newly inundated area of the Dnipro corridor falls on 7 June 2023 in 77 % of the 1000 Monte-Carlo worlds and on 8 June in 23 %, between the available Sentinel-1 acquisitions (6 June partial, 9 June) and apart from the peak stage at Kherson (gauge maximum on 8 June); it is a value of the reconstructed series, not an observation and not a validated flood map.
+**Statement.** In the daily terrain-connectivity reconstruction constrained by the observed water surface, the maximum of the newly inundated area of the Dnipro corridor falls on 7 June 2023 in 77 % of the 1000 Monte-Carlo worlds and on 8 June, the day of the peak stage at Kherson, in 23 %, between the available Sentinel-1 acquisitions (6 June partial, 9 June); it is a value of the reconstructed series, not an observation and not a validated flood map.
 
 - **Independent:** yes -- water surface (SWOT nodes + gauge) x terrain; no EO flood mask enters; the timing between acquisitions is model-dependent
 - **Result type / dataset:** observation-constrained terrain inundation reconstruction / SWOT RiverSP nodes 05-26..07-10, Kherson gauge 80805, seamless terrain-bed elevation model (Paper 2); p95e rev 2 Monte-Carlo (1000 coherent worlds)
@@ -20,12 +20,12 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C02 [independent_physical] -- section 4.1 (formerly C01 (part))
 
-**Statement.** In the full terrain-connectivity reconstruction the total water-surface area of the Dnipro corridor rises from 501 km2 in the pre-breach regime (5 June, nominal run; Monte-Carlo median 473 km2) to 791 km2 on 7 June (Monte-Carlo median; p05-p95 767-819 km2), while the newly inundated area reaches 262 km2 (250-278 km2) with a new-water volume of 627 hm3 (585-674 hm3); the deterministic nominal run (797 km2, 243 km2, 514 hm3) is a diagnostic, and 25 % of its new area on 7 June rests on water-surface support farther than 10 km (supported core 182 km2).
+**Statement.** In the full terrain-connectivity reconstruction the total water-surface area of the Dnipro corridor rises from 473 km2 in the pre-breach regime (5 June; Monte-Carlo median, p05-p95 445-498 km2; nominal run 501 km2) to 791 km2 on 7 June (767-819 km2), while the newly inundated area reaches 262 km2 (250-278 km2) with a new-water volume of 627 hm3 (585-674 hm3); the deterministic nominal run (797 km2, 243 km2, 514 hm3) is a diagnostic, and 25 % of its new area on 7 June rests on water-surface support farther than 10 km (supported core 182 km2).
 
 - **Independent:** yes -- as C01
 - **Result type / dataset:** observation-constrained terrain inundation reconstruction / as C01 + p95e rev 2 Monte-Carlo (1000 coherent worlds)
 - **Independent unit:** day; **n:** 16 key dates x 1000 coherent Monte-Carlo worlds (primary)
-- **Value:** W_total 06-05 501 (observed regime) -> 06-07 MC median 791 km2; A_new 06-07 MC median 262 km2 (terrain as delivered, nominal run: 348); V_new 06-07 MC median 627 hm3; nominal runs 797 km2 / 243 km2 / 514 hm3; **uncertainty:** PRIMARY Monte-Carlo p05-p95: W_total 767-819 km2, A_new 250-278 km2, V_new 585-674 hm3; support: 25% of the nominal new area rests on water-surface support > 10 km (supported core 182 km2, T11k)
+- **Value:** W_total 06-05 MC median 473 km2 (nominal run 501; pre-breach regime) -> 06-07 MC median 791 km2; A_new 06-07 MC median 262 km2 (sensitivity with the terrain as delivered, nominal run: 348); V_new 06-07 MC median 627 hm3; nominal runs 797 km2 / 243 km2 / 514 hm3; **uncertainty:** PRIMARY Monte-Carlo p05-p95: W_total 767-819 km2, A_new 250-278 km2, V_new 585-674 hm3; support: 25% of the nominal new area rests on water-surface support > 10 km (supported core 182 km2, T11k)
 - **Evidence:** tables T12, T11b, T11k; figures Fig04, Fig07
 - **Scope:** Dnipro corridor; primary run (residual class bias removed on FABDEM cells); full reconstruction with its supported core (T11k)
 - **Caveat:** total water-surface area and newly inundated area are two different quantities and are never called 'flooded area' without their semantics
@@ -34,7 +34,7 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C03 [independent_physical] -- section 4.1, 4.7 (formerly C01 (part), C07)
 
-**Statement.** The reconstructed inundation recedes within two weeks of the breach in the Dnipro corridor, following the Kherson stage. The Inhulets valley, reported separately and never added to the corridor, is constrained by its own SWOT nodes only in its lower ~10 km: 93 % of its reconstructed new area on 7 June rests on water-surface support farther than 10 km, and the gauge Kalynivske, withheld from the reconstruction, exposes an early-event overestimation of the reconstructed surface (+9.5 m on 6 June) and a three-day timing mismatch of the maximum (7 vs 10 June), so the upper and central Inhulets values are weakly constrained.
+**Statement.** The reconstructed inundation recedes within two weeks of the breach in the Dnipro corridor, following the Kherson stage. The Inhulets valley, reported separately and never added to the corridor, is constrained by its own SWOT nodes only in its lower ~10 km: 93 % of its reconstructed new area on 7 June rests on water-surface support farther than 10 km, and the gauge Kalynivske, withheld from the reconstruction, exposes an early-event overestimation of the reconstructed water surface (+9.5 m on 6 June) and a three-day mismatch of the water-level maximum at the gauge (reconstruction 7 June, gauge 10 June), so the upper and central Inhulets values are weakly constrained.
 
 - **Independent:** yes -- as C01; the Inhulets valley uses its own SWOT nodes
 - **Result type / dataset:** reconstructed daily series per region / as C01; p42 CUT_RECTS; UkrHMC yearbook 2023 (Kalynivske 80575, withheld)
@@ -90,12 +90,12 @@ Evidence levels: independent_physical > cross_sensor > weak_label_agreement > co
 
 ### C07 [independent_physical] -- section 3.3, 4.1 (formerly new)
 
-**Statement.** Propagated through 1000 coherent Monte-Carlo worlds, the vertical error budget gives the newly inundated area and the new-water volume relative p05-p95 half-widths of 6 % and 9 % on 7 June and places their medians 8 % and 22 % above the deterministic nominal run. The upward shift arises primarily from nonlinear connectivity effects on the pre-event baseline: terrain perturbations reduce the connected pre-breach water (a rebuilt regime of 775 km2 against 810.5 km2 nominal) more strongly than the peak-event total water; volumes are therefore always reported with their interval and never centred on the nominal run.
+**Statement.** Propagated through 1000 coherent Monte-Carlo worlds, the vertical error budget gives the newly inundated area and the new-water volume relative p05-p95 half-widths of 6 % and 9 % on 7 June and places their medians 8 % and 22 % above the deterministic nominal run. The upward shift arises primarily from nonlinear connectivity effects on the pre-event baseline: terrain perturbations reduce the connected pre-breach water (with the terrain alone perturbed, a rebuilt regime of 775.2 km2 against 810.5 km2 nominal) more strongly than the peak-event total water; volumes are therefore always reported with their interval and never centred on the nominal run.
 
 - **Independent:** yes -- propagation of independent error terms
 - **Result type / dataset:** uncertainty budget / p95e rev 2: 1000 coherent Monte-Carlo worlds (primary; second seed and ablation in T11c/T11d)
 - **Independent unit:** draw; **n:** 1000 coherent Monte-Carlo worlds x 16 key dates
-- **Value:** 06-07: A_new MC median 262 km2 [p05-p95 250-278] (nominal run 243); V_new MC median 627 hm3 [p05-p95 585-674] (nominal run 514); **uncertainty:** MC relative half-width: area 6 %, volume 9 %; MC median relative to the deterministic nominal run: area +8 %, volume +22 % (06-07; attribution to the error components in T11d: the pre-breach regime of the perturbed worlds 775 km2 against 810 km2 nominal)
+- **Value:** 06-07: A_new MC median 262 km2 [p05-p95 250-278] (nominal run 243); V_new MC median 627 hm3 [p05-p95 585-674] (nominal run 514); **uncertainty:** MC relative half-width: area 6 %, volume 9 %; MC median relative to the deterministic nominal run: area +8 %, volume +22 % (06-07; attribution to the error components in T11d: the pre-breach regime with the terrain alone perturbed 775.2 km2 against 810.5 km2 nominal)
 - **Evidence:** tables T12, T11b, T11c, T11d; figures Fig04, FigS12
 - **Scope:** Dnipro corridor, key dates
 - **Caveat:** the Monte-Carlo ensemble is the only uncertainty interval; the 100 000-draw emulator is a computational diagnostic outside the evidence path (T12d)

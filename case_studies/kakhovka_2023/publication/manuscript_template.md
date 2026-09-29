@@ -146,7 +146,14 @@ n = {{T17|period=all days|n_days||.0f}} days; T17, Fig06) — an input-consisten
 The reconstruction is a static terrain-connectivity model rather than a dynamic hydraulic simulation. Gravitational control is
 represented implicitly through the terrain elevation relative to the imposed water-surface elevation and through topographic
 connectivity; the method does not solve momentum or continuity equations and therefore does not represent finite flood-wave
-propagation, frictional losses or transient backwater dynamics (§5).
+propagation, frictional losses or transient backwater dynamics (§5). The inundation operator follows the static
+terrain-connectivity principle of topography-based flood mapping such as c-HAND, which floods the cells whose elevation "is
+lower than the gage elevation" and which "are connected to the ocean" under "a static equilibrium assumption" (Wang et al.
+2024), and the flood-fill procedure of Dale et al. (2026): terrain cells below the imposed water surface are retained only
+when topographically connected to the reference water network. Here this principle is extended from a spatially uniform or
+locally estimated water level to a spatially distributed, observation-constrained water surface H(x, y, t) derived from the
+SWOT nodes and the gauge, with a same-rule pre-breach baseline that separates new inundation from pre-existing water, and a
+propagated uncertainty (§3.3).
 
 A cell is water on day t if its terrain lies below the water surface and it is 8-connected, through such cells, to the pre-breach
 optical water network (p60 pre-water frequency ≥ 20 %), within 10 km of pre-breach water and downstream of the dam
@@ -321,9 +328,9 @@ offset (T11d): with the terrain alone perturbed the median new area on 7 June is
 {{T11d|variant=water_surface_only,region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km², and with both perturbed but the pre-breach regime held at the nominal
 {{T11d|variant=baseline_fixed,region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² (nominal {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km²). The upward
 shift of the stochastic new-inundation distribution relative to the nominal reconstruction arises primarily from nonlinear
-connectivity effects on the pre-event baseline: terrain perturbations reduce the connected baseline water (a rebuilt regime of
-{{T11d|variant=terrain_only,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.0f}} km² against
-{{T11d|variant=baseline_fixed,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.0f}} km² at the nominal) more strongly than the peak-event total water,
+connectivity effects on the pre-event baseline: terrain perturbations reduce the connected baseline water (with the terrain alone perturbed, a rebuilt regime of
+{{T11d|variant=terrain_only,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.1f}} km² against
+{{T11d|variant=baseline_fixed,region=DNIPRO_CORRIDOR,date=2023-06-07|baseline_p50_km2||.1f}} km² at the nominal) more strongly than the peak-event total water,
 and the cells so released, deep under water at the flood stage, count as new and add depth (Darnell et al. 2008; Hawker et al.
 2018). Connectivity is a nonlinear operator of the terrain, so a zero-mean terrain error need not leave the median area at the
 nominal one; the same threshold behaviour appears in the response to a uniform water-surface offset (T11e, FigS13). The daily
@@ -550,7 +557,9 @@ changes nothing (*gz* < *gH* exactly when *z* < *H*), so a separate potential or
 it lacks is dynamics. Flood-fill and bathtub models assume "zero flow resistance and instantaneous water propagation, leading to
 highly non-linear relationships between water surface elevation and inundated flood area" (Dale et al. 2026) — the threshold
 behaviour of FigS13 and of the Monte-Carlo shift (T11d) — and they "may overestimate floods because they do not capture some of
-the relevant underlying hydrodynamic processes that govern flood propagation on land" (Kasmalkar et al. 2024). The withheld
+the relevant underlying hydrodynamic processes that govern flood propagation on land" (Kasmalkar et al. 2024); c-HAND, the
+closest static analogue of our operator, over-predicts the inundated area of a hydrodynamic simulation by about 27 % while
+finding 99 % of its flooded cells (Wang et al. 2024). The withheld
 Inhulets gauge measures this limit directly: while the backwater travelled up the tributary, the reconstructed surface, taken
 from the main stem, stood above the gauge by {{T17d|id=e_abs_rising_max|value||}}; the reconstructed maximum came
 {{T17d|id=peak_lag|value||}} before the observed one; and in the recession the reconstruction drained ahead of the valley
@@ -593,9 +602,10 @@ water) removes a measurable reference-water artefact with no statistically resol
 ## 6. Limitations
 
 A daily reconstructed series, not daily observations: between observation days the values are interpolation and model. A static
-reconstruction: planar water surface per node neighbourhood, no momentum or continuity, no propagation time, friction or
-transient backwater, and no timing of filling and draining — the withheld gauges show where this matters and why a hydraulic
-model is the next step (§5); a residual terrain error of the
+reconstruction: as in other static equilibrium terrain-connectivity approaches (Wang et al. 2024; Dale et al. 2026), it does
+not solve momentum or continuity equations and therefore does not simulate finite propagation time, frictional losses,
+transient storage or backwater dynamics, and its water surface is planar per node neighbourhood — the withheld gauges show where
+this matters and why a hydraulic model is the next step (§5); a residual terrain error of the
 FABDEM DTM under reeds, trees and buildings (under trees a class median of {{T18b|zone=POOLED,wc_class=trees|median||+.1f}} m and an
 NMAD of {{T18b|zone=POOLED,wc_class=trees|NMAD||.1f}} m, T18b) and no stochastic term on the surveyed bed; SWOT nodes on channels
 only, with the gauge cap beyond 15 km, and cells without a node within 3 km taking the nearest node of the day (T11g) — a
