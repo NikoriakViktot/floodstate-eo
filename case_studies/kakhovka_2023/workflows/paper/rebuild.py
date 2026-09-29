@@ -47,6 +47,8 @@ STEPS += [
     ("p95f", 2, ["p95"], "fs", [f"{M6}/p95f_reservoir_balance.py"]),
     ("p95i", 2, ["p95f"], "fs", [f"{M6}/p95i_hypsometry_compare.py"]),
     ("p95h", 2, ["p95f"], "fs", [f"{M6}/p95h_reservoir_maps.py"]),                  # reservoir drawdown maps (FigS08)
+    ("p95m", 2, ["p95f"], "fs", [f"{M6}/p95m_reservoir_depth.py"]),                  # reservoir water depth (Fig10, T21b)
+    ("p95n", 2, ["p95", "p95l"], "fs", [f"{M6}/p95n_flood_depth_summary.py"]),      # flood depth below the dam (T12e)
     ("p95g", 2, ["p95e"], "fs", [f"{M6}/p95g_mc_emulator.py"]),
 ]
 # ---- level 2: weak labels, surface context and the U-Net diagnostics ------------------------------------------------------------

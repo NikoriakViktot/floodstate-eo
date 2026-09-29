@@ -42,10 +42,13 @@ EGG2015-referenced heights; the reconstruction itself is node-based (no chainage
 3 km of the Kherson gauge against the gauge after re-anchoring to the Kherson-local closure of Paper 1. (c) Residuals gauge −
 SWOT (T17).
 
-**Fig07 Event-scale spatial result.** (a) Depth of the reconstructed newly inundated area on 2023-06-08, one day after the
-reconstructed areal maximum and without a full-coverage satellite scene of the corridor (SWOT observed the channel nodes that
-day). (b) Number of days with new inundation between 26 May and 10 July. Connected-ceiling rule, nominal run on the union mosaic;
-rasters derived from FABDEM through the seamless terrain–bed model (not redistributed).
+**Fig07 Event-scale spatial result below the dam.** (a) Maximum depth of the reconstructed new inundation over the event
+(26 May – 10 July; per cell, the largest daily depth), (b) depth on 8 June, one day after the areal maximum and without a
+full-coverage satellite scene of the corridor (SWOT observed the channel nodes that day), (c) number of days with new
+inundation. Depth = the reconstructed water surface minus the seamless terrain–bed model on new-inundation cells
+(connected-ceiling rule, the nominal world on the union mosaic: the geometry of one world, while the areas and volumes quoted as
+results come from the Monte-Carlo ensemble, T12; depth statistics per region in T12e). Rasters derived from FABDEM through the
+seamless terrain–bed model (not redistributed).
 
 **Fig08 ICESat-2 altimetric consistency check.** FABDEM-sourced terrain minus night ICESat-2 ATL08 ground height (median,
 p10–p90) per agreement category of 2023-06-09 (categories inside the Sentinel-1 valid footprint only), as delivered (circles) and
@@ -68,6 +71,14 @@ effective release from the pool Q_in − dV/dt (a storage-balance estimate, not 
 DniproHES inflow Q_in; right axis, volume in km³: the reconstructed new water stored downstream (corridor + Inhulets).
 (d) Hypsometry of the seamless DEM against the design Table 19, which is defined from 10 m BS up and left blank below (T21,
 T22; FigS07 for the relative gap).
+
+**Fig10 Water depth in the Kakhovka reservoir: the full pool and the drawdown.** Depth = the daily sloped water surface of the
+pool (SWOT outlet nodes, Nikopol post and Rozumivka gauge interpolated along the river chainage; p95f) minus the 50 m seamless
+terrain–bed model inside the pre-breach pool polygon: (a) 5 June, the full pool the day before the breach; (b) 7 June; (c)
+9 June; (d) 13 June, when the pool had become a river. Titles give the wet area, the volume (the pool volume of T21) and the
+mean depth (T21b). Terrain-reconstructed, not observed depth; the pool surface sloped by up to 4 m during the drawdown, so a
+level-pool reading of the design curve brackets the same days (T27b). The emptying itself is mapped from the model,
+Sentinel-1 and Sentinel-2 in FigS08.
 
 ## Supplementary figures
 

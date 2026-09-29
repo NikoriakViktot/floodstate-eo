@@ -3,7 +3,7 @@
 Four levels, in increasing cost; the first three with one command each (review 2026-09-28, F16; level 3 is a cross-repository exercise):
 
 ```bash
-python case_studies/kakhovka_2023/workflows/paper/rebuild.py --list          # the DAG: 66 steps, dependencies checked
+python case_studies/kakhovka_2023/workflows/paper/rebuild.py --list          # the DAG: 68 steps, dependencies checked
 python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 0       # tiny open geodomain (seconds, no data)
 python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 1       # publication layer from committed tables
 python case_studies/kakhovka_2023/workflows/paper/rebuild.py --level 2 --dry-run   # the full chain, in order (days)

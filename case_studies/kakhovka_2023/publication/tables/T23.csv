@@ -1,10 +1,4 @@
 date,source,semantics,water_km2,observed_frac,iou_vs_model,model_km2_on_observed,vh_threshold_db,orbits,regime,mapped,yi2025_S1_archive_km2,area_note
-2023-02-10,S2_WATER3,observed_S2,1835.9,0.878,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
-2023-05-06,S2_WATER3,observed_S2,2110.1,0.994,,,,,PRE_BREACH,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
-2023-05-11,S2_WATER3,observed_S2,1142.4,0.539,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
-2023-05-16,S2_WATER3,observed_S2,22.6,0.013,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
-2023-05-18,S2_WATER3,observed_S2,0.0,0.0,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
-2023-05-19,S2_WATER3,observed_S2,349.1,0.161,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-05-26,MODEL,terrain_reconstructed,2136.4,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-05-27,MODEL,terrain_reconstructed,2136.4,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-05-28,MODEL,terrain_reconstructed,2135.9,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
@@ -12,33 +6,35 @@ date,source,semantics,water_km2,observed_frac,iou_vs_model,model_km2_on_observed
 2023-05-30,MODEL,terrain_reconstructed,2136.0,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-05-31,MODEL,terrain_reconstructed,2135.8,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-01,MODEL,terrain_reconstructed,2135.7,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
-2023-06-01,S1,observed_S1,1964.1,0.929,0.984,1978.9,-17.25,orb65_DES,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-02,MODEL,terrain_reconstructed,2135.3,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
-2023-06-02,S1,observed_S1,36.1,0.017,0.986,36.3,-17.75,orb87_ASC,,False,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-03,MODEL,terrain_reconstructed,2135.0,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-04,MODEL,terrain_reconstructed,2116.2,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
-2023-06-04,S1,observed_S1,1495.4,0.714,0.973,1495.7,-17.75,orb116_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-05,MODEL,terrain_reconstructed,2132.1,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
-2023-06-05,S2_WATER3,observed_S2,2106.2,0.994,0.984,2125.0,,,PRE_BREACH,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-06,MODEL,terrain_reconstructed,2091.8,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-07,MODEL,terrain_reconstructed,2053.8,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-08,MODEL,terrain_reconstructed,2012.3,1.0,,,,,,,2089.2,pool water under the p95f sloped surface (whole pool)
-2023-06-08,S1,observed_S1,1704.6,0.791,0.967,1654.2,-19.05,orb167_DES,,True,2089.2,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
-2023-06-08,S2_CROSSCHECK,observed_S2,708.9,0.369,,,,,,,2089.2,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-09,MODEL,terrain_reconstructed,1964.6,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
-2023-06-09,S1,observed_S1,2087.1,1.0,0.928,1963.8,-18.75,orb14_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-10,MODEL,terrain_reconstructed,1915.7,1.0,,,,,,,1848.84,pool water under the p95f sloped surface (whole pool)
 2023-06-11,MODEL,terrain_reconstructed,1871.1,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-12,MODEL,terrain_reconstructed,1829.4,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
 2023-06-13,MODEL,terrain_reconstructed,1820.8,1.0,,,,,,,,pool water under the p95f sloped surface (whole pool)
+2023-06-01,S1,observed_S1,1964.1,0.929,0.984,1978.9,-17.25,orb65_DES,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
+2023-06-02,S1,observed_S1,36.1,0.017,0.986,36.3,-17.75,orb87_ASC,,False,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
+2023-06-04,S1,observed_S1,1495.4,0.714,0.973,1495.7,-17.75,orb116_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
+2023-06-08,S1,observed_S1,1704.6,0.791,0.967,1654.2,-19.05,orb167_DES,,True,2089.2,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
+2023-06-09,S1,observed_S1,2087.1,1.0,0.928,1963.8,-18.75,orb14_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-13,S1,observed_S1,1937.5,0.929,0.851,1680.9,-16.95,orb65_DES,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
-2023-06-13,S2_CROSSCHECK,observed_S2,287.8,0.171,,,,,,,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-14,S1,observed_S1,35.8,0.017,,,-17.45,orb87_ASC,,False,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
-2023-06-15,S2_CROSSCHECK,observed_S2,140.2,0.077,,,,,,,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-16,S1,observed_S1,1487.0,0.714,,,-17.05,orb116_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
 2023-06-20,S1,observed_S1,1702.4,0.791,,,-18.15,orb167_DES,,True,824.76,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
-2023-06-20,S2_CROSSCHECK,observed_S2,647.6,1.0,,,,,,,824.76,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-21,S1,observed_S1,2077.2,1.0,,,-18.15,orb14_ASC,,True,,"VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"
+2023-02-10,S2_WATER3,observed_S2,1835.9,0.878,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-05-06,S2_WATER3,observed_S2,2110.1,0.994,,,,,PRE_BREACH,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-05-11,S2_WATER3,observed_S2,1142.4,0.539,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-05-16,S2_WATER3,observed_S2,22.6,0.013,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-05-18,S2_WATER3,observed_S2,0.0,0.0,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-05-19,S2_WATER3,observed_S2,349.1,0.161,,,,,PRE_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-06-05,S2_WATER3,observed_S2,2106.2,0.994,0.984,2125.0,,,PRE_BREACH,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-06-30,S2_WATER3,observed_S2,73.8,0.07,,,,,BREACH_DRAWDOWN,False,369.42,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-07-05,S2_WATER3,observed_S2,720.9,0.932,,,,,BREACH_DRAWDOWN,True,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-07-25,S2_WATER3,observed_S2,0.0,0.0,,,,,BREACH_DRAWDOWN,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
@@ -52,3 +48,7 @@ date,source,semantics,water_km2,observed_frac,iou_vs_model,model_km2_on_observed
 2023-09-28,S2_WATER3,observed_S2,115.3,0.543,,,,,POST_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-10-03,S2_WATER3,observed_S2,22.7,0.546,,,,,POST_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
 2023-11-07,S2_WATER3,observed_S2,138.5,0.545,,,,,POST_BREACH,False,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-06-08,S2_CROSSCHECK,observed_S2,708.9,0.369,,,,,,,2089.2,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-06-13,S2_CROSSCHECK,observed_S2,287.8,0.171,,,,,,,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-06-15,S2_CROSSCHECK,observed_S2,140.2,0.077,,,,,,,,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"
+2023-06-20,S2_CROSSCHECK,observed_S2,647.6,1.0,,,,,,,824.76,"S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only"

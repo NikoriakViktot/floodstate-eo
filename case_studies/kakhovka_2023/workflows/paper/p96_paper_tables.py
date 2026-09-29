@@ -401,6 +401,16 @@ def t12b_daily_series():
         put("T12c", pd.read_csv(pk), "Day of the reconstructed areal maximum across the Monte-Carlo worlds: for A_new and W_total per region, the share of draws with the maximum on each day, and the day of the nominal run. A distribution conditional on the uncertainty model, not a probability of the true day.", [pk], "independent_physical")
 
 
+def t_depth():
+    """Decision D-DEPTH: depth of the reconstructed new inundation below the dam (T12e) and water depth in the pool (T21b)."""
+    q = T / "p95n_flood_depth_summary.csv"
+    if q.exists():
+        put("T12e", pd.read_csv(q), "Depth of the terrain-reconstructed new inundation below the dam (water surface minus the seamless terrain-bed model; connected_ceiling, the nominal world -- its geometry, while areas and volumes as results come from the ensemble, T12): per accounting region, the maximum depth over 26 May - 10 July per cell and the depth on 8 June -- area, mean / median / p90 / p95 / maximum depth, the share of cells deeper than 1, 2 and 4 m, and on 8 June the volume. Maps in Fig07.", [q], "independent_physical")
+    r = T / "p95m_reservoir_depth.csv"
+    if r.exists():
+        put("T21b", pd.read_csv(r), "Water depth in the Kakhovka pool from the p95f model (daily sloped surface over the 50 m seamless terrain-bed model, the wet mask of p95h / FigS08): the full pool on 5 June and the drawdown on 7, 9 and 13 June -- wet area, volume (reproduces T21 to 1e-3 km3), mean / median / p95 / maximum depth, the share deeper than 5 m and the surface at the outlet and upstream. Terrain-reconstructed, not observed depth; maps in Fig10.", [r], "contextual")
+
+
 def t21_reservoir():
     p = T / "p95f_reservoir_daily.csv"; h = T / "p95f_hypsometry_dem.csv"
     if not p.exists():
@@ -621,7 +631,7 @@ def readme():
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t27_capacity_curves,
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
               t23_t26_reservoir_maps):
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

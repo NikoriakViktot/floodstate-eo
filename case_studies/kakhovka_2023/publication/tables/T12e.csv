@@ -1,0 +1,7 @@
+quantity,region,area_km2,volume_km3,depth_mean_m,depth_median_m,depth_p90_m,depth_p95_m,depth_max_m,share_gt_1m,share_gt_2m,share_gt_4m,semantics
+depth_2023-06-08,DNIPRO_CORRIDOR,239.0,0.486,2.03,1.64,4.03,6.21,9.73,0.686,0.404,0.101,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+depth_2023-06-08,INHULETS_VALLEY_rect,45.4,0.158,3.48,3.53,5.46,6.07,10.4,0.916,0.815,0.389,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+depth_2023-06-08,P42_FLOODPLAIN_DOMAIN,159.4,0.396,2.49,2.09,5.1,6.98,9.73,0.817,0.529,0.146,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,DNIPRO_CORRIDOR,289.3,,2.38,2.05,4.29,6.05,11.01,0.796,0.519,0.12,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,INHULETS_VALLEY_rect,49.5,,4.32,4.59,6.23,6.78,11.19,0.932,0.859,0.629,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,P42_FLOODPLAIN_DOMAIN,170.6,,2.97,2.61,5.47,7.56,11.01,0.9,0.668,0.185,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"

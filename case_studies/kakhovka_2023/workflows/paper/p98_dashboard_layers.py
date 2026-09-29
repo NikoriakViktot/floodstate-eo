@@ -258,6 +258,20 @@ def reservoir_layers():
     put(c, etr, "exposed_day.png", {1: "#7d1d1d", 2: "#c7522a", 3: "#e08214", 4: "#eda100", 5: "#f2d98a", 6: "#1b6ca8"},
         {"1": "exposed 06-06", "2": "exposed 06-07", "3": "exposed 06-08", "4": "exposed 06-09–10", "5": "exposed 06-11–13", "6": "still wet on 06-13"},
         "reservoir_exposed_day", "reservoir_model", src, "day on which a cell wet on 06-05 first falls dry under the modelled surface")
+    # ---- water depth in the pool (p95m, decision D-DEPTH): classed, the full pool and the drawdown ----
+    dsrc = "p95m: p95f sloped daily surface minus the 50 m seamless terrain-bed model, wet pool cells (terrain-reconstructed; Fig10)"
+    dbins = [(0.0, 2.0), (2.0, 5.0), (5.0, 10.0), (10.0, 15.0), (15.0, 99.0)]; dleg = {"1": "< 2 m", "2": "2–5 m", "3": "5–10 m", "4": "10–15 m", "5": "> 15 m"}
+    dpal = {1: "#dbe9f8", 2: "#9cc0ea", 3: "#5a93da", 4: "#2a78d6", 5: "#0b2a5c"}
+    for d in ("2023-06-05", "2023-06-07", "2023-06-09", "2023-06-13"):
+        f = RM / "model" / f"depth_{d}.tif"
+        if not f.exists():
+            continue
+        with rasterio.open(f) as g:
+            a = g.read(1); dtr = g.transform
+        c = np.zeros(a.shape, "u1")
+        for k, (lo, hi) in enumerate(dbins, 1):
+            c[(a > lo) & (a <= hi)] = k
+        put(c, dtr, f"model/depth_{d}.png", dpal, dleg, f"reservoir_depth_{d}", "reservoir_model", dsrc, "water depth in the pool (m); terrain-reconstructed, not observed")
     # ---- S1 ----
     T = pd.read_csv(CFG.TABLES / "p95h_reservoir_maps.csv"); s1d = T[(T.source == "S1") & (T.mapped == True)].date.tolist()   # noqa: E712
     src = "p95h S1: VH dB < per-date Otsu (all covered cells), 20 m, s1_zone_cache/ZONE_1_reservoir_corrected"

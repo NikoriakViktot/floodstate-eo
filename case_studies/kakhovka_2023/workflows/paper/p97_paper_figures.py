@@ -311,20 +311,50 @@ def fig06():
 
 # ---- Fig07 -----------------------------------------------------------------------------------------------------------
 def fig07():
-    dep, dur = {}, {}
+    """Event-scale spatial result below the dam (nominal world of the primary rule): (a) the maximum depth of new inundation over
+    the event (decision D-DEPTH), (b) depth on 8 June (no full-coverage scene of the corridor), (c) duration."""
+    mx, dep, dur = {}, {}, {}
     for z in ZONES:
-        a, G = read_zone(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "depth_2023-06-08_m.tif"); dep[z] = (a, G)
-        b, G2 = read_zone(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "duration_days.tif"); dur[z] = (b, G2)
-    D, ext = zone_mosaic(dep, np.float32(np.nan)); U, _ = zone_mosaic(dur, np.float32(0))
-    fig, axs = plt.subplots(2, 1, figsize=(7.2, 8.0), constrained_layout=True)
-    a = axs[0]; im = a.imshow(D[::2, ::2], cmap=FS.SEQ_DEPTH, vmin=0, vmax=6, extent=ext, interpolation="nearest", rasterized=True)
-    furniture(a, [ext[0], min(ext[1], 540), 5136, ext[3]], 10); fig.colorbar(im, ax=a, shrink=0.6, pad=0.01).set_label("depth of new inundation, m (2023-06-08)", fontsize=6.5); FS.panel_label(a, "a")
-    a.set_title("Terrain-reconstructed new inundation on 2023-06-08 (no full-coverage scene of the corridor): depth above ground", fontsize=8, loc="left")
-    b = axs[1]; im2 = b.imshow(np.ma.masked_where(U[::2, ::2] == 0, U[::2, ::2]), cmap=FS.SEQ_DAYS, vmin=1, vmax=20, extent=ext, interpolation="nearest", rasterized=True)
-    furniture(b, [ext[0], min(ext[1], 540), 5136, ext[3]], 10); fig.colorbar(im2, ax=b, shrink=0.6, pad=0.01).set_label("days with new inundation (26 May – 10 Jul)", fontsize=6.5); FS.panel_label(b, "b")
-    b.set_title("Duration of terrain-reconstructed new inundation", fontsize=8, loc="left")
+        d = BULK / "floodplain_dyn" / f"{z}_connected_ceiling"
+        mx[z] = read_zone(d / "max_depth_m.tif"); dep[z] = read_zone(d / "depth_2023-06-08_m.tif"); dur[z] = read_zone(d / "duration_days.tif")
+    X, ext = zone_mosaic(mx, np.float32(np.nan)); D, _ = zone_mosaic(dep, np.float32(np.nan)); U, _ = zone_mosaic(dur, np.float32(0))
+    X[~(X > 0)] = np.nan; D[~(D > 0)] = np.nan
+    fig, axs = plt.subplots(3, 1, figsize=(7.2, 11.6), constrained_layout=True); box = [ext[0], min(ext[1], 540), 5136, ext[3]]
+    for k, (ax, A, lab, title) in enumerate(((axs[0], X, "maximum depth of new inundation, m (26 May – 10 Jul)", "Maximum depth of new inundation over the event (26 May – 10 Jul)"),
+                                             (axs[1], D, "depth of new inundation, m (2023-06-08)", "Depth of new inundation on 8 June (no full-coverage scene of the corridor)"))):
+        im = ax.imshow(A[::2, ::2], cmap=FS.SEQ_DEPTH, vmin=0, vmax=6, extent=ext, interpolation="nearest", rasterized=True)
+        furniture(ax, box, 10); cb = fig.colorbar(im, ax=ax, shrink=0.6, pad=0.01, extend="max"); cb.set_label(lab, fontsize=6.5); FS.panel_label(ax, "ab"[k])
+        ax.set_title(title, fontsize=8, loc="left")
+    c = axs[2]; im2 = c.imshow(np.ma.masked_where(U[::2, ::2] == 0, U[::2, ::2]), cmap=FS.SEQ_DAYS, vmin=1, vmax=20, extent=ext, interpolation="nearest", rasterized=True)
+    furniture(c, box, 10); fig.colorbar(im2, ax=c, shrink=0.6, pad=0.01).set_label("days with new inundation (26 May – 10 Jul)", fontsize=6.5); FS.panel_label(c, "c")
+    c.set_title("Duration of terrain-reconstructed new inundation", fontsize=8, loc="left")
     FS.save(fig, "Fig07_event_scale_reconstruction", FIG)
 
+
+def fig10():
+    """Water depth in the Kakhovka pool (decision D-DEPTH): the full pool on 5 June and the drawdown on 7, 9 and 13 June (p95m:
+    the p95f sloped surface minus the 50 m seamless terrain-bed model; the same model as the pool volume of T21)."""
+    S = pd.read_csv(T / "p95m_reservoir_depth.csv").set_index("date")
+    fig, axs = plt.subplots(2, 2, figsize=(7.2, 6.4), constrained_layout=True)
+    pool = CFG.load_utm("reservoir_full_pool_prebreach")
+    for ax, d, lab in zip(axs.ravel(), ("2023-06-05", "2023-06-07", "2023-06-09", "2023-06-13"), "abcd"):
+        A, G = read_zone(BULK / "reservoir_maps" / "model" / f"depth_{d}.tif"); tr = G["transform"]
+        ext = [tr.c / 1e3, (tr.c + tr.a * G["nx"]) / 1e3, (tr.f + tr.e * G["ny"]) / 1e3, tr.f / 1e3]
+        im = ax.imshow(A, cmap=FS.SEQ_DEPTH, vmin=0, vmax=20, extent=ext, interpolation="nearest", rasterized=True)
+        xy = np.asarray(pool.exterior.coords) / 1e3 if hasattr(pool, "exterior") else None
+        if xy is not None:
+            ax.plot(xy[:, 0], xy[:, 1], color=FS.PALETTE["ink2"], lw=0.4)
+        else:
+            for g in pool.geoms:
+                q = np.asarray(g.exterior.coords) / 1e3; ax.plot(q[:, 0], q[:, 1], color=FS.PALETTE["ink2"], lw=0.4)
+        r = S.loc[d]; x0, y0, x1, y1 = (np.asarray(pool.bounds) / 1e3) + np.array([-4, -4, 4, 4])     # crop to the pool
+        ax.set_xlim(x0, x1); ax.set_ylim(y0, y1)
+        ax.set_title(f"{d}{' — full pool, before the breach' if d == '2023-06-05' else ''}\nwet {r.wet_km2:,.0f} km² · {r.volume_km3:.1f} km³ · mean depth {r.depth_mean_m:.1f} m",
+                     fontsize=7, loc="left")
+        ax.set_aspect("equal"); ax.tick_params(labelsize=6); ax.set_xlabel("easting, km (UTM 36N)", fontsize=6.5); ax.set_ylabel("northing, km", fontsize=6.5); FS.panel_label(ax, lab)
+    fig.colorbar(im, ax=axs, shrink=0.55, pad=0.01, extend="max").set_label("water depth in the pool, m (terrain-reconstructed)", fontsize=7)
+    fig.suptitle("Kakhovka reservoir water depth: the full pool and the drawdown (daily sloped surface over the seamless terrain–bed model)", fontsize=8)
+    FS.save(fig, "Fig10_reservoir_depth", FIG)
 
 # ---- Fig08 -----------------------------------------------------------------------------------------------------------
 def fig08():
@@ -826,7 +856,7 @@ def figS15():
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
        "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False),
-       "FigS14": (figS14, True), "FigS15": (figS15, False)}
+       "FigS14": (figS14, True), "FigS15": (figS15, False), "Fig10": (fig10, True)}
 
 
 def main():
