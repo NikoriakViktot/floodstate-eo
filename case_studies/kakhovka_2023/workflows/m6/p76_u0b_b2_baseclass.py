@@ -2,6 +2,8 @@
 # migration_date=2026-09-23. M6 recovery (not in the Phase-5 manifest; removed from SWOT-DNIPRO by 9419ea3).
 # STATUS: CONTAMINATED -- U0b = U0 + BASE_CLASS; BASE_CLASS is an ingredient of the v001 label (p69b = BASE_CLASS x M2): CONTAMINATED_BY_LABEL_CONSTRUCTION. Kept for forensic reproducibility only; must not be re-run as an ablation.
 # Import/path block only: swot_dnipro -> floodstate_eo; ROOT -> case_studies/kakhovka_2023. Logic unchanged.
+# 2026-09-29 (review 2026-09-28, F19): ARCHIVE-ONLY -- main() refuses to run (not a training entry point); the undefined name
+# `lk` of the source (ruff F821, never defined at f3e3e1a) is written as None in the config dump; unused `sys` import removed.
 """P76 -- U0b: does pre-event semantic context recover the agricultural flood that U0 misses?
 
 CONTROLLED ABLATION, NOT A NEW MODEL. U0b is U0 plus one thing: the pre-event surface class (p69a BASE_CLASS) as a
@@ -32,7 +34,7 @@ Outputs: runs/U0b_B2/{config.json,split_check.json,normalization.json,training_h
          paired_endpoint.csv,disputed_score_stats.csv,model_best.pt,model_last.pt}
 """
 from __future__ import annotations
-import argparse, json, os, sys, time
+import argparse, json, os, time
 from pathlib import Path
 ROOT = Path(__file__).resolve().parents[2]    # case_studies/kakhovka_2023 -- runs/ live here, as they did at the source repo root
 os.environ.setdefault("GDAL_CACHEMAX", "256")
@@ -84,6 +86,8 @@ def metrics(yt, pr):
 
 
 def main():
+    raise SystemExit("p76 is ARCHIVE-ONLY (CONTAMINATED_BY_LABEL_CONSTRUCTION; review 2026-09-28 F19): read it for the forensic record "
+                     "of runs/U0b_B2; it is not a training entry point and is not part of the evidence of the paper")
     ap = argparse.ArgumentParser(); ap.add_argument("--epochs", type=int, default=60)
     ap.add_argument("--batch", type=int, default=6); ap.add_argument("--lr", type=float, default=3e-4)
     a = ap.parse_args()
@@ -376,7 +380,7 @@ def main():
     json.dump(dict(model="U0b", inputs=f"p71 orbit-safe S1 ({NS1} ch) + p69a BASE_CLASS one-hot ({NB} ch)",
                    ablation_of="U0 (p75) -- identical seed, split, patches, loss, schedule and threshold rule",
                    primary_endpoint="dR_VEG_AGRI controlling dP_VEG_AGRI and dR_WETLAND",
-                   verdict=verdict, leakage_control_F1=lk["F1"],
+                   verdict=verdict, leakage_control_F1=None,           # `lk` was never defined in the source (review F19)
                    epochs=a.epochs, batch=a.batch, lr=a.lr, seed=SEED,
                    disputed_policy="IGNORE in loss, threshold, early stopping and tuning"),
               open(RUN / "config.json", "w"), indent=2)
