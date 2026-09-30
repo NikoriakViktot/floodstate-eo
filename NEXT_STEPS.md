@@ -417,6 +417,23 @@ Branch `review-2026-09-28-stage2` (from the frozen Stage 1, 7795cad; code 214bf9
   the text); v004 labels and RF20 rev 2 are FROZEN (both clean-tree gates bitwise); the with-TRACE comparison CV (T02c row of
   the original model); then Stage 3 (F13-F19 + the text pass). No merge / push without the maintainer.
 
+### 2026-09-29/30 -- Stage 3 (F13-F19), the text pass, the drawdown maps and the alignment with Paper 1 v6
+Branch `review-2026-09-28-stage3` (commits 7bcc4ae .. c146db5 for F13-F19 and D-DEPTH; this pass on top). Ledger section "The text
+pass, the drawdown maps and the alignment with Paper 1 v6" in `docs/CODE_REVIEW_ACTIONS_2026-09-29.md`; record of the checks in
+`case_studies/kakhovka_2023/publication/VALIDATION_2026-09-30_stage3.md`.
+- F13-F19 done (bounded hypsometry, weekly balance, figure/caption quantities, rebuild DAG + tiny geodomain + input manifest + lock,
+  one version 0.3.0rc2 + link check, p71 orbit count, p76 guard) and D-DEPTH (Fig07a maximum depth, Fig10 reservoir depth).
+- The manuscript rewritten in one pass (four result blocks; decided wordings; C13 narrowed); T28 = what changed after the audit;
+  TERMINOLOGY: *observation-constrained terrain-connectivity reconstruction*; claims C06-C14 restated.
+- Drawdown maps (maintainer: "no drawdown on the maps"): main-text Fig11 now from Sentinel-2 (water by date, the day the bed fell dry,
+  bed classes, area over time); the first week lowered the pool in depth (Sentinel-2 confirms the model, IoU 0.85-0.90), the area
+  collapsed by 20 June; the Nikopol censored bound and G-REALM fixed in p95f.
+- D-PAPER1 (maintainer 2026-09-30): Paper 3 matches Paper 1 v6 and does not repeat the vertical validation. Kherson gauge +0.2076 m
+  (was +0.22), pool outlet in the production chain (+0.073 m; reproduces 17.61 -> 5.71 m), FABDEM and ICESat-2 ground +0.038 m
+  (Paper 2's chain; note for SWOT-DNIPRO). Reconstruction rev 7, full physical chain recomputed with 1000 worlds.
+- NEXT: the maintainer's review (the U1 sentence of C10; Paper 2's chain at the source); then merge -> main -> push -> tag
+  (v0.3.0-rc2 or the maintainer's name) -> Streamlit redeploy -> Zenodo DOI. No merge / push / tag without the maintainer.
+
 ### DECISION D3 (maintainer, 2026-09-25) -- m6_labels_v003_A is FROZEN
 - **Frozen product:** `$BULK_ROOT/frames10/{B1,B2}/m6_labels_v003_A.tif` (ontology 0 LAND / 1 EVENT_FLOOD / 2 REFERENCE_WATER /
   255 UNKNOWN + 10 evidence bands), built by p77d rev 2 variant A. Record: `tables/m6_labels_v003_A_FROZEN.json` (p77e:

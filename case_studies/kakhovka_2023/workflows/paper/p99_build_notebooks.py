@@ -36,7 +36,7 @@ RULES = ("**Reading rules.** Every model number is *agreement with weak referenc
 
 def nb01():
     c = []
-    c.append(nbf.v4.new_markdown_cell("# 01 · Observation-constrained terrain inundation reconstruction (daily reconstructed series) and its checks\n\nPaper 3 of the Kakhovka series. This notebook reads committed tables only.\n\n" + RULES))
+    c.append(nbf.v4.new_markdown_cell("# 01 · Observation-constrained terrain-connectivity reconstruction (daily reconstructed series) and its checks\n\nPaper 3 of the Kakhovka series. This notebook reads committed tables only.\n\n" + RULES))
     c.append(nbf.v4.new_code_cell(HEAD))
     c.append(nbf.v4.new_markdown_cell("## 1. The water surface\nSWOT node heights (EGG2015-referenced, gauge-anchored with the Kherson-local closure of Paper 1) and the Kherson gauge; node-based interpolation (no chainage)."))
     c.append(nbf.v4.new_code_cell("show('T11')"))
@@ -91,14 +91,15 @@ def nb02():
 
 def nb03():
     c = [nbf.v4.new_markdown_cell("# 03 · What EO inputs recover under weak labels: the U-Net arm experiments\n\nControlled experiments on flood-state representation under weak, sensor-dependent supervision. U2b (+W_pre) is a diagnostic upper bound: W_pre is also a label ingredient.\n\n" + RULES),
-         nbf.v4.new_code_cell(HEAD), nbf.v4.new_markdown_cell("## 1. Labels v002 and v003_A (frozen)"), nbf.v4.new_code_cell("show('T02'); show('T02b')"),
+         nbf.v4.new_code_cell(HEAD), nbf.v4.new_markdown_cell("## 1. Labels: v004 is the canonical weak-label ontology (v002 / v003_A are provenance) and the optical component behind them"), nbf.v4.new_code_cell("show('T02'); show('T02c'); show('T02d')"),
          nbf.v4.new_markdown_cell("## 2. The frozen spatial-block split and its rationale"), nbf.v4.new_code_cell("show('T03'); show('T03b')"),
          nbf.v4.new_markdown_cell("## 3. Arms"), nbf.v4.new_code_cell("show('T04')"), nbf.v4.new_code_cell("fig('FigS01')"),
          nbf.v4.new_markdown_cell("## 4. D1 endpoints with spatial-block bootstrap intervals"),
          nbf.v4.new_code_cell("e = show('T05'); e[e.endpoint.isin(['G_F1','G_IoU','G_PR_AUC','A_FP_area_dry_cropland_km2','A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2','B_recall_flooded_open_low_veg','W_IoU','BU_FP_area_km2'])].pivot_table(index=['arm','labels'], columns='endpoint', values='value')"),
          nbf.v4.new_markdown_cell("## 5. Paired comparisons (identical blocks)"), nbf.v4.new_code_cell("p = show('T06'); p[p.endpoint.isin(['A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2','B_recall_flooded_open_low_veg','G_F1','BU_FP_area_km2'])]"),
-         nbf.v4.new_code_cell("show('T07b')"), nbf.v4.new_code_cell("fig('Fig03')"),
-         nbf.v4.new_markdown_cell("## 6. Cropland-associated SAR candidates (audit)\nWording rule: none of the audited candidates showed positive evidence consistent with breach-induced inundation under the available SAR, optical and terrain constraints."),
+         nbf.v4.new_code_cell("show('T07b')"), nbf.v4.new_markdown_cell("## 5b. Three training seeds are the minimum evidence unit (D-SEEDS): every comparison per seed"),
+         nbf.v4.new_code_cell("show('T05s'); show('T06s'); show('T07s')"), nbf.v4.new_code_cell("fig('Fig03')"),
+         nbf.v4.new_markdown_cell("## 6. Cropland-associated SAR candidates (audit of the historical v002 arms; provenance)\nWording rule: none of the audited candidates showed positive evidence consistent with breach-induced inundation under the available SAR, optical and terrain constraints."),
          nbf.v4.new_code_cell("show('T08'); show('T08b')"), nbf.v4.new_markdown_cell("## 7. Block-size sensitivity"), nbf.v4.new_code_cell("show('T20'); fig('FigS05')")]
     return c
 
@@ -106,7 +107,7 @@ def nb03():
 NARRATIVE = [
     ("Scientific question", "Can the daily inundation after the Kakhovka dam breach be reconstructed from the observed water-surface geometry constrained on the terrain (an observation-constrained terrain reconstruction, not a hydrodynamic model), checked against independent observations, and what do EO-based flood products recover of it under weak labels? See `publication/claims.md` (C01–C14) and `publication/TERMINOLOGY.md`.", "framed 2026-09-25; the evidence hierarchy is observation-constrained terrain reconstruction → cross-sensor checks → surface context → ML under weak labels"),
     ("Study area", "Lower Dnipro from the Kakhovka dam to the Dnipro–Buh liman: frames B1 (dam → Kherson) and B2 (Kherson delta) on one 10 m lattice; the Inhulets valley is reported separately (Fig01).", "implemented"),
-    ("Dam-breach context", "Breach on 2023-06-06; Kherson stage 0.5 → 5.78 m on 06-08 (peak stage), back to the pre-breach regime by ~22 June (Fig06b, T17b); the reconstructed areal maximum falls on 06-07, between the S1 acquisitions — peak stage and peak area are different quantities. Water-surface geometry and the vertical frame are Paper 1.", "implemented (Paper 1)"),
+    ("Dam-breach context", "Breach on 2023-06-06; Kherson stage from ~0.5 m to its peak on 06-08 (T12, T17b), back to the pre-breach regime by ~22 June (Fig06b, T17b); the reconstructed areal maximum falls on 06-07, between the S1 acquisitions — peak stage and peak area are different quantities. Water-surface geometry and the vertical frame are Paper 1.", "implemented (Paper 1)"),
     ("Why binary water mapping is insufficient", "On 2023-06-09 the terrain reconstruction and the S1 dark-water rule disagree on ~200 km²: forest, reeds and buildings hide water from SAR, reed beds below the normal surface show a depth signal, and dark fields far above the surface are S1-only detections topographically unsupported by the reconstructed water surface (T14, Fig05, Fig08).", "measured, not modelled"),
     ("Frames B1/B2/B3", "B1 and B2 built; B3 (delta with the liman) is NOT built. The estuary S1 series exists on its own grid (T19).", "partial: B3 missing"),
     ("Input datasets", "T01 lists every dataset with its role and evidence level; manifests under `manifests/`.", "implemented"),
@@ -117,16 +118,16 @@ NARRATIVE = [
     ("Observation coverage", "Coverage is reported per date relative to the S1 observable domain; orbit-138 dates cover 62 %. Not observed is not dry (T19, T01).", "implemented"),
     ("Spectral indices", "Seven indices per date (p54a); the water rule is NDWI > 0 ∧ MNDWI > 0.", "implemented"),
     ("Surface-state classification", "RF20 replaces BASE_CLASS as the strata product: per-class F1 vs WorldCover (agreement), transfers B1↔B2 (T09).", "implemented, frozen"),
-    ("Flood-state classification", "Ontology LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN (labels v003_A, frozen D3) trained as U-Net arms; a canonical multi-class FLOOD_STATE product still does not exist.", "implemented as experiments; product not canonical"),
+    ("Flood-state classification", "Ontology LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN (labels v004, canonical; v002 / v003_A provenance) trained as U-Net arms with three seeds each; a canonical multi-class FLOOD_STATE product still does not exist.", "implemented as experiments; product not canonical"),
     ("S1/S2 evidence", "S1 per date vs terrain (T13); S2 reliable dates only (T19).", "implemented"),
     ("Urban flood", "Built-up appears as a terrain-only category (SAR blind spot, T14) and as the BU false-positive endpoint of the arms (T05); no dedicated urban product.", "measured as endpoints"),
     ("Flooded vegetation", "Reed beds: S1 dark-water onset where the ground is below the normal surface is a submergence (depth) signal, not inundation onset (T14, C category, normally-wet flag).", "measured, not modelled"),
-    ("Wet sand / bare soil", "S1 new water ≥ 5 m above the surface (54 km² on 06-09) is topographically inconsistent with the reconstructed connected water surface; along the ICESat-2 tracks that sample it the DEM agrees with the altimetry within a few decimetres, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain it (T15, Fig08). Supports, does not prove; alternatives (radar shadow, smooth surfaces, local ponding, timing) not individually tested.", "evidence in tables"),
-    ("M0–M5", "Not defined. The arm ladder U0d → U0z → U1 → U2 → U2b on v002 / v003_A is the experiment matrix (T04–T07).", "not defined"),
+    ("Wet sand / bare soil", "S1 new water ≥ 5 m above the surface (T14) is topographically inconsistent with the reconstructed connected water surface; along the ICESat-2 tracks that sample it the DEM agrees with the altimetry within a few decimetres, so the available ICESat-2 observations give no evidence for a DEM bias large enough to explain it (T15, Fig08). Supports, does not prove; alternatives (radar shadow, smooth surfaces, local ponding, timing) not individually tested.", "evidence in tables"),
+    ("M0–M5", "Not defined. The arm ladder U0d → U1 → U2 → U2b on v004 with three training seeds (U2 on v002_notrace for the label effect) is the experiment matrix (T04–T07s).", "not defined"),
     ("Spatial CV", "Frozen 10 km spatial-block split with 640 m buffers and paired block bootstrap; block-size sensitivity 7.5 / 15 / 20 km (T03, T20).", "implemented"),
     ("Leave-one-zone-out", "For RF20 the frame transfers B1→B2 and B2→B1 (T09); the legacy p51 LOZO is not migrated.", "implemented for RF20"),
     ("Uncertainty", "Terrain: PRIMARY interval = the coherent Monte-Carlo worlds of p95e rev 2 (T11b, T11c convergence, T11d ablation, T12); the 100 000-draw emulator is a computational diagnostic outside the evidence path (T12d); the support of the new area is classified in T11k (supported core <= 10 km); volumes always carry p05–p95. Arms: block-bootstrap intervals. No per-cell uncertainty product.", "partial"),
-    ("Final products and maps", "Fig03 (U-Net), Fig04 (dynamics), Fig05 (disagreement), Fig07 (peak-day depth and duration); rasters under $BULK_ROOT/floodplain_dyn are not redistributed (FABDEM licence).", "figures committed"),
+    ("Final products and maps", "Fig03 (U-Net), Fig04 (dynamics), Fig05 (disagreement), Fig07 (maximum depth over the event, 8 June depth, duration), Fig10 (reservoir depth), Fig11 (the emptying of the reservoir from Sentinel-2); rasters under $BULK_ROOT/floodplain_dyn are not redistributed (FABDEM licence).", "figures committed"),
     ("Limitations", "Planar water surface per node neighbourhood, no timing; residual terrain error under reeds, forest and buildings (FABDEM DTM, T18b); bed cells without a stochastic terrain term; SWOT nodes on channels only; no scene at the peak; weak labels; W_pre circularity; B3 missing; no probability-sample reference for areas.", "stated"),
     ("Conclusions", "See `publication/claims.md` — the claims register is the source of every statement. Next step (separate paper, Paper 4): the reservoir bowl reconstructed on the historical bathymetry, resolving the DEM-vs-design hypsometry gap; Paper 5: HEC-RAS calibrated on these daily surfaces.", "draft")]
 

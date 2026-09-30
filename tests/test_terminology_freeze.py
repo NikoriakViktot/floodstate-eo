@@ -8,7 +8,7 @@ from pathlib import Path
 
 ROOT = Path(__file__).resolve().parents[1]
 CS = ROOT / "case_studies" / "kakhovka_2023"
-FORBIDDEN = ["physical reconstruction", "false SAR water", "false radar water", "peak breach discharge", "breach discharge was", "breach discharge of", "peak breach outflow",
+FORBIDDEN = ["physical reconstruction", "better ground truth", "false SAR water", "false radar water", "peak breach discharge", "breach discharge was", "breach discharge of", "peak breach outflow",
              "implied breach outflow", "passed to the liman", "went to the liman", "without loss of recall",
              "without a detectable loss", "without a detectable recall loss", "daily observed", "flooded area = "]
 FILES = [CS / "publication" / "manuscript_template.md", CS / "publication" / "manuscript.md", CS / "publication" / "captions.md",

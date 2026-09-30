@@ -31,10 +31,18 @@ STEPS = [("tiny_geodomain", 0, [], "fs", ["examples/tiny_geodomain/run.py", "--d
 STEPS += [
     ("p73_rev2", 2, [], "fs", [f"{M6}/p73_rf20_surface.py", "--rev", "2", "--jobs", "16"]),        # RF20: independent context, first
     ("p73q_rev2", 2, ["p73_rev2"], "fs", [f"{M6}/p73q_surface_qa.py", "--rev", "2"]),
+    ("p59k", 2, [], "fs", [f"{M6}/p59k_kherson_frame.py"]),                          # the Kherson gauge in Paper 1's frame (v6)
     ("p95j", 2, [], "swot", [f"{M6}/p95j_terrain_variogram.py"]),
-    ("p95", 2, ["p95j"], "fs", [f"{M6}/p95_hand_daily_inundation.py", "--rule", "connected_ceiling", "--seam-check"]),
-    ("p95_sensitivities", 2, ["p95"], "fs", [f"{M6}/p95_hand_daily_inundation.py", "--rule", "ceiling_only", "--no-rasters"]),
+    ("p95", 2, ["p59k", "p95j"], "fs", [f"{M6}/p95_hand_daily_inundation.py", "--rule", "connected_ceiling", "--seam-check"]),
     ("p95k", 2, ["p95"], "fs", [f"{M6}/p95k_inhulets_gauge_check.py"]),
+]
+_P95 = f"{M6}/p95_hand_daily_inundation.py"
+STEPS += [(f"p95_{k}", 2, ["p95"] + (["p95k"] if k == "inhulets_gauge_node" else []), "fs", [_P95, *args, "--no-rasters"]) for k, args in (   # structural sensitivities (T12, FigS02)
+    ("hand_and_ceiling", ["--rule", "hand_and_ceiling"]), ("ceiling_only", ["--rule", "ceiling_only"]), ("dem_uncorrected", ["--dem-bias", "none"]),
+    ("closure_p59", ["--closure", "p59_reservoir", "--margin", "0.5"]), ("conn4", ["--connectivity", "4"]), ("seed_mainstem", ["--seed-network", "main_stem"]),
+    ("maxgap3", ["--max-gap-days", "3"]), ("riveraware", ["--wse-river-aware"]), ("fallback10km", ["--fallback-max-km", "10"]),
+    ("inhulets_gauge_node", ["--inhulets-gauge-node"]))]
+STEPS += [
     ("p95c_rasters", 2, ["p95"], "fs", [f"{M6}/p95c_icesat2_check.py", "--step", "rasters"]),
     ("p95c_icesat", 2, ["p95c_rasters", "p95j"], "swot", [f"{M6}/p95c_icesat2_check.py", "--step", "icesat"]),
     ("p95d", 2, ["p95", "p73_rev2"], "fs", [f"{M6}/p95d_agreement_by_surface.py", "--date", "2023-06-09"]),
@@ -46,7 +54,7 @@ STEPS += [
     ("p95b", 2, ["p95"], "fs", [f"{M6}/p95b_hand_dyn_summary.py"]),
     ("p95f", 2, ["p95"], "fs", [f"{M6}/p95f_reservoir_balance.py"]),
     ("p95i", 2, ["p95f"], "fs", [f"{M6}/p95i_hypsometry_compare.py"]),
-    ("p95h", 2, ["p95f"], "fs", [f"{M6}/p95h_reservoir_maps.py"]),                  # reservoir drawdown maps (FigS08)
+    ("p95h", 2, ["p95f"], "fs", [f"{M6}/p95h_reservoir_maps.py"]),                  # reservoir drawdown: exposure with Sentinel-2 (Fig11), model extent and S1 (FigS08)
     ("p95m", 2, ["p95f"], "fs", [f"{M6}/p95m_reservoir_depth.py"]),                  # reservoir water depth (Fig10, T21b)
     ("p95n", 2, ["p95", "p95l"], "fs", [f"{M6}/p95n_flood_depth_summary.py"]),      # flood depth below the dam (T12e)
     ("p95g", 2, ["p95e"], "fs", [f"{M6}/p95g_mc_emulator.py"]),
@@ -113,8 +121,10 @@ def command(step):
     return args
 
 
-def run(level, dry=False, start=None):
-    steps = [s for s in STEPS if s[1] == level or (level == 2 and s[1] == 1)]
+def run(level, dry=False, start=None, only=None):
+    steps = [s for s in STEPS if s[1] == level or (level == 2 and s[1] == 1)] if only is None else [s for s in STEPS if s[0] in set(only)]
+    if only is not None:
+        missing = set(only) - {s[0] for s in steps}; assert not missing, f"unknown steps: {sorted(missing)}"
     if start:
         ids = [s[0] for s in steps]; steps = steps[ids.index(start):]
     log = REPO / CS / "tables" / "rebuild_runs.jsonl"
@@ -135,10 +145,13 @@ def run(level, dry=False, start=None):
 
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--level", type=int, choices=[0, 1, 2]); ap.add_argument("--list", action="store_true")
-    ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--from", dest="start"); a = ap.parse_args()
+    ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--from", dest="start")
+    ap.add_argument("--steps", nargs="+", help="run exactly these steps, in DAG order (e.g. the physical reconstruction after an input change)"); a = ap.parse_args()
     ids = [s[0] for s in STEPS]
     for s in STEPS:                                                        # the DAG must be topologically ordered
         assert all(n in ids and ids.index(n) < ids.index(s[0]) for n in s[2]), f"{s[0]}: a dependency is missing or later"
+    if a.steps:
+        run(None, a.dry_run, a.start, only=a.steps); return
     if a.list or a.level is None:
         for s in STEPS:
             print(f"L{s[1]}  {s[0]:28s} env={s[3]:4s} needs={','.join(s[2][:4]) + (' ...' if len(s[2]) > 4 else '') or '-'}")

@@ -7,9 +7,29 @@ synonyms. `tests/test_terminology_freeze.py` forbids the phrases in the last sec
 
 | term | meaning | never |
 |---|---|---|
-| **observation-constrained terrain inundation reconstruction** (short: *terrain reconstruction*) | the observed water-surface elevations (SWOT nodes + gauge, Paper-1 frame) projected on the seamless terrain–bed elevation model (FABDEM DTM outside the surveyed channel, bed inside; EVRF2019) with a connectivity rule evaluated once over the whole domain; no momentum or continuity equations | *physical reconstruction*, *hydrodynamic reconstruction*, *simulation* |
+| **observation-constrained terrain-connectivity reconstruction** (short: *terrain reconstruction*; until 2026-09-29 *observation-constrained terrain inundation reconstruction*) | the observed water-surface elevations (SWOT nodes + gauge, Paper-1 frame) projected on the seamless terrain–bed elevation model (FABDEM DTM outside the surveyed channel, bed inside; EVRF2019) with a connectivity rule evaluated once over the whole domain; no momentum or continuity equations | *physical reconstruction*, *hydrodynamic reconstruction*, *simulation* |
 | **daily reconstructed series** / *daily estimates constrained by the available observations* | the per-day values 26 May – 10 July; between observation days they are interpolation + model | *daily observed* |
 | **reconstructed areal maximum** | the day of maximum reconstructed newly inundated area (7 June, between S1 acquisitions) | *flood peak* without a noun (peak *stage* at Kherson is 8 June and is a different quantity) |
+
+## The hierarchy of evidence and the result blocks (text pass 2026-09-29)
+
+| level / block | what it may claim | never |
+|---|---|---|
+| 1 **terrain-connectivity reconstruction** and 2 its **uncertainty** (the maintainer's "physical reconstruction" level; the phrase itself is forbidden below because it suggests a hydraulic model) | the reported areas, depths and volumes (Monte-Carlo median, p05–p95), with support classes and structural sensitivities | *simulation*, *hydrodynamic* |
+| 3 **independent validation and support** (withheld gauges, Sentinel-1 per date, ICESat-2, SWOT–gauge input check; the surface context RF20 / WorldCover / elevation above the surface explains the disagreement) | agreement, disagreement and its mechanism | *validates the map*, *ground truth* |
+| 4 **weak-label ML diagnostics** (U-Net arms on the canonical labels v004, three training seeds) | behaviour under weak supervision | *accuracy*, *better ground truth* |
+
+A lower level explains or diagnoses a higher one; it never overrides it.
+
+## Weak labels and seeds
+
+| term | meaning | never |
+|---|---|---|
+| **v004** | the canonical weak-label ontology (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN) on the corrected M2 (out-of-fold threshold, no post-event TRACE feature) | *better ground truth* |
+| **v002**, **v003_A** | historical initial and intermediate label versions; provenance and sensitivity only | a production label set |
+| **v002_notrace** | the v002 rule on the corrected M2 (no REFERENCE_WATER class): the reference of the label comparison | |
+| **M2 score** | the discrimination score of the optical component of the labels | *flood probability* |
+| **three training seeds** | the minimum evidence unit of an arm comparison (every seed shown, with the seeds whose interval excludes zero) | a single-seed arm claim |
 
 ## Areas (always with both semantics)
 
@@ -66,6 +86,6 @@ closer in kind to A_new than to W_total and is context, never validation. Never 
 
 ## Forbidden phrases (enforced by the test)
 
-`physical reconstruction`, `false SAR water`, `false radar water`, `peak breach discharge`, `breach discharge was`, `breach discharge of`, `peak breach outflow`, `implied breach
+`physical reconstruction`, `better ground truth`, `false SAR water`, `false radar water`, `peak breach discharge`, `breach discharge was`, `breach discharge of`, `peak breach outflow`, `implied breach
 outflow`, `passed to the liman`, `went to the liman`, `without loss of recall`, `without a detectable loss`, `without a
 detectable recall loss`, `daily observed`, `flooded area = `.

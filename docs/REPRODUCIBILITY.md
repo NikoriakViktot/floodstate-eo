@@ -47,7 +47,7 @@ pre-rendered layers in `apps/dashboard/data/` (1.9 MB, manifest with sha256).
 
 What: regenerate the metrics from the processed products that the case study keeps outside git under
 `$FLOODSTATE_DATA_ROOT` (≈ 100 GB): 10 m frames (`frames10/<F>/`: S1 event-change channels `s1_change.tif`, index stacks,
-composites, labels v002 / v003_A, U-Net scores, RF20 classes), the S1 per-scene water caches (`s1_zone_cache/`), the seamless
+composites, labels v004 (canonical) and v002 / v003_A (provenance), U-Net scores, RF20 classes), the S1 per-scene water caches (`s1_zone_cache/`), the seamless
 DEM, HAND and WorldCover frames, the terrain reconstruction products (`floodplain_dyn/`). Registry:
 `case_studies/kakhovka_2023/manifests/*.csv` (sha256 where computed), `provenance/MIGRATION_MANIFEST.csv`.
 
@@ -55,16 +55,18 @@ Scripts, in order (each writes its own tables/manifest): `workflows/m6/p77d` (la
 on the committed tree, `tables/m6_labels_v003_A_FROZEN.json`) → `p84` (split; `--block-m` for the sensitivity splits) →
 `p86 --arm … --labels …` (arms; ~3 min each on an RTX A4000) → `p88`, `p90` (comparisons) → `p92`, `p93`, `p94` (accounting,
 per-date series) → `p95j` (FABDEM − ICESat-2 residual statistics and variogram; SWOT-DNIPRO environment for the ATL08 pull)
-→ `p95` (terrain reconstruction, rev 6; primary `connected_ceiling`, sensitivities `--rule`, `--closure`, `--dem-bias`, `--margin`,
+→ `p59k` (the Kherson gauge in the frame of Paper 1 v6) → `p95` (terrain reconstruction, rev 7, in the vertical frame of Paper 1 v6 via `workflows/m6/paper1_frame.py`; primary `connected_ceiling`, sensitivities `--rule`, `--closure`, `--dem-bias`, `--margin`,
 `--connectivity`, `--seed-network`, `--max-gap-days`, `--wse-river-aware`, `--fallback-max-km`, `--inhulets-gauge-node`; `--terrain-table legacy_c_seamless --evaluation
 zonal_legacy --coarse-anchor grid_legacy --no-rasters` reproduces rev 5 exactly) → `p95k` (independent gauges Kalynivske / Mykolaiv from the UkrHMC 2023 yearbook store of icesat2-atl13-kakhovka; run once
 before and once after `p95 --inhulets-gauge-node`, whose gauge node it supplies) → `p95c` (ICESat-2 check; the second step
 needs the SWOT-DNIPRO environment) → `p95d` (disagreement ontology) → `p95e` (Monte-Carlo rev 2: `--n 1000` primary, `--mode
 ablation --n 250`, `--mode convergence --seed 20261001 --days key`, `--mode wse-threshold`; forked workers, resumable chunks in
-`tables/_p95e_chunks/`; about 50 s per world and core; the full draw tables `p95e_draws*.csv.gz` are release assets, not in git —
+`tables/_p95e_chunks/`, valid only under the same input fingerprint (parameters, reconstruction code, frame module, input tables; the cache is cleared when it changes); about 50 s per world and core; the full draw tables `p95e_draws*.csv.gz` are release assets, not in git —
 `tables/p95e_draws_checksums.csv` gives their sha256, rows, seed and code commit) → `p95l` (support classes of the new area; writes
 `$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif`, used by FigS14 and by `p98 --only support`) →
-`p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i` → `p96`, `p97`, `p98`, `p99`.
+`p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i`, `p95h`, `p95m`, `p95n` → `p96`, `p97`, `p98`, `p99`. After an input change, the physical
+chain alone is rerun with `rebuild.py --steps p59k p95j p95 p95k p95_<sensitivity> … p95g` (exactly those steps, in DAG order; each run is
+logged in `tables/rebuild_runs.jsonl`), then `--level 1`.
 Determinism: fixed seeds (20260923 for splits/bootstraps, 20260929 / 20261001 for the Monte-Carlo, one RNG stream per draw
 index, so results do not depend on the number of workers; 20260929 for the p95j variogram pair sampling); GPU training is deterministic up to
 cuDNN non-determinism (thresholds are re-frozen on validation per run and stored).

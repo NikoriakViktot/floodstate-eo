@@ -246,3 +246,40 @@ spatial support of the water surface and of the nonlinearity of the connectivity
   below the dam (main figure next to Fig07; the raster exists, so far only in the dashboard) and (2) water-depth maps of the
   reservoir: the full pool on 5 June and the drawdown on 7 / 9 / 13 June (p95f sloped surface minus the seamless terrain–bed
   model). Both are the geometry of the nominal run, captioned so; areas and volumes in the text come from the ensemble.
+
+## The text pass, the drawdown maps and the alignment with Paper 1 v6 (2026-09-29/30)
+
+- **One rewrite of the manuscript** (`publication/manuscript_template.md`; maintainer's order Abstract → Introduction → Methods →
+  Results → Discussion → Conclusions): Results in four blocks — terrain-connectivity reconstruction (§4.1, incl. the depth maps and
+  the reservoir) → uncertainty and support (§4.2) → independent validation and support (§4.3) → weak-label ML diagnostics (§4.4);
+  the decided wordings D-LABELS, D-F09, D-M2, D-RF20, D-C09, D-C10, D-C11 verbatim; C13 narrowed (the sign statement had no support
+  in T20); nothing of v002 / 40 draws / the HAND effect / nominal-centred uncertainty in the production text
+  (`tests/test_manuscript_production_text.py`). The maintainer's level name "physical reconstruction" is rendered with the frozen
+  term (the phrase is forbidden by the terminology gate because it suggests a hydraulic model); the method is now named
+  *observation-constrained terrain-connectivity reconstruction* (TERMINOLOGY.md).
+- **T28, the one table of what changed after the audit** (old / new / reason / effect on the conclusion; 46 rows; curated in
+  `publication/audit_changes_source.csv`, new values resolved from the tables of the same p96 build; `tests/test_audit_changes.py`).
+- **Nominal-centred leftovers removed:** T12 relative half-widths over the Monte-Carlo median (7 June: 5.2 % area, 7.1 % volume;
+  were 6 % and 9 % over the nominal run); T16 reconstructed rows = Monte-Carlo medians with p05–p95 (nominal only as a diagnostic
+  column); Fig09c downstream storage = Monte-Carlo medians; Fig04 U-Net line = v004, range of the three seeds.
+- **Drawdown maps (maintainer's check, 2026-09-30: "no drawdown on the maps").** Diagnosis: the model ends on 13 June (the level
+  records end) and the first week lowered the pool mostly in depth — Sentinel-2 confirms the model where it saw through clouds (IoU
+  0.90 on 8 June, 0.85 on 13 June on the observed cells) — while the area collapsed in the second week (Sentinel-2, whole pool
+  observed on 20 June: 648 km² of water); the Sentinel-1 dark surface is water or wet mud and looked full on every date. New main-text
+  Fig11 from the observations (Sentinel-2 water by date, the day the bed fell dry from the model + Sentinel-2 — 1165 km² more dry by
+  20 June —, bed classes, the area over time; T23b); the model extent and Sentinel-1 moved to FigS08. Two model defects fixed on the
+  way: the Nikopol level held above its own censored upper bound on 12–13 June (now capped; those days flagged as upper estimates)
+  and G-REALM (a held value put a spurious release peak on 12 June; on 9 June it stood 0.5 m above Nikopol upstream) — no longer an
+  anchor.
+- **D-PAPER1 (maintainer, 2026-09-30): Paper 3's results must match Paper 1 v6, and the flood paper does not repeat the vertical
+  validation** — "vertical framework validated elsewhere; here we address inundation geometry and uncertainty". Implemented:
+  `workflows/m6/paper1_frame.py` (the production chain of Paper 1: reservoir closures −0.173 m tide-free / −0.135 m production
+  reproduced from the companion table); the Kherson gauge at the post's own EPSG:9902 step (+0.2076 m instead of +0.22 m;
+  `p59k_kherson_frame.py`); the pool outlet in the production chain (+0.073 m: Paper 1's 17.61 m on 31 May and 5.71 m on 13 June are
+  reproduced, `tests/test_paper1_frame.py`); the FABDEM part of the terrain and the ICESat-2 ground raised by +0.038 m (Paper 2's
+  p56/p57 pair +free2mean with the tide-free closure — `docs/NOTE_PAPER2_VERTICAL_CHAIN_2026-09-30.md`; residuals unchanged). The
+  reconstruction is rev 7; the whole physical chain was recomputed (`rebuild.py --steps …`, including the 1000 worlds; T11h keeps
+  rev 6 as its own attribution step). The manuscript's vertical part is one Methods paragraph citing Paper 1; the SWOT–gauge input
+  check left the Results (T17 stays as an input check).
+- **Open for the maintainer:** the U1 sentence of C10 (RF20 as an input raises the cropland burden in 3/3 seeds) is not a verbatim
+  decision; the correction of Paper 2's chain at the source (SWOT-DNIPRO); merge / push / tag / Streamlit / Zenodo after review.

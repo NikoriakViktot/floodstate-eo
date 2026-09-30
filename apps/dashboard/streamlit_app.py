@@ -11,13 +11,14 @@ from lib import SERIES, caption, figure, header, layers, manifest, refs, table
 
 st.set_page_config(page_title="FloodState-EO · Kakhovka 2023", page_icon="🌊", layout="wide")
 header("Kakhovka 2023 — inundation after the dam breach",
-       "Paper 3 of the Kakhovka series: observation-constrained terrain inundation reconstruction → independent / cross-sensor checks → surface context → ML under weak labels")
+       "Paper 3 of the Kakhovka series: observation-constrained terrain-connectivity reconstruction and its uncertainty → independent validation and support → weak-label ML diagnostics")
 
 st.markdown("""
-**How to read this dashboard.** The main axis is the *observation-constrained terrain inundation reconstruction* — a daily reconstructed series, not daily observations — of the inundation from the observed
-water surface (SWOT nodes + Kherson gauge, Paper-1 vertical frame) projected on the terrain. Sentinel-1 per-date masks and
-ICESat-2 are *checks* of it; the RF20 surface classes *explain* where the sensor and the reconstruction disagree; the U-Net
-arms show *what EO inputs recover under weak labels*. Nothing here is a validated flood map.
+**How to read this dashboard.** The main axis is the *observation-constrained terrain-connectivity reconstruction* — a daily reconstructed series, not daily observations — of the inundation from the observed
+water surface (SWOT nodes + Kherson gauge, Paper-1 vertical frame) projected on the terrain, with its Monte-Carlo uncertainty. Two
+withheld gauges, Sentinel-1 per-date masks and ICESat-2 are *checks* of it; the RF20 surface classes *explain* where the sensor and the
+reconstruction disagree; the U-Net arms, trained on the canonical weak labels v004 with three seeds, are *diagnostics of weak
+supervision*. Nothing here is a validated flood map.
 """)
 with st.expander("📄 The Kakhovka series — earlier papers and code", expanded=True):
     for name, title, status, links, key in SERIES:
@@ -28,7 +29,7 @@ refs(["event"], "📚 Literature: the 2023 breach, its consequences and the oper
 
 d12 = table("T12"); corr = d12[d12.region == "DNIPRO_CORRIDOR"].set_index("date")
 d13 = table("T13"); v = d13[(d13.variant == "connected_ceiling") & (d13.region == "P42_FLOODPLAIN_DOMAIN") & (d13.date == "2023-06-09")]
-d7 = table("T07b"); lab = d7[(d7.A == "U2_B1B2_v1") & (d7.B == "U2_B1B2_v003A") & (d7.endpoint == "R_pred_on_reference_water_km2")]
+d7 = table("T07s"); lab = d7[(d7.comparison == "v004 - v002_notrace (U2)") & (d7.endpoint == "R_pred_on_reference_water_km2")]   # D-C09, three seeds
 pk = (corr.A_p50_km2 if "A_p50_km2" in corr.columns and corr.A_p50_km2.notna().any() else corr.A_central_km2).idxmax()   # areal maximum of the MC median
 
 st.markdown("**Primary result — the reconstructed series (terrain_reconstructed, daily snapshots)**")
@@ -42,7 +43,10 @@ st.caption("Secondary — checks and weak-label agreement (never accuracy)")
 c3, c4, c5 = st.columns(3)
 c3.metric("Raw agreement with Sentinel-1 on 2023-06-09 (p42 floodplain)", f"POD {float(v.POD.iloc[0]):.2f} · CSI {float(v.CSI.iloc[0]):.2f}" if len(v) else "n/a", "cross_sensor, S1 footprint; conditioned by surface type")
 if len(lab):
-    c4.metric("Label effect v002 → v003_A (U2): flood on reference water", f"{float(lab['median'].iloc[0]):+.1f} km²", f"95 % [{float(lab.lo.iloc[0]):.1f}, {float(lab.hi.iloc[0]):.1f}] · weak_label_agreement")
+    r7 = lab.iloc[0]
+    c4.metric("Weak-label treatment of reference water (U2, v004 vs the same rule without REFERENCE_WATER): predicted flood on reference water",
+              f"{-float(r7.max_median):.1f}–{-float(r7.min_median):.1f} km² less",
+              f"three training seeds, {int(r7.n_seeds_excluding_zero)} of 3 intervals exclude zero · weak_label_agreement, not accuracy", delta_color="off")
 try:                                                                 # D-SUPPORT: how much of the new area rests on distant water-surface support
     sk = table("T11k"); sk = sk[(sk.region == "DNIPRO_CORRIDOR") & (sk.date == pk)]
     c5.metric("New area on the areal maximum with water-surface support > 10 km (weakly constrained)", f"{float(sk.share_weak.iloc[0]):.0%}" if len(sk) else "n/a",

@@ -122,21 +122,36 @@ def fig01():
 
 # ---- Fig02 -----------------------------------------------------------------------------------------------------------
 def fig02():
-    fig, ax = plt.subplots(figsize=(7.2, 4.2)); ax.axis("off")
-    boxes = [(0.02, 0.62, "Observation-constrained terrain\ninundation reconstruction\nSWOT node WSE + Kherson gauge\n× seamless DEM, connectivity\n→ daily reconstructed area, depth, volume", FS.PALETTE["terrain"]),
-             (0.35, 0.62, "Independent / cross-sensor checks\nS1 per date (POD / FAR / CSI)\nICESat-2 altimetric consistency\nSWOT vs gauge (Paper 1)", FS.PALETTE["s1"]),
-             (0.68, 0.62, "Surface context\nRF20 classes, WorldCover,\nelevation above the surface\n→ blind spots, topographically\nunsupported S1-only detections", FS.PALETTE["rf"]),
-             (0.35, 0.12, "ML under weak labels\nU-Net arms U0d → U2b, labels v002 / v003_A\n→ what EO inputs recover\n(agreement, not accuracy)", FS.PALETTE["unet"])]
-    for x, y, txt, c in boxes:
-        ax.add_patch(FancyBboxPatch((x, y), 0.30, 0.30, boxstyle="round,pad=0.01", fc="white", ec=c, lw=1.6, transform=ax.transAxes))
-        ax.text(x + 0.15, y + 0.15, txt, ha="center", va="center", fontsize=7.2, transform=ax.transAxes)
-    for (x0, y0), (x1, y1), lab in [((0.32, 0.77), (0.35, 0.77), "checked by"), ((0.65, 0.77), (0.68, 0.77), "disagreement\nexplained by"), ((0.50, 0.62), (0.50, 0.42), "labels, strata,\nblind spots inform")]:
-        ax.add_patch(FancyArrowPatch((x0, y0), (x1, y1), arrowstyle="-|>", mutation_scale=12, color=FS.PALETTE["ink2"], transform=ax.transAxes, lw=1.0))
-        ax.text((x0 + x1) / 2, (y0 + y1) / 2 + 0.03, lab, ha="center", va="bottom", fontsize=6, color=FS.PALETTE["ink2"], transform=ax.transAxes)
-    ax.text(0.02, 0.05, "Evidence levels: independent_physical › cross_sensor › weak_label_agreement › contextual.  Areas: observed_S1 / mapped_UNet / terrain_reconstructed / literature_reported.",
-            fontsize=6.5, transform=ax.transAxes, color=FS.PALETTE["ink2"])
+    """The hierarchy of evidence (maintainer, 2026-09-29): four levels, top = strongest; a lower level explains or diagnoses,
+    it never overrides a higher one."""
+    fig, ax = plt.subplots(figsize=(7.2, 5.8)); ax.axis("off")
+    levels = [("1  Terrain-connectivity reconstruction and its uncertainty", FS.PALETTE["terrain"],
+               ["SWOT node water surface + Kherson gauge (EVRF2019) over the seamless terrain–bed model;",
+                "connectivity to the pre-event water network; the same-rule pre-event baseline",
+                "→ daily new and total water area, depth and volume; 1000 coherent Monte-Carlo worlds; SWOT support classes"]),
+              ("2  Independent observations", FS.PALETTE["s1"],
+               ["withheld gauges Kalynivske (Inhulets) and Mykolaiv (liman); Sentinel-1 per acquisition date (POD / FAR / CSI);",
+                "night ICESat-2 ground heights (pass hold-out of the class bias); SWOT vs the Kherson gauge (input consistency)"]),
+              ("3  Surface-context diagnostics", FS.PALETTE["rf"],
+               ["RF20 surface classes, WorldCover, ground elevation above the reconstructed surface",
+                "→ where each source is blind; S1-only detections that the connected water surface cannot reach"]),
+              ("4  Weak-label ML diagnostics", FS.PALETTE["unet"],
+               ["U-Net arms on the canonical labels v004, three training seeds (v002 / v003_A as provenance)",
+                "→ behaviour under weak supervision: agreement with weak labels, not flood-mapping accuracy"])]
+    links = ["checked by", "disagreement explained by", "labels, strata and blind spots inform"]
+    h, gap, top = 0.175, 0.055, 0.985
+    for k, (title, c, lines) in enumerate(levels):
+        y = top - h - k * (h + gap)
+        ax.add_patch(FancyBboxPatch((0.02, y), 0.96, h, boxstyle="round,pad=0.008", fc="white", ec=c, lw=1.8, transform=ax.transAxes))
+        ax.text(0.04, y + h - 0.028, title, ha="left", va="top", fontsize=8, fontweight="bold", color=c, transform=ax.transAxes)
+        ax.text(0.04, y + h - 0.075, "\n".join(lines), ha="left", va="top", fontsize=6.3, transform=ax.transAxes, linespacing=1.35)
+        if k < len(levels) - 1:
+            ax.add_patch(FancyArrowPatch((0.5, y - 0.003), (0.5, y - gap + 0.004), arrowstyle="-|>", mutation_scale=11, color=FS.PALETTE["ink2"], transform=ax.transAxes, lw=1.0))
+            ax.text(0.52, y - gap / 2, links[k], ha="left", va="center", fontsize=6.2, color=FS.PALETTE["ink2"], transform=ax.transAxes)
+    ax.text(0.02, 0.0, "Evidence runs from top to bottom: a lower level explains or diagnoses, it never overrides a higher one.\n"
+            "Areas carry their semantics: observed_S1 / mapped_UNet / terrain_reconstructed / literature_reported.", fontsize=6, transform=ax.transAxes,
+            color=FS.PALETTE["ink2"], va="bottom")
     FS.save(fig, "Fig02_evidence_hierarchy", FIG)
-
 
 # ---- Fig03 -----------------------------------------------------------------------------------------------------------
 def fig03():
@@ -215,7 +230,8 @@ def fig04():
     d = pd.read_csv(T / "p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
     t12 = pd.read_csv(PT / "T12b.csv") if (PT / "T12b.csv").exists() else (pd.read_csv(PT / "T12.csv") if (PT / "T12.csv").exists() else None)   # T12b: every day
     s1 = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
-    p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv"); u2b = p92[p92.run == "U2b_B1B2_v003A"].set_index("region").predicted_flood_km2
+    p92 = pd.read_csv(T / "p92_flood_area_dam_to_liman.csv")                    # U2b on the canonical v004 labels, three training seeds (D-SEEDS)
+    u2b = p92[p92.run.isin(["U2b_B1B2_v004", "U2b_B1B2_v004_s20261001", "U2b_B1B2_v004_s20261002"])].groupby("region").predicted_flood_km2.agg(["min", "max"])
     regs = ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"]
     fig, axs = plt.subplots(3, 3, figsize=(7.4, 7.6), gridspec_kw=dict(height_ratios=[3, 1.4, 1.0]), sharex="col", constrained_layout=True)
     for j, r in enumerate(regs):
@@ -247,7 +263,7 @@ def fig04():
             b.fill_between(med.t, med.A_p05_km2, med.A_p95_km2, color=FS.PALETTE["terrain"], alpha=0.25, lw=0)
         b.axhline(0, color=FS.PALETTE["ink2"], lw=0.5)
         if r in u2b.index:
-            b.axhline(u2b[r], color=FS.PALETTE["unet"], lw=1, ls=":", label="U-Net U2b persistent event flood")
+            b.axhspan(u2b.loc[r, "min"], u2b.loc[r, "max"], color=FS.PALETTE["unet"], alpha=0.18, lw=0, label="U-Net U2b persistent event flood (v004, three seeds: range)")
         b.set_ylabel("newly inundated area, km²\n(bars: daily change)", fontsize=6.5); FS.panel_label(b, "def"[j], x=0.02, y=0.98)
         c.plot(s.t, s.kherson_gauge_m, color=FS.PALETTE["gauge"], lw=1.3); c.set_ylabel("Kherson\nstage, m", fontsize=6.5)
         for ax in (a, b, c):
@@ -379,12 +395,17 @@ def fig08():
 
 
 # ---- Fig09 -----------------------------------------------------------------------------------------------------------
-def fig09c_series(R):
+def fig09c_series(R, U=None):
     """The series of Fig09c, in the caption's quantities (review F15): daily-mean effective release from the pool
-    Q_in - dV/dt and the DniproHES inflow Q_in (km³ per day), and the new water stored downstream (km³)."""
+    Q_in - dV/dt and the DniproHES inflow Q_in (km³ per day), and the new water stored downstream (km³) -- the Monte-Carlo
+    medians of the corridor and the Inhulets valley (T12b; text pass 2026-09-29: no nominal-run volumes), with the sum of their
+    p05 and p95 as a conservative band."""
     dd = R[R.V_pool_km3.notna() & (R.t >= "2023-06-05")]
+    U = pd.read_csv(PT / "T12b.csv") if U is None else U
+    u = U[U.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])].groupby("date")[["V_p50_hm3", "V_p05_hm3", "V_p95_hm3"]].sum(min_count=2).reset_index()
+    u["t"] = pd.to_datetime(u.date)
     return pd.DataFrame(dict(t=dd.t, release_km3_day=dd.Q_out_breach_est_hm3_day / 1000, inflow_km3_day=dd.Q_in_hm3_day / 1000)), \
-        pd.DataFrame(dict(t=R.t, stored_km3=R.downstream_new_volume_hm3 / 1000))
+        pd.DataFrame(dict(t=u.t, stored_km3=u.V_p50_hm3 / 1000, stored_p05_km3=u.V_p05_hm3 / 1000, stored_p95_km3=u.V_p95_hm3 / 1000))
 
 
 def fig09():
@@ -412,7 +433,8 @@ def fig09():
     c.bar(flows.t, flows.release_km3_day, width=0.8, color=FS.PALETTE["terrain"], label="effective release from the pool (Q_in − dV/dt)")
     c.plot(flows.t, flows.inflow_km3_day, "s-", color=FS.PALETTE["rf"], ms=3, lw=1, label="DniproHES inflow Q_in")
     c.set_ylabel("flow, km³ per day (daily mean)", fontsize=6.5); FS.date_axis(c, BREACH, every_days=7); c.tick_params(labelsize=6); FS.panel_label(c, "c")
-    c2 = c.twinx(); c2.plot(stored.t, stored.stored_km3, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream (corridor + Inhulets)")
+    c2 = c.twinx(); c2.fill_between(stored.t, stored.stored_p05_km3, stored.stored_p95_km3, color=FS.PALETTE["s1"], alpha=0.18, lw=0)
+    c2.plot(stored.t, stored.stored_km3, "o-", color=FS.PALETTE["s1"], ms=3, lw=1.2, label="new water stored downstream (corridor + Inhulets, MC medians)")
     c2.set_ylabel("stored downstream, km³", fontsize=6.5, color=FS.PALETTE["s1"]); c2.tick_params(labelsize=6, colors=FS.PALETTE["s1"])
     h1, l1 = c.get_legend_handles_labels(); h2, l2 = c2.get_legend_handles_labels(); c.legend(h1 + h2, l1 + l2, fontsize=5.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False)
     c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
@@ -631,32 +653,100 @@ def _leg(ax, colours, labels, title=None, loc="center left", y=0.5):
     ax.add_artist(lg)
 
 
-def figS08():
-    """Reservoir drawdown maps: modelled pool (p95f surface) + day of exposure, S1 VH dark surface, S2 k10e classes and water (p95h)."""
-    import rasterio
-    from affine import Affine
+def fig11():
+    """The emptying of the Kakhovka reservoir as the observations show it (maintainer, 2026-09-30: the drawdown maps are mandatory
+    and must show the drawdown): Sentinel-2 water on 5, 8, 13 and 20 June (not observed is not dry), the day on which the bed fell
+    dry (the model for 6-13 June, Sentinel-2 on 20 June after that; S2 water overrides the model), the Sentinel-2 bed classes on
+    5 July and 8 September, and the pool water area over time from every source as a share of the pool."""
+    import matplotlib.dates as mdates
+    from rasterio import features
     ctx = _res_ctx(); H, pool, zone, ext, hs, read = ctx
     R = pd.read_csv(T / "p95h_reservoir_maps.csv"); RM = BULK / "reservoir_maps"
-    fig, axs = plt.subplots(3, 5, figsize=(7.4, 5.0), constrained_layout=True, gridspec_kw=dict(width_ratios=[1, 1, 1, 1, 0.78])); lab = iter("abcdefghijkl")
+    man = json.loads((T / "p95h_manifest.json").read_text()); pool_km2 = float(man["pool_km2_s2_grid"])
+    fig = plt.figure(figsize=(7.4, 5.3), constrained_layout=True)
+    gs = fig.add_gridspec(3, 5, width_ratios=[1, 1, 1, 1, 0.95], height_ratios=[1, 1, 0.78])
+    ax = [[fig.add_subplot(gs[r, c]) for c in range(5)] for r in range(2)]
     km = lambda tr, shp: [tr.c / 1e3, (tr.c + tr.a * shp[1]) / 1e3, (tr.f + tr.e * shp[0]) / 1e3, tr.f / 1e3]
-    # row 1: model 06-07, 06-09, 06-13 + day of exposure
+    wc = ["#1b6ca8", "#efece6", "#c3c2b7"]                                              # water / observed, not water / not observed
+    ztr, zshp = H.s2_grid(); xtr = H.xc_transform(ztr)
+    zin = features.rasterize([(zone.__geo_interface__, 1)], out_shape=zshp, transform=xtr, fill=0, dtype="uint8").astype(bool)
+    # (a) 5 June: the p25 water3 product (the pool full, the day before the breach)
+    w3, w3ext = read(H.S2DIR / "2023-06-05_water3.tif", fill=254)
+    c = np.zeros(w3.shape, "u1"); c[w3 == 1] = 1; c[w3 == 0] = 2; c[w3 == 255] = 3
+    r = R[(R.source == "S2_WATER3") & (R.date == "2023-06-05")].iloc[0]
+    _res_panel(ax[0][0], ctx, c, w3ext, wc, f"(a) S2 water 06-05\n{r.water_km2:.0f} km² ({r.observed_frac:.0%} observed)\nthe day before the breach", first=True)
+    # (b-d) the p15 crosscheck water of the drawdown: 8 and 13 June partly observed, 20 June the whole pool
+    for j, d in enumerate(["2023-06-08", "2023-06-13", "2023-06-20"], 1):
+        z2 = np.load(H.S2XC / f"{d}.npz"); u2 = lambda k: np.unpackbits(z2[k], count=zshp[0] * zshp[1]).reshape(zshp).astype(bool)
+        w, v = u2("water"), u2("valid"); c = np.zeros(zshp, "u1"); c[v & ~w] = 2; c[w & v] = 1; c[~v] = 3; c[~zin] = 0
+        r = R[(R.source == "S2_CROSSCHECK") & (R.date == d)].iloc[0]
+        iou = f"\nIoU with the model {r.iou_vs_model:.2f}" if np.isfinite(r.get("iou_vs_model", np.nan)) else "\nthe model ends 06-13"
+        _res_panel(ax[0][j], ctx, c[::3, ::3], km(xtr, zshp), wc, f"({'bcd'[j - 1]}) S2 water {d[5:]}\n{r.water_km2:.0f} km² ({r.observed_frac:.0%} observed){iou}")
+    _leg(ax[0][4], wc, ["water", "observed, not water", "not observed (≠ dry)"], "Sentinel-2 water\n(a: p25 water3,\nb–d: p15 crosscheck)", loc="center left", y=0.5)
+    # (e) the day the bed fell dry: the model for 6-13 June, Sentinel-2 on 20 June after that (S2 water overrides the model)
+    e, eext = read(RM / "exposed_day_observed.tif")
+    c = np.zeros(e.shape, "u1")
+    for k, (lo, hi) in enumerate([(6, 7), (8, 9), (10, 11), (12, 13)], 1):
+        c[(e >= lo) & (e <= hi)] = k
+    c[e == 20] = 5; c[e == 254] = 6; c[e == 253] = 7
+    ec = ["#7d1d1d", "#c7522a", "#e08214", "#f2c14e", "#bfa76f", "#1b6ca8", "#c3c2b7"]
+    X = pd.read_csv(T / "p95h_exposure_observed.csv").set_index("code").km2
+    _res_panel(ax[1][0], ctx, c, eext, ec, f"(e) day the bed fell dry\n{X.loc[6:13].sum():.0f} km² by 06-13 (model)\n+{X.get(20, np.nan):.0f} km² by 06-20 (S2)")
+    # (f, g) Sentinel-2 bed classes after the drawdown
+    for j, d in enumerate(["2023-07-05", "2023-09-08"], 1):
+        cl, cext = read(H.S2DIR / f"{d}_class.tif")
+        r = R[(R.source == "S2_WATER3") & (R.date == d)].iloc[0]
+        _res_panel(ax[1][j], ctx, cl, cext, [H.K10E[k][1] for k in range(1, 10)], f"({'fg'[j - 1]}) S2 bed classes\n{d[5:]} ({r.observed_frac:.0%} observed)")
+    _leg(ax[1][3], [H.K10E[k][1] for k in range(1, 10)], [H.K10E[k][0].replace("_", " ").lower() for k in range(1, 10)], "Sentinel-2 bed classes\n(f, g; p25 k10e)", loc="center left", y=0.5)
+    _leg(ax[1][4], ec, ["06-06–07 (model)", "06-08–09 (model)", "06-10–11 (model)", "06-12–13 (model)", "by 06-20 (Sentinel-2)", "water on 06-20\n(Sentinel-2)", "not observed 06-20"],
+         "day the bed fell dry (e)", loc="center left", y=0.5)
+    # (h) pool water area over time, % of the pre-breach pool (whole-pool areas) or of the observed part (partly observed S2 dates)
+    h = fig.add_subplot(gs[2, 0:4]); hl = fig.add_subplot(gs[2, 4]); hl.axis("off")
+    M = R[R.source == "MODEL"].copy(); M["t"] = pd.to_datetime(M.date)
+    ub = set(pd.read_csv(T / "p95f_reservoir_daily.csv").query("surface_upper_bound == True").date)
+    h.plot(M.t, M.water_km2 / pool_km2 * 100, "-", color=FS.PALETTE["terrain"], lw=1.3, label="model (p95f sloped surface), 26 May – 13 June")
+    mu = M[M.date.isin(ub)]; h.plot(mu.t, mu.water_km2 / pool_km2 * 100, "o", mfc="white", color=FS.PALETTE["terrain"], ms=3.5, label="model, upper estimate (Nikopol bound)")
+    S = R[R.source.isin(["S2_WATER3", "S2_CROSSCHECK"])].copy(); S["t"] = pd.to_datetime(S.date); S["pct"] = S.water_km2 / (S.observed_frac * pool_km2) * 100
+    full = S[(S.observed_frac >= 0.9) & (S.t >= "2023-06-01") & (S.t <= "2023-09-30")]
+    part = S[(S.source == "S2_CROSSCHECK") & (S.observed_frac < 0.9) & (S.observed_frac >= 0.05)]
+    h.plot(full.t, full.pct, "s", color=FS.PALETTE["s2"], ms=4, label="Sentinel-2, pool observed (≥ 90 %)")
+    h.plot(part.t, part.pct, "s", mfc="white", color=FS.PALETTE["s2"], ms=4, label="Sentinel-2, water share of the observed part")
+    Y = R.dropna(subset=["yi2025_S1_archive_km2"]).drop_duplicates("date").copy(); Y["t"] = pd.to_datetime(Y.date)
+    h.plot(Y.t, Y.yi2025_S1_archive_km2 / pool_km2 * 100, "v", color=FS.PALETTE["s1"], ms=4, label="Yi et al. 2025, Sentinel-1 (authors' archive)")
+    h.axvline(BREACH, color=FS.PALETTE["ink2"], lw=0.7, ls=":"); h.text(BREACH, 3, " breach", fontsize=5.5, color=FS.PALETTE["ink2"])
+    h.set_ylim(0, 105); h.set_ylabel("water, % of the pool", fontsize=6.5); h.tick_params(labelsize=6)
+    h.set_xlim(pd.Timestamp("2023-05-25"), pd.Timestamp("2023-09-15")); h.xaxis.set_major_locator(mdates.MonthLocator()); h.xaxis.set_minor_locator(mdates.DayLocator(bymonthday=[10, 20]))
+    h.xaxis.set_major_formatter(mdates.DateFormatter("%b")); h.grid(color=FS.PALETTE["grid"])
+    h.set_title("(h) pool water area over time", fontsize=6.3, loc="left")
+    hh, ll = h.get_legend_handles_labels(); hl.legend(hh, ll, fontsize=5.3, loc="center left", frameon=False, handletextpad=0.4)
+    fig.suptitle("The emptying of the Kakhovka reservoir: Sentinel-2 water, the day the bed fell dry and the bed afterwards (not observed is not dry)", fontsize=7)
+    FS.save(fig, "Fig11_reservoir_drawdown", FIG)
+
+def figS08():
+    """The modelled pool extent (p95f surface; an upper estimate on 12-13 June) with its day of exposure within 6-13 June, and the
+    Sentinel-1 VH dark surface -- open water OR smooth wet mud, so after ~13 June not a water area (Fig11 shows the drawdown)."""
+    from affine import Affine
+    import rasterio
+    ctx = _res_ctx(); H, pool, zone, ext, hs, read = ctx
+    R = pd.read_csv(T / "p95h_reservoir_maps.csv"); RM = BULK / "reservoir_maps"
+    fig, axs = plt.subplots(2, 5, figsize=(7.4, 3.5), constrained_layout=True, gridspec_kw=dict(width_ratios=[1, 1, 1, 1, 0.78])); lab = iter("abcdefgh")
+    km = lambda tr, shp: [tr.c / 1e3, (tr.c + tr.a * shp[1]) / 1e3, (tr.f + tr.e * shp[0]) / 1e3, tr.f / 1e3]
     z = np.load(RM / "model" / "wet_daily.npz"); shp = tuple(int(v) for v in z["shape"]); mtr = Affine(*z["transform"])
     un = lambda k: np.unpackbits(z[k], count=shp[0] * shp[1]).reshape(shp).astype(bool)
     ref = un("2023-06-05"); mc = ["#1b6ca8", "#d9a441"]
     for j, d in enumerate(["2023-06-07", "2023-06-09", "2023-06-13"]):
         w = un(d); c = np.zeros(shp, "u1"); c[w] = 1; c[ref & ~w] = 2
         a = R[(R.source == "MODEL") & (R.date == d)].water_km2.iloc[0]
-        _res_panel(axs[0, j], ctx, c, km(mtr, shp), mc, f"({next(lab)}) model {d[5:]}\n{a:.0f} km² water", first=(j == 0))
+        _res_panel(axs[0, j], ctx, c, km(mtr, shp), mc, f"({next(lab)}) model {d[5:]}\n{a:.0f} km² water" + (" (upper est.)" if d == "2023-06-13" else ""), first=(j == 0))
     with rasterio.open(RM / "model" / "exposed_day.tif") as s:
         e = s.read(1); etr = s.transform
     c = np.zeros(e.shape, "u1")
     for k, (lo, hi) in enumerate([(6, 6), (7, 7), (8, 8), (9, 10), (11, 13)], 1):
         c[(e >= lo) & (e <= hi)] = k
     c[e == 255] = 6; ec = ["#7d1d1d", "#c7522a", "#e08214", "#eda100", "#f2d98a", "#1b6ca8"]
-    _res_panel(axs[0, 3], ctx, c, km(etr, e.shape), ec, f"({next(lab)}) model: day the\nbed falls dry")
+    _res_panel(axs[0, 3], ctx, c, km(etr, e.shape), ec, f"({next(lab)}) model: bed dry by\n06-13 (Fig11e after)")
     _leg(axs[0, 4], mc, ["pool water", "bed exposed since 06-05"], "model (p95f surface)", loc="upper left", y=1.0)
-    _leg(axs[0, 4], ec, ["06-06", "06-07", "06-08", "06-09–10", "06-11–13", "still wet 06-13"], "day of exposure", loc="lower left", y=0.0)
-    # row 2: S1
+    _leg(axs[0, 4], ec, ["06-06", "06-07", "06-08", "06-09–10", "06-11–13", "wet on 06-13"], "day of exposure", loc="lower left", y=0.0)
     sc = ["#1b6ca8", "#d9a441", "#c3c2b7"]
     for j, d in enumerate(["2023-06-01", "2023-06-08", "2023-06-13", "2023-06-21"]):
         z1 = np.load(RM / "s1" / f"{d}.npz"); sshp = tuple(int(v) for v in z1["shape"]); s_tr = Affine(*z1["transform"])
@@ -665,25 +755,11 @@ def figS08():
             d0 = u1("water"); spool = H.pool_on(s_tr, sshp)
         w, o = u1("water"), u1("observed"); c = np.zeros(sshp, "u1"); c[w & spool] = 1; c[o & ~w & d0 & spool] = 2; c[spool & ~o] = 3
         r = R[(R.source == "S1") & (R.date == d)].iloc[0]
-        iou = f", IoU {r.iou_vs_model:.2f}" if np.isfinite(r.get("iou_vs_model", np.nan)) else ""
+        iou = f", IoU {r.iou_vs_model:.2f}" if np.isfinite(r.get("iou_vs_model", np.nan)) else ", no model"
         _res_panel(axs[1, j], ctx, c[::2, ::2], km(s_tr, sshp), sc, f"({next(lab)}) S1 {d[5:]}\n{r.water_km2:.0f} km² dark{iou}")
     _leg(axs[1, 4], sc, ["VH dark: open water\nor smooth wet mud", "dark on 06-01, not now", "pool not observed"], "Sentinel-1 (VH, Otsu)")
-    # row 3: S2 k10e classes + S2 water on 06-20 (p15 crosscheck, fully observed)
-    for j, d in enumerate(["2023-06-05", "2023-07-05", "2023-09-08"]):
-        c, cext = read(H.S2DIR / f"{d}_class.tif")
-        r = R[(R.source == "S2_WATER3") & (R.date == d)].iloc[0]
-        _res_panel(axs[2, j], ctx, c, cext, [H.K10E[k][1] for k in range(1, 10)], f"({next(lab)}) S2 classes {d[5:]}\n{r.observed_frac:.0%} observed")
-    ztr, zshp = H.s2_grid(); xtr = H.xc_transform(ztr); z2 = np.load(H.S2XC / "2023-06-20.npz")
-    u2 = lambda k: np.unpackbits(z2[k], count=zshp[0] * zshp[1]).reshape(zshp).astype(bool)
-    w, v = u2("water"), u2("valid"); c = np.zeros(zshp, "u1"); c[v & ~w] = 2; c[w] = 1
-    from rasterio import features
-    c[~features.rasterize([(zone.__geo_interface__, 1)], out_shape=zshp, transform=xtr, fill=0, dtype="uint8").astype(bool)] = 0
-    r = R[(R.source == "S2_CROSSCHECK") & (R.date == "2023-06-20")].iloc[0]
-    _res_panel(axs[2, 3], ctx, c[::3, ::3], km(xtr, zshp), ["#1b6ca8", "#efece6"], f"({next(lab)}) S2 water 06-20\n{r.water_km2:.0f} km²")
-    _leg(axs[2, 4], [H.K10E[k][1] for k in range(1, 10)] + ["#efece6"], [H.K10E[k][0].replace("_", " ").lower() for k in range(1, 10)] + ["observed, not water (l)"], "Sentinel-2 (p25 k10e)")
-    fig.suptitle("Kakhovka pool drawdown: modelled surface (terrain-reconstructed) vs Sentinel-1 and Sentinel-2 observations; not observed is not dry", fontsize=7)
-    FS.save(fig, "FigS08_reservoir_drawdown_maps", FIG)
-
+    fig.suptitle("Kakhovka pool: the modelled water extent (terrain-reconstructed) and the Sentinel-1 VH dark surface, which after ~13 June is wet mud as well as water", fontsize=6.6)
+    FS.save(fig, "FigS08_reservoir_model_and_s1", FIG)
 
 def figS09():
     """All seven S2 indices over the pool in display classes: before the breach, drawdown, after (frozen p25 stacks)."""
@@ -855,7 +931,7 @@ def figS15():
 
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
-       "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False),
+       "Fig11": (fig11, True), "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False),
        "FigS14": (figS14, True), "FigS15": (figS15, False), "Fig10": (fig10, True)}
 
 

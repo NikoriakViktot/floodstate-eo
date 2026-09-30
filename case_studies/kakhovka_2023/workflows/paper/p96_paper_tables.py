@@ -26,18 +26,19 @@ SEEDS_V4 = (20260923, 20261001, 20261002)                          # the p86 def
 KEY_DATES = ["2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09", "2023-06-10", "2023-06-11", "2023-06-12", "2023-06-13",
              "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-18", "2023-06-21", "2023-06-25", "2023-06-30"]
 LITERATURE = [  # context only; every row must be VERIFIED against the source before submission
-    dict(source="UNOSAT product 3616 (9 June 2023)", quantity="flooded LAND, cumulative satellite-detected 6-9 June (ICEYE, Sentinel-3, Sentinel-2); pre-existing water is a separate reference class; preliminary, not field-validated",
+    dict(row_id="lit_unosat_3616", source="UNOSAT product 3616 (9 June 2023)", quantity="flooded LAND, cumulative satellite-detected 6-9 June (ICEYE, Sentinel-3, Sentinel-2); pre-existing water is a separate reference class; preliminary, not field-validated",
          value_km2=620, quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="cumulative_2023-06-06..09", verify="VERIFY: product id, AOI, reference-water definition (via CEOBS 2023 / REACH 2023)"),
-    dict(source="UNOSAT product 3623 (13 June 2023)", quantity="land that appears flooded on 13 June vs reference water of 3/5 June", value_km2=180,
+    dict(row_id="lit_unosat_3623", source="UNOSAT product 3623 (13 June 2023)", quantity="land that appears flooded on 13 June vs reference water of 3/5 June", value_km2=180,
          quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="snapshot_2023-06-13", verify="VERIFY: product id and AOI"),
-    dict(source="Kadam et al. 2024 (HEC-RAS 1D/2D, 300 m breach scenario)", quantity="modelled flood extent (scenario, not an observation)", value_km2=823,
+    dict(row_id="lit_kadam_2024", source="Kadam et al. 2024 (HEC-RAS 1D/2D, 300 m breach scenario)", quantity="modelled flood extent (scenario, not an observation)", value_km2=823,
          quantity_semantics="model_extent (definition per source)", temporal_semantics="scenario maximum", verify="VERIFY: extent definition, AOI, scenario")]
     # Yale HRL 2023 (520 km2) dropped 2026-09-28: no source found, unknown semantics (literature audit)
 
 OUT = {}   # tid -> (df, caption, sources, evidence_level)
 CENTRAL_NOTE = ("reported central value = Monte-Carlo MEDIAN (*_p50_*) with the p05-p95 interval of the coherent Monte-Carlo worlds (p95e rev 2); *_central_* = the "
                 "deterministic nominal run (draw 0, unperturbed inputs), a diagnostic given in brackets; its position relative to the ensemble is attributed to "
-                "the error components in T11d (maintainer decision 2026-09-28; recomputed 2026-09-29 after the code review)")
+                "the error components in T11d (maintainer decision 2026-09-28; recomputed 2026-09-29 after the code review); relative half-widths are taken over the "
+                "Monte-Carlo median, never over the nominal run (text pass 2026-09-29)")
 UNCERTAINTY_NOTE = ("PRIMARY interval = p05/p50/p95 of the coherent Monte-Carlo worlds of p95e rev 2 (review F01-F05): per draw ONE terrain-error realization over the "
                     "union mosaic (FABDEM-sourced cells only; class NMAD x a unit-variance field with the nested covariance fitted to the FABDEM - ICESat-2 residuals, "
                     "p95j) and ONE water-surface realization over all nodes and days (datum closure, gauge, SWOT wse_u, gap-dependent interpolation error; every term "
@@ -113,11 +114,12 @@ def t02c_m2_threshold():
         if not p.exists():
             continue
         f = pd.read_csv(p); f = f[f.baseline == "preall"].copy(); f.insert(0, "model", model); src.append(p)
+        mid = "original_trace" if tag == "" else "corrected_notrace"; f.insert(1, "model_id", mid)          # addressable id (text pass 2026-09-29)
         f = f.rename(columns={"threshold": "threshold_oof", "recall": "recall_at_oof", "precision": "precision_at_oof", "F1": "F1_at_oof"})
-        rows.append(f[["model", "regime", "outer_fold", "n_test", "test_prevalence", "inner_AP", "AP", "threshold_insample_superseded", "recall_at_insample_superseded",
+        rows.append(f[["model", "model_id", "regime", "outer_fold", "n_test", "test_prevalence", "inner_AP", "AP", "threshold_insample_superseded", "recall_at_insample_superseded",
                        "threshold_oof", "n_calibration", "recall_at_oof", "precision_at_oof", "F1_at_oof"]])
         for rg, g in f.groupby("regime"):
-            rows.append(pd.DataFrame([dict(model=model, regime=rg, outer_fold="median", n_test=int(g.n_test.sum()), inner_AP=g.inner_AP.median(), AP=g.AP.median(),
+            rows.append(pd.DataFrame([dict(model=model, model_id=mid, regime=rg, outer_fold="median", n_test=int(g.n_test.sum()), inner_AP=g.inner_AP.median(), AP=g.AP.median(),
                                            threshold_insample_superseded=g.threshold_insample_superseded.median(), recall_at_insample_superseded=g.recall_at_insample_superseded.median(),
                                            threshold_oof=g.threshold_oof.median(), recall_at_oof=g.recall_at_oof.median(), precision_at_oof=g.precision_at_oof.median(), F1_at_oof=g.F1_at_oof.median())]))
     if rows:
@@ -226,13 +228,33 @@ def t07_attribution():
     pr = pd.concat(Ps, ignore_index=True)
     pr["excludes_zero"] = (pr.lo > 0) | (pr.hi < 0); pr["independent"] = np.where(pr.B.str.startswith("U2b"), "no (W_pre circularity)", "weak-label")
     put("T07b", pr, "Paired differences (B minus A) of the attribution endpoints across label sets, inputs and (v004) training seeds.", s2, "weak_label_agreement")
+    # D-SEEDS (maintainer, 2026-09-29): three training seeds are the minimum evidence unit of an arm comparison -- one row per
+    # comparison and endpoint with every seed's median and interval, the seeds whose interval excludes zero and the sign agreement
+    pairs = {"v004 - v002_notrace (U2)": ("U2_B1B2_v002nt", "U2_B1B2_v004"), "U2 - U0d (v004)": ("U0d_B1B2_v004", "U2_B1B2_v004"),
+             "U2b - U2 (v004)": ("U2_B1B2_v004", "U2b_B1B2_v004")}
+    rows = []
+    for comp, (a, b) in pairs.items():
+        for ep in pr.endpoint.unique():
+            row, meds = dict(comparison=comp, endpoint=ep, n_seeds=0), []
+            for sd in SEEDS_V4:
+                sfx = "" if sd == SEEDS_V4[0] else f"_s{sd}"
+                q = pr[(pr.A == a + sfx) & (pr.B == b + sfx) & (pr.endpoint == ep)]
+                if len(q):
+                    r = q.iloc[0]; row.update({f"s{sd}_median": r["median"], f"s{sd}_lo": r.lo, f"s{sd}_hi": r.hi}); meds.append((float(r["median"]), bool(r.excludes_zero)))
+            if len(meds) == len(SEEDS_V4):
+                m = np.array([x for x, _ in meds])
+                row.update(n_seeds=len(meds), n_seeds_excluding_zero=int(sum(e for _, e in meds)), same_sign_all_seeds=bool((m > 0).all() or (m < 0).all()),
+                           min_median=float(m.min()), max_median=float(m.max()), independent="no (W_pre circularity)" if b.startswith("U2b") else "weak-label")
+                rows.append(row)
+    if rows:
+        put("T07s", pd.DataFrame(rows), "Attribution comparisons of the arms on the canonical v004 labels per training seed (D-SEEDS: three seeds are the minimum evidence unit): the label effect at fixed inputs (U2 trained on v002_notrace -- the v002 rule on the corrected M2, without a REFERENCE_WATER class -- vs U2 on v004), the HAND input (U2 - U0d) and the W_pre input (U2b - U2; not independent, W_pre is a label ingredient). Per seed the median and 95 % block-bootstrap interval (2000 paired resamples on identical TEST blocks; both runs of a pair share the seed), the number of seeds whose interval excludes zero, sign agreement and the range of the seed medians. Endpoints against the v004 labels; agreement with weak labels, not accuracy.", s2, "weak_label_agreement")
 
 
 def t08_audit():
     g, p1 = read("p89_group_summary.csv"); r, p2 = read("p89_retention.csv")
     g["area_semantics"] = "mapped_UNet"
-    put("T08", g, "Cropland-associated SAR candidates (p89 audit): groups A (water before the breach), B (wet/irrigated agriculture), D (unresolved / likely SAR artefact) per arm and frame.", [p1], "weak_label_agreement")
-    put("T08b", r, "Retention of U0d candidate area by the other v002 arms (fraction of km2).", [p2], "weak_label_agreement")
+    put("T08", g, "Cropland-associated SAR candidates (p89 audit of the historical v002 arms; provenance, not re-run on the canonical v004 labels): groups A (water before the breach), B (wet/irrigated agriculture), D (unresolved / likely SAR artefact) per arm and frame.", [p1], "weak_label_agreement")
+    put("T08b", r, "Retention of U0d candidate area by the other v002 arms (fraction of km2; historical v002 arms, provenance -- the input effects on v004 with three seeds are in T06s).", [p2], "weak_label_agreement")
 
 
 def _oa_kappa(cm):
@@ -285,7 +307,8 @@ P95_VARIANTS = [("_connected_ceiling", "connected_ceiling"), ("_hand_and_ceiling
 P95_ATTRIBUTION = [("_connected_ceiling_legacyTZA", "rev 5 reproduced: rev-5 terrain table on every cell, per-zone evaluation, grid-anchored lattice"),
                    ("_connected_ceiling_legacyTZ", "+ lattice anchored in map coordinates"),
                    ("_connected_ceiling_legacyT", "+ connectivity on the union mosaic (ownership for accounting only)"),
-                   ("_connected_ceiling", "+ FABDEM-only residual table per zone, bed cells uncorrected = rev 6")]
+                   ("_connected_ceiling_rev6", "+ FABDEM-only residual table per zone, bed cells uncorrected = rev 6"),
+                   ("_connected_ceiling", "+ the vertical frame of Paper 1 v6 (Kherson gauge at the post's own EPSG:9902 step; FABDEM and ICESat-2 ground in the production chain) = rev 7")]
 
 
 def _p95_variants():
@@ -306,6 +329,7 @@ def t11_terrain():
                          margin_m=c.get("margin_m"), river_floor_m=c["RIVER_LEVEL_M"], swot_max_dist_m=c["SWOT_MAX_DIST_M"], dist_to_prewater_max_m=c["DIST_MAX_M"],
                          baseline_until=c["baseline_until"], connectivity=c.get("connectivity"), seed_network=c.get("seed_network"), max_gap_days=c.get("max_gap_days"),
                          wse_river_aware=c.get("wse_river_aware"), terrain_bias=ter.get("bias_correction"), vertical_datum=vf.get("datum"),
+                         paper1_fabdem_shift_m=(vf.get("paper1_frame") or {}).get("fabdem_shift_m"), paper1_kherson_delta_epsg9902_m=(vf.get("paper1_frame") or {}).get("kherson_delta_epsg9902_m"),
                          evaluation="union mosaic" if "mosaic" in str(man.get("evaluation", "")) else man.get("evaluation"), wse_method=man.get("wse_method", ""),
                          status="superseded" if "p59" in (man.get("closure") or "") else "current"))
     put("T11", pd.DataFrame(rows), "Terrain reconstruction (rev 6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias and vertical datum per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.", src, "independent_physical")
@@ -355,8 +379,9 @@ def t12_daily():
         D = D.merge(U[["date", "region", "A_p05_km2", "A_p50_km2", "A_p95_km2", "V_p05_hm3", "V_p50_hm3", "V_p95_hm3", "W_total_p05_km2", "W_total_p50_km2", "W_total_p95_km2",
                        "Vtot_p05_hm3", "Vtot_p50_hm3", "Vtot_p95_hm3", "baseline_p05_km2", "baseline_p50_km2", "baseline_p95_km2", "n_draws"]], on=["date", "region"], how="left")
         # PRIMARY interval of the total = quantiles of the total-water ensemble itself (review F04; the shift construction is withdrawn)
-        D["rel_halfwidth_W_total_pct"] = (D.W_total_p95_km2 - D.W_total_p05_km2) / 2 / D.W_total_central_km2 * 100
-        D["rel_halfwidth_A_pct"] = (D.A_p95_km2 - D.A_p05_km2) / 2 / D.A_central_km2 * 100; D["rel_halfwidth_V_pct"] = (D.V_p95_hm3 - D.V_p05_hm3) / 2 / D.V_central_hm3 * 100
+        # relative half-widths over the ensemble MEDIAN (text pass 2026-09-29: no nominal-centred uncertainty; the nominal run is a diagnostic)
+        D["rel_halfwidth_W_total_pct"] = (D.W_total_p95_km2 - D.W_total_p05_km2) / 2 / D.W_total_p50_km2 * 100
+        D["rel_halfwidth_A_pct"] = (D.A_p95_km2 - D.A_p05_km2) / 2 / D.A_p50_km2 * 100; D["rel_halfwidth_V_pct"] = (D.V_p95_hm3 - D.V_p05_hm3) / 2 / D.V_p50_hm3 * 100
         D["mc_shift_A_pct"] = (D.A_p50_km2 - D.A_central_km2) / D.A_central_km2 * 100; D["mc_shift_V_pct"] = (D.V_p50_hm3 - D.V_central_hm3) / D.V_central_hm3 * 100
     for name, (sfx, man, mp) in _p95_variants().items():
         q = T / f"p95_daily_area_pooled{sfx}.csv"
@@ -369,7 +394,7 @@ def t12_daily():
     lead = [c for c in ["date", "region", "A_p50_km2", "A_p05_km2", "A_p95_km2", "A_central_km2", "W_total_p50_km2", "W_total_p05_km2", "W_total_p95_km2", "W_total_central_km2",
                         "V_p50_hm3", "V_p05_hm3", "V_p95_hm3", "V_central_hm3"] if c in D.columns]
     D = D[lead + [c for c in D.columns if c not in lead]]
-    put("T12", D, "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2; n_draws per row) with the deterministic nominal run (*_central_*, draw 0, a diagnostic) alongside: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; quantiles of the total-water ensemble), reconstructed NEWLY INUNDATED area (A_*), the volume of new water (V_*) and of all water (Vtot_*), and the draw's own pre-breach baseline (baseline_*). *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). The 100 000-draw emulator is not part of this table (a diagnostic, T12d). Sensitivities (nominal runs): p42 HAND rule, ceiling only, terrain as delivered (no residual bias removed), superseded closure, 4-connectivity, main-stem seed, 3-day maximum gap, river-aware water surface, the Kalynivske gauge as an extra water-surface node (the gauge then an input), nearest-node fallback capped at 10 km. Daily reconstructed series, not daily observations.", src, "independent_physical")
+    put("T12", D, "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2; n_draws per row) with the deterministic nominal run (*_central_*, draw 0, a diagnostic) alongside: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; quantiles of the total-water ensemble), reconstructed NEWLY INUNDATED area (A_*), the volume of new water (V_*) and of all water (Vtot_*), and the draw's own pre-breach baseline (baseline_*). Relative half-widths rel_halfwidth_* = (p95 - p05) / 2 over the Monte-Carlo median. The 100 000-draw emulator is not part of this table (a diagnostic, T12d). Sensitivities (nominal runs): p42 HAND rule, ceiling only, terrain as delivered (no residual bias removed), superseded closure, 4-connectivity, main-stem seed, 3-day maximum gap, river-aware water surface, the Kalynivske gauge as an extra water-surface node (the gauge then an input), nearest-node fallback capped at 10 km. Daily reconstructed series, not daily observations.", src, "independent_physical")
 
 
 def t12d_emulator_diagnostic():
@@ -408,7 +433,7 @@ def t_depth():
         put("T12e", pd.read_csv(q), "Depth of the terrain-reconstructed new inundation below the dam (water surface minus the seamless terrain-bed model; connected_ceiling, the nominal world -- its geometry, while areas and volumes as results come from the ensemble, T12): per accounting region, the maximum depth over 26 May - 10 July per cell and the depth on 8 June -- area, mean / median / p90 / p95 / maximum depth, the share of cells deeper than 1, 2 and 4 m, and on 8 June the volume. Maps in Fig07.", [q], "independent_physical")
     r = T / "p95m_reservoir_depth.csv"
     if r.exists():
-        put("T21b", pd.read_csv(r), "Water depth in the Kakhovka pool from the p95f model (daily sloped surface over the 50 m seamless terrain-bed model, the wet mask of p95h / FigS08): the full pool on 5 June and the drawdown on 7, 9 and 13 June -- wet area, volume (reproduces T21 to 1e-3 km3), mean / median / p95 / maximum depth, the share deeper than 5 m and the surface at the outlet and upstream. Terrain-reconstructed, not observed depth; maps in Fig10.", [r], "contextual")
+        put("T21b", pd.read_csv(r), "Water depth in the Kakhovka pool from the p95f model (daily sloped surface over the 50 m seamless terrain-bed model, the wet mask of p95h / Fig11): the full pool on 5 June and the drawdown on 7, 9 and 13 June -- wet area, volume (reproduces T21 to 1e-3 km3), mean / median / p95 / maximum depth, the share deeper than 5 m and the surface at the outlet and upstream. Terrain-reconstructed, not observed depth; maps in Fig10.", [r], "contextual")
 
 
 def t21_reservoir():
@@ -416,9 +441,11 @@ def t21_reservoir():
     if not p.exists():
         return
     R = pd.read_csv(p); R["area_semantics"] = "reservoir_pool (terrain-integrated under the observed sloped surface)"
+    v05 = float(R.loc[R.date == "2023-06-05", "V_pool_km3"].iloc[0])                  # released since the last pre-breach day (text pass 2026-09-30)
+    R["released_since_0605_km3"] = np.where(R.date >= "2023-06-05", (v05 - R.V_pool_km3).round(3), np.nan)
     R = R.rename(columns={"Q_out_breach_est_m3s": "Q_release_eff_daily_mean_m3s", "Q_out_breach_est_hm3_day": "Q_release_eff_hm3_day"})
     R["Q_definition"] = "daily-MEAN effective release = -dV_pool/dt + Q_in(DniproHES); a storage-balance estimate on a sloped surface interpolated between 3-4 level points, NOT an instantaneous breach discharge"
-    put("T21", R, "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage.", [p], "independent_physical")
+    put("T21", R, "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage. surface_upper_bound = True on the days whose sloped surface rests on the censored upper bound of the Nikopol post (12-13 June: the level had fallen below the post): pool area, volume and depth of those days are upper estimates and the effective release a lower estimate.", [p], "independent_physical")
     if h.exists():
         H = pd.read_csv(h); H["dV_rel_pct"] = (H.V_dem_km3 - H.V_table19_km3) / H.V_table19_km3 * 100; H["dA_rel_pct"] = (H.A_dem_km2 - H.A_table19_km2) / H.A_table19_km2 * 100
         put("T22", H, "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives less volume at the same level: -8.5 % at the full-pool level (17.5 m), -14 % at 13 m, -20 % at 11 m (open question for Paper 4: reservoir bowl on the historical bathymetry).", [h], "independent_physical")
@@ -434,8 +461,12 @@ def t23_t26_reservoir_maps():
                                "VH dark surface = open water OR smooth wet mud, observed cells only; not a water area after ~06-13"],
                                "S2 water (NDWI>0 & MNDWI>0 & SCL-permitted), observed cells only")
     M = M.rename(columns={"yi2025_digitised_km2": "yi2025_S1_archive_km2"})   # review F15: the authors' Sentinel-1 archive values, not digitised
-    cols = ["date", "source", "semantics", "water_km2", "observed_frac", "iou_vs_model", "model_km2_on_observed", "vh_threshold_db", "orbits", "regime", "mapped", "yi2025_S1_archive_km2", "area_note"]
-    put("T23", M[[c for c in cols if c in M.columns]], "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; the Sentinel-1 reservoir areas of the authors' code archive, Zenodo 14639520, observations.mat obs.A -- read from the archive, not digitised, not quoted from their text). Areas count observed cells only; not observed is not dry. Maps: FigS08.", [p], "cross_sensor")
+    cols = ["date", "source", "semantics", "water_km2", "observed_frac", "iou_vs_model", "model_km2_on_observed", "model_wet_s2_dry_km2", "vh_threshold_db", "orbits", "regime", "mapped", "yi2025_S1_archive_km2", "area_note"]
+    put("T23", M[[c for c in cols if c in M.columns]], "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; the Sentinel-1 reservoir areas of the authors' code archive, Zenodo 14639520, observations.mat obs.A -- read from the archive, not digitised, not quoted from their text). Areas count observed cells only; not observed is not dry. On the S2 crosscheck dates with a model surface (8 and 13 June) the model is compared on the cells S2 observed (IoU, model km2, model wet where S2 sees no water). Maps: Fig11 (Sentinel-2, day of exposure) and FigS08 (model extent, Sentinel-1).", [p], "cross_sensor")
+    x = T / "p95h_exposure_observed.csv"
+    if x.exists():
+        X = pd.read_csv(x); X.insert(1, "by", np.select([X.code.between(6, 13), X.code.isin([20, 254])], ["model", "Sentinel-2"], "not observed"))
+        put("T23b", X, "The day the Kakhovka bed fell dry (maintainer's check of the drawdown maps, 2026-09-30), on the Sentinel-2 grid inside the cells wet under the model on 5 June: the model day for 6-13 June where Sentinel-2 sees no water on 20 June; 'dry by 06-20' where the model is still wet on 13 June and Sentinel-2, observing the whole pool on 20 June, sees no water; 'water on 06-20' wherever Sentinel-2 sees water (the observation overrides the model). km2 and share of the 5 June pool water. Map: Fig11e.", [x], "cross_sensor")
     c = T / "p95h_s2_classes.csv"
     if c.exists():
         put("T24", pd.read_csv(c), "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).", [c], "contextual")
@@ -508,32 +539,38 @@ def t15_icesat():
 
 
 def t16_accounting():
-    pk, p1 = read("p93_peak_vs_label_vs_model.csv"); ar, p2 = read("p92_flood_area_dam_to_liman.csv")
+    """Area accounting with explicit semantics. Text pass 2026-09-29: every row has a short row_id; the terrain-reconstructed rows
+    are the Monte-Carlo median with p05-p95 (the nominal run only as a labelled diagnostic column); the mapped U-Net rows are the
+    p92 accounting per run -- the canonical v004 labels with their three training seeds, v003_A as provenance."""
+    pk, p1 = read("p93_peak_vs_label_vs_model.csv"); ar, p2 = read("p92_flood_area_dam_to_liman.csv"); src = [p1, p2]
     rows = []
-    for _, r in pk.iterrows():
-        rows += [dict(region=r.region, quantity="S1 new dark water, 06-09 scene", km2=r.peak_0609_new_water_km2, area_semantics="observed_S1", quantity_semantics="new_water (pre-breach water excluded)", temporal_semantics="snapshot_2023-06-09"),
-                 dict(region=r.region, quantity="S1 new dark water, >= 2 of 3 peak dates (label recipe)", km2=r.label_recipe_2of3_new_km2, area_semantics="observed_S1", quantity_semantics="new_water (pre-breach water excluded)", temporal_semantics="persistence_2of3_(06-09,06-13,06-14)"),
-                 dict(region=r.region, quantity="S1 total dark water, 06-09 (incl. pre-breach water)", km2=r.peak_0609_total_water_km2, area_semantics="observed_S1", quantity_semantics="total_water", temporal_semantics="snapshot_2023-06-09"),
-                 dict(region=r.region, quantity="pre-breach water (S1 06-01/02 or p60 pre_water_frac >= 20 %)", km2=r.pre_breach_water_km2, area_semantics="observed_S1", quantity_semantics="reference_water", temporal_semantics="reference_2023-06-01/02"),
-                 dict(region=r.region, quantity="U2b predicted event flood (persistent concept)", km2=r.U2b_predicted_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)")]
-    for run_, lab_ in (("U2b_B1B2_v003A", "v003_A labels, original M2"), ("U2b_B1B2_v004", "v004 labels, corrected M2, seed 20260923"),
-                       ("U2b_B1B2_v004_s20261001", "v004 labels, corrected M2, seed 20261001"), ("U2b_B1B2_v004_s20261002", "v004 labels, corrected M2, seed 20261002")):
+    for _, r in pk.iterrows():                    # S1 quantities only: the p93 U2b column duplicates the p92 v003_A accounting row
+        rows += [dict(row_id="s1_new_0609", region=r.region, quantity="S1 new dark water, 06-09 scene", km2=r.peak_0609_new_water_km2, area_semantics="observed_S1", quantity_semantics="new_water (pre-breach water excluded)", temporal_semantics="snapshot_2023-06-09"),
+                 dict(row_id="s1_label_recipe", region=r.region, quantity="S1 new dark water, >= 2 of 3 peak dates (label recipe)", km2=r.label_recipe_2of3_new_km2, area_semantics="observed_S1", quantity_semantics="new_water (pre-breach water excluded)", temporal_semantics="persistence_2of3_(06-09,06-13,06-14)"),
+                 dict(row_id="s1_total_0609", region=r.region, quantity="S1 total dark water, 06-09 (incl. pre-breach water)", km2=r.peak_0609_total_water_km2, area_semantics="observed_S1", quantity_semantics="total_water", temporal_semantics="snapshot_2023-06-09"),
+                 dict(row_id="pre_breach_water", region=r.region, quantity="pre-breach water (S1 06-01/02 or p60 pre_water_frac >= 20 %)", km2=r.pre_breach_water_km2, area_semantics="observed_S1", quantity_semantics="reference_water", temporal_semantics="reference_2023-06-01/02")]
+    for run_, rid, lab_ in (("U2b_B1B2_v004", "u2b_v004_s20260923", "v004 labels (canonical), corrected M2, seed 20260923"),
+                            ("U2b_B1B2_v004_s20261001", "u2b_v004_s20261001", "v004 labels (canonical), corrected M2, seed 20261001"),
+                            ("U2b_B1B2_v004_s20261002", "u2b_v004_s20261002", "v004 labels (canonical), corrected M2, seed 20261002"),
+                            ("U2b_B1B2_v003A", "u2b_v003A", "v003_A labels, original M2 (historical, provenance)")):
         for _, r in ar[ar.run == run_].iterrows():
-            rows.append(dict(region=r.region, quantity=f"U2b predicted flood (p92 accounting; {lab_})", km2=r.predicted_flood_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)", unobserved_km2=r.unobserved_no_s1_event_km2))
-    pu = T / "p95_daily_area_pooled_connected_ceiling.csv"
-    if pu.exists():
-        d = pd.read_csv(pu)
+            rows.append(dict(row_id=rid, region=r.region, quantity=f"U2b predicted flood (p92 accounting; {lab_})", km2=r.predicted_flood_km2, area_semantics="mapped_UNet", quantity_semantics="new_water (label concept)", temporal_semantics="persistence (label concept ~13 June regime)", unobserved_km2=r.unobserved_no_s1_event_km2))
+    pu, pn = T / "p95e_area_volume_uncertainty.csv", T / "p95_daily_area_pooled_connected_ceiling.csv"
+    if pu.exists() and pn.exists():
+        U = pd.read_csv(pu); N = pd.read_csv(pn); src += [pu, pn]
         for reg in ("DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"):
-            g = d[d.region == reg]; pkrow = g.loc[g.new_km2.idxmax()]
-            rows.append(dict(region=reg, quantity=f"reconstructed newly inundated area, areal maximum {pkrow.date}", km2=pkrow.new_km2, area_semantics="terrain_reconstructed", quantity_semantics="new_water (outside the same-rule pre-breach regime)", temporal_semantics=f"daily_snapshot_{pkrow.date} (reconstructed series)"))
-            rows.append(dict(region=reg, quantity="reconstructed newly inundated area, 06-09", km2=float(g[g.date == "2023-06-09"].new_km2.iloc[0]), area_semantics="terrain_reconstructed", quantity_semantics="new_water (outside the same-rule pre-breach regime)", temporal_semantics="daily_snapshot_2023-06-09 (reconstructed series)"))
-            rows.append(dict(region=reg, quantity=f"reconstructed total water-surface area, {pkrow.date}", km2=float(pkrow.potential_km2), area_semantics="terrain_reconstructed", quantity_semantics="total_water (incl. pre-breach channels, lakes, reed beds)", temporal_semantics=f"daily_snapshot_{pkrow.date} (reconstructed series)"))
-            rows.append(dict(region=reg, quantity="reconstructed total water-surface area, normal regime 06-05", km2=float(g[g.date == "2023-06-05"].potential_km2.iloc[0]), area_semantics="terrain_reconstructed", quantity_semantics="total_water (incl. pre-breach channels, lakes, reed beds)", temporal_semantics="daily_snapshot_2023-06-05 (reconstructed series)"))
+            g = U[U.region == reg]; n = N[N.region == reg].set_index("date"); mx = g.loc[g.A_p50_km2.idxmax()]; d9 = g[g.date == "2023-06-09"].iloc[0]; d5 = g[g.date == "2023-06-05"].iloc[0]
+            for rid, q, dd, col, ncol, qs in (("rec_A_new_max", f"reconstructed newly inundated area, areal maximum {mx.date} (Monte-Carlo median)", mx, "A", "new_km2", "new_water (outside the same-rule pre-breach regime)"),
+                                              ("rec_A_new_0609", "reconstructed newly inundated area, 06-09 (Monte-Carlo median)", d9, "A", "new_km2", "new_water (outside the same-rule pre-breach regime)"),
+                                              ("rec_W_total_max", f"reconstructed total water-surface area, {mx.date} (Monte-Carlo median)", mx, "W_total", "potential_km2", "total_water (incl. pre-breach channels, lakes, reed beds)"),
+                                              ("rec_W_total_0605", "reconstructed total water-surface area, pre-breach regime 06-05 (Monte-Carlo median)", d5, "W_total", "potential_km2", "total_water (incl. pre-breach channels, lakes, reed beds)")):
+                rows.append(dict(row_id=rid, region=reg, quantity=q, km2=float(dd[f"{col}_p50_km2"]), km2_p05=float(dd[f"{col}_p05_km2"]), km2_p95=float(dd[f"{col}_p95_km2"]),
+                                 km2_nominal_diagnostic=float(n.loc[dd.date, ncol]), area_semantics="terrain_reconstructed", quantity_semantics=qs,
+                                 temporal_semantics=f"daily_snapshot_{dd.date} (reconstructed series)"))
     for l in LITERATURE:
-        rows.append(dict(region="reported AOI (differs)", quantity=f"{l['source']}: {l['quantity']}", km2=l["value_km2"], area_semantics="literature_reported", quantity_semantics=l["quantity_semantics"], temporal_semantics=l["temporal_semantics"], verify=l["verify"]))
+        rows.append(dict(row_id=l["row_id"], region="reported AOI (differs)", quantity=f"{l['source']}: {l['quantity']}", km2=l["value_km2"], area_semantics="literature_reported", quantity_semantics=l["quantity_semantics"], temporal_semantics=l["temporal_semantics"], verify=l["verify"]))
     D16 = pd.DataFrame(rows); D16["comparability_note"] = "quantities differ in area_semantics, quantity_semantics (new vs total water) AND temporal_semantics (snapshot vs cumulative vs persistence); operational flooded-LAND figures are closer in kind to A_new than to W_total and are context, never validation"
-    put("T16", D16, "Area accounting with explicit semantics: observed (S1), mapped (U-Net), terrain-reconstructed and literature-reported figures are different quantities (new vs total water; snapshot vs cumulative vs persistence) and are never compared as validation.", [p1, p2], "mixed")
-
+    put("T16", D16, "Area accounting with explicit semantics: observed (S1), mapped (U-Net: the canonical v004 labels with three training seeds; v003_A as provenance), terrain-reconstructed (Monte-Carlo median with p05-p95; the nominal run only as a diagnostic column) and literature-reported figures are different quantities (new vs total water; snapshot vs cumulative vs persistence) and are never compared as validation. row_id addresses a row.", src, "mixed")
 
 def t17_swot_gauge():
     n, p1 = read("p59_swot_flood_nodes.csv"); g, p2 = read("p59_swot_vs_kherson.csv", parse_dates=["date"])
@@ -603,6 +640,27 @@ def t20_block_sensitivity():
             rows.append(row)
     put("T20", pd.DataFrame(rows), "Block-size sensitivity (U2 on v003_A and on the corrected v004 labels): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences.", src, "weak_label_agreement")
 
+def t28_audit_changes():
+    """The one table of what changed after the scientific / code review of 2026-09-28 (maintainer, 2026-09-29): old / new /
+    reason / effect on the conclusion. Curated in publication/audit_changes_source.csv; the placeholders of its old and new cells
+    are resolved here against the tables of THIS build (every table must already be in OUT), so the table cannot drift from them.
+    Old values that no current table carries (the superseded 40-draw ensemble, rev 5) are quoted from the dated records named in
+    the evidence column."""
+    import importlib.util
+    q = ROOT / "publication" / "audit_changes_source.csv"
+    if not q.exists():
+        return
+    spec = importlib.util.spec_from_file_location("fill_manuscript", Path(__file__).with_name("fill_manuscript.py"))
+    FM = importlib.util.module_from_spec(spec); spec.loader.exec_module(FM)
+    res = FM.make_resolver(lambda tid: OUT[tid][0])
+    A = pd.read_csv(q, dtype=str).fillna("")
+    for c in ("old", "new", "impact_on_conclusion"):
+        A[c] = [FM.PAT.sub(res, v) for v in A[c]]
+    bad = [v for c in ("old", "new", "impact_on_conclusion") for v in A[c] if "[[MISSING" in v]
+    assert not bad, bad
+    put("T28", A, "What changed after the scientific and code review of 2026-09-28 (findings F01-F20) and the maintainer's decisions of 2026-09-29: per item the old and the new treatment or value, the reason, and the effect on the conclusion, ordered by the vertical frame of Paper 1 (taken as validated input) and then the evidence hierarchy (terrain reconstruction -> uncertainty -> independent validation / support -> weak-label ML -> release). New values are resolved from the table cells of this build; old values from the superseded rows the tables keep (T02c, T06, T07b, T08b, T09 rev 1) or from the dated records named in the evidence column. A revision record, not a result table.", [q], "mixed")
+
+
 def readme():
     defs = [("POD", "hit / (hit + miss): share of S1 new dark water that the reconstruction allows, on the observation domain"),
             ("FAR", "terrain_only / (hit + terrain_only): share of reconstructed new water that S1 did not see (includes sensor blind spots)"),
@@ -632,7 +690,7 @@ def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
               t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
-              t23_t26_reservoir_maps):
+              t23_t26_reservoir_maps, t28_audit_changes):          # T28 last: it resolves cells of the tables above
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),
                tables={}, sources={})

@@ -18,6 +18,9 @@ rmod = sorted(l.replace("reservoir_model_", "") for l in by_id if l.startswith("
 rs1 = sorted(l.replace("reservoir_s1_", "") for l in by_id if l.startswith("reservoir_s1_"))
 rs2 = sorted({l.split("_")[-1] for l in by_id if l.startswith("reservoir_s2_") and not l.startswith("reservoir_s2_water_")})
 rs2w = sorted(l.replace("reservoir_s2_water_", "") for l in by_id if l.startswith("reservoir_s2_water_"))
+rdep = sorted(l.replace("reservoir_depth_", "") for l in by_id if l.startswith("reservoir_depth_"))
+UNET = [u for u in ("unet_U2b_v004", "unet_U2_v004", "unet_U2b_v003A", "unet_U2_v1") if u in by_id]          # v004 canonical; v003_A / v1 history
+LABELS = [u for u in ("labels_v004", "labels_v003A") if u in by_id]
 S2_LAYERS = ["k10e classes", "water", "NDVI", "NDWI", "MNDWI", "NDMI", "BSI", "AWEIsh", "NDTI"]
 VIEWS = {"downstream (dam → liman)": ([46.68, 32.9], 9), "reservoir (Kakhovka pool)": ([47.3, 34.3], 9), "both": ([47.1, 33.6], 8)}
 with st.sidebar:
@@ -33,12 +36,14 @@ with st.sidebar:
     s1date = st.selectbox("S1 date", ["none"] + [d.replace("s1_new_", "") for d in s1d], index=4)
     s1foot = st.checkbox("S1 valid footprint", False)
     st.markdown("**Other products**")
-    unet = st.selectbox("U-Net prediction", ["none", "unet_U2b_v003A", "unet_U2_v1"])
-    lab = st.checkbox("labels v003_A (frozen)", False); rf = st.checkbox("RF20 surface classes", False)
+    hist = lambda x: x + (" (history)" if ("v003A" in x or x.endswith("_v1")) else "")
+    unet = st.selectbox("U-Net prediction (canonical labels v004, first training seed)", ["none"] + UNET, format_func=hist)
+    lab = st.selectbox("weak labels", ["none"] + LABELS, format_func=hist); rf = st.checkbox("RF20 surface classes", False)
     if rmod:
         st.markdown("**Reservoir drawdown**")
         rday = st.select_slider("model day (p95f surface over the DEM)", options=["none"] + rmod, value="none")
-        rexp = st.checkbox("model: day of exposure", False)
+        rexp = st.checkbox("day the bed fell dry (model 6-13 June + Sentinel-2 20 June)", False)
+        rdd = st.selectbox("water depth in the pool (model)", ["none"] + rdep) if rdep else "none"
         rs1date = st.selectbox("S1 date (VH dark surface)", ["none"] + rs1)
         s2l = st.selectbox("S2 layer", ["none"] + S2_LAYERS)
         s2opts = rs2w if s2l == "water" else rs2
@@ -52,7 +57,7 @@ def add(lid, op=None, name=None):
     return l
 legend = []
 if rf: legend.append(add("rf_p73", 0.55, "RF20 classes"))
-if lab: legend.append(add("labels_v003A", 0.6, "labels v003_A"))
+if lab != "none": legend.append(add(lab, 0.6, hist(lab)))
 if summary != "none": legend.append(add(summary, opacity, summary))
 if s1foot and s1date != "none": add(f"s1_footprint_{s1date}", 0.25, "S1 footprint")
 if unet != "none": legend.append(add(unet, opacity, unet))
@@ -66,7 +71,8 @@ if rmod:
         if sid in by_id:
             legend.append(add(sid, opacity, f"S2 {s2l} {rs2date}"))
     if rs1date != "none": legend.append(add(f"reservoir_s1_{rs1date}", opacity, f"S1 reservoir {rs1date}"))
-    if rexp: legend.append(add("reservoir_exposed_day", opacity, "model day of exposure"))
+    if rdd != "none": legend.append(add(f"reservoir_depth_{rdd}", opacity, f"pool water depth {rdd} (model)"))
+    if rexp: legend.append(add("reservoir_exposed_day", opacity, "day the bed fell dry"))
     if rday != "none": legend.append(add(f"reservoir_model_{rday}", opacity, f"model pool {rday}"))
 rp = DATA / "context" / "reservoir_pool.geojson"
 if rp.exists():

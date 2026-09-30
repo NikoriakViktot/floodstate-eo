@@ -7,7 +7,7 @@ import streamlit as st
 from lib import C, INDICES, caption, figure, fmt_ref, header, raw, refs, table
 
 st.set_page_config(page_title="Reconstruction", layout="wide")
-header("Observation-constrained terrain inundation reconstruction: the daily reconstructed series",
+header("Observation-constrained terrain-connectivity reconstruction: the daily reconstructed series",
        "SWOT node heights (gauge-anchored, Paper-1 closure) + Kherson gauge → connected terrain rule → daily area, depth, volume")
 
 d = raw("p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
@@ -100,9 +100,13 @@ try:
         f2.update_layout(height=280, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="pool volume under the sloped surface"); st.plotly_chart(f2, width="stretch")
     with c2:
         dd = R[ok & (R.t >= "2023-06-05")]
-        f3 = go.Figure(); f3.add_trace(go.Bar(x=dd.t, y=-dd.dV_pool_hm3 / 1000, name="released from the pool, km³/day", marker_color=C["terrain"]))
+        f3 = go.Figure(); f3.add_trace(go.Bar(x=dd.t, y=dd.Q_release_eff_hm3_day / 1000, name="daily-mean effective release Q_in − dV/dt, km³/day", marker_color=C["terrain"]))
         f3.add_trace(go.Scatter(x=dd.t, y=dd.Q_in_hm3_day / 1000, mode="lines+markers", name="DniproHES inflow, km³/day", line=dict(color=C["rf"])))
-        f3.add_trace(go.Scatter(x=R.t, y=R.downstream_new_volume_hm3 / 1000, mode="lines+markers", name="new water stored downstream, km³", line=dict(color=C["s1"])))
+        try:                                                                 # the stored volume from the ensemble (Monte-Carlo medians), never the nominal run
+            B = table("T12b"); B = B[B.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])].groupby("date").V_p50_hm3.sum(min_count=2).reset_index()
+            f3.add_trace(go.Scatter(x=pd.to_datetime(B.date), y=B.V_p50_hm3 / 1000, mode="lines+markers", name="new water stored downstream (MC medians), km³", line=dict(color=C["s1"])))
+        except FileNotFoundError:
+            pass
         f3.update_layout(height=280, margin=dict(l=10, r=10, t=30, b=10), yaxis_title="km³", title="daily balance"); st.plotly_chart(f3, width="stretch")
     st.dataframe(R, width="stretch", hide_index=True)
     refs(["Paper1_Nikoriak_2026", "Paper2_Nikoriak_2026", "Yi_2025", "Vyshnevskyi_2023", "Shumilova_2025", "Kadam_2024", "Lehnigk_2026"], "📚 Literature: reservoir levels, bathymetry and the breach discharge")
@@ -117,6 +121,10 @@ except FileNotFoundError:
     st.info("reservoir tables not built")
 try:
     M = table("T23"); M["t"] = pd.to_datetime(M.date); st.markdown(caption("T23"))
+    st.markdown("**The emptying of the reservoir (Fig11)** — Sentinel-2 water by date, the day the bed fell dry (the model for 6–13 June, Sentinel-2 on "
+                "20 June after that), the bed afterwards and the pool area over time: in the first week the pool lost most of its volume while keeping most of "
+                "its area; the area collapsed in the second week (T23b).")
+    figure("Fig11"); st.caption(caption("T23b"))
     st.markdown("**Reservoir drawdown maps** — see *Maps → Reservoir drawdown* (model by day, S1 VH, S2 classes and the 7 classed indices). "
                 "Pool water area by source: MODEL is *terrain_reconstructed*; S1 / S2 are *observed* and count observed cells only "
                 "(S1 dark = open water **or** smooth wet mud, so it exceeds the model on exposed flats after ~13 June).")

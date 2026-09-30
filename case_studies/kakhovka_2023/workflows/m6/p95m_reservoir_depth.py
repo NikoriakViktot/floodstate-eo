@@ -2,7 +2,7 @@
 """P95m -- water depth in the Kakhovka pool: the full pool before the breach and the drawdown, from the same model as p95f/p95h.
 
 Depth = the p95f sloped daily water surface (levels of the day interpolated along the SWORD chainage) minus the 50 m seamless
-terrain-bed model, on the cells below that surface inside the pre-breach pool polygon -- exactly the wet mask of p95h (FigS08
+terrain-bed model, on the cells below that surface inside the pre-breach pool polygon -- exactly the wet mask of p95h (FigS08, model extent
 a-c) and the volume of p95f (T21). Dates: 5 June (full pool, the day before the breach) and 7, 9 and 13 June (drawdown).
 Consistency: the depth integrated over the wet cells reproduces p95f's V_pool_km3 of the date (asserted to 1e-3 km3).
 It is the geometry of one surface model (the pool was not level during the drawdown; a range of design volumes for the same

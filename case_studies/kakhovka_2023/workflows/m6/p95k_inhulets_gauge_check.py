@@ -229,7 +229,7 @@ def main():
         wc = P95.worldcover_on(zn, G)[win[0][0]:win[0][1], win[1][0]:win[1][1]]
         E, _ = P95.terrain_residual_table(zn)
         bias = np.where(np.isin(src, P95.FABDEM_SOURCES), np.vectorize(lambda k: E.get(int(k), E["other"])["bias"])(wc), 0.0)
-        terr = raw - bias
+        terr = P95.PF.fabdem_to_paper1(raw, src).astype("f8") - bias                      # Paper 1 v6 frame, as in p95
         yy, xx = np.mgrid[-R_:R_ + 1, -R_:R_ + 1]; disk = np.hypot(yy, xx) * 20 <= FLOODPLAIN_RADIUS_M
         land = disk & (wc != 80) & np.isin(src, P95.FABDEM_SOURCES) & np.isfinite(terr)
         npz = np.load(P95.DYN / f"{zn}_connected_ceiling" / "daily_new.npz"); shp = tuple(int(v) for v in npz["shape"])

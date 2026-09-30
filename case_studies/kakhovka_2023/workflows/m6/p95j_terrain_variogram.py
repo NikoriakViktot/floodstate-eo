@@ -165,6 +165,7 @@ def main():
     sd = Path(CFG._SWOT_DNIPRO_SIBLING); sys.path.insert(0, str(sd / "src")); sys.path.insert(0, str(sd / "scripts"))
     P57 = _ld("p57", sd / "scripts/p57_dem_accuracy_night.py")
     P, c = P57.load_points(); P = P[~P.in_former_pool].copy()
+    PF = _ld("paper1_frame", Path(__file__).with_name("paper1_frame.py")); P["H_ice"] = PF.icesat_ground_to_paper1(P.H_ice.values)   # Paper 1 v6 frame
     print(f"night QC segments outside the former pool: {len(P):,} (c_EGG2015->EVRF2019 {c:+.3f}) {round(time.time() - t0)} s", flush=True)
     B = CFG.BULK_ROOT; rows, vrows, frows = [], [], []
     manifest = dict(seed=a.seed, qc="p57 load_points: night, gnd_ph_count >= 8, snow-free, |h_te| < 500 m, outside the former pool; WorldCover != water; source in (3, 4)",
@@ -175,7 +176,7 @@ def main():
             tag = s.tags().get("vertical_datum")
         assert_same_vertical_frame({"terrain raster tag": tag, "ICESat-2 ground (p57 chain)": "EVRF2019"})
         src = P57.sample(B / "dem_seamless" / f"{zone}_dem_source_20m.tif", P.x.values, P.y.values)
-        seam = P57.sample(B / "dem_seamless" / f"{zone}_dem_evrf2019_20m.tif", P.x.values, P.y.values)
+        seam = PF.fabdem_to_paper1(P57.sample(B / "dem_seamless" / f"{zone}_dem_evrf2019_20m.tif", P.x.values, P.y.values), src)
         wc = P57.sample(B / "worldcover_frames" / zone / "wc_2021_20m.tif", P.x.values, P.y.values)
         ok = np.isfinite(src) & np.isin(src, FABDEM_SOURCES) & np.isfinite(seam) & np.isfinite(wc) & (wc != 80)
         D = P[ok].copy(); D["r"] = seam[ok] - D.H_ice.values; D["wc"] = wc[ok].astype(int); D["src"] = src[ok].astype(int)

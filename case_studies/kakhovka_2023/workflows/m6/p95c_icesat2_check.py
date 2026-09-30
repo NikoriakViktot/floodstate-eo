@@ -186,12 +186,13 @@ def icesat():
     P57 = _ld("p57", sd / "scripts/p57_dem_accuracy_night.py")
     from swot_dnipro import config as SCFG
     P, c = P57.load_points(); P = P[~P.in_former_pool].copy(); print("night points", len(P), flush=True)
+    PF = _ld("paper1_frame", HERE / "paper1_frame.py"); P["H_ice"] = PF.icesat_ground_to_paper1(P.H_ice.values)      # Paper 1 v6 frame (2026-09-30)
     B = SCFG.BULK_ROOT; out = B / "floodplain_dyn" / "_icesat_check"; rows, cal, chk = [], [], []
     for zone in ZONES:
         cat = P57.sample(out / f"{zone}_cat0609.tif", P.x.values, P.y.values); wse = P57.sample(out / f"{zone}_wse0609.tif", P.x.values, P.y.values)
         seam = P57.sample(B / "dem_seamless" / f"{zone}_dem_evrf2019_20m.tif", P.x.values, P.y.values)
         corr = P57.sample(out / f"{zone}_terrain_corrected.tif", P.x.values, P.y.values)
-        src = P57.sample(B / "dem_seamless" / f"{zone}_dem_source_20m.tif", P.x.values, P.y.values)
+        src = P57.sample(B / "dem_seamless" / f"{zone}_dem_source_20m.tif", P.x.values, P.y.values); seam = PF.fabdem_to_paper1(seam, src)
         wc = P57.sample(B / "worldcover_frames" / zone / "wc_2021_20m.tif", P.x.values, P.y.values)
         wcc = worldcover_cell(B, zone, P.x.values, P.y.values)                # the class p95 corrected the cell with
         c_ok = np.isfinite(src) & np.isin(src, (3, 4)) & np.isfinite(seam) & np.isfinite(wc) & (wc != 80)       # the p95j population

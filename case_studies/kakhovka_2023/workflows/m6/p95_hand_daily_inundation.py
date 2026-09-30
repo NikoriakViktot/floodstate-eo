@@ -59,6 +59,7 @@ from floodstate_eo import _kakhovka_legacy_config as CFG
 from floodstate_eo.terrain.connectivity import connected_to_seed, largest_component
 from floodstate_eo.terrain.mosaic import UnionGrid
 from floodstate_eo.terrain.vertical import assert_same_vertical_frame
+_pf = importlib.util.spec_from_file_location("paper1_frame", Path(__file__).with_name("paper1_frame.py")); PF = importlib.util.module_from_spec(_pf); _pf.loader.exec_module(PF)
 
 HERE = Path(__file__).resolve().parent
 ROOT = HERE.parents[1]
@@ -395,6 +396,7 @@ def zone_layers(zone, P, with_s1=True):
     with rasterio.open(CFG.BULK_ROOT / "dem_seamless" / f"{zone}_dem_source_20m.tif") as s:
         src = s.read(1).astype("u1")
     frame = assert_same_vertical_frame({"terrain raster tag": tag, "SWOT nodes (chain)": VERTICAL_DATUM, "Kherson gauge (H_gauge_evrf)": VERTICAL_DATUM})
+    dem = PF.fabdem_to_paper1(dem, src)                                    # Paper 1 v6 frame (2026-09-30): FABDEM cells +0.038 m, bed unchanged
     is_fabdem = np.isin(src, FABDEM_SOURCES)
     def onto(path, nodata_to_nan=True, resampling=Resampling.nearest, dtype="f4"):
         with rasterio.open(path) as s:
@@ -720,7 +722,7 @@ def main():
                                       mosaic_only_km2=round(float((nz & ~old & m).sum()) * CELL_KM2, 2), zonal_only_km2=round(float((old & ~nz & m).sum()) * CELL_KM2, 2)))
         seam = pd.DataFrame(srows); seam.to_csv(CFG.TABLES / f"p95_seam_check{SFX}.csv", index=False); print(seam.to_string(index=False))
     (CFG.TABLES / f"p95_manifest{SFX}.json").write_text(json.dumps(dict(
-        rev=6, rule=__doc__.split("Rule")[1].split("Sensitivities")[0], constants=dict(SWOT_MARGIN_M=SWOT_MARGIN_M, RIVER_LEVEL_M=RIVER_LEVEL_M,
+        rev=7, rule=__doc__.split("Rule")[1].split("Sensitivities")[0], constants=dict(SWOT_MARGIN_M=SWOT_MARGIN_M, RIVER_LEVEL_M=RIVER_LEVEL_M,
         SWOT_MAX_DIST_M=SWOT_MAX_DIST_M, DIST_MAX_M=DIST_MAX_M, baseline_until=BASELINE_DATE, margin_m=SWOT_MARGIN_M, connectivity=args.connectivity,
         seed_network=args.seed_network, max_gap_days=args.max_gap_days, wse_river_aware=args.wse_river_aware, coarse_m=WSE.COARSE_M),
         evaluation=("union mosaic of the zones (one terrain graph, one water surface); ownership only for accounting and the per-zone rasters (review F06)" if args.evaluation == "mosaic"
@@ -732,7 +734,9 @@ def main():
         terrain=dict(product="seamless terrain-bed elevation model (p55): FABDEM bare-earth DTM outside the surveyed channel (source 3, 4), observed/reconstructed bed inside (1, 2, 5)",
                      bias_correction=TERRAIN_BIAS, bias_meaning="residual class-dependent terrain-elevation bias (median FABDEM - ICESat-2 ground by WorldCover class), FABDEM cells only; bed cells uncorrected",
                      source_codes=SOURCE_NAMES, fabdem_sources=list(FABDEM_SOURCES), bed_sources=list(BED_SOURCES)),
-        vertical_frame=dict(datum=M["vertical_frame"], chains=VERTICAL_CHAINS, checked="assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column"),
+        vertical_frame=dict(datum=M["vertical_frame"], chains=VERTICAL_CHAINS, checked="assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column",
+                            paper1_frame=dict(fabdem_shift_m=round(PF.mixed_chain_shift(), 4), kherson_delta_epsg9902_m=PF.KHERSON_DELTA_EPSG9902_M,
+                                              note="Paper 1 v6 production chain: FABDEM cells raised by c_production - c_tide-free (Paper 2 paired + free2mean with the tide-free closure); Kherson gauge at the post's own EPSG:9902 step")),
         rule_variant=RULE, closure=args.closure, closure_chain=CLOSURES[args.closure], closure_offset_vs_p59_H_evrf_m=round(closure_offset, 4),
         c_kherson_m=C_KHERSON_M, c_kherson_nmad_m=C_KHERSON_NMAD_M, zones=man, seam_check=(seam.to_dict("records") if seam is not None else None),
         sources=dict(swot_nodes="tables/p59_swot_flood_nodes.csv (SWOT-DNIPRO p59)", gauge=gauge_src, hand="floodplain/<ZONE>_hand_m.tif (p42)",

@@ -10,9 +10,13 @@ terrain below 1 m (channels, lakes), frames B1 (dam → Kherson) and B2 (Kherson
 terrain-eligible floodplain, the cut rectangles that separate the Inhulets valley and the terraces from the Dnipro reach,
 SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gauge 80805 and the dam.
 
-**Fig02 Evidence hierarchy.** The observation-constrained terrain inundation reconstruction (gauge-anchored SWOT water surface × terrain
-connectivity; no momentum or continuity equations) is the main axis; Sentinel-1 per date, ICESat-2 and the SWOT–gauge comparison check it; the RF20 surface classes and the elevation
-above the surface explain the disagreements; the U-Net arms show what EO inputs recover under weak labels.
+**Fig02 Evidence hierarchy.** Four levels, top = strongest: (1) the observation-constrained terrain-connectivity reconstruction
+(the validated water surface of Paper 1 — SWOT nodes and the Kherson gauge — over the seamless terrain–bed model, connectivity to the
+pre-event water network, a same-rule pre-event baseline; no momentum or continuity equations) and its uncertainty (1000 coherent
+Monte-Carlo worlds, SWOT support classes); (2) independent observations (two withheld gauges, Sentinel-1 per acquisition date, night
+ICESat-2 ground heights); (3) the surface context that explains their disagreement (RF20, WorldCover, elevation above the surface);
+(4) weak-label ML diagnostics (U-Net arms on the canonical labels v004, three training seeds). A lower level explains or diagnoses a
+higher one; it never overrides it.
 
 **Fig03 U-Net weak-label experiment on the corrected labels.** (a, b) Flood-state map of arm U2b (labels v004, first training
 seed) on frames B1 and B2 at its frozen validation threshold: predicted flood on labelled EVENT_FLOOD, on REFERENCE_WATER
@@ -29,7 +33,7 @@ Monte-Carlo median (black) and deterministic nominal run (dotted), the PRIMARY i
 Monte-Carlo worlds of the total water surface itself, every day; n in T12b), the terrain-as-delivered
 sensitivity (orange; no residual bias removed) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
 coverage). (d–f) Reconstructed newly inundated area (Monte-Carlo median, black; shaded p05–p95) with its daily change as bars (blue filling, orange draining) and the
-U-Net U2b persistent-event-flood area. (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
+range of the U-Net U2b persistent-event-flood area over its three training seeds (labels v004; mapped_UNet, a persistence quantity). (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
 the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
 **Fig05 Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint:
@@ -68,7 +72,10 @@ under the sloped daily surface integrated on the seamless DEM inside the pre-bre
 areas of Yi et al. (2025) for comparison, read from the authors' code archive (Zenodo 14639520, `observations.mat`, obs.A;
 their day axis placed from 00:00 on 6 June). (c) Daily balance — left axis, flows in km³ per day: bars, the daily-mean
 effective release from the pool Q_in − dV/dt (a storage-balance estimate, not an instantaneous breach discharge), and the
-DniproHES inflow Q_in; right axis, volume in km³: the reconstructed new water stored downstream (corridor + Inhulets).
+DniproHES inflow Q_in; right axis, volume in km³: the reconstructed new water stored downstream (corridor + Inhulets, sum of the
+Monte-Carlo medians; band: sum of the regional p05 and p95, a conservative envelope). Levels in the frame of Paper 1 (the SWOT
+outlet with the reservoir closure of Paper 1); G-REALM (Sentinel-6A) is shown as a check and is not an anchor of the pool surface;
+on 12–13 June the pool surface rests on the upper bound of the Nikopol post (upper estimates, T21).
 (d) Hypsometry of the seamless DEM against the design Table 19, which is defined from 10 m BS up and left blank below (T21,
 T22; FigS07 for the relative gap).
 
@@ -77,8 +84,20 @@ pool (SWOT outlet nodes, Nikopol post and Rozumivka gauge interpolated along the
 terrain–bed model inside the pre-breach pool polygon: (a) 5 June, the full pool the day before the breach; (b) 7 June; (c)
 9 June; (d) 13 June, when the pool had become a river. Titles give the wet area, the volume (the pool volume of T21) and the
 mean depth (T21b). Terrain-reconstructed, not observed depth; the pool surface sloped by up to 4 m during the drawdown, so a
-level-pool reading of the design curve brackets the same days (T27b). The emptying itself is mapped from the model,
-Sentinel-1 and Sentinel-2 in FigS08.
+level-pool reading of the design curve brackets the same days (T27b). The 13 June values are upper estimates (the Nikopol post
+reported only an upper bound). The emptying of the pool in area is mapped from Sentinel-2 in Fig11.
+
+**Fig11 The emptying of the Kakhovka reservoir.** (a–d) Sentinel-2 water inside the pre-breach pool: (a) 5 June, the day before the
+breach (frozen p25 water3, 99 % observed); (b) 8 June and (c) 13 June, partly observed under clouds (p15 crosscheck; the IoU with
+the modelled pool on the cells Sentinel-2 observed in the titles); (d) 20 June, the whole pool observed. Not observed is not dry.
+(e) The day the bed fell dry: the model (p95f sloped surface) for 6–13 June where Sentinel-2 sees no water on 20 June; "by 20 June"
+where the model is still wet on 13 June and Sentinel-2, observing the whole pool, sees no water on 20 June; and "water on 20 June"
+wherever Sentinel-2 sees water — the observation overrides the model (T23b). (f, g) Sentinel-2 bed classes (frozen p25 k10e) on
+5 July and 8 September: bare sediment, then recolonising vegetation (T24). (h) Pool water area over time as a share of the pool:
+the model (26 May – 13 June; open circles: upper estimates on 12–13 June), Sentinel-2 with the pool observed (filled) and the water
+share of the observed part on the partly observed dates (open), and the Sentinel-1 reservoir areas of Yi et al. (2025) from the
+authors' archive (Zenodo 14639520). In the first week the pool lost most of its volume while keeping most of its area (Fig10); the
+area collapsed in the second week.
 
 ## Supplementary figures
 
@@ -93,18 +112,12 @@ for the CV without and with a 3.5 km buffer and for the transfers outside the ov
 sensitivity: (a) V_DEM(H) against V_design(H) (Table 19, BS-77 + 0.185 m); (b) the relative gap ΔV/V_design and ΔA/A_design per
 level over the drawdown range (shaded), −9 % at the full-pool level (17.5 m), −14 % at 13 m and −20 % at 11 m; the design table is undefined
 below 10 m. The released volume of T21 inherits this gap; resolving it on the historical bathymetry is the subject of Paper 4 (T22).
-**FigS08** Reservoir drawdown maps (p95h; context, no claim). (a–c) Modelled pool on 7, 9 and 13 June: the p95f sloped daily
-surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*); (d) the day on which a cell wet on 5 June
-first falls dry; the upper (north-eastern) pool empties first. (e–h) Sentinel-1 VH dark surface, per-date Otsu over all covered
-cells (*observed_S1*); IoU against the model on observed cells 0.98 (1 June), 0.97 (8 June), 0.93 (9 June), 0.85 (13 June). VH
-dark means open water **or** smooth wet mud, so after ~13 June S1 exceeds the Sentinel-2 water area on the exposed flats (S1 dark
-1702 km² on 20 June and 2077 km² on 21 June against 648 km² of S2 water on 20 June, T23) and is not a water area there. (i–k) Sentinel-2 k10e surface classes (frozen p25 products,
-*observed_S2*) before the breach, during the drawdown and in September (bare sediment, then recolonising vegetation); (l)
-Sentinel-2 water on 20 June (p15 crosscheck, fully observed, 648 km²). For comparison, Yi et al. (2025) map the reservoir from
-Sentinel-1 **and** Sentinel-2; their text gives 2125 km² on 30 May and decrements that imply ~845 km² around 20 June
-(*literature_reported*, VERIFY); the 2089 / 1849 / 825 / 369 km² in T23 are the **Sentinel-1** reservoir areas of the authors'
-code archive (Zenodo 14639520, `observations.mat`, obs.A — "reservoir area changes by Sentinel-1" in their `main.m`), read from
-the archive, not digitised and not quoted from their text. S2 on 5 June agrees with the modelled full pool at IoU 0.98. Not observed is not dry.
+**FigS08** The modelled pool and the Sentinel-1 view of it (p95h). (a–c) Modelled pool water on 7, 9 and 13 June: the p95f sloped
+daily surface over the seamless DEM inside the pre-breach pool (*terrain_reconstructed*; 13 June an upper estimate); (d) the day a
+cell wet on 5 June first falls dry under the modelled surface within 6–13 June (after 13 June the level records end: Fig11e).
+(e–h) Sentinel-1 VH dark surface, per-date Otsu over all covered cells (*observed_S1*), with the IoU against the model on observed
+cells. VH dark means open water **or** smooth wet mud, so after ~13 June Sentinel-1 is no longer a water area on the exposed flats
+(dark surface on 20–21 June against 648 km² of Sentinel-2 water on 20 June, T23). Not observed is not dry.
 **FigS09** The seven Sentinel-2 indices (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI) over the pool (+1 km) in display classes
 on 5 June (pre-breach), 5 July (drawdown) and 8 September 2023; frozen p25 stacks (offset-corrected reflectance, 20 m); the bins
 are for display only and are not a classifier; blank = not observed.
@@ -153,10 +166,10 @@ node is interpolated flat across the flood (T17c–T17f; §4.7, §5).
 ## Tables
 
 See `tables/README.md` (generated): T01 data inventory · T02/T02b labels and transition · T03/T03b/T03c split · T04 arms ·
-T05 D1 endpoints with intervals · T06 paired comparisons · T07/T07b v003_A attribution endpoints · T08/T08b audit and retention ·
+T05 D1 endpoints with intervals · T05s/T06s/T07s the v004 arms per training seed · T06 paired comparisons · T07/T07b attribution endpoints · T08/T08b audit and retention (v002 arms, provenance) ·
 T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T11c Monte-Carlo convergence · T11d ablation of the budget · T11e water-surface offset sensitivity · T11f gap-matched interpolation error · T11g water-surface support · T11h rev 5 → rev 6 attribution (reproduction gate) · T11i seam check · T11j terrain source of the new area · T11k/T11l observational support of the new area (direct / extrapolated / weak, supported core, cross-river flag) · T12 daily area/volume with the Monte-Carlo band · T12c day of the areal maximum across the worlds · T12d emulator (computational diagnostic, not evidence) ·
 T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting
 with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T17c/T17d Inhulets gauge Kalynivske (withheld, independent validation site) vs the reconstruction · T17e/T17f liman gauge Mykolaiv (independent) vs the reconstructed surface · T18 terrain accuracy (Paper 2) · T18b FABDEM − ICESat-2 residual by zone and class · T18c residual semivariograms and fits · T19 per-date series ·
 T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap ·
 T23 pool water area by source (model / S1 / S2 / Yi 2025, observed fraction, IoU vs model) · T24 S2 k10e classes in the pool
-by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes · T27 design hypsometry (monograph Table 19, whole pool and reaches, design levels) · T27b the observed 2023 levels (1 Feb – 10 Jul) read on the design curve with the DniproHES balance · T27c the spring filling week by week · T12b the daily series, MC median [p05–p95] with the nominal run.
+by date and stratum · T25 S2 index statistics (7 indices, mean, p10–p90) by date and stratum · T26 S2 index display classes · T27 design hypsometry (monograph Table 19, whole pool and reaches, design levels) · T27b the observed 2023 levels (1 Feb – 10 Jul) read on the design curve with the DniproHES balance · T27c the spring filling week by week · T12b the daily series, MC median [p05–p95] with the nominal run · T12e flood depth below the dam · T21b water depth in the pool · T23b the day the bed fell dry (model + Sentinel-2) · T28 what changed after the review of 2026-09-28 (old / new / reason / effect on the conclusion).

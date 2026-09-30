@@ -369,9 +369,29 @@ def setup(a):
     return P95, M, W, prm, pd.DataFrame(comp), cvtab
 
 
+FINGERPRINT_FILES = ("p95_hand_daily_inundation.py", "paper1_frame.py", "p95e_uncertainty_mc.py")
+FINGERPRINT_TABLES = ("p59_swot_vs_kherson.csv", "p59_swot_flood_nodes.csv", "p95j_terrain_residual_stats.csv", "p95j_terrain_variogram_fit.csv")
+
+
+def input_fingerprint(prm) -> str:
+    """What the draws depend on: the parameters, the reconstruction code (incl. the vertical frame of Paper 1) and the input tables.
+    The chunk cache of a run is valid only under the same fingerprint (2026-09-30: a rerun after the Paper-1 frame change had
+    silently resumed from draws of the previous inputs)."""
+    h = hashlib.sha256(json.dumps(prm, sort_keys=True, default=str).encode())
+    for f in [HERE / n for n in FINGERPRINT_FILES] + [CFG.TABLES / n for n in FINGERPRINT_TABLES]:
+        h.update(f.name.encode()); h.update(hashlib.sha256(f.read_bytes()).digest() if f.exists() else b"missing")
+    return h.hexdigest()[:16]
+
+
 def run_ensemble(a, prm, tag, n, seed):
     prm = dict(prm, seed=seed); _G["prm"] = prm
     chunks = CFG.TABLES / "_p95e_chunks" / (tag or "primary"); chunks.mkdir(parents=True, exist_ok=True)
+    fp, fpf = input_fingerprint(prm), chunks / "fingerprint.txt"
+    if not fpf.exists() or fpf.read_text().strip() != fp:                  # different inputs: the cached draws are not this ensemble
+        stale = list(chunks.glob("draw_*.csv"))
+        for f in stale:
+            f.unlink()
+        fpf.write_text(fp + "\n"); print(f"  {tag or 'primary'}: input fingerprint {fp}; {len(stale)} cached draws of other inputs removed", flush=True)
     todo = [k for k in range(n + 1) if not (chunks / f"draw_{k:05d}.csv").exists()]
     t0 = time.time(); infos = {}
     if todo:

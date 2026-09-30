@@ -14,6 +14,13 @@
          k10e class, water3 = NDWI>0 & MNDWI>0 & SCL-permitted) plus the p15 ZONE_1_s2_crosscheck water masks for the
          drawdown week. Nothing is re-classified here; the classed index bins below are for display only.
 
+  OBSERVED EXPOSURE (maintainer's check of the maps, 2026-09-30: the modelled week 6-13 June shows the level falling mostly in
+         depth, and the area collapse came after it): the day on which the bed fell dry, on the S2 grid -- the model day for
+         6-13 June where Sentinel-2 on 20 June (the whole pool observed) sees no water, "14-20 June" where the model is still
+         wet on 13 June and Sentinel-2 sees no water on 20 June, and "water on 20 June" wherever Sentinel-2 sees water (the
+         observation overrides the model). The model is also compared with the S2 crosscheck water on the cells S2 observed on
+         the same day (8 and 13 June).
+
 Semantics: model areas are terrain_reconstructed, S1/S2 areas are observed_S1 / observed_S2 inside the pool polygon; areas
 count observed cells only and carry the observed fraction. The reservoir remains context in Paper 3 (Paper 4 decision).
 
@@ -22,7 +29,8 @@ day of exposure): k10e class areas and shares, the 7 index statistics (mean, std
 
 Outputs: <case_study>/tables/p95h_reservoir_maps.csv, p95h_s2_classes.csv, p95h_s2_index_stats.csv, p95h_s2_index_classes.csv,
          p95h_manifest.json
-         $BULK/reservoir_maps/model/{wet_daily.npz, exposed_day.tif}, $BULK/reservoir_maps/s1/<date>.npz (water, observed)
+         $BULK/reservoir_maps/model/{wet_daily.npz, exposed_day.tif}, $BULK/reservoir_maps/s1/<date>.npz (water, observed),
+         $BULK/reservoir_maps/exposed_day_observed.tif (S2 grid), tables/p95h_exposure_observed.csv
 """
 from __future__ import annotations
 import importlib.util, json, sys, time
@@ -219,14 +227,29 @@ def main():
                     for j, lab in enumerate(labels):
                         n = int((k == j).sum()); krows.append(dict(date=d, regime=regime, stratum=sn, index=nm, index_class=lab, km2=round(n * zkm, 1), pct_of_observed=round(100 * n / x.size, 1)))
         print("S2 tables", d, flush=True)
-    xtr = xc_transform(ztr)
+    xtr = xc_transform(ztr); XC = {}
     for d in S2XC_DATES:
         z = np.load(S2XC / f"{d}.npz"); shp = tuple(int(v) for v in z["shape"]); assert shp == zshape, (d, shp, zshape)
         un = lambda k: np.unpackbits(z[k], count=shp[0] * shp[1]).reshape(shp).astype(bool)
         w, v = un("water"), un("valid")
-        w = to_grid(w, xtr, ztr, zshape).astype(bool) & zpool; v = to_grid(v, xtr, ztr, zshape).astype(bool) & zpool
-        rows.append(dict(date=d, source="S2_CROSSCHECK", semantics="observed_S2", water_km2=round(float(w.sum()) * zkm, 1), observed_frac=round(float(v.sum()) / zpool.sum(), 3)))
-        print("S2xc", d, rows[-1], flush=True)
+        w = to_grid(w, xtr, ztr, zshape).astype(bool) & zpool; v = to_grid(v, xtr, ztr, zshape).astype(bool) & zpool; XC[d] = (w, v)
+        r = dict(date=d, source="S2_CROSSCHECK", semantics="observed_S2", water_km2=round(float(w.sum()) * zkm, 1), observed_frac=round(float(v.sum()) / zpool.sum(), 3))
+        if d in wet:                                                          # the model on the cells Sentinel-2 observed that day
+            m = to_grid(wet[d], mtr, ztr, zshape).astype(bool) & zpool
+            r["iou_vs_model"] = round(float((m & w & v).sum()) / max(int(((m | w) & v).sum()), 1), 3); r["model_km2_on_observed"] = round(float((m & v).sum()) * zkm, 1)
+            r["model_wet_s2_dry_km2"] = round(float((m & ~w & v).sum()) * zkm, 1)
+        rows.append(r); print("S2xc", d, rows[-1], flush=True)
+    # observed exposure: model day for 6-13 June, Sentinel-2 on 20 June (whole pool observed) after that; S2 water overrides the model
+    w20, v20 = XC["2023-06-20"]; E = np.zeros(zshape, "u1"); wet5 = mref & zpool
+    E[wet5 & (ez >= 6) & (ez <= 13)] = ez[wet5 & (ez >= 6) & (ez <= 13)]
+    E[wet5 & (ez == 255) & v20 & ~w20] = 20; E[wet5 & (ez == 255) & ~v20] = 253; E[wet5 & v20 & w20] = 254
+    with rasterio.open(OUT / "exposed_day_observed.tif", "w", driver="GTiff", height=zshape[0], width=zshape[1], count=1, dtype="uint8", crs=CRS_UTM, transform=ztr,
+                       compress="deflate", nodata=0) as s:
+        s.write(E, 1); s.update_tags(values="6..13 = June day the bed fell dry under the p95f surface (and no Sentinel-2 water on 20 June); 20 = fell dry 14-20 June (model wet on 13 June, "
+                                     "no Sentinel-2 water on 20 June); 253 = model wet on 13 June, not observed on 20 June; 254 = Sentinel-2 water on 20 June; 0 = not pool water on 5 June")
+    labs = {**{k: f"06-{k:02d} (model)" for k in range(6, 14)}, 20: "dry by 06-20 (Sentinel-2; wet under the model on 06-13)", 253: "still wet 06-13, not observed 06-20", 254: "water on 06-20 (Sentinel-2)"}
+    ex = [dict(code=k, exposure=v, km2=round(float((E == k).sum()) * zkm, 1), share_of_pool_0605=round(float((E == k).sum()) / max(int(wet5.sum()), 1), 4)) for k, v in labs.items()]
+    pd.DataFrame(ex).to_csv(CFG.TABLES / "p95h_exposure_observed.csv", index=False); print(pd.DataFrame(ex).to_string(index=False), flush=True)
     R = pd.DataFrame(rows); R["yi2025_S1_archive_km2"] = R.date.map(yi)   # review F15: Sentinel-1 areas of the authors' archive (Zenodo 14639520 obs.A), not digitised; R = R.sort_values(["date", "source"])
     R.to_csv(CFG.TABLES / "p95h_reservoir_maps.csv", index=False); pd.DataFrame(crows).to_csv(CFG.TABLES / "p95h_s2_classes.csv", index=False)
     pd.DataFrame(irows).to_csv(CFG.TABLES / "p95h_s2_index_stats.csv", index=False); pd.DataFrame(krows).to_csv(CFG.TABLES / "p95h_s2_index_classes.csv", index=False)

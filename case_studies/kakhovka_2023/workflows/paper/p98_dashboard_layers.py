@@ -9,7 +9,7 @@ Layers (apps/dashboard/data/):
   unet/U2b_v003A.png, unet/U2_v1.png             predicted flood at the frozen thresholds (10 m frames -> 4326 grid)
   labels/v003A.png                                LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN
   rf/p73.png                                      RF20 classes
-  reservoir/model/<date>.png, reservoir/exposed_day.png     p95h modelled pool (water / bed exposed since 06-05), day of exposure
+  reservoir/model/<date>.png, reservoir/exposed_day.png     p95h modelled pool (water / bed exposed since 06-05); the day the bed fell dry (model + Sentinel-2 20 June)
   reservoir/s1/<date>.png                         p95h S1 VH dark surface (water or wet mud) / dark on 06-01 but not now / not observed
   reservoir/s2/<date>_{class,water,<INDEX>}.png   p25 k10e classes, water3 (+ p15 crosscheck water), the 7 indices in display classes
   context/*.geojson                               frames, cut rectangles, p42 floodplain (simplified), gauge and dam, reservoir pool
@@ -249,15 +249,19 @@ def reservoir_layers():
     for d in sorted(k for k in z.files if k.startswith("2023") and k >= "2023-05-31"):
         w = un(d); c = np.zeros(shp, "u1"); c[w] = 1; c[ref & ~w] = 2
         put(c, mtr, f"model/{d}.png", {1: "#1b6ca8", 2: "#d9a441"}, {"1": "pool water (model)", "2": "bed exposed since 06-05 (model)"}, f"reservoir_model_{d}", "reservoir_model", src)
-    with rasterio.open(RM / "model" / "exposed_day.tif") as f:
+    # the day the bed fell dry, observation-constrained (maintainer's check, 2026-09-30; p95h, Fig11e): the model for 6-13 June,
+    # Sentinel-2 on 20 June (the whole pool observed) after that; S2 water overrides the model
+    with rasterio.open(RM / "exposed_day_observed.tif") as f:
         e = f.read(1); etr = f.transform
     c = np.zeros(e.shape, "u1")
-    for k, (lo, hi) in enumerate([(6, 6), (7, 7), (8, 8), (9, 10), (11, 13)], 1):
+    for k, (lo, hi) in enumerate([(6, 7), (8, 9), (10, 11), (12, 13)], 1):
         c[(e >= lo) & (e <= hi)] = k
-    c[e == 255] = 6
-    put(c, etr, "exposed_day.png", {1: "#7d1d1d", 2: "#c7522a", 3: "#e08214", 4: "#eda100", 5: "#f2d98a", 6: "#1b6ca8"},
-        {"1": "exposed 06-06", "2": "exposed 06-07", "3": "exposed 06-08", "4": "exposed 06-09–10", "5": "exposed 06-11–13", "6": "still wet on 06-13"},
-        "reservoir_exposed_day", "reservoir_model", src, "day on which a cell wet on 06-05 first falls dry under the modelled surface")
+    c[e == 20] = 5; c[e == 254] = 6; c[e == 253] = 7
+    put(c, etr, "exposed_day.png", {1: "#7d1d1d", 2: "#c7522a", 3: "#e08214", 4: "#f2c14e", 5: "#bfa76f", 6: "#1b6ca8", 7: "#c3c2b7"},
+        {"1": "dry 06-06–07 (model)", "2": "dry 06-08–09 (model)", "3": "dry 06-10–11 (model)", "4": "dry 06-12–13 (model)", "5": "dry by 06-20 (Sentinel-2)",
+         "6": "water on 06-20 (Sentinel-2)", "7": "not observed on 06-20"},
+        "reservoir_exposed_day", "reservoir_model", "p95h: model day of exposure 6-13 June + Sentinel-2 (p15 crosscheck) water on 20 June, the whole pool observed",
+        "the day the bed fell dry: the model for 6-13 June, Sentinel-2 on 20 June after that; Sentinel-2 water overrides the model (Fig11e)")
     # ---- water depth in the pool (p95m, decision D-DEPTH): classed, the full pool and the drawdown ----
     dsrc = "p95m: p95f sloped daily surface minus the 50 m seamless terrain-bed model, wet pool cells (terrain-reconstructed; Fig10)"
     dbins = [(0.0, 2.0), (2.0, 5.0), (5.0, 10.0), (10.0, 15.0), (15.0, 99.0)]; dleg = {"1": "< 2 m", "2": "2–5 m", "3": "5–10 m", "4": "10–15 m", "5": "> 15 m"}
