@@ -5,7 +5,8 @@ word processor) and as Markdown with image links.
 Input: publication/manuscript_uk.md (--lang uk, the Ukrainian proofreading copy) or publication/manuscript.md (--lang en); the
 figures of publication/figures/<FigNN>_*.png with their captions from publication/captions.md; the tables of
 publication/tables/T*.csv with their captions from publication/tables/manifest.json. A figure or table is inserted once, after the
-paragraph that first mentions it (panel letters ignored); tables longer than MAX_ROWS rows or wider than MAX_COLS columns are cut
+paragraph that first mentions it in the body (from the Introduction on; mentions in the build note and the abstract do not count;
+the revision record T28 is never inserted; panel letters ignored); tables longer than MAX_ROWS rows or wider than MAX_COLS columns are cut
 with a note that names the CSV. Images are downscaled copies (JPEG, <= IMG_W px wide) so that the DOCX stays small.
 Outputs: publication/assembled/manuscript_<lang>_assembled.{docx,md}, publication/assembled/img/<FigNN>.jpg (the .docx and img/ are
 git-ignored; the .md is tracked). Nothing here changes a number: the text is the filled manuscript verbatim.
@@ -20,6 +21,7 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 CS = HERE.parents[1]; PUB = CS / "publication"; FIGS = PUB / "figures"; TABS = PUB / "tables"; OUT = PUB / "assembled"
 MAX_ROWS, MAX_COLS, IMG_W = 25, 10, 1600
+EXCLUDE_TABLES = {"T28"}                                        # the revision record: a document of its own, not an article table
 FIG_RE = re.compile(r"\b(FigS?\d{2})[a-z]?\b"); TAB_RE = re.compile(r"\bT\d{2}[a-z]{0,2}\b")
 NOTE = {"uk": ("Рисунок", "Таблиця", "показано {r} з {R} рядків і {c} з {C} колонок; повна таблиця: publication/tables/{t}.csv", "джерело підпису: captions.md (англійською)"),
         "en": ("Figure", "Table", "{r} of {R} rows and {c} of {C} columns shown; full table: publication/tables/{t}.csv", "")}
@@ -92,12 +94,17 @@ def main():
     doc = docx.Document(); st = doc.styles["Normal"]; st.font.name = "Calibri"; st.font.size = Pt(10.5)
     for s in doc.sections:
         s.left_margin = s.right_margin = Cm(2.0); s.top_margin = s.bottom_margin = Cm(2.0)
-    md = []; seen_f, seen_t = [], []; n_fig = n_tab = 0
+    md = []; seen_f, seen_t = [], []; n_fig = n_tab = 0; in_body = False; front = []
     paragraphs = [p for p in re.split(r"\n\s*\n", text)]
     for para in paragraphs:
         p = para.strip("\n")
         if not p.strip():
             continue
+        if re.match(r"^## 1[. ]", p):                                        # insertions start with the Introduction
+            in_body = True
+        if not p.startswith("#") and not in_body and not md[1:]:             # the build note before the abstract goes to the end
+            if p.startswith("**") or p.startswith(">"):
+                front.append(p); continue
         md.append(p)
         if p.startswith("#"):
             level = len(p) - len(p.lstrip("#")); doc.add_heading(p.lstrip("#").strip(), level=min(level - 1, 3) if level > 1 else 0)
@@ -111,7 +118,9 @@ def main():
             runs(doc.add_paragraph(style="Intense Quote"), re.sub(r"^>\s?", "", p, flags=re.M).replace("\n", " "))
         else:
             runs(doc.add_paragraph(), p.replace("\n", " "))
-        # figures and tables first mentioned in this paragraph, inserted after it
+        # figures and tables first mentioned in this paragraph, inserted after it (not in the front matter or the abstract)
+        if not in_body:
+            continue
         for fid in [m.group(1) for m in FIG_RE.finditer(p)]:
             if fid in seen_f or fig_file(fid) is None:
                 continue
@@ -121,7 +130,7 @@ def main():
             for r in cp.runs: r.font.size = Pt(9)
             md += [f"![{fid}](img/{fid}.jpg)", cap + (f" *({cap_note})*" if cap_note else "")]
         for tid in [m.group(0) for m in TAB_RE.finditer(p)]:
-            if tid in seen_t or tid not in tman or not (TABS / f"{tid}.csv").exists():
+            if tid in seen_t or tid in EXCLUDE_TABLES or tid not in tman or not (TABS / f"{tid}.csv").exists():
                 continue
             seen_t.append(tid); n_tab += 1; df, note = table_block(tid, a.lang)
             cap = f"**{tab_word} {tid}.** {tman[tid].get('caption', '')}" + (f" [{tman[tid].get('evidence_level', '')}]" if tman[tid].get("evidence_level") else "") + (f" *({note})*" if note else "")
@@ -138,6 +147,11 @@ def main():
                     for r in cells[j].paragraphs[0].runs: r.font.size = Pt(7)
             doc.add_paragraph()
             md += [cap, md_table(df)]
+    if front:                                                                   # provenance of the build, at the end
+        doc.add_heading("Build note" if a.lang == "en" else "Примітка про збірку", level=1)
+        for f_ in front:
+            runs(doc.add_paragraph(), re.sub(r"^>\s?", "", f_, flags=re.M).replace("\n", " "))
+        md += ["## " + ("Build note" if a.lang == "en" else "Примітка про збірку"), *front]
     stem = f"manuscript_{a.lang}_assembled"
     doc.save(OUT / f"{stem}.docx")
     head = (f"<!-- {stem}.md: assembled by workflows/paper/p101_assemble_doc.py from {src.name}; figures from publication/figures (downscaled copies in img/), "

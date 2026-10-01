@@ -2,12 +2,6 @@
 
 # Щоденне затоплення після прориву Каховської дамби, реконструйоване зі спостереженої водної поверхні й рельєфу: поширена невизначеність, незалежні перевірки за утриманими постами, Sentinel-1 та ICESat-2 і машинне навчання на слабких мітках як діагностика
 
-**Український переклад для вичитки (2026-10-01).** Джерело істини — англійський рукопис `manuscript.md` (Paper 3 серії про Каховку),
-зібраний з `manuscript_template.md` скриптом `workflows/paper/fill_manuscript.py`; усі числа нижче переписані з нього без змін
-(кожне число в оригіналі походить із клітинки закомміченої публікаційної таблиці `publication/tables/T*.csv`). Ідентифікатори
-тверджень [C01]–[C14] відсилають до `evidence_matrix.csv`, терміни заморожені в `TERMINOLOGY.md`; позначення рисунків і таблиць —
-внутрішні, їх перенумерують при верстці. Посилання на літературу залишено у вигляді «Автор et al. рік», як в оригіналі.
-
 ## Анотація
 
 **Передумови.** 6 червня 2023 р. було прорвано Каховську дамбу на нижньому Дніпрі, і водосховище спорожніло за кілька днів.
@@ -619,36 +613,6 @@ FABDEM − ґрунт ICESat-2 (T18b; об'єднані медіани: дере
 | POOLED | built | 23157 | 0.168 | 0.634 | 1.163 | 0.278 | 88 | 50.0 | FABDEM-sourced cells of the seamless terrain-bed model (sour |
 | POOLED | bare | 3812 | 0.278 | 0.986 | 1.651 | 0.225 | 49 | 60.0 | FABDEM-sourced cells of the seamless terrain-bed model (sour |
 | POOLED | wetland | 33869 | 0.563 | 0.43 | 0.905 | 0.576 | 49 | 90.0 | FABDEM-sourced cells of the seamless terrain-bed model (sour |
-
-**Таблиця T28.** What changed after the scientific and code review of 2026-09-28 (findings F01-F20) and the maintainer's decisions of 2026-09-29: per item the old and the new treatment or value, the reason, and the effect on the conclusion, ordered by the vertical frame of Paper 1 (taken as validated input) and then the evidence hierarchy (terrain reconstruction -> uncertainty -> independent validation / support -> weak-label ML -> release). New values are resolved from the table cells of this build; old values from the superseded rows the tables keep (T02c, T06, T07b, T08b, T09 rev 1) or from the dated records named in the evidence column. A revision record, not a result table. [mixed] *(показано 25 з 52 рядків і 9 з 9 колонок; повна таблиця: publication/tables/T28.csv)*
-
-| id | block | item | old | new | reason | impact_on_conclusion | review_ref | evidence |
-|---|---|---|---|---|---|---|---|---|
-| A01 | 0 vertical frame (Paper 1) | Vertical validation in the flood paper | the manuscript re-reported closure values of an earlier Pape | the vertical frame is the validated input of Paper 1 v6 (at  | the vertical frame is validated in Paper 1; the flood paper  | no conclusion changes; the Methods and Results no longer rep | maintainer 2026-09-30 | Paper 1 v6 Sec. 5, S1, S3.9 |
-| A02 | 0 vertical frame (Paper 1) | Kherson gauge BS-77 -> EVRF2019 | +0.22 m (the table carried over from the extraction) | +0.2076 m, the EPSG:9902 step at the post's own coordinates  | every Kherson level stood 1.24 cm above Paper 1's | the anchor and cap of the water surface 1.24 cm lower; the r | Paper 1 v6 alignment | T11, T17, p59k |
-| A03 | 0 vertical frame (Paper 1) | Reservoir SWOT outlet levels | wse + geoid_hght + free2mean - zeta + the tide-free closure  | Paper 1's production chain (no permanent-tide term for SWOT, | a superseded chain carried over from the extraction | pool levels +0.073 m; the 7 June effective release 40057 m3/ | Paper 1 v6 alignment | T21, p95f |
-| A04 | 0 vertical frame (Paper 1) | G-REALM altimetry as a pool anchor | an anchor at 111 km, held for two days after each observatio | a plotted check only (Fig09a) | not part of Paper 1's frame; on 9 June 0.5 m above the Nikop | the daily release series no longer has the spurious peak | Paper 1 v6 alignment; check of 2026-09-30 | T21, Fig09 |
-| A05 | 0 vertical frame (Paper 1) | Terrain and ICESat-2 ground in the vertical frame | Paper 2's chain: FABDEM and ICESat-2 ground converted with + | both raised by 0.0377 m to Paper 1's production chain (the s | the terrain sat 3.8 cm low against the water surface of Pape | the reconstruction recomputed (rev 7): the terrain is higher | Paper 1 v6 alignment (maintainer 2026-09-30) | T11, paper1_frame.py |
-| A06 | 1 terrain reconstruction | Residual terrain model | the WorldCover class medians of one zone ('C seamless', ZONE | FABDEM-only residual table per zone and class (own zone wher | FABDEM is a bare-earth DTM; its statistics apply only where  | nominal A_new on 7 June 235.3 -> 214.8 km2, the whole nomina | F07; D-BIAS | T11h, T18b; ledger: reproduction gate |
-| A07 | 1 terrain reconstruction | Connectivity across the zone boundary | ownership of the frame overlap applied before the connectivi | connectivity once on the union mosaic, ownership for account | a connection may cross the zone boundary (F06, D-SEAM) | none measurable on the real rasters; correct by construction | F06; D-SEAM | T11i; tests/test_terrain_connectivity.py |
-| A08 | 1 terrain reconstruction | Error terms under the far gauge cap | the datum closure added twice on cells capped at the Kherson | every error term enters once, through the perturbed node hei | double count (F03) | part of the recomputed numbers; no separate effect on a clai | F03 | tests/test_p95_wse_field.py |
-| A09 | 1 terrain reconstruction | Primary rule | command-line default hand_and_ceiling while the text named t | connected_ceiling is the default; every output carries its r | ambiguity (F07, D-RULE) | none on the numbers | F07; D-RULE | p95 manifest |
-| A10 | 1 terrain reconstruction | Vertical frame | EVRF2019 assumed for every height | EVRF2019 asserted from the declarations of the terrain raste | an assumption made explicit (D-VERT) | none | D-VERT | floodstate_eo.terrain.vertical; tests |
-| A11 | 1 terrain reconstruction | Depth maps | depth on 7-8 June only, as figure panels | maximum depth of the new inundation over the event (Fig07a;  | maintainer decision D-DEPTH | new results (nominal-world geometry, captioned so; areas and | D-DEPTH | T12e, T21b, Fig07, Fig10 |
-| A12 | 1 terrain reconstruction | Reservoir drawdown maps | supplementary FigS08: modelled pool on 7/9/13 June and its d | main-text Fig11: Sentinel-2 water on 5/8/13/20 June (not obs | maintainer 2026-09-30: the maps showed no drawdown; the mode | the emptying is shown by the observation that separates wate | maintainer 2026-09-30 | Fig11, FigS08, T23, T23b |
-| A13 | 1 terrain reconstruction | Nikopol level on 12-13 June | the 11 June level carried over 12-13 June, above the post's  | the bound caps 13 June and 12 June is interpolated towards i | a censored observation ignored by a forward fill | C14: the 13 June area, volume and depth are upper estimates | check of the drawdown maps 2026-09-30 | T21, T21b, p95f |
-| A14 | 2 uncertainty | Monte-Carlo design | 40 draws; terrain field and water-surface errors regenerated | 1000 coherent worlds: one unit-variance terrain field over t | no coherent world, variance lost, arbitrary correlation, uns | C07 rewritten; the two seeds agree within a few km2 at n = 1 | F01, F02, F20; D-N; D-CORR | T11b, T11c, T18c; tests/test_p95e_contract.py |
-| A15 | 2 uncertainty | Reconstructed newly inundated area, corridor, 7 June | 246.7 [237.6-254.9] km2 (40 draws) | 233.7 [216.0-253.7] km2 (Monte-Carlo median, p05-p95) | coherent ensemble (F01-F05, F20) | C01-C02 kept: the areal maximum stays on 7 June (38% of the  | F01-F05; F20 | T12, T12c; ledger: results of the recomputation (rev 5) |
-| A16 | 2 uncertainty | Reconstructed total water-surface area, corridor, 7 June | 790.5 [781.4-798.7] km2: the new-area interval shifted onto  | 716.2 [685.9-743.6] km2 from the total-water ensemble itself | the total had no ensemble of its own (F04) | C02 kept; the interval is about three times wider | F04 | T12; ledger: results of the recomputation (rev 5) |
-| A17 | 2 uncertainty | Reconstructed new-water volume, corridor, 7 June | 565.9 [545.4-595.7] hm3 (40 draws) | 602.6 [541.6-658.7] hm3 | coherent ensemble (F01-F05, F20) | C02, C07: volumes always with their interval, never centred  | F01-F05; F20 | T12; ledger: results of the recomputation (rev 5) |
-| A18 | 2 uncertainty | Central value and the nominal run | nominal run reported next to the ensemble without an explana | Monte-Carlo median = reported value, nominal run = diagnosti | median shift unexplained; nominal-centred reporting (F20; te | C07 rewritten: no interval is centred on the nominal run | F20; C07; text pass | T11d, T12 |
-| A19 | 2 uncertainty | Interpolation of the node series | one error scale from 1-day triplets; interpolation in both d | gap-matched cross-validation: NMAD 0.07 m for 1 day to 1.15  | long gaps and held ends under-described (F05, D-INTERP) | the 13 June upper tail is the interpolation term; the 3-day  | F05; D-INTERP | T11f, T11d, T12 |
-| A20 | 2 uncertainty | 100 000-draw emulator | used for the total water-surface envelope and the headline | computational diagnostic outside the evidence path (T12d) | no connectivity; total built around the nominal total (D-EMU | no reported number rests on it | D-EMU | T12d |
-| A21 | 2 uncertainty | Observational support of the new inundation | the full reconstruction reported without the distance of its | support classes per newly inundated cell: 8% of the corridor | support is structural, not only statistical (F07, D-SUPPORT) | C02 and C03 qualified; the full reconstruction stays the pri | F07; D-SUPPORT | T11k, T11l, FigS14 |
-| A22 | 2 uncertainty | Nearest-node fallback distance | no distance limit, not quantified | a structural sensitivity: capped at 10 km, the corridor's ne | F07 | the structural dependence exceeds the Monte-Carlo width; sta | F07 | T12 sensitivity columns, FigS02 |
-| A23 | 3 independent validation / support | Withheld gauges | no in-situ check outside Kherson; the Inhulets valley report | Kalynivske (80575) and Mykolaiv (98027) withheld as validati | the only in-situ test of the tributary and the western delta | C03 restricted: upper and central Inhulets weakly constraine | D-INHULETS | T17c-T17f, FigS15 |
-| A24 | 3 independent validation / support | ICESat-2 class bias and the check | class bias calibrated and checked on the same night passes;  | pass hold-out (one pass, five folds, the two epochs): the S1 | not independent; mask error (F12) | C06 unchanged in substance; the epoch dependence of the delt | F12 | T15, T15b, T15c |
-| A25 | 3 independent validation / support | Design hypsometry end points | design Table 19 clamped at its end points: 1443 km2 / 6.95 k | undefined (NaN) outside the table (bounded interpolation) | plateau artefact (F13) | C14 unchanged; the hypsometry gap is -9 % at 17.5 m | F13 | T22, FigS07; tests/test_terrain_interp.py |
 
 *Нова вода на сухій землі та реакція плавневого комплексу.* Очеретяні зарості дельти й заплави до прориву були плавнями, а не
 сухою землею, і їхнє затоплення — інша фізична величина, ніж затоплення сухої землі, тому їх подано нарізно. Картування повеней
@@ -2693,3 +2657,11 @@ https://github.com/NikoriakViktot/SWOT-DNIPRO). Оброблені растри 
 ## Література
 
 `docs/references.bib`; записи, додані для цієї статті, несуть `note = {VERIFY}` до перевірки (`references_to_verify.md`).
+
+## Примітка про збірку
+
+**Український переклад для вичитки (2026-10-01).** Джерело істини — англійський рукопис `manuscript.md` (Paper 3 серії про Каховку),
+зібраний з `manuscript_template.md` скриптом `workflows/paper/fill_manuscript.py`; усі числа нижче переписані з нього без змін
+(кожне число в оригіналі походить із клітинки закомміченої публікаційної таблиці `publication/tables/T*.csv`). Ідентифікатори
+тверджень [C01]–[C14] відсилають до `evidence_matrix.csv`, терміни заморожені в `TERMINOLOGY.md`; позначення рисунків і таблиць —
+внутрішні, їх перенумерують при верстці. Посилання на літературу залишено у вигляді «Автор et al. рік», як в оригіналі.
