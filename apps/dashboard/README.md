@@ -27,11 +27,11 @@ provided as rendered classed images for non-commercial use with attribution; the
 `.streamlit/config.toml` (repository root; Streamlit Community Cloud reads it) defines a light and a dark variant of the
 app theme (`[theme.light]`, `[theme.dark]`, Streamlit >= 1.64). The viewer picks light / dark / system in the app menu
 (top right -> Settings -> Theme); the choice is stored per browser. The maps follow: under the dark theme the default
-basemap is CartoDB Dark Matter (`lib.basemap_index`, `st.context.theme`).
+basemap is Esri Dark Gray Canvas (`lib.basemap_index`, `st.context.theme`).
 
 ## Basemaps and overlays (Maps and Surface-context pages)
 
-- **Basemaps** (live tiles, never cached or committed; attribution shown under the map): Gray (CartoDB Positron), OpenStreetMap
+- **Basemaps** (live tiles, never cached or committed; attribution shown under the map): Gray (Esri Light Gray Canvas), OpenStreetMap
   (ODbL), *Sentinel-2 cloudless 2022* by EOX IT Services GmbH (https://s2maps.eu, CC BY-NC-SA 4.0, contains modified Copernicus
   Sentinel data 2022 -- the year before the breach; non-commercial use), *Esri World Imagery* (Esri, Maxar, Earthstar Geographics,
   and the GIS User Community; acquisition dates vary and may postdate the breach).

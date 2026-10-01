@@ -133,7 +133,7 @@ share from SCL in the label, < 2 % clear not rendered (`apps/dashboard/data/s2rg
 as group s2_truecolour); the page gets a year / date browser with RF20, S2 water and nearest-S1 overlays, and a 'Satellite maps'
 section showing the p95zm composites, the S1 orbit-14 series, k10e and FigS19. Bundle limit 100 MB (test_dashboard_bundle).
 Theme (maintainer 2026-10-01): `.streamlit/config.toml` now carries `[theme.light]` and `[theme.dark]` (Streamlit 1.64); the viewer
-chooses light / dark / system in the app menu (Settings -> Theme), the maps default to CartoDB Dark Matter under the dark theme
+chooses light / dark / system in the app menu (Settings -> Theme), the maps default to the Esri Dark Gray Canvas under the dark theme (CARTO tiles need an API key since 2026, replaced by Esri canvases)
 (`lib.theme_type`, `basemap_index`, `ink` for chart lines); test_theme_config_has_light_and_dark_variants.
 Forwarded literature that did NOT check out: 'GFM CSI 0.11-0.81 across events' (Roth 2025 gives 0.03-0.97,
 > 0.70 in 10 of 18 and in all large-scale events), 'Sen1Floods11 hand labels with uncertain areas removed' (not in the paper);

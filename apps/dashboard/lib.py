@@ -181,10 +181,14 @@ def refs(keys, title: str = "📚 Relevant literature", expanded: bool = False, 
 
 # ---- basemaps (live tiles; attribution shown next to the map) and styled overlays ------------------------------------
 BASEMAPS = {
-    "Gray (CartoDB Positron)": dict(tiles="CartoDB positron", attr=None,
-                                     text="Basemap: CartoDB Positron (c) OpenStreetMap contributors, (c) CARTO"),
-    "Dark (CartoDB Dark Matter)": dict(tiles="CartoDB dark_matter", attr=None,
-                                       text="Basemap: CartoDB Dark Matter (c) OpenStreetMap contributors, (c) CARTO"),
+    # CARTO's basemap tiles require an API key since 2026 (the tiles come back as an 'API KEY REQUIRED' placeholder), so the
+    # gray and dark canvases are Esri's, which need no key; both stop at zoom 16 (max_native_zoom, upscaled beyond)
+    "Gray (Esri Light Gray Canvas)": dict(tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+                                          attr="Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors, and the GIS User Community", max_native_zoom=16,
+                                          text="Basemap: Esri World Light Gray Canvas (c) Esri -- Esri, HERE, Garmin, (c) OpenStreetMap contributors, and the GIS User Community; live tiles, never cached"),
+    "Dark (Esri Dark Gray Canvas)": dict(tiles="https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}",
+                                         attr="Tiles &copy; Esri &mdash; Esri, HERE, Garmin, &copy; OpenStreetMap contributors, and the GIS User Community", max_native_zoom=16,
+                                         text="Basemap: Esri World Dark Gray Canvas (c) Esri -- Esri, HERE, Garmin, (c) OpenStreetMap contributors, and the GIS User Community; live tiles, never cached"),
     "OpenStreetMap": dict(tiles="OpenStreetMap", attr=None, text="Basemap: (c) OpenStreetMap contributors (ODbL)"),
     "Satellite: Sentinel-2 cloudless 2022 (EOX)": dict(
         tiles="https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg",
@@ -230,14 +234,14 @@ def ink() -> str:
 
 def basemap_index() -> int:
     """Default basemap of the maps: the dark tiles under the dark theme, the gray ones otherwise."""
-    return list(BASEMAPS).index("Dark (CartoDB Dark Matter)" if theme_type() == "dark" else "Gray (CartoDB Positron)")
+    return list(BASEMAPS).index("Dark (Esri Dark Gray Canvas)" if theme_type() == "dark" else "Gray (Esri Light Gray Canvas)")
 
 
 def base_map(location, zoom, choice: str):
     import folium
     b = BASEMAPS[choice]
     m = folium.Map(location=location, zoom_start=zoom, tiles=None, control_scale=True)
-    folium.TileLayer(tiles=b["tiles"], attr=b["attr"], name=choice, control=False, max_zoom=18).add_to(m)
+    folium.TileLayer(tiles=b["tiles"], attr=b["attr"], name=choice, control=False, max_zoom=18, max_native_zoom=b.get("max_native_zoom", 18)).add_to(m)
     return m
 
 
