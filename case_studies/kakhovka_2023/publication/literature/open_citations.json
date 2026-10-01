@@ -4,55 +4,6 @@
  "purpose": "open (unverified) citations of the manuscript: the sentence and the words quoted, where, and what must be checked in the source",
  "items": [
   {
-   "key": "Giustarini_2013",
-   "status": "content quotation to locate in the source",
-   "reference": "Giustarini, Laura and Hostache, Renaud and Matgen, Patrick and Schumann, Guy J.-P. and Bates, Paul D. and Mason, David C. (2013). A Change Detection Approach to Flood Mapping in Urban Areas Using TerraSAR-X. IEEE Transactions on Geoscience and Remote Sensing 51, 2417–2430.",
-   "doi": "10.1109/tgrs.2012.2210901",
-   "url": "https://doi.org/10.1109/tgrs.2012.2210901",
-   "what_to_verify": "quotation to be located",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: quotation to be located",
-   "n_citing_sentences": 0,
-   "citations": []
-  },
-  {
-   "key": "Hawker_2022",
-   "status": "content quotation to locate in the source",
-   "reference": "Hawker, Laurence and Uhe, Peter and Paulo, Luntadila and Sosa, Jeison and Savage, James and Sampson, Christopher and Neal, Jeffrey (2022). A 30 m global map of elevation with forests and buildings removed. Environmental Research Letters 17, 024016.",
-   "doi": "10.1088/1748-9326/ac4d4f",
-   "url": "https://doi.org/10.1088/1748-9326/ac4d4f",
-   "what_to_verify": "licence statement CC BY-NC-SA 4.0 to confirm on the FABDEM record",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: licence statement CC BY-NC-SA 4.0 to confirm on the FABDEM record",
-   "n_citing_sentences": 1,
-   "citations": [
-    {
-     "section": "2. Study area and data",
-     "sentence": "- **Seamless terrain–bed elevation model** (Paper 2): the kriged bathymetric bed inside the pre-breach water polygons and FABDEM v1.2 elsewhere — a bare-earth DTM derived from the Copernicus DEM with buildings and forests removed by machine learning (Hawker et al. 2022; residual mean absolute errors of 1.1–1.6 m remain in built-up areas, Iqbal et al. 2023) — on one 20 m grid in EVRF2019, with a source mask that records which cells are FABDEM and which are bed; the reconstruction refuses an input that does not declare its vertical frame (§3.2).",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "Johnson_2019",
-   "status": "content quotation to locate in the source",
-   "reference": "Johnson, J. Michael and Munasinghe, Dinuke and Eyelade, Damilola and Cohen, Sagy (2019). An integrated evaluation of the National Water Model (NWM)--Height Above Nearest Drainage (HAND) flood mapping methodology. Natural Hazards and Earth System Sciences 19, 2405--2420.",
-   "doi": "10.5194/nhess-19-2405-2019",
-   "url": "https://doi.org/10.5194/nhess-19-2405-2019",
-   "what_to_verify": "the HAND-limits argument of the Discussion to be located in the text",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: the HAND-limits argument of the Discussion to be located in the text",
-   "n_citing_sentences": 1,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "Terrain-based approaches that project a water surface or a mapped extent on a DEM — HAND (Rennó et al. 2008; Nobre et al. 2011), GeoFlood (Zheng et al. 2018), FwDET (Cohen et al. 2019) — are first-order products, not hydrodynamics: Johnson et al. (2019) find that a HAND-based method \"does not accurately capture inundated cells\" while it does highlight regions at risk.",
-     "quotations": [
-      "does not accurately capture inundated cells"
-     ],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
    "key": "Iakubovskii_2019",
    "status": "content quotation to locate in the source",
    "reference": "Iakubovskii, Pavel (2019). Segmentation Models Pytorch. GitHub repository.",
@@ -62,109 +13,6 @@
    "bib_note": "VERIFY version 0.5.0",
    "n_citing_sentences": 0,
    "citations": []
-  },
-  {
-   "key": "Biancamaria_2016",
-   "status": "content quotation to locate in the source",
-   "reference": "Biancamaria, Sylvain and Lettenmaier, Dennis P. and Pavelsky, Tamlin M. (2016). The SWOT mission and its capabilities for land hydrology. Surveys in Geophysics 37, 307--337.",
-   "doi": "10.1007/s10712-015-9346-y",
-   "url": "https://doi.org/10.1007/s10712-015-9346-y",
-   "what_to_verify": "Crossref year 2015 (online), volume 37 is 2016",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: Crossref year 2015 (online), volume 37 is 2016",
-   "n_citing_sentences": 1,
-   "citations": [
-    {
-     "section": "2. Study area and data",
-     "sentence": "- **SWOT** L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit (Biancamaria et al. 2016), 26 May–10 July 2023, {{T01|dataset=SWOT L2_HR_RiverSP v2.0 nodes (1-day orbit), accepted;|detail||}}; node_q ≤ 1 and dark fraction < 0.5 as in Paper 1.",
-     "quotations": [],
-     "has_table_placeholders": true
-    }
-   ]
-  },
-  {
-   "key": "Olofsson_2014",
-   "status": "content quotation to locate in the source",
-   "reference": "Olofsson, Pontus and Foody, Giles M. and Herold, Martin and Stehman, Stephen V. and Woodcock, Curtis E. and Wulder, Michael A. (2014). Good practices for estimating area and assessing accuracy of land change. Remote Sensing of Environment 148, 42--57.",
-   "doi": "10.1016/j.rse.2014.02.015",
-   "url": "https://doi.org/10.1016/j.rse.2014.02.015",
-   "what_to_verify": "the 'sample of higher quality' quotation to be located",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: the 'sample of higher quality' quotation to be located",
-   "n_citing_sentences": 2,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "The area obtained by counting classified pixels is a *mapped* area, not an unbiased estimate of the true flooded area; the good-practice framework of Olofsson et al. (2014) requires an accuracy assessment \"based on a sample of higher quality\" reference data, which does not exist for this event.",
-     "quotations": [
-      "based on a sample of higher quality"
-     ],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "3.1 Evidence hierarchy, area semantics and the result blocks",
-     "sentence": "No probability-sample reference exists, so none of them is an unbiased estimate of the true flooded area (Olofsson et al. 2014).",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "Pohjankukka_2017",
-   "status": "content quotation to locate in the source",
-   "reference": "Pohjankukka, Jonne and Pahikkala, Tapio and Nevalainen, Paavo and Heikkonen, Jukka (2017). Estimating the prediction performance of spatial models via spatial k-fold cross validation. International Journal of Geographical Information Science 31, 2001--2019.",
-   "doi": "10.1080/13658816.2017.1346255",
-   "url": "https://doi.org/10.1080/13658816.2017.1346255",
-   "what_to_verify": "cited as in Paper 1",
-   "bib_note": "metadata Crossref-verified 2026-10-01; content VERIFY: cited as in Paper 1",
-   "n_citing_sentences": 0,
-   "citations": []
-  },
-  {
-   "key": "Lehnigk_2026",
-   "status": "content quotation to locate in the source",
-   "reference": "Lehnigk, K. E. and Pavelsky, T. M. and Lang, K. A. (2026). SWOT satellite observations of the Kakhovka dam break flood highlight limitations of outburst flood models. Geophysical Research Letters 53, e2025GL120832.",
-   "doi": "10.1029/2025gl120832",
-   "url": "https://doi.org/10.1029/2025gl120832",
-   "what_to_verify": "the quoted stages / bathymetry statements to be read (the quoted findings (peak stages by 8 June; bathymetry 1.4 m / 5.8-6.1 m stage errors; ATL08 on the exposed bed))",
-   "bib_note": "Crossref-verified 2026-09-26; metadata Crossref-verified 2026-10-01; content VERIFY: the quoted stages / bathymetry statements to be read (the quoted findings (peak stages by 8 June; bathymetry 1.4 m / 5.8-6.1 m stage errors; ATL08 on the exposed bed))",
-   "n_citing_sentences": 6,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "Lehnigk et al. (2026) show with the daily SWOT water-surface elevations of the one-day calibration orbit — the data we use here — that two-dimensional outburst-flood simulations underestimate the observed peak stages by 1.4 to 6.1 m and misplace their timing unless reservoir and channel bathymetry are corrected, and even then reproduce neither stage nor timing fully; downstream stages reached 10–11 m by 8 June.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "4.1.1 The daily series below the dam",
-     "sentence": "The Kherson stage peaks one day later ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June, the daily value of the river yearbook; the operational record gives 5.68 m at 15:00 on 8 June (Gleick et al. 2023) and Lehnigk et al. (2026) cite 5.6 m, a ~0.1 m spread between sources; the peak stages by 8 June that Lehnigk et al. (2026) report from the same SWOT data are consistent with it) — the areal maximum and the peak stage are different quantities, and the day of the areal maximum is a property of the reconstructed series, not an observation.",
-     "quotations": [],
-     "has_table_placeholders": true
-    },
-    {
-     "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-     "sentence": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ at 16.76 m from the operation rules, Monti et al. (2024) about 7.5 km³, and Lehnigk et al. (2026) cite ∼8 km³; our release over 5–13 June sits inside that spread.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "5. Discussion",
-     "sentence": "In most worlds it coincides with the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream peak stages by 8 June from the same SWOT data), but not in all: maximum extent and maximum stage are different quantities whose timing changes along a 100 km reach — floodplain storage and drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade et al. 2023) — and the day of the areal maximum is the most model-dependent number of this paper: on 8 June a water surface a few decimetres lower disconnects tens of km² of the left bank (T11e, FigS17), which is why the two days share the maximum across the worlds.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "5. Discussion",
-     "sentence": "**Even with SWOT, the step from a water surface to a flood extent is not unique.** Lehnigk et al. (2026) show that hydraulic models of this flood do not reproduce the observed stages and their timing without corrected bathymetry; here the stages come from the observations, validated in Paper 1, and what remains uncertain is how they project onto the ground.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "5. Discussion",
-     "sentence": "Such models of this event need corrected reservoir and channel bathymetry before they reproduce the observed stages and their timing (Lehnigk et al. 2026), so they cannot replace the observation-constrained reconstruction — and the reconstruction cannot replace them.",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
   },
   {
    "key": "CEOBS_2023",
@@ -225,143 +73,6 @@
    ]
   },
   {
-   "key": "Yi_2025",
-   "status": "content quotation to locate in the source",
-   "reference": "Yi, Shuang and Li, Hao‐si and Han, Shin‐Chan and Sneeuw, Nico and Yuan, Chunyu and Song, Chunqiao and Yeo, In‐Young and McCullough, Christopher M. (2025). Quantification of the Flood Discharge Following the 2023 Kakhovka Dam Breach Using Satellite Remote Sensing. Water Resources Research 61, e2024WR038314.",
-   "doi": "10.1029/2024WR038314",
-   "url": "https://doi.org/10.1029/2024WR038314",
-   "what_to_verify": "quantities as cited (initial breach discharge) to be read (the quoted values: initial discharge 5.7 x 10^4 m3/s, drop 12.6 +- 1.1 m, water loss 20.4 +- 1.4 km3 in 30 days)",
-   "bib_note": "Crossref-verified 2026-09-28 (8 authors, title, journal, volume; authors corrected: + Yeo, McCullough; Hao-si Li, Chunyu Yuan); metadata Crossref-verified 2026-10-01; content VERIFY: quantities as cited (initial breach discharge) to be read (the quoted values: initial discharge 5.7 x 10^4 m3/s, drop 12.6 +- 1.1 m, water loss 20.4 +- 1.4 km3 in 30 days)",
-   "n_citing_sentences": 5,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "Reservoir-side balances give the volume released: Yi et al. (2025) derive an initial breach flow of (5.7 ± 0.8) × 10⁴ m³ s⁻¹ and 20.4 ± 1.4 km³ lost in 30 days from gravimetry, altimetry and imagery; Shumilova et al. (2025) model about 16.4 km³ over two weeks.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-     "sentence": "Published estimates are different physical quantities of the same order and are context, not validation: the *initial* breach flow of Yi et al. (2025) from a gravimetry–altimetry–imagery discharge model is (5.7 ± 0.8) × 10⁴ m³ s⁻¹, the HEC-RAS scenario peaks of Kadam et al. (2024) are 3.6 × 10⁴ m³ s⁻¹ (300 m breach) and 4.8 × 10⁴ m³ s⁻¹ (600 m), and Shumilova et al. (2025) model a release of about 16.4 km³ over two weeks.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-     "sentence": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ at 16.76 m from the operation rules, Monti et al. (2024) about 7.5 km³, and Lehnigk et al. (2026) cite ∼8 km³; our release over 5–13 June sits inside that spread.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "4.3.5 The reservoir from orbit",
-     "sentence": "On 20 June, with the whole pool observed, Sentinel-2 finds {{T23|date=2023-06-20,source=S2_CROSSCHECK|water_km2||.0f}} km² of water; the Sentinel-1 reservoir areas of Yi et al. (2025, read from the authors' archive) fall from {{T23|date=2023-06-08,source=S1|yi2025_S1_archive_km2||.0f}} km² on 8 June to {{T23|date=2023-06-20,source=S1|yi2025_S1_archive_km2||.0f}} km² on 20 June, the same sequence (Fig11h).",
-     "quotations": [],
-     "has_table_placeholders": true
-    },
-    {
-     "section": "4.3.5 The reservoir from orbit",
-     "sentence": "Published remnant areas differ by definition rather than by error: about 845 km² by 20 June from the decreases reported by Yi et al. (2025), 655.9 km² on 17 June in the state estimate quoted by Novitskyi et al. (2024), 379.7 km² on 8 September including the restored channel (Magas et al. 2023), and 1.63 km² of open water on 6 September with 110 km² still wet (Tsiupa et al. 2023).",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "Monti_2024",
-   "status": "content quotation to locate in the source",
-   "reference": "Monti, R. and Rossi, L. and Reguzzoni, M. (2024). The Nova Kakhovka dam collapse flooding as seen from Sentinel-1 SAR satellite images. Advances in Geodesy and Geoinformation.",
-   "doi": "10.24425/agg.2023.146162",
-   "url": "https://doi.org/10.24425/agg.2023.146162",
-   "what_to_verify": "pages (50-50 in Crossref) and first-author given name (first-author given name and pages)",
-   "bib_note": "Crossref-verified 2026-09-26; metadata Crossref-verified 2026-10-01; content VERIFY: pages (50-50 in Crossref) and first-author given name (first-author given name and pages)",
-   "n_citing_sentences": 2,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "Satellite mappings give areas with their own definitions: Yailymov et al. (2025) map 473 km² of flooded land as of 9 June by land-cover class, 294 km² of it wetlands, against a pre-flood water map of 5 June; Zuo et al. (2024) follow the water-surface area at 300 m in Sentinel-3 OLCI scenes, which doubled within three days and was largest around 9 June; Monti et al. (2024) map the flooding along ~80 km of river with Sentinel-1 change detection; Jiao et al. (2025) use the event to test a Sentinel-1 flood-extraction method.",
-     "quotations": [],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-     "sentence": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ at 16.76 m from the operation rules, Monti et al. (2024) about 7.5 km³, and Lehnigk et al. (2026) cite ∼8 km³; our release over 5–13 June sits inside that spread.",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "Zheng_2018",
-   "status": "content quotation to locate in the source",
-   "reference": "Zheng, Xing and Maidment, David R. and Tarboton, David G. and Liu, Yan Y. and Passalacqua, Paola (2018). {GeoFlood}: large-scale flood inundation mapping based on high-resolution terrain analysis. Water Resources Research 54, 10013--10033.",
-   "doi": "10.1029/2018WR023457",
-   "url": "https://doi.org/10.1029/2018WR023457",
-   "what_to_verify": "pages 10013-10033 not in Crossref; the GeoFlood quotation to be located ())",
-   "bib_note": "Crossref-verified 2026-09-26 (pages metadata Crossref-verified 2026-10-01; content VERIFY: pages 10013-10033 not in Crossref; the GeoFlood quotation to be located ())",
-   "n_citing_sentences": 3,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "Terrain-based approaches that project a water surface or a mapped extent on a DEM — HAND (Rennó et al. 2008; Nobre et al. 2011), GeoFlood (Zheng et al. 2018), FwDET (Cohen et al. 2019) — are first-order products, not hydrodynamics: Johnson et al. (2019) find that a HAND-based method \"does not accurately capture inundated cells\" while it does highlight regions at risk.",
-     "quotations": [
-      "does not accurately capture inundated cells"
-     ],
-     "has_table_placeholders": false
-    },
-    {
-     "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-     "sentence": "The event source is the river network, not every pre-existing water body: seeding the connectivity from all pre-breach water cells — the earlier form of this rule, kept as the provenance variant *all-prewater seeding* (T12, T13, FigS16) — let a few pond and canal cells \"flood\" {{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|max_km2|max|.0f}} km² of WorldCover cropland on the left-bank sandy terrace under the Kokan' level extrapolated 14 km, with no terrain path to the river on any day (§4.2.3) — the case that terrain-index methods list as their limitation (Zheng et al. 2018) and that the connectivity requirement exists to exclude.",
-     "quotations": [],
-     "has_table_placeholders": true
-    },
-    {
-     "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-     "sentence": "The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods \"do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)\" (Bates 2022), and GeoFlood by design flags \"local depressions such as ponds or waterbodies … even if they are not connected with the main stem river\" (Zheng et al. 2018).",
-     "quotations": [
-      "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)",
-      "local depressions such as ponds or waterbodies … even if they are not connected with the main stem river"
-     ],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "He_2024",
-   "status": "content quotation to locate in the source",
-   "reference": "He, Yongjun and Wang, Jinfei and Zhang, Ying and Liao, Chunhua (2024). An efficient urban flood mapping framework towards disaster response driven by weakly supervised semantic segmentation with decoupled training samples. ISPRS Journal of Photogrammetry and Remote Sensing 207, 338--358.",
-   "doi": "10.1016/j.isprsjprs.2023.12.009",
-   "url": "https://doi.org/10.1016/j.isprsjprs.2023.12.009",
-   "what_to_verify": "read as a weakly-supervised urban flood-mapping paper, not a label-noise survey (given names)",
-   "bib_note": "Crossref-verified 2026-09-26: weakly supervised flood segmentation with weak training-data generation (not a label-noise survey; cite accordingly); metadata Crossref-verified 2026-10-01; content VERIFY: read as a weakly-supervised urban flood-mapping paper, not a label-noise survey (given names)",
-   "n_citing_sentences": 1,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "A U-Net trained on labels derived from those masks inherits both limits (Maiti et al. 2022; weak supervision for flood mapping: He et al. 2024); its accuracy against such labels is agreement, not truth, and an input that also builds the label is label leakage (Apicella et al. 2025).",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
-   "key": "Maiti_2022",
-   "status": "content quotation to locate in the source",
-   "reference": "Maiti, A. and Oude Elberink, S. and Vosselman, G. (2022). Effect of label noise in semantic segmentation of high resolution aerial images and height data. ISPRS Annals of the Photogrammetry, Remote Sensing and Spatial Information Sciences V-2-2022, 275--282.",
-   "doi": "10.5194/isprs-annals-V-2-2022-275-2022",
-   "url": "https://doi.org/10.5194/isprs-annals-V-2-2022-275-2022",
-   "what_to_verify": "quotation to be located (pages/DOI)",
-   "bib_note": "web-verified 2026-09-26 (XXIV ISPRS Congress, Nice); metadata Crossref-verified 2026-10-01; content VERIFY: quotation to be located (pages/DOI)",
-   "n_citing_sentences": 1,
-   "citations": [
-    {
-     "section": "1. Introduction",
-     "sentence": "A U-Net trained on labels derived from those masks inherits both limits (Maiti et al. 2022; weak supervision for flood mapping: He et al. 2024); its accuracy against such labels is agreement, not truth, and an input that also builds the label is label leakage (Apicella et al. 2025).",
-     "quotations": [],
-     "has_table_placeholders": false
-    }
-   ]
-  },
-  {
    "key": "Rikimaru_2002",
    "status": "no Crossref record; cite as is",
    "reference": "Rikimaru, Atsushi and Roy, P. S. and Miyatake, S. (2002). Tropical forest cover density mapping. Tropical Ecology 43, 39--47.",
@@ -391,99 +102,48 @@
    "citations": []
   },
   {
-   "key": "Lefebvre_2019",
-   "status": "full text unreachable; the number is only in a bib note",
-   "reference": "Lefebvre, Ga{\\\"e}tan and Davranche, Aur{\\'e}lie and Willm, Lo{\\\"i}c and Campagna, Julie and Redmond, Lauren and Merle, Cl{\\'e}ment and Guelmami, Anis and Poulin, Brigitte (2019). Introducing {WIW} for Detecting the Presence of Water in Wetlands with Landsat and Sentinel Satellites. Remote Sensing 11, 2210.",
-   "doi": "10.3390/rs11192210",
-   "url": "https://doi.org/10.3390/rs11192210",
-   "what_to_verify": "the Phragmites 5 % / 71 % figure not read in the paper (before quoting it)",
-   "bib_note": "Crossref-verified 2026-10-01; abstract verified (Semantic Scholar): WIW \"encompassing standard water indices that systematically underestimate flooding duration under vegetation cover\" (Rhone delta); the Phragmites figure (flooded reed marsh correctly classified 5 % with MNDWI vs 71 % with WIW) is from the authors' Copernicus success story, not yet read in the paper -- metadata Crossref-verified 2026-10-01; content VERIFY: the Phragmites 5 % / 71 % figure not read in the paper (before quoting it)",
+   "key": "Pulvirenti_2021",
+   "status": "content quotation to locate in the source",
+   "reference": "Pulvirenti, Luca and Squicciarino, Giuseppe and Fiori, Elisabetta and Ferraris, Luca and Puca, Silvia (2021). A Tool for Pre-Operational Daily Mapping of Floods and Permanent Water Using {Sentinel-1} Data. Remote Sensing 13, 1342.",
+   "doi": "10.3390/rs13071342",
+   "url": "https://doi.org/10.3390/rs13071342",
+   "what_to_verify": "Crossref-verified 2026-10-01; full text verified 2026-10-01 (MDPI via web.archive.org): flooded vegetation 'does not generally have a clear and unique radar signature' (section 3.2.4), double bounce",
+   "bib_note": "Crossref-verified 2026-10-01; full text verified 2026-10-01 (MDPI via web.archive.org): flooded vegetation 'does not generally have a clear and unique radar signature' (section 3.2.4), double bounce",
    "n_citing_sentences": 1,
    "citations": [
     {
      "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-     "sentence": "Under emergent vegetation that state cannot be observed with the sensors used here: standard optical water indices systematically underestimate the flooding duration under a vegetation cover (Lefebvre et al. 2019), subcanopy flooding in high-vegetated wetlands could not be detected with Sentinel-1 VV/VH (Slagter et al. 2020), and in tropical herbaceous wetlands inundated vegetation can account for over three quarters of the inundated area, which open-water mapping does not detect (Oakes et al. 2023).",
-     "quotations": [],
+     "sentence": "Cells of the model-only normal regime (\"normally wet\": low reed beds below the normal surface that no optical or SAR mask lists as water) are kept as their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation: in flooded vegetation the double bounce raises C-band backscatter above the non-flooded level, but once the water rises over the plants the signal turns dark (Grimaldi et al. 2020; Jarrett et al. 2023; review: Tsyganskaya et al. 2018; flooded vegetation \"does not generally have a clear and unique radar signature\", Pulvirenti et al. 2021), so the date on which a reed bed goes dark is the date its canopy went under, not the date water arrived.",
+     "quotations": [
+      "normally wet",
+      "does not generally have a clear and unique radar signature"
+     ],
      "has_table_placeholders": false
     }
    ]
   },
   {
-   "key": "Pulvirenti_2021",
-   "status": "not in the manuscript; full text unreachable",
-   "reference": "Pulvirenti, Luca and Squicciarino, Giuseppe and Fiori, Elisabetta and Ferraris, Luca and Puca, Silvia (2021). A Tool for Pre-Operational Daily Mapping of Floods and Permanent Water Using Sentinel-1 Data. Remote Sensing 13, 1342.",
-   "doi": "10.3390/rs13071342",
-   "url": "https://doi.org/10.3390/rs13071342",
-   "what_to_verify": "not cited in the manuscript; forwarded claims (double bounce, no unique SAR signature of flooded vegetation) NOT checked -- the abstract only says flood maps have gaps from undetected flooded vegetation; full text unreachable by script (MDPI blocks)",
-   "bib_note": "not cited in the manuscript; forwarded claims (double bounce, no unique SAR signature of flooded vegetation) NOT checked -- the abstract only says flood maps have gaps from undetected flooded vegetation; full text unreachable by script (MDPI blocks)",
-   "n_citing_sentences": 0,
-   "citations": []
-  },
-  {
    "key": "Cohen_2022",
-   "status": "not in the manuscript; full text unreachable",
-   "reference": "Cohen, Juval and Heinilä, Kirsikka and Huokuna, Mikko and Metsämäki, Sari and Heilimo, Jyri and Sane, Mikko (2022). Satellite-based flood mapping in the boreal region for improving situational awareness. Journal of Flood Risk Management 15, e12744.",
+   "status": "content quotation to locate in the source",
+   "reference": "Cohen, Juval and Heinil{\\\"a}, Kirsikka and Huokuna, Mikko and Mets{\\\"a}m{\\\"a}ki, Sari and Heilimo, Jyri and Sane, Mikko (2022). Satellite-based flood mapping in the boreal region for improving situational awareness. Journal of Flood Risk Management 15, e12744.",
    "doi": "10.1111/jfr3.12744",
    "url": "https://doi.org/10.1111/jfr3.12744",
-   "what_to_verify": "not cited in the manuscript; forwarded claim of an 'uncertain area' class for semi-forested terrain NOT checked; the abstract only says EMS and the S1 interpretation 'did not detect floods in forests'; full text unreachable by script (Wiley blocks)",
-   "bib_note": "not cited in the manuscript; forwarded claim of an 'uncertain area' class for semi-forested terrain NOT checked; the abstract only says EMS and the S1 interpretation 'did not detect floods in forests'; full text unreachable by script (Wiley blocks)",
-   "n_citing_sentences": 0,
-   "citations": []
+   "what_to_verify": "Crossref-verified 2026-10-01 (online 2021-07-26); full text verified 2026-10-01 (corpus): 'Areas identified as non-flooded in semi-forested areas are classified as uncertain'",
+   "bib_note": "Crossref-verified 2026-10-01 (online 2021-07-26); full text verified 2026-10-01 (corpus): 'Areas identified as non-flooded in semi-forested areas are classified as uncertain'",
+   "n_citing_sentences": 1,
+   "citations": [
+    {
+     "section": "3.8 Weak labels and the U-Net diagnostics",
+     "sentence": "Withholding the decision where the evidence is ambiguous follows operational practice: Bayesian Sentinel-1 flood mapping excludes decisions whose two class probabilities are close to equal (Bauer-Marschallinger et al. 2022; Roth et al. 2025), and an operational boreal flood product classes \"areas identified as non-flooded in semi-forested areas\" as uncertain (Cohen et al. 2022).",
+     "quotations": [
+      "areas identified as non-flooded in semi-forested areas"
+     ],
+     "has_table_placeholders": false
+    }
+   ]
   }
  ],
  "nodes": [
-  {
-   "id": "Giustarini_2013",
-   "type": "Reference",
-   "label": "Giustarini, Laura and Hostache, Renaud and Matgen, Patrick and Schumann, Guy J.-P. and Bates, Paul D. and Mason, David C. (2013). A Change Detection Approach to",
-   "doi": "10.1109/tgrs.2012.2210901",
-   "url": "https://doi.org/10.1109/tgrs.2012.2210901",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "quotation to be located"
-  },
-  {
-   "id": "Q-Giustarini_2013-0",
-   "type": "OpenItem",
-   "label": "quotation to be located",
-   "section": "(not cited in the manuscript text)",
-   "quotations": []
-  },
-  {
-   "id": "Hawker_2022",
-   "type": "Reference",
-   "label": "Hawker, Laurence and Uhe, Peter and Paulo, Luntadila and Sosa, Jeison and Savage, James and Sampson, Christopher and Neal, Jeffrey (2022). A 30 m global map of ",
-   "doi": "10.1088/1748-9326/ac4d4f",
-   "url": "https://doi.org/10.1088/1748-9326/ac4d4f",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "licence statement CC BY-NC-SA 4.0 to confirm on the FABDEM record"
-  },
-  {
-   "id": "Q-Hawker_2022-1",
-   "type": "Quotation",
-   "label": "- **Seamless terrain–bed elevation model** (Paper 2): the kriged bathymetric bed inside the pre-breach water polygons and FABDEM v1.2 elsewhere — a bare-earth DTM derived from the Copernicus DEM with buildings and forest",
-   "section": "2. Study area and data",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Johnson_2019",
-   "type": "Reference",
-   "label": "Johnson, J. Michael and Munasinghe, Dinuke and Eyelade, Damilola and Cohen, Sagy (2019). An integrated evaluation of the National Water Model (NWM)--Height Abov",
-   "doi": "10.5194/nhess-19-2405-2019",
-   "url": "https://doi.org/10.5194/nhess-19-2405-2019",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "the HAND-limits argument of the Discussion to be located in the text"
-  },
-  {
-   "id": "Q-Johnson_2019-1",
-   "type": "Quotation",
-   "label": "Terrain-based approaches that project a water surface or a mapped extent on a DEM — HAND (Rennó et al. 2008; Nobre et al. 2011), GeoFlood (Zheng et al. 2018), FwDET (Cohen et al. 2019) — are first-order products, not hyd",
-   "section": "1. Introduction",
-   "quotations": [
-    "does not accurately capture inundated cells"
-   ],
-   "has_table_placeholders": false
-  },
   {
    "id": "Iakubovskii_2019",
    "type": "Reference",
@@ -499,123 +159,6 @@
    "label": "version 0.5.0",
    "section": "(not cited in the manuscript text)",
    "quotations": []
-  },
-  {
-   "id": "Biancamaria_2016",
-   "type": "Reference",
-   "label": "Biancamaria, Sylvain and Lettenmaier, Dennis P. and Pavelsky, Tamlin M. (2016). The SWOT mission and its capabilities for land hydrology. Surveys in Geophysics ",
-   "doi": "10.1007/s10712-015-9346-y",
-   "url": "https://doi.org/10.1007/s10712-015-9346-y",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "Crossref year 2015 (online), volume 37 is 2016"
-  },
-  {
-   "id": "Q-Biancamaria_2016-1",
-   "type": "Quotation",
-   "label": "- **SWOT** L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit (Biancamaria et al. 2016), 26 May–10 July 2023, {{T01|dataset=SWOT L2_HR_RiverSP v2.0 nodes (1-day orbit), accepted;|detail||}}; node_q ≤ 1 and dark fr",
-   "section": "2. Study area and data",
-   "quotations": [],
-   "has_table_placeholders": true
-  },
-  {
-   "id": "Olofsson_2014",
-   "type": "Reference",
-   "label": "Olofsson, Pontus and Foody, Giles M. and Herold, Martin and Stehman, Stephen V. and Woodcock, Curtis E. and Wulder, Michael A. (2014). Good practices for estima",
-   "doi": "10.1016/j.rse.2014.02.015",
-   "url": "https://doi.org/10.1016/j.rse.2014.02.015",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "the 'sample of higher quality' quotation to be located"
-  },
-  {
-   "id": "Q-Olofsson_2014-1",
-   "type": "Quotation",
-   "label": "The area obtained by counting classified pixels is a *mapped* area, not an unbiased estimate of the true flooded area; the good-practice framework of Olofsson et al. (2014) requires an accuracy assessment \"based on a sam",
-   "section": "1. Introduction",
-   "quotations": [
-    "based on a sample of higher quality"
-   ],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Olofsson_2014-2",
-   "type": "Quotation",
-   "label": "No probability-sample reference exists, so none of them is an unbiased estimate of the true flooded area (Olofsson et al. 2014).",
-   "section": "3.1 Evidence hierarchy, area semantics and the result blocks",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Pohjankukka_2017",
-   "type": "Reference",
-   "label": "Pohjankukka, Jonne and Pahikkala, Tapio and Nevalainen, Paavo and Heikkonen, Jukka (2017). Estimating the prediction performance of spatial models via spatial k",
-   "doi": "10.1080/13658816.2017.1346255",
-   "url": "https://doi.org/10.1080/13658816.2017.1346255",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "cited as in Paper 1"
-  },
-  {
-   "id": "Q-Pohjankukka_2017-0",
-   "type": "OpenItem",
-   "label": "cited as in Paper 1",
-   "section": "(not cited in the manuscript text)",
-   "quotations": []
-  },
-  {
-   "id": "Lehnigk_2026",
-   "type": "Reference",
-   "label": "Lehnigk, K. E. and Pavelsky, T. M. and Lang, K. A. (2026). SWOT satellite observations of the Kakhovka dam break flood highlight limitations of outburst flood m",
-   "doi": "10.1029/2025gl120832",
-   "url": "https://doi.org/10.1029/2025gl120832",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "the quoted stages / bathymetry statements to be read (the quoted findings (peak stages by 8 June; bathymetry 1.4 m / 5.8-6.1 m stage errors; ATL08 on the exposed bed))"
-  },
-  {
-   "id": "Q-Lehnigk_2026-1",
-   "type": "Quotation",
-   "label": "Lehnigk et al. (2026) show with the daily SWOT water-surface elevations of the one-day calibration orbit — the data we use here — that two-dimensional outburst-flood simulations underestimate the observed peak stages by ",
-   "section": "1. Introduction",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Lehnigk_2026-2",
-   "type": "Quotation",
-   "label": "The Kherson stage peaks one day later ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|kherson_gauge_m||.2f}} m on 8 June, the daily value of the river yearbook; the operational record gives 5.68 m at 15:00 on 8 June (Gleic",
-   "section": "4.1.1 The daily series below the dam",
-   "quotations": [],
-   "has_table_placeholders": true
-  },
-  {
-   "id": "Q-Lehnigk_2026-3",
-   "type": "Quotation",
-   "label": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ a",
-   "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Lehnigk_2026-4",
-   "type": "Quotation",
-   "label": "In most worlds it coincides with the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream peak stages by 8 June from the same SWOT data), but not in all: maximum extent and maximum stage are di",
-   "section": "5. Discussion",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Lehnigk_2026-5",
-   "type": "Quotation",
-   "label": "**Even with SWOT, the step from a water surface to a flood extent is not unique.** Lehnigk et al. (2026) show that hydraulic models of this flood do not reproduce the observed stages and their timing without corrected ba",
-   "section": "5. Discussion",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Lehnigk_2026-6",
-   "type": "Quotation",
-   "label": "Such models of this event need corrected reservoir and channel bathymetry before they reproduce the observed stages and their timing (Lehnigk et al. 2026), so they cannot replace the observation-constrained reconstructio",
-   "section": "5. Discussion",
-   "quotations": [],
-   "has_table_placeholders": false
   },
   {
    "id": "CEOBS_2023",
@@ -684,152 +227,6 @@
    "has_table_placeholders": false
   },
   {
-   "id": "Yi_2025",
-   "type": "Reference",
-   "label": "Yi, Shuang and Li, Hao‐si and Han, Shin‐Chan and Sneeuw, Nico and Yuan, Chunyu and Song, Chunqiao and Yeo, In‐Young and McCullough, Christopher M. (2025). Quant",
-   "doi": "10.1029/2024WR038314",
-   "url": "https://doi.org/10.1029/2024WR038314",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "quantities as cited (initial breach discharge) to be read (the quoted values: initial discharge 5.7 x 10^4 m3/s, drop 12.6 +- 1.1 m, water loss 20.4 +- 1.4 km3 in 30 days)"
-  },
-  {
-   "id": "Q-Yi_2025-1",
-   "type": "Quotation",
-   "label": "Reservoir-side balances give the volume released: Yi et al. (2025) derive an initial breach flow of (5.7 ± 0.8) × 10⁴ m³ s⁻¹ and 20.4 ± 1.4 km³ lost in 30 days from gravimetry, altimetry and imagery; Shumilova et al. (20",
-   "section": "1. Introduction",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Yi_2025-2",
-   "type": "Quotation",
-   "label": "Published estimates are different physical quantities of the same order and are context, not validation: the *initial* breach flow of Yi et al. (2025) from a gravimetry–altimetry–imagery discharge model is (5.7 ± 0.8) × ",
-   "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Yi_2025-3",
-   "type": "Quotation",
-   "label": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ a",
-   "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Yi_2025-4",
-   "type": "Quotation",
-   "label": "On 20 June, with the whole pool observed, Sentinel-2 finds {{T23|date=2023-06-20,source=S2_CROSSCHECK|water_km2||.0f}} km² of water; the Sentinel-1 reservoir areas of Yi et al. (2025, read from the authors' archive) fall",
-   "section": "4.3.5 The reservoir from orbit",
-   "quotations": [],
-   "has_table_placeholders": true
-  },
-  {
-   "id": "Q-Yi_2025-5",
-   "type": "Quotation",
-   "label": "Published remnant areas differ by definition rather than by error: about 845 km² by 20 June from the decreases reported by Yi et al. (2025), 655.9 km² on 17 June in the state estimate quoted by Novitskyi et al. (2024), 3",
-   "section": "4.3.5 The reservoir from orbit",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Monti_2024",
-   "type": "Reference",
-   "label": "Monti, R. and Rossi, L. and Reguzzoni, M. (2024). The Nova Kakhovka dam collapse flooding as seen from Sentinel-1 SAR satellite images. Advances in Geodesy and ",
-   "doi": "10.24425/agg.2023.146162",
-   "url": "https://doi.org/10.24425/agg.2023.146162",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "pages (50-50 in Crossref) and first-author given name (first-author given name and pages)"
-  },
-  {
-   "id": "Q-Monti_2024-1",
-   "type": "Quotation",
-   "label": "Satellite mappings give areas with their own definitions: Yailymov et al. (2025) map 473 km² of flooded land as of 9 June by land-cover class, 294 km² of it wetlands, against a pre-flood water map of 5 June; Zuo et al. (",
-   "section": "1. Introduction",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Monti_2024-2",
-   "type": "Quotation",
-   "label": "The released volume itself is period- and hypsometry-dependent in the literature: Yi et al. (2025) obtain 20.4 ± 1.4 km³ in 30 days from a pre-breach volume of 21.0 km³ (17.3 m), Vyshnevskyi et al. (2023) give 19.8 km³ a",
-   "section": "4.1.3 The reservoir: emptying, depth and storage balance",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Zheng_2018",
-   "type": "Reference",
-   "label": "Zheng, Xing and Maidment, David R. and Tarboton, David G. and Liu, Yan Y. and Passalacqua, Paola (2018). {GeoFlood}: large-scale flood inundation mapping based ",
-   "doi": "10.1029/2018WR023457",
-   "url": "https://doi.org/10.1029/2018WR023457",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "pages 10013-10033 not in Crossref; the GeoFlood quotation to be located ())"
-  },
-  {
-   "id": "Q-Zheng_2018-1",
-   "type": "Quotation",
-   "label": "Terrain-based approaches that project a water surface or a mapped extent on a DEM — HAND (Rennó et al. 2008; Nobre et al. 2011), GeoFlood (Zheng et al. 2018), FwDET (Cohen et al. 2019) — are first-order products, not hyd",
-   "section": "1. Introduction",
-   "quotations": [
-    "does not accurately capture inundated cells"
-   ],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Q-Zheng_2018-2",
-   "type": "Quotation",
-   "label": "The event source is the river network, not every pre-existing water body: seeding the connectivity from all pre-breach water cells — the earlier form of this rule, kept as the provenance variant *all-prewater seeding* (T",
-   "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-   "quotations": [],
-   "has_table_placeholders": true
-  },
-  {
-   "id": "Q-Zheng_2018-3",
-   "type": "Quotation",
-   "label": "The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods \"do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted ",
-   "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-   "quotations": [
-    "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)",
-    "local depressions such as ponds or waterbodies … even if they are not connected with the main stem river"
-   ],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "He_2024",
-   "type": "Reference",
-   "label": "He, Yongjun and Wang, Jinfei and Zhang, Ying and Liao, Chunhua (2024). An efficient urban flood mapping framework towards disaster response driven by weakly sup",
-   "doi": "10.1016/j.isprsjprs.2023.12.009",
-   "url": "https://doi.org/10.1016/j.isprsjprs.2023.12.009",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "read as a weakly-supervised urban flood-mapping paper, not a label-noise survey (given names)"
-  },
-  {
-   "id": "Q-He_2024-1",
-   "type": "Quotation",
-   "label": "A U-Net trained on labels derived from those masks inherits both limits (Maiti et al. 2022; weak supervision for flood mapping: He et al. 2024); its accuracy against such labels is agreement, not truth, and an input that",
-   "section": "1. Introduction",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
-   "id": "Maiti_2022",
-   "type": "Reference",
-   "label": "Maiti, A. and Oude Elberink, S. and Vosselman, G. (2022). Effect of label noise in semantic segmentation of high resolution aerial images and height data. ISPRS",
-   "doi": "10.5194/isprs-annals-V-2-2022-275-2022",
-   "url": "https://doi.org/10.5194/isprs-annals-V-2-2022-275-2022",
-   "status": "content quotation to locate in the source",
-   "what_to_verify": "quotation to be located (pages/DOI)"
-  },
-  {
-   "id": "Q-Maiti_2022-1",
-   "type": "Quotation",
-   "label": "A U-Net trained on labels derived from those masks inherits both limits (Maiti et al. 2022; weak supervision for flood mapping: He et al. 2024); its accuracy against such labels is agreement, not truth, and an input that",
-   "section": "1. Introduction",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
    "id": "Rikimaru_2002",
    "type": "Reference",
    "label": "Rikimaru, Atsushi and Roy, P. S. and Miyatake, S. (2002). Tropical forest cover density mapping. Tropical Ecology 43, 39--47.",
@@ -863,53 +260,43 @@
    "quotations": []
   },
   {
-   "id": "Lefebvre_2019",
-   "type": "Reference",
-   "label": "Lefebvre, Ga{\\\"e}tan and Davranche, Aur{\\'e}lie and Willm, Lo{\\\"i}c and Campagna, Julie and Redmond, Lauren and Merle, Cl{\\'e}ment and Guelmami, Anis and Poulin",
-   "doi": "10.3390/rs11192210",
-   "url": "https://doi.org/10.3390/rs11192210",
-   "status": "full text unreachable; the number is only in a bib note",
-   "what_to_verify": "the Phragmites 5 % / 71 % figure not read in the paper (before quoting it)"
-  },
-  {
-   "id": "Q-Lefebvre_2019-1",
-   "type": "Quotation",
-   "label": "Under emergent vegetation that state cannot be observed with the sensors used here: standard optical water indices systematically underestimate the flooding duration under a vegetation cover (Lefebvre et al. 2019), subca",
-   "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-   "quotations": [],
-   "has_table_placeholders": false
-  },
-  {
    "id": "Pulvirenti_2021",
    "type": "Reference",
    "label": "Pulvirenti, Luca and Squicciarino, Giuseppe and Fiori, Elisabetta and Ferraris, Luca and Puca, Silvia (2021). A Tool for Pre-Operational Daily Mapping of Floods",
    "doi": "10.3390/rs13071342",
    "url": "https://doi.org/10.3390/rs13071342",
-   "status": "not in the manuscript; full text unreachable",
-   "what_to_verify": "not cited in the manuscript; forwarded claims (double bounce, no unique SAR signature of flooded vegetation) NOT checked -- the abstract only says flood maps have gaps from undetected flooded vegetation; full text unreachable by script (MDPI blocks)"
+   "status": "content quotation to locate in the source",
+   "what_to_verify": "Crossref-verified 2026-10-01; full text verified 2026-10-01 (MDPI via web.archive.org): flooded vegetation 'does not generally have a clear and unique radar signature' (section 3.2.4), double bounce"
   },
   {
-   "id": "Q-Pulvirenti_2021-0",
-   "type": "OpenItem",
-   "label": "not cited in the manuscript; forwarded claims (double bounce, no unique SAR signature of flooded vegetation) NOT checked -- the abstract only says flood maps have gaps from undetected flooded vegetati",
-   "section": "(not cited in the manuscript text)",
-   "quotations": []
+   "id": "Q-Pulvirenti_2021-1",
+   "type": "Quotation",
+   "label": "Cells of the model-only normal regime (\"normally wet\": low reed beds below the normal surface that no optical or SAR mask lists as water) are kept as their own category, because a Sentinel-1 dark-water onset there is a d",
+   "section": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
+   "quotations": [
+    "normally wet",
+    "does not generally have a clear and unique radar signature"
+   ],
+   "has_table_placeholders": false
   },
   {
    "id": "Cohen_2022",
    "type": "Reference",
-   "label": "Cohen, Juval and Heinilä, Kirsikka and Huokuna, Mikko and Metsämäki, Sari and Heilimo, Jyri and Sane, Mikko (2022). Satellite-based flood mapping in the boreal ",
+   "label": "Cohen, Juval and Heinil{\\\"a}, Kirsikka and Huokuna, Mikko and Mets{\\\"a}m{\\\"a}ki, Sari and Heilimo, Jyri and Sane, Mikko (2022). Satellite-based flood mapping in",
    "doi": "10.1111/jfr3.12744",
    "url": "https://doi.org/10.1111/jfr3.12744",
-   "status": "not in the manuscript; full text unreachable",
-   "what_to_verify": "not cited in the manuscript; forwarded claim of an 'uncertain area' class for semi-forested terrain NOT checked; the abstract only says EMS and the S1 interpretation 'did not detect floods in forests'; full text unreachable by script (Wiley blocks)"
+   "status": "content quotation to locate in the source",
+   "what_to_verify": "Crossref-verified 2026-10-01 (online 2021-07-26); full text verified 2026-10-01 (corpus): 'Areas identified as non-flooded in semi-forested areas are classified as uncertain'"
   },
   {
-   "id": "Q-Cohen_2022-0",
-   "type": "OpenItem",
-   "label": "not cited in the manuscript; forwarded claim of an 'uncertain area' class for semi-forested terrain NOT checked; the abstract only says EMS and the S1 interpretation 'did not detect floods in forests'",
-   "section": "(not cited in the manuscript text)",
-   "quotations": []
+   "id": "Q-Cohen_2022-1",
+   "type": "Quotation",
+   "label": "Withholding the decision where the evidence is ambiguous follows operational practice: Bayesian Sentinel-1 flood mapping excludes decisions whose two class probabilities are close to equal (Bauer-Marschallinger et al. 20",
+   "section": "3.8 Weak labels and the U-Net diagnostics",
+   "quotations": [
+    "areas identified as non-flooded in semi-forested areas"
+   ],
+   "has_table_placeholders": false
   },
   {
    "id": "SEC:1. Introduction",
@@ -922,161 +309,21 @@
    "label": "2. Study area and data"
   },
   {
-   "id": "SEC:3.1 Evidence hierarchy, area semantics and the result blocks",
-   "type": "Section",
-   "label": "3.1 Evidence hierarchy, area semantics and the result blocks"
-  },
-  {
    "id": "SEC:3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
    "type": "Section",
    "label": "3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume"
   },
   {
-   "id": "SEC:4.1.1 The daily series below the dam",
+   "id": "SEC:3.8 Weak labels and the U-Net diagnostics",
    "type": "Section",
-   "label": "4.1.1 The daily series below the dam"
-  },
-  {
-   "id": "SEC:4.1.3 The reservoir: emptying, depth and storage balance",
-   "type": "Section",
-   "label": "4.1.3 The reservoir: emptying, depth and storage balance"
-  },
-  {
-   "id": "SEC:4.3.5 The reservoir from orbit",
-   "type": "Section",
-   "label": "4.3.5 The reservoir from orbit"
-  },
-  {
-   "id": "SEC:5. Discussion",
-   "type": "Section",
-   "label": "5. Discussion"
+   "label": "3.8 Weak labels and the U-Net diagnostics"
   }
  ],
  "edges": [
   {
-   "source": "Q-Giustarini_2013-0",
-   "target": "Giustarini_2013",
-   "relation": "NEEDS_VERIFICATION"
-  },
-  {
-   "source": "Q-Hawker_2022-1",
-   "target": "Hawker_2022",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Hawker_2022-1",
-   "target": "SEC:2. Study area and data",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Johnson_2019-1",
-   "target": "Johnson_2019",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Johnson_2019-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
    "source": "Q-Iakubovskii_2019-0",
    "target": "Iakubovskii_2019",
    "relation": "NEEDS_VERIFICATION"
-  },
-  {
-   "source": "Q-Biancamaria_2016-1",
-   "target": "Biancamaria_2016",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Biancamaria_2016-1",
-   "target": "SEC:2. Study area and data",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Olofsson_2014-1",
-   "target": "Olofsson_2014",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Olofsson_2014-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Olofsson_2014-2",
-   "target": "Olofsson_2014",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Olofsson_2014-2",
-   "target": "SEC:3.1 Evidence hierarchy, area semantics and the result blocks",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Pohjankukka_2017-0",
-   "target": "Pohjankukka_2017",
-   "relation": "NEEDS_VERIFICATION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-1",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-2",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-2",
-   "target": "SEC:4.1.1 The daily series below the dam",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-3",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-3",
-   "target": "SEC:4.1.3 The reservoir: emptying, depth and storage balance",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-4",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-4",
-   "target": "SEC:5. Discussion",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-5",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-5",
-   "target": "SEC:5. Discussion",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Lehnigk_2026-6",
-   "target": "Lehnigk_2026",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Lehnigk_2026-6",
-   "target": "SEC:5. Discussion",
-   "relation": "IN_SECTION"
   },
   {
    "source": "Q-CEOBS_2023-0",
@@ -1109,126 +356,6 @@
    "relation": "IN_SECTION"
   },
   {
-   "source": "Q-Yi_2025-1",
-   "target": "Yi_2025",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Yi_2025-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Yi_2025-2",
-   "target": "Yi_2025",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Yi_2025-2",
-   "target": "SEC:4.1.3 The reservoir: emptying, depth and storage balance",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Yi_2025-3",
-   "target": "Yi_2025",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Yi_2025-3",
-   "target": "SEC:4.1.3 The reservoir: emptying, depth and storage balance",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Yi_2025-4",
-   "target": "Yi_2025",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Yi_2025-4",
-   "target": "SEC:4.3.5 The reservoir from orbit",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Yi_2025-5",
-   "target": "Yi_2025",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Yi_2025-5",
-   "target": "SEC:4.3.5 The reservoir from orbit",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Monti_2024-1",
-   "target": "Monti_2024",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Monti_2024-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Monti_2024-2",
-   "target": "Monti_2024",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Monti_2024-2",
-   "target": "SEC:4.1.3 The reservoir: emptying, depth and storage balance",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Zheng_2018-1",
-   "target": "Zheng_2018",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Zheng_2018-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Zheng_2018-2",
-   "target": "Zheng_2018",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Zheng_2018-2",
-   "target": "SEC:3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Zheng_2018-3",
-   "target": "Zheng_2018",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Zheng_2018-3",
-   "target": "SEC:3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-He_2024-1",
-   "target": "He_2024",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-He_2024-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
-   "source": "Q-Maiti_2022-1",
-   "target": "Maiti_2022",
-   "relation": "QUOTED_FROM"
-  },
-  {
-   "source": "Q-Maiti_2022-1",
-   "target": "SEC:1. Introduction",
-   "relation": "IN_SECTION"
-  },
-  {
    "source": "Q-Rikimaru_2002-1",
    "target": "Rikimaru_2002",
    "relation": "QUOTED_FROM"
@@ -1244,24 +371,24 @@
    "relation": "NEEDS_VERIFICATION"
   },
   {
-   "source": "Q-Lefebvre_2019-1",
-   "target": "Lefebvre_2019",
+   "source": "Q-Pulvirenti_2021-1",
+   "target": "Pulvirenti_2021",
    "relation": "QUOTED_FROM"
   },
   {
-   "source": "Q-Lefebvre_2019-1",
+   "source": "Q-Pulvirenti_2021-1",
    "target": "SEC:3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume",
    "relation": "IN_SECTION"
   },
   {
-   "source": "Q-Pulvirenti_2021-0",
-   "target": "Pulvirenti_2021",
-   "relation": "NEEDS_VERIFICATION"
+   "source": "Q-Cohen_2022-1",
+   "target": "Cohen_2022",
+   "relation": "QUOTED_FROM"
   },
   {
-   "source": "Q-Cohen_2022-0",
-   "target": "Cohen_2022",
-   "relation": "NEEDS_VERIFICATION"
+   "source": "Q-Cohen_2022-1",
+   "target": "SEC:3.8 Weak labels and the U-Net diagnostics",
+   "relation": "IN_SECTION"
   }
  ]
 }
