@@ -243,3 +243,7 @@ case_studies/kakhovka_2023/runs/_smoke_*/
 
 # third-party source PDFs kept locally for the literature audit (UNEP, UNOSAT product sheets, open-access papers): never committed
 case_studies/kakhovka_2023/literature_audit/_work/
+
+# assembled proofreading documents (p101): the DOCX and the downscaled image copies are built locally, the .md is tracked
+case_studies/kakhovka_2023/publication/assembled/*.docx
+case_studies/kakhovka_2023/publication/assembled/img/

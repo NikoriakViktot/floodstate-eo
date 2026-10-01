@@ -145,6 +145,11 @@ references, UNOSAT 3616 / 3623 product sheets and Kadam 2024 read (T16 rows veri
 note (source PDFs under literature_audit/_work/, git-ignored). Still VERIFY: content quotations to locate in Hawker, Johnson, Olofsson,
 Giustarini, Maiti, Zheng, Lehnigk, Yi, Monti; Pulvirenti / Cohen / Lefebvre full texts unreachable by script (none of their numbers is in the
 text); Rikimaru 2002 and Pedregosa 2011 have no Crossref record (cite as is). No new science for Paper 3 (maintainer 2026-10-01).
+Proofreading copies 2026-10-01: `publication/manuscript_uk.md` (Ukrainian translation, numbers copied from the English build and
+compared automatically) and `p101_assemble_doc.py` -> `publication/assembled/manuscript_{uk,en}_assembled.{docx,md}` (every figure
+and table inserted at its first mention; DOCX and image copies git-ignored, needs python-docx). Citation corrections from the
+maintainer's full-text verification (`literature/citation_verification.md`) applied: Hawker 1.61 -> 1.12 m, Lehnigk (corrected
+bathymetry still reproduces neither stage nor timing together), Zheng 'limitation, not by design'; Pulvirenti 2021 and Cohen 2022 cited.
 OPEN for the maintainer: the remaining 73 km2 of
 UNOSAT-only flood on event ground; whether the p95x state mask and the ICEYE comparison enter the paper (with coverage and
 admissible interval, as a diagnostic comparison); verify the literature values marked VERIFY in T16 (3616, 3623, Kadam et al. 2024).
