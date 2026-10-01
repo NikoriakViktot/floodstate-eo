@@ -1,0 +1,3970 @@
+{
+ "producer": "p97c_s2_truecolour_dates.py",
+ "box": {
+  "bounds": [
+   [
+    32.15,
+    46.35
+   ],
+   [
+    33.55,
+    47.15
+   ]
+  ],
+  "note": "p98 BBOX, EPSG:4326"
+ },
+ "cell_m": 40.0,
+ "min_clear": 0.02,
+ "max_bytes": 260000,
+ "tiles": [
+  "T36TUS",
+  "T36TUT",
+  "T36TVS",
+  "T36TVT",
+  "T36TWS",
+  "T36TWT"
+ ],
+ "n_dates": 224,
+ "n_rendered": 212,
+ "total_bytes": 39952472,
+ "attribution": "Sentinel-2 L2A true colour, clouds as photographed, processed by the authors; contains modified Copernicus Sentinel data",
+ "dates": {
+  "2017-01-10": {
+   "date": "2017-01-10",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.526,
+   "clear_share": 0.0324,
+   "rendered": true,
+   "file": "s2rgb/2017-01-10.jpg",
+   "quality": 82,
+   "bytes": 165401,
+   "sha256": "b7f00e4fa534abcc3a54295d84bfe2d25fdf73393a7bc4c0a029dd3600358b65"
+  },
+  "2017-02-09": {
+   "date": "2017-02-09",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2492,
+   "clear_share": 0.0035,
+   "rendered": false,
+   "reason": "clear share 0.4% < 2%: cloud only"
+  },
+  "2017-03-31": {
+   "date": "2017-03-31",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6589,
+   "rendered": true,
+   "file": "s2rgb/2017-03-31.jpg",
+   "quality": 75,
+   "bytes": 232625,
+   "sha256": "17c227ec21b8423c14a49756684c8f5bb9fa463f6ca5d0bd6bd0013e1ce1285e"
+  },
+  "2017-04-30": {
+   "date": "2017-04-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6971,
+   "rendered": true,
+   "file": "s2rgb/2017-04-30.jpg",
+   "quality": 68,
+   "bytes": 244631,
+   "sha256": "163c0de43fa492a3a12f577d5c82de0422c0cbbdf7ce714a69ee87b8be08a530"
+  },
+  "2017-06-29": {
+   "date": "2017-06-29",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6523,
+   "rendered": true,
+   "file": "s2rgb/2017-06-29.jpg",
+   "quality": 60,
+   "bytes": 240737,
+   "sha256": "409ed77faa1c39acd79f4d0dace675d691d391a8d0eeabeea9dcf76e2efaff91"
+  },
+  "2017-07-24": {
+   "date": "2017-07-24",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6978,
+   "rendered": true,
+   "file": "s2rgb/2017-07-24.jpg",
+   "quality": 60,
+   "bytes": 242471,
+   "sha256": "0fa1b789b380e045e52d8dd08853fa22cc13a433d1d0ed69ffdb88571f031e1e"
+  },
+  "2017-08-08": {
+   "date": "2017-08-08",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6978,
+   "rendered": true,
+   "file": "s2rgb/2017-08-08.jpg",
+   "quality": 68,
+   "bytes": 257807,
+   "sha256": "7214068647b84faca3156d302db3d3269060bd00fc6b2a07c4885a6205f9a657"
+  },
+  "2017-09-02": {
+   "date": "2017-09-02",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.3142,
+   "rendered": true,
+   "file": "s2rgb/2017-09-02.jpg",
+   "quality": 60,
+   "bytes": 241044,
+   "sha256": "1f5597238eb062b9bce997b5bb374adfff76cb600e5ed1a160e7119014dd4efd"
+  },
+  "2017-09-12": {
+   "date": "2017-09-12",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6899,
+   "rendered": true,
+   "file": "s2rgb/2017-09-12.jpg",
+   "quality": 68,
+   "bytes": 233088,
+   "sha256": "e854392958c00c30ed8ec77808d341f4d8646debed6b87736bb38283e97c05ba"
+  },
+  "2017-09-14": {
+   "date": "2017-09-14",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1798,
+   "clear_share": 0.1796,
+   "rendered": true,
+   "file": "s2rgb/2017-09-14.jpg",
+   "quality": 82,
+   "bytes": 114914,
+   "sha256": "596c2e1df0ea0f40fe8ed790bb2c1fdfd773222603d5f3b48573fdc1f0ce59bb"
+  },
+  "2017-09-27": {
+   "date": "2017-09-27",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6917,
+   "rendered": true,
+   "file": "s2rgb/2017-09-27.jpg",
+   "quality": 68,
+   "bytes": 223548,
+   "sha256": "8737a4bfe23a8bdc65fc69d2129fbf85fcfbf0f5859e81ffb4b073c371db61ca"
+  },
+  "2018-01-25": {
+   "date": "2018-01-25",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.0175,
+   "rendered": false,
+   "reason": "clear share 1.7% < 2%: cloud only"
+  },
+  "2018-03-01": {
+   "date": "2018-03-01",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.0049,
+   "rendered": false,
+   "reason": "clear share 0.5% < 2%: cloud only"
+  },
+  "2018-04-10": {
+   "date": "2018-04-10",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6632,
+   "rendered": true,
+   "file": "s2rgb/2018-04-10.jpg",
+   "quality": 75,
+   "bytes": 232008,
+   "sha256": "992f20929ad310244ed46b07ebab45be63700cadb640ce48368fc372994d4420"
+  },
+  "2018-04-30": {
+   "date": "2018-04-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6971,
+   "rendered": true,
+   "file": "s2rgb/2018-04-30.jpg",
+   "quality": 75,
+   "bytes": 247528,
+   "sha256": "9bca77fb911afd860edbc70dee22df0eb145ef5c48ae8fa84cd08726f7d01f25"
+  },
+  "2018-06-11": {
+   "date": "2018-06-11",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1635,
+   "clear_share": 0.1623,
+   "rendered": true,
+   "file": "s2rgb/2018-06-11.jpg",
+   "quality": 82,
+   "bytes": 109308,
+   "sha256": "4251f30b4ccc06c7f71005432330b175cc9032901c1094c7ee55aa985bd464f1"
+  },
+  "2018-07-04": {
+   "date": "2018-07-04",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6698,
+   "rendered": true,
+   "file": "s2rgb/2018-07-04.jpg",
+   "quality": 60,
+   "bytes": 246401,
+   "sha256": "f3bccd0f40dce5faaf572bde9a705b9e970af30ddcfb1d3ba7cdce3d359ed8d4"
+  },
+  "2018-07-14": {
+   "date": "2018-07-14",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6909,
+   "rendered": true,
+   "file": "s2rgb/2018-07-14.jpg",
+   "quality": 60,
+   "bytes": 233716,
+   "sha256": "90f7c3b6ad86736acba1b764c1f95e2a308088f0de22e7dc303563876cecae5b"
+  },
+  "2018-08-13": {
+   "date": "2018-08-13",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.698,
+   "rendered": true,
+   "file": "s2rgb/2018-08-13.jpg",
+   "quality": 68,
+   "bytes": 230011,
+   "sha256": "e5078fb3f33a286001cecdb2378dbe739f3a0a3bc06f23f547bc7a5fbbb4f834"
+  },
+  "2018-08-18": {
+   "date": "2018-08-18",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6852,
+   "rendered": true,
+   "file": "s2rgb/2018-08-18.jpg",
+   "quality": 68,
+   "bytes": 228219,
+   "sha256": "0c36c09ae55d04ea93f2a0931b7bf14a9032bde255ab50e37b4988939fd47dee"
+  },
+  "2018-08-23": {
+   "date": "2018-08-23",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6893,
+   "rendered": true,
+   "file": "s2rgb/2018-08-23.jpg",
+   "quality": 75,
+   "bytes": 258717,
+   "sha256": "b7f61c16b55f1599bc2a79d53267d1cd88c4737a01d9c343b56ef06f5623c305"
+  },
+  "2018-09-17": {
+   "date": "2018-09-17",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6671,
+   "rendered": true,
+   "file": "s2rgb/2018-09-17.jpg",
+   "quality": 68,
+   "bytes": 235633,
+   "sha256": "f75558d106c2c43fc627eb6338b35b0cf6f81a7c32d2a27f663961e913cf6967"
+  },
+  "2018-09-22": {
+   "date": "2018-09-22",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2018-09-22.jpg",
+   "quality": 75,
+   "bytes": 251996,
+   "sha256": "fa1922881883595b22b83398f175e2c07804cb1c2d548b89f6da2ab4a077f947"
+  },
+  "2018-10-07": {
+   "date": "2018-10-07",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2018-10-07.jpg",
+   "quality": 68,
+   "bytes": 232383,
+   "sha256": "c4f0daa0ddc675980af4f9e158fbd51e45340e6cea42755cbe84916f6f0a068d"
+  },
+  "2018-10-12": {
+   "date": "2018-10-12",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2018-10-12.jpg",
+   "quality": 68,
+   "bytes": 223670,
+   "sha256": "cf478d8048ff4dbcc149dd551570f77ad2128d2d28fa9bfefb0a8edf2e0d1952"
+  },
+  "2018-10-17": {
+   "date": "2018-10-17",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2018-10-17.jpg",
+   "quality": 75,
+   "bytes": 258132,
+   "sha256": "39edbbd41c3ab15cbe5e16ed1ed5d496ce05b87d2bc0b683c0786d737c332f8b"
+  },
+  "2019-02-19": {
+   "date": "2019-02-19",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6811,
+   "rendered": true,
+   "file": "s2rgb/2019-02-19.jpg",
+   "quality": 75,
+   "bytes": 237900,
+   "sha256": "444636c8a1b78bfd0f71ac1fbd3370171dae94677c987442fdd8923a7654e439"
+  },
+  "2019-02-24": {
+   "date": "2019-02-24",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.0627,
+   "rendered": true,
+   "file": "s2rgb/2019-02-24.jpg",
+   "quality": 82,
+   "bytes": 209858,
+   "sha256": "fe266019c0df9aae50ca5ae59bb3308d350a0af889913e6672f9d880a3cf24fb"
+  },
+  "2019-03-01": {
+   "date": "2019-03-01",
+   "tiles": [
+    "T36TUS",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.526,
+   "clear_share": 0.0569,
+   "rendered": true,
+   "file": "s2rgb/2019-03-01.jpg",
+   "quality": 82,
+   "bytes": 183760,
+   "sha256": "c9354bf8320fa05c2fb9b660ae38517622986302bfa9c232433c9714d6d6bced"
+  },
+  "2019-03-16": {
+   "date": "2019-03-16",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.4118,
+   "rendered": true,
+   "file": "s2rgb/2019-03-16.jpg",
+   "quality": 68,
+   "bytes": 225467,
+   "sha256": "8b284c443540ab32955a1b79f2dc2560d757c75e712381994eeb1b38054979dc"
+  },
+  "2019-03-31": {
+   "date": "2019-03-31",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.564,
+   "rendered": true,
+   "file": "s2rgb/2019-03-31.jpg",
+   "quality": 75,
+   "bytes": 221960,
+   "sha256": "8be94ec22bc1ed5ec787b46e3cd4a7d7996a8126f21467927c1b85cbaf0891c6"
+  },
+  "2019-04-20": {
+   "date": "2019-04-20",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6932,
+   "rendered": true,
+   "file": "s2rgb/2019-04-20.jpg",
+   "quality": 68,
+   "bytes": 247172,
+   "sha256": "024166a141e15e17adbd07b7c030dd3f1323bddf0c0084bff04c237f7b28704c"
+  },
+  "2019-05-30": {
+   "date": "2019-05-30",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6051,
+   "rendered": true,
+   "file": "s2rgb/2019-05-30.jpg",
+   "quality": 68,
+   "bytes": 227995,
+   "sha256": "66e9585626766c7385263ea55fa6873bbb11f71aa212d12361726483c19dd50c"
+  },
+  "2019-06-16": {
+   "date": "2019-06-16",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1676,
+   "clear_share": 0.1664,
+   "rendered": true,
+   "file": "s2rgb/2019-06-16.jpg",
+   "quality": 82,
+   "bytes": 113789,
+   "sha256": "65a80eb86eb3f8f66d32df80992152abd21fdf115496584342b11f567e7aa42f"
+  },
+  "2019-07-24": {
+   "date": "2019-07-24",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5673,
+   "rendered": true,
+   "file": "s2rgb/2019-07-24.jpg",
+   "quality": 50,
+   "bytes": 226647,
+   "sha256": "7875ed9708a1c250ca4cfae24081f0de3005ef79e2df2145eead0098637011ca"
+  },
+  "2019-07-26": {
+   "date": "2019-07-26",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1764,
+   "clear_share": 0.1725,
+   "rendered": true,
+   "file": "s2rgb/2019-07-26.jpg",
+   "quality": 82,
+   "bytes": 121185,
+   "sha256": "0f9fb2531668a4024bcf2415bc5df2e953cc7f3259434f35624ec93cb7fd03b9"
+  },
+  "2019-08-05": {
+   "date": "2019-08-05",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1767,
+   "clear_share": 0.1437,
+   "rendered": true,
+   "file": "s2rgb/2019-08-05.jpg",
+   "quality": 82,
+   "bytes": 119940,
+   "sha256": "d285b25950bfa06295a1b16bdc3dc240af05c72d6159533e1f3b6059b3ee9668"
+  },
+  "2019-08-10": {
+   "date": "2019-08-10",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1728,
+   "clear_share": 0.1724,
+   "rendered": true,
+   "file": "s2rgb/2019-08-10.jpg",
+   "quality": 82,
+   "bytes": 113801,
+   "sha256": "f9b9984e6ddd06787f9e027d6d2b8328f7668080e2d89838d7b6ac919052dfed"
+  },
+  "2019-08-28": {
+   "date": "2019-08-28",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6627,
+   "rendered": true,
+   "file": "s2rgb/2019-08-28.jpg",
+   "quality": 68,
+   "bytes": 248984,
+   "sha256": "629b398d9084ed9a68e2bd90d290c0592c4dfa86bc1707e5697fea8e9e79c41d"
+  },
+  "2019-09-07": {
+   "date": "2019-09-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6873,
+   "rendered": true,
+   "file": "s2rgb/2019-09-07.jpg",
+   "quality": 68,
+   "bytes": 230667,
+   "sha256": "ff8c8f9d979cc974851a32a241920693294fbacb8b9faa75e20b0dae1f35fcd8"
+  },
+  "2019-09-19": {
+   "date": "2019-09-19",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1593,
+   "clear_share": 0.1397,
+   "rendered": true,
+   "file": "s2rgb/2019-09-19.jpg",
+   "quality": 82,
+   "bytes": 118272,
+   "sha256": "e760864cfbc29e9cf6828d3924be33d6c2f2442a726f852f4f24e23b6d2c75cf"
+  },
+  "2019-09-22": {
+   "date": "2019-09-22",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5858,
+   "rendered": true,
+   "file": "s2rgb/2019-09-22.jpg",
+   "quality": 68,
+   "bytes": 224435,
+   "sha256": "1771a8bc34b35bb1cffbf273279a2360fcbc93b8d451e6b2ba68cfc566170f61"
+  },
+  "2019-10-02": {
+   "date": "2019-10-02",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6981,
+   "rendered": true,
+   "file": "s2rgb/2019-10-02.jpg",
+   "quality": 75,
+   "bytes": 258891,
+   "sha256": "329d6e0822a9d46258738e5b26f22beb0eed3a98ebc45b570f8fcbcf0cc338bf"
+  },
+  "2020-01-15": {
+   "date": "2020-01-15",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6825,
+   "rendered": true,
+   "file": "s2rgb/2020-01-15.jpg",
+   "quality": 75,
+   "bytes": 251798,
+   "sha256": "ff787636e19fba8f06fb104e29ba510676d419240aa151a7f4ec53697f7c4546"
+  },
+  "2020-01-25": {
+   "date": "2020-01-25",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2020-01-25.jpg",
+   "quality": 75,
+   "bytes": 228204,
+   "sha256": "8e1f9a182cbceab8439225e4734ebea89138c9836ec4b74926677cb68d778aa9"
+  },
+  "2020-02-14": {
+   "date": "2020-02-14",
+   "tiles": [
+    "T36TUS",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.526,
+   "clear_share": 0.2406,
+   "rendered": true,
+   "file": "s2rgb/2020-02-14.jpg",
+   "quality": 82,
+   "bytes": 251830,
+   "sha256": "39227d3800fd27596b72f55e21937093bb6866a4a3b74feba68e7a986583906d"
+  },
+  "2020-04-09": {
+   "date": "2020-04-09",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6972,
+   "rendered": true,
+   "file": "s2rgb/2020-04-09.jpg",
+   "quality": 75,
+   "bytes": 244027,
+   "sha256": "e14740bfb505947c32acbc6b41873eaf9074a7d2981620f3abedcdd7de0326f1"
+  },
+  "2020-05-19": {
+   "date": "2020-05-19",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6951,
+   "rendered": true,
+   "file": "s2rgb/2020-05-19.jpg",
+   "quality": 68,
+   "bytes": 224781,
+   "sha256": "3196b96feb02a5daf72a1867bf177388cbf8c6d79acb67a5202a92512f6381ee"
+  },
+  "2020-06-28": {
+   "date": "2020-06-28",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5529,
+   "rendered": true,
+   "file": "s2rgb/2020-06-28.jpg",
+   "quality": 60,
+   "bytes": 242623,
+   "sha256": "040eb31bd66c8cf651da771f620fc6accff5aed1a4ceed6488c70649e0dbc087"
+  },
+  "2020-09-16": {
+   "date": "2020-09-16",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2020-09-16.jpg",
+   "quality": 68,
+   "bytes": 227594,
+   "sha256": "cc22850e2207ad5f1d190050e5d60dae78517e993f217a64d6a08c78f0348420"
+  },
+  "2021-01-19": {
+   "date": "2021-01-19",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.0707,
+   "rendered": true,
+   "file": "s2rgb/2021-01-19.jpg",
+   "quality": 82,
+   "bytes": 254722,
+   "sha256": "7b8a2de15954cbf35e5aebe8302491ae0ec6a229e104ffcb90b0bda12d27d94c"
+  },
+  "2021-04-06": {
+   "date": "2021-04-06",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3914,
+   "clear_share": 0.2305,
+   "rendered": true,
+   "file": "s2rgb/2021-04-06.jpg",
+   "quality": 82,
+   "bytes": 239772,
+   "sha256": "b00a2adefa451e47602554df727cb63c9dbaa67d2c74a195f40548ec883eee74"
+  },
+  "2021-04-24": {
+   "date": "2021-04-24",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6074,
+   "rendered": true,
+   "file": "s2rgb/2021-04-24.jpg",
+   "quality": 60,
+   "bytes": 230648,
+   "sha256": "340620acd0981eaeac9af8a3ea31e1e82603cc07369462fe052aeb245c7ed0d8"
+  },
+  "2021-05-04": {
+   "date": "2021-05-04",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9968,
+   "rendered": true,
+   "file": "s2rgb/2021-05-04.jpg",
+   "quality": 60,
+   "bytes": 253643,
+   "sha256": "6cb5b2e990bfe9ea3b331404cc53687551ff407e673330209581dcd852483bac"
+  },
+  "2021-05-14": {
+   "date": "2021-05-14",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.0981,
+   "rendered": true,
+   "file": "s2rgb/2021-05-14.jpg",
+   "quality": 82,
+   "bytes": 184607,
+   "sha256": "a4858e14423ef0bc1a025cb751c921ad2f96d6d3163fd33221b5a921cc25195a"
+  },
+  "2021-05-26": {
+   "date": "2021-05-26",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3915,
+   "clear_share": 0.3886,
+   "rendered": true,
+   "file": "s2rgb/2021-05-26.jpg",
+   "quality": 82,
+   "bytes": 210295,
+   "sha256": "06037606c3f0a0feb9bd417fc9871a8d20c828ebca89b3cc49bba63020efb3b7"
+  },
+  "2021-06-13": {
+   "date": "2021-06-13",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3182,
+   "rendered": true,
+   "file": "s2rgb/2021-06-13.jpg",
+   "quality": 82,
+   "bytes": 227487,
+   "sha256": "b1fc0e137230d37e77ea007835d4758a8cec441c929ff65aca9bac578aa66f9e"
+  },
+  "2021-06-25": {
+   "date": "2021-06-25",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2857,
+   "rendered": true,
+   "file": "s2rgb/2021-06-25.jpg",
+   "quality": 82,
+   "bytes": 162456,
+   "sha256": "af088040e89650577a6c6dbfc4ad4b818fc13374063e24c678680af63af46ff8"
+  },
+  "2021-06-30": {
+   "date": "2021-06-30",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1387,
+   "clear_share": 0.09,
+   "rendered": true,
+   "file": "s2rgb/2021-06-30.jpg",
+   "quality": 82,
+   "bytes": 91220,
+   "sha256": "97996d81126c284b80632a975851c5004cd5910900dae9ce843057e249a9aac5"
+  },
+  "2021-07-03": {
+   "date": "2021-07-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6101,
+   "rendered": true,
+   "file": "s2rgb/2021-07-03.jpg",
+   "quality": 60,
+   "bytes": 258748,
+   "sha256": "97ad6050b7511b9c5d1f2be89a29700896ea352b1374d3303274aadb7fbf2e3f"
+  },
+  "2021-07-08": {
+   "date": "2021-07-08",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1358,
+   "rendered": true,
+   "file": "s2rgb/2021-07-08.jpg",
+   "quality": 82,
+   "bytes": 65385,
+   "sha256": "d77f1ce24caa09a7af87b466956ad2c167a990a774694335f4b335af6a37db48"
+  },
+  "2021-07-28": {
+   "date": "2021-07-28",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2955,
+   "rendered": true,
+   "file": "s2rgb/2021-07-28.jpg",
+   "quality": 82,
+   "bytes": 164138,
+   "sha256": "a0aba76475f5b64be9abb47d8259130d287434de892925221654857b820a792e"
+  },
+  "2021-08-02": {
+   "date": "2021-08-02",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9991,
+   "rendered": true,
+   "file": "s2rgb/2021-08-02.jpg",
+   "quality": 50,
+   "bytes": 255264,
+   "sha256": "3f1b3f3446de12d1f66d63994a24ef3d385dbf37a081a1ab6ae8714ac6939685"
+  },
+  "2021-08-24": {
+   "date": "2021-08-24",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.4727,
+   "clear_share": 0.4642,
+   "rendered": true,
+   "file": "s2rgb/2021-08-24.jpg",
+   "quality": 82,
+   "bytes": 252161,
+   "sha256": "363dddab8b45be4cc0a584786827e0fe17803aa0525d19fa011a2e5f10003043"
+  },
+  "2021-09-08": {
+   "date": "2021-09-08",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1669,
+   "clear_share": 0.1667,
+   "rendered": true,
+   "file": "s2rgb/2021-09-08.jpg",
+   "quality": 82,
+   "bytes": 108334,
+   "sha256": "7035365e07ea7b4ba2c2d02af368dc8670b14dc498f9a82995926bd941b1c5c3"
+  },
+  "2021-09-16": {
+   "date": "2021-09-16",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.3737,
+   "rendered": true,
+   "file": "s2rgb/2021-09-16.jpg",
+   "quality": 75,
+   "bytes": 240208,
+   "sha256": "d623299ced610c62402324434b98914406d20fa20ca401323cfcb543bfb52a06"
+  },
+  "2021-10-01": {
+   "date": "2021-10-01",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9138,
+   "clear_share": 0.9136,
+   "rendered": true,
+   "file": "s2rgb/2021-10-01.jpg",
+   "quality": 60,
+   "bytes": 237977,
+   "sha256": "8ecd5958f69071d930b3c6e2d71cf012887cdf85b3c6fac1cc66792233fb0888"
+  },
+  "2021-10-26": {
+   "date": "2021-10-26",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3928,
+   "rendered": true,
+   "file": "s2rgb/2021-10-26.jpg",
+   "quality": 82,
+   "bytes": 164198,
+   "sha256": "b91cf3d40fb9cf7e07eed34ec7a90101801dcd6fa407138ff083f98cb7154987"
+  },
+  "2021-10-31": {
+   "date": "2021-10-31",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1398,
+   "rendered": true,
+   "file": "s2rgb/2021-10-31.jpg",
+   "quality": 82,
+   "bytes": 59637,
+   "sha256": "e0a750ba4d8ff53e6743a20d1139a867448bf327d548418b06726c9299bacefa"
+  },
+  "2021-11-05": {
+   "date": "2021-11-05",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2314,
+   "rendered": true,
+   "file": "s2rgb/2021-11-05.jpg",
+   "quality": 82,
+   "bytes": 120634,
+   "sha256": "fd0af0d3ba4e6909e7650c049486a7575178036b67909f05f31bf1ab4f2e37c3"
+  },
+  "2021-11-15": {
+   "date": "2021-11-15",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1398,
+   "rendered": true,
+   "file": "s2rgb/2021-11-15.jpg",
+   "quality": 82,
+   "bytes": 55424,
+   "sha256": "82fb5e860ed71cda940e9245cdf40c12af9774f29d0893b33462e99355dbe267"
+  },
+  "2021-11-17": {
+   "date": "2021-11-17",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2821,
+   "rendered": true,
+   "file": "s2rgb/2021-11-17.jpg",
+   "quality": 82,
+   "bytes": 129152,
+   "sha256": "ebd8c9318407ba76dc540b780971106829525b3c3e40c2646769413624d7bb49"
+  },
+  "2021-11-25": {
+   "date": "2021-11-25",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.8057,
+   "clear_share": 0.8052,
+   "rendered": true,
+   "file": "s2rgb/2021-11-25.jpg",
+   "quality": 68,
+   "bytes": 223259,
+   "sha256": "635de27dacfe4ec1eec14666599b75bc6aab12ba9beabf9700dd42a75d596e68"
+  },
+  "2022-02-13": {
+   "date": "2022-02-13",
+   "tiles": [
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.8688,
+   "rendered": true,
+   "file": "s2rgb/2022-02-13.jpg",
+   "quality": 68,
+   "bytes": 247849,
+   "sha256": "ed30bf0cbe34d0e13b016649cd7f6efe65588e3ddbf708447f4256d5cfadcf4e"
+  },
+  "2022-02-15": {
+   "date": "2022-02-15",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1687,
+   "clear_share": 0.1589,
+   "rendered": true,
+   "file": "s2rgb/2022-02-15.jpg",
+   "quality": 82,
+   "bytes": 111294,
+   "sha256": "e032f29f1e6e2783d8b5f2492748c9e90ea9dbc71d7e25a95b70b4bfa245093f"
+  },
+  "2022-02-23": {
+   "date": "2022-02-23",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.8057,
+   "clear_share": 0.8056,
+   "rendered": true,
+   "file": "s2rgb/2022-02-23.jpg",
+   "quality": 75,
+   "bytes": 248565,
+   "sha256": "ef66f26e5c594f37a475da42d129c59d6acd9d9b066d96f9acb1daf7926420ad"
+  },
+  "2022-02-28": {
+   "date": "2022-02-28",
+   "tiles": [
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.3459,
+   "rendered": true,
+   "file": "s2rgb/2022-02-28.jpg",
+   "quality": 60,
+   "bytes": 256928,
+   "sha256": "2ba7729223d1e3e0b752ac68ef3e6a373e2dde223b8de702a18fe54e401fe43f"
+  },
+  "2022-03-15": {
+   "date": "2022-03-15",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3928,
+   "rendered": true,
+   "file": "s2rgb/2022-03-15.jpg",
+   "quality": 82,
+   "bytes": 148847,
+   "sha256": "8dad00ea18fbd0b76489db55354089747ce9be08b1a896e6d335ca104b754ec9"
+  },
+  "2022-03-22": {
+   "date": "2022-03-22",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3921,
+   "clear_share": 0.3244,
+   "rendered": true,
+   "file": "s2rgb/2022-03-22.jpg",
+   "quality": 82,
+   "bytes": 185044,
+   "sha256": "4502fa643fdb2334f26d33f58d554caf9fc477e26593103355eae3d94606c902"
+  },
+  "2022-04-06": {
+   "date": "2022-04-06",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3917,
+   "clear_share": 0.39,
+   "rendered": true,
+   "file": "s2rgb/2022-04-06.jpg",
+   "quality": 82,
+   "bytes": 156134,
+   "sha256": "072920bfd8228760dbf3dbc2e2952c652e42f81fd3bdb08841242680d9d4e71f"
+  },
+  "2022-05-06": {
+   "date": "2022-05-06",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1381,
+   "clear_share": 0.1378,
+   "rendered": true,
+   "file": "s2rgb/2022-05-06.jpg",
+   "quality": 82,
+   "bytes": 70930,
+   "sha256": "3ce5edc96dbb6edfcc14ed805b4ec3b119505924b388ff0086c627e1f6c15033"
+  },
+  "2022-05-09": {
+   "date": "2022-05-09",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2956,
+   "rendered": true,
+   "file": "s2rgb/2022-05-09.jpg",
+   "quality": 82,
+   "bytes": 151174,
+   "sha256": "5177f618f3d6a6b8a2ae5cdc9650b69021cd10db91eb79643f05c2d35cb289b6"
+  },
+  "2022-05-31": {
+   "date": "2022-05-31",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3918,
+   "clear_share": 0.3913,
+   "rendered": true,
+   "file": "s2rgb/2022-05-31.jpg",
+   "quality": 82,
+   "bytes": 185743,
+   "sha256": "45a084454fc7d920eb1f68ef3d0b6027a8d758219f6f201a84e71723e5238b6d"
+  },
+  "2022-06-03": {
+   "date": "2022-06-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.8983,
+   "rendered": true,
+   "file": "s2rgb/2022-06-03.jpg",
+   "quality": 60,
+   "bytes": 238278,
+   "sha256": "f3a05ebc0b6fb33b666963f9f9ba820cea83f0f5aa2c4edbf3cf7de509e5e331"
+  },
+  "2022-06-13": {
+   "date": "2022-06-13",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6778,
+   "rendered": true,
+   "file": "s2rgb/2022-06-13.jpg",
+   "quality": 68,
+   "bytes": 247650,
+   "sha256": "1b3d247af76fec154e4187ea77a6bbca3a3e1814559b12f656b63b2f5fd1b089"
+  },
+  "2022-06-15": {
+   "date": "2022-06-15",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1393,
+   "clear_share": 0.134,
+   "rendered": true,
+   "file": "s2rgb/2022-06-15.jpg",
+   "quality": 82,
+   "bytes": 71694,
+   "sha256": "a40861996c02c69bb306d81f44057fe84ba93a1dffb437651447d844f1b9a61d"
+  },
+  "2022-06-20": {
+   "date": "2022-06-20",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3925,
+   "clear_share": 0.3892,
+   "rendered": true,
+   "file": "s2rgb/2022-06-20.jpg",
+   "quality": 82,
+   "bytes": 208508,
+   "sha256": "4f2aa09370bcf7b957b401212c90d6263630296e8f587dc365dddd2d4ea8c7ed"
+  },
+  "2022-07-03": {
+   "date": "2022-07-03",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3928,
+   "rendered": true,
+   "file": "s2rgb/2022-07-03.jpg",
+   "quality": 82,
+   "bytes": 194376,
+   "sha256": "e529f9a7be9efecceaac21dd7c0ad2ae5a7d6cc3d8c764c553eada4b5f405fc5"
+  },
+  "2022-07-08": {
+   "date": "2022-07-08",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2954,
+   "rendered": true,
+   "file": "s2rgb/2022-07-08.jpg",
+   "quality": 82,
+   "bytes": 157556,
+   "sha256": "dc656ddbf973eb8d1197d09c540139ddab3a427f302e277e92f164e5a0b7d959"
+  },
+  "2022-07-18": {
+   "date": "2022-07-18",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.8057,
+   "clear_share": 0.7991,
+   "rendered": true,
+   "file": "s2rgb/2022-07-18.jpg",
+   "quality": 50,
+   "bytes": 225274,
+   "sha256": "fafc18bf04fc83ebfaca40f6e1123540355f7b1ba90e2be43e0b04498bf0fbde"
+  },
+  "2022-07-23": {
+   "date": "2022-07-23",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.3913,
+   "rendered": true,
+   "file": "s2rgb/2022-07-23.jpg",
+   "quality": 50,
+   "bytes": 275765,
+   "sha256": "67dcdbd8a12dcd9372f9e9e0f7ac18d9b7098db8e4467dcb31d649eebb9e9957"
+  },
+  "2022-08-07": {
+   "date": "2022-08-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9983,
+   "rendered": true,
+   "file": "s2rgb/2022-08-07.jpg",
+   "quality": 50,
+   "bytes": 226440,
+   "sha256": "54a9475ae13746557701f30974b008b6077a66db590971c3a37c3d8875766cfb"
+  },
+  "2022-08-24": {
+   "date": "2022-08-24",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1616,
+   "clear_share": 0.1501,
+   "rendered": true,
+   "file": "s2rgb/2022-08-24.jpg",
+   "quality": 82,
+   "bytes": 96837,
+   "sha256": "46c6edf6a18a0283ea22628bfa7a620d2bc6a87f0708525fd8b201b8b9ff6be1"
+  },
+  "2022-09-18": {
+   "date": "2022-09-18",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2294,
+   "rendered": true,
+   "file": "s2rgb/2022-09-18.jpg",
+   "quality": 82,
+   "bytes": 148382,
+   "sha256": "863f0d45296fa0b2f737e15487ecadd0043096c094a7f22006f93820ecad3e54"
+  },
+  "2022-09-21": {
+   "date": "2022-09-21",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.246,
+   "rendered": true,
+   "file": "s2rgb/2022-09-21.jpg",
+   "quality": 82,
+   "bytes": 167610,
+   "sha256": "2e6a02db1a3d53c5303d2549eb3f9cd69f4c3173c7c498ac5574e78d86cf3525"
+  },
+  "2022-10-11": {
+   "date": "2022-10-11",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 1.0,
+   "rendered": true,
+   "file": "s2rgb/2022-10-11.jpg",
+   "quality": 60,
+   "bytes": 232346,
+   "sha256": "a16fd628d5932ce6c10e93c9147cbe6ca7249ebf26dffad68247d9172805a84a"
+  },
+  "2022-10-16": {
+   "date": "2022-10-16",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6951,
+   "rendered": true,
+   "file": "s2rgb/2022-10-16.jpg",
+   "quality": 75,
+   "bytes": 232141,
+   "sha256": "4247aa98912c46e41985a47016a191e747933aaa1be656dbc74f99a7d3af027e"
+  },
+  "2022-10-21": {
+   "date": "2022-10-21",
+   "tiles": [
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.1212,
+   "rendered": true,
+   "file": "s2rgb/2022-10-21.jpg",
+   "quality": 75,
+   "bytes": 232280,
+   "sha256": "d3b1f8c3bcb2b1c67e557fc2a1953b15174fee7f2082d69df4cab7866372667b"
+  },
+  "2022-11-15": {
+   "date": "2022-11-15",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6897,
+   "rendered": true,
+   "file": "s2rgb/2022-11-15.jpg",
+   "quality": 75,
+   "bytes": 231736,
+   "sha256": "3ffedaad2f446dd08629b367acaf0dde8810d34b30d5480005139e99b0d2351d"
+  },
+  "2023-01-19": {
+   "date": "2023-01-19",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.1257,
+   "rendered": true,
+   "file": "s2rgb/2023-01-19.jpg",
+   "quality": 68,
+   "bytes": 231843,
+   "sha256": "374cd24535bb5b9044a2b8b476b5dfe3014da2ef09c77403a98e060e8cb12cb3"
+  },
+  "2023-02-08": {
+   "date": "2023-02-08",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6789,
+   "rendered": true,
+   "file": "s2rgb/2023-02-08.jpg",
+   "quality": 68,
+   "bytes": 227502,
+   "sha256": "32a636d62a15a4e932bc292fbc69691c86943e565ec109f0e6928e198ccb362a"
+  },
+  "2023-02-13": {
+   "date": "2023-02-13",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.4652,
+   "rendered": true,
+   "file": "s2rgb/2023-02-13.jpg",
+   "quality": 75,
+   "bytes": 238587,
+   "sha256": "4d5395cad39c6f255de535d97b151f0d53b08f115f5adcf8e1d69563a3c69b9e"
+  },
+  "2023-02-23": {
+   "date": "2023-02-23",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6797,
+   "rendered": true,
+   "file": "s2rgb/2023-02-23.jpg",
+   "quality": 75,
+   "bytes": 217579,
+   "sha256": "21730672c40d3c1095be298eda04a524f9ecf9e6e93f74a21d341e028d262a47"
+  },
+  "2023-03-05": {
+   "date": "2023-03-05",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6277,
+   "rendered": true,
+   "file": "s2rgb/2023-03-05.jpg",
+   "quality": 75,
+   "bytes": 235868,
+   "sha256": "73e2c3409fae81b0a1c5d1eac241aaab6060e8ca89789e26615dc87576cacda8"
+  },
+  "2023-05-16": {
+   "date": "2023-05-16",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.0858,
+   "rendered": true,
+   "file": "s2rgb/2023-05-16.jpg",
+   "quality": 82,
+   "bytes": 91944,
+   "sha256": "63f44d069d673922c5a141f84cf4cd418e639fdcab2ac37985f40e4b4b711843"
+  },
+  "2023-05-19": {
+   "date": "2023-05-19",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1129,
+   "rendered": true,
+   "file": "s2rgb/2023-05-19.jpg",
+   "quality": 82,
+   "bytes": 71015,
+   "sha256": "1811af6a3f721d4a6e87fdb7564ef18206825745128f547bcf2c2a7135b527e5"
+  },
+  "2023-06-05": {
+   "date": "2023-06-05",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3924,
+   "clear_share": 0.3922,
+   "rendered": true,
+   "file": "s2rgb/2023-06-05.jpg",
+   "quality": 82,
+   "bytes": 180280,
+   "sha256": "713426021ef3fcf1c3933055f8271f973bc1e4d88e236beeb8fb56d18761a705"
+  },
+  "2023-06-08": {
+   "date": "2023-06-08",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.1799,
+   "rendered": true,
+   "file": "s2rgb/2023-06-08.jpg",
+   "quality": 75,
+   "bytes": 238178,
+   "sha256": "c179c36bb00bb8418d24fb63d50a4fc91b7c91e6faf852fd6f6c4ff86eb23dde"
+  },
+  "2023-06-15": {
+   "date": "2023-06-15",
+   "tiles": [
+    "T36TVS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1529,
+   "clear_share": 0.101,
+   "rendered": true,
+   "file": "s2rgb/2023-06-15.jpg",
+   "quality": 82,
+   "bytes": 129169,
+   "sha256": "46000627035810eae10c08b438990dfe74b9f82a8c3be1635d2c303e6f10c43c"
+  },
+  "2023-06-16": {
+   "date": "2023-06-16",
+   "tiles": [
+    "T36TUS"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-06-18": {
+   "date": "2023-06-18",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.8057,
+   "clear_share": 0.6728,
+   "rendered": true,
+   "file": "s2rgb/2023-06-18.jpg",
+   "quality": 50,
+   "bytes": 236737,
+   "sha256": "125749b4adc5450165e06f929d947e400c6255e63974a42378f2f16715bff0c7"
+  },
+  "2023-06-20": {
+   "date": "2023-06-20",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1715,
+   "clear_share": 0.1706,
+   "rendered": true,
+   "file": "s2rgb/2023-06-20.jpg",
+   "quality": 82,
+   "bytes": 102171,
+   "sha256": "83139e8ccac6a9d58859d3a005d9b7a2c0abe48b9a148ae59fd099656ea34ea6"
+  },
+  "2023-06-23": {
+   "date": "2023-06-23",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5796,
+   "rendered": true,
+   "file": "s2rgb/2023-06-23.jpg",
+   "quality": 68,
+   "bytes": 250562,
+   "sha256": "f8b55e0a24a9ace489ca889150cd6f3cf657a4d86757a85865cccc077e3be9f6"
+  },
+  "2023-06-25": {
+   "date": "2023-06-25",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.4007,
+   "clear_share": 0.2429,
+   "rendered": true,
+   "file": "s2rgb/2023-06-25.jpg",
+   "quality": 75,
+   "bytes": 238114,
+   "sha256": "77cd842887f66880d70e195d1d6d23c549993778a7f47026621e7000f4adc24b"
+  },
+  "2023-06-28": {
+   "date": "2023-06-28",
+   "tiles": [
+    "T36TVS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.526,
+   "clear_share": 0.3579,
+   "rendered": true,
+   "file": "s2rgb/2023-06-28.jpg",
+   "quality": 75,
+   "bytes": 225058,
+   "sha256": "4b1cf17814de003de30681707830e678571df954ce0eede96e7440df6ea76c12"
+  },
+  "2023-06-30": {
+   "date": "2023-06-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.4001,
+   "clear_share": 0.396,
+   "rendered": true,
+   "file": "s2rgb/2023-06-30.jpg",
+   "quality": 82,
+   "bytes": 204983,
+   "sha256": "e216388f0f99f5482cee5488fc3027ab75803023d25ac2850785710549a66640"
+  },
+  "2023-07-01": {
+   "date": "2023-07-01",
+   "tiles": [
+    "T36TUS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-03": {
+   "date": "2023-07-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9265,
+   "rendered": true,
+   "file": "s2rgb/2023-07-03.jpg",
+   "quality": 50,
+   "bytes": 248428,
+   "sha256": "e1b6cc76658c6d6dbb724e23d7bc47254405733954fb332302a7dc10aecec1c9"
+  },
+  "2023-07-05": {
+   "date": "2023-07-05",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2842,
+   "clear_share": 0.2769,
+   "rendered": true,
+   "file": "s2rgb/2023-07-05.jpg",
+   "quality": 82,
+   "bytes": 150905,
+   "sha256": "d171f5fb318a776a2aec7a2cb0175764e659d3a63c7bb533a276443bd5b07081"
+  },
+  "2023-07-06": {
+   "date": "2023-07-06",
+   "tiles": [
+    "T36TUT"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-08": {
+   "date": "2023-07-08",
+   "tiles": [
+    "T36TVS",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.7535,
+   "clear_share": 0.6228,
+   "rendered": true,
+   "file": "s2rgb/2023-07-08.jpg",
+   "quality": 60,
+   "bytes": 234144,
+   "sha256": "c0cc26c89e386c8d1f5b70543ea444b0091cba689190e1ab6661e4154e10b66d"
+  },
+  "2023-07-11": {
+   "date": "2023-07-11",
+   "tiles": [
+    "T36TVT"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-15": {
+   "date": "2023-07-15",
+   "tiles": [
+    "T36TVS",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3785,
+   "clear_share": 0.2212,
+   "rendered": true,
+   "file": "s2rgb/2023-07-15.jpg",
+   "quality": 82,
+   "bytes": 259786,
+   "sha256": "ec7299dee2c306f80bcf412ff0bd0c5dce965f2eb3bbb0ee238afe04d94157a3"
+  },
+  "2023-07-16": {
+   "date": "2023-07-16",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-21": {
+   "date": "2023-07-21",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-25": {
+   "date": "2023-07-25",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1751,
+   "clear_share": 0.1668,
+   "rendered": true,
+   "file": "s2rgb/2023-07-25.jpg",
+   "quality": 82,
+   "bytes": 112528,
+   "sha256": "ec8d33cbdfcf9acebfd81c4f0a187de7967c7afca8d4808b3a249ca420d89de2"
+  },
+  "2023-07-26": {
+   "date": "2023-07-26",
+   "tiles": [
+    "T36TUS",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-07-28": {
+   "date": "2023-07-28",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.526,
+   "clear_share": 0.0907,
+   "rendered": true,
+   "file": "s2rgb/2023-07-28.jpg",
+   "quality": 82,
+   "bytes": 128014,
+   "sha256": "12d0df747b7b5646bad1518fdf92122e55a76bd987ec75d15192d326ac81f2ce"
+  },
+  "2023-07-30": {
+   "date": "2023-07-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.4743,
+   "clear_share": 0.3527,
+   "rendered": true,
+   "file": "s2rgb/2023-07-30.jpg",
+   "quality": 75,
+   "bytes": 239978,
+   "sha256": "2136c34ce7e20c9229fd017bfbebbb12a83fb2e770db59c9a55fc7f79ab832fc"
+  },
+  "2023-07-31": {
+   "date": "2023-07-31",
+   "tiles": [
+    "T36TVS"
+   ],
+   "orbits": [
+    "R007"
+   ],
+   "seen_share": 0.0,
+   "clear_share": 0.0,
+   "rendered": false,
+   "reason": "clear share 0.0% < 2%: cloud only"
+  },
+  "2023-08-04": {
+   "date": "2023-08-04",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3921,
+   "clear_share": 0.3475,
+   "rendered": true,
+   "file": "s2rgb/2023-08-04.jpg",
+   "quality": 82,
+   "bytes": 214459,
+   "sha256": "6ef431f08c83f2e10f54f56e8a97773477a103b102c776dfdcaeb14f37e56ae8"
+  },
+  "2023-08-07": {
+   "date": "2023-08-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6549,
+   "rendered": true,
+   "file": "s2rgb/2023-08-07.jpg",
+   "quality": 68,
+   "bytes": 247107,
+   "sha256": "9f6a48f21f5ba1345d6073da407777848d14d94996700110df26757969528ee6"
+  },
+  "2023-08-09": {
+   "date": "2023-08-09",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.174,
+   "clear_share": 0.1673,
+   "rendered": true,
+   "file": "s2rgb/2023-08-09.jpg",
+   "quality": 82,
+   "bytes": 118887,
+   "sha256": "6f98bce15b8afaf960bb3788c87f26cab7d6a8f8dc8a7b0b4703d83d29d7cb38"
+  },
+  "2023-08-12": {
+   "date": "2023-08-12",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1065,
+   "clear_share": 0.0987,
+   "rendered": true,
+   "file": "s2rgb/2023-08-12.jpg",
+   "quality": 82,
+   "bytes": 56017,
+   "sha256": "ef8bea6396ff2d83fdcfd38735502f844b8af51733640b3e23e7b059dd718882"
+  },
+  "2023-08-17": {
+   "date": "2023-08-17",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.8057,
+   "clear_share": 0.7813,
+   "rendered": true,
+   "file": "s2rgb/2023-08-17.jpg",
+   "quality": 68,
+   "bytes": 249959,
+   "sha256": "3d258741b34f32a67442f7d94be3e7048424b478844b1fd9a626f9bd120f1e50"
+  },
+  "2023-08-24": {
+   "date": "2023-08-24",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1823,
+   "clear_share": 0.1811,
+   "rendered": true,
+   "file": "s2rgb/2023-08-24.jpg",
+   "quality": 82,
+   "bytes": 104944,
+   "sha256": "0722cb174e9aee33bcf613f88ead642472bf6284ce334d4954a3038b97e22ee2"
+  },
+  "2023-08-27": {
+   "date": "2023-08-27",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.9242,
+   "rendered": true,
+   "file": "s2rgb/2023-08-27.jpg",
+   "quality": 60,
+   "bytes": 227135,
+   "sha256": "3dde76fa9b0a155b83bae21cb96b6b2ba8a74f2c8812010281434f3b8681f626"
+  },
+  "2023-09-01": {
+   "date": "2023-09-01",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.4511,
+   "rendered": true,
+   "file": "s2rgb/2023-09-01.jpg",
+   "quality": 75,
+   "bytes": 250840,
+   "sha256": "33d42cb92b280d4ecdff91b43f9dade3c67437cac1f8ab4095d02635f778316e"
+  },
+  "2023-09-03": {
+   "date": "2023-09-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1824,
+   "clear_share": 0.1821,
+   "rendered": true,
+   "file": "s2rgb/2023-09-03.jpg",
+   "quality": 82,
+   "bytes": 106713,
+   "sha256": "878bbd8fcc9fec868216fd7ccc1e40aeb1eae0248f3f8d8ddc607218a4df18e5"
+  },
+  "2023-09-08": {
+   "date": "2023-09-08",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.4819,
+   "clear_share": 0.4813,
+   "rendered": true,
+   "file": "s2rgb/2023-09-08.jpg",
+   "quality": 82,
+   "bytes": 218524,
+   "sha256": "9e92119ea2bdb1b58ba8343530d298dde06397d7c0629f969c1403037d876da1"
+  },
+  "2023-09-11": {
+   "date": "2023-09-11",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6353,
+   "rendered": true,
+   "file": "s2rgb/2023-09-11.jpg",
+   "quality": 68,
+   "bytes": 259791,
+   "sha256": "6edcb8aa07e566f6dc078774473663161324ffe34fb05deb4b8a1c641b4b1a48"
+  },
+  "2023-09-13": {
+   "date": "2023-09-13",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1835,
+   "clear_share": 0.183,
+   "rendered": true,
+   "file": "s2rgb/2023-09-13.jpg",
+   "quality": 82,
+   "bytes": 105946,
+   "sha256": "b69bd1f76070b50921d5b75c0bcb51a58880c5fdc398c704829b6cc4d6396016"
+  },
+  "2023-09-21": {
+   "date": "2023-09-21",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.3398,
+   "rendered": true,
+   "file": "s2rgb/2023-09-21.jpg",
+   "quality": 75,
+   "bytes": 228920,
+   "sha256": "c4bfdb156422dca7bc9c43b1bf621211b4a6b0d434c03a4047f3ee17e29a1e32"
+  },
+  "2023-09-28": {
+   "date": "2023-09-28",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1701,
+   "clear_share": 0.1693,
+   "rendered": true,
+   "file": "s2rgb/2023-09-28.jpg",
+   "quality": 82,
+   "bytes": 101784,
+   "sha256": "9f3f16dfb70cc54ee1710831fa344fa9e4d0426c94744bb75d84138d6d98d0a8"
+  },
+  "2023-10-01": {
+   "date": "2023-10-01",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6851,
+   "rendered": true,
+   "file": "s2rgb/2023-10-01.jpg",
+   "quality": 75,
+   "bytes": 244196,
+   "sha256": "3d355b113bf66e9e3392d760e8701cb87b471267c12e010a02548e3567ba251c"
+  },
+  "2023-10-03": {
+   "date": "2023-10-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1752,
+   "clear_share": 0.175,
+   "rendered": true,
+   "file": "s2rgb/2023-10-03.jpg",
+   "quality": 82,
+   "bytes": 90996,
+   "sha256": "cd3b23f98d779e62f9fd1746803b4cd8600abd20d565b06b5ef092f5644849f2"
+  },
+  "2023-10-11": {
+   "date": "2023-10-11",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.698,
+   "rendered": true,
+   "file": "s2rgb/2023-10-11.jpg",
+   "quality": 75,
+   "bytes": 252917,
+   "sha256": "522dda710a94f5a42fc7eaa07eadde6631a0f69a46019a5b4bee8037689ccfee"
+  },
+  "2023-10-21": {
+   "date": "2023-10-21",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6939,
+   "rendered": true,
+   "file": "s2rgb/2023-10-21.jpg",
+   "quality": 75,
+   "bytes": 238070,
+   "sha256": "4f059bca562d9c65ddecc0ad2ef97fea8b573ac4c7fe0460a97a221e608bdc63"
+  },
+  "2023-10-28": {
+   "date": "2023-10-28",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1719,
+   "clear_share": 0.1717,
+   "rendered": true,
+   "file": "s2rgb/2023-10-28.jpg",
+   "quality": 82,
+   "bytes": 100019,
+   "sha256": "ca5f064a1247e58a8127f1b641d9df917d618217cbeb8442712883ab74470553"
+  },
+  "2023-10-31": {
+   "date": "2023-10-31",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6948,
+   "rendered": true,
+   "file": "s2rgb/2023-10-31.jpg",
+   "quality": 75,
+   "bytes": 228027,
+   "sha256": "434becc842d2f1993b78a2ff92070c0ffe3f091039f0198bb51498b889b6ff29"
+  },
+  "2023-11-07": {
+   "date": "2023-11-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1793,
+   "clear_share": 0.1791,
+   "rendered": true,
+   "file": "s2rgb/2023-11-07.jpg",
+   "quality": 82,
+   "bytes": 100112,
+   "sha256": "09521b52b0811caf245eb56ee2e2407011af0a4fafacf9cf44d793a17f239225"
+  },
+  "2023-11-10": {
+   "date": "2023-11-10",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6897,
+   "rendered": true,
+   "file": "s2rgb/2023-11-10.jpg",
+   "quality": 75,
+   "bytes": 228045,
+   "sha256": "d3500aea818b902fedef919717485b4837995d647484767820272348e3ce7b2b"
+  },
+  "2024-01-01": {
+   "date": "2024-01-01",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.232,
+   "rendered": true,
+   "file": "s2rgb/2024-01-01.jpg",
+   "quality": 82,
+   "bytes": 142826,
+   "sha256": "fd6437d173d02b3add546bedba72f79271e2a43bb8bfeb8542c37f57dc18ffea"
+  },
+  "2024-01-09": {
+   "date": "2024-01-09",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.0844,
+   "rendered": true,
+   "file": "s2rgb/2024-01-09.jpg",
+   "quality": 82,
+   "bytes": 74876,
+   "sha256": "07188daf275132db21f479eae3624eb0a7d8ad8efb7bd3d6ded6d2a14338e576"
+  },
+  "2024-01-29": {
+   "date": "2024-01-29",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3057,
+   "rendered": true,
+   "file": "s2rgb/2024-01-29.jpg",
+   "quality": 82,
+   "bytes": 226498,
+   "sha256": "1d938a7fea109068c24a2555fbdb662d7aee598a4f1a8bd7ce7d29506d1bb122"
+  },
+  "2024-02-28": {
+   "date": "2024-02-28",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6965,
+   "rendered": true,
+   "file": "s2rgb/2024-02-28.jpg",
+   "quality": 75,
+   "bytes": 229570,
+   "sha256": "e64df840aae744c30b8c2fda40d606a610d3765b7f726528e6802a2419124fc7"
+  },
+  "2024-03-06": {
+   "date": "2024-03-06",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1621,
+   "clear_share": 0.162,
+   "rendered": true,
+   "file": "s2rgb/2024-03-06.jpg",
+   "quality": 82,
+   "bytes": 100715,
+   "sha256": "da4425822d2828e45259d480926c64ff6e18ed8db7b4a4823e4713a89fd440db"
+  },
+  "2024-03-09": {
+   "date": "2024-03-09",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9885,
+   "rendered": true,
+   "file": "s2rgb/2024-03-09.jpg",
+   "quality": 68,
+   "bytes": 244539,
+   "sha256": "3080ea3a1828574aad07c7bdac9133287768b16e469956c8f03ed737d27e14b4"
+  },
+  "2024-03-24": {
+   "date": "2024-03-24",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6858,
+   "rendered": true,
+   "file": "s2rgb/2024-03-24.jpg",
+   "quality": 75,
+   "bytes": 219242,
+   "sha256": "2b7efe1ef9d08dbfce01122b9a23a16ea21c2d8b94e093f68f67ff3bc45c1008"
+  },
+  "2024-03-29": {
+   "date": "2024-03-29",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2456,
+   "rendered": true,
+   "file": "s2rgb/2024-03-29.jpg",
+   "quality": 82,
+   "bytes": 134135,
+   "sha256": "5687877b75bf421b732e3a2436183260869bee81cc22dd99bc33235387fbe1f9"
+  },
+  "2024-04-03": {
+   "date": "2024-04-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6849,
+   "rendered": true,
+   "file": "s2rgb/2024-04-03.jpg",
+   "quality": 75,
+   "bytes": 242670,
+   "sha256": "32c0c07e08ee00d0ce6d815c294d911821b0bd0acc2503b710f8f2f757faa080"
+  },
+  "2024-04-08": {
+   "date": "2024-04-08",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.4558,
+   "rendered": true,
+   "file": "s2rgb/2024-04-08.jpg",
+   "quality": 60,
+   "bytes": 240650,
+   "sha256": "8813f345c1057c04cb879723fba163a558b11db878bdd6b0554e616c8be5ee06"
+  },
+  "2024-04-30": {
+   "date": "2024-04-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1799,
+   "clear_share": 0.1548,
+   "rendered": true,
+   "file": "s2rgb/2024-04-30.jpg",
+   "quality": 82,
+   "bytes": 114679,
+   "sha256": "86314b1ab08c55a78541a827a89065d9c9403e7a72910bee29fcca0b1b480109"
+  },
+  "2024-05-05": {
+   "date": "2024-05-05",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1737,
+   "clear_share": 0.1694,
+   "rendered": true,
+   "file": "s2rgb/2024-05-05.jpg",
+   "quality": 82,
+   "bytes": 100799,
+   "sha256": "949e6c99c7de6a953edfeabf114b93c1d81c959e943ae95bd7d3e77b20fd3266"
+  },
+  "2024-05-10": {
+   "date": "2024-05-10",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1783,
+   "clear_share": 0.1716,
+   "rendered": true,
+   "file": "s2rgb/2024-05-10.jpg",
+   "quality": 82,
+   "bytes": 104371,
+   "sha256": "98b3ef0cd0faf5394553b32d93f2fd0ebeee361f27ee911d03e4a6e99e8e4c8e"
+  },
+  "2024-05-25": {
+   "date": "2024-05-25",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.0366,
+   "clear_share": 0.0365,
+   "rendered": true,
+   "file": "s2rgb/2024-05-25.jpg",
+   "quality": 82,
+   "bytes": 23536,
+   "sha256": "b53728f0db042195efb45565b797df50197465b15770ef13981526a082a684dd"
+  },
+  "2024-06-07": {
+   "date": "2024-06-07",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6084,
+   "rendered": true,
+   "file": "s2rgb/2024-06-07.jpg",
+   "quality": 60,
+   "bytes": 245718,
+   "sha256": "da26a10af96fe9ea47b96c963d250bab63ce8ce84e49bbe7c4eacfd967a92501"
+  },
+  "2024-06-22": {
+   "date": "2024-06-22",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6964,
+   "rendered": true,
+   "file": "s2rgb/2024-06-22.jpg",
+   "quality": 68,
+   "bytes": 227869,
+   "sha256": "ef337bb8beb535aeebd3f7b8797ac8721ff9da242ece2786f8f668d2cc31a864"
+  },
+  "2024-06-27": {
+   "date": "2024-06-27",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.383,
+   "rendered": true,
+   "file": "s2rgb/2024-06-27.jpg",
+   "quality": 50,
+   "bytes": 244980,
+   "sha256": "6e8c54ee669636390e233f85b393bc04b2e37e7a83723917d340e4e6b08fa2a0"
+  },
+  "2024-07-07": {
+   "date": "2024-07-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6976,
+   "rendered": true,
+   "file": "s2rgb/2024-07-07.jpg",
+   "quality": 60,
+   "bytes": 228682,
+   "sha256": "16e3dda39e166dd2e31e10848cb6e380bf06aaf20ee94ad342138d3034d72650"
+  },
+  "2024-07-27": {
+   "date": "2024-07-27",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6687,
+   "rendered": true,
+   "file": "s2rgb/2024-07-27.jpg",
+   "quality": 60,
+   "bytes": 241242,
+   "sha256": "ec84466cbb50a26272d0d0e22f0ccc2b7d092628e438af956c4202f420a1b288"
+  },
+  "2024-07-29": {
+   "date": "2024-07-29",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3918,
+   "clear_share": 0.3872,
+   "rendered": true,
+   "file": "s2rgb/2024-07-29.jpg",
+   "quality": 82,
+   "bytes": 201795,
+   "sha256": "9dd9264572e53172034528e97e63607842a4c56893b630cc8c5a658c7cf1e72c"
+  },
+  "2024-08-03": {
+   "date": "2024-08-03",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2878,
+   "rendered": true,
+   "file": "s2rgb/2024-08-03.jpg",
+   "quality": 82,
+   "bytes": 155809,
+   "sha256": "e30120679d2fb73c1888643df498af498d2e6f3b96bca2b43600ef76fa1a4881"
+  },
+  "2024-08-11": {
+   "date": "2024-08-11",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.676,
+   "rendered": true,
+   "file": "s2rgb/2024-08-11.jpg",
+   "quality": 60,
+   "bytes": 227986,
+   "sha256": "6f6cf59b82284144b1394a2b95cae1544c5931bdcc4923f9f81bc28cb880d334"
+  },
+  "2024-08-13": {
+   "date": "2024-08-13",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1392,
+   "clear_share": 0.1392,
+   "rendered": true,
+   "file": "s2rgb/2024-08-13.jpg",
+   "quality": 82,
+   "bytes": 71198,
+   "sha256": "5c28648b00e9090ec9e0f044d7cd6a67170456dcf2a3098acb43c77f782100ae"
+  },
+  "2024-09-07": {
+   "date": "2024-09-07",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1771,
+   "clear_share": 0.1769,
+   "rendered": true,
+   "file": "s2rgb/2024-09-07.jpg",
+   "quality": 82,
+   "bytes": 107690,
+   "sha256": "7d394ac1f6511b262e77a7422b8997e5d981a7fd8f1641330628c69e11a34ea5"
+  },
+  "2024-09-25": {
+   "date": "2024-09-25",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6984,
+   "rendered": true,
+   "file": "s2rgb/2024-09-25.jpg",
+   "quality": 75,
+   "bytes": 251173,
+   "sha256": "43be6ad7b1470ee1972f6190b25119120b48e87f99cbd6d8859c055157158151"
+  },
+  "2024-10-05": {
+   "date": "2024-10-05",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9997,
+   "rendered": true,
+   "file": "s2rgb/2024-10-05.jpg",
+   "quality": 60,
+   "bytes": 232065,
+   "sha256": "2186dbfb0da5a484a9042abf2a2bd95d75ddd142fec0aa423e6f7a7af282937a"
+  },
+  "2024-10-22": {
+   "date": "2024-10-22",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1393,
+   "clear_share": 0.1392,
+   "rendered": true,
+   "file": "s2rgb/2024-10-22.jpg",
+   "quality": 82,
+   "bytes": 58844,
+   "sha256": "4dde77b882e241bb53553d424f3bb165ecbc2c7900c1472927e2991918d7a376"
+  },
+  "2024-10-27": {
+   "date": "2024-10-27",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.1944,
+   "rendered": true,
+   "file": "s2rgb/2024-10-27.jpg",
+   "quality": 82,
+   "bytes": 166427,
+   "sha256": "ff4bf851d69840e3fdf1d35f9e76fa6f179ab3199294f56e4424fdd7e55ac1c7"
+  },
+  "2024-10-30": {
+   "date": "2024-10-30",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.9138,
+   "rendered": true,
+   "file": "s2rgb/2024-10-30.jpg",
+   "quality": 68,
+   "bytes": 256992,
+   "sha256": "31e4cc2e0a8afbf6d03d3211fdfb26d1241ef4295c1ac40c53c9503321197317"
+  },
+  "2024-11-19": {
+   "date": "2024-11-19",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.9252,
+   "rendered": true,
+   "file": "s2rgb/2024-11-19.jpg",
+   "quality": 68,
+   "bytes": 242505,
+   "sha256": "d939b1d75f3dceb5a2ee7fa23f04d2d2cdb5d09c2fc7c928e3246c5af29c86ee"
+  },
+  "2024-11-24": {
+   "date": "2024-11-24",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6948,
+   "rendered": true,
+   "file": "s2rgb/2024-11-24.jpg",
+   "quality": 82,
+   "bytes": 257497,
+   "sha256": "52d84972b658747f108f59a9156cb4ffeb532c5289577494310d8bf88ebae791"
+  },
+  "2024-12-14": {
+   "date": "2024-12-14",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6964,
+   "rendered": true,
+   "file": "s2rgb/2024-12-14.jpg",
+   "quality": 75,
+   "bytes": 230610,
+   "sha256": "86e4e88e38b701cd5cad17876003bd2ee2c1c49401e257c8d050ef91e7d5d385"
+  },
+  "2025-01-13": {
+   "date": "2025-01-13",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5764,
+   "rendered": true,
+   "file": "s2rgb/2025-01-13.jpg",
+   "quality": 68,
+   "bytes": 259729,
+   "sha256": "d4f6eb31eb35067e0175cf0e09ef50261c86202e37b4b13f2845700fff231d27"
+  },
+  "2025-01-20": {
+   "date": "2025-01-20",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1661,
+   "clear_share": 0.1659,
+   "rendered": true,
+   "file": "s2rgb/2025-01-20.jpg",
+   "quality": 82,
+   "bytes": 95018,
+   "sha256": "d226ce38dc9371fbb279ee6d1db757e22834f1094e5c25e387f7d0707b76f57c"
+  },
+  "2025-02-02": {
+   "date": "2025-02-02",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.698,
+   "rendered": true,
+   "file": "s2rgb/2025-02-02.jpg",
+   "quality": 82,
+   "bytes": 237819,
+   "sha256": "44a3759c6cc1dfda1775515b7d737266fcf4e36f25238502e66050f7984ff70d"
+  },
+  "2025-02-12": {
+   "date": "2025-02-12",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1398,
+   "rendered": true,
+   "file": "s2rgb/2025-02-12.jpg",
+   "quality": 82,
+   "bytes": 47478,
+   "sha256": "6c147d047c3a6b35c66a4bd1d442ac090dfa70b886a64843933dc66f3abb14b7"
+  },
+  "2025-02-19": {
+   "date": "2025-02-19",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2546,
+   "rendered": true,
+   "file": "s2rgb/2025-02-19.jpg",
+   "quality": 82,
+   "bytes": 142903,
+   "sha256": "3aa1dce53dc5c54e816ac3f864a9917740ba6605828be3f88d791a7626fafd13"
+  },
+  "2025-04-13": {
+   "date": "2025-04-13",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.435,
+   "rendered": true,
+   "file": "s2rgb/2025-04-13.jpg",
+   "quality": 50,
+   "bytes": 286779,
+   "sha256": "66cce0c94942133178449e401ac4098361dddff74108052abcaea054f738eef1"
+  },
+  "2025-04-17": {
+   "date": "2025-04-17",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.184,
+   "clear_share": 0.1838,
+   "rendered": true,
+   "file": "s2rgb/2025-04-17.jpg",
+   "quality": 82,
+   "bytes": 108732,
+   "sha256": "2770e4823c02d301bd98ec666f7591b3aec55920c45da19f099fcf498eafbdf8"
+  },
+  "2025-04-20": {
+   "date": "2025-04-20",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1769,
+   "clear_share": 0.1766,
+   "rendered": true,
+   "file": "s2rgb/2025-04-20.jpg",
+   "quality": 82,
+   "bytes": 102250,
+   "sha256": "744f9cc6f0197bbb98dc67136fd3cadecdc8b3bb47e143168b998e1b793deb3a"
+  },
+  "2025-04-23": {
+   "date": "2025-04-23",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.6972,
+   "rendered": true,
+   "file": "s2rgb/2025-04-23.jpg",
+   "quality": 75,
+   "bytes": 228849,
+   "sha256": "cc657d77d7d089bf21fb26c62158009f4524fdfb2012e61c46a8cde7b84f25a8"
+  },
+  "2025-05-03": {
+   "date": "2025-05-03",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9429,
+   "rendered": true,
+   "file": "s2rgb/2025-05-03.jpg",
+   "quality": 60,
+   "bytes": 233591,
+   "sha256": "7be491b53d2dc0ddd36d943a472ff4ea4770757342f5f51f31efb98e390e7990"
+  },
+  "2025-06-09": {
+   "date": "2025-06-09",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.4674,
+   "clear_share": 0.4668,
+   "rendered": true,
+   "file": "s2rgb/2025-06-09.jpg",
+   "quality": 82,
+   "bytes": 204494,
+   "sha256": "b9ecb0560729137193d456df311c73541fcebbb48bdf9b54904848af84fe5a02"
+  },
+  "2025-06-29": {
+   "date": "2025-06-29",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1718,
+   "clear_share": 0.0192,
+   "rendered": false,
+   "reason": "clear share 1.9% < 2%: cloud only"
+  },
+  "2025-07-09": {
+   "date": "2025-07-09",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1728,
+   "clear_share": 0.1505,
+   "rendered": true,
+   "file": "s2rgb/2025-07-09.jpg",
+   "quality": 82,
+   "bytes": 121549,
+   "sha256": "0bdfa52e446b7cc3928639a309b8d59f1b1687e06d80a9e28e95e5731bdf94c3"
+  },
+  "2025-07-19": {
+   "date": "2025-07-19",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1386,
+   "clear_share": 0.1385,
+   "rendered": true,
+   "file": "s2rgb/2025-07-19.jpg",
+   "quality": 82,
+   "bytes": 79984,
+   "sha256": "811450c7b37c4ea5836c8f53f9b81728eefcb55e2c59e272c35944ae2206c37b"
+  },
+  "2025-07-22": {
+   "date": "2025-07-22",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.5793,
+   "rendered": true,
+   "file": "s2rgb/2025-07-22.jpg",
+   "quality": 50,
+   "bytes": 250145,
+   "sha256": "3d63469cf26ee4b537fc38b2aec142f94abd847ed19f5b41f59a793d71582966"
+  },
+  "2025-08-08": {
+   "date": "2025-08-08",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1674,
+   "clear_share": 0.125,
+   "rendered": true,
+   "file": "s2rgb/2025-08-08.jpg",
+   "quality": 82,
+   "bytes": 114806,
+   "sha256": "ad49c4fb022cc17d0870ddb27f3cc63883a6408164d13ab72ffab1daba89c1cf"
+  },
+  "2025-08-15": {
+   "date": "2025-08-15",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.391,
+   "clear_share": 0.3908,
+   "rendered": true,
+   "file": "s2rgb/2025-08-15.jpg",
+   "quality": 82,
+   "bytes": 202892,
+   "sha256": "0354638f5dffa128658febdc502b9949cf48118acb2ee0e936e92ef7cad13ae6"
+  },
+  "2025-08-18": {
+   "date": "2025-08-18",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1388,
+   "clear_share": 0.1388,
+   "rendered": true,
+   "file": "s2rgb/2025-08-18.jpg",
+   "quality": 82,
+   "bytes": 74729,
+   "sha256": "1f363b74e0a2490dbfddf233b6fad1234a6cf93931d1e71d0f420559dbe4772b"
+  },
+  "2025-08-21": {
+   "date": "2025-08-21",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.6984,
+   "clear_share": 0.4035,
+   "rendered": true,
+   "file": "s2rgb/2025-08-21.jpg",
+   "quality": 50,
+   "bytes": 262347,
+   "sha256": "4097aec962996661bfb46431eef540d22d916164d678e6451a7b04d6b4421b4e"
+  },
+  "2025-08-28": {
+   "date": "2025-08-28",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.1398,
+   "clear_share": 0.1398,
+   "rendered": true,
+   "file": "s2rgb/2025-08-28.jpg",
+   "quality": 82,
+   "bytes": 65979,
+   "sha256": "c81060322b406d867f1b4a6d1d40830725c25eb502a714d5eb0555d7a01b58ed"
+  },
+  "2025-08-31": {
+   "date": "2025-08-31",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9994,
+   "rendered": true,
+   "file": "s2rgb/2025-08-31.jpg",
+   "quality": 50,
+   "bytes": 234787,
+   "sha256": "81aedab111fdc1f61ac071badc6b71c9a0648159f88cdfbf121410946f47852b"
+  },
+  "2025-09-04": {
+   "date": "2025-09-04",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2961,
+   "rendered": true,
+   "file": "s2rgb/2025-09-04.jpg",
+   "quality": 82,
+   "bytes": 147114,
+   "sha256": "63c42260f96c5d72aa514a63db18633a78e8912c5b1fa92aa4f77e0929d78902"
+  },
+  "2025-09-27": {
+   "date": "2025-09-27",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1722,
+   "clear_share": 0.1721,
+   "rendered": true,
+   "file": "s2rgb/2025-09-27.jpg",
+   "quality": 82,
+   "bytes": 109072,
+   "sha256": "25ce15dec1947cdf36a47f1b742aa598b94764aa456c9166fb575b6f5f21efc3"
+  },
+  "2026-03-16": {
+   "date": "2026-03-16",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1734,
+   "clear_share": 0.1727,
+   "rendered": true,
+   "file": "s2rgb/2026-03-16.jpg",
+   "quality": 82,
+   "bytes": 96660,
+   "sha256": "1d7282d71c086d28b69fa8a56532192df3a51afb0d2ebc53c657ecf112fef09b"
+  },
+  "2026-04-05": {
+   "date": "2026-04-05",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1779,
+   "clear_share": 0.1774,
+   "rendered": true,
+   "file": "s2rgb/2026-04-05.jpg",
+   "quality": 82,
+   "bytes": 91261,
+   "sha256": "4259ee66d191195ddbc9ffe855d639208aa91038cd74cd209695ad5251d5d359"
+  },
+  "2026-04-15": {
+   "date": "2026-04-15",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1741,
+   "clear_share": 0.1473,
+   "rendered": true,
+   "file": "s2rgb/2026-04-15.jpg",
+   "quality": 82,
+   "bytes": 107460,
+   "sha256": "4b5aff6196c9f2503135f9c6b76d6c333f69a371d2a8ef73d96ec11dedc66f6b"
+  },
+  "2026-04-25": {
+   "date": "2026-04-25",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1706,
+   "clear_share": 0.1695,
+   "rendered": true,
+   "file": "s2rgb/2026-04-25.jpg",
+   "quality": 82,
+   "bytes": 98088,
+   "sha256": "391cafe8c7167fc72111c727c6cdcb6251ae35a8ef19de0a4bd976c95ee0658e"
+  },
+  "2026-05-05": {
+   "date": "2026-05-05",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064",
+    "R107"
+   ],
+   "seen_share": 0.1767,
+   "clear_share": 0.1695,
+   "rendered": true,
+   "file": "s2rgb/2026-05-05.jpg",
+   "quality": 82,
+   "bytes": 107245,
+   "sha256": "a2cfb0a40a0427620b662a155c02a9751131b64155ee6626db7d31dccb695714"
+  },
+  "2026-05-08": {
+   "date": "2026-05-08",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 1.0,
+   "clear_share": 0.9891,
+   "rendered": true,
+   "file": "s2rgb/2026-05-08.jpg",
+   "quality": 60,
+   "bytes": 238748,
+   "sha256": "6a626e3e52c24a0ae2b2b13e8718a55ddd589c0f3bb806ff8e1b6e460f9bf0a9"
+  },
+  "2026-05-12": {
+   "date": "2026-05-12",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3913,
+   "clear_share": 0.3752,
+   "rendered": true,
+   "file": "s2rgb/2026-05-12.jpg",
+   "quality": 82,
+   "bytes": 167284,
+   "sha256": "8e08be3b41d3b76f624761908d53cc69957353434931a211eb132284460f2501"
+  },
+  "2026-06-14": {
+   "date": "2026-06-14",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.3913,
+   "clear_share": 0.3224,
+   "rendered": true,
+   "file": "s2rgb/2026-06-14.jpg",
+   "quality": 82,
+   "bytes": 225343,
+   "sha256": "b110aefa78f17ba79d1820f3f298bec99091dd94bc6fb2654b5c6c89b02ccbdd"
+  },
+  "2026-06-27": {
+   "date": "2026-06-27",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2321,
+   "rendered": true,
+   "file": "s2rgb/2026-06-27.jpg",
+   "quality": 82,
+   "bytes": 171292,
+   "sha256": "47284144dbca2e68a09a9207c26664d3757a10e6ab015652c39c080dc12c1294"
+  },
+  "2026-07-01": {
+   "date": "2026-07-01",
+   "tiles": [
+    "T36TVS",
+    "T36TVT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1685,
+   "clear_share": 0.1661,
+   "rendered": true,
+   "file": "s2rgb/2026-07-01.jpg",
+   "quality": 82,
+   "bytes": 116575,
+   "sha256": "6409f32068289d7aefa2b47561a1f6e9040e1886227a52d2df64ee93db6a4282"
+  },
+  "2026-07-07": {
+   "date": "2026-07-07",
+   "tiles": [
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.3929,
+   "clear_share": 0.3907,
+   "rendered": true,
+   "file": "s2rgb/2026-07-07.jpg",
+   "quality": 82,
+   "bytes": 212229,
+   "sha256": "4955274418bd17e272ad0d5d3deba8445eaea50f561025bb6d53b2f19bf29824"
+  },
+  "2026-08-13": {
+   "date": "2026-08-13",
+   "tiles": [
+    "T36TWS"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2962,
+   "clear_share": 0.2961,
+   "rendered": true,
+   "file": "s2rgb/2026-08-13.jpg",
+   "quality": 82,
+   "bytes": 151170,
+   "sha256": "ea9940fc64ba31e58e7f9c2f7299382c112b80affc9ac00512df2246846e5f98"
+  },
+  "2026-08-16": {
+   "date": "2026-08-16",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.9249,
+   "rendered": true,
+   "file": "s2rgb/2026-08-16.jpg",
+   "quality": 50,
+   "bytes": 229966,
+   "sha256": "1ec4ad4cc4e2f4b0e3ab6d4b42341d7b031cf266f17d04f8905f282d695a5f42"
+  },
+  "2026-08-23": {
+   "date": "2026-08-23",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.2717,
+   "clear_share": 0.2714,
+   "rendered": true,
+   "file": "s2rgb/2026-08-23.jpg",
+   "quality": 82,
+   "bytes": 142003,
+   "sha256": "3d962cf9f1c77c4a2f849313ddd2d3c6e61253c71865f234217369cf212aa2f9"
+  },
+  "2026-09-05": {
+   "date": "2026-09-05",
+   "tiles": [
+    "T36TUS",
+    "T36TUT",
+    "T36TVS",
+    "T36TVT",
+    "T36TWS"
+   ],
+   "orbits": [
+    "R107"
+   ],
+   "seen_share": 0.9259,
+   "clear_share": 0.801,
+   "rendered": true,
+   "file": "s2rgb/2026-09-05.jpg",
+   "quality": 50,
+   "bytes": 264270,
+   "sha256": "bebd1a82529c76c65873ec4ac26582dfd8ffa8dd5a89b880d61645771a449a90"
+  },
+  "2026-09-09": {
+   "date": "2026-09-09",
+   "tiles": [
+    "T36TVS",
+    "T36TVT",
+    "T36TWS",
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.48,
+   "clear_share": 0.4794,
+   "rendered": true,
+   "file": "s2rgb/2026-09-09.jpg",
+   "quality": 82,
+   "bytes": 223406,
+   "sha256": "99c53621d40cf178230a461e4942d2dacf39be5c4dc3f27d915ec045cb87f826"
+  },
+  "2026-09-12": {
+   "date": "2026-09-12",
+   "tiles": [
+    "T36TWT"
+   ],
+   "orbits": [
+    "R064"
+   ],
+   "seen_share": 0.1382,
+   "clear_share": 0.1043,
+   "rendered": true,
+   "file": "s2rgb/2026-09-12.jpg",
+   "quality": 82,
+   "bytes": 59139,
+   "sha256": "b38093fc1c51e59f3a99183dd693e9d0df3f9a00310966d9fb76f7e28323d78e"
+  }
+ }
+}

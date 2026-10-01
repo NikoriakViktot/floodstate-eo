@@ -8,7 +8,7 @@ import plotly.graph_objects as go
 import streamlit as st
 from streamlit_folium import st_folium
 
-from lib import DATA, T, caption, figure, header, layers, refs, table
+from lib import BASEMAPS, DATA, FM6, S2RGB_TEXT, SATMAP_KINDS, SATMAPS, T, base_map, basemap_index, caption, figure, header, layers, refs, table
 
 st.set_page_config(page_title="Surface context", layout="wide")
 header("Surface context: RF20 PRE-event surface classification of the lower Dnipro (frames B1 + B2)",
@@ -26,11 +26,12 @@ if rf:
     with c2:
         op = st.slider("opacity", 0.2, 1.0, 0.8, 0.05)
         show_fp = st.checkbox("p42 floodplain outline", True)
+        basemap = st.radio("basemap", list(BASEMAPS), index=basemap_index())
         st.markdown("**Legend** (area as mapped on the 4326 overlay)")
         for k, lab in rf["legend"].items():
             st.markdown(f"<span style='display:inline-block;width:14px;height:14px;background:{rf['palette'][k]};border:1px solid #999'></span> {lab.replace('_', ' ').lower()} — {rf['area_km2_by_class'].get(k, '')} km²", unsafe_allow_html=True)
     with c1:
-        m = folium.Map(location=[46.72, 32.85], zoom_start=9, tiles="OpenStreetMap", control_scale=True)
+        m = base_map([46.72, 32.85], 9, basemap)
         folium.raster_layers.ImageOverlay(str(DATA / rf["file"]), bounds=rf["bounds"], opacity=op, name="RF20 classes", interactive=False, zindex=5).add_to(m)
         ctx = DATA / "context" / "frames_and_points.geojson"
         if ctx.exists():
@@ -43,6 +44,65 @@ if rf:
         st_folium(m, use_container_width=True, height=560, returned_objects=[])
 else:
     st.info("RF20 layer not rendered (p98)")
+
+# ---- Sentinel-2 true colour, every date of the archive ---------------------------------------------------------------
+st.subheader("Sentinel-2 true colour — every date of the archive over the lower Dnipro")
+S2RGB = sorted([l for l in L["layers"] if l["group"] == "s2_truecolour"], key=lambda l: l["id"])
+if S2RGB:
+    by_date = {l["id"].replace("s2_truecolour_", ""): l for l in S2RGB}; dates = sorted(by_date); by_id = {l["id"]: l for l in L["layers"]}
+    years = sorted({d[:4] for d in dates})
+    c1, c2 = st.columns([3, 1])
+    with c2:
+        yr = st.selectbox("year", ["all"] + years, index=(["all"] + years).index("2023") if "2023" in years else 0)
+        opts = [d for d in dates if yr == "all" or d.startswith(yr)]
+        default = "2023-06-08" if "2023-06-08" in opts else opts[-1]
+        d = st.select_slider("date", options=opts, value=default, format_func=lambda x: f"{x} · clear {by_date[x].get('clear_share', 0):.0%}")
+        e = by_date[d]
+        st.markdown(f"**{d}** — tiles {', '.join(e.get('tiles', []))}; {e.get('note', '')}")
+        rgb_basemap = st.radio("basemap under the image", list(BASEMAPS), index=basemap_index(), key="rgb_basemap")
+        ov_rf = st.checkbox("RF20 surface classes", False, key="rgb_rf"); ov_fp = st.checkbox("p42 floodplain outline", True, key="rgb_fp")
+        ov_s2w = st.checkbox(f"S2 water of {d}", False, key="rgb_s2w") if f"s2_water_{d}" in by_id else False
+        s1_dates = sorted(l["id"].replace("s1_new_", "") for l in L["layers"] if l["group"] == "s1_daily")
+        near = min(s1_dates, key=lambda x: abs(pd.Timestamp(x) - pd.Timestamp(d))) if s1_dates else None
+        ov_s1 = st.checkbox(f"S1 new water of {near} (nearest radar date)", False, key="rgb_s1") if near and abs((pd.Timestamp(near) - pd.Timestamp(d)).days) <= 6 else False
+        ov_op = st.slider("overlay opacity", 0.2, 1.0, 0.7, 0.05, key="rgb_op")
+        st.caption(S2RGB_TEXT + f". Rendered {len(dates)} dates of the archive; dates with < 2 % clear sky are not rendered.")
+    with c1:
+        m = base_map([46.72, 32.85], 9, rgb_basemap)
+        folium.raster_layers.ImageOverlay(str(DATA / e["file"]), bounds=e["bounds"], opacity=1.0, name=f"Sentinel-2 {d}", interactive=False, cross_origin=False, zindex=2).add_to(m)
+        if ov_rf and rf:
+            folium.raster_layers.ImageOverlay(str(DATA / rf["file"]), bounds=rf["bounds"], opacity=ov_op, name="RF20 classes", interactive=False, zindex=5).add_to(m)
+        if ov_s2w:
+            l = by_id[f"s2_water_{d}"]; folium.raster_layers.ImageOverlay(str(DATA / l["file"]), bounds=l["bounds"], opacity=ov_op, name=f"S2 water {d}", interactive=False, zindex=6).add_to(m)
+        if ov_s1:
+            l = by_id[f"s1_new_{near}"]; folium.raster_layers.ImageOverlay(str(DATA / l["file"]), bounds=l["bounds"], opacity=ov_op, name=f"S1 new water {near}", interactive=False, zindex=6).add_to(m)
+        fp = DATA / "context" / "p42_floodplain.geojson"
+        if ov_fp and fp.exists():
+            folium.GeoJson(json.loads(fp.read_text()), name="p42 floodplain", style_function=lambda f: dict(color="#2a78d6", weight=1, fill=False)).add_to(m)
+        folium.LayerControl(collapsed=True).add_to(m)
+        st_folium(m, use_container_width=True, height=560, returned_objects=[], key="rgb_map")
+else:
+    st.info("Sentinel-2 true-colour dates not rendered (p97c, then p98 --only context)")
+
+# ---- satellite maps: classified indices and radar before / after the breach -------------------------------------------
+st.subheader("Satellite maps: classified indices and radar before and after the breach (p95zm; display classes, not a classifier)")
+c1, c2 = st.columns([1, 3])
+with c1:
+    zone = st.radio("zone", list(SATMAPS), format_func=lambda z: SATMAPS[z], key="sat_zone")
+    kind = st.selectbox("map", list(SATMAP_KINDS), key="sat_kind")
+    st.caption("Sentinel-2: per-cell median of the clear observations of each period (normal year May–June 2022; the last period before the breach; "
+               "recession 16–30 June 2023; July 2023) in the display bins of the reservoir maps. The peak (7–9 June) has no usable optical view "
+               "(8 June: 26 % of the delta, 12 % of the floodway clear) and is shown with Sentinel-1 VV on orbit 14. Black line = event extent 7 June. "
+               "Evidence of the pre-event state of the reed beds (T12i–T12m); contains modified Copernicus Sentinel data 2022–2023.")
+with c2:
+    stem = SATMAP_KINDS[kind]
+    p = FM6 / (f"p95z_{zone}_indices.png" if stem == "p95z" else f"p95zm_{zone}_{stem}.png")
+    if p.exists():
+        st.image(str(p), width="stretch")
+    else:
+        st.info(f"{p.name} not rendered (p95zm)")
+st.markdown("**Sentinel-1 new dark water by date (FigS19)** — what the radar sees on the day it looks: new dark water minus the pre-breach water, with the reconstruction of the same day as a line.")
+figure("FigS19")
 
 # ---- class areas ----------------------------------------------------------------------------------------------------
 ca = T / f"p73_rf20{REV}_class_area.csv"

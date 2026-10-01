@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, refs, table
+from lib import C, caption, figure, header, ink, refs, table
 
 st.set_page_config(page_title="Checks", layout="wide")
 header("Independent and cross-sensor checks of the reconstruction",
@@ -64,7 +64,7 @@ for col, tid, sid, name, rows in ((gk, "T17c", "T17d", "Inhulets – Kalynivske 
         fl = go.Figure()
         fl.add_trace(go.Scatter(x=g_.t, y=g_.kherson_gauge_m, mode="lines", line=dict(color=C["muted"], width=1.2), name="Kherson (input)"))
         fl.add_trace(go.Scatter(x=g_.t, y=g_.H_reconstructed_primary_m, mode="lines", line=dict(color=C["terrain"], width=2.5), name="reconstruction at the gauge"))
-        fl.add_trace(go.Scatter(x=g_.t, y=g_.H_evrf2019_m, mode="lines+markers", line=dict(color="#0b0b0b", width=2), marker=dict(size=4), name="gauge (withheld)"))
+        fl.add_trace(go.Scatter(x=g_.t, y=g_.H_evrf2019_m, mode="lines+markers", line=dict(color=ink(), width=2), marker=dict(size=4), name="gauge (withheld)"))
         fl.add_vline(x=pd.Timestamp("2023-06-06"), line=dict(color="#e34948", dash="dash"))
         fl.update_layout(height=300, margin=dict(l=10, r=10, t=10, b=10), yaxis_title="m EVRF2019", legend=dict(orientation="h", y=-0.25), xaxis=dict(range=["2023-05-28", "2023-07-05"]))
         st.plotly_chart(fl, width="stretch")

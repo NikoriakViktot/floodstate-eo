@@ -12,7 +12,7 @@ Layers (apps/dashboard/data/):
   reservoir/model/<date>.png, reservoir/exposed_day.png     p95h modelled pool (water / bed exposed since 06-05); the day the bed fell dry (model + Sentinel-2 20 June)
   reservoir/s1/<date>.png                         p95h S1 VH dark surface (water or wet mud) / dark on 06-01 but not now / not observed
   reservoir/s2/<date>_{class,water,<INDEX>}.png   p25 k10e classes, water3 (+ p15 crosscheck water), the 7 indices in display classes
-  context/*.geojson                               frames, cut rectangles, p42 floodplain (simplified), gauge and dam, reservoir pool
+  context/*.geojson                               frames, reporting regions (Inhulets valley etc.; they mask nothing), p42 floodplain (simplified), gauge and dam, reservoir pool
   manifest.json                                   id, file, bounds [[S, W], [N, E]], legend, source, sha256, bytes
 """
 from __future__ import annotations
@@ -34,7 +34,7 @@ BBOX = (32.15, 46.35, 33.55, 47.15)                         # W, S, E, N (both z
 NX, NY = int(round((BBOX[2] - BBOX[0]) / DLON)), int(round((BBOX[3] - BBOX[1]) / DLAT))
 TR = from_origin(BBOX[0], BBOX[3], DLON, DLAT); CRS4326 = CRS.from_epsg(4326)
 RBOX = (33.30, 46.70, 35.40, 47.95)                         # W, S, E, N (the Kakhovka pool)
-HEX = {"terrain": "#2a78d6", "s1": "#eb6834", "unet": "#4a3aa7", "unet2": "#8a7fd6", "foot": "#c3c2b7"}
+HEX = {"terrain": "#2a78d6", "s1": "#eb6834", "s1pre": "#f5b79b", "s2": "#c2185b", "s2pre": "#e8a0bf", "unet": "#4a3aa7", "unet2": "#8a7fd6", "foot": "#c3c2b7"}
 MAN = {"generated_utc": time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), "grid": dict(crs="EPSG:4326", dlon=DLON, dlat=DLAT, nx=NX, ny=NY, bounds=[[BBOX[1], BBOX[0]], [BBOX[3], BBOX[2]]]), "layers": []}
 
 
@@ -84,7 +84,7 @@ def zone_raster(z, name, sub="floodplain_dyn"):
 
 
 def terrain_layers():
-    src = "p95 rev 6 (seamless terrain-bed model, residual FABDEM class bias removed on FABDEM cells, union mosaic), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
+    src = "p95 rev 9 (seamless terrain-bed model, residual FABDEM class bias removed on FABDEM cells, union mosaic; seed = pre-breach river network, D-SEED; baseline = optical pre-breach water + same-rule normal wetness, no S1 darkness), connected_ceiling, closure kherson_paper1 (floodplain_dyn/<ZONE>_connected_ceiling)"
     per = {}
     for z in ZONES:
         zz = np.load(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "daily_new.npz"); shp = tuple(int(v) for v in zz["shape"])
@@ -110,7 +110,8 @@ def terrain_layers():
 
 
 SUPPORT = {1: ("direct (nearest SWOT node <= 3 km)", "#0b2a5c"), 2: ("extrapolated (3-10 km)", "#5a93da"), 3: ("weak (> 10 km)", "#eda100"),
-           4: ("cross-river (Inhulets valley, node of another river)", "#e34948"), 5: ("capped at the Kherson gauge", "#4a3aa7")}
+           4: ("cross-river (Inhulets valley, node of another river)", "#e34948"), 5: ("capped at the Kherson gauge", "#4a3aa7"),
+           6: ("retained water (memory sensitivity; not in the primary)", "#78808a")}
 GAUGES = [("Kherson 80805", 32.612026, 46.623750, "input (anchor of the water surface)"),
           ("Kalynivske 80575 (Inhulets)", 32 + 57 / 60 + 38 / 3600, 47 + 6 / 60 + 59 / 3600, "withheld: independent tributary validation site"),
           ("Mykolaiv 98027 (liman)", 31 + 58 / 60 + 19.46 / 3600, 46 + 59 / 60 + 3.75 / 3600, "withheld: independent validation of the western delta")]
@@ -119,16 +120,28 @@ GAUGES = [("Kherson 80805", 32.612026, 46.623750, "input (anchor of the water su
 def support_layers():
     """D-SUPPORT: the new inundation of every day coloured by the support class of its water surface (p95l support_class.tif
     x daily_new.npz), and the three river gauges with their roles."""
-    src = "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 6 connected_ceiling daily new inundation"
+    src = "p95l support classes (distance of the nearest SWOT node; operational thresholds) x p95 rev 8 connected_ceiling daily new inundation"
     per = {}
+    mem = {}
     for z in ZONES:
         d = BULK / "floodplain_dyn" / f"{z}_connected_ceiling"
         with rasterio.open(d / "support_class.tif") as s:
             code, tr, crs = s.read(1), s.transform, s.crs
         zz = np.load(d / "daily_new.npz"); per[z] = (code, zz, tuple(int(v) for v in zz["shape"]), tr, crs)
+        dm = BULK / "floodplain_dyn" / f"{z}_connected_ceiling_memory" / "daily_new.npz"          # D-MEMORY sensitivity: retained water = memory minus primary
+        if dm.exists():
+            mem[z] = np.load(dm)
+    if mem:
+        src += "; retained water = the memory variant (p95 --memory) minus the primary, code 6"
     dates = [k for k in np.load(BULK / "floodplain_dyn" / "ZONE_2_KHERSON_DELTA_connected_ceiling" / "daily_new.npz").files if k.startswith("2023")]
     for dd in dates:
-        m = mosaic({z: (np.where(np.unpackbits(zz[dd], count=shp[0] * shp[1]).reshape(shp).astype(bool), code, 0).astype("u1"), tr, crs) for z, (code, zz, shp, tr, crs) in per.items()})
+        cls = {}
+        for z, (code, zz, shp, tr, crs) in per.items():
+            new = np.unpackbits(zz[dd], count=shp[0] * shp[1]).reshape(shp).astype(bool); c = np.where(new, code, 0).astype("u1")
+            if z in mem and dd in mem[z].files:
+                ret = np.unpackbits(mem[z][dd], count=shp[0] * shp[1]).reshape(shp).astype(bool) & ~new; c[ret] = 6
+            cls[z] = (c, tr, crs)
+        m = mosaic(cls)
         write_png(m, OUTD / "support" / "daily" / f"{dd}.png", {k: c for k, (_, c) in SUPPORT.items()}, {str(k): lab for k, (lab, _) in SUPPORT.items()}, f"support_daily_{dd}", "support_daily", src,
                   note="the full reconstruction stays the primary product; supported core = direct + extrapolated (T11k)")
     feats = [dict(type="Feature", properties=dict(name=nm, role=role, kind="gauge"), geometry=dict(type="Point", coordinates=[lon, lat])) for nm, lon, lat, role in GAUGES]
@@ -153,10 +166,79 @@ def s1_layers():
                 d = k[:10]; W[d] = W.get(d, np.zeros(shp, bool)) | (un(k) & un("valid_" + k)); V[d] = V.get(d, np.zeros(shp, bool)) | un("valid_" + k)
         pre[z] = (W, V, tr, CRS.from_epsg(32636), W["2023-06-01"] | W["2023-06-02"])
     for d in dates:
-        new = mosaic({z: ((W[d] & ~p).astype("u1"), tr, crs) for z, (W, V, tr, crs, p) in pre.items()})
+        new = mosaic({z: (np.where(W[d] & ~p, 1, np.where(W[d] & p, 2, 0)).astype("u1"), tr, crs) for z, (W, V, tr, crs, p) in pre.items()})
         foot = mosaic({z: (V[d].astype("u1"), tr, crs) for z, (W, V, tr, crs, p) in pre.items()})
-        write_png(new, OUTD / "s1" / f"{d}_new.png", {1: HEX["s1"]}, {"1": "S1 new dark water (not water on 06-01/02)"}, f"s1_new_{d}", "s1_daily", "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m")
+        write_png(new, OUTD / "s1" / f"{d}_new.png", {1: HEX["s1"], 2: HEX["s1pre"]}, {"1": "S1 new dark water (not water on 06-01/02)", "2": "S1 dark water on pre-breach water (06-01/02)"},
+                  f"s1_new_{d}", "s1_daily", "p0v/p0w M3 per-scene masks (s1_zone_cache), 20 m; dark water = low VV/VH backscatter (sensor blind spots under forest and reed; dry sand can be dark)")
         write_png(foot, OUTD / "s1" / f"{d}_footprint.png", {1: HEX["foot"]}, {"1": "S1 valid footprint"}, f"s1_footprint_{d}", "s1_footprint", "s1_zone_cache valid masks")
+
+
+PROB = {1: ("P >= 0.95 (in nearly every world)", "#0b2a5c"), 2: ("0.75 <= P < 0.95", "#2a78d6"), 3: ("0.50 <= P < 0.75 (median world includes it)", "#7fb3e6"),
+        4: ("0.25 <= P < 0.50", "#eda100"), 5: ("0.05 <= P < 0.25 (marginal: a sill within the uncertainty)", "#f5d58a")}
+
+
+def prob_layers():
+    """P(new inundation) per cell from the coherent Monte-Carlo worlds (p95e --mode cellprob): classes by probability; the
+    P >= 0.5 classes are the median world -- the map product of the ensemble (maintainer 2026-09-30: the ensemble, not a hand
+    rule, decides marginal components)."""
+    import glob as _g
+    src = "p95e cellprob: share of the coherent Monte-Carlo worlds (T12) in which the cell is new inundation on the day; nominal world = draw 0"
+    z0 = list(ZONES)[0]; files = sorted(_g.glob(str(BULK / "floodplain_dyn" / f"{z0}_connected_ceiling" / "p95e_cellprob_2023-*.tif")))
+    for f in files:
+        d = Path(f).stem.split("_")[-1]; per = {}
+        for z in ZONES:
+            p = BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / f"p95e_cellprob_{d}.tif"
+            if not p.exists():
+                continue
+            with rasterio.open(p) as s:
+                cnt = s.read(1).astype("f4"); n = float(s.tags().get("n_draws", 1000)); tr, crs = s.transform, s.crs
+            pr = cnt / n; c = np.zeros(pr.shape, "u1")
+            for code, lo in ((5, 0.05), (4, 0.25), (3, 0.5), (2, 0.75), (1, 0.95)):
+                c[pr >= lo] = code
+            per[z] = (c, tr, crs)
+        m = mosaic(per)
+        write_png(m, OUTD / "terrain" / "prob" / f"{d}.png", {k: col for k, (_, col) in PROB.items()}, {str(k): lab for k, (lab, _) in PROB.items()}, f"terrain_prob_{d}", "terrain_prob", src,
+                  note="P >= 0.5 = the median world of the ensemble; the nominal map (terrain_daily) is one world and a diagnostic")
+        print("prob", d, flush=True)
+
+
+def s2_layers():
+    """Sentinel-2 optical water per date on the 10 m frames (p54a index stacks; NDWI > 0 AND MNDWI > 0 on valid cells -- the
+    repo's watermask convention, as p94): new water (not pre-breach water) and water on pre-breach water, plus the valid
+    footprint. Pre-breach water as in p95 rev 9: p60 pre_water_frac >= 20 % (optical) only -- Sentinel-1 darkness on 1-2 June
+    is not water (maintainer 2026-09-30).
+    Dates with < 30 % valid coverage of the corridor are written but flagged unreliable (p94_flood_dynamics_s2.csv)."""
+    import pandas as pd
+    S2 = pd.read_csv(CFG.TABLES / "p94_flood_dynamics_s2.csv")
+    rel = {r.date: bool(r.reliable) for r in S2[S2.region == "DNIPRO_CORRIDOR"].itertuples()}
+    cov = {r.date: float(r.coverage) for r in S2[S2.region == "DNIPRO_CORRIDOR"].itertuples()}
+    pre = {}
+    for f in ("B1", "B2"):
+        with rasterio.open(FR / f / "labels.tif") as s:
+            d_ = list(s.descriptions); wf = s.read(d_.index("pre_water_frac") + 1); tr = s.transform
+        p10 = wf >= 20
+        pre[f] = (p10, tr)
+    dates = sorted({p.name[:10] for f in ("B1", "B2") for p in (FR / f / "indices").glob("2023-*.tif") if "_valid" not in p.name and "2023-06-01" <= p.name[:10] <= "2023-08-31"})
+    for d in dates:
+        cls, foot = np.zeros((NY, NX), "u1"), np.zeros((NY, NX), "u1")
+        for f in ("B1", "B2"):
+            p = FR / f / "indices" / f"{d}.tif"
+            if not p.exists():
+                continue
+            with rasterio.open(p) as s:
+                d_ = list(s.descriptions); ndwi = s.read(d_.index("NDWI") + 1); mndwi = s.read(d_.index("MNDWI") + 1); nd = s.nodata
+            with rasterio.open(FR / f / "indices" / f"{d}_valid.tif") as s:
+                v = s.read(1) > 0
+            v &= (ndwi != nd) & (mndwi != nd); w = (ndwi > 0) & (mndwi > 0) & v
+            c10 = np.where(w & ~pre[f][0], 1, np.where(w & pre[f][0], 2, 0)).astype("u1")
+            g = to_grid(c10, pre[f][1], CRS.from_epsg(32636)); cls = np.where(g > 0, g, cls)
+            gv = to_grid(v.astype("u1"), pre[f][1], CRS.from_epsg(32636)); foot = np.where(gv > 0, gv, foot)
+            del ndwi, mndwi, v, w, c10
+        note = f"corridor coverage {cov.get(d, float('nan')):.0%}; " + ("reliable (>= 30 % of the corridor observed)" if rel.get(d, False) else "UNRELIABLE: < 30 % of the corridor observed (clouds / swath); not drawn in Fig04")
+        write_png(cls, OUTD / "s2" / f"{d}_water.png", {1: HEX["s2"], 2: HEX["s2pre"]}, {"1": "S2 new water (NDWI > 0 & MNDWI > 0; not pre-breach water)", "2": "S2 water on pre-breach water"},
+                  f"s2_water_{d}", "s2_daily", "p54a 10 m index stacks (Sentinel-2 L2A, SCL-masked): NDWI > 0 AND MNDWI > 0 on valid cells (watermask convention, p94); pre-breach water = p60 pre_water_frac >= 20 % OR S1 dark water 06-01/02", note=note)
+        write_png(foot, OUTD / "s2" / f"{d}_footprint.png", {1: HEX["foot"]}, {"1": "S2 valid footprint (cloud-free, in swath)"}, f"s2_footprint_{d}", "s2_footprint", "p54a <date>_valid.tif", note=note)
+        print("S2", d, note[:40], flush=True)
 
 
 def frame_layers():
@@ -209,7 +291,7 @@ def context_layers():
         feats.append(dict(type="Feature", properties=dict(name=f"frame {f}", kind="frame"), geometry=dict(type="Polygon", coordinates=[ring([(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)])])))
     s = importlib.util.spec_from_file_location("p92", REPO / "case_studies/kakhovka_2023/workflows/m6/p92_flood_area_dam_to_liman.py"); P92 = importlib.util.module_from_spec(s); s.loader.exec_module(P92)
     for nm, (x0, y0, x1, y1) in P92.CUT_RECTS.items():
-        y1 = min(y1, 5225000.0); feats.append(dict(type="Feature", properties=dict(name=nm, kind="cut_rect"), geometry=dict(type="Polygon", coordinates=[ring([(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)])])))
+        y1 = min(y1, 5225000.0); feats.append(dict(type="Feature", properties=dict(name=nm, kind="reporting_region"), geometry=dict(type="Polygon", coordinates=[ring([(x0, y0), (x1, y0), (x1, y1), (x0, y1), (x0, y0)])])))
     for nm, lon, lat in (("Kherson gauge 80805", 32.612026, 46.623750), ("Kakhovka dam", 33.3667, 46.7783)):
         feats.append(dict(type="Feature", properties=dict(name=nm, kind="point"), geometry=dict(type="Point", coordinates=[lon, lat])))
     (OUTD / "context").mkdir(parents=True, exist_ok=True)
@@ -223,7 +305,24 @@ def context_layers():
             geom = shape(ft["geometry"]).simplify(60); geom = stf(lambda x, y, z=None: tf.transform(x, y), geom)
             out.append(dict(type="Feature", properties=dict(name="p42 terrain-eligible floodplain", kind="floodplain"), geometry=mapping(geom)))
         (OUTD / "context" / "p42_floodplain.geojson").write_text(json.dumps(dict(type="FeatureCollection", features=out)))
-    for p in (q for q in (OUTD / "context").glob("*.geojson") if q.stem != "reservoir_pool"):     # reservoir_pool: registered by reservoir_layers
+    jp = OUTD / "context" / "s2_truecolour_2022-06-13.jpg"                                             # p97b: the paper's own Sentinel-2 basemap
+    if jp.exists():
+        MAN["layers"].append(dict(id=jp.stem, group="context", file=str(jp.relative_to(OUTD)), bounds=[[BBOX[1], BBOX[0]], [BBOX[3], BBOX[2]]], legend={},
+                                  source="Sentinel-2 L2A true colour, 13 and 20 June 2022 (R107 T36TUS/TUT/TVS/TVT, R064 T36TWS/TWT; 2022-06-03 fills), processed by the authors (p97b); "
+                                         "contains modified Copernicus Sentinel data 2022 -- the basemap of Fig07 / FigS14 / FigS16",
+                                  bytes=jp.stat().st_size, sha256=hashlib.sha256(jp.read_bytes()).hexdigest()))
+    sm = OUTD / "s2rgb" / "manifest.json"                                                       # p97c: Sentinel-2 true colour of every archive date
+    if sm.exists():
+        for d, e in sorted(json.loads(sm.read_text())["dates"].items()):
+            if not e.get("rendered"):
+                continue
+            jp = OUTD / e["file"]
+            MAN["layers"].append(dict(id=f"s2_truecolour_{d}", group="s2_truecolour", file=e["file"], bounds=[[BBOX[1], BBOX[0]], [BBOX[3], BBOX[2]]], legend={},
+                                      source=f"Sentinel-2 L2A true colour {d} ({', '.join(e['tiles'])}; {', '.join(e['orbits'])}), clouds as photographed, processed by the authors (p97c); "
+                                             f"contains modified Copernicus Sentinel data {d[:4]}",
+                                      note=f"clear {e['clear_share']:.0%} of the box (SCL cloud mask); seen {e['seen_share']:.0%}", clear_share=e["clear_share"], tiles=e["tiles"],
+                                      bytes=jp.stat().st_size, sha256=hashlib.sha256(jp.read_bytes()).hexdigest()))
+    for p in (q for q in (OUTD / "context").glob("*.geojson") if q.stem not in ("reservoir_pool", "gauges")):   # registered by reservoir_layers / support_layers
         MAN["layers"].append(dict(id=p.stem, group="context", file=str(p.relative_to(OUTD)), bounds=None, legend={}, source="own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)", bytes=p.stat().st_size, sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 
 
@@ -322,7 +421,7 @@ def reservoir_layers():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support", "frames"], help="rebuild only the reservoir, terrain, support or frame (U-Net, labels, RF20) layers, keep the rest of the manifest")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support", "frames", "context", "s1", "s2", "prob"], help="rebuild only the reservoir, terrain, support, frame (U-Net, labels, RF20), context (incl. the p97c true-colour dates), S1 or S2 layers, keep the rest of the manifest")
     a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
     if a.only == "terrain":                                               # e.g. after a new p95 run: keep every other layer, terrain first as before
         old = json.loads((OUTD / "manifest.json").read_text())
@@ -336,14 +435,29 @@ def main():
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in ("unet", "labels", "rf")]
         frame_layers(); print("frames", round(time.time() - t0), flush=True)
+    elif a.only == "prob":                                                # P(new inundation) per cell (p95e cellprob)
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] != "terrain_prob"]
+        prob_layers(); print("prob", round(time.time() - t0), flush=True)
+    elif a.only in ("s1", "s2"):                                          # the sensor masks (S1 20 m zone cache; S2 10 m index stacks)
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] not in (f"{a.only}_daily", f"{a.only}_footprint")]
+        (s1_layers if a.only == "s1" else s2_layers)(); print(a.only, round(time.time() - t0), flush=True)
+    elif a.only == "context":                                             # frames, reporting regions, gauges and dam, p42 floodplain
+        old = json.loads((OUTD / "manifest.json").read_text())
+        mine = {"frames_and_points", "p42_floodplain"}                    # written here; gauges / reservoir_pool belong to other steps
+        kept = [l for l in old["layers"] if l["id"] not in mine and l["group"] != "s2_truecolour"]; MAN["layers"] = []
+        context_layers(); MAN["layers"] = kept + [l for l in MAN["layers"] if l["id"] in mine or l["group"] == "s2_truecolour"]
     elif a.only == "reservoir":
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
     else:
         terrain_layers(); print("terrain", round(time.time() - t0), flush=True)
+        prob_layers(); print("prob", round(time.time() - t0), flush=True)
         support_layers(); print("support", round(time.time() - t0), flush=True)
         s1_layers(); print("s1", round(time.time() - t0), flush=True)
+        s2_layers(); print("s2", round(time.time() - t0), flush=True)
         frame_layers(); print("frames", round(time.time() - t0), flush=True)
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
         context_layers()

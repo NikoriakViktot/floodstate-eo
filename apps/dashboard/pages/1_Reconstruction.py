@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, INDICES, caption, figure, fmt_ref, header, raw, refs, table
+from lib import C, caption, figure, fmt_ref, header, INDICES, ink, raw, refs, table
 
 st.set_page_config(page_title="Reconstruction", layout="wide")
 header("Observation-constrained terrain-connectivity reconstruction: the daily reconstructed series",
@@ -14,7 +14,7 @@ d = raw("p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(
 h = raw("p95_daily_area_pooled_hand_and_ceiling.csv"); h["t"] = pd.to_datetime(h.date)
 u = table("T12")
 s1 = raw("p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
-region = st.selectbox("region", ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"], format_func=lambda r: {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets excluded)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}[r])
+region = st.selectbox("region", ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"], format_func=lambda r: {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets reported separately)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}[r])
 s = d[d.region == region]; uu = u[u.region == region].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t")
 fig = go.Figure()
 try:
@@ -49,9 +49,9 @@ st.caption(caption("T11k"))
 try:
     sc = raw("p95l_supported_core.csv"); sc = sc[sc.region == region].copy(); sc["t"] = pd.to_datetime(sc.date); sc = sc.sort_values("t")
     fs = go.Figure()
-    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_full_km2, mode="lines", line=dict(color="#0b0b0b", width=3), name="full reconstruction (nominal run, the primary product)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_full_km2, mode="lines", line=dict(color=ink(), width=3), name="full reconstruction (nominal run, the primary product)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
     fs.add_trace(go.Scatter(x=sc.t, y=sc.A_core_le10km_km2, mode="lines", line=dict(color=C["terrain"], width=2), name="supported core (nearest SWOT node <= 10 km)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
-    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_direct_km2, mode="lines", line=dict(color="#0b2a5c", width=1.5), name="direct (<= 3 km)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
+    fs.add_trace(go.Scatter(x=sc.t, y=sc.A_direct_km2, mode="lines", line=dict(color=("#7fb3e6" if ink() != "#0b0b0b" else "#0b2a5c"), width=1.5), name="direct (<= 3 km)", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
     if "A_cap10km_sensitivity_km2" in sc.columns:
         fs.add_trace(go.Scatter(x=sc.t, y=sc.A_cap10km_sensitivity_km2, mode="lines", line=dict(color=C["muted"], width=1.5, dash="dash"), name="sensitivity: no surface from nodes > 10 km", hovertemplate="%{x|%d %b}: %{y:.0f} km²"))
     ws = sc.share_weak.where(sc.A_full_km2 >= 1.0) * 100

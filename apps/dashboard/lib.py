@@ -13,6 +13,7 @@ CS = REPO / "case_studies" / "kakhovka_2023"
 T = CS / "tables"
 PT = CS / "publication" / "tables"
 PF = CS / "publication" / "figures"
+FM6 = CS / "figures" / "m6_v003A"                         # diagnostic figures of the m6 chain (p95zm satellite maps)
 DATA = APP / "data"
 C = {"terrain": "#2a78d6", "s1": "#eb6834", "unet": "#4a3aa7", "rf": "#1baf7a", "gauge": "#52514e", "muted": "#95a5a6"}
 RULES = ("Every model number is *agreement with weak reference labels*, never flood-mapping accuracy. "
@@ -58,6 +59,7 @@ def header(title: str, sub: str = ""):
     if sub:
         st.caption(sub)
     st.markdown(f"<small>{RULES}</small>", unsafe_allow_html=True)
+    st.caption("Theme: light / dark / system — app menu (top right) → Settings → Theme; maps follow with a dark basemap.")
 
 
 # ---- literature ------------------------------------------------------------------------------------------------------
@@ -176,3 +178,87 @@ def refs(keys, title: str = "📚 Relevant literature", expanded: bool = False, 
     box = (where or st).expander(title, expanded=expanded)
     box.markdown("\n".join(f"- {fmt_ref(k)}" for k in ks))
     return box
+
+# ---- basemaps (live tiles; attribution shown next to the map) and styled overlays ------------------------------------
+BASEMAPS = {
+    "Gray (CartoDB Positron)": dict(tiles="CartoDB positron", attr=None,
+                                     text="Basemap: CartoDB Positron (c) OpenStreetMap contributors, (c) CARTO"),
+    "Dark (CartoDB Dark Matter)": dict(tiles="CartoDB dark_matter", attr=None,
+                                       text="Basemap: CartoDB Dark Matter (c) OpenStreetMap contributors, (c) CARTO"),
+    "OpenStreetMap": dict(tiles="OpenStreetMap", attr=None, text="Basemap: (c) OpenStreetMap contributors (ODbL)"),
+    "Satellite: Sentinel-2 cloudless 2022 (EOX)": dict(
+        tiles="https://tiles.maps.eox.at/wmts/1.0.0/s2cloudless-2022_3857/default/g/{z}/{y}/{x}.jpg",
+        attr='<a href="https://s2maps.eu">Sentinel-2 cloudless</a> by <a href="https://eox.at">EOX IT Services GmbH</a> '
+             "(CC BY-NC-SA 4.0; contains modified Copernicus Sentinel data 2022)",
+        text="Basemap: Sentinel-2 cloudless (https://s2maps.eu) by EOX IT Services GmbH, CC BY-NC-SA 4.0, contains modified Copernicus "
+             "Sentinel data 2022 -- the year before the breach; live WMTS, non-commercial use"),
+    "Satellite: Esri World Imagery": dict(
+        tiles="https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}",
+        attr="Tiles &copy; Esri &mdash; Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community",
+        text="Basemap: Esri World Imagery (c) Esri -- Source: Esri, Maxar, Earthstar Geographics, and the GIS User Community; "
+             "live tiles, acquisition dates vary and may postdate the breach; never cached or redistributed by this app"),
+}
+S2RGB_TEXT = ("Overlay: Sentinel-2 L2A true colour of the selected date, clouds as photographed, processed by the authors (p97c); "
+              "contains modified Copernicus Sentinel data; a viewing product, not an input of any result")
+#: the satellite maps of the reed-bed evidence (p95zm): zone -> label, kind -> file stem
+SATMAPS = {"delta": "Kherson delta (ZONE_2)", "floodway": "floodway dam -> Kherson (ZONE_4)"}
+SATMAP_KINDS = {"every index (cloud-free period composites)": "index_classes", "Sentinel-1 VV, orbit 14 (spring median / 9 June / 21 June)": "s1_vv",
+                "k10e surface classes (best-covered dates)": "k10e", "NDVI": "NDVI", "NDWI": "NDWI", "MNDWI": "MNDWI", "NDMI": "NDMI", "BSI": "BSI", "AWEIsh": "AWEIsh", "NDTI": "NDTI",
+                "every index and backscatter by stratum and day of year (p95z)": "p95z"}
+OWN_S2 = dict(id="s2_truecolour_2022-06-13", file="context/s2_truecolour_2022-06-13.jpg",
+              name="Sentinel-2 true colour 13/20 June 2022 (own processing, as in the paper)",
+              text="Overlay: Sentinel-2 L2A true colour, 13 and 20 June 2022 (one year before the breach), processed by the authors; "
+                   "contains modified Copernicus Sentinel data 2022")
+#: how the support classes of the new inundation are drawn ON TOP of the blue flood layer: one physical category (new water),
+#: reliability as pattern -- weak = orange hatch, cross-river = red outline, retained water (memory sensitivity) = grey hatch
+SUPPORT_STYLE = {3: ("hatch", (237, 161, 0)), 4: ("outline", (227, 73, 72)), 6: ("hatch", (120, 128, 138))}
+
+
+def theme_type() -> str:
+    """'light' or 'dark': the theme the viewer chose in the app menu (Settings -> Theme; .streamlit/config.toml defines both)."""
+    try:
+        t = st.context.theme
+        return (getattr(t, "type", None) or "light")
+    except Exception:                                                        # no browser context (tests, bare mode)
+        return "light"
+
+
+def ink() -> str:
+    """The line colour that reads on the active theme: near-black on light, near-white on dark (Plotly follows the Streamlit theme)."""
+    return "#f0f0f0" if theme_type() == "dark" else "#0b0b0b"
+
+
+def basemap_index() -> int:
+    """Default basemap of the maps: the dark tiles under the dark theme, the gray ones otherwise."""
+    return list(BASEMAPS).index("Dark (CartoDB Dark Matter)" if theme_type() == "dark" else "Gray (CartoDB Positron)")
+
+
+def base_map(location, zoom, choice: str):
+    import folium
+    b = BASEMAPS[choice]
+    m = folium.Map(location=location, zoom_start=zoom, tiles=None, control_scale=True)
+    folium.TileLayer(tiles=b["tiles"], attr=b["attr"], name=choice, control=False, max_zoom=18).add_to(m)
+    return m
+
+
+@st.cache_data(show_spinner=False)
+def styled_overlay(file: str, mtime: float, scale: int = 2):
+    """RGBA array (scale x the PNG) drawing the support classes of a palette PNG as hatch / outline over transparency.
+    Rendered in the app from the class PNG the dashboard already carries -- no new data file."""
+    import numpy as np
+    from PIL import Image
+    a = np.array(Image.open(DATA / file).convert("P"))
+    codes = np.repeat(np.repeat(a, scale, 0), scale, 1)
+    H, W = codes.shape; out = np.zeros((H, W, 4), "u1")
+    ii, jj = np.indices((H, W)); stripes = ((ii + jj) % 8) < 3
+    for code, (kind, rgb) in SUPPORT_STYLE.items():
+        m = codes == code
+        if not m.any():
+            continue
+        if kind == "hatch":
+            sel = m & stripes
+        else:                                                                # outline: cells of the class minus their interior
+            inner = m.copy(); inner[1:, :] &= m[:-1, :]; inner[:-1, :] &= m[1:, :]; inner[:, 1:] &= m[:, :-1]; inner[:, :-1] &= m[:, 1:]
+            sel = m & ~inner
+        out[sel, :3] = rgb; out[sel, 3] = 230
+    return out

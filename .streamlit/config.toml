@@ -5,6 +5,36 @@ enableCORS = false
 [browser]
 gatherUsageStats = false
 
+# Two variants of the app theme (Streamlit >= 1.64 reads [theme.light] and [theme.dark]): the viewer picks light / dark /
+# system setting in the app menu (top right: Settings -> Theme); the choice is per browser. The palette follows the figures
+# (terrain blue #2a78d6, S1 orange #eb6834, U-Net violet #4a3aa7, RF20 green #1baf7a).
 [theme]
+primaryColor = "#2a78d6"
+font = "sans-serif"
+baseRadius = "medium"
+linkUnderline = false
+
+[theme.light]
 base = "light"
 primaryColor = "#2a78d6"
+backgroundColor = "#ffffff"
+secondaryBackgroundColor = "#f3f4f6"
+textColor = "#1f2328"
+linkColor = "#1f5fb5"
+borderColor = "#d9dde3"
+dataframeHeaderBackgroundColor = "#eef1f5"
+
+[theme.dark]
+base = "dark"
+primaryColor = "#5aa0e6"
+backgroundColor = "#0f1419"
+secondaryBackgroundColor = "#1a222c"
+textColor = "#e6e9ee"
+linkColor = "#8ec1f5"
+borderColor = "#2f3a47"
+dataframeHeaderBackgroundColor = "#1f2a36"
+codeBackgroundColor = "#161d26"
+
+[theme.dark.sidebar]
+backgroundColor = "#131a21"
+secondaryBackgroundColor = "#1f2a36"
