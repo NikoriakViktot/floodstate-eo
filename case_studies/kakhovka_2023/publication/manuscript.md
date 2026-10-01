@@ -1097,8 +1097,8 @@ connects it. The residual terrain correction is a class median: along the audite
 wetland by 0.4–0.6 m and under-corrects the lowland grass by 1–1.5 m (T15h, T15i), so local depths and volumes carry a bias of
 that order that the Monte-Carlo terrain term represents only as random error; a track-based local calibration of the residual
 against ICESat-2 is the terrain improvement this audit points to. Frame B3 (delta with the liman)
-not built; no probability-sample reference for any area; the UNOSAT product sheets behind the ~620 km² and ~180 km² figures were not
-obtained (quoted as cited by OCHA and by Yailymov et al. 2025). The reservoir balance rests on three to four level points, an upper
+not built; no probability-sample reference for any area; the UNOSAT product sheets behind the ~620 km² and ~180 km² figures were
+read (products 3616 and 3623), and both remain preliminary analyses not validated in the field. The reservoir balance rests on three to four level points, an upper
 bound at Nikopol on 12–13 June and a terrain hypsometry below the design table; the pool model ends on 13 June, and the later emptying
 is observed by Sentinel-2 only; the Sentinel-1 dark surface over the drained bed is not a water area. The S1-only detections above
 the surface are shown to be topographically unsupported, not attributed to a cause.
