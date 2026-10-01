@@ -105,8 +105,37 @@ benchmark practice separates the same quantities: observed water, observed flood
     Support of the new inundation (p95l, T11k/T11l; D-SUPPORT): every newly inundated cell classed by the distance of its nearest
     SWOT node — direct ≤ 3 km, extrapolated 3–10 km, weak > 10 km (operational thresholds) — with gauge-capped and cross-river
     flags; the full reconstruction is the primary product, the supported core (≤ 10 km) and the 10 km cap run are reported next
-    to it. The 100 000-draw emulator (p95g) is a computational diagnostic outside the evidence path (T12d; D-EMU). The model is
+    to it. The 100 000-draw emulator (p95g) is a computational diagnostic outside the evidence path (T12d; D-EMU).
+    Seed of the connectivity (D-SEED, 2026-09-30; p95 rev 8): the event source is the pre-breach RIVER NETWORK — the largest
+    connected component of the pre-breach water map (Dnipro with delta and side channels, Inhulets, Kokan'; the two frames'
+    maps composed where each has labels, which closes a 30 m label gap that had split the network at Kherson). Seeding from
+    every pre-breach water cell (the earlier rule) let isolated ponds "flood" ~40 km² of terrace cropland under the Kokan'
+    level 14 km away; that run is kept as the provenance variant `_seed_allprewater` and audited by p95o (three classes:
+    river-connected / trapped / isolated-never; lineage by a day-to-day overlap graph; T11m–T11o, FigS16). Retained water
+    after a lost connection is the `_memory` sensitivity (D-MEMORY; T11p), never the primary. The model is
     static: no momentum or continuity, no propagation time; hydraulic modelling is the next step (manuscript §5).
+    Pre-breach baseline (p95 rev 9, maintainer 2026-09-30): the optically observed pre-breach water (p60 Sentinel-2 water
+    frequency >= 20 %) plus the same-rule normal wetness. Sentinel-1 darkness on 1–2 June is NOT reference water (dry sand
+    and smooth fields are dark in C-band; 403 km² of the domain, mostly dry in later EO); it masks the Sentinel-1 new dark
+    water of the checks only (p94 S1, p95, p95c, p95d, p95o). S2 new water (p94, dashboard) uses the optical reference only.
+    Daily state mask between the EO dates (p95x, `[implemented]`): same-day EO, else the ensemble P(water) — WATER >= 0.8,
+    DRY <= 0.05, UNKNOWN between, and UNKNOWN in a recession between an EO WATER and the next EO DRY — with the source
+    (EO_S1, EO_S2, MODEL_STRONG, MODEL_WEAK, REFERENCE) and quality flags as metadata (storage-sensitive depressions, weak
+    connectivity, sensor-blind, reference-uncertain, recession-uncertain); UNOSAT 3614 is a check, never a label source.
+    Ground class before the event (p95x `ground_class.tif`, `[implemented]`): dry before the event / vegetated wetland complex
+    (WorldCover herbaceous wetland incl. reed beds above the normal surface, plus the model-only normally wet) / optical reference
+    water / other water. `p95e_split_areas` replays the p95e worlds per class (T12h): A_new,dry (new inundation of dry ground) and
+    the wetland's water-covered area and event increase over 5 June, reported apart and never summed; `p95z` (T12i) gives the
+    delta strata evidence (no optical water under the reeds in a normal June; spring C-band double bounce in normally-wet and
+    event-only reeds alike, in the delta and the floodway); `p95zm` maps the classified indices (p95h display bins) as cloud-free
+    period composites (per-cell median of clear observations), the peak with Sentinel-1 orbit 14, and k10e on the best-covered
+    dates -- single optical dates are not usable for the reed beds around the peak. Manuscript §3.3 / §4.1.1; the abstract still
+    reports the combined A_new (`[partial]`).
+    **Wetland evidence chain** (one product, one order; `rebuild.py --group wetland_evidence`): p95x ground classes -> p95e_split
+    (T12h) -> p95z strata evidence (T12i, T12j) -> p95zm cloud-free class maps (T12k-m; gated by the inventory) -> p95y UNOSAT
+    diagnostic (T16b, T16c) -> p95u observation inventory (T01b: zone x stratum x period x sensor, the gate of every diagnostic)
+    -> p96b `publication/WETLAND_EVIDENCE.md` (the full picture, generated from the tables). No new reed-bed scripts; changes
+    go inside these. Agreement metrics carry a passport (TERMINOLOGY; `tests/test_agreement_metrics.py`).
     Independent in-situ checks (p95k, T17c–T17f; not inputs): Inhulets – Kalynivske 80575, withheld from the primary water surface
     as a tributary validation site (absolute error, event-relative error free of a constant datum offset, peak timing, recession;
     the valley's new area split by the distance and river of its serving SWOT node), and the liman gauge Mykolaiv 98027. Yearbook

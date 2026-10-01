@@ -4,6 +4,144 @@ Written 2026-09-23, at the end of the session that created this repository's fir
 the "what stage are we at, what do we do when we come back" record — read this before doing anything else
 in this repo.
 
+## UPDATE 2026-09-30 — D-SEED: the event source of the connectivity is the river network; everything regenerated
+
+The QA of the weak-support blobs (`workflows/m6/p95o_component_qa.py`) found that seeding the connectivity from EVERY
+pre-breach water cell let isolated ponds "flood" ~40 km² of terrace cropland under the Kokan' level 14 km away (corridor 7 June:
+245 = 199 river-connected + 47 isolated-never km²). Maintainer decisions: **D-SEED_PRIMARY** = seed from the largest connected
+component of the pre-breach water map (p95 rev 8; the old rule = provenance variant `_seed_allprewater`); **D-MEMORY** = retained
+water is the `_memory` sensitivity only. A 30 m label gap at the zone boundary that split the network at Kherson is fixed
+(frames composed where they have labels). Level 2 (p95, variants, p95e 1000 worlds, p95o QA) and level 1 regenerated; T28 rows
+A47–A49; new tables T11m–T11p, FigS16; Sentinel-2 true colour of 13 June 2022 (own archive, `paper/p97b_s2_basemap.py`) is the
+basemap of Fig07 / FigS14 / FigS16 and an overlay of the dashboard (basemaps Gray / OpenStreetMap / EOX S2 cloudless 2022 / Esri
+World Imagery, live tiles with attribution). Headline numbers before this update are history (T28).
+Same day, two more products: **P(new inundation) per cell** over the same 1000 worlds (`p95e --mode cellprob`; T12g, FigS17,
+dashboard layer `terrain_prob_<date>`; the median world P >= 0.5 is the map product of the ensemble -- D-CELLPROB: the ensemble, not a
+hand cut, decides marginal components) and a **saddle audit** of the floodplain lowland south of Krynky, 10 km east of Kozachi Laheri (`p95p_saddle_audit.py`, three
+steps, the ICESat-2 step in the SWOT-DNIPRO venv; T15d-T15f, FigS18; Copernicus GLO-30 tiles under `$BULK/copdem/`): the sill at
+8.85 m is confirmed by ICESat-2 night ground (r +0.13 m, NMAD 0.37, n 35 at the terrace edge); head +0.68 m on 7 June, +0.13 m on
+8 June; the lowland stays in the median world on 7 June (P 0.83) and is marginal on 8 June (P 0.55). First rev-8 numbers: corridor
+A_new 7 June 219 [203-235] km2, 8 June 223 [179-246]; the areal maximum falls on 8 June in 58 % of the worlds (7 June 30 %).
+A **post-event wetness test** of the same lowland (`m6/p95q_moisture_trace.py`, diagnostic, not in the manuscript): Sentinel-2 NDMI / NDVI /
+SWIR contrast (B11-B12)/(B11+B12) per pixel against the matched 2022 dates, Sentinel-1 gamma0 same-orbit pairs, against an unflooded terrace
+control and two references (multi-day flood seen dark by S1 on 9 June; brief flood drained by then). No optical trace in the lowland
+(first clear view 15 June); the multi-day reference shows a strong vegetation-damage trace -> the optics exclude a multi-day flood.
+Sentinel-1 on 9 June (first look after the peak): the flooded cells are brighter than never-flooded cells of the same cover inside the
+same box (+1.9 dB on bare, pre-breach fire-scar ground; +0.4-0.5 dB on forest and grass), fading by 21 June -> a transient wet-soil
+signal that supports the brief 7-8 June inundation (one image, no same-orbit pre-breach scene, no rain data). Level-1 tail after the
+rev-8 chain: p96 --check OK, 0 unresolved placeholders, notebooks executed, pytest 124 passed.
+Local checks of 7 June (diagnostics, not in the manuscript): `m6/p95r_local_daily_maps.py` (daily maps and areas of Kozachi Laheri, Krynky
+and the lowland; OSM state of 5 June 2023) and `m6/p95s_unosat_crosscheck.py` (UNOSAT 3614 / ICEYE 7 June 12:18-13:01 UTC; convert step in
+the SWOT-DNIPRO venv): corridor new-water CSI 0.53 (total water 0.73), wetland POD 0.49 is the main miss; at Michurina street the ICEYE edge
+(134 m) and the reconstruction (134 m) agree; the lowland south of Krynky shows little open water at ICEYE midday but Landsat-9 water inside
+the reconstructed footprint on 9 June -> timing / retained water.
+EO recession test (`m6/p95t_eo_recession.py`; UNOSAT 7/9/13/21 June vs the frozen primary, memory and ensemble; nothing fitted): corridor
+model too slow 9->13 June and without the open-ground tail of 21 June; wetland plateau vs an observed peak; Krynky shape matches; the lowland
+south of Krynky fills later and drains with tau ~2 d, which neither variant reproduces -> a storage-drainage formulation is the next model
+step (calibrate on own S1/S2 series, keep UNOSAT as the test), then p95u (wetland misses).
+DEPRESSION_STORAGE v1 (`m6/p95v_depression_storage.py`, diagnostic, one depression, prior-predictive): mass balance through the p95p sill and
+the 11-km terrace (Manning, DEM cross-sections) vs a short weir; UNOSAT stays the hold-out. The weir (fast fill, like the primary) is rejected
+on every date; the friction path reproduces the empty ICEYE midday and the 13 June residual but gives too little water on 9 June and drains
+too slowly by 21 June: v1 does NOT pass the quantitative hold-out (2 of 2000 prior samples pass all dates). It rejects the instantaneous
+high-conveyance connection and narrows the admissible mechanisms (finite conveyance + transient storage); the single reservoir is
+inadequate. Next: distributed storage cells with inter-cell fluxes (the rim opens only in the NW corner: 40 m at 8.9 m, 5.8 km at 9.5 m),
+losses from soil / drainage -- before any calibration.
+DEPRESSION_STORAGE v2 (`m6/p95w_storage_cells.py`; subgrid storage cells, local inertial face fluxes, 100 prior runs at 200 m and 100 m on the
+GPU): 0/100 pass the hold-out at both resolutions. The 9 June area is reproduced (100 m: 98/100 runs within x2), but water enters too early
+(7 June) and the closed depression does not drain (13 / 21 June), whatever the losses up to 100 mm/d; observed water reached farther from the
+entry than modelled. Not converged (100 m areas 0.57-0.74 x 200 m). STOPPED here (maintainer 2026-09-30): no 50 m run, no v3. p95p-p95w
+are kept as diagnostic / limitation tests that empirically define the domain of validity of the weak-reference reconstruction (the hold-out
+rejects instant filling AND a closed depression without an outlet); the flow physics goes to HEC-RAS separately.
+p95 rev 9 (maintainer 2026-09-30): the pre-breach baseline is the optically observed pre-breach water (p60 Sentinel-2 frequency >= 20 %)
+plus the same-rule normal wetness. Sentinel-1 darkness of 1-2 June (403 km2 of the domain, mostly dry cropland / grass in later EO) is no
+longer reference water; it only masks the S1 "new water" of the checks (p94 S1, p95, p95c, p95d, p95o). S2 new water (p94, dashboard) uses
+the optical reference. Level 2 regenerated (all steps exit 0; `p95e_cellprob_daily` now `--workers 4`: 16 dates x 2 counters filled 23 GB
+with 8) and level 1 (CHECK OK, 0 unresolved, pytest 124). Corridor 7 June: A_new nominal 199.9 -> 214.8 km2, MC median 219.2 [202.5-235.0]
+-> 233.7 [216.0-253.7], W_total unchanged 716.2, V_new 576 -> 603 hm3 (T28 row A51). Of the 29 km2 S1-only cells under the 7 June surface,
+15 became new and 14 normally wet; S2 in July-August sees water on ~2.6 % of the 15 km2, so the gain is event water, not ponds. p95q holds
+(burnt +1.89 / +0.89 dB, forest +0.43 / -0.10, grass +0.62 / -0.07 on 9 / 21 June); p95w still 0/100 at 200 m and 100 m.
+p95e cellprob also writes P(water) (`p95e_cellprob_water[_daily]_<date>.tif`).
+State mask between the EO dates (`m6/p95x_weak_label_quality.py`, rewritten on the maintainer's review: best state + metadata, never
+uncertainty -> UNKNOWN): per day state DRY / WATER / UNKNOWN, source EO_S1 / EO_S2 / MODEL_STRONG / MODEL_WEAK / REFERENCE, flags
+STORAGE_SENSITIVE / WEAK_CONNECTIVITY / SENSOR_BLIND / REFERENCE_UNCERTAIN / RECESSION_UNCERTAIN, reference band. Same-day EO -> its state;
+else P(water) >= 0.8 WATER, <= 0.05 DRY, otherwise UNKNOWN; between an EO WATER and the next EO DRY the model's dryness is not accepted.
+Dark S1 is water only where P(water) > 0.05 that day or on reference water (the lowland south of Krynky showed 10 km2 of S1 "water" on
+21 June that S2 on 18/20/23 June and UNOSAT's own S1 did not). UNKNOWN 91-316 km2 per day (500-650 in the first version). 7 June vs ICEYE
+(no own EO, every state a model state): 91 % decided, accuracy 0.967, POD 0.94, FAR 0.08, CSI 0.87; MODEL_STRONG 1543 km2 accuracy 0.98 /
+CSI 0.91; MODEL_WEAK 54 km2 accuracy 0.65; storage-sensitive cells accuracy 0.56 (the lowland fills too early, as p95p-p95w showed).
+Late-June UNKNOWN is mostly model-only normally-wet reeds near the normal level (30 June: 223 of 309 km2 on that reference ground).
+A falling WATER curve is not drying (maintainer 2026-10-01): of the 291 km2 that were WATER on non-reference ground, on 30 June 6 km2
+are still WATER, 96 km2 DRY confirmed by EO since their last WATER (grass, crop), 126 km2 DRY by the model only (trees 41, reeds 35,
+built-up 23: EO cannot confirm dryness there) and 64 km2 UNKNOWN (reeds 49) -- p95x_transitions.csv. On the EO-decided cells of the
+same ground, EO and model water agree in area (9 June 107 vs 99 km2, 74 in both; p95x_eo_vs_model.csv).
+Audit of the external comparisons (`m6/p95y_disagreement_audit.py`, reviewer 2026-10-01; diagnostic comparison with external products,
+not an untouched independent test -- UNOSAT informed the baseline fix and the S1 screen): 7 June vs ICEYE on event ground (no
+normally-wet reeds): CSI 0.72 on decided cells; all UNKNOWN as DRY 0.49, as WATER 0.67; TRUE bounds over every UNKNOWN assignment
+0.41-0.81. 35 % of the ICEYE water lies in UNKNOWN, and UNKNOWN covers 34 % of the ICEYE water-edge cells against 7 % elsewhere. The
+0.87 first reported included 277 km2 of normally-wet reeds (CSI 0.97 alone). Cumulative 6-9 June vs UNOSAT's composite (ICEYE 7 June +
+S3 6-9 June + S2 8 June = the ~620 km2 of product 3616; read from the activation package FL20230606UKR served from the 3614 folder --
+not "3614 cumulative"): CSI 0.77 (both 460, ours only 52, UNOSAT only 85 km2). UNOSAT flood lies 272 km2 on normally-wet ground and
+273 km2 on event ground (ours 250): the area gap to our new water is mostly that reference, but 73 km2 of UNOSAT-only flood is on event
+ground (49 of it our UNKNOWN), so "all of the gap is the reference" is NOT shown. S1 9 June misses outside the normally-wet ground
+(67 km2 in the domain): 27 km2 Landsat-9 also water (reeds 0.2-0.4 m above the modelled surface: edge water the model misses), 39 km2
+grass / cropland 5-20 m above the surface without L9 water (S1 dark on dry ground). p95w 0/100 = rejection under its criterion (area
+within x2 on 7, 9, 13 and 21 June), not a passed check.
+Pre-event state of the reed marsh (`p95y` part 4, `m6/p95z_delta_indices.py`): open water seen before the breach on 2-7 % of the
+model-only normally-wet ground only (S2 frequency, UNOSAT S2 3-5 June, S1 dark). Optics never see water under the reeds (June 2022 and
+March 2023 MNDWI / NDWI / AWEIsh like dry-footed reeds; denser, wetter canopy: NDMI +0.31 vs +0.12) -- water shows optically only on
+8 June when the canopy was submerged. C-band does: spring 2023 (17 scenes) VV -7.9 dB in the normally-wet reeds and -8.1 in the
+event-only reeds vs -11.1 in dry-footed reeds (VV-VH +7.4 / +6.9 vs +5.5): the double-bounce signature of vegetation standing in
+water (or saturated, denser stands), dark when submerged on 9 June, brighter than spring on 14 June as the water dropped beneath the
+canopy. The radar does not see the DEM line between "normally wet" (baseline) and "event" reeds: both look alike before the breach.
+Two physically different quantities (maintainer 2026-10-01; reviewer's reading of p95z): p95x writes `ground_class.tif` (dry before the
+event / vegetated wetland = WorldCover herbaceous wetland or model-only normally wet / optical open water / other water) and the metadata
+flag VEGETATED_WETLAND; the daily mask stays WATER / DRY / UNKNOWN. `m6/p95e_split_areas.py` replays the same 1000 worlds (gate: sum =
+T12 A_new to 0.01 km2) -> T12h. Corridor 7 June: A_new on dry-before-event ground 145.9 [132.5-166.1] km2 (nominal 160.0); wetland
+complex under water 317.8 km2, 205.0 already on 5 June, event increase 113.7 [93.0-134.6]; with the Inhulets 181.4 [167.8-202.0] dry
+and 121.5 [100.3-144.2] wetland increase; 8 June 147.8 / 114.9 (corridor). 7 June vs ICEYE on dry ground: coverage 94.6 %, CSI 0.64 on
+decided cells, UNKNOWN->DRY 0.51, ->WATER 0.54, admissible interval 0.38-0.72; wetland CSI 0.96 (coverage 76.5 %). Cumulative 6-9 June,
+corridor + Inhulets, like for like: dry ground UNOSAT 171.5 vs ours 164.7 km2, both 119.8, CSI 0.55; vegetated wetland UNOSAT 370.8 vs
+ours 344.1, both 337.5, CSI 0.89 -- two thirds of UNOSAT's flood in our region is the wetland complex.
+Manuscript (2026-10-01, maintainer's literature check and wetland framing): §3.3 defines three pre-event ground classes (dry before the
+event / seasonally wet vegetated wetland / open reference water), A_new,dry, A_wet(t) (wetland inside the event extent) and dA_wet (a
+difference from the reconstructed 5 June state) with Martinis 2022, Lefebvre 2019, Slagter 2020, Oakes 2023. §4.1.1 reads the event
+extent and the pre-event state apart: A_wet 7 June 318 [304-334] km2 (robust), 5 June wetland water 205 [179-228] vs nominal 231 ->
+dA_wet 114 [93-135] is baseline-dependent. UNOSAT diagnostic per ground class (T16b, T16c): wetland CSI 0.89 but 0.79 by chance at the
+same coverage, Heidke 0.52 (92 % / 85 % of the wetland flooded in UNOSAT / ours) -> the wetland is inside the event extent without
+contradiction (UNOSAT-only 33 km2: 31 in our UNKNOWN, 0 EO-DRY, 2 model-DRY); the boundary is tested on dry ground (CSI 0.55, chance
+0.02, Heidke 0.70). Seasonal evidence p95z now covers the delta AND the floodway dam->Kherson (T12j compact, T12i windows): spring 2023
+S1 VV of normally-wet reeds -8.1 (delta) / -4.1 dB (floodway, VV-VH 10.6) vs -11.2 / -9.8 above the reach; event-only reeds -8.2 in
+both (delta = same as normally wet, floodway = in between); floodway S2 May - 5 June 2023: normally-wet reeds MNDWI -0.29 vs -0.46/-0.48
+(water shows through, not open water); 18 June NDVI 0.32 / 0.18 vs 0.78 / 0.76 normal. p95zm: cloud-free maps of the classified indices (p95h display
+bins) per zone -- single optical dates are useless here (the delta has no scene 5 March - 5 June 2023; 8 June clear 26 % delta / 18 %
+floodway), so each period is the per-cell median of the clear observations (normal year May-June 2022; last before the breach; recession
+16-30 June; July), the peak is mapped with Sentinel-1 orbit 14 (spring median / 9 June / 21 June) and k10e on the best-covered dates. UNKNOWN of the label ontology cites Bauer-Marschallinger 2022 / Roth 2025; T28 A52; TERMINOLOGY.
+The abstract, the conclusions and the claims still carry the old A_new as the headline -- switching them is the maintainer's decision.
+Process fix 2026-10-01 (maintainer: 'why does this go in circles, why never the full picture'): the record showed eight rework cycles
+caused by (1) no written specification of the full answer, (2) no check of what each sensor observed before drawing a diagnostic,
+(3) agreement numbers without their passport. Now: `p95u_evidence_inventory` (T01b: zone x stratum x period x sensor -- scenes,
+clear share, best scene; the gate of p95zm, which refuses a period composite below 50 % clear without --allow-partial);
+`p96b_wetland_evidence` -> `publication/WETLAND_EVIDENCE.md` (the full picture generated from the tables: availability matrix,
+quantities, pre-event evidence, UNOSAT diagnostic with chance level, maps, open decisions); the agreement passport (TERMINOLOGY;
+T13 gains footprint / coverage / CSI_chance / heidke_skill from the p94 footprint, T16b a coverage note; `tests/test_agreement_metrics.py`);
+`rebuild.py --group wetland_evidence` runs the chain p95x -> p95e_split -> p95z -> p95zm -> p95y -> p95u -> p96 -> fill -> p96b -> pytest;
+FigS19 = the Sentinel-1 new dark water by date as a paper figure (the p94 maps were a diagnostic only). Rule: write the matrix,
+check the inventory, deliver every cell or name the gaps, numbers with passports.
+Dashboard (maintainer 2026-10-01, Surface-context page): `p97c_s2_truecolour_dates` renders the Sentinel-2 true colour of every archive
+date over the lower Dnipro (224 dates 2017-2026, tiles TUS/TUT/TVS/TVT/TWS/TWT) on the dashboard box, clouds as photographed, clear
+share from SCL in the label, < 2 % clear not rendered (`apps/dashboard/data/s2rgb/`, side manifest registered by `p98 --only context`
+as group s2_truecolour); the page gets a year / date browser with RF20, S2 water and nearest-S1 overlays, and a 'Satellite maps'
+section showing the p95zm composites, the S1 orbit-14 series, k10e and FigS19. Bundle limit 100 MB (test_dashboard_bundle).
+Theme (maintainer 2026-10-01): `.streamlit/config.toml` now carries `[theme.light]` and `[theme.dark]` (Streamlit 1.64); the viewer
+chooses light / dark / system in the app menu (Settings -> Theme), the maps default to CartoDB Dark Matter under the dark theme
+(`lib.theme_type`, `basemap_index`, `ink` for chart lines); test_theme_config_has_light_and_dark_variants.
+Forwarded literature that did NOT check out: 'GFM CSI 0.11-0.81 across events' (Roth 2025 gives 0.03-0.97,
+> 0.70 in 10 of 18 and in all large-scale events), 'Sen1Floods11 hand labels with uncertain areas removed' (not in the paper);
+unread: Pulvirenti 2021 mechanism, Cohen 2022 'uncertain area', the Lefebvre Phragmites number (references_to_verify.md).
+OPEN for the maintainer: switch the headline (abstract, conclusions, C01-C03) to A_new,dry with dA_wet beside it; the remaining 73 km2 of
+UNOSAT-only flood on event ground; whether the p95x state mask and the ICEYE comparison enter the paper (with coverage and
+admissible interval, as a diagnostic comparison); verify the literature values marked VERIFY in T16 (3616, 3623, Kadam et al. 2024).
+
 ## UPDATE 2026-09-23 (late) — read this first; it supersedes the S1-coherence and ordering parts below
 
 **SWOT-DNIPRO no longer owns any of this chain.** Its commit `9419ea3` removed the flood-state branch; everything

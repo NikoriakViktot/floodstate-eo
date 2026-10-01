@@ -1,0 +1,74 @@
+{
+ "producer": "p95t_eo_recession.py",
+ "product": "3614",
+ "eo": {
+  "07_ICEYE": [
+   "2023-06-07",
+   "ICEYE X-band SAR 12:18-13:01 UTC",
+   "ICEYE_20230607_WaterExtent_KhersonskaOblast_UKR",
+   "ICEYE_20230607_AnalysisExtent_KhersonskaOblast_UKR",
+   null
+  ],
+  "09_L9": [
+   "2023-06-09",
+   "Landsat-9 optical 30 m",
+   "L9_20230609_WaterExtent_KhersonskaOblast_UKR",
+   "ST3_20230609_ST2_20230608_AnalysisExtent_KhersonskaOblast_UKR",
+   null
+  ],
+  "09_S3": [
+   "2023-06-09",
+   "Sentinel-3 optical 300 m (sensitivity)",
+   "ST3_20230609_WaterExtent_KhersonskaOblast_UKR",
+   "ST3_20230609_ST2_20230608_AnalysisExtent_KhersonskaOblast_UKR",
+   null
+  ],
+  "13_S2": [
+   "2023-06-13",
+   "Sentinel-2 optical 08:57 UTC",
+   "ST2_20230613_WaterExtent_KhersonskaOblast_UKR",
+   "ST2_20230613_AnalysisExtent_KhersonskaOblast_UKR",
+   "ST2_20230613_CloudObstruction_KhersonskaOblast_UKR"
+  ],
+  "21_S1": [
+   "2023-06-21",
+   "Sentinel-1 C-band SAR",
+   "ST1_20230621_WaterExtent_KhersonskarOblast_UKR",
+   "ST1_20230621_AnalysisExtent_KhersonskarOblast_UKR",
+   null
+  ]
+ },
+ "reference": "ST2_20230603_20230605_WaterExtent_KhersonskaOblast_UKR",
+ "primary_series": [
+  "07_ICEYE",
+  "09_L9",
+  "13_S2",
+  "21_S1"
+ ],
+ "post_series": [
+  "09_L9",
+  "13_S2",
+  "21_S1"
+ ],
+ "strata": {
+  "all": null,
+  "open ground": [
+   30,
+   40,
+   60
+  ],
+  "wetland": [
+   90
+  ],
+  "trees and shrub": [
+   10,
+   20
+  ],
+  "built-up": [
+   50
+  ]
+ },
+ "masks": "per date / common to 7-9-13-21 / common to 9-13-21, all on ground dry before the breach in both references",
+ "assumption": "Landsat-9 has no analysis extent or cloud layer in the product: the 9 June analysis extent of the activation stands for it",
+ "fitted": "nothing: frozen variants (primary, D-MEMORY sensitivity, p95e ensemble) compared as they are"
+}

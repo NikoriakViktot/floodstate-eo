@@ -37,3 +37,14 @@ def test_pages_run_headless(script, monkeypatch):
     monkeypatch.syspath_prepend(str(APP))
     at = st_testing.AppTest.from_file(str(APP / script), default_timeout=120).run()
     assert not at.exception, [e.value for e in at.exception]
+
+
+def test_theme_config_has_light_and_dark_variants():
+    """Maintainer 2026-10-01: a dark theme so that the viewer has the choice (Settings -> Theme); Streamlit >= 1.64 [theme.light] / [theme.dark]."""
+    import tomllib
+    cfg = tomllib.loads((APP.parents[1] / ".streamlit" / "config.toml").read_text())
+    th = cfg["theme"]
+    assert th["light"]["base"] == "light" and th["dark"]["base"] == "dark"
+    for v in ("light", "dark"):
+        assert {"primaryColor", "backgroundColor", "secondaryBackgroundColor", "textColor"} <= set(th[v])
+    assert th["dark"]["backgroundColor"].lower() != th["light"]["backgroundColor"].lower()

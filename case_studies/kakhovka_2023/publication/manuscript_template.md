@@ -33,11 +33,13 @@ built after the operating threshold of its optical component was recalibrated ou
 removed.
 
 **Results.** In the Dnipro corridor below the dam the reconstructed newly inundated area reaches
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June 2023 (Monte-Carlo median; p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km²),
-between the Sentinel-1 acquisitions of 6 June (partial) and 9 June; the areal maximum falls on 7 June in
-{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}} of the worlds and on 8 June, the day of the
-peak stage at Kherson, in {{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}}. The reconstructed
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June 2023 and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p50_km2||.0f}} km² on 8 June (Monte-Carlo medians; p05–p95
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p95_km2||.0f}} km²),
+between the Sentinel-1 acquisitions of 6 June (partial) and 9 June; the areal maximum falls on 8 June, the day of the peak stage at
+Kherson, in {{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} of the worlds and on 7 June in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}}. The reconstructed
 total water-surface area rises from {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_p50_km2||.0f}} km² in the pre-breach
 regime to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p50_km2||.0f}} km²
 ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²),
@@ -53,8 +55,8 @@ has a median of {{T12e|quantity=max_depth_event,region=DNIPRO_CORRIDOR|depth_med
 of the corridor's new area on 7 June rests on water-surface support farther than 10 km, and structural choices of that kind move
 the peak area by more than the Monte-Carlo width. The withheld Inhulets gauge shows the reconstructed surface
 {{T17d|id=e_abs_rising_max|value||}} too high while the backwater travelled up the tributary and its maximum
-{{T17d|id=peak_lag|value||}} early; the withheld liman gauge shows the western delta {{T17f|id=e_abs_at_max|value||}} off at the
-liman's maximum. The raw agreement with Sentinel-1 on 9 June is low (POD
+{{T17d|id=peak_lag|value||}} early; at the withheld liman gauge the reconstructed western delta stands
+{{T17f|id=e_abs_at_max|value||}} relative to the liman's maximum. The raw agreement with Sentinel-1 on 9 June is low (POD
 {{T13|variant=connected_ceiling,region=P42_FLOODPLAIN_DOMAIN,date=2023-06-09|POD||.2f}}, FAR
 {{T13|variant=connected_ceiling,region=P42_FLOODPLAIN_DOMAIN,date=2023-06-09|FAR||.2f}}) and mechanistic:
 {{T14|date=2023-06-09,category=C|km2_normally_wet|sum|.0f}} km² of Sentinel-1 "new water" lie on normally-wet reed beds (a
@@ -104,8 +106,12 @@ the daily surfaces presented here as the calibration target of a two-dimensional
 The study reach runs from the Kakhovka dam (46.78° N, 33.37° E) to the Dnipro–Buh liman (Fig01). Two frames on one 10 m lattice
 carry the EO products: B1 (dam → Kherson) and B2 (Kherson delta); the terrain reconstruction runs on the 20 m zone grids of
 Paper 2 (ZONE_4 dam-to-Kherson floodway, ZONE_2 Kherson delta), evaluated as one mosaic. The Inhulets tributary joins from the
-north with its own regime and is reported separately; the cut rectangles that isolate its valley and the terrace fragments were
-fixed in Paper 2 before any result of this paper existed. Table T01 lists every dataset with its role and evidence level:
+north with its own regime. The Inhulets valley was included in the terrain-connectivity reconstruction over the full model domain;
+its reconstructed new-water extent is displayed in full (Fig01, Fig07), but reported separately from the Dnipro-corridor total
+because the tributary has distinct hydraulic behaviour and substantially weaker local water-surface support. The reporting
+rectangles that separate its valley and the terrace fragments were fixed in Paper 2 before any result of this paper existed; they
+split the accounting and mask nothing. A combined corridor + Inhulets total is given only date-matched, within each Monte-Carlo
+world (T12f); the northern edge of the reconstruction domain cuts the valley, so its area is a lower bound. Table T01 lists every dataset with its role and evidence level:
 
 - **SWOT** L2_HR_RiverSP v2.0 nodes on the one-day calibration orbit (Biancamaria et al. 2016), 26 May–10 July 2023, {{T01|dataset=SWOT L2_HR_RiverSP v2.0 nodes (1-day orbit), accepted;|detail||}};
   node_q ≤ 1 and dark fraction < 0.5 as in Paper 1. Published comparisons place SWOT river heights at the centimetre-to-decimetre level against gauges and altimetric references (RMSE 0.02 m against Hydroweb-next on the Congo, Normandin et al. 2024; a global river error below 0.15 m, Yu et al. 2024), which is why the product's own node uncertainty wse_u (median {{T11b|component=swot_node_wse_u|sigma_m||.3f}} m here) is used as the per-node term of the Monte-Carlo (§3.4).
@@ -136,7 +142,7 @@ produce the reported areas, depths and volumes; independent observations (level 
 context (level 3) explains where the reconstruction and the sensors disagree; weak-label models (level 4) show what EO inputs
 recover and are scored only against weak labels. Every table carries its evidence level (independent_physical, cross_sensor,
 contextual or weak_label_agreement), and the Results follow the same order in four blocks (§4.1–§4.4). Every area in this paper
-is one of: observed_S1 (dark water on that date minus pre-breach water), mapped_UNet (score above the frozen threshold),
+is one of: observed_S1 (dark water on that date minus pre-breach water and minus cells already dark on 1–2 June), mapped_UNet (score above the frozen threshold),
 terrain_reconstructed (allowed by the water surface and connectivity, outside the normal regime) or literature_reported (an
 operational figure with its own AOI, date and reference water; context, never validation). No probability-sample reference
 exists, so none of them is an unbiased estimate of the true flooded area (Olofsson et al. 2014).
@@ -184,9 +190,20 @@ reference water network. Here this principle is applied with a spatially distrib
 H(x, y, t) derived from the SWOT nodes and the gauge, with a same-rule pre-breach baseline that separates new inundation from
 pre-existing water, and a propagated uncertainty (§3.4).
 
-A cell is water on day t if its terrain lies below the water surface and it is 8-connected, through such cells, to the pre-breach
-optical water network (p60 pre-water frequency ≥ 20 %), within 10 km of pre-breach water and downstream of the dam
-(*connected ceiling*, the primary rule). Two other rules bracket it: the p42 rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; more restrictive, because the delta drainage is incompletely mapped) and the ceiling without connectivity. The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)" (Bates 2022), and GeoFlood by design flags "local depressions such as ponds or waterbodies … even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the ceiling into a physically admissible extent; small channels that the 20 m grid does not resolve are a known control on floodplain connectivity (Neal et al. 2012), and in flat terrain the inferred flow path can differ from the real one (Guo et al. 2025) — the two reasons the rules are reported side by side rather than as one answer. The
+A cell is water on day t if its terrain lies below the water surface and it is 8-connected, through such cells, to the
+**pre-breach river network** — the largest connected component of the pre-breach optical water map (p60 pre-water frequency
+≥ 20 %): the Dnipro from the dam to the liman with its delta and side channels, the Inhulets and the Kokan' — within 10 km of
+pre-breach water and downstream of the dam (*connected ceiling*, the primary rule; decision D-SEED). The event source is the
+river network, not every pre-existing water body: seeding the connectivity from all pre-breach water cells — the earlier form
+of this rule, kept as the provenance variant *all-prewater seeding* (T12, T13, FigS16) — let a few pond and canal cells "flood"
+{{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|max_km2|max|.0f}} km² of WorldCover cropland on the left-bank sandy
+terrace under the Kokan' level extrapolated 14 km, with no terrain path to the river on any day (§4.2.3) — the case that
+terrain-index methods list as their limitation (Zheng et al. 2018) and that the connectivity requirement exists to exclude. The
+pre-breach water maps of the two frames are composed where each frame has labels, so that the network is one graph across the
+zone boundary (a 30 m strip without labels at the boundary had split it in two at Kherson). Water that entered a depression
+while it was connected and stays after the connection is lost is not held by a static rule; a *memory* variant — a cell
+inundated on day t − 1 stays inundated on day t while it is still below the surface, a storage hypothesis without infiltration
+or drainage — is reported as a sensitivity and never as the primary (D-MEMORY; §4.2.4, T11p). Two other rules bracket it: the p42 rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; more restrictive, because the delta drainage is incompletely mapped) and the ceiling without connectivity. The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)" (Bates 2022), and GeoFlood by design flags "local depressions such as ponds or waterbodies … even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the ceiling into a physically admissible extent; small channels that the 20 m grid does not resolve are a known control on floodplain connectivity (Neal et al. 2012), and in flat terrain the inferred flow path can differ from the real one (Guo et al. 2025) — the two reasons the rules are reported side by side rather than as one answer. The
 rule is evaluated once on the union of the two zone grids, so that a connection may cross the zone boundary; the overlap is
 attributed to the delta zone only for accounting (a per-zone evaluation with the ownership applied before the connectivity finds
 {{T11i|date=2023-06-07|mosaic_only_km2|sum|.1f}} km² of difference on 7 June, T11i). On the FABDEM cells the terrain enters after
@@ -194,11 +211,34 @@ subtraction of the residual class-dependent terrain-elevation bias, estimated pe
 ground differences (T18b; pooled medians: trees {{T18b|zone=POOLED,wc_class=trees|median||+.2f}} m, wetland
 {{T18b|zone=POOLED,wc_class=wetland|median||+.2f}} m, grass {{T18b|zone=POOLED,wc_class=grass|median||+.2f}} m, cropland
 {{T18b|zone=POOLED,wc_class=cropland|median||+.2f}} m); FABDEM is already a bare-earth DTM, so this is a residual bias, not a
-canopy correction, and the bed cells are used as surveyed. The *normal regime* is the union of the same rule over the pre-breach days 26 May–5 June plus the observed
-pre-breach water (Sentinel-1 1–2 June, p60); **new inundation** is water on day t outside that regime. Cells of the model-only
+canopy correction, and the bed cells are used as surveyed. The *normal regime* is the union of the same rule over the pre-breach days 26 May–5 June plus the optically
+observed pre-breach water (water in at least 20 % of the pre-breach Sentinel-2 observations, p60); **new inundation** is water on day t outside that regime.
+Sentinel-1 darkness on 1–2 June is not part of the regime: a dark C-band return over dry sand or a smooth field is not water, and most of
+that ground was dry in the later images (T28); it only masks the Sentinel-1 new dark water of the checks, where the sensor was already dark. Cells of the model-only
 normal regime ("normally wet": low reed beds below the normal surface that no optical or SAR mask lists as water) are kept as
 their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation: in flooded vegetation the double bounce raises C-band backscatter above the non-flooded level, but once the water rises over the plants the signal turns dark (Grimaldi et al. 2020; Jarrett et al. 2023; review: Tsyganskaya et al. 2018), so the date on which a reed bed goes dark is the date its canopy went under, not the date water arrived. With the terrain as delivered (no residual bias removed) those reed beds sit above the normal surface and count as new inundation; we report
 that run as a sensitivity (T12) and the two quantities — new inundation and wetland submergence — separately.
+
+*New inundation of dry ground and the response of the wetland complex.* The reed beds of the delta and of the floodplain were wetland,
+not dry ground, before the breach, and their inundation is a different physical quantity from the flooding of dry ground, so the two are
+reported apart. Flood mapping separates the event from the normally present water with a reference-water state, and taking its
+seasonal part into account reduces a potential over-estimation of the inundation extent (Martinis et al. 2022). Under emergent
+vegetation that state cannot be observed with the sensors used here: standard optical water indices systematically underestimate
+the flooding duration under a vegetation cover (Lefebvre et al. 2019), subcanopy flooding in high-vegetated wetlands could not be
+detected with Sentinel-1 VV/VH (Slagter et al. 2020), and in tropical herbaceous wetlands inundated vegetation can account for over
+three quarters of the inundated area, which open-water mapping does not detect (Oakes et al. 2023). Every cell therefore carries one
+of three pre-event ground classes (p95x): *dry before the event* — no optical pre-breach water, outside the normal regime, neither
+WorldCover herbaceous wetland nor water; the *seasonally wet vegetated wetland* — WorldCover herbaceous wetland (the reed beds,
+including those above the normal surface) and the model-only normally-wet ground, whose low reed beds carry a seasonal C-band
+signature of wet emergent vegetation before the breach (T12j) but for which no observation gives a binary map of water under the
+canopy on any given day; and *open reference water* — the optical pre-breach water (a few km² of other WorldCover water are kept
+apart). The **new inundation of dry ground** A_new,dry is the new inundation on the first class. On the wetland the event extent and
+the pre-event state are read apart: A_wet(t) is the part of the wetland inside the water extent on day t, and the **event increase**
+ΔA_wet(t) = A_wet(t) − A_wet(5 June), taken within each world, is a difference from the reconstructed pre-breach state — it attributes
+part of the inundated wetland to new inundation and inherits the uncertainty of that state. All are counted in the same coherent
+Monte-Carlo worlds as A_new (§3.4, T12h); world by world A_new is the sum of A_new,dry, its part on the wetland and a remainder on
+other water. A_wet and ΔA_wet are model quantities — no observation used here confirms or excludes water under the reed canopy — and
+they are never added to A_new,dry as one flooded area.
 
 The depth of a newly inundated cell on day t is H − z of the seamless terrain–bed model, and the *reconstructed new-water volume*
 V_new is its integral over the newly inundated area. The per-cell maximum of the daily depth over 26 May–10 July (Fig07a) is a
@@ -317,6 +357,8 @@ the final weak-label ontology used for manuscript analyses after correcting thre
 from the M2 label pathway (T02, T02c, T02d; truth tables and the lineage down to the composite windows in
 `docs/LABEL_CONTRACTS.md`). The v002 rule applied to the corrected M2 (v002_notrace), which has no REFERENCE_WATER class, is the
 reference of the label comparison of §4.4.4. For training, EVENT_FLOOD is 1, LAND and REFERENCE_WATER are 0 and UNKNOWN is ignored.
+Withholding the decision where the evidence is ambiguous follows operational practice: Bayesian Sentinel-1 flood mapping excludes
+decisions whose two class probabilities are close to equal (Bauer-Marschallinger et al. 2022; Roth et al. 2025).
 Every version remains a weak label: v004 is the most consistent of the three, not a reference of higher quality, and agreement with it is not accuracy.
 
 *The arms.* U-Net arms (ResNet-34 encoder from scratch, 512-px patches, masked binary cross-entropy + Dice loss (Milletari et al.
@@ -377,6 +419,80 @@ The newly inundated area then recedes with the Kherson stage:
 is {{T12|region=P42_FLOODPLAIN_DOMAIN,date=2023-06-08|A_p50_km2||.0f}} km² on 8 June. The Inhulets valley, reported separately and
 never added to the corridor, peaks at {{T12|region=INHULETS_VALLEY_rect,date=2023-06-09|A_p50_km2||.0f}} km² on 9 June; how well
 that is constrained is the subject of §4.2.3 and §4.3.1.
+
+Split by the pre-event ground class (§3.3, T12h), the new inundation of ground that was dry before the event is
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p50||.0f}} km² in the corridor on 7 June (p05–p95
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p95||.0f}} km²;
+nominal world {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_nominal||.0f}} km²),
+{{T12h|date=2023-06-08,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p50||.0f}} km² on 8 June and
+{{T12h|date=2023-06-13,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p50||.0f}} km² on 13 June; with the Inhulets valley,
+summed within each world, it is {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p50||.0f}} km²
+on 7 June ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p95||.0f}} km²).
+The rest of A_new lies on the wetland ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|new_km2_p50||.0f}} km² on 7 June) and on other water
+({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=other_water|new_km2_p50||.0f}} km²).
+
+On the seasonally wet vegetated wetland the event extent and the pre-event state are separate questions. Inside the event extent on
+7 June lie {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p50||.0f}} km² of the wetland (p05–p95
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p95||.0f}} km²; nominal world
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_nominal||.0f}} km²), a number the worlds agree on. The reconstructed pre-breach
+state of the same wetland does not: {{T12h|date=2023-06-05,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p50||.0f}} km²
+({{T12h|date=2023-06-05,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p05||.0f}}–{{T12h|date=2023-06-05,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p95||.0f}} km²) under water on
+5 June against {{T12h|date=2023-06-05,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_nominal||.0f}} km² in the nominal world, because on flat reed beds near
+the pre-breach water level the errors of terrain and water surface leave part of them dry on 5 June in almost every world, while the
+much higher event surface covers them again on 7 June. The event increase ΔA_wet,
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p50||.0f}} km²
+({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p95||.0f}} km²;
+nominal world {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_nominal||.0f}} km²), is therefore a difference from a
+reconstructed baseline, not an observed change: which part of the inundated wetland was newly flooded and which was already
+seasonally wet is the uncertain part of the result — not its extent.
+
+The comparison with the UNOSAT flood of 6–9 June (T16b; a diagnostic comparison, not validation) agrees with this reading. Over
+the corridor and the Inhulets valley UNOSAT places {{T16b|region=corridor + Inhulets,ground=vegetated wetland|UNOSAT_share_of_ground||.0%}} of the analysed wetland inside its flood
+and our daily states {{T16b|region=corridor + Inhulets,ground=vegetated wetland|ours_share_of_ground||.0%}}; the two disagree on {{T16b|region=corridor + Inhulets,ground=vegetated wetland|UNOSAT_only_km2||.0f}} km² — of which
+{{T16b|region=corridor + Inhulets,ground=vegetated wetland|UNOSAT_only_where_ours_UNKNOWN_km2||.0f}} km² are cells our state mask leaves UNKNOWN,
+{{T16b|region=corridor + Inhulets,ground=vegetated wetland|UNOSAT_only_where_ours_EO_dry_km2||.0f}} km² where an observation decides DRY and
+{{T16b|region=corridor + Inhulets,ground=vegetated wetland|UNOSAT_only_where_ours_model_dry_km2||.0f}} km² where the model does — and on {{T16b|region=corridor + Inhulets,ground=vegetated wetland|ours_only_km2||.0f}} km² the
+other way (CSI {{T16b|region=corridor + Inhulets,ground=vegetated wetland|CSI||.2f}}). With so much of the wetland flooded in both, the same two areas placed at random within it would
+already give CSI {{T16b|region=corridor + Inhulets,ground=vegetated wetland|CSI_chance||.2f}} (Heidke skill {{T16b|region=corridor + Inhulets,ground=vegetated wetland|heidke_skill||.2f}}): the comparison shows that the reconstruction puts the
+wetland inside the event extent without contradicting UNOSAT there, while the position of the flood boundary is tested on the dry
+ground — CSI {{T16b|region=corridor + Inhulets,ground=dry-before-event ground|CSI||.2f}} against {{T16b|region=corridor + Inhulets,ground=dry-before-event ground|CSI_chance||.2f}} by chance (Heidke skill {{T16b|region=corridor + Inhulets,ground=dry-before-event ground|heidke_skill||.2f}}). Against the ICEYE-based
+layer of 7 June alone the decided wetland cells agree at CSI {{T16c|ground=vegetated wetland|CSI_decided||.2f}}, with {{T16c|ground=vegetated wetland|coverage||.0%}} of the wetland
+decided and an admissible interval of {{T16c|ground=vegetated wetland|CSI_min||.2f}}–{{T16c|ground=vegetated wetland|CSI_max||.2f}} over every assignment of the UNKNOWN cells; on the dry
+ground {{T16c|ground=dry-before-event ground|CSI_decided||.2f}} on {{T16c|ground=dry-before-event ground|coverage||.0%}} decided, interval {{T16c|ground=dry-before-event ground|CSI_min||.2f}}–{{T16c|ground=dry-before-event ground|CSI_max||.2f}} (T16c).
+
+The seasonal observations show why the pre-event state is the uncertain part (T12j; every window in T12i), in the delta and in
+the floodway between the dam and Kherson, the two zones that hold the wetland of the corridor. In the same season of a normal year
+(13 June 2022) the normally-wet reed beds were dense, moist vegetation without optically visible water in both (median NDVI
+{{T12j|zone=delta,stratum=NW_REEDS|S2_jun2022_NDVI||.2f}} and {{T12j|zone=floodway,stratum=NW_REEDS|S2_jun2022_NDVI||.2f}}, MNDWI
+{{T12j|zone=delta,stratum=NW_REEDS|S2_jun2022_MNDWI||.2f}} and {{T12j|zone=floodway,stratum=NW_REEDS|S2_jun2022_MNDWI||.2f}}), and the last optical scene before
+the breach shows none either: 5 March 2023 in the delta (MNDWI {{T12j|zone=delta,stratum=NW_REEDS|S2_last_pre_MNDWI||.2f}}), 5 June 2023, the day
+before the breach, in the floodway (MNDWI {{T12j|zone=floodway,stratum=NW_REEDS|S2_last_pre_MNDWI||.2f}} on the
+{{T12j|zone=floodway,stratum=NW_REEDS|S2_last_pre_observed_km2||.0f}} km² seen through the clouds). The five floodway scenes of 6 May – 5 June
+2023 place the normally-wet reed beds at a higher MNDWI than the other reeds
+({{T12i|zone=floodway,window=spring_2023_S2,index=MNDWI,stratum=NW_REEDS|median||.2f}} against {{T12i|zone=floodway,window=spring_2023_S2,index=MNDWI,stratum=EVENT_REEDS|median||.2f}} where only the
+event reaches and {{T12i|zone=floodway,window=spring_2023_S2,index=MNDWI,stratum=HIGH_REEDS|median||.2f}} above its reach): water shows through the young canopy,
+but not as open water. C-band separates the strata more clearly. In the spring of 2023 the normally-wet reed beds had a VV of
+{{T12j|zone=delta,stratum=NW_REEDS|S1_spring2023_VV_dB||.1f}} dB in the delta and {{T12j|zone=floodway,stratum=NW_REEDS|S1_spring2023_VV_dB||.1f}} dB in
+the floodway, against {{T12j|zone=delta,stratum=HIGH_REEDS|S1_spring2023_VV_dB||.1f}} and {{T12j|zone=floodway,stratum=HIGH_REEDS|S1_spring2023_VV_dB||.1f}} dB
+on the reed beds above the reach of the flood and {{T12j|zone=delta,stratum=DRY_LAND|S1_spring2023_VV_dB||.1f}} and
+{{T12j|zone=floodway,stratum=DRY_LAND|S1_spring2023_VV_dB||.1f}} dB on dry ground, with a larger VV − VH difference
+({{T12j|zone=delta,stratum=NW_REEDS|S1_spring2023_VV_minus_VH_dB||.1f}} and {{T12j|zone=floodway,stratum=NW_REEDS|S1_spring2023_VV_minus_VH_dB||.1f}} dB
+against {{T12j|zone=delta,stratum=HIGH_REEDS|S1_spring2023_VV_minus_VH_dB||.1f}} and {{T12j|zone=floodway,stratum=HIGH_REEDS|S1_spring2023_VV_minus_VH_dB||.1f}} dB)
+— a signature consistent with wet or inundated emergent vegetation (the double bounce, §3.3) that establishes neither open water
+nor a depth. The reed beds that only the event reaches in the reconstruction are as bright as the normally-wet ones in the delta
+({{T12j|zone=delta,stratum=EVENT_REEDS|S1_spring2023_VV_dB||.1f}} dB) and in between in the floodway
+({{T12j|zone=floodway,stratum=EVENT_REEDS|S1_spring2023_VV_dB||.1f}} dB): the radar does not support the terrain model's line between them in
+the delta, so all reed beds are counted with the wetland. On 8 June the normally-wet reed beds of the delta read as open water
+(MNDWI {{T12i|zone=delta,window=peak,index=MNDWI,stratum=NW_REEDS|median||+.2f}}, NDVI {{T12i|zone=delta,window=peak,index=NDVI,stratum=NW_REEDS|median||+.2f}};
+{{T12i|zone=delta,window=peak,index=NDVI,stratum=NW_REEDS|observed_km2||.0f}} km² observed through the clouds; the floodway was cloud-covered), and on
+18 June, with the median MNDWI back below zero ({{T12i|zone=delta,window=recession,index=MNDWI,stratum=NW_REEDS|median||.2f}} and
+{{T12i|zone=floodway,window=recession,index=MNDWI,stratum=NW_REEDS|median||.2f}}), their NDVI was {{T12i|zone=delta,window=recession,index=NDVI,stratum=NW_REEDS|median||.2f}} and
+{{T12i|zone=floodway,window=recession,index=NDVI,stratum=NW_REEDS|median||.2f}} against {{T12j|zone=delta,stratum=NW_REEDS|S2_jun2022_NDVI||.2f}} and
+{{T12j|zone=floodway,stratum=NW_REEDS|S2_jun2022_NDVI||.2f}} in the normal year, while the reed beds above the reach of the flood kept their
+normal-year state (NDVI {{T12i|zone=delta,window=recession,index=NDVI,stratum=HIGH_REEDS|median||.2f}} and {{T12i|zone=floodway,window=recession,index=NDVI,stratum=HIGH_REEDS|median||.2f}}).
+Seasonal Sentinel-1 and same-season Sentinel-2 observations thus indicate that much of the reed complex was already hydrologically
+wet before the breach, but they do not provide a reliable binary map of open water beneath emergent vegetation on 5 June 2023: the
+event turned wet emergent vegetation into a submerged canopy — a canopy-inundation transition, not the flooding of dry ground.
 
 #### 4.1.2 Depth and duration
 
@@ -447,9 +563,10 @@ and {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|rel_halfwidth_V_pct||.0f}} % fo
 against the ensemble size and a second seed (T11c, FigS12: p05–p95 of the new area
 {{T11c|seed=20260929,n_draws=1000,date=2023-06-07|A_p05||.0f}}–{{T11c|seed=20260929,n_draws=1000,date=2023-06-07|A_p95||.0f}} km²
 with the primary seed, {{T11c|seed=20261001,n_draws=1000,date=2023-06-07|A_p05||.0f}}–{{T11c|seed=20261001,n_draws=1000,date=2023-06-07|A_p95||.0f}} km²
-with the second). The areal maximum falls on 7 June in
-{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}} of the worlds and on 8 June in
-{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} (T12c) [C01]. By the ablation (T11d), the
+with the second). The areal maximum falls on 8 June in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} of the worlds and on 7 June in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}} (T12c) [C01]; the two days share the maximum
+because on 8 June a large part of the left bank hangs on a sill a few decimetres below the surface (T11e, FigS17). By the ablation (T11d), the
 width of the new area comes mainly from the terrain term, that of the total water-surface area mainly from the water surface, and
 the upper tail on 13 June from the interpolation between node observations.
 
@@ -488,14 +605,83 @@ above the mouth, {{T11k|region=INHULETS_VALLEY_rect,date=2023-06-07|share_weak||
 constrained and {{T11k|region=INHULETS_VALLEY_rect,date=2023-06-07|A_cross_river_km2||.1f}} km² take their surface from a Dnipro
 node (cross-river flag); distance, not only the river of the node, limits the constraint.
 
+Distance is one axis of support; the seed of the connectivity is another. Every newly inundated component is classed by the
+seed its potential component hangs on and by its day-to-day lineage (overlap graph, ancestry by backward traversal; p95o, T11n):
+*river-connected* (it touches the river network on that day), *trapped* (not today, but it or an ancestor did on an earlier day)
+or *isolated, never connected*. Under the superseded all-prewater seeding,
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-07|A_isolated_never_km2||.0f}} km² of the corridor's
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-07|A_full_km2||.0f}} km² on 7 June
+({{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-07|share_isolated_never||.0%}}) and
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-06|A_isolated_never_km2||.0f}} km² of
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-06|A_full_km2||.0f}} km² on 6 June never touched the
+river network along their lineage: they hung on isolated pre-breach ponds and canals. The largest of them
+({{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|max_km2|max|.0f}} km² on 6–8 June; FigS16) is classified predominantly as
+cropland by WorldCover ({{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|wc_cropland|max|.0%}} of its cells) rather than
+bare or sparse land, although it lies within the broader sandy terrace landscape of the left bank; its water surface was the
+Kokan' level {{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|nearest_node_km_p50|max|.0f}} km away, its potential component
+held {{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|seed_bodies_in_pot_component|min|.0f}} seed bodies of
+{{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|seed_km2_in_pot_component|min|.3f}} km² in total, the nearest river-connected
+component lay {{T11m|verdict=ISOLATED_NEVER,region=DNIPRO_CORRIDOR|gap_to_river_component_m|max|.0f}} m away across ground above
+the surface, and the Sentinel-1 scenes saw no water in the part of it they observed (T11m). Neither 4-connectivity nor a
+one-cell erosion of the potential mask is the mechanism (T11n). This is the case the connectivity requirement exists to exclude
+(§3.3); the primary rule therefore seeds from the river network, under which the isolated class is empty by construction
+({{T11n|run=river network (primary),region=DNIPRO_CORRIDOR,date=2023-06-07|A_isolated_never_km2||.0f}} km² on 7 June), and the
+all-prewater run is kept as the provenance variant. On the recession the superseded run also held
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-09|A_trapped_km2||.0f}} km² on 9 June and
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-15|A_trapped_km2||.0f}} km² on 15 June in components
+that had been river-connected earlier and had lost the connection — retained water that only the memory variant keeps (T11p,
+§4.2.4). Land cover is not geomorphology: a WorldCover class of cropland or trees on the terrace says nothing about the sand
+beneath, which is why the maps of Fig07 and FigS16 are drawn on a Sentinel-2 true-colour image of the year before the breach.
+Where a Sentinel-1 scene exists on the same day, the new area on open ground (grass, cropland, bare) that the scene observed and
+showed without a water signal is also counted (T11n): {{T11n|run=river network (primary),region=DNIPRO_CORRIDOR,date=2023-06-09|A_s1_sameday_open_no_water_km2||.0f}} km²
+of {{T11n|run=river network (primary),region=DNIPRO_CORRIDOR,date=2023-06-09|A_s1_sameday_observed_open_km2||.0f}} km² observed
+on 9 June — a disagreement on ground where SAR sees water (forest, reed and built-up are not informative and are not counted),
+read with the timing caveat of §4.3.2 and never as a validation; a later scene does not contradict an earlier day. The floodplain lowland
+south of Krynky, 10 km east of Kozachi Laheri (33.12° E, 46.67° N; forest and grass at 7–8 m under a surface taken from side-channel nodes 5 km away)
+is the case in point: river-connected on 7–8 June and disconnected from 9 June, when the same-day scene shows its open ground
+without water, it is kept in the primary while connected and dropped once disconnected — the same rule as everywhere else, with
+the 9 June scene as a constraint on the recession, not as evidence about the peak two days earlier. A local audit of its sill
+(T15d–T15f, FigS18) finds the connection real within the terrain data: the lowest path from the river network climbs from the
+floodplain onto a terrace at {{T15d|surface=model_terrain_bias_removed,day=2023-06-07|z_saddle_m||.2f}} m and follows it for 6 km,
+the ICESat-2 night ground at the terrace edge lies {{T15e|cls=saddle_strip_200m|r_model_median_m||+.2f}} m from the model terrain
+(median of {{T15e|cls=saddle_strip_200m|n_points||.0f}} segments in the 200 m strip along the path, NMAD
+{{T15e|cls=saddle_strip_200m|r_model_nmad_m||.2f}} m), and the head of the water surface over the sill is
+{{T15d|surface=model_terrain_bias_removed,day=2023-06-07|delta_H_saddle_m||+.2f}} m on 7 June and
+{{T15d|surface=model_terrain_bias_removed,day=2023-06-08|delta_H_saddle_m||+.2f}} m on 8 June. Without the residual class bias
+the sill is {{T15d|surface=fabdem_uncorrected,day=2023-06-07|z_saddle_m||.2f}} m and there is no connection; the ICESat-2 residual
+of FABDEM as delivered in the same strip, {{T15e|cls=saddle_strip_200m|r_fabdem_median_m||+.2f}} m, is the bias the model removes.
+Copernicus DEM GLO-30 is a surface model — {{T15e|cls=forest|r_glo30_median_m||+.1f}} m above the ground under forest here (T15e) —
+and offers no path below the surface; it does not arbitrate. The two sills are not the same cells: the correction opens a different
+corridor (route overlap {{T15g|path_found_on=model|route_overlap_model_vs_raw_jaccard||.2f}}, T15g), along which FABDEM as delivered
+reaches {{T15g|path_found_on=model|sill_of_raw_along_path_m||.2f}} m in the forest of the terrace interior, where no ICESat-2 segment
+verifies the {{T15h|bin_km=13|correction_median_m||.1f}} m the class correction removes (T15h); the sill itself, at the terrace edge,
+is verified. Along the same path the class-median correction is locally wrong in both directions — the floodplain forest and wetland
+sit {{T15i|wc_path=trees|r_model_median_m||.1f}} and {{T15i|wc_path=wetland|r_model_median_m||.1f}} m below the ICESat-2 ground, the
+grass of the lowland interior {{T15i|wc_path=grass|r_model_median_m||+.1f}} m above it (T15i): a single class median is the expected
+residual of the class, not the residual of the cell, which is what the terrain term of the Monte-Carlo represents as random error.
+What terrain error can do is decide 8 June, not 7 June: the per-cell probability of the ensemble carries exactly that (T12g, FigS17).
+The remaining question for this lowland is no longer terrain but conveyance — whether the connecting channels could deliver, in the
+hours the surface stood above the sill, the volume that fills it — which only a hydraulic model answers (§5).
+Under the superseded seeding the trapped area of 9 June splits by that same-day verdict into
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-09|A_trapped_s1_water_km2||.0f}} km² with water (plausible
+retained water), {{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-09|A_trapped_s1_open_no_water_km2||.0f}} km²
+of open ground without water (likely drained) and
+{{T11n|run=all_prewater (superseded),region=DNIPRO_CORRIDOR,date=2023-06-09|A_trapped_s1_uncertain_km2||.0f}} km² without a usable
+observation — which is why retention stays a sensitivity (D-MEMORY) and not a rule.
+
 #### 4.2.4 Structural choices outside the budget
 
 The structural choices of the reconstruction are deterministic runs and are compared with the nominal run of the primary rule
 ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_central_km2||.0f}} km² on 7 June), not with the median (FigS02, T12): the p42 HAND
 rule gives {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_hand_and_ceiling_km2||.0f}} km², the ceiling without connectivity
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_ceiling_only_km2||.0f}} km², 4-connectivity
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_conn4_km2||.0f}} km², a seed restricted to the main stem
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_seed_mainstem_km2||.0f}} km² and a surface only from nodes within
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_conn4_km2||.0f}} km², the superseded seeding from every
+pre-breach water cell {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_seed_allprewater_superseded_km2||.0f}} km²
+(§4.2.3), the memory variant (retained water)
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_memory_km2||.0f}} km² on 7 June and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_connected_ceiling_memory_km2||.0f}} km² on 13 June (nominal
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_central_km2||.0f}} km²; the Sentinel-1 evidence on the retained cells in T11p)
+and a surface only from nodes within
 10 km {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_fallback10km_km2||.0f}} km²; declaring nodes unavailable
 beyond a 3-day gap leaves 7 June at {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_connected_ceiling_maxgap3_km2||.0f}} km² but
 raises 9 June to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-09|A_connected_ceiling_maxgap3_km2||.0f}} km² (nominal
@@ -567,7 +753,7 @@ follows the reconstruction and the gauge (Fig04).
 
 On 9 June the two zones together give A = {{T14|date=2023-06-09,category=A|km2|sum|.0f}} km², B (terrain only) =
 {{T14|date=2023-06-09,category=B|km2|sum|.0f}} km² and C (Sentinel-1 only) = {{T14|date=2023-06-09,category=C|km2|sum|.0f}} km²
-(T14, Fig05). B lies entirely below the reconstructed surface and is dominated by surfaces the dark-water rule cannot see:
+(T14, Fig05; the Sentinel-1 new dark water of every full-coverage date is mapped in FigS19). B lies entirely below the reconstructed surface and is dominated by surfaces the dark-water rule cannot see:
 {{T14|date=2023-06-09,category=B|km2_wc_trees|sum|.0f}} km² trees, {{T14|date=2023-06-09,category=B|km2_wc_wetland|sum|.0f}} km²
 wetland and {{T14|date=2023-06-09,category=B|km2_wc_built|sum|.0f}} km² built-up. C splits by ground elevation:
 {{T14|date=2023-06-09,category=C|km2_ground_below_surface|sum|.0f}} km² below the surface and
@@ -775,12 +961,16 @@ Neither is the corridor snapshot of this paper. T16 carries the area, quantity a
 
 ## 5. Discussion
 
-Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum (7 June) lies between the Sentinel-1
-acquisitions of 6 and 9 June, and it is not the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream peak
-stages by 8 June from the same SWOT data). Maximum extent and maximum stage are different quantities whose timing changes along a
-100 km reach — floodplain storage and drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade et al. 2023) —
-and the day of the areal maximum is the most model-dependent number of this paper: it is where the water-surface-constrained
-reconstruction adds what no acquisition can give, and where Paper 5's hydraulic model will be tested. The reservoir makes the same
+Discrete EO acquisitions undersample the event hydrograph: the reconstructed areal maximum (8 June in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} of the worlds, 7 June in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}}) lies between the Sentinel-1 acquisitions of
+6 and 9 June. In most worlds it coincides with the day of the peak stage at Kherson (8 June; Lehnigk et al. 2026 report downstream
+peak stages by 8 June from the same SWOT data), but not in all: maximum extent and maximum stage are different quantities whose timing
+changes along a 100 km reach — floodplain storage and drainage produce hysteresis between extent, volume and stage (Fassoni-Andrade
+et al. 2023) — and the day of the areal maximum is the most model-dependent number of this paper: on 8 June a water surface a few
+decimetres lower disconnects tens of km² of the left bank (T11e, FigS17), which is why the two days share the maximum across the
+worlds. It is where the water-surface-constrained reconstruction adds what no acquisition can give, and where Paper 5's hydraulic
+model will be tested. The reservoir makes the same
 point from the other side: in the first week the pool lost most of its volume while keeping most of its area, and the area collapse
 that a satellite mask would call "the drawdown" came a week later (§4.1.3).
 
@@ -794,6 +984,23 @@ is carried, how gaps in the node series are bridged, and which water network see
 than the interval (§4.2.4). A reconstruction of this kind should therefore be reported with its support classes and structural
 sensitivities next to its interval, and read as the extent implied by the observed surface under stated rules rather than as a
 measured flood map.
+
+**External consistency is qualitative.** The rapid assessment of UNEP (2023) collects the operational and modelled figures of
+this flood: about 620 km² of flooded land on 9 June within a 19 000 km² analysed area (UNOSAT; over 630 km² per MEPNR) falling to
+about 40 km² by 3–5 July, a maximum observed extent between 6 and 9 June, an Inhulets flooded by "an inflow of water and
+blocking of the river's outflow", culmination depths of 6–10 m on the islands and floodplain between the dam and the Inhulets,
+4–6 m from the Inhulets to Kherson and 2–4.5 m from Kherson to the estuary in the DHI MIKE 21 simulation, and 14.4 km³ (72.5 %)
+of the reservoir lost by 13 June. Each of these agrees in kind with the reconstruction — the timing of the maximum, the
+backwater in the Inhulets (§4.3.1), the depth gradient along the reach (T12e) and the pool volume that fell from
+{{T21|date=2023-06-05|V_pool_km3||.1f}} to {{T21|date=2023-06-13|V_pool_km3||.1f}} km³ between 5 and 13 June (T21) — but none
+of them validates it: the areas differ in semantics and domain (flooded land in a much larger area against new inundation
+relative to a same-rule baseline in a terrain-connectivity domain, §3.1), the simulation is uncalibrated and its recession was
+"not correctly simulated" by the authors' own account, and the operational products are preliminary. One external figure is
+a warning rather than a check: UK CEH classified less than 2 % (about 871 ha) of the inundated land as cropland, whereas the
+superseded all-prewater seeding had placed a single 41 km² (4 100 ha) component of WorldCover cropland on the left-bank terrace
+(§4.2.3). Ukrainian officials indicate that the Oleshky Sands National Nature Park, "located well above the Dnipro
+floodplain", avoided flooding; the reconstruction places no new water on bare or sparse land there, while cropland and pine
+on the sandy terrace below the park are a different question that only the Sentinel-2 image answers.
 
 **Why the reconstruction needs a hydraulic model.** The reconstruction is static (§3.3): gravity is present only implicitly — a cell
 floods when its terrain lies below the water surface and a connected path leads to it — and scaling both heights by *g* changes
@@ -868,7 +1075,14 @@ the delta on 9–13 June is sensitive (§4.2.4) and which leave the upper Inhule
 the delta has no observation from {{T17f|id=serving_node_unobserved|value||}}. No full-coverage satellite scene on the day of the
 reconstructed areal maximum; the date-only gauge against 11:00 UTC SWOT passes. Weak labels whose positives are a persistence product,
 whose optical component is trained on Sentinel-1-derived labels, three training seeds per arm, test blocks read at several stages
-(exploratory comparisons), the W_pre circularity of U2b, and one event (no transfer to another flood). Frame B3 (delta with the liman)
+(exploratory comparisons), the W_pre circularity of U2b, and one event (no transfer to another flood). The primary rule has no
+storage memory: water that entered a depression while connected is dropped on the day the connection is lost (the memory
+variant keeps it, as a sensitivity, T11p); and the seed network is the largest connected component of a 20 m pre-breach water
+map, so a water body linked to the river only by a channel narrower than the grid is a source only once the flood itself
+connects it. The residual terrain correction is a class median: along the audited path it over-corrects the floodplain forest and
+wetland by 0.4–0.6 m and under-corrects the lowland grass by 1–1.5 m (T15h, T15i), so local depths and volumes carry a bias of
+that order that the Monte-Carlo terrain term represents only as random error; a track-based local calibration of the residual
+against ICESat-2 is the terrain improvement this audit points to. Frame B3 (delta with the liman)
 not built; no probability-sample reference for any area; the UNOSAT product sheets behind the ~620 km² and ~180 km² figures were not
 obtained (quoted as cited by OCHA and by Yailymov et al. 2025). The reservoir balance rests on three to four level points, an upper
 bound at Nikopol on 12–13 June and a terrain hypsometry below the design table; the pool model ends on 13 June, and the later emptying

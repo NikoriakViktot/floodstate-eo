@@ -1,0 +1,52 @@
+{
+ "producer": "p95e_split_areas.py",
+ "n_draws": 1000,
+ "seed": 20260929,
+ "workers": 8,
+ "dates": [
+  "2023-06-05",
+  "2023-06-06",
+  "2023-06-07",
+  "2023-06-08",
+  "2023-06-09",
+  "2023-06-11",
+  "2023-06-13",
+  "2023-06-14",
+  "2023-06-18",
+  "2023-06-21"
+ ],
+ "seconds": 1110,
+ "ground_classes": {
+  "0": "dry_before_event",
+  "1": "vegetated_wetland",
+  "2": "open_water_reference",
+  "3": "other_water",
+  "4": "outside"
+ },
+ "ground_source": "$BULK/floodplain_dyn/_weak_labels/ground_class.tif (p95x)",
+ "worlds": "identical to p95e (same draw index, RNG stream, setup)",
+ "gate": [
+  {
+   "date": "2023-06-07",
+   "split_p50": 233.71,
+   "p95e_p50": 233.7,
+   "split_nominal": 214.86,
+   "p95e_nominal": 214.862
+  },
+  {
+   "date": "2023-06-08",
+   "split_p50": 239.3,
+   "p95e_p50": 239.3,
+   "split_nominal": 226.61,
+   "p95e_nominal": 226.6052
+  },
+  {
+   "date": "2023-06-09",
+   "split_p50": 200.89,
+   "p95e_p50": 200.9,
+   "split_nominal": 171.26,
+   "p95e_nominal": 171.258
+  }
+ ],
+ "decision": "maintainer 2026-10-01: A_new on dry-before-event ground and the vegetated-wetland inundation reported separately"
+}

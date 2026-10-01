@@ -237,3 +237,6 @@ case_studies/kakhovka_2023/tables/p95e_draws*.csv.gz
 # runtime artifacts of the rebuild command and the open example (review F16)
 case_studies/kakhovka_2023/tables/rebuild_runs.jsonl
 examples/tiny_geodomain/output/
+
+# throwaway smoke runs of the training chain (level-0 / F16 checks): never committed
+case_studies/kakhovka_2023/runs/_smoke_*/

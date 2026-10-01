@@ -1,0 +1,5 @@
+group,km2,landcover,S2_prebreach_water_freq_gt0_share,S2_prebreach_water_freq_median_pct,UNOSAT_S2_reference_water_share,S1_spring_observed_km2,S1_spring_scenes_median,S1_spring_dark_ever_share,S1_spring_dark_half_share,S1_spring_VV_dB_median,S1_spring_VH_dB_median,S1_spring_VV_minus_VH_dB_median,terrain_P_under_prebreach_surface_median,terrain_P_under_ge_0p8_share,ICEYE_0607_water_share
+model-only normally wet (all),300.73,"{'reeds (herbaceous wetland)': 214.7, 'trees': 61.3, 'water': 16.7, 'grass': 7.4, 'built-up': 0.4}",0.019,0.0,0.072,298.68,15.0,0.128,0.047,-6.65,-14.94,7.96,0.71,0.349,0.972
+"model-only normally wet, reeds",214.74,{'reeds (herbaceous wetland)': 214.7},0.012,0.0,0.044,214.66,15.0,0.094,0.022,-5.97,-15.11,9.06,0.683,0.337,0.993
+"reeds on higher ground (not normally wet, > 0.5 m above the pre-breach surface)",64.59,{'reeds (herbaceous wetland)': 64.6},0.005,0.0,0.009,52.55,15.0,0.109,0.006,-9.24,-15.49,5.99,0.002,0.0,0.869
+optical pre-breach open water,263.51,"{'water': 246.8, 'reeds (herbaceous wetland)': 11.5, 'cropland': 2.6, 'grass': 1.6, 'built-up': 0.6}",0.88,100.0,0.869,254.35,15.0,0.964,0.911,-18.08,-23.23,5.4,1.0,0.903,0.723

@@ -1,5 +1,5 @@
 {
- "rev": 6,
+ "rev": 7,
  "rule": " (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters):\n    H_t(cell)   = median H_t of the K = 5 nearest SWOT nodes within 3 km (+ margin, central 0.0 m); each node time-filled\n                  between its own observations (observed / interpolated / held flags kept); the Kherson gauge is one more\n                  node; cells > 15 km from a node and west of the gauge: min(that, gauge_t). Coarse 100 m lattice anchored\n                  in map coordinates (so zonal and mosaic evaluations coincide), replicated to 20 m.\n    C_t         = z_terrain < H_t  AND  dist to pre-breach water <= 10 km  AND  downstream of the dam (x < dam - 1 km)\n    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach optical water network (p60 pre_water_frac\n                  >= 20 %), the published flood-fill logic (terrain below the surface AND connected to known water);\n                  hand_and_ceiling (p42 rule, additionally HAND < H_t - 1 m; lower bound where the delta drainage is unmapped)\n                  and ceiling_only (no connectivity; upper bound) are sensitivities.  depth_t = H_t - z_terrain.\n    N_t         = P_t AND NOT B,  B = observed pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %) OR P on ANY\n                  pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the breach by construction).\n                  The model-only part of B (\"normally wet\": low reed beds below the normal surface that no optical/SAR mask\n                  lists as water) is its own validation category -- S1 dark-water onset there is a DEPTH signal.\n",
  "constants": {
   "SWOT_MARGIN_M": 0.0,
@@ -55,7 +55,12 @@
    "gauge": "river yearbook BS-77 -> EVRF2019 (EPSG:9902 at the post), column H_gauge_evrf",
    "icesat2": "ATL08 h_te + free2mean - zeta_EGG2015 + c (Paper 2 / p57 chain)"
   },
-  "checked": "assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column"
+  "checked": "assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column",
+  "paper1_frame": {
+   "fabdem_shift_m": 0.0377,
+   "kherson_delta_epsg9902_m": 0.207594,
+   "note": "Paper 1 v6 production chain: FABDEM cells raised by c_production - c_tide-free (Paper 2 paired + free2mean with the tide-free closure); Kherson gauge at the post's own EPSG:9902 step"
+  }
  },
  "rule_variant": "connected_ceiling",
  "closure": "kherson_paper1",

@@ -76,6 +76,18 @@ spatial support of the water surface and of the nonlinearity of the connectivity
   (≤ 10 km) and the 10 km cap run as a sensitivity. Corridor, 7 June (nominal): 243.2 km² = direct 73.1 + extrapolated 108.5
   + weak 61.7 km² → **25 %** weak, core 181.5 km² (the cap run: 180.2 km²); 9 June 7 %, 13 June 2 %; p42 domain 6 %; Inhulets
   93 % weak (cross-river 11.3 km²). The classes add up to the p95 new area on all 276 zone-region-day rows (asserted).
+- **D-SEED_PRIMARY (decided, 2026-09-30):** the event source of the connectivity is the pre-breach **river network** (largest
+  connected component of the pre-breach water map: Dnipro + delta + side channels, Inhulets, Kokan'), not every pre-existing
+  water cell. The QA of the weak-support blobs (p95o) showed that under all-prewater seeding a 41 km² component of WorldCover
+  cropland on the left-bank sandy terrace (33.25 E 46.64 N, terrain 9–11 m) hung on four pond cells under the Kokan' level
+  extrapolated 14 km, with no terrain path to the river on any day — corridor 7 June: 245 = 199 river-connected + 47
+  isolated-never km² (19 %); 6 June 186 = 126 + 60 (32 %). Not a thin neck (4-connectivity ≤ 0.5 km²/day). Also found and
+  fixed: a 30 m strip without labels at the zone boundary split the pre-breach network in two at Kherson (p95 rev 8 composes
+  the frames' water maps where each has labels). Everything downstream regenerated (p95, variants, p95e 1000 worlds, tables,
+  figures, dashboard, notebooks); the old rule is the provenance variant `_seed_allprewater` (T11m–T11o, FigS16, T28).
+- **D-MEMORY (decided, 2026-09-30):** retained water after a lost connection ("wet yesterday → wet today while below the
+  surface") is a storage hypothesis without infiltration or drainage: a sensitivity (`_memory`, T11p, checked against
+  Sentinel-1), never the primary.
 - **C03 / support ontology (decided):** as above; the Inhulets claims are restricted by the support classes (distance first;
   the lower-valley nodes also stood metres above the tributary on 6 June), cross-river is a flag.
 - **D-EMU (decided):** the emulator leaves the evidence path — a computational diagnostic only (T12d); removed from T12,

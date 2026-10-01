@@ -1,0 +1,26 @@
+{
+ "producer": "p95y_disagreement_audit.py",
+ "p95_rev": 9,
+ "questions": "reviewer 2026-10-01: CSI bounds and ICEYE water in UNKNOWN; spatial overlap of the cumulative 6-9 June masks; the S1 9 June residual misses; the pre-event state of the model-only normally-wet ground",
+ "unosat_source": "activation FL20230606UKR shapefile package served from unosat_filesystem/3614 (layers of several products; the cumulative 6-9 June composite ICEYE 7 June + S3 6-9 June + S2 8 June corresponds to product 3616, ~620 km2)",
+ "s1_spring": {
+  "caches": {
+   "ZONE_2_KHERSON_DELTA": "ZONE_2_KHERSON_DELTA_flood_june2023_pre2023",
+   "ZONE_4_DAM_TO_KHERSON_FLOODWAY": "ZONE_4_FLOODWAY_june2023_s32_pre2023"
+  },
+  "window": "2023-04-15 .. 2023-06-02",
+  "min_valid_scenes": 5,
+  "note": "mean of dB over valid scenes; dark = the cache's per-scene water mask"
+ },
+ "terrain_sigma": {
+  "sigma_H_m": 0.133,
+  "terms": [
+   "datum_closure_kherson",
+   "gauge_daily",
+   "swot_node_wse_u",
+   "interpolation_gap_cv"
+  ],
+  "terrain": "p95e class sigma per cell"
+ },
+ "nothing_fitted": true
+}

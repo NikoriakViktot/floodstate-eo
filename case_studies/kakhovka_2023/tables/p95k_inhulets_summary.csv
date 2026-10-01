@@ -32,7 +32,7 @@ rise_reconstruction,reconstructed rise to its maximum at the gauge,+9.28 m
 rise_gauge_daily,gauge rise to its maximum (daily means),+5.87 m
 support_at_gauge,"water-surface support at the gauge, 26 May - 10 July",46 of 46 days nearest_node_fallback from the Dnipro node 22511300080231 at 39.5 km (observed on 42 of those days); nearest Inhulets (same-river) node 40.8 km
 upstream_discharge,"Inhulets discharge at Kryvyi Rih 80568, 1-20 June (yearbook table 1.3)",0.68-3.86 m3/s (mean 3.48); 2023 annual mean 5.79 m3/s
-terrain_at_gauge,"floodplain terrain around the post (land cells within 250 m, rev 6)","median 5.15 m, p25 4.11 m EVRF2019 (409 cells; the post's own cell is the channel, WorldCover 80)"
+terrain_at_gauge,"floodplain terrain around the post (land cells within 250 m, rev 6)","median 5.19 m, p25 4.15 m EVRF2019 (409 cells; the post's own cell is the channel, WorldCover 80)"
 days_gauge_above_terrain,days with the gauge level above that floodplain (median),4 (2023-06-09 .. 2023-06-12)
 days_reconstructed_new,days with reconstructed new inundation on >= 50 % of that floodplain,7 (2023-06-06 .. 2023-06-12)
 yearbook_high_water,"high-water period in the yearbook remark (vol. 2, item 114)",2023-06-07 .. 2023-06-18 (houses and the road bridge 0.75 km upstream flooded)

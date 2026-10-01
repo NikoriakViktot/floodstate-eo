@@ -59,7 +59,7 @@ def main():
         un = lambda k: np.unpackbits(z[k], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
         new, normally_wet = un(d), un("normally_wet")
         w = wse_on(d, margin); dz = L["dem"] - w
-        v = L["V"][d] & L["own"] & ~L["cut"]; s1 = L["W"][d] & ~L["pre"] & v
+        v = L["V"][d] & L["own"] & ~L["cut"]; s1 = L["W"][d] & ~(L["pre"] | L["s1_pre_dark"]) & v
         cat = np.full(base.shape, "", dtype="U1"); cat[v] = "N"; cat[v & new & ~s1] = "B"; cat[v & s1 & ~new] = "C"; cat[v & s1 & new] = "A"
         with rasterio.open(CFG.BULK_ROOT / "worldcover_frames" / zone / "wc_2021_20m.tif") as s:
             wc = np.full((G["ny"], G["nx"]), 0, "u1"); reproject(s.read(1), wc, src_transform=s.transform, src_crs=s.crs, dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)

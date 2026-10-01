@@ -1,0 +1,22 @@
+item,km2,share,note
+"S1 new dark water 9 June, corridor",295.2,,
+"reconstructed new water 9 June (nominal), corridor",171.26,,
+missed by the reconstruction,236.26,,
+  of which on model-only normally-wet ground,169.45,,
+  of which elsewhere (the residual),66.81,,
+residual: Landsat-9 9 June water there (analysed by L9),27.49,0.412,
+residual: ICEYE 7 June water there (analysed by ICEYE),28.75,0.709,
+residual: ensemble P(water) >= 0.8,0.0,,
+residual: 0.05 < P(water) < 0.8,27.47,,
+residual: P(water) <= 0.05,39.34,,
+residual: in storage-sensitive depressions,1.88,,
+residual: within 100 m of the reconstructed water,8.4,,
+residual: > 1 km from the reconstructed water,36.65,,
+residual: terrain > 1 m above the 9 June surface,38.18,,
+"residual: terrain > 1 m above the surface, no L9 water, analysed by L9",36.78,,
+residual: land cover,66.81,,"{'reeds (herbaceous wetland)': 26.5, 'grass': 24.0, 'cropland': 15.3, 'trees': 0.3, 'bare': 0.3}"
+"residual: terrain minus 9 June surface, m (p25 / p50 / p75)",,,0.29 / 3.22 / 12.55
+residual with L9 water: land cover,27.49,,"{'reeds (herbaceous wetland)': 25.0, 'grass': 2.0, 'cropland': 0.4, 'water': 0.1, 'trees': 0.1}"
+"residual with L9 water: terrain minus 9 June surface, m (p25 / p50 / p75)",,,0.16 / 0.27 / 0.42
+residual without L9 water (analysed): land cover,39.31,,"{'grass': 22.1, 'cropland': 14.9, 'reeds (herbaceous wetland)': 1.6, 'bare': 0.3, 'trees': 0.3}"
+"residual without L9 water (analysed): terrain minus 9 June surface, m (p25 / p50 / p75)",,,5.14 / 10.48 / 19.92

@@ -12,7 +12,16 @@ pass under a hierarchy of evidence, and all heights aligned with the validated v
 
 ## Headline results (numbers from the tables of this release)
 
-<!-- filled from T12 / T12c / T11k / T17d / T21 / T07s / T06s at release time -->
+- Dnipro corridor, 7 June 2023 (the areal maximum in 76 % of the 1000 Monte-Carlo worlds, 8 June in 24 %): reconstructed newly
+  inundated area 264 km² (p05–p95 252–280), total water-surface area 785 km² (760–813), new-water volume 635 hm³ (591–683); 25 % of
+  the new area rests on water-surface support farther than 10 km (supported core 184 km²). T12, T12c, T11k.
+- Depth: the maximum depth of the new inundation has a median of 2.05 m, 52 % of the cells deeper than 2 m (nominal-world geometry;
+  T12e, Fig07). Reservoir: 18.8 → 4.2 km³ between 5 and 13 June (13 June an upper estimate), a daily-mean effective release of
+  40 057 m³/s on 7 June; the area collapsed in the second week (Sentinel-2 on 20 June: 648 km² of water; Fig11, T21, T23b).
+- Withheld gauges: Kalynivske (Inhulets) +9.50 m above the gauge on 6 June and the maximum 3 days early; Mykolaiv (liman) −0.82 m at
+  the liman's maximum on 8 June (T17d, T17f).
+- Weak-label ML (v004, three seeds): the weak-label treatment of reference water changes the predictions over reference water by
+  13.8–48.8 km² in every seed; the earlier HAND effect on the cropland burden did not reproduce (+1.0, +7.6, −3.8 km²). T07s, T06s.
 
 ## Main changes since v0.3.0-rc1
 

@@ -8,7 +8,11 @@
  },
  "method": "sloped daily surface interpolated along the SWORD chainage between outlet (SWOT), Nikopol (press), Rozumivka (gauge), G-REALM; integrated under the DEM inside the pool polygon; chainage = polyline dam-Nikopol-Rozumivka scaled to SWORD anchors",
  "bs77_to_evrf_m": 0.185,
+ "surface_upper_bound_days": [
+  "2023-06-12",
+  "2023-06-13"
+ ],
  "pool_cells": 863911,
  "cell_km2": 0.0025,
- "seconds": 6
+ "seconds": 5
 }

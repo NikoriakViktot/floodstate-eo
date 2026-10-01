@@ -1,0 +1,7 @@
+{
+ "table": "p59_swot_vs_kherson.csv",
+ "delta_epsg9902_m": 0.207594,
+ "previous_step_m": 0.2076,
+ "source": "Paper 1 v6 (SWOT-DNIPRO release paper1-v6): EPSG:9902 grid at the post's own coordinates",
+ "stage": "river yearbook BS-77 stage (water_level_m_abs), unchanged"
+}

@@ -1,0 +1,5 @@
+wc_path,n,r_model_median_m,r_raw_median_m,r_model_nmad_m
+trees,103,-0.62,1.08,0.45
+grass,111,0.98,1.37,1.02
+water,6,-0.23,-0.06,0.07
+wetland,165,-0.38,0.21,0.43

@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-09-29T20:57:21Z",
- "git_commit": "b0a32c5bc38bf8cb64a08109c5bf6316d3ae689a",
+ "generated_utc": "2026-10-01T07:43:33Z",
+ "git_commit": "d93515b4c1da4bd40276921f4a63ae9f5f9d66fd",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -14,6 +14,15 @@
     "case_studies/kakhovka_2023/tables/p77d_v003_A_scene_qa.csv"
    ],
    "sha256": "1c73e2c0d02ed3f9666c46abbf437bfd13cd557f70885d95f2960d47385c59f4"
+  },
+  "T01b": {
+   "caption": "Observation inventory of the reed-bed question (p95u): per zone (delta, floodway, Inhulets rectangle), stratum (p95z strata, p95x ground classes, ALL), period and sensor -- the number of scenes, the share of the stratum with at least one clear observation in the period, the mean clear share per scene, the best scene. Sensors: Sentinel-2 (p54a valid mask of the zone's frame), Sentinel-1 orbit 14 and all orbits of the zone caches (covered), k10e (frozen products, observed = classed), UNOSAT layers (dates only). The gate of the composites (p95zm: a period below 50 % needs --allow-partial) and the reason a diagnostic is or is not possible.",
+   "evidence_level": "cross_sensor",
+   "rows": 738,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95u_evidence_inventory.csv"
+   ],
+   "sha256": "6e79897f8478747371f706576341ff50ed57d1a56c1b8bf27a473559cf07f432"
   },
   "T02": {
    "caption": "Weak reference labels per frame, km2: v002 (FLOOD / NON_FLOOD / IGNORE) and v003_A (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN), built on the original M2 (with the post-event TRACE window, in-sample threshold; frozen history), and v002_notrace and v004, the same rules on the corrected M2 (no TRACE, out-of-fold threshold; review F09/F10). EVENT_FLOOD is pixel-identical to the FLOOD of the v002 version it inherits.",
@@ -47,7 +56,7 @@
     "case_studies/kakhovka_2023/tables/p65b_m2_folds.csv",
     "case_studies/kakhovka_2023/tables/p65b_m2_folds_notrace.csv"
    ],
-   "sha256": "a165668eedc640074e386971bda4416a48ff445d669c3869173a3afca53db1ea"
+   "sha256": "85ad0378b7518714dd5aa4d5de8eca6e1224daf4451b6c68334b65485eac16a0"
   },
   "T02d": {
    "caption": "What the corrected M2 changed in the weak labels: pixel transitions v003_A -> v004 and v002 -> v002_notrace per frame (km2 and share of the source class). The S1 inputs, the May reference state and W_pre are identical in both versions of a pair, so every change comes from the M2 masks (review F09/F10).",
@@ -251,8 +260,18 @@
    ],
    "sha256": "1e3f5e10507d508ecbb249f22ce76bcc683caff94d41acb80a0006dff1cc0cf9"
   },
+  "T07s": {
+   "caption": "Attribution comparisons of the arms on the canonical v004 labels per training seed (D-SEEDS: three seeds are the minimum evidence unit): the label effect at fixed inputs (U2 trained on v002_notrace -- the v002 rule on the corrected M2, without a REFERENCE_WATER class -- vs U2 on v004), the HAND input (U2 - U0d) and the W_pre input (U2b - U2; not independent, W_pre is a label ingredient). Per seed the median and 95 % block-bootstrap interval (2000 paired resamples on identical TEST blocks; both runs of a pair share the seed), the number of seeds whose interval excludes zero, sign agreement and the range of the seed medians. Endpoints against the v004 labels; agreement with weak labels, not accuracy.",
+   "evidence_level": "weak_label_agreement",
+   "rows": 39,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p90_v003A_paired.csv",
+    "case_studies/kakhovka_2023/tables/p90_v004_paired.csv"
+   ],
+   "sha256": "2538c504756b0787323f3fbe0d2dd2215ad3472e61206bb6105841e3b2425588"
+  },
   "T08": {
-   "caption": "Cropland-associated SAR candidates (p89 audit): groups A (water before the breach), B (wet/irrigated agriculture), D (unresolved / likely SAR artefact) per arm and frame.",
+   "caption": "Cropland-associated SAR candidates (p89 audit of the historical v002 arms; provenance, not re-run on the canonical v004 labels): groups A (water before the breach), B (wet/irrigated agriculture), D (unresolved / likely SAR artefact) per arm and frame.",
    "evidence_level": "weak_label_agreement",
    "rows": 36,
    "sources": [
@@ -261,7 +280,7 @@
    "sha256": "09b0ce87efc0c9d468a02743ef6148b2740c2d5fec530d88d43704400e8ad593"
   },
   "T08b": {
-   "caption": "Retention of U0d candidate area by the other v002 arms (fraction of km2).",
+   "caption": "Retention of U0d candidate area by the other v002 arms (fraction of km2; historical v002 arms, provenance -- the input effects on v004 with three seeds are in T06s).",
    "evidence_level": "weak_label_agreement",
    "rows": 3,
    "sources": [
@@ -319,9 +338,9 @@
    "sha256": "e10419549112030602d3869d59f4eec8244f68fb4fd27b6e319d436b42fa0c7c"
   },
   "T11": {
-   "caption": "Terrain reconstruction (rev 6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias and vertical datum per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.",
+   "caption": "Terrain reconstruction (rev 7, in the vertical frame of Paper 1 v6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias, vertical datum and the Paper-1 frame constants (FABDEM shift, Kherson EPSG:9902 step) per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.",
    "evidence_level": "independent_physical",
-   "rows": 11,
+   "rows": 12,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_hand_and_ceiling.json",
@@ -329,13 +348,14 @@
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_dem_uncorrected.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_closure_p59_m050.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_conn4.json",
-    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_seed_mainstem.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_seed_allprewater.json",
+    "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_memory.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_maxgap3.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_riveraware.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_inhulets_gauge_node.json",
     "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_fallback10km.json"
    ],
-   "sha256": "33af5c57732ca3ded652445df90dafc3a27f204bf8c6f04284fe825f1f1c4cc7"
+   "sha256": "69fa9de4b5b236b44d401743cf208c00b1608fb27d3ac358cf3bf2321de13493"
   },
   "T11b": {
    "caption": "Uncertainty components of the terrain reconstruction (Monte-Carlo inputs, p95e rev 2): datum closure of the SWOT chain, gauge, SWOT node height, gap-dependent interpolation error, the correlation model of the terrain-error field (nugget + nested exponential structures fitted to the standardized FABDEM - ICESat-2 residuals, p95j) and the class-wise FABDEM residual scale per zone (own zone where N >= 500, else pooled and flagged transferred); bed cells of the seamless terrain-bed model carry no stochastic term (limitation).",
@@ -353,7 +373,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95e_convergence.csv"
    ],
-   "sha256": "fed6ca76c898031d6d1e0c136338566c2656839f6c94dd073132767aab68ec9b"
+   "sha256": "d3efb2e768eb695f99fcc7f7b36f2871e3276197cb02d724b07e0fedf794859d"
   },
   "T11d": {
    "caption": "Ablation of the uncertainty budget (250 draws per variant, key dates): the full budget; terrain only; water surface only; baseline fixed at the nominal regime; with a per-day SWOT term of 0.05 m; without the interpolation term; without the nugget; with a single exponential instead of the nested covariance -- attribution of the width and of the offset between the nominal run and the ensemble median.",
@@ -362,7 +382,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95e_ablation.csv"
    ],
-   "sha256": "7a782c58911e834043e05b45e8f7d7f12161f494542f3acddfbd0aade07950a1"
+   "sha256": "7bc37b6048c2c142395386547a880876b566de55f35e4e62095bcccc446a858d"
   },
   "T11e": {
    "caption": "Sensitivity of the connected reconstruction to a uniform offset of the water surface (-0.20 ... +0.20 m) on the nominal terrain with the nominal baseline: W_total, A_new, V_new and the local derivatives dA/dH, dW/dH (corridor, Inhulets, p42 domain; 7, 9, 13 June). A sensitivity of the connectivity thresholds, not a new model.",
@@ -371,7 +391,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95e_wse_threshold_sensitivity.csv"
    ],
-   "sha256": "11fc038e15fcfc5d6729d01dac6730e75c428cf07b4e858a23939f4b0c80fee2"
+   "sha256": "8e99739e47a4c3e3b6ad0fdaef518084c9c9d1bc8c7d746d6905c2dd5fd7ce63"
   },
   "T11f": {
    "caption": "Error of the per-node time interpolation from a whole-date hold-out: residual NMAD / RMSE by gap length (1, 2, 3-4, 5-8, > 8 days) for interpolated and end-held node-days; the superseded one-day triplet estimate for comparison.",
@@ -390,19 +410,20 @@
     "case_studies/kakhovka_2023/tables/p95_wse_support_cells_connected_ceiling.csv",
     "case_studies/kakhovka_2023/tables/p95_wse_support_nodes_connected_ceiling.csv"
    ],
-   "sha256": "dd7ef4ad1a36f416ff53ea450ec58608173e26647b5318a4894b4d7cf3c4d5dc"
+   "sha256": "0e2dd1beff34afa5484feea16a0edb63c0228abd3086e34e2ef69be335151be4"
   },
   "T11h": {
-   "caption": "From rev 5 to rev 6 of the reconstruction (nominal runs, key dates): the committed rev-5 result reproduced exactly by the rev-6 code in legacy mode, then one change at a time -- the water-surface lattice anchored in map coordinates, connectivity on the union mosaic with ownership for accounting only (review F06), and the FABDEM-only residual terrain bias per zone with bed cells uncorrected (review F07).",
+   "caption": "From rev 5 to rev 7 of the reconstruction (nominal runs, key dates): the committed rev-5 result reproduced exactly by the rev-6 code in legacy mode, then one change at a time -- the water-surface lattice anchored in map coordinates, connectivity on the union mosaic with ownership for accounting only (review F06), the FABDEM-only residual terrain bias per zone with bed cells uncorrected (review F07) = rev 6, and the vertical frame of Paper 1 v6 (the Kherson gauge at the post's own EPSG:9902 step, the FABDEM terrain and the ICESat-2 ground in the production chain; 2026-09-30) = rev 7.",
    "evidence_level": "independent_physical",
-   "rows": 60,
+   "rows": 75,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyTZA.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyTZ.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyT.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_rev6.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv"
    ],
-   "sha256": "37889ca8944f574cf1620327183ef3c85b4e7a6cb00a72f9a1ee2545cc0cd771"
+   "sha256": "f2d187f0f750c8c4d918e330bc1607136b6085ded7d940dbdb3919691bd3cec5"
   },
   "T11i": {
    "caption": "Seam check (review F06): water-surface-allowed area on 7, 9 and 13 June per zone and region, evaluated on the union mosaic versus the superseded per-zone evaluation (ownership applied before the connectivity), with the cells found by only one of the two.",
@@ -411,7 +432,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_seam_check_connected_ceiling.csv"
    ],
-   "sha256": "bc29196e826501b823e8bf2466a8dde7d1319cbae63cfd443ed4cdbf7e43ab3c"
+   "sha256": "08fe59f8ec718a638a852c098f0c4dc87ada4feafbdb33e77a3f71fa2706f30b"
   },
   "T11j": {
    "caption": "Terrain source of the reconstructed newly inundated area (corridor, key dates): FABDEM DTM (p55 source 3), FABDEM tapered at a bathymetric edge (4), surveyed or reconstructed bed (1, 2) and gap fill (5). The terrain-error model perturbs FABDEM-sourced cells only; the bed share is the part of the new area without a stochastic terrain term.",
@@ -420,7 +441,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_source_share_connected_ceiling.csv"
    ],
-   "sha256": "a895a9db657130ca619c285b4800fac14c6d8ad608db66d9ae2c9f15cd2c855a"
+   "sha256": "635876182446f547d5dcf74331765896d008a3bf6671b490a31275614c368384"
   },
   "T11k": {
    "caption": "Observational support of the reconstructed new inundation (nominal run of the primary rule; maintainer decision D-SUPPORT): per region and key date the FULL terrain-connectivity reconstruction (the primary product), its DIRECT (nearest SWOT node <= 3 km), EXTRAPOLATED (3-10 km) and WEAK (> 10 km) parts, the SUPPORTED CORE (<= 10 km), the weak share, the parts capped at the Kherson gauge and, in the Inhulets valley, served by a node of another river (cross-river flag), and the 10 km cap run of p95 as a sensitivity (it recomputes the connectivity; it is not the core). The 3 and 10 km limits are operational thresholds, not physical constants.",
@@ -429,19 +450,57 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95l_supported_core.csv"
    ],
-   "sha256": "c23dd1deb843c5f3bb55c2fee2c7f8c382505ad62709a80d77b954ed7150deeb"
+   "sha256": "b77ff639bbd6fcdb7250b5fc499fb5431011acccdcac908256a20d307781162d"
   },
   "T11l": {
    "caption": "The support classes of T11k with their flags and the median distance of the serving node, per region and key date.",
    "evidence_level": "independent_physical",
-   "rows": 145,
+   "rows": 138,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95l_support_domain.csv"
    ],
-   "sha256": "d4d2d75f31d79bbf3bb2c856a69c0ac4cf05b02041430778aa993d593cb8ed2a"
+   "sha256": "fad2fc50ca584c5ac2cca4d6d8557fa1169cf8878c6723420ed576c74c82a614"
+  },
+  "T11m": {
+   "caption": "Seed-class QA of the SUPERSEDED all-prewater seeding (p95o on the provenance variant): every lineage of newly inundated components >= 1 km2 (day-to-day overlap graph, ancestry by backward traversal), its verdict (RIVER_CONNECTED / ISOLATED_NEVER = never linked to the event-source network along its lineage / CONNECTED_THEN_TRAPPED), the WorldCover mix of its own cells and of a 2 km context ring (land cover is not geomorphology: cropland or pine on the sandy terrace stays 'cropland' / 'trees'), terrain and water surface, the nearest SWOT node (river, km), the seed bodies inside its potential component, the 4-connectivity and erosion-disconnect sensitivities (a morphological test, not a width) and the Sentinel-1 class with its date and lag: S1_WATER (dark water on >= 20 % of the observed cells), S1_OPEN_SURFACE_NO_WATER (>= 30 % open ground -- grass, cropland, bare -- at least half of it observed and <= 5 % dark: no water signal where SAR sees water), S1_NO_WATER_SIGNAL_VEGETATED (forest, reed or built-up dominate: SAR not informative), S1_INCONCLUSIVE, S1_UNOBSERVED; prefix LATER_ when the scene is not of the same day, because a later scene never contradicts an earlier day. Trapped components carry the retained-water verdict of the same-day scene: RETAINED_PLAUSIBLE (water), LIKELY_DRAINED (open surface without water), RETAINED_UNCERTAIN.",
+   "evidence_level": "independent_physical",
+   "rows": 34,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95o_lineages_connected_ceiling_seed_allprewater.csv"
+   ],
+   "sha256": "68c77e473da19cc071e83cfeab449151e6b055467294125778c0c9b6b1061d92"
+  },
+  "T11n": {
+   "caption": "Three semantic classes of the daily new inundation per region and run (p95o): A_full = A_river_connected + A_trapped + A_isolated_never. river_connected = the component touches the event-source network (largest connected component of the pre-breach water map) on that day; trapped = not today, but it or an ancestor was on an earlier day (retained water that a static model cannot hold); isolated_never = seeded by isolated pre-breach water only (ponds, canals; the artefact of the superseded seeding). Under the primary (D-SEED) isolated_never is 0 by construction and trapped water is absent (D-MEMORY sensitivity, T11p). Also the new area whose river link does not survive 4-connectivity or one 20 m erosion (morphological sensitivities), and -- on days with a same-day Sentinel-1 scene -- the new area on open ground (WorldCover grass, cropland, bare) that the scene observed and the part of it without a water signal: an open surface without water is a disagreement where SAR sees water, whereas forest, reed and built-up are not informative and are not counted; a later scene never contradicts an earlier day. The trapped area is split by the same-day verdict of the retained-water decision tree: water (plausible retained water), open surface without water (likely drained), no usable observation (uncertain).",
+   "evidence_level": "independent_physical",
+   "rows": 276,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95o_summary_connected_ceiling_seed_allprewater.csv",
+    "case_studies/kakhovka_2023/tables/p95o_summary_connected_ceiling.csv"
+   ],
+   "sha256": "28ee8333e175067696b65766e35796c1e634beea5a5385740549b644bb3eca10"
+  },
+  "T11o": {
+   "caption": "WorldCover 2021 class of the daily new inundation by semantic class, region, key date and run (p95o). External qualitative check only: UK CEH (in UNEP 2023) found cropland < 2 % (about 871 ha) of the land inundated downstream, while the superseded seeding put a single ~40 km2 (4 000 ha) component of WorldCover cropland on the left-bank sandy terrace under the Kokan' level extrapolated 14 km -- a red flag, not a validation (different AOI, semantics, source and date).",
+   "evidence_level": "contextual",
+   "rows": 763,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95o_landcover_connected_ceiling_seed_allprewater.csv",
+    "case_studies/kakhovka_2023/tables/p95o_landcover_connected_ceiling.csv"
+   ],
+   "sha256": "70c197f228526ee8c2616f4cc2f83fc80f3f5632b64470dd325d39456579b2b4"
+  },
+  "T11p": {
+   "caption": "D-MEMORY sensitivity (retained water): per day and region the new inundation of the primary (instantaneous river-connected reconstruction), of the memory variant (a cell inundated on day t-1 stays inundated on day t while still below the surface -- a storage hypothesis without infiltration or drainage) and their difference, the retained water classed by the same-day Sentinel-1 scene (water = plausible retained water; open ground without a water signal = likely drained; no usable same-day observation = uncertain) and the date and lag of the next scene when there is none. A sensitivity, never the primary.",
+   "evidence_level": "cross_sensor",
+   "rows": 138,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95o_retained_connected_ceiling_memory_vs_connected_ceiling.csv"
+   ],
+   "sha256": "fe7233d1f0b4a8c37fd3f17e1878070824b53dc51b1cb04604b591446713637a"
   },
   "T12": {
-   "caption": "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2; n_draws per row) with the deterministic nominal run (*_central_*, draw 0, a diagnostic) alongside: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; quantiles of the total-water ensemble), reconstructed NEWLY INUNDATED area (A_*), the volume of new water (V_*) and of all water (Vtot_*), and the draw's own pre-breach baseline (baseline_*). *_emu_* = 100 000-draw emulator sensitivity envelope (p95g). The 100 000-draw emulator is not part of this table (a diagnostic, T12d). Sensitivities (nominal runs): p42 HAND rule, ceiling only, terrain as delivered (no residual bias removed), superseded closure, 4-connectivity, main-stem seed, 3-day maximum gap, river-aware water surface, the Kalynivske gauge as an extra water-surface node (the gauge then an input), nearest-node fallback capped at 10 km. Daily reconstructed series, not daily observations.",
+   "caption": "Daily terrain-reconstructed inundation per region and key date, REPORTED AS the Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2; n_draws per row) with the deterministic nominal run (*_central_*, draw 0, a diagnostic) alongside: reconstructed TOTAL water-surface area (W_total_*: all water on the day incl. pre-breach channels, lakes and reed beds; quantiles of the total-water ensemble), reconstructed NEWLY INUNDATED area (A_*), the volume of new water (V_*) and of all water (Vtot_*), and the draw's own pre-breach baseline (baseline_*). Relative half-widths rel_halfwidth_* = (p95 - p05) / 2 over the Monte-Carlo median. The 100 000-draw emulator is not part of this table (a diagnostic, T12d). Sensitivities (nominal runs): p42 HAND rule, ceiling only, terrain as delivered (no residual bias removed), superseded closure, 4-connectivity, main-stem seed, 3-day maximum gap, river-aware water surface, the Kalynivske gauge as an extra water-surface node (the gauge then an input), nearest-node fallback capped at 10 km. Daily reconstructed series, not daily observations.",
    "evidence_level": "independent_physical",
    "rows": 48,
    "sources": [
@@ -452,13 +511,14 @@
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_conn4.csv",
-    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_seed_mainstem.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_seed_allprewater.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_memory.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_maxgap3.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_riveraware.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_inhulets_gauge_node.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_fallback10km.csv"
    ],
-   "sha256": "3c6b69c178f3b7b3b0da88cd8a18a09d6da2ad142592d784f945cc092df60b0f"
+   "sha256": "2bc42cf03b4a6d33e2823fbf6d202eb4de7c243b115b6907a2f62dbd873ba434"
   },
   "T12b": {
    "caption": "The daily reconstructed series, every day 26 May - 10 July 2023 and region: Monte-Carlo median [p05-p95] of the coherent Monte-Carlo worlds (p95e rev 2, every day) for new inundation A, total water surface W_total (its own ensemble, also before the breach) and new-water volume V, with the deterministic nominal run (*_central_*) and a flag where it lies below its own MC p05. Before the breach A = V = 0 by construction. Daily reconstructed series, not daily observations.",
@@ -468,16 +528,16 @@
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv",
     "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv"
    ],
-   "sha256": "6830534df1b54b5d77244f708d683fb0b81f1acab8a9e3df882489d30da9bc47"
+   "sha256": "fb01fec2fbc4295eb87f9934f42483a2ed8e0694bc084775ff48e879e1535fbf"
   },
   "T12c": {
    "caption": "Day of the reconstructed areal maximum across the Monte-Carlo worlds: for A_new and W_total per region, the share of draws with the maximum on each day, and the day of the nominal run. A distribution conditional on the uncertainty model, not a probability of the true day.",
    "evidence_level": "independent_physical",
-   "rows": 12,
+   "rows": 17,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95e_peak_date.csv"
    ],
-   "sha256": "4e85149cdb26b23c621705a9951bad382bdc8af5061110cdde6be44b9e70cefd"
+   "sha256": "37689e957f1eab87ea05c8c7e17f5abfaa2218b80a073d04f5a608d95fd48812"
   },
   "T12d": {
    "caption": "Computational diagnostic, not evidence (maintainer decision D-EMU, 2026-09-29): the 100 000-draw cluster-normal emulator (p95g) per region and key date. It has no connectivity, its total water-surface envelope is built around the nominal total, and its volumes are unanchored; it is not an uncertainty estimate and no reported number rests on it. The primary interval is the Monte-Carlo ensemble (T12).",
@@ -487,7 +547,7 @@
     "case_studies/kakhovka_2023/tables/p95g_mc_daily.csv",
     "case_studies/kakhovka_2023/tables/p95g_vs_p95e.csv"
    ],
-   "sha256": "1699c3fc91ee4761721db3a1868acd9076f45491ee9f3c41f2b524e515f35d8b"
+   "sha256": "5ff5b4d2fc191945a6d36e62ca239be4d4d7374f7761db11462211ddf8a6c420"
   },
   "T12e": {
    "caption": "Depth of the terrain-reconstructed new inundation below the dam (water surface minus the seamless terrain-bed model; connected_ceiling, the nominal world -- its geometry, while areas and volumes as results come from the ensemble, T12): per accounting region, the maximum depth over 26 May - 10 July per cell and the depth on 8 June -- area, mean / median / p90 / p95 / maximum depth, the share of cells deeper than 1, 2 and 4 m, and on 8 June the volume. Maps in Fig07.",
@@ -496,12 +556,84 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95n_flood_depth_summary.csv"
    ],
-   "sha256": "ff5b35ff0ec9c9dfda3a27e7d19063bc76be0921493f3c683052f2e41b6c6716"
+   "sha256": "434627dce78a7ccb0c62e48bde3d0e14e92abb91ad5466a7851fa06074013ff0"
+  },
+  "T12f": {
+   "caption": "Optional event-domain total: Dnipro corridor + Inhulets valley, DATE-MATCHED (summed within each coherent Monte-Carlo world of p95e and day, then the median [p05-p95]; draw 0 = nominal run, a diagnostic). The two regions stay reported separately (T12, T12b); their maxima fall on different days (corridor 7 June, Inhulets 9 June), so they are never added as maxima.",
+   "evidence_level": "independent_physical",
+   "rows": 46,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95e_draws.csv.gz"
+   ],
+   "sha256": "935380c045f2880cfbc09d35565950090f55a7488c769ed89c6d2d2daab50bff"
+  },
+  "T12g": {
+   "caption": "Per-cell inundation probability of the coherent Monte-Carlo worlds (p95e cellprob, the same worlds as T12): per key date and region the nominal area (draw 0), the expected area (sum of P = mean over the worlds), the area of the cells inundated in at least 5 / 25 / 50 / 75 / 95 % of the worlds (P >= 0.5 = the median world, the map product of the ensemble; its area is not the median of the areas), the share of the nominal cells with P >= 0.5, and the ensemble quantiles of the area for reference. A marginal component -- one that hangs on a sill within the water-surface or terrain uncertainty -- appears here with its probability instead of being cut by hand.",
+   "evidence_level": "independent_physical",
+   "rows": 27,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95e_cellprob_summary.csv"
+   ],
+   "sha256": "ed7fb96c4de89867da3f41d9e15c18b57bfd44d60b0fa82b6bf264603554f1fa"
+  },
+  "T12h": {
+   "caption": "Areas split by ground class (p95e_split_areas, the same coherent Monte-Carlo worlds as T12; nominal = draw 0, a diagnostic; median [p05-p95] of draws 1..n): new inundation on DRY-BEFORE-EVENT ground (no optical pre-breach water, no reed / wetland complex, not WorldCover water) -- the new flooding of dry ground; water on the VEGETATED_WETLAND complex (WorldCover herbaceous wetland or model-only normally wet), its pre-breach value (5 June) and the event increase over it -- the inundation of wetland vegetation that before the breach already shows a C-band signature consistent with wet or inundated emergent vegetation (p95z); 'all' = the A_new of T12 (gate); other_water = WorldCover water outside the optical reference (the remainder of A_new). Corridor + Inhulets summed within each world (date-matched).",
+   "evidence_level": "independent_physical",
+   "rows": 120,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95e_split_areas.csv"
+   ],
+   "sha256": "4ba35a5c4fee85f0f352df0787fb045494bacfa61841c72afe8b45a27024fbe4"
+  },
+  "T12i": {
+   "caption": "Reed-bed strata of the Kherson delta (Sentinel-2 frame B2) and of the floodway between the dam and Kherson (frame B1, west of 538 km) by window (p95z): 10 m Sentinel-2 indices and C-band backscatter of the zone caches, the median of the scene medians -- the same season of a normal year (13 June 2022), the spring 2023 scenes before the breach (Sentinel-2 in the floodway only, Sentinel-1 in both), the last optical scene before the breach (delta 5 March 2023, floodway 5 June 2023), the peak (8 June, partly cloudy: observed_km2) and the recession (18 June). Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
+   "evidence_level": "cross_sensor",
+   "rows": 407,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95z_strata_summary.csv"
+   ],
+   "sha256": "8207ab85cc5d4d798da0500c0a24eadd2a34a362fbd5ff10d48d2c6a43b7f890"
+  },
+  "T12j": {
+   "caption": "Seasonal evidence of the pre-event ground classes (p95z, compact): per zone and stratum the median NDVI, NDMI and MNDWI of 13 June 2022 (same season, normal year) and of the last optical scene before the breach, and the 2023 spring Sentinel-1 VV, VH and VV - VH (median of the scene medians). Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
+   "evidence_level": "cross_sensor",
+   "rows": 10,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95z_seasonal_baseline.csv"
+   ],
+   "sha256": "d505357bd07475a540bf37ee74ab6befe718b074d33bc0aba2e52ed4015c7601"
+  },
+  "T12k": {
+   "caption": "Classified Sentinel-2 indices of the reed-bed zones (p95zm): per zone, period, stratum and index the share of the observed cells in each display class (p95h bins; not a classifier), from cloud-free period composites (per-cell median of the clear observations: normal year 25 May - 30 June 2022, the last period before the breach, recession 16 - 30 June 2023, July 2023; cover = clear share of the window in the period). The peak has no usable optical view and is in T12l. Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
+   "evidence_level": "cross_sensor",
+   "rows": 1400,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95zm_index_classes.csv"
+   ],
+   "sha256": "89a8b4fc2663be9ec49bb8d0753ba0b98bda6f88a9b9ec4e33f0e726308f4179"
+  },
+  "T12l": {
+   "caption": "Sentinel-1 VV on orbit 14 (ascending) of the reed-bed zones in display classes (p95zm): per zone, period (spring 2023 median of 4 scenes before the breach, 9 June = peak, 21 June = recession) and stratum the share of the observed cells below -18 dB (smooth open water), -18..-14, -14..-10, -10..-6 and above -6 dB (double bounce of vegetation standing in water, or buildings). Cloud-free; a signature, not a water map. Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
+   "evidence_level": "cross_sensor",
+   "rows": 210,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95zm_s1_classes.csv"
+   ],
+   "sha256": "eb54e6b32946f3051957bca32b2e15f01d5eb756dc6648139f1176f1bd8cf5d1"
+  },
+  "T12m": {
+   "caption": "SWOT-DNIPRO k10e surface classes (frozen p25 products, 20 m) of the reed-bed zones on the best-covered dates before and after the breach (p95zm): share of the observed cells per zone, date and stratum. Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
+   "evidence_level": "cross_sensor",
+   "rows": 441,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95zm_k10e_classes.csv"
+   ],
+   "sha256": "f3232bbdd8322ed0d2363416278fef775f0adf8eeaf9a199a3d42eef9291c1ca"
   },
   "T13": {
    "caption": "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (raw agreement, primary) and the conditional POD outside the normally-wet class (diagnostic).",
    "evidence_level": "cross_sensor",
-   "rows": 363,
+   "rows": 396,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_hand_and_ceiling.csv",
@@ -509,13 +641,14 @@
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_conn4.csv",
-    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_seed_mainstem.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_seed_allprewater.csv",
+    "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_memory.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_maxgap3.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_riveraware.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_inhulets_gauge_node.csv",
     "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_fallback10km.csv"
    ],
-   "sha256": "a39dc97d30c1e98babcff7f793d5857d8d2cfda4623dfbdd8d8a52f3d10ad8ae"
+   "sha256": "e2cc3d9e93d15f0d2df3cc19df3392730ab1b766bc76f92d8b144842f6804100"
   },
   "T14": {
    "caption": "Disagreement ontology terrain x Sentinel-1 by zone and date: category areas split by ground elevation relative to the water surface, normally-wet flag, WorldCover and RF20 classes (km2).",
@@ -526,7 +659,7 @@
     "case_studies/kakhovka_2023/tables/p95d_agreement_20230613_summary.csv",
     "case_studies/kakhovka_2023/tables/p95d_agreement_20230614_summary.csv"
    ],
-   "sha256": "2e90bed7b82601488dca353a0a23f409d87634d5dc869d8f735f3304a1e16410"
+   "sha256": "1925e7468ad95c1dccfaf7f9996c768d299f7daf64dc448b4ec1ead3dbf0bfd3"
   },
   "T15": {
    "caption": "ICESat-2 altimetric consistency check per zone and agreement category on 9 June (categories inside the S1 valid footprint only, review F12): residual of the FABDEM-sourced terrain minus night ICESat-2 ground, raw (res_*) and after the class-bias correction used by the reconstruction (res_corr_*; median, p10, p90), ICESat-2 ground minus water surface, share of segments below the surface; N segments on n_dates passes (acquisition days: the independent units, far fewer than the segments), n_bed_source segments on bed-sourced cells (excluded from the residual statistics). The same p57 night corpus also calibrates the class bias, so the corrected residual here is in-sample; its pass hold-out is T15b. A consistency check, not an independent validation.",
@@ -535,7 +668,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95c_icesat2_check_0609.csv"
    ],
-   "sha256": "31a8b813ade9a7604d49807408007051c107b98fc2eb82fcb8a9e89776ce6327"
+   "sha256": "ac952a97cf804d4896b66265b0f9583b62a4a5b61ed399741d7c7b6488ce1f90"
   },
   "T15b": {
    "caption": "Pass hold-out of the class-bias correction (review F12), FABDEM-sourced check segments only: the class bias is re-estimated with the reconstruction's rule from the ICESat-2 calibration population WITHOUT the passes being checked (a pass = one acquisition day; leave one pass out, five folds of whole passes, and the two epochs either side of the breach) and applied to the held-out passes. Per zone, category and scheme: N segments and n_passes, raw, in-sample and hold-out corrected residual (median; hold-out p10-p90 = spread of the sampled residuals, not a confidence interval), the largest bias shift met by a checked segment, the share of segments whose terrain lies below the 06-09 surface in-sample and with the hold-out bias, the share of ICESat-2 ground below the surface (does not involve the bias), and the number of S1-only segments that change side of the 2 m split.",
@@ -544,7 +677,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_holdout.csv"
    ],
-   "sha256": "27f81cdaea66eb11b534b89f0485e4bbf333eeaf8b507bcf096af96ea29083df"
+   "sha256": "c86329fefaa311d69feb9950ebbbb7118c6f46d64df071d38630550badee4081"
   },
   "T15c": {
    "caption": "Stability of the class residual bias b_c across the pass hold-out folds of T15b (FABDEM - ICESat-2 ground, p95 rule): per scheme, zone and WorldCover class the in-sample b_c, the largest |shift| over the folds, the fewest calibration passes left in a fold, whether the own-zone or the pooled row was used, and b_c estimated from the pre-breach and from the post-breach passes alone. b_c enters the reconstruction as a fixed correction (not perturbed in the Monte-Carlo ensemble).",
@@ -553,17 +686,91 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_folds.csv"
    ],
-   "sha256": "679de7c47ee4ca6f5d413362f2dc009b396d896895126b0f5046b753bcd2c5a5"
+   "sha256": "154b88bcac831421bbd5d337d872894b00ff3bae111e338176fea81e927ef5d5"
+  },
+  "T15d": {
+   "caption": "Saddle audit of the floodplain lowland south of Krynky (10 km east of Kozachi Laheri) (p95p): the lowest path (minimax, 8-neighbours) from the pre-breach river network to the lowland on three terrain surfaces -- the model terrain (seamless terrain-bed model, residual FABDEM class bias removed), FABDEM as delivered, and Copernicus DEM GLO-30 on the land cells with the bed kept -- with the saddle height, the water surface at the saddle on 7 and 8 June and their difference (positive = connected in the nominal world), the saddle's land cover, terrain source and nearest SWOT node; the datum step that moves the EGM2008 tiles into the frame of the model. GLO-30 is a surface model: under forest it lies metres above the ground and no path exists below the water surface.",
+   "evidence_level": "independent_physical",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_summary_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "731e0ba0f7f432141663ac18488da3d8d759ffffca69344b23b1b6825cd93cd7"
+  },
+  "T15e": {
+   "caption": "ICESat-2 ATL08 night ground segments in the audit window (p95p, Paper-1 frame): residuals of the model terrain, of FABDEM as delivered and of GLO-30 (median, NMAD, n) by class -- forest, open ground, wetland, the 200 m strip along the lowest path (the sill), the 200 m shoreline strip of the river network, all land cells. The sill is real within the data when the model residual in the path strip is near zero.",
+   "evidence_level": "independent_physical",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_icesat_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "0db8945d2a6f60224819afa8e6df3bdc228da9ad08a525ae9186741abc464f6b"
+  },
+  "T15f": {
+   "caption": "FABDEM minus GLO-30 (both EGM2008) in the audit window by class (p95p): the vegetation and building correction of FABDEM relative to the Copernicus surface model, and the residual class bias the model removes on top of it.",
+   "evidence_level": "contextual",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_dz_classes_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "62d7da6e65b5fa9283ac1f42eaf10bcafb88f485a96bb349e6ef3ad035b4162f"
+  },
+  "T15g": {
+   "caption": "Cross-test of the saddle (p95p): the sill of every terrain surface evaluated along every route (the lowest path found on the model terrain and the one found on FABDEM as delivered), the water surface at the model sill, and the overlap of the two routes (Jaccard). The saddles of the two surfaces are NOT the same cells: the class-bias correction opens a different corridor, and along it FABDEM as delivered is 1.7 m higher at its highest point.",
+   "evidence_level": "independent_physical",
+   "rows": 2,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_crosstest_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "4c4eb8cffb39eabb147d696844f9e5a25b9d95b925c71a25ce0fdd0b33c4c712"
+  },
+  "T15h": {
+   "caption": "Along the fixed lowest path of the model terrain, per 1 km bin: FABDEM as delivered, the model terrain, the class correction applied, the land cover, and the ICESat-2 night ground segments within 100 m (their median height and the residuals of the model and of FABDEM as delivered). Where the correction is verified and where it is not: the terrace edge (the sill) is verified to +0.1 m, the forest interior of the terrace has no segments, the floodplain forest and wetland are over-corrected by 0.4-0.6 m, the lowland interior is under-corrected by up to 1.5 m.",
+   "evidence_level": "independent_physical",
+   "rows": 21,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_path_bins_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "1696337141394c269b609ec1b48e8f9991e86a285b62c51ac641ee31173af60f"
+  },
+  "T15i": {
+   "caption": "ICESat-2 residuals of the model terrain and of FABDEM as delivered along the fixed path by land-cover class (p95p): a single class-median correction over-corrects the forest and wetland of the floodplain and under-corrects the grass of the lowland here -- the local sign of the class residual is not constant, which the Monte-Carlo terrain term carries as random error, not as local bias.",
+   "evidence_level": "independent_physical",
+   "rows": 4,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95p_saddle_path_classes_kozachi_laheri_lowland.csv"
+   ],
+   "sha256": "9e12a8b09849394497411be2a684400386f71fc3db5bd0218e0fcd367259b374"
   },
   "T16": {
-   "caption": "Area accounting with explicit semantics: observed (S1), mapped (U-Net), terrain-reconstructed and literature-reported figures are different quantities (new vs total water; snapshot vs cumulative vs persistence) and are never compared as validation.",
+   "caption": "Area accounting with explicit semantics: observed (S1), mapped (U-Net: the canonical v004 labels with three training seeds; v003_A as provenance), terrain-reconstructed (Monte-Carlo median with p05-p95; the nominal run only as a diagnostic column) and literature-reported figures are different quantities (new vs total water; snapshot vs cumulative vs persistence) and are never compared as validation. row_id addresses a row.",
    "evidence_level": "mixed",
-   "rows": 62,
+   "rows": 59,
    "sources": [
     "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv",
-    "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv"
+    "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv",
+    "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv",
+    "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv"
    ],
-   "sha256": "635217d94d5a103c31045b11398b1b6a74096d353c1a1ccdf606d3bf9494a046"
+   "sha256": "6875ab9a3b19ed05c9a63cbbe770289b5d0485658f74d4d2aa7b60d47b72c5ff"
+  },
+  "T16b": {
+   "caption": "Diagnostic comparison with the UNOSAT flood of 6-9 June (activation FL20230606UKR, the layers of product 3616: ICEYE 7 June, Sentinel-3 6-9 June at 300 m, Sentinel-2 8 June; preliminary, not field-validated) per pre-event ground class (p95y): our daily state mask WATER on any of 6-9 June against the UNOSAT flood, both outside the optical reference water. CSI_chance = the CSI of the same two areas placed independently within the ground class; heidke_skill = Heidke skill score (Cohen's kappa) of the 2x2 table. Where most of a class is flooded in both (the vegetated wetland), a high CSI is largely prevalence; the flood boundary is tested on the dry-before-event ground. UNOSAT shaped earlier fixes of the reconstruction: a diagnostic, not validation.",
+   "evidence_level": "contextual",
+   "rows": 6,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95y_cumulative_overlap.csv"
+   ],
+   "sha256": "52743bbb58b95cab18a8b1a8406bdaaac4b1b96c39cbdaef07cac8bed1fc7952"
+  },
+  "T16c": {
+   "caption": "7 June against the UNOSAT ICEYE-based flood layer, per pre-event ground class (p95y): coverage of the cells our state mask decides (WATER or DRY), CSI on the decided cells, the two scenarios (UNKNOWN as DRY / as WATER) and the admissible interval over every assignment of the UNKNOWN cells (min = TP/(TP+FP+FN+U_water+U_dry), max = (TP+U_water)/(TP+U_water+FP+FN)); the share of ICEYE water that falls in UNKNOWN and how much of UNKNOWN lies at the ICEYE water edge. A diagnostic comparison, not validation.",
+   "evidence_level": "contextual",
+   "rows": 5,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95y_csi_bounds.csv"
+   ],
+   "sha256": "90b15759deae465639052de3a5a848fa5d2a218df2c17bfc97d5c157da123247"
   },
   "T17": {
    "caption": "SWOT-input consistency at Kherson after re-anchoring: nodes within 3 km of the gauge, daily median vs the daily gauge (river yearbook, EVRF2019). The frame validation itself is Paper 1; this only checks the p95 input.",
@@ -573,7 +780,7 @@
     "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv",
     "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv"
    ],
-   "sha256": "d5b7fb29a28f4f80f653212ad487a63f1178832677a119e5f7ecbd26e5be98b4"
+   "sha256": "61df2207ec93552f1c745d6bd788fa98544c317ea7b98faa3487abdf83491601"
   },
   "T17b": {
    "caption": "Daily values behind T17.",
@@ -583,7 +790,7 @@
     "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv",
     "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv"
    ],
-   "sha256": "823f2e394ba4d1c93dc540d5113dcac2a1bf77e3f49b77c4118471d5beb7c570"
+   "sha256": "e7b81521afbc4b7b37b5699416dc89ecf9fcf90834b852fe14f25294eeed6be3"
   },
   "T17c": {
    "caption": "Inhulets gauge Kalynivske (80575; UkrHMC yearbook 2023 table 1.2, daily means in cm above the gauge zero, zero -1.34 m BS from the sheet header -> EVRF2019 by the EPSG:9902 grid step) per day against the reconstructed water surface at the gauge (not an input of the reconstruction; in the gauge-node sensitivity it is), with the support of that surface (nearest SWOT node, river, distance), the Kherson gauge, the upstream Inhulets posts (Kryvyi Rih 80568, Iskrivka 80564: no flood from upstream, i.e. the rise is Dnipro backwater), the terrain at the gauge cell and the days with reconstructed new inundation there. Gauge position 47\u00b06'59\" N 32\u00b057'38\" E (station catalogue, Kakhovka hydrometeorological observatory); date-only daily values (means of more frequent observations during the event). The yearbook remark (vol. 2, item 114) attributes the maximum to the destruction of the Kakhovka HPP, gives high water on 7-18 June with houses and the road bridge 0.75 km upstream flooded, and notes that the levelling of pile No. 5 changed during the hazard (a possible datum step of unknown size and date: post-event levels are not comparable with pre-event levels without it).",
@@ -592,7 +799,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95k_inhulets_kalynivske.csv"
    ],
-   "sha256": "13c2ccb9e017c39aeac79d2b1c4d8964df286eee13aa403895c65d809e19f316"
+   "sha256": "f0fe9d5540c3b629aa2f5098a38b7c289ccf3a27c1a038b37098babc4cd466fc"
   },
   "T17d": {
    "caption": "Summary of T17c. Kalynivske is withheld from the primary water surface and kept as an independent tributary validation site (maintainer decision D-INHULETS, 2026-09-29): the backwater hydrograph (the yearbook's highest level of the year -- an instantaneous value, not a daily mean -- and the highest daily mean, rise, days above the floodplain exit, record exceedance, lag after the Kherson peak stage), the validation of the reconstruction at the gauge (absolute error e_abs; event-relative error e_rise, free of any constant datum offset; peak timing; recession), the water-surface support at the gauge, and the water-surface support at the gauge (the support of the valley's whole new area is classified in T11k/T11l).",
@@ -601,7 +808,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95k_inhulets_summary.csv"
    ],
-   "sha256": "e97b105f62d49e8859d1d991f7a929439258536a049863226f7a38603d801d6a"
+   "sha256": "8540d3a2a927dcf66ec0053abb31673e6b715150b36ff9f89841a0676768268c"
   },
   "T17e": {
    "caption": "The Dnipro-Buh liman at Mykolaiv (Southern Bug 98027; UkrHMC yearbook 2023 table 1.2, daily means in cm above the gauge zero, zero -5.00 m BS in the sheet header, EPSG:9902 grid step to EVRF2019; station catalogue position) per day, with the Kherson gauge and the reconstructed water surface extrapolated to the gauge (outside the terrain domain: water surface only; not an input of the reconstruction). The event days carry the yearbook flag '/' (meaning to be confirmed from the legend); wind setup / setdown of +-0.3-0.5 m is part of the regime.",
@@ -610,7 +817,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95k_liman_mykolaiv.csv"
    ],
-   "sha256": "4cf73f9f20a29e621c343c7cf55f57a8082423633d713e9b8e780c8d708a91e7"
+   "sha256": "3672d8115e89b546c4152b2f62bc7203912a0c27c2c86dc312ff3276f2ffe45a"
   },
   "T17f": {
    "caption": "Summary of T17e: the liman's highest level of the year (instantaneous, from the yearbook) and highest daily mean, its rise and timing against Kherson, the Kherson - Mykolaiv head, and the reconstructed surface at the liman, which comes from the westernmost SWOT node (E 457.6 km), unobserved from 6 to 22 June and therefore interpolated flat across the flood.",
@@ -619,7 +826,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95k_liman_summary.csv"
    ],
-   "sha256": "d6880726b540d6a86b97b84764935599159bd31fb4d5c8778d99030cde801cb0"
+   "sha256": "def3ed107f43226d63ef201cb3b13d85f7ca6f65c3b1a02a0adc4f9777459418"
   },
   "T18": {
    "caption": "Seamless terrain-bed model accuracy against night ICESat-2 ground segments (Paper 2 / p57): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class, all sources together (context; the uncertainty model uses the FABDEM-only rows of T18b).",
@@ -646,7 +853,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95j_terrain_variogram_fit.csv"
    ],
-   "sha256": "15dbcbc1d49042dd7b99826f2d5401917578eba40f3ee521ff20d0f25c4f7c50"
+   "sha256": "9a2ed36acd8d8de08fc4f3bc473161ac5ac7ac4a1d3aa008b4ba46c6a23f96b4"
   },
   "T19": {
    "caption": "Per-acquisition-date new water (not water before the breach) inside the Sentinel-1 observable domain, with coverage; S2 only where >= 30 % of the region was cloud-free; estuary zone on its own grid.",
@@ -657,7 +864,7 @@
     "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv",
     "case_studies/kakhovka_2023/tables/p94_flood_dynamics_estuary_s1.csv"
    ],
-   "sha256": "4c7e440217d790b2b1b86b0f3c33e0bbaf565412d608cf7eeb43b8aaaba864df"
+   "sha256": "4e0cd70b16973d033e07357e74c5f6a381015c0064b59d7979d40d2435642512"
   },
   "T20": {
    "caption": "Block-size sensitivity (U2 on v003_A and on the corrected v004 labels): the same recipe on splits with 7.5, 10 (frozen), 15 and 20 km blocks; each split has its own TEST geography, so only the endpoint values and intervals are compared, never differences.",
@@ -684,22 +891,22 @@
    "sha256": "9512619d105616b5eb2715f9994f967da7f07df8f7002af907236c626cae533a"
   },
   "T21": {
-   "caption": "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage.",
+   "caption": "Kakhovka pool during the drawdown, per day: levels at the outlet (SWOT), Nikopol (press) and Rozumivka (gauge), surface gradient, pool water area and volume under the sloped surface (seamless DEM inside the pre-breach pool polygon), daily volume change, DniproHES inflow, the daily-mean effective release (-dV/dt + Q_in; not an instantaneous breach discharge), and the downstream new-water volume and total water surface (terrain reconstruction) with the Kherson stage. surface_upper_bound = True on the days whose sloped surface rests on the censored upper bound of the Nikopol post (12-13 June: the level had fallen below the post): pool area, volume and depth of those days are upper estimates and the effective release a lower estimate.",
    "evidence_level": "independent_physical",
    "rows": 46,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv"
    ],
-   "sha256": "be6f635fccc52eeb9f456200c0c882b982aee81222410ef2107fcf8c9c6c572b"
+   "sha256": "a605b237bae21a8ff5e83a184ecbce10b421d970ce3598c3db9f69b25934bff1"
   },
   "T21b": {
-   "caption": "Water depth in the Kakhovka pool from the p95f model (daily sloped surface over the 50 m seamless terrain-bed model, the wet mask of p95h / FigS08): the full pool on 5 June and the drawdown on 7, 9 and 13 June -- wet area, volume (reproduces T21 to 1e-3 km3), mean / median / p95 / maximum depth, the share deeper than 5 m and the surface at the outlet and upstream. Terrain-reconstructed, not observed depth; maps in Fig10.",
+   "caption": "Water depth in the Kakhovka pool from the p95f model (daily sloped surface over the 50 m seamless terrain-bed model, the wet mask of p95h / Fig11): the full pool on 5 June and the drawdown on 7, 9 and 13 June -- wet area, volume (reproduces T21 to 1e-3 km3), mean / median / p95 / maximum depth, the share deeper than 5 m and the surface at the outlet and upstream. Terrain-reconstructed, not observed depth; maps in Fig10.",
    "evidence_level": "contextual",
    "rows": 4,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95m_reservoir_depth.csv"
    ],
-   "sha256": "4bdf8a6ee829ec7434361a8fc3363a9ea5839046b8a5e0bb9a36c043fc255e76"
+   "sha256": "6f129f80fca2f81e47f182f89d256147fc77afc4066a18ebb0ade2b52ba415c1"
   },
   "T22": {
    "caption": "Pool hypsometry from the seamless DEM (level surface) against the design Table 19 (BS-77 levels + 0.185 m), with the relative difference dV/V_design and dA/A_design per level: the seamless DEM gives less volume at the same level: -8.5 % at the full-pool level (17.5 m), -14 % at 13 m, -20 % at 11 m (open question for Paper 4: reservoir bowl on the historical bathymetry).",
@@ -711,13 +918,22 @@
    "sha256": "1d5169c18303639184771ff691809172c1c89a820deab7d9b3ebe29b2119b088"
   },
   "T23": {
-   "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; the Sentinel-1 reservoir areas of the authors' code archive, Zenodo 14639520, observations.mat obs.A -- read from the archive, not digitised, not quoted from their text). Areas count observed cells only; not observed is not dry. Maps: FigS08.",
+   "caption": "Kakhovka pool water area by source and date inside the pre-breach pool polygon: MODEL (p95f sloped surface over the seamless DEM, terrain_reconstructed, 05-26..06-13), Sentinel-1 VH dark surface (per-date Otsu; open water or smooth wet mud), Sentinel-2 water (frozen p25 water3 and p15 crosscheck), with the observed fraction of the pool, IoU against the model on observed cells, and Yi et al. 2025 (literature_reported; the Sentinel-1 reservoir areas of the authors' code archive, Zenodo 14639520, observations.mat obs.A -- read from the archive, not digitised, not quoted from their text). Areas count observed cells only; not observed is not dry. On the S2 crosscheck dates with a model surface (8 and 13 June) the model is compared on the cells S2 observed (IoU, model km2, model wet where S2 sees no water). Maps: Fig11 (Sentinel-2, day of exposure) and FigS08 (model extent, Sentinel-1).",
    "evidence_level": "cross_sensor",
    "rows": 53,
    "sources": [
     "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv"
    ],
-   "sha256": "fab7692dc75fc5feeae5dd33a01435ec0fb5c751fef3f66526158dd38f0da212"
+   "sha256": "c5d0770f4008289f289aebaee2ca230aed37709c8772cbfa7cb800ac06f72d43"
+  },
+  "T23b": {
+   "caption": "The day the Kakhovka bed fell dry (maintainer's check of the drawdown maps, 2026-09-30), on the Sentinel-2 grid inside the cells wet under the model on 5 June: the model day for 6-13 June where Sentinel-2 sees no water on 20 June; 'dry by 06-20' where the model is still wet on 13 June and Sentinel-2, observing the whole pool on 20 June, sees no water; 'water on 06-20' wherever Sentinel-2 sees water (the observation overrides the model). km2 and share of the 5 June pool water. Map: Fig11e.",
+   "evidence_level": "cross_sensor",
+   "rows": 11,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95h_exposure_observed.csv"
+   ],
+   "sha256": "14ed1bd3960869b51173b2bc36533193cd693c68dcffe4c88eabc0c1068122b6"
   },
   "T24": {
    "caption": "Sentinel-2 k10e surface classes inside the pool per date (every 2023 date observing >= 50 % of the pool) and stratum: POOL; EXPOSED_BY_0613 (model: wet on 06-05, dry by 06-13); WET_ON_0613 (model: still wet on 06-13). km2 and % of the observed cells per class; frozen SWOT-DNIPRO p25 products, not re-classified. Context for the drawdown and recolonisation of the bed (FigS08 i-k).",
@@ -726,7 +942,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv"
    ],
-   "sha256": "366cd58ba8f14c299123103cbf4ce6f0d0bc7b0018b92c8896a486fa63598c9e"
+   "sha256": "8f6dfcc0c90c7102e962987cca3489b1ab3f33d28df822cfdf63d24772d69969"
   },
   "T25": {
    "caption": "Sentinel-2 index statistics inside the pool per date, stratum and index (NDVI, NDWI, MNDWI, NDMI, BSI, AWEIsh, NDTI; offset-corrected reflectance, 20 m, frozen p25 stacks): observed km2 and fraction, mean, std and percentiles p10/p25/p50/p75/p90 over observed cells. Strata as T24. FigS09.",
@@ -735,7 +951,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv"
    ],
-   "sha256": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16"
+   "sha256": "8e0c705a84faf6243b7436668b9ad201a62b8901d37c9441b3ded5ca9f623997"
   },
   "T26": {
    "caption": "Sentinel-2 index display classes inside the pool per date, stratum and index: km2 and % of observed cells per class (bins: NDWI/MNDWI/AWEIsh -0.3/0/0.3; NDVI 0.15/0.3/0.5; NDMI/BSI/NDTI -0.1/0.1). Display classes, not a classifier (the frozen classifier is k10e, T24). FigS09.",
@@ -744,7 +960,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv"
    ],
-   "sha256": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3"
+   "sha256": "a13dc4f9d7b3a551c623e28f3745f6ac623a4fa12c1ce753932c939aaab2d16d"
   },
   "T27": {
    "caption": "Design hypsometry of the Kakhovka reservoir from the Dnipro-reservoirs monograph (Table 19, Figs 13-15; transcribed from photographed pages in SWOT-DNIPRO): water level (historical Baltic, and +0.185 m to EVRF2019), surface area and volume of the whole pool and of the five reaches (dam - Babyne - Nikopol - Verkhnia Tarasivka - Blahovishchenka - Dnipro HPP) at 17 levels, with the design levels (NUF highest forced 17.5, NPG normal impoundment 16.0, UNS navigation drawdown 14.0, GMO dead volume 12.7 m) and the transcription check that the reaches add up to the total. Design data as published; nothing measured or fitted here. FigS10.",
@@ -762,7 +978,7 @@
    "sources": [
     "case_studies/kakhovka_2023/tables/p95i_design_daily.csv"
    ],
-   "sha256": "1c0e869298abf6172dbe49792ae3f6bf4c81826269a40bcd3d7f86b19f813b24"
+   "sha256": "4c5f3233ede822b408a0890d4db636f7289a77903ee85a7d5e9a19c0fff0a8a4"
   },
   "T27c": {
    "caption": "The filling of the Kakhovka reservoir in spring 2023, week by week on the design curve (Rozumivka series only; the pool was level before the breach). Every term of a week covers the same days (review F14): the change of storage is the sum of the week's daily changes, i.e. V on the week's last day minus V on the previous week's last day; inflow = DniproHES releases summed over those days; outflow through the Kakhovka HPP = inflow minus the change of storage (a residual: lateral inflow, evaporation and withdrawals are not in it). A week with a missing day has no balance (complete = False). Levels and means are descriptive. From 13.93 m / 13.48 km3 on 2023-02-08 to 17.62 m / 21.33 km3 on 2023-05-05 (7.85 km3 stored out of 22.68 km3 of inflow); 17.08 m / 20.14 km3 on 5 June. Design data + gauge + releases; no DEM.",
@@ -772,15 +988,25 @@
     "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv",
     "case_studies/kakhovka_2023/tables/p95i_manifest.json"
    ],
-   "sha256": "66aa9b15a4400865c0f4f2e0e83015c6efae131c24612b3c8f7e48ead9cf7753"
+   "sha256": "2f702682e60baba3bc410b9b33ed0194274e8397357010a875ff77a5923990d9"
+  },
+  "T28": {
+   "caption": "What changed after the scientific and code review of 2026-09-28 (findings F01-F20) and the maintainer's decisions of 2026-09-29: per item the old and the new treatment or value, the reason, and the effect on the conclusion, ordered by the vertical frame of Paper 1 (taken as validated input) and then the evidence hierarchy (terrain reconstruction -> uncertainty -> independent validation / support -> weak-label ML -> release). New values are resolved from the table cells of this build; old values from the superseded rows the tables keep (T02c, T06, T07b, T08b, T09 rev 1) or from the dated records named in the evidence column. A revision record, not a result table.",
+   "evidence_level": "mixed",
+   "rows": 52,
+   "sources": [
+    "case_studies/kakhovka_2023/publication/audit_changes_source.csv"
+   ],
+   "sha256": "7a1cec59b77d02bed87844fbcb55ba805f7df4eb652034cf61c6b956231edc72"
   }
  },
  "sources": {
   "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s1.csv": "97ff9bf3654288ee6994363a7bcced4e3777c9e06b5dbf4fae272ad28486f6fe",
-  "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv": "c2d3edb230a090f2a5b6519e5b2924bd2f974f2409cf667c712f58a01aa8f6b2",
-  "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv": "e539baca153203e2c79bcdbb39f4d11fe398a1f50bc6134e75e7f9e00de14760",
+  "case_studies/kakhovka_2023/tables/p94_flood_dynamics_s2.csv": "4e809562191ddc5fe2266720e906238c3da437c04e85bd6fc5915b8253f8c8fd",
+  "case_studies/kakhovka_2023/tables/p59_swot_vs_kherson.csv": "ecc5c6683c4ec3590a3d0c920edc22a7905c118982a8b65812fe67421d1c7817",
   "case_studies/kakhovka_2023/tables/p59_swot_flood_nodes.csv": "c3b1be15aafa14b632783756ba2b99a6b6d60e3ad3d4095f2ce6d5e7f05a7fc6",
   "case_studies/kakhovka_2023/tables/p77d_v003_A_scene_qa.csv": "950487fcbdfc73b4fa2b7f80ae9db3b41e98631926a9366b7505288756a20b2f",
+  "case_studies/kakhovka_2023/tables/p95u_evidence_inventory.csv": "6e79897f8478747371f706576341ff50ed57d1a56c1b8bf27a473559cf07f432",
   "case_studies/kakhovka_2023/tables/p77_labels_v002_summary.csv": "c7f6956e6c533664c2a86d3321d3f13fbd172d36215b7e18499c985f2f9df774",
   "case_studies/kakhovka_2023/tables/p77d_v003_A_areas.csv": "afde28fe4033264819194d04e749d1b40a7a71d0efb4b91a584ee813e383ee58",
   "case_studies/kakhovka_2023/tables/p77d_v003_A_transition_v002.csv": "a9282eceea8f60192871305bab5afa1a7dcf49bce000174c9d13b2ae4767f2f1",
@@ -910,73 +1136,99 @@
   "case_studies/kakhovka_2023/tables/p73_rf20_confusion_matrix.csv": "e4ad95237a576c2dbfe946a01b067f5622f42f4749e4392aec2757949a472107",
   "case_studies/kakhovka_2023/tables/p73_rf20_rev2_class_area.csv": "3357dbc3c3fa79c421fc03f0bde25ad6d9b70ff688d3157e35fb4661aac2c46e",
   "case_studies/kakhovka_2023/tables/p73_rf20_rev2_qa/worldcover_walltowall.csv": "e77bba64c169cffe2b4a2aa1a033d8a4ca00ae32c166610fcbfb5c6df0e02085",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling.json": "c222b946924efddb89b0279c45eaad8924250aa816321586ebe8ce365a8c27f8",
-  "case_studies/kakhovka_2023/tables/p95_manifest_hand_and_ceiling.json": "dd8c01bb106c8d9c2f2285c14d93f855faf49bf179095a556143d2fcd7677839",
-  "case_studies/kakhovka_2023/tables/p95_manifest_ceiling_only.json": "a1190d8d4934cb921a76eabb48867c86ef25dd5849bad8744d6d4f56e025a681",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_dem_uncorrected.json": "8d4093ae6ef8f104338302da0768f042e0e1c3ae154a138772b8b4cd08176ebc",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_closure_p59_m050.json": "8abf0231d7f9f28894fe27c4f8ad1999dcfd05846a2cf52e1ee16fee93502096",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_conn4.json": "5105daee808482c0aedb513f526d8952f71d4cfb1e63d8b4e8f84522016bd369",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_seed_mainstem.json": "9457d0a0a23ca5c47042407133c7527fc74679b594af9663d2385d98384cb76f",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_maxgap3.json": "d92e7ad8613a5187fe024012a7ad98c44c562c9140119b5fc031d16ed49a6069",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_riveraware.json": "17cf07d5012c082d882a0dbd1529a5db6edb528c23db2e6310862967e358bf0b",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_inhulets_gauge_node.json": "8151cf31fafc5b98644aa2490f0e6acd9ecacac5d6efa27e29564ff557a18be0",
-  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_fallback10km.json": "049fbeb7a8a17b4bc165f8335093de6bb2567c28aefd97aaf9c65908637bce8a",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling.json": "6003abb87440aec247e0459cdd3465030e200a690e61692acff307b2fb29bc01",
+  "case_studies/kakhovka_2023/tables/p95_manifest_hand_and_ceiling.json": "ab89c3201a4d369df00988569f2151bc13a56d92e08e5fded5925f2bf3db4abb",
+  "case_studies/kakhovka_2023/tables/p95_manifest_ceiling_only.json": "89ae211f85bd27287f8b9976a302b4f07dcf062b10e49ce8a8f1fc719e1f9244",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_dem_uncorrected.json": "2c53739bc5aa3b450a15a037e39332ade010ec9d08d3a39042cb9bef26e527a8",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_closure_p59_m050.json": "1e4e88378190f481a0bff9122368d3383388cf97456e54b5c6d9aef4cef1260f",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_conn4.json": "e588608bacaa0a0e77f8d17cdc7cdc3a801ba6c45dc2103ead661e124e4bff35",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_seed_allprewater.json": "ed80fbcd46f5448944a746e47fe9324203c9c587378647608e305774675e5eb7",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_memory.json": "f9061a1fc50d9b395a958df82d53e5192e84bd67657f94af7883df208eb13a9a",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_maxgap3.json": "1e951912d83a7e617585013d8583037ebeb23e16733881d740dbf85b52bd8434",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_riveraware.json": "d9f0390f8824cf832eb00a776f361fb1a7d5d7ebabe448228a2313d6dff2868a",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_inhulets_gauge_node.json": "a4effe1116377d39f1612852a713175da026d231cc872bfeb88076f3c7e80c2d",
+  "case_studies/kakhovka_2023/tables/p95_manifest_connected_ceiling_fallback10km.json": "10a2d3630c7b00f9b4d5a2a1bd511d757b0b8a3468e15a2eee68b33cca03ee10",
   "case_studies/kakhovka_2023/tables/p95e_uncertainty_components.csv": "e34e424614bff9178e419ecc71f6265934b50b4c628d005b4013d729c8921bee",
-  "case_studies/kakhovka_2023/tables/p95e_convergence.csv": "fed6ca76c898031d6d1e0c136338566c2656839f6c94dd073132767aab68ec9b",
-  "case_studies/kakhovka_2023/tables/p95e_ablation.csv": "9aded6abfa4d046eed9face9aee1ad2b1b8f55227185a635b54e8e8ec6b1154e",
-  "case_studies/kakhovka_2023/tables/p95e_wse_threshold_sensitivity.csv": "11fc038e15fcfc5d6729d01dac6730e75c428cf07b4e858a23939f4b0c80fee2",
+  "case_studies/kakhovka_2023/tables/p95e_convergence.csv": "d3efb2e768eb695f99fcc7f7b36f2871e3276197cb02d724b07e0fedf794859d",
+  "case_studies/kakhovka_2023/tables/p95e_ablation.csv": "6fe957fafaf5d93d6a6e76c6bafb50f712bf0373bde71ec71481c2cf20779fdc",
+  "case_studies/kakhovka_2023/tables/p95e_wse_threshold_sensitivity.csv": "8e99739e47a4c3e3b6ad0fdaef518084c9c9d1bc8c7d746d6905c2dd5fd7ce63",
   "case_studies/kakhovka_2023/tables/p95e_interp_cv.csv": "7c4b121094c9dc78500db4e4bbc33215570d7b182b36d399b43ea3ed5d74e5d6",
-  "case_studies/kakhovka_2023/tables/p95_wse_support_cells_connected_ceiling.csv": "88d8c6ac8539568ba070b897834eb4388a617b1b811db5430ebf8b01fc801da6",
+  "case_studies/kakhovka_2023/tables/p95_wse_support_cells_connected_ceiling.csv": "cf1ed71e6c66ebbd7055bbdd5a22f9c35b56b6c5ee50f35ab5c778dea4d10531",
   "case_studies/kakhovka_2023/tables/p95_wse_support_nodes_connected_ceiling.csv": "1afb3522177d14be8bc75100b40e44790052368867d4b1bde0c76d105e1f56db",
   "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyTZA.csv": "17dc7b7e962289463e63636a34e2c5e423e39a0b6def2cae8b4a6d6f74e57198",
   "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyTZ.csv": "d45cdb36eb12f3f19a02967f31d508aa41d7d73eefb54cb444de94639ee92d0f",
   "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_legacyT.csv": "c25d392bd1aa854d9764566f552c8b3b42ba7dcea1b7ec9b941b538555a07b4b",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv": "79798f8f6bdf7c584baeb7c6598848893b78cf20efff9152b87cc986505e1b3c",
-  "case_studies/kakhovka_2023/tables/p95_seam_check_connected_ceiling.csv": "bc29196e826501b823e8bf2466a8dde7d1319cbae63cfd443ed4cdbf7e43ab3c",
-  "case_studies/kakhovka_2023/tables/p95_source_share_connected_ceiling.csv": "d08a3ea6262df13860fddcb01e1dfe08f5b1cfc6b32a3f505053afbd95d23172",
-  "case_studies/kakhovka_2023/tables/p95l_supported_core.csv": "08329b404a01308c35f60e261143058c6c551c8493ac1e2c16a491a2f6937607",
-  "case_studies/kakhovka_2023/tables/p95l_support_domain.csv": "4ed5c03acd96678f60895229ea3c02f37ca33d1555bb62728d95caa4425b7d25",
-  "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv": "2b74cee327a1152348d2ab9d3849f4739ec472563eb1eea837100490374ee6c1",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_hand_and_ceiling.csv": "bd7fe1d5c6af9be67ae6f92a862c0204ccdf407be3e7a0aa19f454f1b9c8cc42",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_ceiling_only.csv": "5e0f7de5282a80aa547711733215196427cac02c33b4de4654370ee27499c268",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv": "f2a6cd85e957da3d68a4f9082aa3ed22a269e79509101975e8547edf2e77b26c",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv": "f82c439ef535e821af309d0d7ec410d8ba30b39a40e70e3d5069009c12787c01",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_conn4.csv": "1bef9063058dba465af93624647256f09b2934c8322476a2cd387012521b9e8e",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_seed_mainstem.csv": "a7fe681806f9a47b17a51102333915d54127c11c202b4ed1c10c3b01efaac8ad",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_maxgap3.csv": "89f854154d73cdc997592859fb3c5559540a2e85ea527412492c23d5ca0207b8",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_riveraware.csv": "50f23c8e5383674d65af4f4a804fe63ee69d8cb480e642e5cb3141121c3c5c98",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_inhulets_gauge_node.csv": "174ae9c5a33e2641810a74b717da1ce0e681e6adc512449044c36a31084db519",
-  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_fallback10km.csv": "72a15b1268fcccff6a8a4b28cbea72d683a54e1aa524723dd3fc5d1e34654ccb",
-  "case_studies/kakhovka_2023/tables/p95e_peak_date.csv": "4e85149cdb26b23c621705a9951bad382bdc8af5061110cdde6be44b9e70cefd",
-  "case_studies/kakhovka_2023/tables/p95g_mc_daily.csv": "8796dfcce9f9452d2be63276a798875be9c200e408ce913df1f091e84a8cc988",
-  "case_studies/kakhovka_2023/tables/p95g_vs_p95e.csv": "0150f8c8918fe5a009d8a7038745c43afd7df0d26f0b32def96136cf6f836fa8",
-  "case_studies/kakhovka_2023/tables/p95n_flood_depth_summary.csv": "ff5b35ff0ec9c9dfda3a27e7d19063bc76be0921493f3c683052f2e41b6c6716",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling.csv": "1f458c6695ca75d464b3335be2f51b66be8fbc9c8af823bc79cdd0dfa699483a",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_hand_and_ceiling.csv": "f98b82851e8b6c04d4e704869f13e078af9821d7a39ab15141b2bb1430b7f9f6",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_ceiling_only.csv": "887db78b35593d1ce4994a2488e90ef4e6b5553b21ad5fa5ca8a2ef9abf8aaad",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv": "9d46fd74cef4fdceb2b5a4fc2f3f2cde9767c4139f47c2c893dac73fb7aa8878",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv": "ef8c3e4ab8cdb77aa1a91c38dbe9a02542ad9fcff1983d0046192a17580c3235",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_conn4.csv": "94182dd295845d93ca1fe0b633570f34f4c932cb379a62de5533d5291a83f87d",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_seed_mainstem.csv": "8e47fddc5ae6f6e8d7bb55755fd88c7916777802af046939bd3f73e0e91ec03c",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_maxgap3.csv": "a7bffec510af7291a680084648639c7c9ed428798f4f0d5764a1adbeab5db5d6",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_riveraware.csv": "1f458c6695ca75d464b3335be2f51b66be8fbc9c8af823bc79cdd0dfa699483a",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_inhulets_gauge_node.csv": "662fc0ee6c72d0a85b6c680eede0a5f84f6bb89d71488c2e75a8c719ce54b16f",
-  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_fallback10km.csv": "e117fd0dc89ca4d9dfa70ddc952a77f32dabd21e86da5084074933070932d450",
-  "case_studies/kakhovka_2023/tables/p95d_agreement_20230609_summary.csv": "31debb66b3c2f2cbb9186293487ef1a761be980d844979f4606b60463b1b3be6",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_rev6.csv": "79798f8f6bdf7c584baeb7c6598848893b78cf20efff9152b87cc986505e1b3c",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv": "05107cfd0f7ebf039b671741b10b7d020eb4be18e34c019367e92c2843f7f151",
+  "case_studies/kakhovka_2023/tables/p95_seam_check_connected_ceiling.csv": "08fe59f8ec718a638a852c098f0c4dc87ada4feafbdb33e77a3f71fa2706f30b",
+  "case_studies/kakhovka_2023/tables/p95_source_share_connected_ceiling.csv": "13171d92bc97e936c5992bfe348996f507f96d99bac3d2cffa4179cd62428577",
+  "case_studies/kakhovka_2023/tables/p95l_supported_core.csv": "5f7e28fefa9ee2b097058f6e77b608c61484a8dd4f115d72ef8053befcd53fa9",
+  "case_studies/kakhovka_2023/tables/p95l_support_domain.csv": "6485c1f536568f3f409c8aa15f177a70ccc18132801f886a81f0bba71cb6a26b",
+  "case_studies/kakhovka_2023/tables/p95o_lineages_connected_ceiling_seed_allprewater.csv": "b90edb27810d91ce014fda3339631f9673ca44f66105bdaa943269c418e99845",
+  "case_studies/kakhovka_2023/tables/p95o_summary_connected_ceiling_seed_allprewater.csv": "0e20c92a906d7da488c78b20b8c15dff1cab8f18f9776a6f9df2ad85d09961a6",
+  "case_studies/kakhovka_2023/tables/p95o_summary_connected_ceiling.csv": "45e1febb7db8fef9a38420a8e1305d26824806caec5a0b53e9253b4f04404066",
+  "case_studies/kakhovka_2023/tables/p95o_landcover_connected_ceiling_seed_allprewater.csv": "5e9b7a57ec3f4872c104dc043c34ec20e0baf7c9709a013bbd3c4c514001a16e",
+  "case_studies/kakhovka_2023/tables/p95o_landcover_connected_ceiling.csv": "ad82dc05428bd19cc8323c207e67afccf3066e4d158a128e4dcce04a26304ccf",
+  "case_studies/kakhovka_2023/tables/p95o_retained_connected_ceiling_memory_vs_connected_ceiling.csv": "fe7233d1f0b4a8c37fd3f17e1878070824b53dc51b1cb04604b591446713637a",
+  "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv": "3bfcdd30107aeb45fe60b67ccbbfa7f60fbde9f4f179a32ef98c4930a01e81e3",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_hand_and_ceiling.csv": "b098d5e59f09f8eb6453a9e4ba07d84495c22424793ce237c96cf05d107acf67",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_ceiling_only.csv": "46771d24acf6ae8deeb6a13fce6bd80ed259028386b4a4dc9d6ada4e35c5d4d9",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_dem_uncorrected.csv": "b4df8b19d9f5505a2d76e8916ccd7621a919f35b933135988a6bfcc34b55828d",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_closure_p59_m050.csv": "2d26364556cb6502f395f91ccc4a9c62e1a073b5bab7a4ea4c9f1d59c7d9feec",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_conn4.csv": "4fa4cf6ddb68b5ee30a0533e2874878f56424671b312ca4fd19145f41d93e80e",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_seed_allprewater.csv": "926a5bb8757c2600a1c390275cdc4cf95e9e089232c86196a0d52b1273ba7521",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_memory.csv": "0f3e82959ea8c21a2baba9e5f242c6268167555aae01b1c0c48c3c387f361a36",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_maxgap3.csv": "a7b09fe8052309b499b7a55198f22441ee2a8887e4cd22032997fa9b68eb55d4",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_riveraware.csv": "884f4691993506ccdcbb6f96957f3f3d79a3cabf94d9053acd22bf0fa1e2a2b2",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_inhulets_gauge_node.csv": "9d52a92c582680fc006dff64dc72c6583d086f2b7b33d48a7c06b0c9debc47b0",
+  "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling_fallback10km.csv": "f45b27e40ac5c35b82e749ae048e0ee9072a9c72c04b295186295ed0d36d689d",
+  "case_studies/kakhovka_2023/tables/p95e_peak_date.csv": "37689e957f1eab87ea05c8c7e17f5abfaa2218b80a073d04f5a608d95fd48812",
+  "case_studies/kakhovka_2023/tables/p95g_mc_daily.csv": "abf44f9cab809f1b6426d2b3dfbba3f3799dcd95a48fdb5210b2cc1090fc3ddd",
+  "case_studies/kakhovka_2023/tables/p95g_vs_p95e.csv": "adff2a69c7f88ddf0c8572a070e4cb3f9e01208e4f205f5a16e7e88792dad482",
+  "case_studies/kakhovka_2023/tables/p95n_flood_depth_summary.csv": "434627dce78a7ccb0c62e48bde3d0e14e92abb91ad5466a7851fa06074013ff0",
+  "case_studies/kakhovka_2023/tables/p95e_draws.csv.gz": "d9e6de16b1c145297ee3cca5457b5fe5eabfcd898a23fc3102b6068af6100cb4",
+  "case_studies/kakhovka_2023/tables/p95e_cellprob_summary.csv": "ed7fb96c4de89867da3f41d9e15c18b57bfd44d60b0fa82b6bf264603554f1fa",
+  "case_studies/kakhovka_2023/tables/p95e_split_areas.csv": "4ae98cf7e49327fd98106a1bee40b868049195fcc0acfb052823a01b2849a942",
+  "case_studies/kakhovka_2023/tables/p95z_strata_summary.csv": "8207ab85cc5d4d798da0500c0a24eadd2a34a362fbd5ff10d48d2c6a43b7f890",
+  "case_studies/kakhovka_2023/tables/p95z_seasonal_baseline.csv": "d505357bd07475a540bf37ee74ab6befe718b074d33bc0aba2e52ed4015c7601",
+  "case_studies/kakhovka_2023/tables/p95zm_index_classes.csv": "89a8b4fc2663be9ec49bb8d0753ba0b98bda6f88a9b9ec4e33f0e726308f4179",
+  "case_studies/kakhovka_2023/tables/p95zm_s1_classes.csv": "eb54e6b32946f3051957bca32b2e15f01d5eb756dc6648139f1176f1bd8cf5d1",
+  "case_studies/kakhovka_2023/tables/p95zm_k10e_classes.csv": "f3232bbdd8322ed0d2363416278fef775f0adf8eeaf9a199a3d42eef9291c1ca",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling.csv": "837932978e72c00e5d526cd80019c20c68b714c542af852227154f1626f7c785",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_hand_and_ceiling.csv": "f57262e98c73ffb9b521e1c66666ee5116335d61bee8e691b29503f8c7fc9bae",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_ceiling_only.csv": "b3a6809075de2317b0a60ef3c2268799f1ba976b76546ed1855ae3d66f9b2c40",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_dem_uncorrected.csv": "7c9f983f9ebf84cc81fec90d9fde46965b0d895e334e57b073e08da393275fe7",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_closure_p59_m050.csv": "e0b2f6f0a32c6ee3d071263c9c7221eb4f3b11af9e092c898f6b28402dfe901c",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_conn4.csv": "41a5094366d2d4b1ab6abac9c12e1f790095bde8c87f160fffd9aa6bc6fcdc39",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_seed_allprewater.csv": "5e7ff79d0f18a2880152c2f14cabf15dafa3056e4ca5cb5dbf8dd8922efcd112",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_memory.csv": "766366c949d1faa153a7a1e4bdc5928ed0e446df79e9d41672583c186f8b4813",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_maxgap3.csv": "afe41ceb4fa079f12432033561f16dbe7d4ae90d57d5dbf2b1611863fc763bf3",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_riveraware.csv": "ec6e4c5ed6f3bcdfc25f1e4abd7b1e0118fb5ba0fcb260d4ef4890a422dab6e6",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_inhulets_gauge_node.csv": "ae464dcd99380093f12d16c327a2b95b2e971bed2a95e10ec6a0ca3968d3b4b0",
+  "case_studies/kakhovka_2023/tables/p95_validation_s1_pooled_connected_ceiling_fallback10km.csv": "8ae5d9a66bcf5706b465432129e203e9f0372048f715d643a552d8b8e6a92ac3",
+  "case_studies/kakhovka_2023/tables/p95d_agreement_20230609_summary.csv": "973a138634082f1fa607bfd63e177272c5ea6c531bf19fe885613aa458b524ac",
   "case_studies/kakhovka_2023/tables/p95d_agreement_20230613_summary.csv": "b3cc26c2d6fca3265e080614673da3a8d055cec6e10f483af93a9baa19a359e9",
   "case_studies/kakhovka_2023/tables/p95d_agreement_20230614_summary.csv": "ac618c52a9ff64be88ce1ac7172f4bbf62ea61b107ceab25bc7fdd363f02beb1",
-  "case_studies/kakhovka_2023/tables/p95c_icesat2_check_0609.csv": "5357bcede749c650c42f8382599ef13187e62493e1a56a0e1eaa9ceceab42f7b",
-  "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_holdout.csv": "27f81cdaea66eb11b534b89f0485e4bbf333eeaf8b507bcf096af96ea29083df",
-  "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_folds.csv": "d9276d7899fe78edef137633b95b1462850aa69cd403e6f340ab31757ae83a3d",
+  "case_studies/kakhovka_2023/tables/p95c_icesat2_check_0609.csv": "101af79c1703851e458b2dc7c4ebf042c0c33dd15ffa4ab167dfdb84cd4cd45f",
+  "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_holdout.csv": "c86329fefaa311d69feb9950ebbbb7118c6f46d64df071d38630550badee4081",
+  "case_studies/kakhovka_2023/tables/p95c_icesat2_bias_folds.csv": "5051c81f37992e2f3b443f98a32d396d34964a6d65b23b19d48e84a869176378",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_summary_kozachi_laheri_lowland.csv": "731e0ba0f7f432141663ac18488da3d8d759ffffca69344b23b1b6825cd93cd7",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_icesat_kozachi_laheri_lowland.csv": "0db8945d2a6f60224819afa8e6df3bdc228da9ad08a525ae9186741abc464f6b",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_dz_classes_kozachi_laheri_lowland.csv": "62d7da6e65b5fa9283ac1f42eaf10bcafb88f485a96bb349e6ef3ad035b4162f",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_crosstest_kozachi_laheri_lowland.csv": "4c4eb8cffb39eabb147d696844f9e5a25b9d95b925c71a25ce0fdd0b33c4c712",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_path_bins_kozachi_laheri_lowland.csv": "1696337141394c269b609ec1b48e8f9991e86a285b62c51ac641ee31173af60f",
+  "case_studies/kakhovka_2023/tables/p95p_saddle_path_classes_kozachi_laheri_lowland.csv": "9e12a8b09849394497411be2a684400386f71fc3db5bd0218e0fcd367259b374",
   "case_studies/kakhovka_2023/tables/p93_peak_vs_label_vs_model.csv": "20769157b53a09e1f6e2e1ad7505d1a47f690d3d2d8305a08db5aa31a7bf393a",
   "case_studies/kakhovka_2023/tables/p92_flood_area_dam_to_liman.csv": "788f2cb1ed1f34e49e5670cebd3f9c6d760738edb5bf37736ca6aff19ca3ea39",
-  "case_studies/kakhovka_2023/tables/p95k_inhulets_kalynivske.csv": "13c2ccb9e017c39aeac79d2b1c4d8964df286eee13aa403895c65d809e19f316",
-  "case_studies/kakhovka_2023/tables/p95k_inhulets_summary.csv": "e97b105f62d49e8859d1d991f7a929439258536a049863226f7a38603d801d6a",
-  "case_studies/kakhovka_2023/tables/p95k_liman_mykolaiv.csv": "4cf73f9f20a29e621c343c7cf55f57a8082423633d713e9b8e780c8d708a91e7",
-  "case_studies/kakhovka_2023/tables/p95k_liman_summary.csv": "d6880726b540d6a86b97b84764935599159bd31fb4d5c8778d99030cde801cb0",
+  "case_studies/kakhovka_2023/tables/p95y_cumulative_overlap.csv": "2f24eb14768d852a028c6936d989b0d1dbe02d2f29ff9490ccb999a3a80d7436",
+  "case_studies/kakhovka_2023/tables/p95y_csi_bounds.csv": "90b15759deae465639052de3a5a848fa5d2a218df2c17bfc97d5c157da123247",
+  "case_studies/kakhovka_2023/tables/p95k_inhulets_kalynivske.csv": "f0fe9d5540c3b629aa2f5098a38b7c289ccf3a27c1a038b37098babc4cd466fc",
+  "case_studies/kakhovka_2023/tables/p95k_inhulets_summary.csv": "8540d3a2a927dcf66ec0053abb31673e6b715150b36ff9f89841a0676768268c",
+  "case_studies/kakhovka_2023/tables/p95k_liman_mykolaiv.csv": "3672d8115e89b546c4152b2f62bc7203912a0c27c2c86dc312ff3276f2ffe45a",
+  "case_studies/kakhovka_2023/tables/p95k_liman_summary.csv": "def3ed107f43226d63ef201cb3b13d85f7ca6f65c3b1a02a0adc4f9777459418",
   "case_studies/kakhovka_2023/tables/p57_dem_accuracy_night.csv": "f9ac2e1222b0b65c18defb39d785e2db842549fc1d4039e63a937786673572c2",
   "case_studies/kakhovka_2023/tables/p95j_terrain_residual_stats.csv": "3930b03c41f1ad6fe977c80602d24754a61a96a1e038328132cafd339d63c9d6",
-  "case_studies/kakhovka_2023/tables/p95j_terrain_variogram_fit.csv": "15dbcbc1d49042dd7b99826f2d5401917578eba40f3ee521ff20d0f25c4f7c50",
+  "case_studies/kakhovka_2023/tables/p95j_terrain_variogram_fit.csv": "9a2ed36acd8d8de08fc4f3bc473161ac5ac7ac4a1d3aa008b4ba46c6a23f96b4",
   "case_studies/kakhovka_2023/tables/p94_flood_dynamics_estuary_s1.csv": "e88909456a11999491325f60e473fc7d481b279a731c000b9e903ad075fe2dfb",
   "case_studies/kakhovka_2023/tables/m6_split_s7p5_manifest.json": "023376fe4da51472663b47721804b162c4134d10c56c613244f0dd5a304aa34e",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v003A_s7p5/eval_d1a/endpoints.csv": "147ddd9ba385251631033222d2a0a4f74f373cfb439ecfea7f419242522e2d49",
@@ -987,16 +1239,18 @@
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s7p5/eval_d1a/endpoints.csv": "261971cd7b7606f81598607aca1a8db3c006fde114ab5833a668bda30d558bb4",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s15/eval_d1a/endpoints.csv": "4cf817bdfa7f017df27f5447d2271251827fe54430e9de16f2111298c66e209f",
   "case_studies/kakhovka_2023/runs/U2_B1B2_v004_s20/eval_d1a/endpoints.csv": "726e7249b5c009b18b2e5528e8c96da68a2f307aebb67484e749394bade6757f",
-  "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv": "20aa122752c01ba5e14bbd990ec9a54b993819dd0bc7b7902ebb8340484d6f54",
-  "case_studies/kakhovka_2023/tables/p95m_reservoir_depth.csv": "4bdf8a6ee829ec7434361a8fc3363a9ea5839046b8a5e0bb9a36c043fc255e76",
+  "case_studies/kakhovka_2023/tables/p95f_reservoir_daily.csv": "cf6151f77aa36f1684c4708bce7e7d4c8560c824ef0a765b9883ca18a17e123c",
+  "case_studies/kakhovka_2023/tables/p95m_reservoir_depth.csv": "6f129f80fca2f81e47f182f89d256147fc77afc4066a18ebb0ade2b52ba415c1",
   "case_studies/kakhovka_2023/tables/p95f_hypsometry_dem.csv": "c9dd87f6840318f5bb9bad34ad82cff5f2dfe752832965c8928e196dba1c3127",
-  "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv": "e8a35d9aa8a3c877d3809f90b907456ee8dc1edc8055f5e8854da3d697959598",
-  "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv": "366cd58ba8f14c299123103cbf4ce6f0d0bc7b0018b92c8896a486fa63598c9e",
-  "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv": "de359da1cf316da990e3730ced87abd2057a28356b7278a1a78058144e958b16",
-  "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv": "736d036b6f181f96d10b63ffdac0d7bd622b810d8d202664159f5e7e1b9205b3",
+  "case_studies/kakhovka_2023/tables/p95h_reservoir_maps.csv": "b2aa469ae975decb6160d23c5a8875a38c9a94f00ce47a9c585155bbb302cfb2",
+  "case_studies/kakhovka_2023/tables/p95h_exposure_observed.csv": "9ac9ea259f69c44cdfa2a8dda263f4d7bbe02789bb6ff92b218d862a78d1eb36",
+  "case_studies/kakhovka_2023/tables/p95h_s2_classes.csv": "8f6dfcc0c90c7102e962987cca3489b1ab3f33d28df822cfdf63d24772d69969",
+  "case_studies/kakhovka_2023/tables/p95h_s2_index_stats.csv": "8e0c705a84faf6243b7436668b9ad201a62b8901d37c9441b3ded5ca9f623997",
+  "case_studies/kakhovka_2023/tables/p95h_s2_index_classes.csv": "a13dc4f9d7b3a551c623e28f3745f6ac623a4fa12c1ce753932c939aaab2d16d",
   "case_studies/kakhovka_2023/tables/p95i_design_hypsometry.csv": "9ad54540f20d55c1948009df40f816afafee66da681c2031805484ca6e44572c",
-  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "1c0e869298abf6172dbe49792ae3f6bf4c81826269a40bcd3d7f86b19f813b24",
-  "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "66aa9b15a4400865c0f4f2e0e83015c6efae131c24612b3c8f7e48ead9cf7753",
-  "case_studies/kakhovka_2023/tables/p95i_manifest.json": "5bf2d1008277dd04a8be1104652615874c189f9a2d38742047039af397f1ac40"
+  "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "4c5f3233ede822b408a0890d4db636f7289a77903ee85a7d5e9a19c0fff0a8a4",
+  "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "2f702682e60baba3bc410b9b33ed0194274e8397357010a875ff77a5923990d9",
+  "case_studies/kakhovka_2023/tables/p95i_manifest.json": "643b9edf728a448abe087e4d86b13d6ad1a3cc61609d09dd74de0386796940a1",
+  "case_studies/kakhovka_2023/publication/audit_changes_source.csv": "4acd31d37b0dec9510651ec1f78247b2c39e5e8a7c01d2318a65c7e3ce6382af"
  }
 }

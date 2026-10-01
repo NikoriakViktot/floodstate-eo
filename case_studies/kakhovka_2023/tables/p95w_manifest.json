@@ -1,0 +1,38 @@
+{
+ "producer": "p95w_storage_cells.py",
+ "version": "v2 (distributed storage cells, prior-predictive)",
+ "runs": 4,
+ "seed": 20260930,
+ "cell_m": 200.0,
+ "sub_cell_m": 20.0,
+ "domain_cells": [
+  71,
+  96
+ ],
+ "prognostic_cells": 3307,
+ "boundary_cells": 655,
+ "faces": 5878,
+ "steps": 77540,
+ "window": [
+  "2023-06-05T12:00",
+  "2023-06-22T00:00"
+ ],
+ "obs_times": {
+  "07_ICEYE": "2023-06-07T12:40",
+  "09_L9": "2023-06-09T08:30",
+  "13_S2": "2023-06-13T08:57",
+  "21_S1": "2023-06-21T16:05"
+ },
+ "priors": {
+  "n": "logU(0.03, 0.15)",
+  "bowl_offset": "U(-1.2, 0) m",
+  "rim_offset": "U(-0.1, 0.1) m",
+  "ET_mm_d": "U(3, 7)",
+  "k_mm_d": "logU(1, 100)"
+ },
+ "sampling": "Latin hypercube",
+ "scheme": "local inertial (Bates et al. 2010) on sub-grid storage cells; outflow limited to cell volume; dt = 0.7 dx / sqrt(g d_max) <= 300 s",
+ "boundary": "cells outside the depression with median terrain < 3.0 m carry the reconstruction's surface (daily at 12:00 UTC, linear)",
+ "consistency": "within a factor 2 of the observed area on 7, 9, 13 June (<= 0.5 km2 where observed < 0.25) -- a check, not a fit",
+ "not_modelled": "rain; groundwater; culverts / drainage structures; sub-daily river surface; vegetation-specific roughness"
+}

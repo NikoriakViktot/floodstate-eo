@@ -1,0 +1,9 @@
+source,layer,street_length_m,street_inside_m,min_distance_m
+UNOSAT 3614 / ICEYE 2023-06-07 12:18-13:01 UTC,ICEYE_20230607_FloodExtent_KhersonskaOblast_UKR,2187.0,0.0,133.9
+UNOSAT 3614 / ICEYE 2023-06-07 12:18-13:01 UTC,ICEYE_20230607_WaterExtent_KhersonskaOblast_UKR,2187.0,0.0,133.9
+UNOSAT 3614 / ICEYE 2023-06-07 12:18-13:01 UTC,ICEYE_20230607_WaterExtentOutsideRiverBed_KhersonskaOblast_UKR,2187.0,0.0,133.9
+UNOSAT 3614 / ICEYE 2023-06-07 12:18-13:01 UTC,ICEYE_20230607_AffectedUrbanArea_KhersonskaOblast_UKR,2187.0,0.0,139.7
+UNOSAT 3614 / ICEYE 2023-06-07 12:18-13:01 UTC,ICEYE_20230607_AnalysedUrbanArea_KhersonskaOblast_UKR,2187.0,2187.0,0.0
+"p95 rev 8, 2023-06-07","reconstruction new water (nominal, 20 m cells)",2187.0,0.0,134.2
+"p95 rev 8, 2023-06-07",reconstruction total water P_t (nominal),2187.0,0.0,134.2
+"p95 rev 8, 2023-06-07","reconstruction new water, ensemble P >= 0.05",2187.0,0.0,120.0

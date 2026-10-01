@@ -81,6 +81,18 @@ def t01_inventory():
     put("T01", pd.DataFrame(rows), "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.", [p1, p2, p3, p4, p5], "mixed")
 
 
+def t01b_inventory():
+    """Maintainer 2026-10-01 ("why never the full picture"): the observation inventory per zone, stratum, period and sensor (p95u) --
+    consulted before any diagnostic is drawn, and the first table of publication/WETLAND_EVIDENCE.md."""
+    q = T / "p95u_evidence_inventory.csv"
+    if q.exists():
+        put("T01b", pd.read_csv(q), "Observation inventory of the reed-bed question (p95u): per zone (delta, floodway, Inhulets rectangle), stratum (p95z strata, "
+                        "p95x ground classes, ALL), period and sensor -- the number of scenes, the share of the stratum with at least one clear observation in "
+                        "the period, the mean clear share per scene, the best scene. Sensors: Sentinel-2 (p54a valid mask of the zone's frame), Sentinel-1 orbit 14 "
+                        "and all orbits of the zone caches (covered), k10e (frozen products, observed = classed), UNOSAT layers (dates only). The gate of the "
+                        "composites (p95zm: a period below 50 % needs --allow-partial) and the reason a diagnostic is or is not possible.", [q], "cross_sensor")
+
+
 def t02_labels():
     v2, p1 = read("p77_labels_v002_summary.csv"); a, p2 = read("p77d_v003_A_areas.csv"); tr, p3 = read("p77d_v003_A_transition_v002.csv")
     A = a[(a.reference_domain == "ALL") & (~a.ontology.str.startswith("event_water"))].pivot(index="frame", columns="ontology", values="km2").reset_index()
@@ -301,7 +313,8 @@ def t09_rf():
 P95_VARIANTS = [("_connected_ceiling", "connected_ceiling"), ("_hand_and_ceiling", "hand_and_ceiling"), ("_ceiling_only", "ceiling_only"),
                 ("_connected_ceiling_dem_uncorrected", "connected_ceiling_dem_uncorrected"),
                 ("_connected_ceiling_closure_p59_m050", "connected_ceiling (superseded closure, +0.5 m)"),
-                ("_connected_ceiling_conn4", "connected_ceiling_conn4"), ("_connected_ceiling_seed_mainstem", "connected_ceiling_seed_mainstem"),
+                ("_connected_ceiling_conn4", "connected_ceiling_conn4"), ("_connected_ceiling_seed_allprewater", "connected_ceiling_seed_allprewater (superseded rev-7 seeding)"),
+                ("_connected_ceiling_memory", "connected_ceiling_memory (retained water, sensitivity)"),
                 ("_connected_ceiling_maxgap3", "connected_ceiling_maxgap3"), ("_connected_ceiling_riveraware", "connected_ceiling_riveraware"),
                 ("_connected_ceiling_inhulets_gauge_node", "connected_ceiling_inhulets_gauge_node"), ("_connected_ceiling_fallback10km", "connected_ceiling_fallback10km")]
 P95_ATTRIBUTION = [("_connected_ceiling_legacyTZA", "rev 5 reproduced: rev-5 terrain table on every cell, per-zone evaluation, grid-anchored lattice"),
@@ -331,8 +344,9 @@ def t11_terrain():
                          wse_river_aware=c.get("wse_river_aware"), terrain_bias=ter.get("bias_correction"), vertical_datum=vf.get("datum"),
                          paper1_fabdem_shift_m=(vf.get("paper1_frame") or {}).get("fabdem_shift_m"), paper1_kherson_delta_epsg9902_m=(vf.get("paper1_frame") or {}).get("kherson_delta_epsg9902_m"),
                          evaluation="union mosaic" if "mosaic" in str(man.get("evaluation", "")) else man.get("evaluation"), wse_method=man.get("wse_method", ""),
-                         status="superseded" if "p59" in (man.get("closure") or "") else "current"))
-    put("T11", pd.DataFrame(rows), "Terrain reconstruction (rev 6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias and vertical datum per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.", src, "independent_physical")
+                         memory=c.get("memory", False), event_source_network=(man.get("event_source_network") or {}).get("definition"),
+                         status="superseded" if ("p59" in (man.get("closure") or "") or c.get("seed_network") == "all_prewater") else ("sensitivity" if c.get("memory") else "current")))
+    put("T11", pd.DataFrame(rows), "Terrain reconstruction (rev 7, in the vertical frame of Paper 1 v6): rule, closure, constants, connectivity, seed network, water-surface support options, terrain bias, vertical datum and the Paper-1 frame constants (FABDEM shift, Kherson EPSG:9902 step) per variant; the primary is connected_ceiling, every other row a sensitivity. The superseded closure row is kept for traceability.", src, "independent_physical")
     p = T / "p95e_uncertainty_components.csv"
     if p.exists():
         put("T11b", pd.read_csv(p), "Uncertainty components of the terrain reconstruction (Monte-Carlo inputs, p95e rev 2): datum closure of the SWOT chain, gauge, SWOT node height, gap-dependent interpolation error, the correlation model of the terrain-error field (nugget + nested exponential structures fitted to the standardized FABDEM - ICESat-2 residuals, p95j) and the class-wise FABDEM residual scale per zone (own zone where N >= 500, else pooled and flagged transferred); bed cells of the seamless terrain-bed model carry no stochastic term (limitation).", [p], "independent_physical")
@@ -360,7 +374,7 @@ def t11_terrain():
     if rows:
         A = pd.concat(rows, ignore_index=True); A["area_semantics"] = "terrain_reconstructed"
         A["note"] = "nominal runs (no Monte-Carlo); each step adds one change to the previous one; the first row reproduces the committed rev-5 tables exactly (reproduction gate)"
-        put("T11h", A, "From rev 5 to rev 6 of the reconstruction (nominal runs, key dates): the committed rev-5 result reproduced exactly by the rev-6 code in legacy mode, then one change at a time -- the water-surface lattice anchored in map coordinates, connectivity on the union mosaic with ownership for accounting only (review F06), and the FABDEM-only residual terrain bias per zone with bed cells uncorrected (review F07).", src, "independent_physical")
+        put("T11h", A, "From rev 5 to rev 7 of the reconstruction (nominal runs, key dates): the committed rev-5 result reproduced exactly by the rev-6 code in legacy mode, then one change at a time -- the water-surface lattice anchored in map coordinates, connectivity on the union mosaic with ownership for accounting only (review F06), the FABDEM-only residual terrain bias per zone with bed cells uncorrected (review F07) = rev 6, and the vertical frame of Paper 1 v6 (the Kherson gauge at the post's own EPSG:9902 step, the FABDEM terrain and the ICESat-2 ground in the production chain; 2026-09-30) = rev 7.", src, "independent_physical")
     sc = T / "p95_seam_check_connected_ceiling.csv"
     if sc.exists():
         put("T11i", pd.read_csv(sc), "Seam check (review F06): water-surface-allowed area on 7, 9 and 13 June per zone and region, evaluated on the union mosaic versus the superseded per-zone evaluation (ownership applied before the connectivity), with the cells found by only one of the two.", [sc], "independent_physical")
@@ -424,6 +438,162 @@ def t12b_daily_series():
     pk = T / "p95e_peak_date.csv"
     if pk.exists():
         put("T12c", pd.read_csv(pk), "Day of the reconstructed areal maximum across the Monte-Carlo worlds: for A_new and W_total per region, the share of draws with the maximum on each day, and the day of the nominal run. A distribution conditional on the uncertainty model, not a probability of the true day.", [pk], "independent_physical")
+
+
+def t12f_combined():
+    """Maintainer 2026-09-30: an optional event-domain total, Dnipro corridor + Inhulets valley, DATE-MATCHED -- summed within each
+    Monte-Carlo world and day, then its quantiles (never a sum of the two regions' quantiles or of maxima on different days).
+    Recomputed from the per-draw file of p95e (p95e itself untouched: it is part of its own chunk-cache fingerprint)."""
+    pd_ = T / "p95e_draws.csv.gz"
+    if not pd_.exists():
+        return
+    D = pd.read_csv(pd_); D = D[D.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])]
+    g = D.groupby(["draw", "date"])[["new_km2", "potential_km2", "new_volume_hm3"]].sum().reset_index()
+    ens, nom = g[g.draw > 0], g[g.draw == 0].set_index("date")
+    rows = []
+    for d, e in ens.groupby("date"):
+        r = dict(date=d, region="DNIPRO_CORRIDOR+INHULETS_VALLEY_rect")
+        for col, tag, unit in (("new_km2", "A", "km2"), ("potential_km2", "W_total", "km2"), ("new_volume_hm3", "V", "hm3")):
+            for q in (5, 50, 95):
+                r[f"{tag}_p{q:02d}_{unit}"] = round(float(e[col].quantile(q / 100)), 1)
+            r[f"{tag}_central_{unit}"] = round(float(nom.loc[d, col]), 1) if d in nom.index else np.nan
+        r["n_draws"] = int(e.draw.nunique()); rows.append(r)
+    R = pd.DataFrame(rows).sort_values("date")
+    R["area_semantics"] = "terrain_reconstructed"
+    R["note"] = ("date-matched sum within each world; the Dnipro-corridor and Inhulets rows of T12/T12b stay the primary quantities; "
+                 "the Inhulets part is a lower bound (the valley is cut by the northern edge of the reconstruction domain) and rests largely on weak / cross-river support (T11k)")
+    put("T12f", R, "Optional event-domain total: Dnipro corridor + Inhulets valley, DATE-MATCHED (summed within each coherent Monte-Carlo world of p95e and day, then the median [p05-p95]; draw 0 = nominal run, a diagnostic). The two regions stay reported separately (T12, T12b); their maxima fall on different days (corridor 7 June, Inhulets 9 June), so they are never added as maxima.", [pd_], "independent_physical")
+
+
+def t11_seed_qa():
+    """D-SEED (maintainer, 2026-09-30): the seed-class QA of p95o -- three semantic classes of the superseded all-prewater seeding
+    (T11m lineages, T11n daily sums, T11o land cover), the same QA on the primary (isolated-never must be 0) and the retained
+    water of the memory sensitivity against Sentinel-1 (T11p)."""
+    old, prim, mem = "_connected_ceiling_seed_allprewater", "_connected_ceiling", "_connected_ceiling_memory"
+    L = T / f"p95o_lineages{old}.csv"
+    if L.exists():
+        D = pd.read_csv(L); D = D[D.max_km2 >= 1.0].copy()
+        put("T11m", D, "Seed-class QA of the SUPERSEDED all-prewater seeding (p95o on the provenance variant): every lineage of newly inundated components >= 1 km2 (day-to-day overlap graph, ancestry by backward traversal), its verdict (RIVER_CONNECTED / ISOLATED_NEVER = never linked to the event-source network along its lineage / CONNECTED_THEN_TRAPPED), the WorldCover mix of its own cells and of a 2 km context ring (land cover is not geomorphology: cropland or pine on the sandy terrace stays 'cropland' / 'trees'), terrain and water surface, the nearest SWOT node (river, km), the seed bodies inside its potential component, the 4-connectivity and erosion-disconnect sensitivities (a morphological test, not a width) and the Sentinel-1 class with its date and lag: S1_WATER (dark water on >= 20 % of the observed cells), S1_OPEN_SURFACE_NO_WATER (>= 30 % open ground -- grass, cropland, bare -- at least half of it observed and <= 5 % dark: no water signal where SAR sees water), S1_NO_WATER_SIGNAL_VEGETATED (forest, reed or built-up dominate: SAR not informative), S1_INCONCLUSIVE, S1_UNOBSERVED; prefix LATER_ when the scene is not of the same day, because a later scene never contradicts an earlier day. Trapped components carry the retained-water verdict of the same-day scene: RETAINED_PLAUSIBLE (water), LIKELY_DRAINED (open surface without water), RETAINED_UNCERTAIN.", [L], "independent_physical")
+    rows = []
+    for sfx, tag in ((old, "all_prewater (superseded)"), (prim, "river network (primary)")):
+        q = T / f"p95o_summary{sfx}.csv"
+        if q.exists():
+            d = pd.read_csv(q); d["run"] = tag; rows.append(d)
+    if rows:
+        S = pd.concat(rows, ignore_index=True)
+        for cl in ("river_connected", "trapped", "isolated_never"):
+            S[f"share_{cl}"] = (S[f"A_{cl}_km2"] / S.A_full_km2.replace(0, np.nan)).round(4)
+        put("T11n", S, "Three semantic classes of the daily new inundation per region and run (p95o): A_full = A_river_connected + A_trapped + A_isolated_never. river_connected = the component touches the event-source network (largest connected component of the pre-breach water map) on that day; trapped = not today, but it or an ancestor was on an earlier day (retained water that a static model cannot hold); isolated_never = seeded by isolated pre-breach water only (ponds, canals; the artefact of the superseded seeding). Under the primary (D-SEED) isolated_never is 0 by construction and trapped water is absent (D-MEMORY sensitivity, T11p). Also the new area whose river link does not survive 4-connectivity or one 20 m erosion (morphological sensitivities), and -- on days with a same-day Sentinel-1 scene -- the new area on open ground (WorldCover grass, cropland, bare) that the scene observed and the part of it without a water signal: an open surface without water is a disagreement where SAR sees water, whereas forest, reed and built-up are not informative and are not counted; a later scene never contradicts an earlier day. The trapped area is split by the same-day verdict of the retained-water decision tree: water (plausible retained water), open surface without water (likely drained), no usable observation (uncertain).", [T / f"p95o_summary{s_}.csv" for s_ in (old, prim) if (T / f"p95o_summary{s_}.csv").exists()], "independent_physical")
+    rows = []
+    for sfx, tag in ((old, "all_prewater (superseded)"), (prim, "river network (primary)")):
+        q = T / f"p95o_landcover{sfx}.csv"
+        if q.exists():
+            d = pd.read_csv(q); d = d[d.date.isin(KEY_DATES)].copy(); d["run"] = tag
+            tot = d.groupby(["run", "date", "region"]).km2.transform("sum"); d["share_of_new"] = (d.km2 / tot).round(4); rows.append(d)
+    if rows:
+        put("T11o", pd.concat(rows, ignore_index=True), "WorldCover 2021 class of the daily new inundation by semantic class, region, key date and run (p95o). External qualitative check only: UK CEH (in UNEP 2023) found cropland < 2 % (about 871 ha) of the land inundated downstream, while the superseded seeding put a single ~40 km2 (4 000 ha) component of WorldCover cropland on the left-bank sandy terrace under the Kokan' level extrapolated 14 km -- a red flag, not a validation (different AOI, semantics, source and date).", [T / f"p95o_landcover{s_}.csv" for s_ in (old, prim) if (T / f"p95o_landcover{s_}.csv").exists()], "contextual")
+    q = T / f"p95o_retained{mem}_vs{prim}.csv"
+    if q.exists():
+        put("T11p", pd.read_csv(q), "D-MEMORY sensitivity (retained water): per day and region the new inundation of the primary (instantaneous river-connected reconstruction), of the memory variant (a cell inundated on day t-1 stays inundated on day t while still below the surface -- a storage hypothesis without infiltration or drainage) and their difference, the retained water classed by the same-day Sentinel-1 scene (water = plausible retained water; open ground without a water signal = likely drained; no usable same-day observation = uncertain) and the date and lag of the next scene when there is none. A sensitivity, never the primary.", [q], "cross_sensor")
+
+
+def t12g_cellprob():
+    """Maintainer 2026-09-30: the ensemble, not a hand rule, decides marginal components -- P(new inundation) per cell over the
+    coherent worlds (p95e --mode cellprob); the median world (P >= 0.5) is the map product of the ensemble."""
+    q = T / "p95e_cellprob_summary.csv"
+    if q.exists():
+        put("T12g", pd.read_csv(q), "Per-cell inundation probability of the coherent Monte-Carlo worlds (p95e cellprob, the same worlds as T12): per key date and region the nominal area (draw 0), the expected area (sum of P = mean over the worlds), the area of the cells inundated in at least 5 / 25 / 50 / 75 / 95 % of the worlds (P >= 0.5 = the median world, the map product of the ensemble; its area is not the median of the areas), the share of the nominal cells with P >= 0.5, and the ensemble quantiles of the area for reference. A marginal component -- one that hangs on a sill within the water-surface or terrain uncertainty -- appears here with its probability instead of being cut by hand.", [q], "independent_physical")
+
+
+def t12h_split():
+    """Maintainer 2026-10-01 (reviewer's reading of p95z): the new flooding of ground that was dry before the breach and the inundation of the
+    reed / wetland complex are two physically different quantities and are reported apart (p95e_split_areas.py, the same worlds as T12)."""
+    q = T / "p95e_split_areas.csv"
+    if q.exists():
+        D = pd.read_csv(q)
+        D = D[D.ground.isin(["dry_before_event", "vegetated_wetland", "other_water", "all"]) & D.region.isin(["DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect", "DNIPRO_CORRIDOR+INHULETS_VALLEY_rect"])]
+        put("T12h", D, "Areas split by ground class (p95e_split_areas, the same coherent Monte-Carlo worlds as T12; nominal = draw 0, a diagnostic; "
+                       "median [p05-p95] of draws 1..n): new inundation on DRY-BEFORE-EVENT ground (no optical pre-breach water, no reed / wetland "
+                       "complex, not WorldCover water) -- the new flooding of dry ground; water on the VEGETATED_WETLAND complex (WorldCover herbaceous "
+                       "wetland or model-only normally wet), its pre-breach value (5 June) and the event increase over it -- the inundation of wetland "
+                       "vegetation that before the breach already shows a C-band signature consistent with wet or inundated emergent vegetation (p95z); "
+                       "'all' = the A_new of T12 (gate); other_water = WorldCover water outside the optical reference (the remainder of A_new). Corridor + Inhulets summed within each world (date-matched).", [q], "independent_physical")
+
+
+def t12i_delta():
+    """Maintainer 2026-10-01: the reed-bed strata by zone, sensor and window (p95z) -- the seasonal evidence of the pre-event ground class
+    VEGETATED_WETLAND (T12i in full, T12j compact), and the diagnostic comparison with the UNOSAT products per ground class (p95y; T16b, T16c)."""
+    strata = ("NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface "
+              "and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime "
+              "that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, "
+              "nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither "
+              "open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.")
+    q = T / "p95z_strata_summary.csv"
+    if q.exists():
+        put("T12i", pd.read_csv(q), "Reed-bed strata of the Kherson delta (Sentinel-2 frame B2) and of the floodway between the dam and Kherson "
+                       "(frame B1, west of 538 km) by window (p95z): 10 m Sentinel-2 indices and C-band backscatter of the zone caches, the median of the "
+                       "scene medians -- the same season of a normal year (13 June 2022), the spring 2023 scenes before the breach (Sentinel-2 in the "
+                       "floodway only, Sentinel-1 in both), the last optical scene before the breach (delta 5 March 2023, floodway 5 June 2023), the "
+                       "peak (8 June, partly cloudy: observed_km2) and the recession (18 June). Strata: " + strata, [q], "cross_sensor")
+    q = T / "p95z_seasonal_baseline.csv"
+    if q.exists():
+        put("T12j", pd.read_csv(q), "Seasonal evidence of the pre-event ground classes (p95z, compact): per zone and stratum the median NDVI, NDMI "
+                       "and MNDWI of 13 June 2022 (same season, normal year) and of the last optical scene before the breach, and the 2023 spring "
+                       "Sentinel-1 VV, VH and VV - VH (median of the scene medians). Strata: " + strata, [q], "cross_sensor")
+    for tid, fn, cap in (("T12k", "p95zm_index_classes.csv", "Classified Sentinel-2 indices of the reed-bed zones (p95zm): per zone, period, stratum and index the "
+                           "share of the observed cells in each display class (p95h bins; not a classifier), from cloud-free period composites (per-cell "
+                           "median of the clear observations: normal year 25 May - 30 June 2022, the last period before the breach, recession 16 - 30 June 2023, "
+                           "July 2023; cover = clear share of the window in the period). The peak has no usable optical view and is in T12l."),
+                         ("T12l", "p95zm_s1_classes.csv", "Sentinel-1 VV on orbit 14 (ascending) of the reed-bed zones in display classes (p95zm): per zone, "
+                           "period (spring 2023 median of 4 scenes before the breach, 9 June = peak, 21 June = recession) and stratum the share of the "
+                           "observed cells below -18 dB (smooth open water), -18..-14, -14..-10, -10..-6 and above -6 dB (double bounce of vegetation standing "
+                           "in water, or buildings). Cloud-free; a signature, not a water map."),
+                         ("T12m", "p95zm_k10e_classes.csv", "SWOT-DNIPRO k10e surface classes (frozen p25 products, 20 m) of the reed-bed zones on the best-covered "
+                           "dates before and after the breach (p95zm): share of the observed cells per zone, date and stratum.")):
+        q = T / fn
+        if q.exists():
+            put(tid, pd.read_csv(q), cap + " Strata: " + strata, [q], "cross_sensor")
+    q = T / "p95y_cumulative_overlap.csv"
+    if q.exists():
+        D = pd.read_csv(q).drop(columns=["UNOSAT_only_landcover", "ours_only_landcover"])
+        N, a, b, tp, fp, fn = D.analysed_km2, D.ours_WATER_km2, D.UNOSAT_km2, D.both_km2, D.ours_only_km2, D.UNOSAT_only_km2
+        tn = N - tp - fp - fn; ex = a * b / N; pe = (a * b + (N - a) * (N - b)) / N ** 2
+        D["UNOSAT_share_of_ground"] = (b / N).round(3); D["ours_share_of_ground"] = (a / N).round(3)
+        D["CSI_chance"] = (ex / (a + b - ex)).round(3); D["heidke_skill"] = (((tp + tn) / N - pe) / (1 - pe)).round(3)
+        D["coverage"] = 1.0; D["coverage_note"] = "every cell of the ground class in the analysed extent is compared; our UNKNOWN counts as not WATER (its part of the disagreement is UNOSAT_only_where_ours_UNKNOWN_km2)"
+        put("T16b", D, "Diagnostic comparison with the UNOSAT flood of 6-9 June (activation FL20230606UKR, the layers of product 3616: ICEYE 7 June, "
+                       "Sentinel-3 6-9 June at 300 m, Sentinel-2 8 June; preliminary, not field-validated) per pre-event ground class (p95y): our daily "
+                       "state mask WATER on any of 6-9 June against the UNOSAT flood, both outside the optical reference water. CSI_chance = the CSI of "
+                       "the same two areas placed independently within the ground class; heidke_skill = Heidke skill score (Cohen's kappa) of the 2x2 "
+                       "table. Where most of a class is flooded in both (the vegetated wetland), a high CSI is largely prevalence; the flood boundary "
+                       "is tested on the dry-before-event ground. UNOSAT shaped earlier fixes of the reconstruction: a diagnostic, not validation.",
+            [q], "contextual")
+    q = T / "p95y_csi_bounds.csv"
+    if q.exists():
+        put("T16c", pd.read_csv(q), "7 June against the UNOSAT ICEYE-based flood layer, per pre-event ground class (p95y): coverage of the cells our "
+                       "state mask decides (WATER or DRY), CSI on the decided cells, the two scenarios (UNKNOWN as DRY / as WATER) and the admissible "
+                       "interval over every assignment of the UNKNOWN cells (min = TP/(TP+FP+FN+U_water+U_dry), max = (TP+U_water)/(TP+U_water+FP+FN)); "
+                       "the share of ICEYE water that falls in UNKNOWN and how much of UNKNOWN lies at the ICEYE water edge. A diagnostic comparison, "
+                       "not validation.", [q], "contextual")
+
+
+def t15d_saddle_audit():
+    """Maintainer 2026-09-30: local geodetic audit of the sill through which the floodplain lowland south of Krynky (10 km east of Kozachi Laheri) connects on the
+    peak days (p95p): the lowest path on three terrain surfaces, the saddle and its head under the water surface, and the ICESat-2
+    night ground residuals of FABDEM and GLO-30 by class in the audit window."""
+    nm = "kozachi_laheri_lowland"; a, b, c = (T / f"p95p_saddle_summary_{nm}.csv"), (T / f"p95p_saddle_icesat_{nm}.csv"), (T / f"p95p_saddle_dz_classes_{nm}.csv")
+    if a.exists():
+        put("T15d", pd.read_csv(a), "Saddle audit of the floodplain lowland south of Krynky (10 km east of Kozachi Laheri) (p95p): the lowest path (minimax, 8-neighbours) from the pre-breach river network to the lowland on three terrain surfaces -- the model terrain (seamless terrain-bed model, residual FABDEM class bias removed), FABDEM as delivered, and Copernicus DEM GLO-30 on the land cells with the bed kept -- with the saddle height, the water surface at the saddle on 7 and 8 June and their difference (positive = connected in the nominal world), the saddle's land cover, terrain source and nearest SWOT node; the datum step that moves the EGM2008 tiles into the frame of the model. GLO-30 is a surface model: under forest it lies metres above the ground and no path exists below the water surface.", [a], "independent_physical")
+    if b.exists():
+        put("T15e", pd.read_csv(b), "ICESat-2 ATL08 night ground segments in the audit window (p95p, Paper-1 frame): residuals of the model terrain, of FABDEM as delivered and of GLO-30 (median, NMAD, n) by class -- forest, open ground, wetland, the 200 m strip along the lowest path (the sill), the 200 m shoreline strip of the river network, all land cells. The sill is real within the data when the model residual in the path strip is near zero.", [b], "independent_physical")
+    if c.exists():
+        put("T15f", pd.read_csv(c), "FABDEM minus GLO-30 (both EGM2008) in the audit window by class (p95p): the vegetation and building correction of FABDEM relative to the Copernicus surface model, and the residual class bias the model removes on top of it.", [c], "contextual")
+    for tid, fn, cap, lvl in (("T15g", f"p95p_saddle_crosstest_{nm}.csv", "Cross-test of the saddle (p95p): the sill of every terrain surface evaluated along every route (the lowest path found on the model terrain and the one found on FABDEM as delivered), the water surface at the model sill, and the overlap of the two routes (Jaccard). The saddles of the two surfaces are NOT the same cells: the class-bias correction opens a different corridor, and along it FABDEM as delivered is 1.7 m higher at its highest point.", "independent_physical"),
+                              ("T15h", f"p95p_saddle_path_bins_{nm}.csv", "Along the fixed lowest path of the model terrain, per 1 km bin: FABDEM as delivered, the model terrain, the class correction applied, the land cover, and the ICESat-2 night ground segments within 100 m (their median height and the residuals of the model and of FABDEM as delivered). Where the correction is verified and where it is not: the terrace edge (the sill) is verified to +0.1 m, the forest interior of the terrace has no segments, the floodplain forest and wetland are over-corrected by 0.4-0.6 m, the lowland interior is under-corrected by up to 1.5 m.", "independent_physical"),
+                              ("T15i", f"p95p_saddle_path_classes_{nm}.csv", "ICESat-2 residuals of the model terrain and of FABDEM as delivered along the fixed path by land-cover class (p95p): a single class-median correction over-corrects the forest and wetland of the floodplain and under-corrects the grass of the lowland here -- the local sign of the class residual is not constant, which the Monte-Carlo terrain term carries as random error, not as local bias.", "independent_physical")):
+        q = T / fn
+        if q.exists():
+            put(tid, pd.read_csv(q), cap, [q], lvl)
 
 
 def t_depth():
@@ -507,6 +677,14 @@ def t13_terrain_vs_s1():
     D = pd.concat(rows, ignore_index=True); D["observation_domain"] = "S1 valid footprint of the date, owned zone area, outside the p42 cut rectangles (Inhulets rows: inside the Inhulets rectangle)"
     D = D.rename(columns={"POD_excl_normally_wet": "POD_cond_outside_normally_wet"})
     D["POD_cond_note"] = "conditional POD outside the normally-wet class (POD | observable dry-background domain): a diagnostic conditional agreement, NOT a corrected POD; the class was fixed a priori (same-rule pre-breach potential) before any comparison was read"
+    f94 = T / "p94_flood_dynamics_s1.csv"                                   # the passport of the agreement: coverage and chance level
+    if f94.exists():
+        F = pd.read_csv(f94)[["date", "region", "valid_km2", "coverage"]].rename(columns={"valid_km2": "footprint_km2", "coverage": "coverage_of_observable_domain"})
+        D = D.merge(F, on=["date", "region"], how="left")
+        N, a, b = D.footprint_km2, D.hand_new_km2, D.s1_new_km2; ex = a * b / N
+        tn = N - D.hit_km2 - D.miss_km2 - D.hand_only_km2; pe = (a * b + (N - a) * (N - b)) / N ** 2
+        D["CSI_chance"] = (ex / (a + b - ex)).where((a + b) > 0).round(3); D["heidke_skill"] = (((D.hit_km2 + tn) / N - pe) / (1 - pe)).where((a + b) > 0).round(3)
+        D["passport_note"] = "footprint_km2 and coverage from the p94 S1 footprint of the same date and region (observable domain of p94, close to but not identical with the T13 domain); CSI_chance = CSI of the two areas placed independently in the footprint; heidke_skill = Heidke skill score of the 2x2 table"
     put("T13", D, "Terrain reconstruction vs Sentinel-1 new dark water per acquisition date, region and variant: hit / miss / miss-on-normally-wet / terrain-only km2, POD, FAR, CSI (raw agreement, primary) and the conditional POD outside the normally-wet class (diagnostic).", src, "cross_sensor")
 
 
@@ -688,8 +866,8 @@ def readme():
 
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
-    for f in (t01_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
+    for f in (t01_inventory, t01b_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12f_combined, t12g_cellprob, t12h_split, t12i_delta, t11_seed_qa, t15d_saddle_audit, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
               t23_t26_reservoir_maps, t28_audit_changes):          # T28 last: it resolves cells of the tables above
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

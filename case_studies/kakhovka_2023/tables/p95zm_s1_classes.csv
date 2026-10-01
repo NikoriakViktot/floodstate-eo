@@ -1,0 +1,211 @@
+zone,phase,period,dates,layer,cls,label,stratum,km2,share_of_observed,observed_km2
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,46.981,0.0183,2561.16
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,172.522,0.0674,2561.16
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,1233.538,0.4816,2561.16
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,932.196,0.364,2561.16
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,175.924,0.0687,2561.16
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,0.036,0.0003,115.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,0.83,0.0072,115.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,9.142,0.0793,115.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,52.395,0.4546,115.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,52.859,0.4586,115.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.0,0.0,13.01
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,0.049,0.0037,13.01
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,0.491,0.0377,13.01
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,8.676,0.6667,13.01
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,3.797,0.2918,13.01
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.002,0.0002,8.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,0.147,0.0178,8.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,3.262,0.3948,8.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,3.82,0.4623,8.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,1.033,0.125,8.26
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,46.269,0.3433,134.79
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,68.677,0.5095,134.79
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,8.714,0.0647,134.79
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,7.652,0.0568,134.79
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,3.48,0.0258,134.79
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,0.007,0.0002,39.06
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,0.233,0.006,39.06
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,6.657,0.1704,39.06
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,20.092,0.5144,39.06
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,12.072,0.3091,39.06
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,0.047,0.0,1874.74
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,96.908,0.0517,1874.74
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,1112.382,0.5934,1874.74
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,625.121,0.3334,1874.74
+delta,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,40.287,0.0215,1874.74
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,87.53,0.0342,2557.53
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,399.746,0.1563,2557.53
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,1296.482,0.5069,2557.53
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,662.053,0.2589,2557.53
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,111.722,0.0437,2557.53
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,24.312,0.211,115.22
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,49.263,0.4276,115.22
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,31.254,0.2713,115.22
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,8.242,0.0715,115.22
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,2.144,0.0186,115.22
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.184,0.0141,13.01
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,1.443,0.1109,13.01
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,4.36,0.3351,13.01
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,5.87,0.4512,13.01
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,1.154,0.0887,13.01
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.174,0.0211,8.26
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,1.542,0.1868,8.26
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,3.576,0.4332,8.26
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,2.292,0.2777,8.26
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,0.67,0.0812,8.26
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,45.474,0.34,133.76
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,49.13,0.3673,133.76
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,35.786,0.2675,133.76
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,2.713,0.0203,133.76
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,0.661,0.0049,133.76
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,2.832,0.0725,39.06
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,15.241,0.3902,39.06
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,17.081,0.4373,39.06
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,3.736,0.0957,39.06
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,0.172,0.0044,39.06
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,6.566,0.0035,1872.78
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,249.033,0.133,1872.78
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,1088.284,0.5811,1872.78
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,481.105,0.2569,1872.78
+delta,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,47.792,0.0255,1872.78
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,30.53,0.012,2552.35
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,223.079,0.0874,2552.35
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,917.684,0.3595,2552.35
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,1041.742,0.4082,2552.35
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,339.312,0.1329,2552.35
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,0.624,0.0054,115.11
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,3.089,0.0268,115.11
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,17.562,0.1526,115.11
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,60.082,0.5219,115.11
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,33.757,0.2932,115.11
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.028,0.0021,13.01
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,0.21,0.0161,13.01
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,0.952,0.0732,13.01
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,6.824,0.5246,13.01
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,4.995,0.384,13.01
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.004,0.0005,8.24
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,0.39,0.0474,8.24
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,3.132,0.3804,8.24
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,3.928,0.4769,8.24
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,0.781,0.0948,8.24
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,24.449,0.1847,132.33
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,59.589,0.4503,132.33
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,38.636,0.292,132.33
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,7.299,0.0552,132.33
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,2.362,0.0179,132.33
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,0.173,0.0044,39.06
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,1.412,0.0361,39.06
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,6.07,0.1554,39.06
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,18.478,0.473,39.06
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,12.929,0.331,39.06
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,3.218,0.0017,1869.93
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,148.324,0.0793,1869.93
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,758.889,0.4058,1869.93
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,755.127,0.4038,1869.93
+delta,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,204.373,0.1093,1869.93
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,50.252,0.0151,3336.82
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,284.394,0.0852,3336.82
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,1849.477,0.5543,3336.82
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,979.304,0.2935,3336.82
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,173.395,0.052,3336.82
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,0.442,0.0045,98.59
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,2.01,0.0204,98.59
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,3.643,0.037,98.59
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,14.374,0.1458,98.59
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,78.125,0.7924,98.59
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.0,0.0,48.19
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,0.024,0.0005,48.19
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,1.106,0.0229,48.19
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,32.094,0.6659,48.19
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,14.97,0.3106,48.19
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.001,0.0002,7.87
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,0.081,0.0103,7.87
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,3.242,0.412,7.87
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,2.719,0.3455,7.87
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,1.826,0.2321,7.87
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,45.12,0.652,69.2
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,10.654,0.154,69.2
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,6.468,0.0935,69.2
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,5.532,0.0799,69.2
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,1.424,0.0206,69.2
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,0.027,0.0021,12.86
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,0.174,0.0135,12.86
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,3.054,0.2374,12.86
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,4.877,0.3791,12.86
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,4.732,0.3679,12.86
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,0.308,0.0001,2346.99
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,193.829,0.0826,2346.99
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,1551.055,0.6609,2346.99
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,578.594,0.2465,2346.99
+floodway,before,spring 2023 before the breach · orbit 14 median,2023-04-22_orb14_ASC|2023-05-04_orb14_ASC|2023-05-16_orb14_ASC|2023-05-28_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,23.202,0.0099,2346.99
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,55.23,0.0166,3336.82
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,609.684,0.1827,3336.82
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,1736.901,0.5205,3336.82
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,833.079,0.2497,3336.82
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,101.928,0.0305,3336.82
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,9.929,0.1007,98.59
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,53.946,0.5472,98.59
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,31.331,0.3178,98.59
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,3.235,0.0328,98.59
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,0.152,0.0015,98.59
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.626,0.013,48.19
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,3.424,0.071,48.19
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,10.682,0.2217,48.19
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,28.243,0.586,48.19
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,5.218,0.1083,48.19
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.004,0.0006,7.87
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,0.385,0.0489,7.87
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,2.929,0.3723,7.87
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,3.292,0.4184,7.87
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,1.258,0.1599,7.87
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,19.831,0.2866,69.2
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,31.864,0.4605,69.2
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,14.304,0.2067,69.2
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,2.954,0.0427,69.2
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,0.245,0.0035,69.2
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,0.965,0.075,12.86
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,4.768,0.3706,12.86
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,4.871,0.3787,12.86
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,2.007,0.156,12.86
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,0.253,0.0197,12.86
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,10.458,0.0045,2346.99
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,401.857,0.1712,2346.99
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,1394.064,0.594,2346.99
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,502.189,0.214,2346.99
+floodway,after,9 June 2023 · peak · orbit 14,2023-06-09_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,38.419,0.0164,2346.99
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,ALL,60.406,0.0181,3336.82
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,ALL,298.222,0.0894,3336.82
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,ALL,1382.704,0.4144,3336.82
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,ALL,1290.499,0.3867,3336.82
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,ALL,304.992,0.0914,3336.82
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_REEDS,1.916,0.0194,98.59
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_REEDS,4.321,0.0438,98.59
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_REEDS,8.549,0.0867,98.59
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_REEDS,35.574,0.3608,98.59
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_REEDS,48.233,0.4892,98.59
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,NW_TREES,0.225,0.0047,48.19
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,NW_TREES,0.603,0.0125,48.19
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,NW_TREES,3.24,0.0672,48.19
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,NW_TREES,27.925,0.5794,48.19
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,NW_TREES,16.201,0.3362,48.19
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,HIGH_REEDS,0.006,0.0008,7.87
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,HIGH_REEDS,0.223,0.0284,7.87
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,HIGH_REEDS,2.642,0.3358,7.87
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,HIGH_REEDS,4.159,0.5285,7.87
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,HIGH_REEDS,0.839,0.1066,7.87
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,OPEN_WATER,40.048,0.5788,69.2
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,OPEN_WATER,16.652,0.2406,69.2
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,OPEN_WATER,6.974,0.1008,69.2
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,OPEN_WATER,4.588,0.0663,69.2
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,OPEN_WATER,0.936,0.0135,69.2
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,EVENT_REEDS,0.195,0.0151,12.86
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,EVENT_REEDS,0.583,0.0453,12.86
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,EVENT_REEDS,2.34,0.1819,12.86
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,EVENT_REEDS,6.474,0.5033,12.86
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,EVENT_REEDS,3.272,0.2544,12.86
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,1,< −18 dB,DRY_LAND,4.496,0.0019,2346.99
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,2,−18 – −14,DRY_LAND,210.431,0.0897,2346.99
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,3,−14 – −10,DRY_LAND,1135.663,0.4839,2346.99
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,4,−10 – −6,DRY_LAND,851.515,0.3628,2346.99
+floodway,after,21 June 2023 · recession · orbit 14,2023-06-21_orb14_ASC,S1_VV_orbit14,5,> −6 dB,DRY_LAND,144.883,0.0617,2346.99

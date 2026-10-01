@@ -1,0 +1,76 @@
+window,stratum,comparison,scored_km2,model_km2,unosat_km2,TP_km2,FP_km2,FN_km2,POD,FAR,CSI,F1,area_bias
+corridor (ICEYE analysis extent),all,new water vs ICEYE FloodExtent (pre-event dry in both references),1483.18,173.76,210.9,133.7,40.06,77.2,0.634,0.231,0.533,0.695,0.824
+corridor (ICEYE analysis extent),all,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",1483.18,214.1,210.9,145.73,68.37,65.17,0.691,0.319,0.522,0.686,1.015
+corridor (ICEYE analysis extent),all,total water P_t vs ICEYE WaterExtent,2014.39,678.21,668.44,568.29,109.92,100.14,0.85,0.162,0.73,0.844,1.015
+corridor (ICEYE analysis extent),"open ground (grass, cropland, bare)",new water vs ICEYE FloodExtent (pre-event dry in both references),1047.67,62.21,72.21,52.67,9.54,19.54,0.729,0.153,0.644,0.784,0.862
+corridor (ICEYE analysis extent),"open ground (grass, cropland, bare)","new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",1047.67,76.84,72.21,60.75,16.09,11.45,0.841,0.209,0.688,0.815,1.064
+corridor (ICEYE analysis extent),"open ground (grass, cropland, bare)",total water P_t vs ICEYE WaterExtent,1057.96,70.01,80.76,60.17,9.84,20.6,0.745,0.141,0.664,0.798,0.867
+corridor (ICEYE analysis extent),trees and shrub,new water vs ICEYE FloodExtent (pre-event dry in both references),198.04,44.47,21.13,18.04,26.43,3.09,0.854,0.594,0.379,0.55,2.105
+corridor (ICEYE analysis extent),trees and shrub,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",198.04,64.52,21.13,19.0,45.52,2.13,0.899,0.706,0.285,0.444,3.054
+corridor (ICEYE analysis extent),trees and shrub,total water P_t vs ICEYE WaterExtent,260.12,105.2,76.58,73.15,32.06,3.43,0.955,0.305,0.673,0.805,1.374
+corridor (ICEYE analysis extent),built-up,new water vs ICEYE FloodExtent (pre-event dry in both references),135.8,19.57,22.95,16.56,3.0,6.39,0.722,0.154,0.638,0.779,0.853
+corridor (ICEYE analysis extent),built-up,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",135.8,24.75,22.95,19.12,5.63,3.83,0.833,0.228,0.669,0.802,1.079
+corridor (ICEYE analysis extent),built-up,total water P_t vs ICEYE WaterExtent,137.48,20.19,23.66,17.16,3.03,6.5,0.725,0.15,0.643,0.783,0.854
+corridor (ICEYE analysis extent),wetland,new water vs ICEYE FloodExtent (pre-event dry in both references),98.21,45.25,91.91,44.48,0.77,47.43,0.484,0.017,0.48,0.649,0.492
+corridor (ICEYE analysis extent),wetland,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",98.21,45.62,91.91,44.83,0.8,47.08,0.488,0.017,0.484,0.652,0.496
+corridor (ICEYE analysis extent),wetland,total water P_t vs ICEYE WaterExtent,324.45,253.65,316.23,251.2,2.45,65.02,0.794,0.01,0.788,0.882,0.802
+Kozachi Laheri village,all,new water vs ICEYE FloodExtent (pre-event dry in both references),19.13,0.88,0.7,0.64,0.24,0.06,0.911,0.27,0.681,0.81,1.248
+Kozachi Laheri village,all,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",19.13,1.4,0.7,0.67,0.72,0.03,0.956,0.518,0.471,0.64,1.986
+Kozachi Laheri village,all,total water P_t vs ICEYE WaterExtent,30.62,12.37,12.14,12.08,0.28,0.06,0.995,0.023,0.972,0.986,1.018
+Kozachi Laheri village,"open ground (grass, cropland, bare)",new water vs ICEYE FloodExtent (pre-event dry in both references),13.34,0.2,0.25,0.18,0.01,0.06,0.747,0.075,0.705,0.827,0.808
+Kozachi Laheri village,"open ground (grass, cropland, bare)","new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",13.34,0.4,0.25,0.21,0.19,0.03,0.874,0.464,0.498,0.665,1.631
+Kozachi Laheri village,"open ground (grass, cropland, bare)",total water P_t vs ICEYE WaterExtent,13.44,0.3,0.34,0.28,0.01,0.06,0.819,0.05,0.785,0.88,0.862
+Kozachi Laheri village,trees and shrub,new water vs ICEYE FloodExtent (pre-event dry in both references),2.8,0.51,0.33,0.33,0.18,0.0,0.998,0.353,0.646,0.785,1.543
+Kozachi Laheri village,trees and shrub,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",2.8,0.79,0.33,0.33,0.47,0.0,1.0,0.586,0.414,0.585,2.417
+Kozachi Laheri village,trees and shrub,total water P_t vs ICEYE WaterExtent,5.39,3.09,2.87,2.87,0.23,0.0,1.0,0.073,0.927,0.962,1.078
+Kozachi Laheri village,built-up,new water vs ICEYE FloodExtent (pre-event dry in both references),2.89,0.09,0.05,0.05,0.04,0.0,1.0,0.489,0.511,0.677,1.956
+Kozachi Laheri village,built-up,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",2.89,0.12,0.05,0.05,0.07,0.0,1.0,0.614,0.386,0.557,2.593
+Kozachi Laheri village,built-up,total water P_t vs ICEYE WaterExtent,2.89,0.09,0.05,0.05,0.04,0.0,1.0,0.489,0.511,0.677,1.956
+Kozachi Laheri village,wetland,new water vs ICEYE FloodExtent (pre-event dry in both references),0.08,0.07,0.07,0.07,0.0,0.0,1.0,0.0,1.0,1.0,1.0
+Kozachi Laheri village,wetland,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",0.08,0.07,0.07,0.07,0.0,0.0,1.0,0.0,1.0,1.0,1.0
+Kozachi Laheri village,wetland,total water P_t vs ICEYE WaterExtent,6.67,6.67,6.67,6.67,0.0,0.0,1.0,0.0,1.0,1.0,1.0
+Krynky + lowland south of Krynky,all,new water vs ICEYE FloodExtent (pre-event dry in both references),88.74,38.84,16.88,16.03,22.81,0.86,0.949,0.587,0.404,0.575,2.301
+Krynky + lowland south of Krynky,all,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",88.74,53.29,16.88,16.59,36.7,0.29,0.983,0.689,0.31,0.473,3.156
+Krynky + lowland south of Krynky,all,total water P_t vs ICEYE WaterExtent,127.38,77.45,54.58,53.7,23.75,0.88,0.984,0.307,0.686,0.813,1.419
+Krynky + lowland south of Krynky,"open ground (grass, cropland, bare)",new water vs ICEYE FloodExtent (pre-event dry in both references),43.17,14.35,11.23,10.56,3.79,0.67,0.94,0.264,0.703,0.826,1.278
+Krynky + lowland south of Krynky,"open ground (grass, cropland, bare)","new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",43.17,18.11,11.23,11.05,7.06,0.18,0.984,0.39,0.604,0.753,1.613
+Krynky + lowland south of Krynky,"open ground (grass, cropland, bare)",total water P_t vs ICEYE WaterExtent,43.83,15.0,11.88,11.21,3.79,0.67,0.943,0.253,0.715,0.834,1.263
+Krynky + lowland south of Krynky,trees and shrub,new water vs ICEYE FloodExtent (pre-event dry in both references),40.3,20.68,2.12,2.05,18.63,0.07,0.966,0.901,0.099,0.18,9.743
+Krynky + lowland south of Krynky,trees and shrub,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",40.3,31.13,2.12,2.1,29.03,0.02,0.991,0.932,0.068,0.127,14.667
+Krynky + lowland south of Krynky,trees and shrub,total water P_t vs ICEYE WaterExtent,48.77,29.15,9.74,9.67,19.48,0.07,0.993,0.668,0.331,0.497,2.993
+Krynky + lowland south of Krynky,built-up,new water vs ICEYE FloodExtent (pre-event dry in both references),4.65,3.24,2.95,2.85,0.39,0.1,0.967,0.121,0.853,0.921,1.099
+Krynky + lowland south of Krynky,built-up,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",4.65,3.47,2.95,2.87,0.6,0.08,0.974,0.172,0.81,0.895,1.176
+Krynky + lowland south of Krynky,built-up,total water P_t vs ICEYE WaterExtent,4.66,3.25,2.95,2.85,0.39,0.1,0.967,0.121,0.853,0.921,1.1
+Krynky + lowland south of Krynky,wetland,new water vs ICEYE FloodExtent (pre-event dry in both references),0.49,0.46,0.46,0.46,0.0,0.0,1.0,0.005,0.995,0.997,1.005
+Krynky + lowland south of Krynky,wetland,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",0.49,0.47,0.46,0.46,0.01,0.0,1.0,0.022,0.978,0.989,1.023
+Krynky + lowland south of Krynky,wetland,total water P_t vs ICEYE WaterExtent,17.08,17.04,16.98,16.98,0.06,0.0,1.0,0.004,0.996,0.998,1.004
+Krynky village,all,new water vs ICEYE FloodExtent (pre-event dry in both references),18.07,12.94,7.33,7.08,5.86,0.25,0.965,0.453,0.537,0.699,1.764
+Krynky village,all,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",18.07,16.56,7.33,7.33,9.23,0.0,0.999,0.557,0.442,0.613,2.258
+Krynky village,all,total water P_t vs ICEYE WaterExtent,31.13,25.99,20.07,19.81,6.18,0.26,0.987,0.238,0.755,0.86,1.295
+Krynky village,"open ground (grass, cropland, bare)",new water vs ICEYE FloodExtent (pre-event dry in both references),7.0,4.96,4.76,4.53,0.43,0.23,0.951,0.086,0.873,0.932,1.041
+Krynky village,"open ground (grass, cropland, bare)","new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",7.0,6.08,4.76,4.76,1.32,0.0,0.999,0.217,0.783,0.878,1.276
+Krynky village,"open ground (grass, cropland, bare)",total water P_t vs ICEYE WaterExtent,7.09,5.06,4.86,4.63,0.43,0.23,0.952,0.085,0.875,0.933,1.041
+Krynky village,trees and shrub,new water vs ICEYE FloodExtent (pre-event dry in both references),9.45,6.51,1.16,1.16,5.36,0.01,0.994,0.823,0.177,0.301,5.6
+Krynky village,trees and shrub,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",9.45,8.92,1.16,1.16,7.76,0.0,1.0,0.87,0.13,0.231,7.673
+Krynky village,trees and shrub,total water P_t vs ICEYE WaterExtent,12.38,9.44,3.85,3.84,5.6,0.01,0.998,0.593,0.406,0.578,2.454
+Krynky village,built-up,new water vs ICEYE FloodExtent (pre-event dry in both references),1.57,1.42,1.36,1.34,0.07,0.01,0.991,0.051,0.941,0.97,1.044
+Krynky village,built-up,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",1.57,1.51,1.36,1.36,0.15,0.0,1.0,0.099,0.901,0.948,1.11
+Krynky village,built-up,total water P_t vs ICEYE WaterExtent,1.57,1.42,1.36,1.34,0.07,0.01,0.991,0.051,0.941,0.97,1.044
+Krynky village,wetland,new water vs ICEYE FloodExtent (pre-event dry in both references),0.03,0.03,0.03,0.03,0.0,0.0,1.0,0.0,1.0,1.0,1.0
+Krynky village,wetland,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",0.03,0.03,0.03,0.03,0.0,0.0,1.0,0.0,1.0,1.0,1.0
+Krynky village,wetland,total water P_t vs ICEYE WaterExtent,7.48,7.48,7.42,7.42,0.06,0.0,1.0,0.008,0.992,0.996,1.008
+lowland box (p95p/p95q),all,new water vs ICEYE FloodExtent (pre-event dry in both references),34.61,17.87,2.59,2.19,15.67,0.39,0.848,0.877,0.12,0.215,6.901
+lowland box (p95p/p95q),all,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",34.61,25.91,2.59,2.39,23.52,0.2,0.921,0.908,0.091,0.167,10.004
+lowland box (p95p/p95q),all,total water P_t vs ICEYE WaterExtent,35.43,18.69,3.36,2.97,15.72,0.4,0.883,0.841,0.156,0.269,5.554
+lowland box (p95p/p95q),"open ground (grass, cropland, bare)",new water vs ICEYE FloodExtent (pre-event dry in both references),10.29,4.9,2.12,1.78,3.12,0.34,0.839,0.636,0.34,0.507,2.308
+lowland box (p95p/p95q),"open ground (grass, cropland, bare)","new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",10.29,6.98,2.12,1.96,5.01,0.16,0.924,0.719,0.275,0.431,3.285
+lowland box (p95p/p95q),"open ground (grass, cropland, bare)",total water P_t vs ICEYE WaterExtent,10.3,4.91,2.13,1.79,3.12,0.34,0.84,0.635,0.341,0.509,2.301
+lowland box (p95p/p95q),trees and shrub,new water vs ICEYE FloodExtent (pre-event dry in both references),23.68,12.52,0.13,0.11,12.41,0.01,0.905,0.991,0.009,0.018,98.744
+lowland box (p95p/p95q),trees and shrub,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",23.68,18.41,0.13,0.12,18.28,0.0,0.975,0.993,0.007,0.013,145.164
+lowland box (p95p/p95q),trees and shrub,total water P_t vs ICEYE WaterExtent,24.13,12.98,0.54,0.53,12.45,0.01,0.978,0.959,0.041,0.078,24.101
+lowland box (p95p/p95q),built-up,new water vs ICEYE FloodExtent (pre-event dry in both references),0.62,0.44,0.33,0.29,0.15,0.04,0.876,0.337,0.606,0.755,1.321
+lowland box (p95p/p95q),built-up,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",0.62,0.51,0.33,0.29,0.22,0.04,0.882,0.429,0.53,0.693,1.545
+lowland box (p95p/p95q),built-up,total water P_t vs ICEYE WaterExtent,0.62,0.44,0.33,0.29,0.15,0.04,0.876,0.337,0.606,0.755,1.321
+lowland box (p95p/p95q),wetland,new water vs ICEYE FloodExtent (pre-event dry in both references),0.02,0.0,0.0,0.0,0.0,0.0,1.0,0.75,0.25,0.4,4.0
+lowland box (p95p/p95q),wetland,"new water, ensemble P >= 0.05 vs ICEYE FloodExtent (same ground)",0.02,0.0,0.0,0.0,0.0,0.0,1.0,0.75,0.25,0.4,4.0
+lowland box (p95p/p95q),wetland,total water P_t vs ICEYE WaterExtent,0.21,0.2,0.19,0.19,0.0,0.0,1.0,0.012,0.988,0.994,1.012

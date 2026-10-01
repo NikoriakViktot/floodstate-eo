@@ -1,4 +1,5 @@
-# New in floodstate-eo, 2026-09-25. STATUS: ACTIVE. Terrain-connectivity reconstruction of the DAILY inundation (rev 6, 2026-09-29).
+# New in floodstate-eo, 2026-09-25. STATUS: ACTIVE. Terrain-connectivity reconstruction of the DAILY inundation (rev 8, 2026-09-30: D-SEED;
+# rev 9, 2026-09-30: the baseline holds optical pre-breach water only -- Sentinel-1 darkness of 1/2 June is not reference water).
 """P95 -- daily inundation reconstructed from the observed water surface and the terrain: SWOT KaRIn node WSE (daily, 1-day
 orbit) + the Kherson gauge, projected on the seamless terrain-bed elevation model with a connectivity rule, for every day
 2023-05-26 .. 2023-07-10 (observation-constrained terrain-connectivity reconstruction).
@@ -12,23 +13,35 @@ elevation model, EVRF2019. FABDEM is already a DTM: the class-median residual ag
 p57) that is subtracted from the FABDEM-sourced cells is a RESIDUAL class-dependent terrain-elevation bias, not a canopy
 correction; bed cells receive no FABDEM statistics (`--dem-bias none` keeps the raw product as a sensitivity).
 
-Rule (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters):
+Rule (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters;
+rev 8: the pre-breach water map is composed from the frames where each frame HAS labels -- the 30 m strip east of frame B2
+inside ZONE_2 used to overwrite ZONE_4's water with 'no data' and cut the pre-breach river network in two at Kherson):
     H_t(cell)   = median H_t of the K = 5 nearest SWOT nodes within 3 km (+ margin, central 0.0 m); each node time-filled
                   between its own observations (observed / interpolated / held flags kept); the Kherson gauge is one more
                   node; cells > 15 km from a node and west of the gauge: min(that, gauge_t). Coarse 100 m lattice anchored
                   in map coordinates (so zonal and mosaic evaluations coincide), replicated to 20 m.
     C_t         = z_terrain < H_t  AND  dist to pre-breach water <= 10 km  AND  downstream of the dam (x < dam - 1 km)
-    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach optical water network (p60 pre_water_frac
-                  >= 20 %), the published flood-fill logic (terrain below the surface AND connected to known water);
+    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach RIVER NETWORK -- the largest connected
+                  component of the pre-breach optical water map (p60 pre_water_frac >= 20 %): the Dnipro from the dam to the
+                  liman with its delta, the Inhulets and the Kokan' -- the published flood-fill logic (terrain below the
+                  surface AND connected to the flood source). Seeding from EVERY pre-breach water cell (ponds, canals) is the
+                  superseded rev-7 semantics (`--seed-network all_prewater`, kept as a provenance variant): a few pond cells
+                  let ~40 km2 of terrace cropland 'flood' under a level extrapolated 14 km from the Kokan' (D-SEED, maintainer
+                  2026-09-30; audit p95o);
                   hand_and_ceiling (p42 rule, additionally HAND < H_t - 1 m; lower bound where the delta drainage is unmapped)
                   and ceiling_only (no connectivity; upper bound) are sensitivities.  depth_t = H_t - z_terrain.
-    N_t         = P_t AND NOT B,  B = observed pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %) OR P on ANY
-                  pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the breach by construction).
+    N_t         = P_t AND NOT B,  B = optically observed pre-breach water (p60 pre_water_frac >= 20 %: Sentinel-2 water frequency
+                  before the breach) OR P on ANY pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the
+                  breach by construction). rev 9 (maintainer, 2026-09-30): Sentinel-1 darkness on 06-01/02 is NOT part of B -- over
+                  dry sand and smooth fields it is not water (403 km2 of the domain, mostly dry cropland / grass in later EO; p95x
+                  check); it stays only as the mask of the S1 'new water' in the validations (the sensor was already dark there).
                   The model-only part of B ("normally wet": low reed beds below the normal surface that no optical/SAR mask
                   lists as water) is its own validation category -- S1 dark-water onset there is a DEPTH signal.
-Sensitivities: --connectivity 4, --seed-network main_stem, --max-gap-days N (node unavailable beyond N days from an
-observation), --wse-river-aware (median over nodes of the nearest node's river only), --closure p59_reservoir --margin 0.5
-(superseded chain), --dem-bias none. The uncertainty of every area and volume is p95e (coherent Monte-Carlo worlds).
+Sensitivities: --connectivity 4, --seed-network all_prewater (superseded rev-7 seeding), --memory (D-MEMORY: a cell
+inundated on day t-1 stays inundated on day t while it is still below the surface -- retained water, a storage hypothesis
+without infiltration / drainage, sensitivity only), --max-gap-days N (node unavailable beyond N days from an observation),
+--wse-river-aware (median over nodes of the nearest node's river only), --closure p59_reservoir --margin 0.5 (superseded
+chain), --dem-bias none. The uncertainty of every area and volume is p95e (coherent Monte-Carlo worlds).
 Vertical frame: EVERY height is EVRF2019 (terrain raster tag; SWOT wse + geoid_hght - zeta_EGG2015 + c_Kherson, Paper 1;
 gauge H_gauge_evrf; ICESat-2 via the p57 chain) -- asserted, recorded in the manifest, never assumed.
 Limits (state them with every number): a planar water surface per node neighbourhood, no momentum, no timing of filling /
@@ -415,10 +428,12 @@ def zone_layers(zone, P, with_s1=True):
     hand = onto(CFG.BULK_ROOT / "floodplain" / zone / f"{zone}_hand_m.tif")
     dist = onto(T / "dist_ref_water_m.tif")
     with rasterio.open(P.OUT / Z["frame"] / "labels.tif") as s:
-        d_ = list(s.descriptions); wf = s.read(d_.index("pre_water_frac") + 1).astype("f4"); tr10 = s.transform
+        d_ = list(s.descriptions); wf = s.read(d_.index("pre_water_frac") + 1).astype("f4"); tr10 = s.transform; lb = s.bounds
         pre10 = (wf >= 20).astype("f4")
     pre = np.zeros((G["ny"], G["nx"]), "f4")
     reproject(pre10, pre, src_transform=tr10, src_crs=G["crs"], dst_transform=G["transform"], dst_crs=G["crs"], resampling=Resampling.nearest)
+    xs_ = G["transform"].c + CELL_M * (np.arange(G["nx"]) + 0.5); ys_ = G["transform"].f - CELL_M * (np.arange(G["ny"]) + 0.5)
+    lab_cover = ((xs_ >= lb.left) & (xs_ < lb.right))[None, :] & ((ys_ > lb.bottom) & (ys_ <= lb.top))[:, None]   # rev 8: where this frame HAS labels
     W, V = {}, {}
     z = np.load(CFG.S1_CACHE / Z["cache"] / "per_scene_water.npz", allow_pickle=True); shp = tuple(int(v) for v in z["shape"])
     trc = from_origin(float(z["x0"]), float(z["y1"]), float(z["cell"]), float(z["cell"]))
@@ -454,7 +469,7 @@ def zone_layers(zone, P, with_s1=True):
         fp = features.rasterize([(ft["geometry"], 1) for ft in g["features"]], out_shape=(G["ny"], G["nx"]),
                                 transform=G["transform"], fill=0, dtype="uint8").astype(bool)
     return dict(G=G, dem=dem, dem_raw=dem_raw, src=src, is_fabdem=is_fabdem, bias=bias, sig=sig, wc=wc, residual_rows=used, hand=hand, dist=dist,
-                pre=(pre > 0) | pre_s1, seed=pre > 0, W=W, V=V, xs=xs, ys=ys, own=own, cut=cut, inh=inh, fp=fp, frame=Z["frame"], vertical_frame=frame)
+                pre=pre > 0, s1_pre_dark=pre_s1, seed=pre > 0, lab_cover=lab_cover, W=W, V=V, xs=xs, ys=ys, own=own, cut=cut, inh=inh, fp=fp, frame=Z["frame"], vertical_frame=frame)
 
 
 def mosaic_layers(P, with_s1=True, zones=None):
@@ -464,11 +479,19 @@ def mosaic_layers(P, with_s1=True, zones=None):
     Ls = {z: zone_layers(z, P, with_s1) for z in names}
     grid = UnionGrid.from_members({z: (L["G"]["transform"], (L["G"]["ny"], L["G"]["nx"])) for z, L in Ls.items()})
     comp = lambda key, fill, dtype=None: grid.compose({z: L[key] for z, L in Ls.items()}, fill, order=names, dtype=dtype)
+
+    def comp_labelled(key):
+        # rev 8: a frame-derived water mask is pasted only where its frame has labels; the owner's 'no data' never
+        # overwrites the other zone's water (the 30 m strip east of B2 inside ZONE_2 cut the river network at Kherson)
+        out = np.zeros(grid.shape, bool)
+        for z in names:
+            rs, cs = grid.window(z); m = Ls[z]["lab_cover"]; out[rs, cs][m] = Ls[z][key][m]
+        return out
     own_id = grid.compose({z: np.where(L["own"], zone_id(z), 0).astype("u1") for z, L in Ls.items()}, 0, order=names, dtype="u1")
     M = dict(grid=grid, G=dict(transform=grid.transform, crs=Ls[names[0]]["G"]["crs"], ny=grid.shape[0], nx=grid.shape[1]), zones=Ls, names=names,
              zone_id={z: zone_id(z) for z in names}, own_id=own_id, dem=comp("dem", np.nan), dem_raw=comp("dem_raw", np.nan), src=comp("src", 0, "u1"),
              is_fabdem=comp("is_fabdem", False, bool), bias=comp("bias", 0.0), sig=comp("sig", 0.0), hand=comp("hand", np.nan), dist=comp("dist", np.nan),
-             pre=comp("pre", False, bool), seed=comp("seed", False, bool), cut=comp("cut", False, bool), inh=comp("inh", False, bool),
+             pre=comp_labelled("pre"), s1_pre_dark=comp_labelled("s1_pre_dark"), seed=comp_labelled("seed"), cut=comp("cut", False, bool), inh=comp("inh", False, bool),
              fp=(comp("fp", False, bool) if all(L["fp"] is not None for L in Ls.values()) else None), xs=grid.xs(), ys=grid.ys(),
              vertical_frame=Ls[names[0]]["vertical_frame"])
     M["base_geom"] = np.isfinite(M["dem"]) & (M["dist"] <= DIST_MAX_M)      # the dam buffer is added by `dam_mask`
@@ -520,8 +543,8 @@ def potential_zonal(M, W, Zs, day, rule=PRIMARY_RULE, dem=None, Hmat=None, margi
 
 
 def baseline_mosaic(M, W, Z, rule=PRIMARY_RULE, dem=None, Hmat=None, connectivity=8, seed=None, base=None, margin=BASE_MARGIN_M, pot_fn=None):
-    """(baseline, normally_wet): the union over the pre-breach days of P under the SAME rule (fixed margin), plus the observed
-    pre-breach water; normally_wet = the model-only part."""
+    """(baseline, normally_wet): the union over the pre-breach days of P under the SAME rule (fixed margin), plus the optically
+    observed pre-breach water (rev 9: no Sentinel-1 darkness); normally_wet = the model-only part."""
     pot_fn = potential_mosaic if pot_fn is None else pot_fn
     nw = np.zeros(M["pre"].shape, bool)
     for d in DATES[DATES <= pd.Timestamp(BASELINE_DATE)]:
@@ -564,12 +587,15 @@ def main():
     global SWOT_MARGIN_M, TERRAIN_BIAS, TERRAIN_TABLE
     import argparse
     ap = argparse.ArgumentParser()
-    ap.add_argument("--rule", default=PRIMARY_RULE, choices=RULES, help="connected_ceiling = PRIMARY (terrain < WSE and 8-connected to the pre-breach water network); "
+    ap.add_argument("--rule", default=PRIMARY_RULE, choices=RULES, help="connected_ceiling = PRIMARY (terrain < WSE and 8-connected to the pre-breach RIVER network, D-SEED); "
                     "hand_and_ceiling = p42 rule (+ HAND < WSE - 1 m; lower bound); ceiling_only = no connectivity (upper bound)")
     ap.add_argument("--margin", type=float, default=SWOT_MARGIN_M, help="WSE margin added to SWOT/gauge on event days (central 0.0; the old p42 value 0.5 is a sensitivity)")
     ap.add_argument("--closure", default="kherson_paper1", choices=sorted(CLOSURES), help="vertical closure of the SWOT heights (see CLOSURES)")
     ap.add_argument("--dem-bias", default="class", choices=["class", "none"], help="subtract the FABDEM residual class bias vs ICESat-2 on FABDEM cells (default) or not (sensitivity)")
-    ap.add_argument("--connectivity", type=int, default=8, choices=[4, 8]); ap.add_argument("--seed-network", default="all_prewater", choices=["all_prewater", "main_stem"])
+    ap.add_argument("--connectivity", type=int, default=8, choices=[4, 8])
+    ap.add_argument("--seed-network", default="main_stem", choices=["main_stem", "all_prewater"],
+                    help="main_stem = PRIMARY (D-SEED 2026-09-30): the largest connected component of the pre-breach water map; all_prewater = superseded rev-7 seeding (provenance variant)")
+    ap.add_argument("--memory", action="store_true", help="D-MEMORY sensitivity: a cell inundated on day t-1 stays inundated on day t while still below the surface (retained water)")
     ap.add_argument("--max-gap-days", type=int, default=None, help="a node is unavailable on days farther than this from one of its observations (sensitivity)")
     ap.add_argument("--wse-river-aware", action="store_true", help="median over the nodes of the nearest node's river only (sensitivity)")
     ap.add_argument("--seam-check", action="store_true", help="compare the mosaic with the superseded per-zone evaluation on three dates (tables/p95_seam_check<sfx>.csv)")
@@ -589,8 +615,10 @@ def main():
         SWOT_MARGIN_M = args.margin; SFX += f"_m{int(round(args.margin * 100)):03d}"
     if args.connectivity == 4:
         SFX += "_conn4"
-    if args.seed_network == "main_stem":
-        SFX += "_seed_mainstem"
+    if args.seed_network == "all_prewater":
+        SFX += "_seed_allprewater"
+    if args.memory:
+        SFX += "_memory"
     if args.max_gap_days is not None:
         SFX += f"_maxgap{args.max_gap_days}"
     if args.wse_river_aware:
@@ -636,8 +664,12 @@ def main():
     rows, val_rows, m6_rows, sup_rows, src_rows, man = [], [], [], [], [], {}
     corridor_base = M["base"] & R["DNIPRO_CORRIDOR"]
     far_full = Z_support["far"].reshape(Z_support["shape_c"])[np.ix_(Z_support["ri"], Z_support["ci"])] if Z_support is not None else None
+    prev_pot = None
     for k, d in enumerate(DATES, 1):
         pot, w = POT(M, W, Z, d, RULE, margin=SWOT_MARGIN_M, connectivity=args.connectivity, seed=seed)
+        if args.memory and prev_pot is not None:                              # D-MEMORY: retained water while still below today's surface
+            pot = pot | (prev_pot & M["base"] & (M["dem"] < w))
+        prev_pot = pot
         new = pot & ~baseline; depth = np.where(pot, w - M["dem"], 0).astype("f4"); ds = str(d.date())
         if Z_support is not None:
             kind = W.support_kind(Z_support, ds); cb = corridor_base
@@ -659,7 +691,7 @@ def main():
                                  new_volume_hm3=round(float(dz[nz & m].sum()) * 400 / 1e6, 2), new_mean_depth_m=round(float(dz[nz & m].mean()), 2) if (nz & m).any() else 0.0,
                                  new_in_s1_observable_km2=round(float((nz & m & a["obs"]).sum()) * CELL_KM2, 1), kherson_gauge_m=round(float(gauge.get(d, np.nan)), 2)))
             if ds in L["W"]:                                                   # validation against the S1 scene of that day
-                v = L["V"][ds]; s1new = L["W"][ds] & ~L["pre"]
+                v = L["V"][ds]; s1new = L["W"][ds] & ~(L["pre"] | L["s1_pre_dark"])      # S1 new water: not where S1 was already dark
                 for nm, m in a["regions"].items():
                     mm = m & v; hit = (nz & s1new & mm).sum(); miss = (~nz & s1new & mm).sum(); fa = (nz & ~s1new & mm).sum()
                     nw = (~nz & s1new & mm & a["nw"]).sum()                    # S1 dark-water onset on normally wet low ground
@@ -702,7 +734,7 @@ def main():
         man[z] = dict(cells_base=int((M["grid"].extract(M["base"], z) & a["own"]).sum()), grid=[G_["ny"], G_["nx"]], outputs=str(od),
                       fabdem_share_of_base=round(float((M["grid"].extract(M["is_fabdem"], z) & M["grid"].extract(M["base"], z) & a["own"]).sum() / max((M["grid"].extract(M["base"], z) & a["own"]).sum(), 1)), 4),
                       residual_rows_used={str(k): v for k, v in L["residual_rows"]["rows"].items()}, residual_source=L["residual_rows"]["source"])
-        curve_cache[z] = dict(L=L, ever=ever, dur=a["dur"], d0608=a["d0608"], s1_0609=(L["W"].get("2023-06-09", np.zeros_like(ever)) & ~L["pre"]),
+        curve_cache[z] = dict(L=L, ever=ever, dur=a["dur"], d0608=a["d0608"], s1_0609=(L["W"].get("2023-06-09", np.zeros_like(ever)) & ~(L["pre"] | L["s1_pre_dark"])),
                               v_0609=L["V"].get("2023-06-09", np.zeros_like(ever)), new_0609=np.unpackbits(a["packed"]["2023-06-09"], count=ever.size).reshape(ever.shape).astype(bool))
         print(z, "written", round(time.time() - t0), "s", flush=True)
     A = pd.DataFrame(rows); A.to_csv(CFG.TABLES / f"p95_daily_area{SFX}.csv", index=False)
@@ -722,9 +754,17 @@ def main():
                                       mosaic_only_km2=round(float((nz & ~old & m).sum()) * CELL_KM2, 2), zonal_only_km2=round(float((old & ~nz & m).sum()) * CELL_KM2, 2)))
         seam = pd.DataFrame(srows); seam.to_csv(CFG.TABLES / f"p95_seam_check{SFX}.csv", index=False); print(seam.to_string(index=False))
     (CFG.TABLES / f"p95_manifest{SFX}.json").write_text(json.dumps(dict(
-        rev=7, rule=__doc__.split("Rule")[1].split("Sensitivities")[0], constants=dict(SWOT_MARGIN_M=SWOT_MARGIN_M, RIVER_LEVEL_M=RIVER_LEVEL_M,
+        rev=9, rule=__doc__.split("Rule")[1].split("Sensitivities")[0], constants=dict(SWOT_MARGIN_M=SWOT_MARGIN_M, RIVER_LEVEL_M=RIVER_LEVEL_M,
         SWOT_MAX_DIST_M=SWOT_MAX_DIST_M, DIST_MAX_M=DIST_MAX_M, baseline_until=BASELINE_DATE, margin_m=SWOT_MARGIN_M, connectivity=args.connectivity,
-        seed_network=args.seed_network, max_gap_days=args.max_gap_days, wse_river_aware=args.wse_river_aware, coarse_m=WSE.COARSE_M),
+        seed_network=args.seed_network, memory=bool(args.memory), max_gap_days=args.max_gap_days, wse_river_aware=args.wse_river_aware, coarse_m=WSE.COARSE_M),
+        event_source_network=dict(definition=("largest 8-connected component of the pre-breach optical water map (p60 pre_water_frac >= 20 %, frames composed where they have labels)"
+                                              if args.seed_network == "main_stem" else "every pre-breach water cell (superseded rev-7 seeding; ponds and canals included)"),
+                                  seed_km2=round(float(seed.sum()) * CELL_KM2, 2), all_prewater_km2=round(float(M["seed"].sum()) * CELL_KM2, 2),
+                                  decision="D-SEED_PRIMARY (maintainer, 2026-09-30); D-MEMORY = sensitivity only"),
+        baseline=dict(definition="optical pre-breach water (p60 pre_water_frac >= 20 %) OR the same rule on any pre-breach day (normally wet)",
+                      s1_pre_dark="Sentinel-1 dark water 06-01/02: NOT in the baseline (rev 9, maintainer 2026-09-30); masks the S1 'new water' of the validations only",
+                      s1_pre_dark_km2=round(float(M["s1_pre_dark"].sum()) * CELL_KM2, 1), optical_km2=round(float(M["pre"].sum()) * CELL_KM2, 1),
+                      baseline_km2=round(float(baseline.sum()) * CELL_KM2, 1), normally_wet_km2=round(float(normally_wet.sum()) * CELL_KM2, 1)),
         evaluation=("union mosaic of the zones (one terrain graph, one water surface); ownership only for accounting and the per-zone rasters (review F06)" if args.evaluation == "mosaic"
                     else "SUPERSEDED per-zone evaluation (rev 5; ownership before connectivity) -- reproduction gate / attribution only"),
         legacy_flags=dict(terrain_table=args.terrain_table, evaluation=args.evaluation, coarse_anchor=args.coarse_anchor),

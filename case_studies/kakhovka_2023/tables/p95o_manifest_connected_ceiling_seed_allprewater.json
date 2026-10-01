@@ -1,0 +1,155 @@
+{
+ "producer": "p95o_component_qa.py",
+ "run_suffix": "_connected_ceiling_seed_allprewater",
+ "seed_network_of_run": "all_prewater",
+ "connectivity": 8,
+ "min_km2": 0.25,
+ "buffer_km": 2.0,
+ "event_source_network": "largest 8-connected component of the pre-breach water map (labels pre_water_frac >= 20 %)",
+ "event_source_km2": 274.66,
+ "all_prewater_km2": 326.69,
+ "n_seed_components": 2605,
+ "nodes_vs_source_network": [
+  {
+   "river": "Dnipro",
+   "n_nodes": 356,
+   "share_on_source_network": 0.77,
+   "share_within_100m": 0.969
+  },
+  {
+   "river": "Inhulets",
+   "n_nodes": 176,
+   "share_on_source_network": 0.443,
+   "share_within_100m": 0.801
+  },
+  {
+   "river": "Kokan'",
+   "n_nodes": 68,
+   "share_on_source_network": 0.132,
+   "share_within_100m": 0.162
+  },
+  {
+   "river": "gauge",
+   "n_nodes": 1,
+   "share_on_source_network": 1.0,
+   "share_within_100m": 1.0
+  },
+  {
+   "river": "no_data",
+   "n_nodes": 177,
+   "share_on_source_network": 0.492,
+   "share_within_100m": 0.565
+  }
+ ],
+ "classes": {
+  "RIVER_CONNECTED": 1,
+  "TRAPPED": 2,
+  "ISOLATED_NEVER": 3
+ },
+ "definitions": {
+  "RIVER_CONNECTED": "new-water component whose potential component touches the event-source network on that day -> the primary reconstruction",
+  "TRAPPED": "not river-connected on that day, but the component or an ancestor in the day-to-day overlap lineage was -> retained-water candidate, checked against same-day EO",
+  "ISOLATED_NEVER": "no river-connected ancestor: seeded by isolated pre-breach water only -> not event inundation (the artefact of the superseded seeding)",
+  "erosion_disconnect_px": "morphological sensitivity (4-neighbour erosions of the potential mask with the source network kept), not a geometric width",
+  "s1_classes": "S1_WATER (dark water >= 20 % of observed cells); S1_OPEN_SURFACE_NO_WATER (>= 30 % open ground, >= 50 % of it observed, <= 5 % dark); S1_NO_WATER_SIGNAL_VEGETATED (forest / reed / built dominate: not informative); S1_INCONCLUSIVE; S1_UNOBSERVED; prefix LATER_ when the scene is not of the same day (a later scene never contradicts an earlier day)",
+  "retained_verdict": "TRAPPED components, same-day scene only: S1_WATER -> RETAINED_PLAUSIBLE; S1_OPEN_SURFACE_NO_WATER -> LIKELY_DRAINED; otherwise RETAINED_UNCERTAIN"
+ },
+ "corridor_key_days": [
+  {
+   "date": "2023-06-06",
+   "region": "DNIPRO_CORRIDOR",
+   "A_full_km2": 191.7,
+   "A_s1_sameday_observed_open_km2": 22.04,
+   "A_s1_sameday_open_no_water_km2": 21.38,
+   "A_trapped_s1_water_km2": 0.0,
+   "A_trapped_s1_open_no_water_km2": 0.0,
+   "A_trapped_s1_uncertain_km2": 0.0,
+   "A_river_connected_km2": 130.69,
+   "A_trapped_km2": 0.0,
+   "A_isolated_never_km2": 61.0,
+   "A_conn4_link_lost_km2": 0.63,
+   "A_erosion1px_link_lost_km2": 10.96,
+   "seed_network_of_run": "all_prewater",
+   "A_new_connected_ceiling_seed_mainstem_km2": 127.5,
+   "A_new_connected_ceiling_memory_km2": 132.2,
+   "A_new_connected_ceiling_km2": 132.2
+  },
+  {
+   "date": "2023-06-07",
+   "region": "DNIPRO_CORRIDOR",
+   "A_full_km2": 260.51,
+   "A_s1_sameday_observed_open_km2": NaN,
+   "A_s1_sameday_open_no_water_km2": NaN,
+   "A_trapped_s1_water_km2": 0.0,
+   "A_trapped_s1_open_no_water_km2": 0.0,
+   "A_trapped_s1_uncertain_km2": 0.0,
+   "A_river_connected_km2": 213.41,
+   "A_trapped_km2": 0.0,
+   "A_isolated_never_km2": 47.09,
+   "A_conn4_link_lost_km2": 0.45,
+   "A_erosion1px_link_lost_km2": 17.33,
+   "seed_network_of_run": "all_prewater",
+   "A_new_connected_ceiling_seed_mainstem_km2": 199.9,
+   "A_new_connected_ceiling_memory_km2": 214.8,
+   "A_new_connected_ceiling_km2": 214.8
+  },
+  {
+   "date": "2023-06-09",
+   "region": "DNIPRO_CORRIDOR",
+   "A_full_km2": 205.69,
+   "A_s1_sameday_observed_open_km2": 74.75,
+   "A_s1_sameday_open_no_water_km2": 50.01,
+   "A_trapped_s1_water_km2": 0.68,
+   "A_trapped_s1_open_no_water_km2": 18.74,
+   "A_trapped_s1_uncertain_km2": 14.5,
+   "A_river_connected_km2": 169.83,
+   "A_trapped_km2": 33.91,
+   "A_isolated_never_km2": 1.95,
+   "A_conn4_link_lost_km2": 0.19,
+   "A_erosion1px_link_lost_km2": 10.29,
+   "seed_network_of_run": "all_prewater",
+   "A_new_connected_ceiling_seed_mainstem_km2": 165.0,
+   "A_new_connected_ceiling_memory_km2": 215.1,
+   "A_new_connected_ceiling_km2": 171.3
+  },
+  {
+   "date": "2023-06-13",
+   "region": "DNIPRO_CORRIDOR",
+   "A_full_km2": 111.96,
+   "A_s1_sameday_observed_open_km2": 25.54,
+   "A_s1_sameday_open_no_water_km2": 16.48,
+   "A_trapped_s1_water_km2": 0.16,
+   "A_trapped_s1_open_no_water_km2": 0.19,
+   "A_trapped_s1_uncertain_km2": 0.8,
+   "A_river_connected_km2": 110.81,
+   "A_trapped_km2": 1.15,
+   "A_isolated_never_km2": 0.0,
+   "A_conn4_link_lost_km2": 0.56,
+   "A_erosion1px_link_lost_km2": 10.25,
+   "seed_network_of_run": "all_prewater",
+   "A_new_connected_ceiling_seed_mainstem_km2": 110.9,
+   "A_new_connected_ceiling_memory_km2": 116.5,
+   "A_new_connected_ceiling_km2": 112.1
+  },
+  {
+   "date": "2023-06-15",
+   "region": "DNIPRO_CORRIDOR",
+   "A_full_km2": 73.33,
+   "A_s1_sameday_observed_open_km2": NaN,
+   "A_s1_sameday_open_no_water_km2": NaN,
+   "A_trapped_s1_water_km2": 0.0,
+   "A_trapped_s1_open_no_water_km2": 0.0,
+   "A_trapped_s1_uncertain_km2": 14.08,
+   "A_river_connected_km2": 59.24,
+   "A_trapped_km2": 14.08,
+   "A_isolated_never_km2": 0.0,
+   "A_conn4_link_lost_km2": 0.28,
+   "A_erosion1px_link_lost_km2": 7.92,
+   "seed_network_of_run": "all_prewater",
+   "A_new_connected_ceiling_seed_mainstem_km2": 58.6,
+   "A_new_connected_ceiling_memory_km2": 82.1,
+   "A_new_connected_ceiling_km2": 59.400000000000006
+  }
+ ],
+ "decision": "D-SEED_PRIMARY (maintainer, 2026-09-30): the event source is the connected river network; all_prewater is a superseded provenance variant"
+}

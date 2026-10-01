@@ -2,8 +2,8 @@
  "mode": "primary",
  "n_draws": 1000,
  "seed": 20260929,
- "workers": 9,
- "seconds": 5027,
+ "workers": 8,
+ "seconds": 3541,
  "rule": "connected_ceiling",
  "days": "all",
  "params": {
@@ -11,6 +11,7 @@
   "rule": "connected_ceiling",
   "margin": 0.0,
   "connectivity": 8,
+  "seed_network": "main_stem",
   "sigma_datum": 0.05,
   "sigma_gauge": 0.05,
   "sigma_swot": 0.09207,
@@ -83,10 +84,10 @@
   "baseline_fixed": false
  },
  "field_std_on_base_cells": {
-  "mean": 0.9997973622719072,
+  "mean": 0.9997740966677666,
   "min": 0.9852264523506165,
   "max": 1.016211748123169
  },
- "eps_std_fabdem_mean": 0.6426622885156352,
+ "eps_std_fabdem_mean": 0.6427008131742478,
  "nominal_is_draw0": "draw 0 = unperturbed world, excluded from the quantiles; == p95 central tables (gate)"
 }

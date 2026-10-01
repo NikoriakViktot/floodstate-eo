@@ -2,7 +2,7 @@
 """P97 -- publication figures for Paper 3, 300 dpi PNG + PDF, one style (floodstate_eo.visualization.figstyle).
 
 Main text (claims decide the figures):
-  Fig01 study area (hillshade, frames, p42 floodplain, cut rectangles, SWOT nodes, gauge, dam)               [bulk]
+  Fig01 study area (hillshade, frames, p42 floodplain, reconstructed new water, reporting regions, SWOT nodes, gauges, dam) [bulk]
   Fig02 evidence hierarchy / method schematic                                                                  [tables]
   Fig03 U-Net weak-label experiment: flood-state maps (U2b) + paired differences (label effect, input effects) [bulk]
   Fig04 daily terrain-reconstructed inundation with the Monte-Carlo band, S1 observations, U-Net line, gauge   [tables]
@@ -30,6 +30,7 @@ matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 from matplotlib.colors import ListedColormap, LightSource
 from matplotlib.patches import Patch, Rectangle, FancyBboxPatch, FancyArrowPatch
+from matplotlib.lines import Line2D
 from floodstate_eo import _kakhovka_legacy_config as CFG
 from floodstate_eo.visualization import figstyle as FS
 
@@ -39,7 +40,7 @@ T = ROOT / "tables"; PT = ROOT / "publication" / "tables"; FIG = ROOT / "publica
 BULK = CFG.BULK_ROOT
 ZONES = {"ZONE_4_DAM_TO_KHERSON_FLOODWAY": "B1", "ZONE_2_KHERSON_DELTA": "B2"}
 BREACH = pd.Timestamp("2023-06-06")
-REG_TITLE = {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets excluded)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}
+REG_TITLE = {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets reported separately)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}
 
 
 def _ld(name, path):
@@ -75,6 +76,96 @@ def read_zone(path, band=1):
     return a, G
 
 
+KALYNIVSKE_LONLAT = (32 + 57 / 60 + 38 / 3600, 47 + 6 / 60 + 59 / 3600)          # Inhulets gauge 80575 (p95k; withheld validation site)
+REPORT_LABEL = "Inhulets reporting region: included in the reconstruction, reported separately"
+
+
+def max_new_extent():
+    """Maximum depth of new inundation over the event on the zone mosaic (nominal world, primary rule) and the northern edge of
+    the reconstruction domain (km). No region mask: the Inhulets valley and every other cell of the domain are included."""
+    mx = {z: read_zone(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "max_depth_m.tif") for z in ZONES}
+    X, ext = zone_mosaic(mx, np.float32(np.nan)); X[~(X > 0)] = np.nan
+    return X, ext
+
+
+def weak_support(ext_shape):
+    """Cells whose water surface rests on weak (> 10 km) or cross-river support (p95l support_class.tif codes 3 and 4)."""
+    arrs = {}
+    for z in ZONES:
+        with __import__("rasterio").open(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "support_class.tif") as s:
+            arrs[z] = (np.isin(s.read(1), (3, 4)).astype("u1"), dict(transform=s.transform, ny=s.height, nx=s.width))
+    W, _ = zone_mosaic(arrs, np.uint8(0))
+    assert W.shape == ext_shape, (W.shape, ext_shape)
+    return W.astype(bool)
+
+
+def reporting_overlay(ax, domain_top_km, P92=None):
+    """The reporting regions (thin dashed; they split the tables, they mask nothing), the withheld Inhulets gauge and the
+    northern edge of the reconstruction domain. Returns legend handles."""
+    from matplotlib.lines import Line2D
+    from pyproj import Transformer
+    P92 = P92 or _ld("p92", M6 / "p92_flood_area_dam_to_liman.py")
+    for nm, (x0, y0, x1, y1) in P92.CUT_RECTS.items():
+        y1 = min(y1 / 1e3, domain_top_km)
+        ax.add_patch(Rectangle((x0 / 1e3, y0 / 1e3), (x1 - x0) / 1e3, y1 - y0 / 1e3, fill=False, ec="#e34948",
+                               lw=1.0 if nm == "inhulets_valley" else 0.5, ls="--", zorder=4))
+    ax.axhline(domain_top_km, color=FS.PALETTE["ink2"], lw=0.6, ls=":", zorder=4)
+    x, y = Transformer.from_crs("EPSG:4326", "EPSG:32636", always_xy=True).transform(*KALYNIVSKE_LONLAT)
+    ax.plot(x / 1e3, y / 1e3, "^", ms=6, mfc="white", mec=FS.PALETTE["ink"], mew=1.1, zorder=6)
+    ax.annotate("Kalynivske 80575\n(withheld validation gauge)", (x / 1e3, y / 1e3), xytext=(6, -2), textcoords="offset points",
+                fontsize=5.5, va="top", ha="left", zorder=6, bbox=dict(fc="white", ec="none", alpha=0.7, pad=0.4))
+    return [Patch(fc="none", ec="#e34948", ls="--", label=REPORT_LABEL),
+            Line2D([], [], color=FS.PALETTE["ink2"], lw=0.6, ls=":", label="northern edge of the reconstruction domain"),
+            Line2D([], [], marker="^", ls="none", mfc="white", mec=FS.PALETTE["ink"], label="Kalynivske 80575 (withheld validation gauge)")]
+
+
+S2_DATES = {"pre": "2022-06-13", "event": "2023-06-18"}                    # p97b: own Sentinel-2 L2A true colour on the 20 m zone grids
+
+
+def s2_rgb(date_key="pre", step=2):
+    """(rgb uint8 (H, W, 3), extent km) of the two zone mosaics of the own Sentinel-2 true colour (p97b), decimated by `step`
+    (20 m -> 40 m at step 2); light grey where no cloud-free scene exists. Returns None when the basemap was not built."""
+    arrs = {}
+    for z in ZONES:
+        p = BULK / "truecolour" / f"{z}_s2_{S2_DATES[date_key]}_20m.tif"
+        if not p.exists():
+            return None, None
+        import rasterio
+        with rasterio.open(p) as s:
+            arrs[z] = (s.read(), dict(transform=s.transform, ny=s.height, nx=s.width))
+    bands = []
+    for i in range(3):
+        b, ext = zone_mosaic({z: (a[i], G) for z, (a, G) in arrs.items()}, np.uint8(0)); bands.append(b[::step, ::step])
+    rgb = np.stack(bands, -1); nod = rgb.max(-1) == 0; rgb[nod] = 235
+    return rgb, ext
+
+
+def s2_basemap(ax, date_key="pre", step=2, alpha=1.0):
+    """Draw the own Sentinel-2 true colour under a map (contains modified Copernicus Sentinel data); falls back to nothing."""
+    rgb, ext = s2_rgb(date_key, step)
+    if rgb is None:
+        return False
+    ax.imshow(rgb, extent=ext, interpolation="bilinear", alpha=alpha, rasterized=True, zorder=0)
+    return True
+
+
+def hatch_mask(ax, mask, ext, color, hatch="//////", step=1, zorder=3, lw=0.0):
+    """Coloured hatching over the True cells of `mask` (no fill), the reliability layer drawn on top of the water."""
+    m = mask[::step, ::step].astype("f4")
+    if not m.any():
+        return
+    cs = ax.contourf(m, levels=[0.5, 1.5], colors="none", hatches=[hatch], extent=ext, origin="upper", zorder=zorder)
+    cs.set_edgecolor(color); cs.set_linewidth(lw)
+
+
+def outline_mask(ax, mask, ext, color, step=1, lw=0.7, zorder=4):
+    """Outline of the True cells of `mask`."""
+    m = mask[::step, ::step].astype("f4")
+    if not m.any():
+        return
+    ax.contour(m, levels=[0.5], colors=[color], linewidths=lw, extent=ext, origin="upper", zorder=zorder)
+
+
 def furniture(ax, ext, scale_km=10):
     ax.set_xlim(ext[0], ext[1]); ax.set_ylim(ext[2], ext[3]); ax.set_aspect("equal")
     ax.set_xlabel("easting, km (UTM 36N)", fontsize=7); ax.set_ylabel("northing, km", fontsize=7); ax.tick_params(labelsize=6)
@@ -89,7 +180,7 @@ def fig01():
         dem = s.read(1).astype("f4"); dem[dem == s.nodata] = np.nan; tr = s.transform
         ext = [tr.c / 1e3, (tr.c + tr.a * s.width) / 1e3, (tr.f + tr.e * s.height) / 1e3, tr.f / 1e3]
     hs = LightSource(azdeg=315, altdeg=40).hillshade(np.nan_to_num(dem, nan=0), vert_exag=3, dx=50, dy=50)
-    fig, ax = plt.subplots(figsize=(7.2, 6.4), constrained_layout=True)
+    fig, ax = plt.subplots(figsize=(7.2, 7.6), constrained_layout=True)
     ax.imshow(hs, cmap="gray", extent=ext, vmin=0, vmax=1, alpha=0.85, interpolation="bilinear", rasterized=True)
     ax.imshow(np.ma.masked_where(~(np.nan_to_num(dem, nan=99) < 1.0), np.ones_like(dem)), cmap=ListedColormap(["#b9c7d6"]), extent=ext, alpha=0.9, interpolation="nearest", rasterized=True)
     gj = Path(CFG._SWOT_DNIPRO_SIBLING) / "data/processed/domains/below_dam_floodplain_utm.geojson"
@@ -104,8 +195,10 @@ def fig01():
         F = CG.frame_grid(f); t = F["transform"]
         ax.add_patch(Rectangle((t.c / 1e3, (t.f - 10 * F["ny"]) / 1e3), 10 * F["nx"] / 1e3, 10 * F["ny"] / 1e3, fill=False, ec=c, lw=1.2))
         ax.text(t.c / 1e3 + 1, (t.f - 10 * F["ny"]) / 1e3 + 1.5, f"frame {f}", color=c, fontsize=8, fontweight="bold", va="bottom")
-    for nm, (x0, y0, x1, y1) in P92.CUT_RECTS.items():
-        ax.add_patch(Rectangle((x0 / 1e3, y0 / 1e3), (x1 - x0) / 1e3, (min(y1, 5225000) - y0) / 1e3, fill=False, ec="#e34948", lw=0.8, ls="--"))
+    X, xext = max_new_extent()
+    ax.imshow(np.ma.masked_where(np.isnan(X[::2, ::2]), np.ones_like(X[::2, ::2])), cmap=ListedColormap([FS.PALETTE["terrain"]]), extent=xext,
+              alpha=0.45, interpolation="nearest", rasterized=True, zorder=2)
+    rep = reporting_overlay(ax, xext[3], P92)
     n = pd.read_csv(T / "p59_swot_flood_nodes.csv", usecols=["node_id", "x", "y", "river_name"]).drop_duplicates("node_id")
     main = ~n.river_name.isin(["Inhulets", "Kokan'"])
     ax.scatter(n.x[main] / 1e3, n.y[main] / 1e3, s=2, color=FS.PALETTE["terrain"], label="SWOT nodes, Dnipro"); ax.scatter(n.x[~main] / 1e3, n.y[~main] / 1e3, s=2, color=FS.PALETTE["s2"], label="SWOT nodes, tributaries / side channels")
@@ -113,9 +206,10 @@ def fig01():
     tfm = Transformer.from_crs("EPSG:4326", "EPSG:32636", always_xy=True)
     kx, ky = tfm.transform(32.612026, 46.623750); dx, dy = tfm.transform(33.3667, 46.7783)
     ax.plot(kx / 1e3, ky / 1e3, "s", color=FS.PALETTE["gauge"], ms=6, label="Kherson gauge 80805"); ax.plot(dx / 1e3, dy / 1e3, "^", color="#e34948", ms=7, label="Kakhovka dam")
-    ax.set_xlim(436, 540); ax.set_ylim(5133, 5215); furniture(ax, [436, 540, 5133, 5215], 20)
-    ax.legend(handles=[Patch(fc="#b9c7d6", label="terrain below 1 m (water / channels)"), Patch(fc="none", ec=FS.PALETTE["terrain"], label="p42 terrain-eligible floodplain"),
-                       Patch(fc="none", ec="#e34948", ls="--", label="cut rectangles (Inhulets valley, terraces)"), *ax.get_legend_handles_labels()[0]], loc="lower right", fontsize=6.5, ncol=2, bbox_to_anchor=(0.995, 0.06))
+    ax.set_xlim(436, 540); ax.set_ylim(5133, 5226); furniture(ax, [436, 540, 5133, 5226], 20)
+    ax.legend(handles=[Patch(fc="#b9c7d6", label="terrain below 1 m (water / channels)"), Patch(fc=FS.PALETTE["terrain"], alpha=0.45, label="reconstructed new water, maximum extent over the event (Dnipro and Inhulets)"),
+                       Patch(fc="none", ec=FS.PALETTE["terrain"], label="p42 terrain-eligible floodplain"),
+                       *rep, *ax.get_legend_handles_labels()[0]], loc="upper center", fontsize=6, ncol=2, bbox_to_anchor=(0.5, -0.07), frameon=False)
     ax.set_title("Study area: lower Dnipro from the Kakhovka dam to the Dnipro–Buh liman", fontsize=9, loc="left")
     FS.save(fig, "Fig01_study_area", FIG)
 
@@ -335,14 +429,27 @@ def fig07():
         mx[z] = read_zone(d / "max_depth_m.tif"); dep[z] = read_zone(d / "depth_2023-06-08_m.tif"); dur[z] = read_zone(d / "duration_days.tif")
     X, ext = zone_mosaic(mx, np.float32(np.nan)); D, _ = zone_mosaic(dep, np.float32(np.nan)); U, _ = zone_mosaic(dur, np.float32(0))
     X[~(X > 0)] = np.nan; D[~(D > 0)] = np.nan
+    weak = weak_support(X.shape) & np.isfinite(X)                            # D-SUPPORT: shown as hatching over the water, never as a mask
     fig, axs = plt.subplots(3, 1, figsize=(7.2, 11.6), constrained_layout=True); box = [ext[0], min(ext[1], 540), 5136, ext[3]]
+    P92 = _ld("p92", M6 / "p92_flood_area_dam_to_liman.py")
+
+    def overlay(ax):
+        hatch_mask(ax, weak, ext, FS.PALETTE["s2"], step=4)
+        return [Patch(fc="none", ec=FS.PALETTE["s2"], hatch="//////", label="weak (> 10 km) or cross-river water-surface support (p95l)"),
+                *reporting_overlay(ax, ext[3], P92)]
     for k, (ax, A, lab, title) in enumerate(((axs[0], X, "maximum depth of new inundation, m (26 May – 10 Jul)", "Maximum depth of new inundation over the event (26 May – 10 Jul)"),
                                              (axs[1], D, "depth of new inundation, m (2023-06-08)", "Depth of new inundation on 8 June (no full-coverage scene of the corridor)"))):
-        im = ax.imshow(A[::2, ::2], cmap=FS.SEQ_DEPTH, vmin=0, vmax=6, extent=ext, interpolation="nearest", rasterized=True)
+        s2_basemap(ax, "pre", step=2)
+        im = ax.imshow(A[::2, ::2], cmap=FS.SEQ_DEPTH, vmin=0, vmax=6, extent=ext, interpolation="nearest", rasterized=True, zorder=2)
         furniture(ax, box, 10); cb = fig.colorbar(im, ax=ax, shrink=0.6, pad=0.01, extend="max"); cb.set_label(lab, fontsize=6.5); FS.panel_label(ax, "ab"[k])
+        if k == 0:
+            handles = overlay(ax)
         ax.set_title(title, fontsize=8, loc="left")
-    c = axs[2]; im2 = c.imshow(np.ma.masked_where(U[::2, ::2] == 0, U[::2, ::2]), cmap=FS.SEQ_DAYS, vmin=1, vmax=20, extent=ext, interpolation="nearest", rasterized=True)
+    c = axs[2]; s2_basemap(c, "pre", step=2)
+    im2 = c.imshow(np.ma.masked_where(U[::2, ::2] == 0, U[::2, ::2]), cmap=FS.SEQ_DAYS, vmin=1, vmax=20, extent=ext, interpolation="nearest", rasterized=True, zorder=2)
     furniture(c, box, 10); fig.colorbar(im2, ax=c, shrink=0.6, pad=0.01).set_label("days with new inundation (26 May – 10 Jul)", fontsize=6.5); FS.panel_label(c, "c")
+    overlay(c)
+    fig.legend(handles=handles, loc="outside lower center", ncol=1, fontsize=6, frameon=False)
     c.set_title("Duration of terrain-reconstructed new inundation", fontsize=8, loc="left")
     FS.save(fig, "Fig07_event_scale_reconstruction", FIG)
 
@@ -411,14 +518,18 @@ def fig09c_series(R, U=None):
 def fig09():
     R = pd.read_csv(T / "p95f_reservoir_daily.csv"); R["t"] = pd.to_datetime(R.date); H = pd.read_csv(T / "p95f_hypsometry_dem.csv")
     lv = pd.read_csv(Path(CFG._SWOT_DNIPRO_SIBLING) / "outputs/tables/p61_pool_levels_2023.csv", parse_dates=["date"])
-    lv = lv[(lv.date >= "2023-05-26") & (lv.date <= "2023-07-10")]
+    lv = lv[(lv.date >= "2023-05-26") & (lv.date <= "2023-07-10")].copy()
+    # the same levels as the model (p95f): Paper 1's frame for the SWOT outlet, the same quality rule (no FILLED_SUSPECT, ICE, CENSORED)
+    P95F = _ld("p95f", M6 / "p95f_reservoir_balance.py"); PF = P95F.PF
+    lv = lv[lv.quality.isin(P95F.GOOD_Q)].copy(); sw = lv.source == "SWOT_OUTLET"
+    lv.loc[sw, "H_evrf2019"] = lv.loc[sw, "H_evrf2019"] - PF.free2mean(lv.loc[sw, "lat"]) + PF.mixed_chain_shift()
     fig, axs = plt.subplots(2, 2, figsize=(7.4, 6.2), constrained_layout=True)
     a = axs[0, 0]
     for src, c, mk, lab in [("SWOT_OUTLET", FS.PALETTE["terrain"], "o", "SWOT outlet (0 km)"), ("NIKOPOL_UHE", FS.PALETTE["s2"], "s", "Nikopol post (160 km, press)"),
-                            ("ROZUMIVKA_GAUGE", FS.PALETTE["rf"], "^", "Rozumivka gauge (248 km)"), ("ICESAT2_ATL13", FS.PALETTE["unet"], "x", "ICESat-2 passes"), ("GREALM_S6A", FS.PALETTE["muted"], "d", "G-REALM (111 km)")]:
+                            ("ROZUMIVKA_GAUGE", FS.PALETTE["rf"], "^", "Rozumivka gauge (248 km)"), ("ICESAT2_ATL13", FS.PALETTE["unet"], "x", "ICESat-2 passes"), ("GREALM_S6A", FS.PALETTE["muted"], "d", "G-REALM (111 km; a check, not an anchor)")]:
         q = lv[lv.source == src]; a.plot(q.date, q.H_evrf2019, mk, color=c, ms=4, label=lab, lw=0)
-    a.plot(R.t, R.kherson_stage_m, color=FS.PALETTE["gauge"], lw=1.3, label="Kherson stage (downstream)"); FS.date_axis(a, BREACH, every_days=7)
-    a.set_ylabel("water level, m (gauge-anchored EGG2015 / EVRF2019)", fontsize=6.5); a.legend(fontsize=5.5, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False, handletextpad=0.4, columnspacing=1.0); a.tick_params(labelsize=6); FS.panel_label(a, "a")
+    a.plot(R.t, R.kherson_stage_m, color=FS.PALETTE["gauge"], lw=1.3, label="Kherson stage (downstream)"); FS.date_axis(a, BREACH, every_days=14)
+    a.set_ylabel("water level, m EVRF2019 (Paper 1 frame)", fontsize=6.5); a.legend(fontsize=5.5, ncol=3, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False, handletextpad=0.4, columnspacing=1.0); a.tick_params(labelsize=6); FS.panel_label(a, "a")
     b = axs[0, 1]; ok = R.V_pool_km3.notna()
     b.plot(R.t[ok], R.V_pool_km3[ok], "o-", color=FS.PALETTE["terrain"], ms=3, lw=1.5, label="pool volume under the sloped surface (DEM, km³)")
     b2 = b.twinx(); b2.plot(R.t[ok], R.A_pool_km2[ok], "s--", color=FS.PALETTE["rf"], ms=3, lw=1, label="pool water area (DEM, km²)"); b2.set_ylabel("area, km²", fontsize=6.5); b2.tick_params(labelsize=6)
@@ -439,7 +550,7 @@ def fig09():
     h1, l1 = c.get_legend_handles_labels(); h2, l2 = c2.get_legend_handles_labels(); c.legend(h1 + h2, l1 + l2, fontsize=5.5, loc="upper center", bbox_to_anchor=(0.5, -0.13), frameon=False)
     c.set_xlim(pd.Timestamp("2023-06-03"), pd.Timestamp("2023-06-24"))
     dax = axs[1, 1]; dax.plot(H.level_evrf2019_m, H.V_dem_km3, color=FS.PALETTE["terrain"], lw=1.6, label="seamless DEM, level surface"); dax.plot(H.level_evrf2019_m, H.V_table19_km3, color=FS.PALETTE["gauge"], lw=1.2, ls="--", label="design Table 19 (BS-77 + 0.185 m)")
-    dax.set_xlabel("pool level, m", fontsize=6.5); dax.set_ylabel("volume, km³", fontsize=6.5); dax.legend(fontsize=5.5); dax.tick_params(labelsize=6); dax.grid(color=FS.PALETTE["grid"]); FS.panel_label(dax, "d")
+    dax.set_xlabel("pool level, m", fontsize=6.5); dax.set_ylabel("volume, km³", fontsize=6.5); dax.legend(fontsize=5.5, loc="lower right"); dax.tick_params(labelsize=6); dax.grid(color=FS.PALETTE["grid"]); FS.panel_label(dax, "d")
     fig.suptitle("Reservoir drawdown and the downstream flood: levels, pool area/volume, daily balance and the hypsometry used", fontsize=8)
     FS.save(fig, "Fig09_reservoir_balance", FIG)
 
@@ -471,9 +582,11 @@ def figS01():
 
 def figS02():
     fig, ax = plt.subplots(figsize=(7.2, 3.2), constrained_layout=True)
-    for sfx, lab, c, ls in [("_connected_ceiling", "connected ceiling, residual terrain bias removed (primary)", FS.PALETTE["terrain"], "-"), ("_hand_and_ceiling", "p42 HAND rule", FS.PALETTE["terrain"], "--"), ("_ceiling_only", "ceiling only", FS.PALETTE["terrain"], ":"),
+    for sfx, lab, c, ls in [("_connected_ceiling", "connected ceiling, river-network seed, residual terrain bias removed (primary)", FS.PALETTE["terrain"], "-"), ("_hand_and_ceiling", "p42 HAND rule", FS.PALETTE["terrain"], "--"), ("_ceiling_only", "ceiling only", FS.PALETTE["terrain"], ":"),
                             ("_connected_ceiling_dem_uncorrected", "connected ceiling, terrain as delivered (reed beds count as new)", FS.PALETTE["s2"], "-"),
-                            ("_connected_ceiling_conn4", "4-connectivity", FS.PALETTE["unet"], ":"), ("_connected_ceiling_seed_mainstem", "main-stem seed only", FS.PALETTE["unet"], "--"),
+                            ("_connected_ceiling_conn4", "4-connectivity", FS.PALETTE["unet"], ":"),
+                            ("_connected_ceiling_seed_allprewater", "superseded seeding from every pre-breach water cell (ponds, canals)", FS.PALETTE["unet"], "--"),
+                            ("_connected_ceiling_memory", "retained water (D-MEMORY sensitivity)", FS.PALETTE["s1"], "--"),
                             ("_connected_ceiling_maxgap3", "nodes unavailable beyond a 3-day gap", FS.PALETTE["rf"], ":"), ("_connected_ceiling_riveraware", "river-aware water surface", FS.PALETTE["rf"], "--"),
                             ("_connected_ceiling_fallback10km", "no water surface from nodes > 10 km away (Kherson cap kept)", FS.PALETTE["gauge"], "-."),
                             ("_connected_ceiling_closure_p59_m050", "superseded closure (+0.5 m margin)", FS.PALETTE["muted"], "-")]:
@@ -860,9 +973,10 @@ def figS14(day="2023-06-07"):
     C = pd.read_csv(T / "p95l_supported_core.csv")
     fig = plt.figure(figsize=(7.4, 8.2), constrained_layout=True); gs = fig.add_gridspec(2, 2, height_ratios=[2.3, 1.0])
     a = fig.add_subplot(gs[0, :])
-    a.imshow(hs, cmap="gray", extent=dext, vmin=0, vmax=1, alpha=0.55, interpolation="bilinear", rasterized=True)
+    if not s2_basemap(a, "pre", step=2):
+        a.imshow(hs, cmap="gray", extent=dext, vmin=0, vmax=1, alpha=0.55, interpolation="bilinear", rasterized=True)
     cm = ListedColormap(["#ffffff"] + [SUPPORT_COLOURS[k][1] for k in sorted(SUPPORT_COLOURS)])
-    a.imshow(np.ma.masked_where(K[::2, ::2] == 0, K[::2, ::2]), cmap=cm, vmin=0, vmax=len(SUPPORT_COLOURS), extent=ext, interpolation="nearest", rasterized=True)
+    a.imshow(np.ma.masked_where(K[::2, ::2] == 0, K[::2, ::2]), cmap=cm, vmin=0, vmax=len(SUPPORT_COLOURS), extent=ext, interpolation="nearest", rasterized=True, zorder=2)
     n = pd.read_csv(T / "p59_swot_flood_nodes.csv", usecols=["node_id", "x", "y", "river_name"]).drop_duplicates("node_id")
     inh = n.river_name.eq("Inhulets")
     a.scatter(n.x[~inh] / 1e3, n.y[~inh] / 1e3, s=1.2, color=FS.PALETTE["ink2"], lw=0, label="SWOT nodes")
@@ -897,6 +1011,151 @@ def figS14(day="2023-06-07"):
     FS.save(fig, "FigS14_support_domain", FIG)
 
 
+def figS16():
+    """D-SEED / D-MEMORY: (a-c) the superseded all-prewater seeding on 6, 9 and 15 June 2023 by seed class (p95o lineage classes:
+    river-connected / trapped after an earlier connection / isolated never connected) on the Sentinel-2 image of June 2022, with
+    the three areas in every title; (d) 18 June 2023 on the Sentinel-2 image of that day: the primary reconstruction (river-network
+    seed) and the retained water of the memory sensitivity classed by the same-day Sentinel-1 scene (plausible / likely drained /
+    uncertain; p95o --compare)."""
+    import rasterio
+    from pyproj import Transformer
+    from matplotlib.lines import Line2D
+    old, mem = "_connected_ceiling_seed_allprewater", "_connected_ceiling_memory"
+    COL = dict(network="#3b4a5c", river=FS.PALETTE["terrain"], trapped="#8e6bbf", isolated="#e34948", plausible="#8e6bbf", drained="#e34948", uncertain="#9aa5b1")
+
+    def packed_layer(sfx, name, day, codes=(1, 2, 3)):
+        arrs = {}
+        for z in ZONES:
+            d = BULK / "floodplain_dyn" / f"{z}{sfx}"; zz = np.load(d / name); shp = tuple(int(v) for v in zz["shape"]); out = np.zeros(shp, "u1")
+            for code in codes:
+                k = f"{day}_c{code}"
+                if k in zz.files:
+                    out[np.unpackbits(zz[k], count=shp[0] * shp[1]).reshape(shp).astype(bool)] = code
+            with rasterio.open(d / "duration_days.tif") as s_:
+                arrs[z] = (out, dict(transform=s_.transform, ny=s_.height, nx=s_.width))
+        return zone_mosaic(arrs, np.uint8(0))
+
+    def new_water(sfx, day):
+        arrs = {}
+        for z in ZONES:
+            d = BULK / "floodplain_dyn" / f"{z}{sfx}"; zz = np.load(d / "daily_new.npz"); shp = tuple(int(v) for v in zz["shape"])
+            with rasterio.open(d / "duration_days.tif") as s_:
+                arrs[z] = (np.unpackbits(zz[day], count=shp[0] * shp[1]).reshape(shp).astype(bool), dict(transform=s_.transform, ny=s_.height, nx=s_.width))
+        return zone_mosaic(arrs, False)
+
+    def network():
+        arrs = {}
+        for z in ZONES:
+            p = BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / "event_source_network.tif"
+            if not p.exists():
+                return None, None
+            with rasterio.open(p) as s_:
+                arrs[z] = (s_.read(1).astype(bool), dict(transform=s_.transform, ny=s_.height, nx=s_.width))
+        return zone_mosaic(arrs, False)
+
+    net, _ = network(); n = pd.read_csv(T / "p59_swot_flood_nodes.csv", usecols=["node_id", "x", "y"]).drop_duplicates("node_id")
+    tfm = Transformer.from_crs("EPSG:4326", "EPSG:32636", always_xy=True); kx, ky = tfm.transform(*KALYNIVSKE_LONLAT)
+    fig = plt.figure(figsize=(7.4, 9.4), constrained_layout=True); gs = fig.add_gridspec(2, 3, height_ratios=[1.0, 1.55])
+    cm = ListedColormap(["#ffffff", COL["river"], COL["trapped"], COL["isolated"]]); box = None
+    for k, day in enumerate(("2023-06-06", "2023-06-09", "2023-06-15")):
+        K, ext = packed_layer(old, "daily_component_class.npz", day); box = [ext[0], min(ext[1], 540), 5136, ext[3]]
+        km = {c: float((K == c).sum()) * 4e-4 for c in (1, 2, 3)}
+        a = fig.add_subplot(gs[0, k]); s2_basemap(a, "pre", step=4)
+        if net is not None:
+            a.imshow(np.ma.masked_where(~net[::4, ::4], np.ones_like(net[::4, ::4], dtype="u1")), cmap=ListedColormap([COL["network"]]), extent=ext, alpha=0.9, interpolation="nearest", rasterized=True, zorder=1)
+        a.imshow(np.ma.masked_where(K[::4, ::4] == 0, K[::4, ::4]), cmap=cm, vmin=0, vmax=3, extent=ext, interpolation="nearest", rasterized=True, zorder=2)
+        outline_mask(a, K == 3, ext, "#111111", step=4, lw=0.5, zorder=4)
+        a.set_xlim(box[0], box[1]); a.set_ylim(box[2], box[3]); a.set_aspect("equal"); a.tick_params(labelsize=5.5)
+        a.set_title(f"{day[5:].replace('-', ' ')} Jun: river {km[1]:.0f} | trapped {km[2]:.0f} | isolated {km[3]:.0f} km²", fontsize=6.6, loc="left"); FS.panel_label(a, "abc"[k])
+        if k == 0:
+            a.set_ylabel("northing, km", fontsize=6)
+        a.set_xlabel("easting, km", fontsize=6)
+    fig.legend(handles=[Patch(fc=COL["network"], label="event-source network (largest connected component of the pre-breach water map): the seed of the primary rule"),
+                        Patch(fc=COL["river"], label="river-connected on the day: the flood"),
+                        Patch(fc=COL["trapped"], label="trapped after an earlier connection: retained-water candidate"),
+                        Patch(fc=COL["isolated"], ec="#111111", label="isolated, never connected along its lineage: seeded by ponds / canals -- not event inundation")],
+               loc="outside upper center", ncol=2, fontsize=5.6, frameon=False, title="superseded all-prewater seeding, new inundation by seed class (p95o); all regions", title_fontsize=6.2)
+    d = fig.add_subplot(gs[1, :]); day = "2023-06-18"; new, ext = new_water("_connected_ceiling", day)
+    if not s2_basemap(d, "event", step=2):
+        s2_basemap(d, "pre", step=2)
+    d.imshow(np.ma.masked_where(~new[::2, ::2], np.ones_like(new[::2, ::2], dtype="u1")), cmap=ListedColormap([COL["river"]]), extent=ext, alpha=0.9, interpolation="nearest", rasterized=True, zorder=2)
+    handles = [Patch(fc=COL["river"], label=f"new inundation on {day}, primary (river-network seed)")]
+    title = f"Recession, {day}: primary reconstruction"
+    pm = BULK / "floodplain_dyn" / f"{list(ZONES)[0]}{mem}" / "retained_class.npz"
+    if pm.exists():
+        Rc, _ = packed_layer(mem, "retained_class.npz", day)
+        rkm = {c: float((Rc == c).sum()) * 4e-4 for c in (1, 2, 3)}
+        d.imshow(np.ma.masked_where(Rc[::2, ::2] == 0, Rc[::2, ::2]), cmap=ListedColormap(["#ffffff", COL["plausible"], COL["drained"], COL["uncertain"]]), vmin=0, vmax=3, extent=ext, alpha=0.9, interpolation="nearest", rasterized=True, zorder=3)
+        handles += [Patch(fc=COL["plausible"], label="retained water (memory minus primary), same-day Sentinel-1 shows water: plausible"),
+                    Patch(fc=COL["drained"], label="retained water on open ground the same-day scene shows without water: likely drained"),
+                    Patch(fc=COL["uncertain"], label="retained water without a usable same-day observation: uncertain")]
+        title += f" and retained water of the memory sensitivity: plausible {rkm[1]:.0f} | likely drained {rkm[2]:.0f} | uncertain {rkm[3]:.0f} km²"
+    d.scatter(n.x / 1e3, n.y / 1e3, s=0.6, color="white", lw=0, zorder=5); d.plot(kx / 1e3, ky / 1e3, "^", ms=6, mfc="white", mec=FS.PALETTE["ink"], mew=1.1, zorder=6)
+    handles += [Line2D([], [], marker="o", ls="none", color="white", markeredgecolor="#555", label="SWOT nodes"), Line2D([], [], marker="^", ls="none", mfc="white", mec=FS.PALETTE["ink"], label="Kalynivske 80575 (withheld gauge)")]
+    reporting_overlay(d, ext[3]); furniture(d, box, 10); FS.panel_label(d, "d"); d.legend(handles=handles, loc="lower left", fontsize=5.4, framealpha=0.9)
+    d.set_title(title, fontsize=6.6, loc="left")
+    fig.text(0.01, 0.003, "Basemaps: Sentinel-2 L2A true colour (a-c 13 / 20 June 2022, d 18 June 2023), processed by the authors; contains modified Copernicus Sentinel data 2022 / 2023.", fontsize=5.3, color="#555")
+    FS.save(fig, "FigS16_seed_classes", FIG)
+
+
+def figS17():
+    """The ensemble decides marginal components (maintainer, 2026-09-30): P(new inundation) per cell over the coherent Monte-Carlo
+    worlds (p95e cellprob, T12g) on 7, 8, 9 and 13 June 2023, on the Sentinel-2 image of June 2022; the P >= 0.5 classes are
+    the median world -- the map product of the ensemble; the nominal daily map (Fig07) is one world."""
+    import rasterio
+    PROB = [(0.95, "#0b2a5c", "P ≥ 0.95"), (0.75, "#2a78d6", "0.75 ≤ P < 0.95"), (0.5, "#7fb3e6", "0.50 ≤ P < 0.75 (in the median world)"),
+            (0.25, "#eda100", "0.25 ≤ P < 0.50"), (0.05, "#f5d58a", "0.05 ≤ P < 0.25 (marginal: a sill within the uncertainty)")]
+    S = pd.read_csv(T / "p95e_cellprob_summary.csv"); Sc = S[S.region == "DNIPRO_CORRIDOR"].set_index("date")
+    days = [d for d in ("2023-06-07", "2023-06-08", "2023-06-09", "2023-06-13") if d in Sc.index]
+    fig, axs = plt.subplots(2, 2, figsize=(7.4, 7.6), constrained_layout=True); box = None
+    for ax, day in zip(axs.ravel(), days):
+        arrs = {}
+        for z in ZONES:
+            with rasterio.open(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / f"p95e_cellprob_{day}.tif") as s_:
+                cnt = s_.read(1).astype("f4"); n = float(s_.tags().get("n_draws", 1000)); arrs[z] = (cnt / n, dict(transform=s_.transform, ny=s_.height, nx=s_.width))
+        Pm, ext = zone_mosaic(arrs, np.float32(0)); box = [ext[0], min(ext[1], 540), 5136, ext[3]]
+        cls = np.zeros(Pm.shape, "u1")
+        for code, (lo, _, _) in enumerate(reversed(PROB), 1):                  # 1 = P >= 0.05 ... 5 = P >= 0.95
+            cls[Pm >= lo] = code
+        s2_basemap(ax, "pre", step=4)
+        cm = ListedColormap(["#ffffff"] + [c for _, c, _ in reversed(PROB)])
+        ax.imshow(np.ma.masked_where(cls[::4, ::4] == 0, cls[::4, ::4]), cmap=cm, vmin=0, vmax=5, extent=ext, interpolation="nearest", rasterized=True, zorder=2)
+        r = Sc.loc[day]; furniture(ax, box, 10); ax.tick_params(labelsize=5.5); FS.panel_label(ax, "abcd"[days.index(day)])
+        ax.set_title(f"{day}\nmedian world (P ≥ 0.5) {r['A_P_ge_0.50_km2']:.0f} km² · nominal {r.A_nominal_km2:.0f} · expected {r.A_expected_km2:.0f} · P ≥ 0.05: {r['A_P_ge_0.05_km2']:.0f} km²", fontsize=6.0, loc="left")
+    fig.legend(handles=[Patch(fc=c, label=lab) for _, c, lab in PROB], loc="outside lower center", ncol=3, fontsize=5.8, frameon=False,
+               title="P(new inundation on the day) over the 1000 coherent Monte-Carlo worlds (Dnipro corridor areas in the titles; T12g)", title_fontsize=6.2)
+    fig.text(0.995, 0.995, "Basemap: Sentinel-2 L2A true colour, 13 / 20 June 2022, processed by the authors; contains modified Copernicus Sentinel data 2022.", fontsize=5.3, color="#555", ha="right", va="top")
+    FS.save(fig, "FigS17_inundation_probability", FIG)
+
+
+def figS18():
+    """Saddle audit of the floodplain lowland south of Krynky (p95p, T15d-T15f): the lowest path from the river network, the terrain
+    surfaces, the bed, the water surfaces of 7 and 8 June and the ICESat-2 night ground points along the path."""
+    nm = "kozachi_laheri_lowland"; Pf = pd.read_csv(T / f"p95p_saddle_profile_{nm}.csv"); S = pd.read_csv(T / f"p95p_saddle_summary_{nm}.csv")
+    ip = T / f"p95p_saddle_icesat_points_{nm}.csv"; pts = pd.read_csv(ip) if ip.exists() else None
+    fig, ax = plt.subplots(figsize=(7.2, 3.6), constrained_layout=True); s_km = Pf.s_m / 1e3
+    ax.plot(s_km, Pf.z_model_m, color=FS.PALETTE["ink"], lw=1.4, label="model terrain (seamless terrain–bed model, residual FABDEM class bias removed)")
+    ax.plot(s_km, Pf.z_fabdem_uncorrected_m, color=FS.PALETTE["muted"], lw=0.9, ls="--", label="FABDEM as delivered")
+    ax.plot(s_km, Pf.z_glo30_m, color=FS.PALETTE["s1"], lw=0.8, alpha=0.8, label="Copernicus DEM GLO-30 (surface model; same datum step)")
+    ax.plot(s_km, Pf.z_bed_m, color="#8b5a2b", lw=2.0, label="channel bed of the model")
+    for d, col, ls in zip([c for c in Pf.columns if c.startswith("H_")], (FS.PALETTE["terrain"], "#7fb3e6"), ("-.", ":")):
+        ax.plot(s_km, Pf[d], color=col, lw=1.2, ls=ls, label=f"water surface {d[2:12]}")
+    if pts is not None and len(pts):
+        xy = Pf[["x", "y"]].values; sp = [float(Pf.s_m.iloc[int(np.argmin(np.hypot(xy[:, 0] - x, xy[:, 1] - y)))]) / 1e3 for x, y in zip(pts.x, pts.y)]
+        ax.scatter(sp, pts.H_ice, s=7, color=FS.PALETTE["rf"], zorder=5, label=f"ICESat-2 ATL08 night ground within 100 m of the path (n = {len(pts)})")
+    wcn = Pf.worldcover.values; y0 = float(np.nanmin(Pf[["z_model_m", "z_bed_m"]].min())) - 0.6
+    for k in range(len(Pf) - 1):
+        col = {"trees": "#2e7d32", "wetland": "#00897b", "grass": "#c0ca33", "cropland": "#f9a825", "water": "#1e88e5", "built": "#8d6e63"}.get(wcn[k], "#bdbdbd")
+        ax.plot([s_km[k], s_km[k + 1]], [y0, y0], color=col, lw=5, solid_capstyle="butt")
+    m = S[S.surface == "model_terrain_bias_removed"]
+    ax.set_title("Lowest path from the river network to the floodplain lowland south of Krynky: saddle %.2f m; head at the saddle %s" %
+                 (m.z_saddle_m.iloc[0], ", ".join(f"{r.day[5:]} {r.delta_H_saddle_m:+.2f} m" for r in m.itertuples())), fontsize=7.5, loc="left")
+    ax.set_xlabel("distance along the path from the river network, km", fontsize=7); ax.set_ylabel("height, m EVRF2019", fontsize=7); ax.tick_params(labelsize=6.5)
+    ax.legend(fontsize=5.6, loc="upper right"); ax.grid(alpha=0.3)
+    ax.text(0.01, 0.02, "bar: WorldCover along the path (green forest, teal wetland, lime grass, orange cropland, blue water)", transform=ax.transAxes, fontsize=5.8, color="#555")
+    FS.save(fig, "FigS18_saddle_audit", FIG)
+
+
 def figS15():
     """The two withheld gauges: what the static reconstruction gets wrong in the tributary and in the western delta (p95k)."""
     K = pd.read_csv(PT / "T17c.csv"); L = pd.read_csv(PT / "T17e.csv"); man = json.loads((T / "p95k_manifest.json").read_text())
@@ -929,10 +1188,48 @@ def figS15():
     FS.save(fig, "FigS15_withheld_gauges", FIG)
 
 
+def figS19():
+    """Maintainer 2026-10-01 ("where is a normal flood map from S1"): the Sentinel-1 new dark water of every date that covers the
+    corridor fully, on the Sentinel-2 image of June 2022 -- what the radar sees on the day it looks (observed_S1; the masks of p94 /
+    p95: dark water minus the optical pre-breach water minus the cells already dark on 1-2 June), with the terrain-reconstructed new
+    inundation of the same day (nominal world) as a line."""
+    P95 = _ld("p95", M6 / "p95_hand_daily_inundation.py"); O = _ld("p95o", M6 / "p95o_component_qa.py")
+    P = P95.load_p92(); M = P95.mosaic_layers(P, with_s1=True); g = M["grid"]; tr = g.transform; ny, nx = g.shape
+    ext = [tr.c / 1e3, (tr.c + tr.a * nx) / 1e3, (tr.f + tr.e * ny) / 1e3, tr.f / 1e3]
+    own = (M["own_id"] > 0) & M["base_geom"]; pre = M["pre"]; dark = M["s1_pre_dark"]; corridor = own & ~M["cut"]
+    S = pd.read_csv(T / "p94_flood_dynamics_s1.csv"); Sc = S[S.region == "DNIPRO_CORRIDOR"].set_index("date")
+    def comp(key, d):                                                        # the S1 layers live per zone (p95 zone_layers): compose as p95x does
+        return g.compose({z: L[key].get(d, np.zeros(L["pre"].shape, bool)) for z, L in M["zones"].items()}, False, order=M["names"], dtype=bool)
+    have = {d for L in M["zones"].values() for d in L["W"]}
+    obs = np.logical_or.reduce([comp("V", d) for d in sorted(have)]) & own          # the S1 observable domain (union of the footprints), as p94
+    days = [d for d in ("2023-06-06", "2023-06-09", "2023-06-13", "2023-06-14", "2023-06-18", "2023-06-21") if d in have]
+    C_S1 = "#2a78d6"                                                          # slot 1 blue = Sentinel-1 (p94, Fig05)
+    fig, axs = plt.subplots(3, 2, figsize=(7.4, 10.4), constrained_layout=True); box = [ext[0], min(ext[1], 540), 5136, ext[3]]
+    cm = ListedColormap(["#ffffff", "#b9c7d6", C_S1]); k = 4
+    for ax, d in zip(axs.ravel(), days):
+        W, V = comp("W", d) & own, comp("V", d) & own
+        st = np.zeros((ny, nx), "u1"); st[V & pre] = 1; st[W & ~(pre | dark)] = 2
+        s2_basemap(ax, "pre", step=k)
+        ax.imshow(np.ma.masked_where(st[::k, ::k] == 0, st[::k, ::k]), cmap=cm, vmin=0, vmax=2, extent=ext, interpolation="nearest", rasterized=True, zorder=2)
+        hatch_mask(ax, obs & ~V, ext, "#6f6f6f", hatch="////", step=2 * k)
+        rec = O.compose_npz(M, "_connected_ceiling", d) & corridor
+        ax.contour(rec[::k, ::k].astype("f4"), levels=[0.5], extent=ext, origin="upper", colors="k", linewidths=0.3, zorder=4)
+        r = Sc.loc[d]; furniture(ax, box, 10); ax.tick_params(labelsize=5.5); FS.panel_label(ax, "abcdef"[days.index(d)])
+        ax.set_title(f"{d} · {r.orbit} · coverage {r.coverage:.0%}\nS1 new dark water {r.new_water_km2:.0f} km² · reconstruction {float(rec.sum()) * P95.CELL_KM2:.0f} km² (corridor)", fontsize=6.0, loc="left")
+    for ax in axs.ravel()[len(days):]:
+        ax.axis("off")
+    fig.legend(handles=[Patch(fc=C_S1, label="Sentinel-1 new dark water (not water before the breach; observed_S1)"), Patch(fc="#b9c7d6", label="pre-breach water (optical, p60)"),
+                        Patch(fc="none", ec="#6f6f6f", hatch="////", label="not observed on this date"), Line2D([], [], color="k", lw=0.8, label="terrain-reconstructed new inundation of the day (nominal world)")],
+               loc="outside lower center", ncol=2, fontsize=5.8, frameon=False)
+    fig.suptitle("Basemap: Sentinel-2 L2A true colour, 13 / 20 June 2022, processed by the authors; contains modified Copernicus Sentinel data 2022.", fontsize=5.3, color="#555", x=0.99, ha="right")
+    FS.save(fig, "FigS19_s1_new_water_by_date", FIG)
+
+
+
 ALL = {"Fig01": (fig01, True), "Fig02": (fig02, False), "Fig03": (fig03, True), "Fig04": (fig04, False), "Fig05": (fig05, True), "Fig06": (fig06, False), "Fig07": (fig07, True), "Fig08": (fig08, False), "Fig09": (fig09, False),
        "FigS01": (figS01, False), "FigS02": (figS02, False), "FigS03": (figS03, False), "FigS04": (figS04, False), "FigS05": (figS05, False), "FigS06": (figS06, False), "FigS07": (figS07, False),
        "Fig11": (fig11, True), "FigS08": (figS08, True), "FigS09": (figS09, True), "FigS10": (figS10, False), "FigS11": (figS11, False), "FigS12": (figS12, False), "FigS13": (figS13, False),
-       "FigS14": (figS14, True), "FigS15": (figS15, False), "Fig10": (fig10, True)}
+       "FigS14": (figS14, True), "FigS15": (figS15, False), "FigS16": (figS16, True), "FigS17": (figS17, True), "FigS18": (figS18, False), "FigS19": (figS19, True), "Fig10": (fig10, True)}
 
 
 def main():

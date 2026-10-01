@@ -1,0 +1,5 @@
+window,chosen_for,centre_lon,centre_lat,x0_km,y0_km,clear_0608_share,late_backdrop,cumulative_water in both_km2,dry_ground_water in both_km2,cumulative_water in ours only_km2,dry_ground_water in ours only_km2,"cumulative_UNOSAT only, ours UNKNOWN_km2","dry_ground_UNOSAT only, ours UNKNOWN_km2","cumulative_UNOSAT only, ours DRY_km2","dry_ground_UNOSAT only, ours DRY_km2","cumulative_ours UNKNOWN, UNOSAT no water_km2","dry_ground_ours UNKNOWN, UNOSAT no water_km2"
+1,largest disagreement on dry ground,33.1166,46.6813,503.9,5174.8,0.0,18 June,5.09,5.05,34.09,31.32,2.54,2.54,0.17,0.17,27.65,27.5
+2,largest disagreement on dry ground,32.7434,46.587,475.3,5164.3,0.03,18 June,32.46,23.87,0.47,0.47,8.21,8.14,3.54,3.53,3.94,3.93
+3,largest disagreement on dry ground,32.6129,46.5382,465.3,5158.9,0.77,18 June,61.1,24.02,1.67,1.65,6.39,5.73,2.7,2.59,2.76,2.71
+4,largest disagreement on dry ground,33.176,46.7714,508.4,5184.8,0.0,25 June,27.21,11.16,4.62,4.09,1.52,1.52,0.59,0.58,6.16,6.16

@@ -6,8 +6,9 @@ Inhulets valley rectangle -- all INSIDE the S1 observable domain (union of the 1
 rectangular frames extend beyond the zone polygons and are not observed there); plus the ZONE_3 estuary S1 cache on its own 20 m grid (west of B2, x < 438 km) so the
 liman reach is not silently missing.
 
-Per date: valid (observed) area, total water, NEW water = water that was not water before the breach (S1 water on
-06-01/02 OR p60 pre_water_frac >= 20 %), and NEW water inside the COMMON S1 footprint (pixels valid on all 11 S1
+Per date: valid (observed) area, total water, NEW water = water that was not water before the breach (S2: p60 pre_water_frac
+>= 20 % only -- maintainer 2026-09-30, dark Sentinel-1 is not water; S1: also not where S1 was dark on 06-01/02, the sensor
+cannot show new water there), and NEW water inside the COMMON S1 footprint (pixels valid on all 11 S1
 dates), so dates from the partial orbit 138 (06-06, 06-18, 06-30) can be compared with the full-coverage dates.
 NOT OBSERVED IS NOT DRY: a date's number is only for its valid footprint; the coverage column says how much that is.
 S2 dates with < 30 % valid coverage of a region are kept in the table but flagged unreliable and not drawn.
@@ -94,7 +95,8 @@ def main():
         reg["P42_FLOODPLAIN_DOMAIN"] = own & fp
     W, V, orbit = load_s1(M, trM)
     dates = sorted(W)
-    pre = L["pre"] | W["2023-06-01"] | W["2023-06-02"]
+    pre = L["pre"] | W["2023-06-01"] | W["2023-06-02"]       # S1 new water: not optical pre-breach water, not where S1 was already dark
+    pre_opt = L["pre"]                                         # S2 new water: optical pre-breach water only (maintainer 2026-09-30: dark S1 is not water)
     common = np.logical_and.reduce([V[d] for d in dates])
     obs = np.logical_or.reduce([V[d] for d in dates])          # observable domain = union of the S1 zone footprints
     reg = {k: m & obs for k, m in reg.items()}                  # every number below is inside that domain (S2 too)
@@ -145,8 +147,8 @@ def main():
             val = v & m; cov = float(val.sum() / max(m.sum(), 1))
             rows.append(dict(date=d, sensor="S2", region=nm, valid_km2=round(float(val.sum()) * PX, 1), coverage=round(cov, 3),
                              reliable=cov >= S2_MIN_VALID, water_km2=round(float((w & m).sum()) * PX, 1),
-                             new_water_km2=round(float((w & m & ~pre).sum()) * PX, 1),
-                             new_water_common_s1_footprint_km2=round(float((w & m & ~pre & common).sum()) * PX, 1),
+                             new_water_km2=round(float((w & m & ~pre_opt).sum()) * PX, 1),
+                             new_water_common_s1_footprint_km2=round(float((w & m & ~pre_opt & common).sum()) * PX, 1),
                              frames=",".join(f for f in ("B1", "B2") if (OUT / f / "indices" / f"{d}.tif").exists())))
         print("S2", d, rows[-1]["coverage"], flush=True)
     S2 = pd.DataFrame(rows); S2.to_csv(CFG.TABLES / "p94_flood_dynamics_s2.csv", index=False)

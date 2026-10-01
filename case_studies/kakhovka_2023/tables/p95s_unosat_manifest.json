@@ -1,0 +1,256 @@
+{
+ "producer": "p95s_unosat_crosscheck.py",
+ "day": "2023-06-07",
+ "product": {
+  "product": "3614",
+  "url": "https://unosat.org/static/unosat_filesystem/3614/FL20230606UKR_SHP.zip",
+  "sha256": "b2f65fd1edd8f7f18b044aa19b60842ee225f11bc9016a86a85857bceb33d570",
+  "layers": {
+   "aoi": {
+    "name": "ICEYE_20230607_AnalysisExtent_KhersonskaOblast_UKR",
+    "area_km2": 2096.59,
+    "attributes": {
+     "SensorDate": "2023-06-07 00:00:00",
+     "Notes": "Acquisition time - 12:18; 12:48 & 13:01 UTC",
+     "Area_m2": "2098225955.32",
+     "GlobalID": "{F0658698-6C4E-4CCE-9E7A-42B1BCA0CE2E}",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "Area_ha": "209823.0",
+     "SHAPE_Leng": "3.53036177496",
+     "SHAPE_Area": "0.246802415168",
+     "d_SensorID": "ICEYE",
+     "d_StaffID": "None"
+    }
+   },
+   "flood": {
+    "name": "ICEYE_20230607_FloodExtent_KhersonskaOblast_UKR",
+    "area_km2": 520.36,
+    "attributes": {
+     "Sensor_Dat": "2023-06-07 00:00:00",
+     "Notes": "Acquisition time - 12:18; 12:48 & 13:01 UTC",
+     "Area_m2": "520768154.193",
+     "Area_ha": "52076.8154193",
+     "SenorID_ol": "0",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "SHAPE_Leng": "53.2238831525",
+     "SHAPE_Area": "0.0611782867815",
+     "d_Water_Cl": "Flood Water",
+     "d_Sensor_I": "ICEYE",
+     "d_Confiden": "To Be Evaluated",
+     "d_Field_Va": "Not yet field validated",
+     "d_Water_St": "New Water / Water Increase",
+     "d_SenorID_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "water": {
+    "name": "ICEYE_20230607_WaterExtent_KhersonskaOblast_UKR",
+    "area_km2": 699.04,
+    "attributes": {
+     "Sensor_Dat": "2023-06-07 00:00:00",
+     "Notes": "Acquisition time - 12:18; 12:48 & 13:01 UTC",
+     "Area_m2": "699583340.745",
+     "Area_ha": "69958.3340745",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "SHAPE_Leng": "26.1208555701",
+     "SHAPE_Area": "0.0821798353558",
+     "d_Water_Cl": "Maximum Satellite Observed Water (Cumulative)",
+     "d_Sensor_I": "ICEYE",
+     "d_Confiden": "To Be Evaluated",
+     "d_Field_Va": "Not yet field validated",
+     "d_Water_St": "New Water / Water Increase",
+     "d_SenorID_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "outside_bed": {
+    "name": "ICEYE_20230607_WaterExtentOutsideRiverBed_KhersonskaOblast_UKR",
+    "area_km2": 223.82,
+    "attributes": {
+     "Sensor_Dat": "2023-06-07 00:00:00",
+     "Notes": "None",
+     "Area_m2": "223995563.732",
+     "Area_ha": "22399.5563732",
+     "SenorID_ol": "0",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "SHAPE_Leng": "22.433604822",
+     "SHAPE_Area": "0.0263290692365",
+     "d_Water_Cl": "Satellite Detected Water / Possible Saturated Soil",
+     "d_Sensor_I": "ICEYE",
+     "d_Confiden": "To Be Evaluated",
+     "d_Field_Va": "Not yet field validated",
+     "d_Water_St": "New Water / Water Increase",
+     "d_SenorID_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "ref_water": {
+    "name": "ST2_20230603_20230605_WaterExtent_KhersonskaOblast_UKR",
+    "area_km2": 3221.59,
+    "attributes": {
+     "SHAPE_Leng": "70.9396694289",
+     "SHAPE_Area": "0.382443434868",
+     "Water_Clas": "Satellite Detected Water / Possible Saturated Soil",
+     "Sensor_ID": "Sentinel-2",
+     "Sensor_Dat": "2023-05-06 00:00:00",
+     "Confidence": "To be evaluated",
+     "Field_Vali": "Not yet field validated",
+     "Water_Stat": "No water change / Static Level",
+     "Notes": "None",
+     "Area_m2": "3223260000.0",
+     "Area_ha": "322326.0",
+     "SenorID_ol": "None",
+     "StaffID": "JT",
+     "EventCode": "FL20230606UKR"
+    }
+   },
+   "urban_affected": {
+    "name": "ICEYE_20230607_AffectedUrbanArea_KhersonskaOblast_UKR",
+    "area_km2": 86.47,
+    "attributes": {
+     "SensorDate": "2023-06-07 00:00:00",
+     "Settlement": "None",
+     "Notes": "Acquisition time - 12:18; 12:48 & 13:01 UTC",
+     "Main_Damag": "13",
+     "Grouped_Da": "0",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "Area_m2": "86536800.0",
+     "Area_ha": "8653.68",
+     "ImageID_Nu": "0",
+     "Shape_Leng": "17.5524464977",
+     "Shape_Area": "0.01016494597",
+     "d_SiteID": "None",
+     "d_SensorID": "ICEYE",
+     "d_Confiden": "To Be Evaluated",
+     "d_FieldVal": "Not yet field validated",
+     "d_Main_Dam": "Damage",
+     "d_Grouped_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "urban_analysed": {
+    "name": "ICEYE_20230607_AnalysedUrbanArea_KhersonskaOblast_UKR",
+    "area_km2": 364.62,
+    "attributes": {
+     "SiteID": "0",
+     "SensorDate": "2023-06-07 00:00:00",
+     "Settlement": "None",
+     "Notes": "Acquisition time - 12:18; 12:48 & 13:01 UTC",
+     "Main_Damag": "0",
+     "StaffID": "0",
+     "EventCode": "FL20230606UKR",
+     "Area_m2": "364909000.0",
+     "Area_ha": "36490.9",
+     "ImageID_Nu": "0",
+     "Shape_Leng": "25.0773501546",
+     "Shape_Area": "0.0429039482378",
+     "d_SiteID": "None",
+     "d_SensorID": "ICEYE",
+     "d_Confiden": "To Be Evaluated",
+     "d_FieldVal": "Not yet field validated",
+     "d_Main_Dam": "None",
+     "d_Grouped_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "l9_0609_water": {
+    "name": "L9_20230609_WaterExtent_KhersonskaOblast_UKR",
+    "area_km2": 464.91,
+    "attributes": {
+     "Sensor_Dat": "2023-06-09 00:00:00",
+     "Notes": "None",
+     "Area_m2": "465276332.243",
+     "Area_ha": "46527.6332243",
+     "SenorID_ol": "0",
+     "EventCode": "FL20230606UKR",
+     "SHAPE_Leng": "81.6906950131",
+     "SHAPE_Area": "0.0546883529503",
+     "d_Water_Cl": "Maximum Satellite Observed Water (Cumulative)",
+     "d_Sensor_I": "Landsat-9",
+     "d_Confiden": "To Be Evaluated",
+     "d_Field_Va": "Not yet field validated",
+     "d_Water_St": "No water / Water levels decreased",
+     "d_SenorID_": "None",
+     "d_StaffID": "None"
+    }
+   },
+   "cumulative_0606_0609": {
+    "name": "ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast",
+    "area_km2": 616.52,
+    "attributes": {
+     "SHAPE_Leng": "40.4321392626",
+     "SHAPE_Area": "0.0725068905756",
+     "Water_Clas": "Flood Water",
+     "Sensor_ID": "multi sensors",
+     "Sensor_Dat": "2023-06-09 00:00:00",
+     "Confidence": "To be evaluated",
+     "Field_Vali": "Not yet field validated",
+     "Water_Stat": "New Water / Water Increase",
+     "Notes": "ICEYE 7 Jun , S3 6 to 9 Jun, S2 8 Jun 2023",
+     "Area_m2": "616998000.0",
+     "Area_ha": "61699.8",
+     "SenorID_ol": "None",
+     "StaffID": "SS",
+     "EventCode": "FL20230606UKR"
+    }
+   }
+  },
+  "flood_minus_water_km2": 0.0,
+  "water_minus_flood_km2": 178.68
+ },
+ "windows": {
+  "corridor (ICEYE analysis extent)": null,
+  "Kozachi Laheri village": [
+   32.925,
+   46.69,
+   33.025,
+   46.726
+  ],
+  "Krynky + lowland south of Krynky": [
+   33.03,
+   46.595,
+   33.23,
+   46.78
+  ],
+  "Krynky village": [
+   33.07,
+   46.728,
+   33.17,
+   46.765
+  ],
+  "lowland box (p95p/p95q)": [
+   "box",
+   33.12,
+   46.665,
+   6.5,
+   7.0
+  ]
+ },
+ "strata": {
+  "all": null,
+  "open ground (grass, cropland, bare)": [
+   30,
+   40,
+   60
+  ],
+  "trees and shrub": [
+   10,
+   20
+  ],
+  "built-up": [
+   50
+  ],
+  "wetland": [
+   90
+  ]
+ },
+ "scored": "ICEYE analysis extent inside the reconstruction domain; new water on ground dry before the breach in our baseline AND UNOSAT's Sentinel-2 reference",
+ "gate": "recomputed new water == daily_new.npz (0.000 km2)",
+ "grid": "20 m union grid, cell centres (rasterio.features.rasterize)",
+ "unused": null
+}

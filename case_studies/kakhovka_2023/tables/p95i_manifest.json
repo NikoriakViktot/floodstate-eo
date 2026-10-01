@@ -57,9 +57,9 @@
   "share_of_inflow_stored_pct": 34.6,
   "breach_release_design_06_06_to_06_08": {
    "Q_out_at_outlet_level_m3s": [
-    122179.0,
-    12152.0,
-    24160.0
+    122492.0,
+    12233.0,
+    24299.0
    ],
    "Q_out_at_rozumivka_level_m3s": [
     11797.0,
@@ -79,17 +79,17 @@
   }
  },
  "prebreach_design": {
-  "level_outlet_bs_m": 17.35,
-  "V_km3": 21.12,
-  "A_km2": 2200
+  "level_outlet_bs_m": 17.42,
+  "V_km3": 21.29,
+  "A_km2": 2202
  },
  "last_defined_day": {
   "date": "2023-06-08",
-  "outlet_level_bs_m": 10.707,
-  "V_design_range_km3": "8.00\u201314.69",
-  "released_range_km3": "13.13\u20136.10"
+  "outlet_level_bs_m": 10.78,
+  "V_design_range_km3": "8.11\u201314.69",
+  "released_range_km3": "13.17\u20136.10"
  },
  "reach_sum_check_max_abs_km3": 0.01,
  "note": "design curve read at observed levels; sloped surface -> range outlet..Rozumivka; nothing fitted",
- "seconds": 0.2
+ "seconds": 0.1
 }

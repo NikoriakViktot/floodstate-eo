@@ -1,0 +1,258 @@
+{
+ "producer": "p95x_weak_label_quality.py",
+ "decision": "maintainer 2026-09-30: best state estimate + source + quality flags; UNKNOWN only for 0.05 < P < 0.8 and the recession between EO anchors",
+ "days": [
+  "2023-06-06",
+  "2023-06-07",
+  "2023-06-08",
+  "2023-06-09",
+  "2023-06-10",
+  "2023-06-11",
+  "2023-06-12",
+  "2023-06-13",
+  "2023-06-14",
+  "2023-06-15",
+  "2023-06-16",
+  "2023-06-17",
+  "2023-06-18",
+  "2023-06-19",
+  "2023-06-20",
+  "2023-06-21",
+  "2023-06-22",
+  "2023-06-23",
+  "2023-06-24",
+  "2023-06-25",
+  "2023-06-26",
+  "2023-06-27",
+  "2023-06-28",
+  "2023-06-29",
+  "2023-06-30"
+ ],
+ "states": {
+  "DRY": 0,
+  "WATER": 1,
+  "UNKNOWN": 2
+ },
+ "sources": {
+  "EO_S1": 1,
+  "EO_S2": 2,
+  "MODEL_STRONG": 3,
+  "MODEL_WEAK": 4,
+  "REFERENCE": 5
+ },
+ "flags": {
+  "STORAGE_SENSITIVE": 1,
+  "WEAK_CONNECTIVITY": 2,
+  "SENSOR_BLIND": 4,
+  "REFERENCE_UNCERTAIN": 8,
+  "RECESSION_UNCERTAIN": 16,
+  "VEGETATED_WETLAND": 32
+ },
+ "thresholds": {
+  "P_water_wet": 0.8,
+  "P_water_dry": 0.05
+ },
+ "p_water": {
+  "2023-06-06": "p95e_cellprob_water_2023-06-06.tif",
+  "2023-06-07": "p95e_cellprob_water_2023-06-07.tif",
+  "2023-06-08": "p95e_cellprob_water_2023-06-08.tif",
+  "2023-06-09": "p95e_cellprob_water_2023-06-09.tif",
+  "2023-06-10": "p95e_cellprob_water_daily_2023-06-10.tif",
+  "2023-06-11": "p95e_cellprob_water_2023-06-11.tif",
+  "2023-06-12": "p95e_cellprob_water_daily_2023-06-12.tif",
+  "2023-06-13": "p95e_cellprob_water_2023-06-13.tif",
+  "2023-06-14": "p95e_cellprob_water_2023-06-14.tif",
+  "2023-06-15": "p95e_cellprob_water_daily_2023-06-15.tif",
+  "2023-06-16": "p95e_cellprob_water_daily_2023-06-16.tif",
+  "2023-06-17": "p95e_cellprob_water_daily_2023-06-17.tif",
+  "2023-06-18": "p95e_cellprob_water_2023-06-18.tif",
+  "2023-06-19": "p95e_cellprob_water_daily_2023-06-19.tif",
+  "2023-06-20": "p95e_cellprob_water_daily_2023-06-20.tif",
+  "2023-06-21": "p95e_cellprob_water_2023-06-21.tif",
+  "2023-06-22": "p95e_cellprob_water_daily_2023-06-22.tif",
+  "2023-06-23": "p95e_cellprob_water_daily_2023-06-23.tif",
+  "2023-06-24": "p95e_cellprob_water_daily_2023-06-24.tif",
+  "2023-06-25": "p95e_cellprob_water_daily_2023-06-25.tif",
+  "2023-06-26": "p95e_cellprob_water_daily_2023-06-26.tif",
+  "2023-06-27": "p95e_cellprob_water_daily_2023-06-27.tif",
+  "2023-06-28": "p95e_cellprob_water_daily_2023-06-28.tif",
+  "2023-06-29": "p95e_cellprob_water_daily_2023-06-29.tif",
+  "2023-06-30": "p95e_cellprob_water_daily_2023-06-30.tif"
+ },
+ "eo": {
+  "2023-06-06": {
+   "s1_scenes": [
+    "ZONE_2:orb138_DES",
+    "ZONE_4:orb138_DES"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-07": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-08": {
+   "s1_scenes": [],
+   "s2_frames": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  "2023-06-09": {
+   "s1_scenes": [
+    "ZONE_2:orb14_ASC",
+    "ZONE_4:orb14_ASC"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-10": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-11": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-12": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-13": {
+   "s1_scenes": [
+    "ZONE_2:orb65_DES",
+    "ZONE_4:orb65_DES"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-14": {
+   "s1_scenes": [
+    "ZONE_2:orb87_ASC",
+    "ZONE_4:orb87_ASC"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-15": {
+   "s1_scenes": [],
+   "s2_frames": [
+    "B1"
+   ]
+  },
+  "2023-06-16": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-17": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-18": {
+   "s1_scenes": [
+    "ZONE_2:orb138_DES",
+    "ZONE_4:orb138_DES"
+   ],
+   "s2_frames": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  "2023-06-19": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-20": {
+   "s1_scenes": [],
+   "s2_frames": [
+    "B1"
+   ]
+  },
+  "2023-06-21": {
+   "s1_scenes": [
+    "ZONE_2:orb14_ASC",
+    "ZONE_4:orb14_ASC"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-22": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-23": {
+   "s1_scenes": [],
+   "s2_frames": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  "2023-06-24": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-25": {
+   "s1_scenes": [
+    "ZONE_2:orb65_DES",
+    "ZONE_4:orb65_DES"
+   ],
+   "s2_frames": [
+    "B1"
+   ]
+  },
+  "2023-06-26": {
+   "s1_scenes": [
+    "ZONE_2:orb87_ASC",
+    "ZONE_4:orb87_ASC"
+   ],
+   "s2_frames": []
+  },
+  "2023-06-27": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-28": {
+   "s1_scenes": [],
+   "s2_frames": [
+    "B1",
+    "B2",
+    "B3"
+   ]
+  },
+  "2023-06-29": {
+   "s1_scenes": [],
+   "s2_frames": []
+  },
+  "2023-06-30": {
+   "s1_scenes": [
+    "ZONE_2:orb138_DES",
+    "ZONE_4:orb138_DES"
+   ],
+   "s2_frames": [
+    "B1"
+   ]
+  }
+ },
+ "reference_km2": {
+  "optical": 263.5,
+  "model_only_normally_wet": 300.7
+ },
+ "ground_classes": {
+  "DRY_BEFORE_EVENT": 0,
+  "VEGETATED_WETLAND": 1,
+  "OPEN_WATER_REFERENCE": 2,
+  "OTHER_WATER": 3
+ },
+ "ground_km2": {
+  "DRY_BEFORE_EVENT": 6518.3,
+  "VEGETATED_WETLAND": 432.0,
+  "OPEN_WATER_REFERENCE": 263.5,
+  "OTHER_WATER": 12.8
+ },
+ "storage_sensitive": {
+  "km2": 95.2,
+  "depressions": 14,
+  "lowland_south_of_krynky_included": true
+ },
+ "p95_rev": 9,
+ "unosat": "check only, never a label source"
+}

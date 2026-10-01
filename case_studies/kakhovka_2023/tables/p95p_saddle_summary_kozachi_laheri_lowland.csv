@@ -1,0 +1,7 @@
+surface,day,z_saddle_m,H_saddle_m,delta_H_saddle_m,saddle_x,saddle_y,saddle_wc,saddle_source,saddle_node_river,saddle_node_km,path_length_km,target_z_m,target_H_m,seconds,datum_step_fabdem_raster_minus_tile_m,datum_step_nmad_m
+model_terrain_bias_removed,2023-06-07,8.85,9.529,0.679,504930.0,5174670.0,grass,FABDEM,no_data,0.6,15.94,7.6,9.58,1.1,0.033,0.098
+model_terrain_bias_removed,2023-06-08,8.85,8.98,0.13,504930.0,5174670.0,grass,FABDEM,no_data,0.6,15.94,7.6,9.05,1.1,0.033,0.098
+fabdem_uncorrected,2023-06-07,10.407,9.522,-0.885,505010.0,5173410.0,trees,FABDEM,no_data,1.7,8.38,9.29,9.58,1.2,0.033,0.098
+fabdem_uncorrected,2023-06-08,10.407,8.968,-1.44,505010.0,5173410.0,trees,FABDEM,no_data,1.7,8.38,9.29,9.05,1.2,0.033,0.098
+glo30_on_land_bed_kept,2023-06-07,,,,,,,,,,0.0,14.04,9.58,3.2,0.033,0.098
+glo30_on_land_bed_kept,2023-06-08,,,,,,,,,,0.0,14.04,9.05,3.2,0.033,0.098

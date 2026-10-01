@@ -1,0 +1,739 @@
+zone,sensor,period,stratum,stratum_km2,n_scenes,first,last,share_any_clear,mean_clear_share,best_scene,best_scene_share,note
+delta,S2,normal_year,ALL,2747.12,2,2022-06-03,2022-06-13,1.0,0.9794,2022-06-03,0.9972,frame B2; clear = p54a valid mask
+delta,S2,normal_year,NW_REEDS,116.05,2,2022-06-03,2022-06-13,1.0,0.8912,2022-06-03,1.0,frame B2; clear = p54a valid mask
+delta,S2,normal_year,NW_TREES,13.06,2,2022-06-03,2022-06-13,1.0,0.896,2022-06-03,1.0,frame B2; clear = p54a valid mask
+delta,S2,normal_year,HIGH_REEDS,13.76,2,2022-06-03,2022-06-13,1.0,0.9858,2022-06-03,1.0,frame B2; clear = p54a valid mask
+delta,S2,normal_year,OPEN_WATER,194.28,2,2022-06-03,2022-06-13,1.0,0.9555,2022-06-03,0.9882,frame B2; clear = p54a valid mask
+delta,S2,normal_year,EVENT_REEDS,38.98,2,2022-06-03,2022-06-13,1.0,0.9503,2022-06-03,1.0,frame B2; clear = p54a valid mask
+delta,S2,normal_year,DRY_LAND,1947.05,2,2022-06-03,2022-06-13,1.0,0.9911,2022-06-03,0.9974,frame B2; clear = p54a valid mask
+delta,S2,normal_year,GROUND_DRY_BEFORE_EVENT,2309.59,2,2022-06-03,2022-06-13,1.0,0.9869,2022-06-03,0.9977,frame B2; clear = p54a valid mask
+delta,S2,normal_year,GROUND_VEGETATED_WETLAND,240.39,2,2022-06-03,2022-06-13,1.0,0.9263,2022-06-03,1.0,frame B2; clear = p54a valid mask
+delta,S2,normal_year,GROUND_OPEN_WATER_REFERENCE,194.28,2,2022-06-03,2022-06-13,1.0,0.9555,2022-06-03,0.9882,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,ALL,2747.12,5,2023-01-19,2023-03-05,1.0,0.757,2023-02-23,0.9949,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,NW_REEDS,116.05,5,2023-01-19,2023-03-05,1.0,0.7506,2023-02-23,0.9973,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,NW_TREES,13.06,5,2023-01-19,2023-03-05,1.0,0.7506,2023-02-13,0.9887,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,HIGH_REEDS,13.76,5,2023-01-19,2023-03-05,1.0,0.7408,2023-02-23,0.9986,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,OPEN_WATER,194.28,5,2023-01-19,2023-03-05,1.0,0.6571,2023-02-23,0.998,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,EVENT_REEDS,38.98,5,2023-01-19,2023-03-05,1.0,0.7621,2023-02-13,0.9999,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,DRY_LAND,1947.05,5,2023-01-19,2023-03-05,1.0,0.7724,2023-02-23,0.994,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2309.59,5,2023-01-19,2023-03-05,1.0,0.7657,2023-02-23,0.9946,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,GROUND_VEGETATED_WETLAND,240.39,5,2023-01-19,2023-03-05,1.0,0.7543,2023-02-23,0.996,frame B2; clear = p54a valid mask
+delta,S2,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,194.28,5,2023-01-19,2023-03-05,1.0,0.6571,2023-02-23,0.998,frame B2; clear = p54a valid mask
+delta,S2,spring_2023,ALL,2747.12,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,NW_REEDS,116.05,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,NW_TREES,13.06,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,HIGH_REEDS,13.76,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,OPEN_WATER,194.28,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,EVENT_REEDS,38.98,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,DRY_LAND,1947.05,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,GROUND_DRY_BEFORE_EVENT,2309.59,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,GROUND_VEGETATED_WETLAND,240.39,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,spring_2023,GROUND_OPEN_WATER_REFERENCE,194.28,0,,,0.0,0.0,,0.0,frame B2; clear = p54a valid mask; no scene in the period (this archive holds 2022-02-13 .. 2023-11-10)
+delta,S2,peak,ALL,2747.12,1,2023-06-08,2023-06-08,0.2574,0.2574,2023-06-08,0.2574,frame B2; clear = p54a valid mask
+delta,S2,peak,NW_REEDS,116.05,1,2023-06-08,2023-06-08,0.4086,0.4086,2023-06-08,0.4086,frame B2; clear = p54a valid mask
+delta,S2,peak,NW_TREES,13.06,1,2023-06-08,2023-06-08,0.3424,0.3424,2023-06-08,0.3424,frame B2; clear = p54a valid mask
+delta,S2,peak,HIGH_REEDS,13.76,1,2023-06-08,2023-06-08,0.2664,0.2664,2023-06-08,0.2664,frame B2; clear = p54a valid mask
+delta,S2,peak,OPEN_WATER,194.28,1,2023-06-08,2023-06-08,0.1914,0.1914,2023-06-08,0.1914,frame B2; clear = p54a valid mask
+delta,S2,peak,EVENT_REEDS,38.98,1,2023-06-08,2023-06-08,0.4355,0.4355,2023-06-08,0.4355,frame B2; clear = p54a valid mask
+delta,S2,peak,DRY_LAND,1947.05,1,2023-06-08,2023-06-08,0.2264,0.2264,2023-06-08,0.2264,frame B2; clear = p54a valid mask
+delta,S2,peak,GROUND_DRY_BEFORE_EVENT,2309.59,1,2023-06-08,2023-06-08,0.2489,0.2489,2023-06-08,0.2489,frame B2; clear = p54a valid mask
+delta,S2,peak,GROUND_VEGETATED_WETLAND,240.39,1,2023-06-08,2023-06-08,0.3903,0.3903,2023-06-08,0.3903,frame B2; clear = p54a valid mask
+delta,S2,peak,GROUND_OPEN_WATER_REFERENCE,194.28,1,2023-06-08,2023-06-08,0.1914,0.1914,2023-06-08,0.1914,frame B2; clear = p54a valid mask
+delta,S2,recession,ALL,2747.12,3,2023-06-18,2023-06-28,0.979,0.7058,2023-06-23,0.7983,frame B2; clear = p54a valid mask
+delta,S2,recession,NW_REEDS,116.05,3,2023-06-18,2023-06-28,1.0,0.8114,2023-06-28,0.9999,frame B2; clear = p54a valid mask
+delta,S2,recession,NW_TREES,13.06,3,2023-06-18,2023-06-28,0.9998,0.7627,2023-06-28,0.9948,frame B2; clear = p54a valid mask
+delta,S2,recession,HIGH_REEDS,13.76,3,2023-06-18,2023-06-28,0.9981,0.9046,2023-06-28,0.9467,frame B2; clear = p54a valid mask
+delta,S2,recession,OPEN_WATER,194.28,3,2023-06-18,2023-06-28,0.9988,0.8121,2023-06-28,0.9903,frame B2; clear = p54a valid mask
+delta,S2,recession,EVENT_REEDS,38.98,3,2023-06-18,2023-06-28,0.9324,0.6414,2023-06-28,0.8088,frame B2; clear = p54a valid mask
+delta,S2,recession,DRY_LAND,1947.05,3,2023-06-18,2023-06-28,0.9735,0.6665,2023-06-23,0.8619,frame B2; clear = p54a valid mask
+delta,S2,recession,GROUND_DRY_BEFORE_EVENT,2309.59,3,2023-06-18,2023-06-28,0.9764,0.686,2023-06-23,0.8439,frame B2; clear = p54a valid mask
+delta,S2,recession,GROUND_VEGETATED_WETLAND,240.39,3,2023-06-18,2023-06-28,0.9889,0.8103,2023-06-28,0.9647,frame B2; clear = p54a valid mask
+delta,S2,recession,GROUND_OPEN_WATER_REFERENCE,194.28,3,2023-06-18,2023-06-28,0.9988,0.8121,2023-06-28,0.9903,frame B2; clear = p54a valid mask
+delta,S2,july,ALL,2747.12,3,2023-07-03,2023-07-28,0.9787,0.6131,2023-07-03,0.91,frame B2; clear = p54a valid mask
+delta,S2,july,NW_REEDS,116.05,3,2023-07-03,2023-07-28,0.9884,0.6166,2023-07-08,0.952,frame B2; clear = p54a valid mask
+delta,S2,july,NW_TREES,13.06,3,2023-07-03,2023-07-28,0.9863,0.596,2023-07-08,0.9284,frame B2; clear = p54a valid mask
+delta,S2,july,HIGH_REEDS,13.76,3,2023-07-03,2023-07-28,0.997,0.7932,2023-07-03,0.9801,frame B2; clear = p54a valid mask
+delta,S2,july,OPEN_WATER,194.28,3,2023-07-03,2023-07-28,0.9963,0.8252,2023-07-08,0.9839,frame B2; clear = p54a valid mask
+delta,S2,july,EVENT_REEDS,38.98,3,2023-07-03,2023-07-28,0.9619,0.4864,2023-07-08,0.912,frame B2; clear = p54a valid mask
+delta,S2,july,DRY_LAND,1947.05,3,2023-07-03,2023-07-28,0.9741,0.5795,2023-07-03,0.9192,frame B2; clear = p54a valid mask
+delta,S2,july,GROUND_DRY_BEFORE_EVENT,2309.59,3,2023-07-03,2023-07-28,0.9765,0.5928,2023-07-03,0.917,frame B2; clear = p54a valid mask
+delta,S2,july,GROUND_VEGETATED_WETLAND,240.39,3,2023-07-03,2023-07-28,0.986,0.6371,2023-07-08,0.9493,frame B2; clear = p54a valid mask
+delta,S2,july,GROUND_OPEN_WATER_REFERENCE,194.28,3,2023-07-03,2023-07-28,0.9963,0.8252,2023-07-08,0.9839,frame B2; clear = p54a valid mask
+delta,S1_all,normal_year,ALL,2751.69,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,NW_REEDS,116.12,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,NW_TREES,13.07,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,HIGH_REEDS,13.79,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,OPEN_WATER,194.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,EVENT_REEDS,39.06,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,DRY_LAND,1949.24,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,GROUND_DRY_BEFORE_EVENT,2313.69,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,GROUND_VEGETATED_WETLAND,240.83,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,normal_year,GROUND_OPEN_WATER_REFERENCE,194.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,pre_breach_2023,ALL,2751.69,17,2023-04-15,2023-06-02,1.0,0.9836,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,NW_REEDS,116.12,17,2023-04-15,2023-06-02,1.0,0.9982,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,NW_TREES,13.07,17,2023-04-15,2023-06-02,1.0,0.9989,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,HIGH_REEDS,13.79,17,2023-04-15,2023-06-02,1.0,0.9056,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,OPEN_WATER,194.32,17,2023-04-15,2023-06-02,1.0,0.927,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,EVENT_REEDS,39.06,17,2023-04-15,2023-06-02,1.0,1.0,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,DRY_LAND,1949.24,17,2023-04-15,2023-06-02,1.0,0.9909,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2313.69,17,2023-04-15,2023-06-02,1.0,0.988,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,GROUND_VEGETATED_WETLAND,240.83,17,2023-04-15,2023-06-02,1.0,0.9871,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,194.32,17,2023-04-15,2023-06-02,1.0,0.927,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,ALL,2751.69,17,2023-04-15,2023-06-02,1.0,0.9836,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,NW_REEDS,116.12,17,2023-04-15,2023-06-02,1.0,0.9982,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,NW_TREES,13.07,17,2023-04-15,2023-06-02,1.0,0.9989,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,HIGH_REEDS,13.79,17,2023-04-15,2023-06-02,1.0,0.9056,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,OPEN_WATER,194.32,17,2023-04-15,2023-06-02,1.0,0.927,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,EVENT_REEDS,39.06,17,2023-04-15,2023-06-02,1.0,1.0,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,DRY_LAND,1949.24,17,2023-04-15,2023-06-02,1.0,0.9909,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,GROUND_DRY_BEFORE_EVENT,2313.69,17,2023-04-15,2023-06-02,1.0,0.988,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,GROUND_VEGETATED_WETLAND,240.83,17,2023-04-15,2023-06-02,1.0,0.9871,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,spring_2023,GROUND_OPEN_WATER_REFERENCE,194.32,17,2023-04-15,2023-06-02,1.0,0.927,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,ALL,2751.69,2,2023-06-06,2023-06-09,1.0,0.965,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,NW_REEDS,116.12,2,2023-06-06,2023-06-09,1.0,0.9961,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,NW_TREES,13.07,2,2023-06-06,2023-06-09,1.0,0.9977,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,HIGH_REEDS,13.79,2,2023-06-06,2023-06-09,1.0,0.7993,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,OPEN_WATER,194.32,2,2023-06-06,2023-06-09,1.0,0.8442,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,EVENT_REEDS,39.06,2,2023-06-06,2023-06-09,1.0,1.0,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,DRY_LAND,1949.24,2,2023-06-06,2023-06-09,1.0,0.9805,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,GROUND_DRY_BEFORE_EVENT,2313.69,2,2023-06-06,2023-06-09,1.0,0.9744,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,GROUND_VEGETATED_WETLAND,240.83,2,2023-06-06,2023-06-09,1.0,0.9726,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,peak,GROUND_OPEN_WATER_REFERENCE,194.32,2,2023-06-06,2023-06-09,1.0,0.8442,2023-06-06,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,ALL,2751.69,7,2023-06-13,2023-06-30,1.0,0.9897,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,NW_REEDS,116.12,7,2023-06-13,2023-06-30,1.0,0.9988,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,NW_TREES,13.07,7,2023-06-13,2023-06-30,1.0,0.9993,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,HIGH_REEDS,13.79,7,2023-06-13,2023-06-30,1.0,0.9425,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,OPEN_WATER,194.32,7,2023-06-13,2023-06-30,1.0,0.9544,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,EVENT_REEDS,39.06,7,2023-06-13,2023-06-30,1.0,1.0,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,DRY_LAND,1949.24,7,2023-06-13,2023-06-30,1.0,0.9942,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,GROUND_DRY_BEFORE_EVENT,2313.69,7,2023-06-13,2023-06-30,1.0,0.9925,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,GROUND_VEGETATED_WETLAND,240.83,7,2023-06-13,2023-06-30,1.0,0.9921,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,recession,GROUND_OPEN_WATER_REFERENCE,194.32,7,2023-06-13,2023-06-30,1.0,0.9544,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+delta,S1_all,july,ALL,2751.69,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,NW_REEDS,116.12,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,NW_TREES,13.07,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,HIGH_REEDS,13.79,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,OPEN_WATER,194.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,EVENT_REEDS,39.06,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,DRY_LAND,1949.24,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,GROUND_DRY_BEFORE_EVENT,2313.69,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,GROUND_VEGETATED_WETLAND,240.83,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_all,july,GROUND_OPEN_WATER_REFERENCE,194.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+delta,S1_orb14,normal_year,ALL,2751.69,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,NW_REEDS,116.12,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,NW_TREES,13.07,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,HIGH_REEDS,13.79,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,OPEN_WATER,194.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,EVENT_REEDS,39.06,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,DRY_LAND,1949.24,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,GROUND_DRY_BEFORE_EVENT,2313.69,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,GROUND_VEGETATED_WETLAND,240.83,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,normal_year,GROUND_OPEN_WATER_REFERENCE,194.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,pre_breach_2023,ALL,2751.69,4,2023-04-22,2023-05-28,0.9314,0.9304,2023-05-28,0.9314,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,NW_REEDS,116.12,4,2023-04-22,2023-05-28,0.9926,0.9923,2023-05-28,0.9926,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,NW_TREES,13.07,4,2023-04-22,2023-05-28,0.9956,0.9954,2023-05-16,0.9956,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,HIGH_REEDS,13.79,4,2023-04-22,2023-05-28,0.5993,0.5988,2023-05-28,0.5993,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,OPEN_WATER,194.32,4,2023-04-22,2023-05-28,0.6938,0.6899,2023-05-28,0.6938,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,EVENT_REEDS,39.06,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,DRY_LAND,1949.24,4,2023-04-22,2023-05-28,0.962,0.9612,2023-05-28,0.962,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2313.69,4,2023-04-22,2023-05-28,0.9499,0.9491,2023-05-28,0.9499,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,GROUND_VEGETATED_WETLAND,240.83,4,2023-04-22,2023-05-28,0.9455,0.9452,2023-05-28,0.9455,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,194.32,4,2023-04-22,2023-05-28,0.6938,0.6899,2023-05-28,0.6938,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,ALL,2751.69,4,2023-04-22,2023-05-28,0.9314,0.9304,2023-05-28,0.9314,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,NW_REEDS,116.12,4,2023-04-22,2023-05-28,0.9926,0.9923,2023-05-28,0.9926,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,NW_TREES,13.07,4,2023-04-22,2023-05-28,0.9956,0.9954,2023-05-16,0.9956,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,HIGH_REEDS,13.79,4,2023-04-22,2023-05-28,0.5993,0.5988,2023-05-28,0.5993,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,OPEN_WATER,194.32,4,2023-04-22,2023-05-28,0.6938,0.6899,2023-05-28,0.6938,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,EVENT_REEDS,39.06,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,DRY_LAND,1949.24,4,2023-04-22,2023-05-28,0.962,0.9612,2023-05-28,0.962,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,GROUND_DRY_BEFORE_EVENT,2313.69,4,2023-04-22,2023-05-28,0.9499,0.9491,2023-05-28,0.9499,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,GROUND_VEGETATED_WETLAND,240.83,4,2023-04-22,2023-05-28,0.9455,0.9452,2023-05-28,0.9455,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,spring_2023,GROUND_OPEN_WATER_REFERENCE,194.32,4,2023-04-22,2023-05-28,0.6938,0.6899,2023-05-28,0.6938,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,ALL,2751.69,1,2023-06-09,2023-06-09,0.9301,0.9301,2023-06-09,0.9301,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,NW_REEDS,116.12,1,2023-06-09,2023-06-09,0.9922,0.9922,2023-06-09,0.9922,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,NW_TREES,13.07,1,2023-06-09,2023-06-09,0.9953,0.9953,2023-06-09,0.9953,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,HIGH_REEDS,13.79,1,2023-06-09,2023-06-09,0.5987,0.5987,2023-06-09,0.5987,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,OPEN_WATER,194.32,1,2023-06-09,2023-06-09,0.6885,0.6885,2023-06-09,0.6885,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,EVENT_REEDS,39.06,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,DRY_LAND,1949.24,1,2023-06-09,2023-06-09,0.961,0.961,2023-06-09,0.961,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,GROUND_DRY_BEFORE_EVENT,2313.69,1,2023-06-09,2023-06-09,0.9488,0.9488,2023-06-09,0.9488,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,GROUND_VEGETATED_WETLAND,240.83,1,2023-06-09,2023-06-09,0.9452,0.9452,2023-06-09,0.9452,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,peak,GROUND_OPEN_WATER_REFERENCE,194.32,1,2023-06-09,2023-06-09,0.6885,0.6885,2023-06-09,0.6885,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,ALL,2751.69,1,2023-06-21,2023-06-21,0.9282,0.9282,2023-06-21,0.9282,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,NW_REEDS,116.12,1,2023-06-21,2023-06-21,0.9913,0.9913,2023-06-21,0.9913,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,NW_TREES,13.07,1,2023-06-21,2023-06-21,0.9952,0.9952,2023-06-21,0.9952,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,HIGH_REEDS,13.79,1,2023-06-21,2023-06-21,0.5972,0.5972,2023-06-21,0.5972,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,OPEN_WATER,194.32,1,2023-06-21,2023-06-21,0.6811,0.6811,2023-06-21,0.6811,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,EVENT_REEDS,39.06,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,DRY_LAND,1949.24,1,2023-06-21,2023-06-21,0.9595,0.9595,2023-06-21,0.9595,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,GROUND_DRY_BEFORE_EVENT,2313.69,1,2023-06-21,2023-06-21,0.9472,0.9472,2023-06-21,0.9472,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,GROUND_VEGETATED_WETLAND,240.83,1,2023-06-21,2023-06-21,0.9446,0.9446,2023-06-21,0.9446,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,recession,GROUND_OPEN_WATER_REFERENCE,194.32,1,2023-06-21,2023-06-21,0.6811,0.6811,2023-06-21,0.6811,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+delta,S1_orb14,july,ALL,2751.69,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,NW_REEDS,116.12,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,NW_TREES,13.07,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,HIGH_REEDS,13.79,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,OPEN_WATER,194.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,EVENT_REEDS,39.06,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,DRY_LAND,1949.24,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,GROUND_DRY_BEFORE_EVENT,2313.69,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,GROUND_VEGETATED_WETLAND,240.83,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,S1_orb14,july,GROUND_OPEN_WATER_REFERENCE,194.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+delta,k10e,normal_year,ALL,2751.69,1,2022-06-03,2022-06-03,0.997,0.997,2022-06-03,0.997,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,NW_REEDS,116.12,1,2022-06-03,2022-06-03,1.0,1.0,2022-06-03,1.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,NW_TREES,13.07,1,2022-06-03,2022-06-03,1.0,1.0,2022-06-03,1.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,HIGH_REEDS,13.79,1,2022-06-03,2022-06-03,1.0,1.0,2022-06-03,1.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,OPEN_WATER,194.32,1,2022-06-03,2022-06-03,0.9882,0.9882,2022-06-03,0.9882,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,EVENT_REEDS,39.06,1,2022-06-03,2022-06-03,1.0,1.0,2022-06-03,1.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,DRY_LAND,1949.24,1,2022-06-03,2022-06-03,0.9971,0.9971,2022-06-03,0.9971,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,GROUND_DRY_BEFORE_EVENT,2313.69,1,2022-06-03,2022-06-03,0.9974,0.9974,2022-06-03,0.9974,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,GROUND_VEGETATED_WETLAND,240.83,1,2022-06-03,2022-06-03,1.0,1.0,2022-06-03,1.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,normal_year,GROUND_OPEN_WATER_REFERENCE,194.32,1,2022-06-03,2022-06-03,0.9882,0.9882,2022-06-03,0.9882,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,ALL,2751.69,3,2023-02-08,2023-02-23,1.0,0.9693,2023-02-23,0.9949,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,NW_REEDS,116.12,3,2023-02-08,2023-02-23,1.0,0.9904,2023-02-23,0.9973,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,NW_TREES,13.07,3,2023-02-08,2023-02-23,1.0,0.987,2023-02-13,0.9887,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,HIGH_REEDS,13.79,3,2023-02-08,2023-02-23,1.0,0.9552,2023-02-23,0.9986,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,OPEN_WATER,194.32,3,2023-02-08,2023-02-23,1.0,0.8911,2023-02-23,0.998,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,EVENT_REEDS,39.06,3,2023-02-08,2023-02-23,1.0,0.9834,2023-02-13,0.9999,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,DRY_LAND,1949.24,3,2023-02-08,2023-02-23,1.0,0.9793,2023-02-23,0.994,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2313.69,3,2023-02-08,2023-02-23,1.0,0.9743,2023-02-23,0.9946,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,GROUND_VEGETATED_WETLAND,240.83,3,2023-02-08,2023-02-23,1.0,0.9849,2023-02-23,0.996,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,194.32,3,2023-02-08,2023-02-23,1.0,0.8911,2023-02-23,0.998,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,spring_2023,ALL,2751.69,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,NW_REEDS,116.12,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,NW_TREES,13.07,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,HIGH_REEDS,13.79,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,OPEN_WATER,194.32,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,EVENT_REEDS,39.06,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,DRY_LAND,1949.24,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,GROUND_DRY_BEFORE_EVENT,2313.69,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,GROUND_VEGETATED_WETLAND,240.83,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,spring_2023,GROUND_OPEN_WATER_REFERENCE,194.32,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-13 .. 2023-10-31)"
+delta,k10e,peak,ALL,2751.69,1,2023-06-08,2023-06-08,0.2574,0.2574,2023-06-08,0.2574,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,NW_REEDS,116.12,1,2023-06-08,2023-06-08,0.4083,0.4083,2023-06-08,0.4083,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,NW_TREES,13.07,1,2023-06-08,2023-06-08,0.3422,0.3422,2023-06-08,0.3422,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,HIGH_REEDS,13.79,1,2023-06-08,2023-06-08,0.2659,0.2659,2023-06-08,0.2659,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,OPEN_WATER,194.32,1,2023-06-08,2023-06-08,0.1914,0.1914,2023-06-08,0.1914,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,EVENT_REEDS,39.06,1,2023-06-08,2023-06-08,0.4346,0.4346,2023-06-08,0.4346,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,DRY_LAND,1949.24,1,2023-06-08,2023-06-08,0.2264,0.2264,2023-06-08,0.2264,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,GROUND_DRY_BEFORE_EVENT,2313.69,1,2023-06-08,2023-06-08,0.249,0.249,2023-06-08,0.249,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,GROUND_VEGETATED_WETLAND,240.83,1,2023-06-08,2023-06-08,0.3897,0.3897,2023-06-08,0.3897,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,peak,GROUND_OPEN_WATER_REFERENCE,194.32,1,2023-06-08,2023-06-08,0.1914,0.1914,2023-06-08,0.1914,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,ALL,2751.69,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,NW_REEDS,116.12,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,NW_TREES,13.07,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,HIGH_REEDS,13.79,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,OPEN_WATER,194.32,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,EVENT_REEDS,39.06,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,DRY_LAND,1949.24,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,GROUND_DRY_BEFORE_EVENT,2313.69,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,GROUND_VEGETATED_WETLAND,240.83,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,recession,GROUND_OPEN_WATER_REFERENCE,194.32,2,2023-06-20,2023-06-30,0.0,0.0,2023-06-20,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,ALL,2751.69,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,NW_REEDS,116.12,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,NW_TREES,13.07,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,HIGH_REEDS,13.79,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,OPEN_WATER,194.32,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,EVENT_REEDS,39.06,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,DRY_LAND,1949.24,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,GROUND_DRY_BEFORE_EVENT,2313.69,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,GROUND_VEGETATED_WETLAND,240.83,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,k10e,july,GROUND_OPEN_WATER_REFERENCE,194.32,2,2023-07-05,2023-07-25,0.0,0.0,2023-07-05,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+delta,UNOSAT,normal_year,ALL,2751.69,0,,,,,,,no UNOSAT layer in the period
+delta,UNOSAT,pre_breach_2023,ALL,2751.69,0,,,,,,,no UNOSAT layer in the period
+delta,UNOSAT,spring_2023,ALL,2751.69,0,,,,,,,no UNOSAT layer in the period
+delta,UNOSAT,peak,ALL,2751.69,3,2023-06-07,2023-06-08,,,,,"ICEYE flood layer (product 3614); Sentinel-3 6-9 June, 300 m (composite 3616); Sentinel-2 8 June (composite 3616) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+delta,UNOSAT,recession,ALL,2751.69,1,2023-06-13,2023-06-13,,,,,"Sentinel-1/2 13 June (product 3623) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+delta,UNOSAT,july,ALL,2751.69,0,,,,,,,no UNOSAT layer in the period
+floodway,S2,normal_year,ALL,2851.67,5,2022-05-31,2022-06-20,1.0,0.5653,2022-06-03,0.8938,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,NW_REEDS,87.03,5,2022-05-31,2022-06-20,1.0,0.4845,2022-06-03,1.0,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,NW_TREES,47.99,5,2022-05-31,2022-06-20,1.0,0.5411,2022-06-03,1.0,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,HIGH_REEDS,9.84,5,2022-05-31,2022-06-20,1.0,0.4812,2022-06-03,0.9877,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,OPEN_WATER,62.81,5,2022-05-31,2022-06-20,1.0,0.5488,2022-06-03,0.9823,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,EVENT_REEDS,11.53,5,2022-05-31,2022-06-20,1.0,0.4896,2022-06-03,1.0,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,DRY_LAND,1908.79,5,2022-05-31,2022-06-20,1.0,0.5757,2022-06-03,0.8474,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,GROUND_DRY_BEFORE_EVENT,2617.95,5,2022-05-31,2022-06-20,1.0,0.5697,2022-06-03,0.8848,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,GROUND_VEGETATED_WETLAND,167.3,5,2022-05-31,2022-06-20,1.0,0.5038,2022-06-03,0.9993,frame B1; clear = p54a valid mask
+floodway,S2,normal_year,GROUND_OPEN_WATER_REFERENCE,62.81,5,2022-05-31,2022-06-20,1.0,0.5488,2022-06-03,0.9823,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,ALL,2851.67,11,2023-01-19,2023-06-05,1.0,0.3776,2023-05-06,0.6216,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,NW_REEDS,87.03,11,2023-01-19,2023-06-05,0.9999,0.3375,2023-02-23,0.8504,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,NW_TREES,47.99,11,2023-01-19,2023-06-05,1.0,0.3341,2023-02-23,0.6489,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,HIGH_REEDS,9.84,11,2023-01-19,2023-06-05,1.0,0.3367,2023-02-23,0.6961,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,OPEN_WATER,62.81,11,2023-01-19,2023-06-05,0.9999,0.3274,2023-05-06,0.5962,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,EVENT_REEDS,11.53,11,2023-01-19,2023-06-05,1.0,0.3382,2023-02-23,0.7157,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,DRY_LAND,1908.79,11,2023-01-19,2023-06-05,1.0,0.3859,2023-05-06,0.6598,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2617.95,11,2023-01-19,2023-06-05,1.0,0.3815,2023-05-06,0.6379,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,GROUND_VEGETATED_WETLAND,167.3,11,2023-01-19,2023-06-05,0.9999,0.336,2023-02-23,0.7686,frame B1; clear = p54a valid mask
+floodway,S2,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,62.81,11,2023-01-19,2023-06-05,0.9999,0.3274,2023-05-06,0.5962,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,ALL,2851.67,5,2023-05-06,2023-06-05,0.6216,0.3112,2023-05-06,0.6216,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,NW_REEDS,87.03,5,2023-05-06,2023-06-05,0.2856,0.115,2023-05-06,0.2856,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,NW_TREES,47.99,5,2023-05-06,2023-06-05,0.5225,0.2103,2023-05-06,0.5225,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,HIGH_REEDS,9.84,5,2023-05-06,2023-06-05,0.3601,0.1546,2023-05-06,0.3601,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,OPEN_WATER,62.81,5,2023-05-06,2023-06-05,0.5962,0.2527,2023-05-06,0.5962,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,EVENT_REEDS,11.53,5,2023-05-06,2023-06-05,0.3676,0.1592,2023-05-06,0.3676,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,DRY_LAND,1908.79,5,2023-05-06,2023-06-05,0.6598,0.3456,2023-05-06,0.6598,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,GROUND_DRY_BEFORE_EVENT,2617.95,5,2023-05-06,2023-06-05,0.6379,0.3228,2023-05-06,0.6379,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,GROUND_VEGETATED_WETLAND,167.3,5,2023-05-06,2023-06-05,0.3728,0.1515,2023-05-06,0.3728,frame B1; clear = p54a valid mask
+floodway,S2,spring_2023,GROUND_OPEN_WATER_REFERENCE,62.81,5,2023-05-06,2023-06-05,0.5962,0.2527,2023-05-06,0.5962,frame B1; clear = p54a valid mask
+floodway,S2,peak,ALL,2851.67,1,2023-06-08,2023-06-08,0.1182,0.1182,2023-06-08,0.1182,frame B1; clear = p54a valid mask
+floodway,S2,peak,NW_REEDS,87.03,1,2023-06-08,2023-06-08,0.0,0.0,2023-06-08,0.0,frame B1; clear = p54a valid mask
+floodway,S2,peak,NW_TREES,47.99,1,2023-06-08,2023-06-08,0.0,0.0,2023-06-08,0.0,frame B1; clear = p54a valid mask
+floodway,S2,peak,HIGH_REEDS,9.84,1,2023-06-08,2023-06-08,0.1899,0.1899,2023-06-08,0.1899,frame B1; clear = p54a valid mask
+floodway,S2,peak,OPEN_WATER,62.81,1,2023-06-08,2023-06-08,0.0009,0.0009,2023-06-08,0.0009,frame B1; clear = p54a valid mask
+floodway,S2,peak,EVENT_REEDS,11.53,1,2023-06-08,2023-06-08,0.0039,0.0039,2023-06-08,0.0039,frame B1; clear = p54a valid mask
+floodway,S2,peak,DRY_LAND,1908.79,1,2023-06-08,2023-06-08,0.1422,0.1422,2023-06-08,0.1422,frame B1; clear = p54a valid mask
+floodway,S2,peak,GROUND_DRY_BEFORE_EVENT,2617.95,1,2023-06-08,2023-06-08,0.1279,0.1279,2023-06-08,0.1279,frame B1; clear = p54a valid mask
+floodway,S2,peak,GROUND_VEGETATED_WETLAND,167.3,1,2023-06-08,2023-06-08,0.0115,0.0115,2023-06-08,0.0115,frame B1; clear = p54a valid mask
+floodway,S2,peak,GROUND_OPEN_WATER_REFERENCE,62.81,1,2023-06-08,2023-06-08,0.0009,0.0009,2023-06-08,0.0009,frame B1; clear = p54a valid mask
+floodway,S2,recession,ALL,2851.67,7,2023-06-15,2023-06-30,0.9962,0.4574,2023-06-30,0.7275,frame B1; clear = p54a valid mask
+floodway,S2,recession,NW_REEDS,87.03,7,2023-06-15,2023-06-30,0.9995,0.4352,2023-06-18,0.7159,frame B1; clear = p54a valid mask
+floodway,S2,recession,NW_TREES,47.99,7,2023-06-15,2023-06-30,0.9995,0.4747,2023-06-30,0.7409,frame B1; clear = p54a valid mask
+floodway,S2,recession,HIGH_REEDS,9.84,7,2023-06-15,2023-06-30,0.9997,0.5918,2023-06-30,0.8691,frame B1; clear = p54a valid mask
+floodway,S2,recession,OPEN_WATER,62.81,7,2023-06-15,2023-06-30,0.9944,0.3832,2023-06-30,0.7171,frame B1; clear = p54a valid mask
+floodway,S2,recession,EVENT_REEDS,11.53,7,2023-06-15,2023-06-30,0.9998,0.3766,2023-06-28,0.6318,frame B1; clear = p54a valid mask
+floodway,S2,recession,DRY_LAND,1908.79,7,2023-06-15,2023-06-30,0.995,0.44,2023-06-30,0.7148,frame B1; clear = p54a valid mask
+floodway,S2,recession,GROUND_DRY_BEFORE_EVENT,2617.95,7,2023-06-15,2023-06-30,0.9961,0.4597,2023-06-30,0.738,frame B1; clear = p54a valid mask
+floodway,S2,recession,GROUND_VEGETATED_WETLAND,167.3,7,2023-06-15,2023-06-30,0.9993,0.4526,2023-06-18,0.6397,frame B1; clear = p54a valid mask
+floodway,S2,recession,GROUND_OPEN_WATER_REFERENCE,62.81,7,2023-06-15,2023-06-30,0.9944,0.3832,2023-06-30,0.7171,frame B1; clear = p54a valid mask
+floodway,S2,july,ALL,2851.67,7,2023-07-03,2023-07-30,0.9939,0.4906,2023-07-03,0.9036,frame B1; clear = p54a valid mask
+floodway,S2,july,NW_REEDS,87.03,7,2023-07-03,2023-07-30,0.9721,0.3938,2023-07-03,0.9124,frame B1; clear = p54a valid mask
+floodway,S2,july,NW_TREES,47.99,7,2023-07-03,2023-07-30,0.987,0.5054,2023-07-03,0.9508,frame B1; clear = p54a valid mask
+floodway,S2,july,HIGH_REEDS,9.84,7,2023-07-03,2023-07-30,0.9972,0.5466,2023-07-08,0.8852,frame B1; clear = p54a valid mask
+floodway,S2,july,OPEN_WATER,62.81,7,2023-07-03,2023-07-30,0.9911,0.4694,2023-07-03,0.9341,frame B1; clear = p54a valid mask
+floodway,S2,july,EVENT_REEDS,11.53,7,2023-07-03,2023-07-30,0.9657,0.3431,2023-07-03,0.9033,frame B1; clear = p54a valid mask
+floodway,S2,july,DRY_LAND,1908.79,7,2023-07-03,2023-07-30,0.9963,0.4837,2023-07-03,0.8975,frame B1; clear = p54a valid mask
+floodway,S2,july,GROUND_DRY_BEFORE_EVENT,2617.95,7,2023-07-03,2023-07-30,0.9951,0.4949,2023-07-03,0.9025,frame B1; clear = p54a valid mask
+floodway,S2,july,GROUND_VEGETATED_WETLAND,167.3,7,2023-07-03,2023-07-30,0.9762,0.4337,2023-07-03,0.9134,frame B1; clear = p54a valid mask
+floodway,S2,july,GROUND_OPEN_WATER_REFERENCE,62.81,7,2023-07-03,2023-07-30,0.9911,0.4694,2023-07-03,0.9341,frame B1; clear = p54a valid mask
+floodway,S1_all,normal_year,ALL,2776.68,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,NW_TREES,47.99,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,HIGH_REEDS,7.85,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,DRY_LAND,1858.12,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,GROUND_DRY_BEFORE_EVENT,2545.29,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,GROUND_VEGETATED_WETLAND,165.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,normal_year,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,pre_breach_2023,ALL,2776.68,21,2023-04-15,2023-06-02,1.0,0.6665,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,NW_REEDS,87.03,21,2023-04-15,2023-06-02,1.0,0.7332,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,NW_TREES,47.99,21,2023-04-15,2023-06-02,1.0,0.6804,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,HIGH_REEDS,7.85,21,2023-04-15,2023-06-02,1.0,0.6542,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,OPEN_WATER,62.81,21,2023-04-15,2023-06-02,1.0,0.6763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,EVENT_REEDS,11.53,21,2023-04-15,2023-06-02,1.0,0.7349,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,DRY_LAND,1858.12,21,2023-04-15,2023-06-02,1.0,0.6632,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2545.29,21,2023-04-15,2023-06-02,1.0,0.6633,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,GROUND_VEGETATED_WETLAND,165.32,21,2023-04-15,2023-06-02,1.0,0.7123,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,62.81,21,2023-04-15,2023-06-02,1.0,0.6763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,ALL,2776.68,21,2023-04-15,2023-06-02,1.0,0.6665,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,NW_REEDS,87.03,21,2023-04-15,2023-06-02,1.0,0.7332,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,NW_TREES,47.99,21,2023-04-15,2023-06-02,1.0,0.6804,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,HIGH_REEDS,7.85,21,2023-04-15,2023-06-02,1.0,0.6542,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,OPEN_WATER,62.81,21,2023-04-15,2023-06-02,1.0,0.6763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,EVENT_REEDS,11.53,21,2023-04-15,2023-06-02,1.0,0.7349,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,DRY_LAND,1858.12,21,2023-04-15,2023-06-02,1.0,0.6632,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,GROUND_DRY_BEFORE_EVENT,2545.29,21,2023-04-15,2023-06-02,1.0,0.6633,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,GROUND_VEGETATED_WETLAND,165.32,21,2023-04-15,2023-06-02,1.0,0.7123,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,spring_2023,GROUND_OPEN_WATER_REFERENCE,62.81,21,2023-04-15,2023-06-02,1.0,0.6763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,ALL,2776.68,3,2023-06-06,2023-06-09,1.0,0.4165,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,NW_REEDS,87.03,3,2023-06-06,2023-06-09,1.0,0.5333,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,NW_TREES,47.99,3,2023-06-06,2023-06-09,1.0,0.4409,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,HIGH_REEDS,7.85,3,2023-06-06,2023-06-09,1.0,0.3948,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,OPEN_WATER,62.81,3,2023-06-06,2023-06-09,1.0,0.4336,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,EVENT_REEDS,11.53,3,2023-06-06,2023-06-09,1.0,0.5362,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,DRY_LAND,1858.12,3,2023-06-06,2023-06-09,1.0,0.4106,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,GROUND_DRY_BEFORE_EVENT,2545.29,3,2023-06-06,2023-06-09,1.0,0.4109,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,GROUND_VEGETATED_WETLAND,165.32,3,2023-06-06,2023-06-09,1.0,0.4966,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,peak,GROUND_OPEN_WATER_REFERENCE,62.81,3,2023-06-06,2023-06-09,1.0,0.4336,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,ALL,2776.68,8,2023-06-13,2023-06-30,1.0,0.6873,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,NW_REEDS,87.03,8,2023-06-13,2023-06-30,1.0,0.7748,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,NW_TREES,47.99,8,2023-06-13,2023-06-30,1.0,0.7054,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,HIGH_REEDS,7.85,8,2023-06-13,2023-06-30,1.0,0.6711,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,OPEN_WATER,62.81,8,2023-06-13,2023-06-30,1.0,0.7001,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,EVENT_REEDS,11.53,8,2023-06-13,2023-06-30,1.0,0.777,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,DRY_LAND,1858.12,8,2023-06-13,2023-06-30,1.0,0.6829,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,GROUND_DRY_BEFORE_EVENT,2545.29,8,2023-06-13,2023-06-30,1.0,0.6831,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,GROUND_VEGETATED_WETLAND,165.32,8,2023-06-13,2023-06-30,1.0,0.7473,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,recession,GROUND_OPEN_WATER_REFERENCE,62.81,8,2023-06-13,2023-06-30,1.0,0.7001,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+floodway,S1_all,july,ALL,2776.68,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,NW_TREES,47.99,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,HIGH_REEDS,7.85,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,DRY_LAND,1858.12,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,GROUND_DRY_BEFORE_EVENT,2545.29,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,GROUND_VEGETATED_WETLAND,165.32,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_all,july,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+floodway,S1_orb14,normal_year,ALL,2776.68,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,NW_TREES,47.99,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,HIGH_REEDS,7.85,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,DRY_LAND,1858.12,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,GROUND_DRY_BEFORE_EVENT,2545.29,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,GROUND_VEGETATED_WETLAND,165.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,normal_year,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,pre_breach_2023,ALL,2776.68,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,NW_REEDS,87.03,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,NW_TREES,47.99,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,HIGH_REEDS,7.85,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,OPEN_WATER,62.81,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,EVENT_REEDS,11.53,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,DRY_LAND,1858.12,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,2545.29,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,GROUND_VEGETATED_WETLAND,165.32,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,62.81,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,ALL,2776.68,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,NW_REEDS,87.03,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,NW_TREES,47.99,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,HIGH_REEDS,7.85,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,OPEN_WATER,62.81,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,EVENT_REEDS,11.53,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,DRY_LAND,1858.12,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,GROUND_DRY_BEFORE_EVENT,2545.29,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,GROUND_VEGETATED_WETLAND,165.32,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,spring_2023,GROUND_OPEN_WATER_REFERENCE,62.81,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,ALL,2776.68,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,NW_REEDS,87.03,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,NW_TREES,47.99,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,HIGH_REEDS,7.85,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,OPEN_WATER,62.81,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,EVENT_REEDS,11.53,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,DRY_LAND,1858.12,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,GROUND_DRY_BEFORE_EVENT,2545.29,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,GROUND_VEGETATED_WETLAND,165.32,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,peak,GROUND_OPEN_WATER_REFERENCE,62.81,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,ALL,2776.68,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,NW_REEDS,87.03,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,NW_TREES,47.99,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,HIGH_REEDS,7.85,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,OPEN_WATER,62.81,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,EVENT_REEDS,11.53,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,DRY_LAND,1858.12,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,GROUND_DRY_BEFORE_EVENT,2545.29,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,GROUND_VEGETATED_WETLAND,165.32,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,recession,GROUND_OPEN_WATER_REFERENCE,62.81,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+floodway,S1_orb14,july,ALL,2776.68,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,NW_TREES,47.99,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,HIGH_REEDS,7.85,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,DRY_LAND,1858.12,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,GROUND_DRY_BEFORE_EVENT,2545.29,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,GROUND_VEGETATED_WETLAND,165.32,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,S1_orb14,july,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+floodway,k10e,normal_year,ALL,3604.0,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,NW_TREES,47.99,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,HIGH_REEDS,10.38,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,DRY_LAND,2610.84,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,GROUND_DRY_BEFORE_EVENT,3366.28,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,GROUND_VEGETATED_WETLAND,167.85,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,normal_year,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,ALL,3604.0,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,NW_TREES,47.99,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,HIGH_REEDS,10.38,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,DRY_LAND,2610.84,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,3366.28,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,GROUND_VEGETATED_WETLAND,167.85,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,ALL,3604.0,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,NW_REEDS,87.03,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,NW_TREES,47.99,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,HIGH_REEDS,10.38,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,OPEN_WATER,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,EVENT_REEDS,11.53,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,DRY_LAND,2610.84,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,GROUND_DRY_BEFORE_EVENT,3366.28,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,GROUND_VEGETATED_WETLAND,167.85,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,spring_2023,GROUND_OPEN_WATER_REFERENCE,62.81,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+floodway,k10e,peak,ALL,3604.0,1,2023-06-08,2023-06-08,0.1192,0.1192,2023-06-08,0.1192,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,NW_REEDS,87.03,1,2023-06-08,2023-06-08,0.0,0.0,2023-06-08,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,NW_TREES,47.99,1,2023-06-08,2023-06-08,0.0,0.0,2023-06-08,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,HIGH_REEDS,10.38,1,2023-06-08,2023-06-08,0.1842,0.1842,2023-06-08,0.1842,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,OPEN_WATER,62.81,1,2023-06-08,2023-06-08,0.0009,0.0009,2023-06-08,0.0009,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,EVENT_REEDS,11.53,1,2023-06-08,2023-06-08,0.0039,0.0039,2023-06-08,0.0039,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,DRY_LAND,2610.84,1,2023-06-08,2023-06-08,0.1382,0.1382,2023-06-08,0.1382,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,GROUND_DRY_BEFORE_EVENT,3366.28,1,2023-06-08,2023-06-08,0.1268,0.1268,2023-06-08,0.1268,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,GROUND_VEGETATED_WETLAND,167.85,1,2023-06-08,2023-06-08,0.0117,0.0117,2023-06-08,0.0117,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,peak,GROUND_OPEN_WATER_REFERENCE,62.81,1,2023-06-08,2023-06-08,0.0009,0.0009,2023-06-08,0.0009,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,ALL,3604.0,2,2023-06-20,2023-06-30,0.6227,0.4642,2023-06-30,0.6183,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,NW_REEDS,87.03,2,2023-06-20,2023-06-30,0.4593,0.3831,2023-06-30,0.4507,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,NW_TREES,47.99,2,2023-06-20,2023-06-30,0.7502,0.5802,2023-06-30,0.7408,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,HIGH_REEDS,10.38,2,2023-06-20,2023-06-30,0.8686,0.7099,2023-06-30,0.8386,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,OPEN_WATER,62.81,2,2023-06-20,2023-06-30,0.7212,0.5024,2023-06-30,0.7168,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,EVENT_REEDS,11.53,2,2023-06-20,2023-06-30,0.4324,0.2881,2023-06-30,0.4241,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,DRY_LAND,2610.84,2,2023-06-20,2023-06-30,0.571,0.4115,2023-06-30,0.5679,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,GROUND_DRY_BEFORE_EVENT,3366.28,2,2023-06-20,2023-06-30,0.6236,0.464,2023-06-30,0.6195,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,GROUND_VEGETATED_WETLAND,167.85,2,2023-06-20,2023-06-30,0.5754,0.4607,2023-06-30,0.5651,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,recession,GROUND_OPEN_WATER_REFERENCE,62.81,2,2023-06-20,2023-06-30,0.7212,0.5024,2023-06-30,0.7168,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,ALL,3604.0,2,2023-07-05,2023-07-25,0.4835,0.3851,2023-07-05,0.4723,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,NW_REEDS,87.03,2,2023-07-05,2023-07-25,0.3404,0.3075,2023-07-05,0.3325,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,NW_TREES,47.99,2,2023-07-05,2023-07-25,0.4309,0.3997,2023-07-05,0.4145,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,HIGH_REEDS,10.38,2,2023-07-05,2023-07-25,0.5811,0.5582,2023-07-25,0.5606,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,OPEN_WATER,62.81,2,2023-07-05,2023-07-25,0.3252,0.3028,2023-07-05,0.3237,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,EVENT_REEDS,11.53,2,2023-07-05,2023-07-25,0.1661,0.1568,2023-07-05,0.1576,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,DRY_LAND,2610.84,2,2023-07-05,2023-07-25,0.4895,0.3634,2023-07-05,0.4803,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,GROUND_DRY_BEFORE_EVENT,3366.28,2,2023-07-05,2023-07-25,0.4925,0.3892,2023-07-05,0.4812,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,GROUND_VEGETATED_WETLAND,167.85,2,2023-07-05,2023-07-25,0.3745,0.3433,2023-07-05,0.3626,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,k10e,july,GROUND_OPEN_WATER_REFERENCE,62.81,2,2023-07-05,2023-07-25,0.3252,0.3028,2023-07-05,0.3237,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+floodway,UNOSAT,normal_year,ALL,3604.0,0,,,,,,,no UNOSAT layer in the period
+floodway,UNOSAT,pre_breach_2023,ALL,3604.0,0,,,,,,,no UNOSAT layer in the period
+floodway,UNOSAT,spring_2023,ALL,3604.0,0,,,,,,,no UNOSAT layer in the period
+floodway,UNOSAT,peak,ALL,3604.0,3,2023-06-07,2023-06-08,,,,,"ICEYE flood layer (product 3614); Sentinel-3 6-9 June, 300 m (composite 3616); Sentinel-2 8 June (composite 3616) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+floodway,UNOSAT,recession,ALL,3604.0,1,2023-06-13,2023-06-13,,,,,"Sentinel-1/2 13 June (product 3623) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+floodway,UNOSAT,july,ALL,3604.0,0,,,,,,,no UNOSAT layer in the period
+inhulets,S2,normal_year,ALL,623.25,5,2022-05-31,2022-06-20,1.0,0.4278,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,NW_REEDS,11.56,5,2022-05-31,2022-06-20,1.0,0.3999,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,NW_TREES,0.21,5,2022-05-31,2022-06-20,1.0,0.4074,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,HIGH_REEDS,0.05,5,2022-05-31,2022-06-20,1.0,0.4256,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,OPEN_WATER,6.39,5,2022-05-31,2022-06-20,1.0,0.4,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,EVENT_REEDS,1.33,5,2022-05-31,2022-06-20,1.0,0.4428,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,DRY_LAND,549.53,5,2022-05-31,2022-06-20,1.0,0.4302,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,GROUND_DRY_BEFORE_EVENT,594.87,5,2022-05-31,2022-06-20,1.0,0.429,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,GROUND_VEGETATED_WETLAND,20.85,5,2022-05-31,2022-06-20,1.0,0.4027,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,normal_year,GROUND_OPEN_WATER_REFERENCE,6.39,5,2022-05-31,2022-06-20,1.0,0.4,2022-06-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,ALL,623.25,11,2023-01-19,2023-06-05,1.0,0.3521,2023-02-08,0.9994,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,NW_REEDS,11.56,11,2023-01-19,2023-06-05,1.0,0.2846,2023-02-08,0.9993,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,NW_TREES,0.21,11,2023-01-19,2023-06-05,1.0,0.294,2023-02-08,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,HIGH_REEDS,0.05,11,2023-01-19,2023-06-05,1.0,0.3535,2023-02-08,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,OPEN_WATER,6.39,11,2023-01-19,2023-06-05,1.0,0.286,2023-02-08,0.9809,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,EVENT_REEDS,1.33,11,2023-01-19,2023-06-05,1.0,0.3603,2023-03-05,0.9964,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,DRY_LAND,549.53,11,2023-01-19,2023-06-05,1.0,0.3561,2023-02-08,0.9999,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,594.87,11,2023-01-19,2023-06-05,1.0,0.3547,2023-02-08,0.9997,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,GROUND_VEGETATED_WETLAND,20.85,11,2023-01-19,2023-06-05,1.0,0.3011,2023-02-08,0.9969,frame B1; clear = p54a valid mask
+inhulets,S2,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,6.39,11,2023-01-19,2023-06-05,1.0,0.286,2023-02-08,0.9809,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,ALL,623.25,5,2023-05-06,2023-06-05,0.0759,0.0406,2023-05-06,0.0759,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,NW_REEDS,11.56,5,2023-05-06,2023-06-05,0.002,0.0008,2023-05-06,0.002,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,NW_TREES,0.21,5,2023-05-06,2023-06-05,0.0271,0.0109,2023-05-06,0.0271,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,HIGH_REEDS,0.05,5,2023-05-06,2023-06-05,0.064,0.0384,2023-05-06,0.064,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,OPEN_WATER,6.39,5,2023-05-06,2023-06-05,0.0001,0.0,2023-05-06,0.0001,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,EVENT_REEDS,1.33,5,2023-05-06,2023-06-05,0.1069,0.0428,2023-05-06,0.1069,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,DRY_LAND,549.53,5,2023-05-06,2023-06-05,0.0827,0.0444,2023-05-06,0.0827,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,GROUND_DRY_BEFORE_EVENT,594.87,5,2023-05-06,2023-06-05,0.0792,0.0425,2023-05-06,0.0792,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,GROUND_VEGETATED_WETLAND,20.85,5,2023-05-06,2023-06-05,0.0084,0.0034,2023-05-06,0.0084,frame B1; clear = p54a valid mask
+inhulets,S2,spring_2023,GROUND_OPEN_WATER_REFERENCE,6.39,5,2023-05-06,2023-06-05,0.0001,0.0,2023-05-06,0.0001,frame B1; clear = p54a valid mask
+inhulets,S2,peak,ALL,623.25,1,2023-06-08,2023-06-08,0.4386,0.4386,2023-06-08,0.4386,frame B1; clear = p54a valid mask
+inhulets,S2,peak,NW_REEDS,11.56,1,2023-06-08,2023-06-08,0.0628,0.0628,2023-06-08,0.0628,frame B1; clear = p54a valid mask
+inhulets,S2,peak,NW_TREES,0.21,1,2023-06-08,2023-06-08,0.1221,0.1221,2023-06-08,0.1221,frame B1; clear = p54a valid mask
+inhulets,S2,peak,HIGH_REEDS,0.05,1,2023-06-08,2023-06-08,0.416,0.416,2023-06-08,0.416,frame B1; clear = p54a valid mask
+inhulets,S2,peak,OPEN_WATER,6.39,1,2023-06-08,2023-06-08,0.354,0.354,2023-06-08,0.354,frame B1; clear = p54a valid mask
+inhulets,S2,peak,EVENT_REEDS,1.33,1,2023-06-08,2023-06-08,0.5596,0.5596,2023-06-08,0.5596,frame B1; clear = p54a valid mask
+inhulets,S2,peak,DRY_LAND,549.53,1,2023-06-08,2023-06-08,0.452,0.452,2023-06-08,0.452,frame B1; clear = p54a valid mask
+inhulets,S2,peak,GROUND_DRY_BEFORE_EVENT,594.87,1,2023-06-08,2023-06-08,0.4491,0.4491,2023-06-08,0.4491,frame B1; clear = p54a valid mask
+inhulets,S2,peak,GROUND_VEGETATED_WETLAND,20.85,1,2023-06-08,2023-06-08,0.1665,0.1665,2023-06-08,0.1665,frame B1; clear = p54a valid mask
+inhulets,S2,peak,GROUND_OPEN_WATER_REFERENCE,6.39,1,2023-06-08,2023-06-08,0.354,0.354,2023-06-08,0.354,frame B1; clear = p54a valid mask
+inhulets,S2,recession,ALL,623.25,7,2023-06-15,2023-06-30,0.9946,0.4261,2023-06-18,0.8819,frame B1; clear = p54a valid mask
+inhulets,S2,recession,NW_REEDS,11.56,7,2023-06-15,2023-06-30,0.9611,0.2444,2023-06-28,0.8189,frame B1; clear = p54a valid mask
+inhulets,S2,recession,NW_TREES,0.21,7,2023-06-15,2023-06-30,0.9961,0.2813,2023-06-28,0.8702,frame B1; clear = p54a valid mask
+inhulets,S2,recession,HIGH_REEDS,0.05,7,2023-06-15,2023-06-30,1.0,0.3177,2023-06-18,0.832,frame B1; clear = p54a valid mask
+inhulets,S2,recession,OPEN_WATER,6.39,7,2023-06-15,2023-06-30,0.9617,0.2324,2023-06-18,0.7307,frame B1; clear = p54a valid mask
+inhulets,S2,recession,EVENT_REEDS,1.33,7,2023-06-15,2023-06-30,0.9991,0.3475,2023-06-18,0.9528,frame B1; clear = p54a valid mask
+inhulets,S2,recession,DRY_LAND,549.53,7,2023-06-15,2023-06-30,0.996,0.4425,2023-06-18,0.8999,frame B1; clear = p54a valid mask
+inhulets,S2,recession,GROUND_DRY_BEFORE_EVENT,594.87,7,2023-06-15,2023-06-30,0.9956,0.434,2023-06-18,0.8954,frame B1; clear = p54a valid mask
+inhulets,S2,recession,GROUND_VEGETATED_WETLAND,20.85,7,2023-06-15,2023-06-30,0.9751,0.2687,2023-06-28,0.7557,frame B1; clear = p54a valid mask
+inhulets,S2,recession,GROUND_OPEN_WATER_REFERENCE,6.39,7,2023-06-15,2023-06-30,0.9617,0.2324,2023-06-18,0.7307,frame B1; clear = p54a valid mask
+inhulets,S2,july,ALL,623.25,7,2023-07-03,2023-07-30,0.9995,0.341,2023-07-03,0.9934,frame B1; clear = p54a valid mask
+inhulets,S2,july,NW_REEDS,11.56,7,2023-07-03,2023-07-30,0.9928,0.2606,2023-07-03,0.9572,frame B1; clear = p54a valid mask
+inhulets,S2,july,NW_TREES,0.21,7,2023-07-03,2023-07-30,1.0,0.2627,2023-07-03,0.9554,frame B1; clear = p54a valid mask
+inhulets,S2,july,HIGH_REEDS,0.05,7,2023-07-03,2023-07-30,1.0,0.2697,2023-07-03,1.0,frame B1; clear = p54a valid mask
+inhulets,S2,july,OPEN_WATER,6.39,7,2023-07-03,2023-07-30,0.9961,0.2168,2023-07-03,0.9798,frame B1; clear = p54a valid mask
+inhulets,S2,july,EVENT_REEDS,1.33,7,2023-07-03,2023-07-30,0.9898,0.225,2023-07-03,0.9895,frame B1; clear = p54a valid mask
+inhulets,S2,july,DRY_LAND,549.53,7,2023-07-03,2023-07-30,0.9997,0.3547,2023-07-03,0.9945,frame B1; clear = p54a valid mask
+inhulets,S2,july,GROUND_DRY_BEFORE_EVENT,594.87,7,2023-07-03,2023-07-30,0.9997,0.3457,2023-07-03,0.9945,frame B1; clear = p54a valid mask
+inhulets,S2,july,GROUND_VEGETATED_WETLAND,20.85,7,2023-07-03,2023-07-30,0.9937,0.2523,2023-07-03,0.9696,frame B1; clear = p54a valid mask
+inhulets,S2,july,GROUND_OPEN_WATER_REFERENCE,6.39,7,2023-07-03,2023-07-30,0.9961,0.2168,2023-07-03,0.9798,frame B1; clear = p54a valid mask
+inhulets,S1_all,normal_year,ALL,659.33,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,NW_REEDS,11.57,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,NW_TREES,0.21,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,HIGH_REEDS,0.05,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,EVENT_REEDS,1.34,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,DRY_LAND,578.28,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,GROUND_DRY_BEFORE_EVENT,630.76,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,GROUND_VEGETATED_WETLAND,21.01,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,normal_year,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,pre_breach_2023,ALL,659.33,21,2023-04-15,2023-06-02,1.0,0.7776,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,NW_REEDS,11.57,21,2023-04-15,2023-06-02,1.0,0.8091,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,NW_TREES,0.21,21,2023-04-15,2023-06-02,1.0,0.8044,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,HIGH_REEDS,0.05,21,2023-04-15,2023-06-02,1.0,0.7978,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,OPEN_WATER,6.39,21,2023-04-15,2023-06-02,1.0,0.808,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,EVENT_REEDS,1.34,21,2023-04-15,2023-06-02,1.0,0.7893,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,DRY_LAND,578.28,21,2023-04-15,2023-06-02,1.0,0.7743,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,630.76,21,2023-04-15,2023-06-02,1.0,0.7763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,GROUND_VEGETATED_WETLAND,21.01,21,2023-04-15,2023-06-02,1.0,0.8079,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,6.39,21,2023-04-15,2023-06-02,1.0,0.808,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,ALL,659.33,21,2023-04-15,2023-06-02,1.0,0.7776,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,NW_REEDS,11.57,21,2023-04-15,2023-06-02,1.0,0.8091,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,NW_TREES,0.21,21,2023-04-15,2023-06-02,1.0,0.8044,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,HIGH_REEDS,0.05,21,2023-04-15,2023-06-02,1.0,0.7978,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,OPEN_WATER,6.39,21,2023-04-15,2023-06-02,1.0,0.808,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,EVENT_REEDS,1.34,21,2023-04-15,2023-06-02,1.0,0.7893,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,DRY_LAND,578.28,21,2023-04-15,2023-06-02,1.0,0.7743,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,GROUND_DRY_BEFORE_EVENT,630.76,21,2023-04-15,2023-06-02,1.0,0.7763,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,GROUND_VEGETATED_WETLAND,21.01,21,2023-04-15,2023-06-02,1.0,0.8079,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,spring_2023,GROUND_OPEN_WATER_REFERENCE,6.39,21,2023-04-15,2023-06-02,1.0,0.808,2023-04-15,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,ALL,659.33,3,2023-06-06,2023-06-09,1.0,0.6111,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,NW_REEDS,11.57,3,2023-06-06,2023-06-09,1.0,0.666,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,NW_TREES,0.21,3,2023-06-06,2023-06-09,1.0,0.6576,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,HIGH_REEDS,0.05,3,2023-06-06,2023-06-09,1.0,0.6462,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,OPEN_WATER,6.39,3,2023-06-06,2023-06-09,1.0,0.664,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,EVENT_REEDS,1.34,3,2023-06-06,2023-06-09,1.0,0.6313,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,DRY_LAND,578.28,3,2023-06-06,2023-06-09,1.0,0.6053,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,GROUND_DRY_BEFORE_EVENT,630.76,3,2023-06-06,2023-06-09,1.0,0.6087,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,GROUND_VEGETATED_WETLAND,21.01,3,2023-06-06,2023-06-09,1.0,0.6639,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,peak,GROUND_OPEN_WATER_REFERENCE,6.39,3,2023-06-06,2023-06-09,1.0,0.664,2023-06-09,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,ALL,659.33,8,2023-06-13,2023-06-30,1.0,0.8328,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,NW_REEDS,11.57,8,2023-06-13,2023-06-30,1.0,0.8745,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,NW_TREES,0.21,8,2023-06-13,2023-06-30,1.0,0.8682,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,HIGH_REEDS,0.05,8,2023-06-13,2023-06-30,1.0,0.8596,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,OPEN_WATER,6.39,8,2023-06-13,2023-06-30,1.0,0.873,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,EVENT_REEDS,1.34,8,2023-06-13,2023-06-30,1.0,0.8484,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,DRY_LAND,578.28,8,2023-06-13,2023-06-30,1.0,0.8284,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,GROUND_DRY_BEFORE_EVENT,630.76,8,2023-06-13,2023-06-30,1.0,0.831,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,GROUND_VEGETATED_WETLAND,21.01,8,2023-06-13,2023-06-30,1.0,0.8729,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,recession,GROUND_OPEN_WATER_REFERENCE,6.39,8,2023-06-13,2023-06-30,1.0,0.873,2023-06-13,1.0,every orbit of the zone caches; clear = covered
+inhulets,S1_all,july,ALL,659.33,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,NW_REEDS,11.57,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,NW_TREES,0.21,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,HIGH_REEDS,0.05,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,EVENT_REEDS,1.34,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,DRY_LAND,578.28,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,GROUND_DRY_BEFORE_EVENT,630.76,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,GROUND_VEGETATED_WETLAND,21.01,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_all,july,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,every orbit of the zone caches; clear = covered; no scene in the period (this archive holds 2023-04-15 .. 2023-06-30)
+inhulets,S1_orb14,normal_year,ALL,659.33,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,NW_REEDS,11.57,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,NW_TREES,0.21,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,HIGH_REEDS,0.05,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,EVENT_REEDS,1.34,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,DRY_LAND,578.28,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,GROUND_DRY_BEFORE_EVENT,630.76,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,GROUND_VEGETATED_WETLAND,21.01,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,normal_year,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,pre_breach_2023,ALL,659.33,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,NW_REEDS,11.57,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,NW_TREES,0.21,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,HIGH_REEDS,0.05,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,OPEN_WATER,6.39,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,EVENT_REEDS,1.34,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,DRY_LAND,578.28,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,630.76,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,GROUND_VEGETATED_WETLAND,21.01,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,6.39,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,ALL,659.33,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,NW_REEDS,11.57,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,NW_TREES,0.21,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,HIGH_REEDS,0.05,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,OPEN_WATER,6.39,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,EVENT_REEDS,1.34,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,DRY_LAND,578.28,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,GROUND_DRY_BEFORE_EVENT,630.76,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,GROUND_VEGETATED_WETLAND,21.01,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,spring_2023,GROUND_OPEN_WATER_REFERENCE,6.39,4,2023-04-22,2023-05-28,1.0,1.0,2023-04-22,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,ALL,659.33,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,NW_REEDS,11.57,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,NW_TREES,0.21,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,HIGH_REEDS,0.05,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,OPEN_WATER,6.39,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,EVENT_REEDS,1.34,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,DRY_LAND,578.28,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,GROUND_DRY_BEFORE_EVENT,630.76,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,GROUND_VEGETATED_WETLAND,21.01,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,peak,GROUND_OPEN_WATER_REFERENCE,6.39,1,2023-06-09,2023-06-09,1.0,1.0,2023-06-09,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,ALL,659.33,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,NW_REEDS,11.57,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,NW_TREES,0.21,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,HIGH_REEDS,0.05,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,OPEN_WATER,6.39,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,EVENT_REEDS,1.34,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,DRY_LAND,578.28,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,GROUND_DRY_BEFORE_EVENT,630.76,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,GROUND_VEGETATED_WETLAND,21.01,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,recession,GROUND_OPEN_WATER_REFERENCE,6.39,1,2023-06-21,2023-06-21,1.0,1.0,2023-06-21,1.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks"
+inhulets,S1_orb14,july,ALL,659.33,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,NW_REEDS,11.57,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,NW_TREES,0.21,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,HIGH_REEDS,0.05,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,EVENT_REEDS,1.34,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,DRY_LAND,578.28,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,GROUND_DRY_BEFORE_EVENT,630.76,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,GROUND_VEGETATED_WETLAND,21.01,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,S1_orb14,july,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,"ascending orbit 14 (~16 UTC), the same-orbit series of the checks; no scene in the period (this archive holds 2023-04-22 .. 2023-06-21)"
+inhulets,k10e,normal_year,ALL,870.97,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,NW_REEDS,11.58,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,NW_TREES,0.21,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,HIGH_REEDS,0.12,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,EVENT_REEDS,2.1,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,DRY_LAND,748.56,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,GROUND_DRY_BEFORE_EVENT,838.34,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,GROUND_VEGETATED_WETLAND,23.32,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,normal_year,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,ALL,870.97,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,NW_REEDS,11.58,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,NW_TREES,0.21,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,HIGH_REEDS,0.12,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,EVENT_REEDS,2.1,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,DRY_LAND,748.56,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,GROUND_DRY_BEFORE_EVENT,838.34,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,GROUND_VEGETATED_WETLAND,23.32,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,pre_breach_2023,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,ALL,870.97,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,NW_REEDS,11.58,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,NW_TREES,0.21,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,HIGH_REEDS,0.12,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,OPEN_WATER,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,EVENT_REEDS,2.1,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,DRY_LAND,748.56,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,GROUND_DRY_BEFORE_EVENT,838.34,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,GROUND_VEGETATED_WETLAND,23.32,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,spring_2023,GROUND_OPEN_WATER_REFERENCE,6.39,0,,,0.0,0.0,,0.0,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0; no scene in the period (this archive holds 2022-02-15 .. 2023-11-10)"
+inhulets,k10e,peak,ALL,870.97,1,2023-06-08,2023-06-08,0.5026,0.5026,2023-06-08,0.5026,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,NW_REEDS,11.58,1,2023-06-08,2023-06-08,0.0645,0.0645,2023-06-08,0.0645,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,NW_TREES,0.21,1,2023-06-08,2023-06-08,0.1305,0.1305,2023-06-08,0.1305,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,HIGH_REEDS,0.12,1,2023-06-08,2023-06-08,0.7248,0.7248,2023-06-08,0.7248,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,OPEN_WATER,6.39,1,2023-06-08,2023-06-08,0.354,0.354,2023-06-08,0.354,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,EVENT_REEDS,2.1,1,2023-06-08,2023-06-08,0.6371,0.6371,2023-06-08,0.6371,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,DRY_LAND,748.56,1,2023-06-08,2023-06-08,0.5021,0.5021,2023-06-08,0.5021,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,GROUND_DRY_BEFORE_EVENT,838.34,1,2023-06-08,2023-06-08,0.5113,0.5113,2023-06-08,0.5113,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,GROUND_VEGETATED_WETLAND,23.32,1,2023-06-08,2023-06-08,0.2275,0.2275,2023-06-08,0.2275,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,peak,GROUND_OPEN_WATER_REFERENCE,6.39,1,2023-06-08,2023-06-08,0.354,0.354,2023-06-08,0.354,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,ALL,870.97,2,2023-06-20,2023-06-30,0.1403,0.1389,2023-06-30,0.1401,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,NW_REEDS,11.58,2,2023-06-20,2023-06-30,0.002,0.002,2023-06-20,0.002,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,NW_TREES,0.21,2,2023-06-20,2023-06-30,0.0269,0.0269,2023-06-20,0.0269,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,HIGH_REEDS,0.12,2,2023-06-20,2023-06-30,0.0268,0.0268,2023-06-20,0.0268,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,OPEN_WATER,6.39,2,2023-06-20,2023-06-30,0.0081,0.0081,2023-06-20,0.0081,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,EVENT_REEDS,2.1,2,2023-06-20,2023-06-30,0.0679,0.0679,2023-06-20,0.0679,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,DRY_LAND,748.56,2,2023-06-20,2023-06-30,0.1594,0.1578,2023-06-30,0.1592,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,GROUND_DRY_BEFORE_EVENT,838.34,2,2023-06-20,2023-06-30,0.1455,0.1441,2023-06-30,0.1453,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,GROUND_VEGETATED_WETLAND,23.32,2,2023-06-20,2023-06-30,0.0075,0.0075,2023-06-20,0.0075,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,recession,GROUND_OPEN_WATER_REFERENCE,6.39,2,2023-06-20,2023-06-30,0.0081,0.0081,2023-06-20,0.0081,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,ALL,870.97,2,2023-07-05,2023-07-25,0.1976,0.1617,2023-07-05,0.1815,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,NW_REEDS,11.58,2,2023-07-05,2023-07-25,0.002,0.002,2023-07-05,0.002,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,NW_TREES,0.21,2,2023-07-05,2023-07-25,0.0269,0.0269,2023-07-05,0.0269,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,HIGH_REEDS,0.12,2,2023-07-05,2023-07-25,0.0268,0.0268,2023-07-05,0.0268,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,OPEN_WATER,6.39,2,2023-07-05,2023-07-25,0.0083,0.0081,2023-07-05,0.0081,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,EVENT_REEDS,2.1,2,2023-07-05,2023-07-25,0.0679,0.0555,2023-07-05,0.0677,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,DRY_LAND,748.56,2,2023-07-05,2023-07-25,0.2245,0.1839,2023-07-05,0.2066,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,GROUND_DRY_BEFORE_EVENT,838.34,2,2023-07-05,2023-07-25,0.205,0.1677,2023-07-05,0.1883,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,GROUND_VEGETATED_WETLAND,23.32,2,2023-07-05,2023-07-25,0.0075,0.0064,2023-07-05,0.0075,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,k10e,july,GROUND_OPEN_WATER_REFERENCE,6.39,2,2023-07-05,2023-07-25,0.0083,0.0081,2023-07-05,0.0081,"frozen SWOT-DNIPRO p25 products, one tile per date; observed = class > 0"
+inhulets,UNOSAT,normal_year,ALL,870.97,0,,,,,,,no UNOSAT layer in the period
+inhulets,UNOSAT,pre_breach_2023,ALL,870.97,0,,,,,,,no UNOSAT layer in the period
+inhulets,UNOSAT,spring_2023,ALL,870.97,0,,,,,,,no UNOSAT layer in the period
+inhulets,UNOSAT,peak,ALL,870.97,3,2023-06-07,2023-06-08,,,,,"ICEYE flood layer (product 3614); Sentinel-3 6-9 June, 300 m (composite 3616); Sentinel-2 8 June (composite 3616) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+inhulets,UNOSAT,recession,ALL,870.97,1,2023-06-13,2023-06-13,,,,,"Sentinel-1/2 13 June (product 3623) -- footprint per stratum not computed here (p95y, T16b/T16c)"
+inhulets,UNOSAT,july,ALL,870.97,0,,,,,,,no UNOSAT layer in the period

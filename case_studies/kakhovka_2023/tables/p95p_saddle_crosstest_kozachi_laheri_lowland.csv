@@ -1,0 +1,3 @@
+path_found_on,n_cells,length_km,sill_of_model_along_path_m,sill_of_model_at_km,sill_of_raw_along_path_m,sill_of_raw_at_km,sill_of_glo30_along_path_m,sill_of_glo30_at_km,H_2023-06-07_at_model_sill_m,H_2023-06-08_at_model_sill_m,route_overlap_model_vs_raw_jaccard
+model,797,15.94,8.85,7.4,10.55,10.1,21.15,11.2,9.53,8.98,0.154
+raw,419,8.38,10.0,3.3,10.41,2.6,22.14,4.5,9.52,8.97,0.154

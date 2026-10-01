@@ -1,7 +1,7 @@
 quantity,region,area_km2,volume_km3,depth_mean_m,depth_median_m,depth_p90_m,depth_p95_m,depth_max_m,share_gt_1m,share_gt_2m,share_gt_4m,semantics
-depth_2023-06-08,DNIPRO_CORRIDOR,239.0,0.486,2.03,1.64,4.03,6.21,9.73,0.686,0.404,0.101,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
-depth_2023-06-08,INHULETS_VALLEY_rect,45.4,0.158,3.48,3.53,5.46,6.07,10.4,0.916,0.815,0.389,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
-depth_2023-06-08,P42_FLOODPLAIN_DOMAIN,159.4,0.396,2.49,2.09,5.1,6.98,9.73,0.817,0.529,0.146,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
-max_depth_event,DNIPRO_CORRIDOR,289.3,,2.38,2.05,4.29,6.05,11.01,0.796,0.519,0.12,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
-max_depth_event,INHULETS_VALLEY_rect,49.5,,4.32,4.59,6.23,6.78,11.19,0.932,0.859,0.629,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
-max_depth_event,P42_FLOODPLAIN_DOMAIN,170.6,,2.97,2.61,5.47,7.56,11.01,0.9,0.668,0.185,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+depth_2023-06-08,DNIPRO_CORRIDOR,226.6,0.498,2.2,1.85,4.3,6.49,9.69,0.748,0.452,0.116,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+depth_2023-06-08,INHULETS_VALLEY_rect,46.4,0.161,3.46,3.52,5.4,6.01,10.36,0.915,0.813,0.387,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+depth_2023-06-08,P42_FLOODPLAIN_DOMAIN,181.1,0.435,2.4,2.01,4.79,6.86,9.69,0.796,0.502,0.139,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,DNIPRO_CORRIDOR,263.8,,2.52,2.22,4.72,6.58,11.27,0.801,0.558,0.142,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,INHULETS_VALLEY_rect,50.6,,4.3,4.58,6.17,6.72,11.15,0.931,0.858,0.626,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"
+max_depth_event,P42_FLOODPLAIN_DOMAIN,196.1,,2.85,2.49,5.25,7.37,11.27,0.877,0.636,0.174,"terrain_reconstructed, nominal world (connected_ceiling); owned cells; results for areas / volumes: the ensemble (T12)"

@@ -62,7 +62,7 @@ def rasters():
         w = W.field(W.prepare(L), DATE, P95.SWOT_MARGIN_M)
         z = np.load(CFG.BULK_ROOT / "floodplain_dyn" / (zone + "_connected_ceiling") / "daily_new.npz")
         new = np.unpackbits(z[DATE], count=G["ny"] * G["nx"]).reshape(G["ny"], G["nx"]).astype(bool)
-        v = L["V"][DATE] & L["own"] & ~L["cut"]; s1 = L["W"][DATE] & ~L["pre"] & v; dz = L["dem"] - w
+        v = L["V"][DATE] & L["own"] & ~L["cut"]; s1 = L["W"][DATE] & ~(L["pre"] | L["s1_pre_dark"]) & v; dz = L["dem"] - w
         cat = np.zeros((G["ny"], G["nx"]), "u1"); cat[v] = 1; cat[v & new & ~s1] = 4; cat[s1 & new] = 3      # review F12: terrain-only inside the S1 footprint only
         cat[s1 & ~new & (dz < 2)] = 2; cat[s1 & ~new & (dz >= 2)] = 5
         assert not cat[~v].any(), "a category outside the S1 valid footprint (review F12)"

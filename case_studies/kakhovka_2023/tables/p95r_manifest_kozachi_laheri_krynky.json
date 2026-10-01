@@ -1,0 +1,109 @@
+{
+ "producer": "p95r_local_daily_maps.py",
+ "run": "_connected_ceiling",
+ "rev": 9,
+ "bbox_lonlat": [
+  32.9,
+  46.595,
+  33.23,
+  46.78
+ ],
+ "zoom_lonlat": [
+  32.925,
+  46.69,
+  33.025,
+  46.726
+ ],
+ "window_utm_m": [
+  492340.0,
+  5160160.0,
+  517560.0,
+  5180740.0
+ ],
+ "lowland_box": {
+  "lon": 33.12,
+  "lat": 46.665,
+  "half_km": [
+   6.5,
+   7.0
+  ]
+ },
+ "villages": {
+  "Kozachi Laheri": [
+   32.9831722,
+   46.7083793
+  ],
+  "Krynky": [
+   33.118969,
+   46.746479
+  ]
+ },
+ "osm": {
+  "cache": "/mnt/f/data_kakhovka_dem_swot/context/osm_kozachi_krynky.json",
+  "state": "/mnt/f/data_kakhovka_dem_swot/context/osm_kozachi_krynky_state_2023-06-05.json",
+  "state_on": "2023-06-05T00:00:00Z",
+  "query": "[out:json][timeout:60];(way[\"landuse\"=\"residential\"](around:3500,46.7083793,32.9831722);relation[\"landuse\"=\"residential\"](around:3500,46.7083793,32.9831722);way[\"landuse\"=\"residential\"](around:3000,46.7464790,33.1189690);relation[\"landuse\"=\"residential\"](around:3000,46.7464790,33.1189690);way[\"highway\"][\"name\"~\"\u041c\u0456\u0447\u0443\u0440\u0456\u043d\u0430\"](around:4000,46.7083793,32.9831722);node[\"place\"~\"^(village|hamlet|town)$\"](46.58,32.88,46.78,33.30););out geom;",
+  "timestamp_osm_base": "2026-09-30T11:29:33Z",
+  "history_check": "every element existed on the state date with the same node list; nodes changed later restored (OSM API history)",
+  "licence": "(c) OpenStreetMap contributors, ODbL 1.0"
+ },
+ "days": [
+  "2023-06-01",
+  "2023-06-02",
+  "2023-06-03",
+  "2023-06-04",
+  "2023-06-05",
+  "2023-06-06",
+  "2023-06-07",
+  "2023-06-08",
+  "2023-06-09",
+  "2023-06-10",
+  "2023-06-11",
+  "2023-06-12",
+  "2023-06-13",
+  "2023-06-14",
+  "2023-06-15",
+  "2023-06-16",
+  "2023-06-17",
+  "2023-06-18",
+  "2023-06-19",
+  "2023-06-20",
+  "2023-06-21",
+  "2023-06-22",
+  "2023-06-23",
+  "2023-06-24",
+  "2023-06-25",
+  "2023-06-26",
+  "2023-06-27",
+  "2023-06-28",
+  "2023-06-29",
+  "2023-06-30"
+ ],
+ "panels": [
+  "2023-06-05",
+  "2023-06-06",
+  "2023-06-07",
+  "2023-06-08",
+  "2023-06-09",
+  "2023-06-10",
+  "2023-06-11",
+  "2023-06-12",
+  "2023-06-13",
+  "2023-06-14",
+  "2023-06-15"
+ ],
+ "cellprob_days": [
+  "2023-06-06",
+  "2023-06-07",
+  "2023-06-08",
+  "2023-06-09",
+  "2023-06-11",
+  "2023-06-13",
+  "2023-06-14",
+  "2023-06-18",
+  "2023-06-21"
+ ],
+ "gate": "recomputed P_t minus baseline == daily_new.npz (<= 0.1 km2 over the grid) on every day",
+ "total_water": "P_t of the day: river network and connected pre-breach water plus new water (the W_total of p95e, here on the window)",
+ "michurina": "distance from the rasterised street (all touched 20 m cells) to the nearest cell of new / total water; share of street cells within 40 m"
+}

@@ -1,0 +1,11 @@
+zone,stratum,description,pre_event_class,stratum_km2,S2_jun2022_NDVI,S2_jun2022_NDMI,S2_jun2022_MNDWI,S2_last_pre_NDVI,S2_last_pre_NDMI,S2_last_pre_MNDWI,S2_last_pre_date,S2_last_pre_observed_km2,S1_spring2023_VV_dB,S1_spring2023_VH_dB,S1_spring2023_VV_minus_VH_dB,S1_spring_scenes
+delta,DRY_LAND,dry ground: grass / cropland > 2 m above the 8 June surface,dry before the event,1949.24,0.352,-0.065,-0.519,0.268,-0.239,-0.576,2023-03-05,1743.39,-11.583,-17.595,6.032,17
+delta,HIGH_REEDS,"dry reeds: > 0.5 m above the pre-breach surface, not reached on 7 June","vegetated wetland (WorldCover), outside the event",13.79,0.653,0.118,-0.523,0.263,-0.208,-0.555,2023-03-05,11.44,-11.16,-16.6,5.423,17
+delta,NW_REEDS,seasonally wet reeds below the normal surface (model-only normal regime),vegetated wetland,116.12,0.775,0.308,-0.45,0.245,-0.16,-0.513,2023-03-05,90.03,-8.079,-15.235,7.2,17
+delta,EVENT_REEDS,reeds reached only by the event (P(water) >= 0.8 on 7 June),vegetated wetland,39.06,0.775,0.307,-0.479,0.254,-0.182,-0.524,2023-03-05,33.34,-8.196,-14.965,6.603,17
+delta,OPEN_WATER,"open reference water (optical, >= 20 % of pre-breach scenes)",open reference water,194.32,-0.107,0.082,0.278,-0.132,0.236,0.437,2023-03-05,115.94,-18.089,-23.45,5.627,17
+floodway,DRY_LAND,dry ground: grass / cropland > 2 m above the 8 June surface,dry before the event,2436.4,0.383,-0.047,-0.522,0.551,0.077,-0.502,2023-06-05,1304.81,-11.98,-17.822,5.927,17
+floodway,HIGH_REEDS,"dry reeds: > 0.5 m above the pre-breach surface, not reached on 7 June","vegetated wetland (WorldCover), outside the event",7.9,0.773,0.213,-0.571,0.688,0.184,-0.492,2023-06-05,3.55,-9.801,-15.858,6.291,17
+floodway,NW_REEDS,seasonally wet reeds below the normal surface (model-only normal regime),vegetated wetland,98.6,0.759,0.29,-0.46,0.679,0.273,-0.381,2023-06-05,24.88,-4.141,-14.949,10.615,17
+floodway,EVENT_REEDS,reeds reached only by the event (P(water) >= 0.8 on 7 June),vegetated wetland,12.87,0.743,0.247,-0.5,0.698,0.199,-0.476,2023-06-05,4.38,-8.182,-15.203,6.954,17
+floodway,OPEN_WATER,"open reference water (optical, >= 20 % of pre-breach scenes)",open reference water,69.2,-0.149,-0.035,0.208,-0.377,-0.198,0.343,2023-06-05,37.45,-18.663,-22.734,4.702,17

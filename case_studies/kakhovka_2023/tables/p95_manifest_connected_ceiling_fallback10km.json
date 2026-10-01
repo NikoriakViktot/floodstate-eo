@@ -1,6 +1,6 @@
 {
- "rev": 6,
- "rule": " (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters):\n    H_t(cell)   = median H_t of the K = 5 nearest SWOT nodes within 3 km (+ margin, central 0.0 m); each node time-filled\n                  between its own observations (observed / interpolated / held flags kept); the Kherson gauge is one more\n                  node; cells > 15 km from a node and west of the gauge: min(that, gauge_t). Coarse 100 m lattice anchored\n                  in map coordinates (so zonal and mosaic evaluations coincide), replicated to 20 m.\n    C_t         = z_terrain < H_t  AND  dist to pre-breach water <= 10 km  AND  downstream of the dam (x < dam - 1 km)\n    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach optical water network (p60 pre_water_frac\n                  >= 20 %), the published flood-fill logic (terrain below the surface AND connected to known water);\n                  hand_and_ceiling (p42 rule, additionally HAND < H_t - 1 m; lower bound where the delta drainage is unmapped)\n                  and ceiling_only (no connectivity; upper bound) are sensitivities.  depth_t = H_t - z_terrain.\n    N_t         = P_t AND NOT B,  B = observed pre-breach water (S1 06-01/02, p60 pre_water_frac >= 20 %) OR P on ANY\n                  pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the breach by construction).\n                  The model-only part of B (\"normally wet\": low reed beds below the normal surface that no optical/SAR mask\n                  lists as water) is its own validation category -- S1 dark-water onset there is a DEPTH signal.\n",
+ "rev": 9,
+ "rule": " (rev 6: evaluated ONCE on the union mosaic of the zones; ownership only for accounting and for the per-zone rasters;\nrev 8: the pre-breach water map is composed from the frames where each frame HAS labels -- the 30 m strip east of frame B2\ninside ZONE_2 used to overwrite ZONE_4's water with 'no data' and cut the pre-breach river network in two at Kherson):\n    H_t(cell)   = median H_t of the K = 5 nearest SWOT nodes within 3 km (+ margin, central 0.0 m); each node time-filled\n                  between its own observations (observed / interpolated / held flags kept); the Kherson gauge is one more\n                  node; cells > 15 km from a node and west of the gauge: min(that, gauge_t). Coarse 100 m lattice anchored\n                  in map coordinates (so zonal and mosaic evaluations coincide), replicated to 20 m.\n    C_t         = z_terrain < H_t  AND  dist to pre-breach water <= 10 km  AND  downstream of the dam (x < dam - 1 km)\n    P_t         = connected_ceiling (PRIMARY): C_t 8-connected to the pre-breach RIVER NETWORK -- the largest connected\n                  component of the pre-breach optical water map (p60 pre_water_frac >= 20 %): the Dnipro from the dam to the\n                  liman with its delta, the Inhulets and the Kokan' -- the published flood-fill logic (terrain below the\n                  surface AND connected to the flood source). Seeding from EVERY pre-breach water cell (ponds, canals) is the\n                  superseded rev-7 semantics (`--seed-network all_prewater`, kept as a provenance variant): a few pond cells\n                  let ~40 km2 of terrace cropland 'flood' under a level extrapolated 14 km from the Kokan' (D-SEED, maintainer\n                  2026-09-30; audit p95o);\n                  hand_and_ceiling (p42 rule, additionally HAND < H_t - 1 m; lower bound where the delta drainage is unmapped)\n                  and ceiling_only (no connectivity; upper bound) are sensitivities.  depth_t = H_t - z_terrain.\n    N_t         = P_t AND NOT B,  B = optically observed pre-breach water (p60 pre_water_frac >= 20 %: Sentinel-2 water frequency\n                  before the breach) OR P on ANY pre-breach day 05-26..06-05 under the same rule (normal regime; N = 0 before the\n                  breach by construction). rev 9 (maintainer, 2026-09-30): Sentinel-1 darkness on 06-01/02 is NOT part of B -- over\n                  dry sand and smooth fields it is not water (403 km2 of the domain, mostly dry cropland / grass in later EO; p95x\n                  check); it stays only as the mask of the S1 'new water' in the validations (the sensor was already dark there).\n                  The model-only part of B (\"normally wet\": low reed beds below the normal surface that no optical/SAR mask\n                  lists as water) is its own validation category -- S1 dark-water onset there is a DEPTH signal.\n",
  "constants": {
   "SWOT_MARGIN_M": 0.0,
   "RIVER_LEVEL_M": 1.0,
@@ -9,10 +9,25 @@
   "baseline_until": "2023-06-05",
   "margin_m": 0.0,
   "connectivity": 8,
-  "seed_network": "all_prewater",
+  "seed_network": "main_stem",
+  "memory": false,
   "max_gap_days": null,
   "wse_river_aware": false,
   "coarse_m": 100.0
+ },
+ "event_source_network": {
+  "definition": "largest 8-connected component of the pre-breach optical water map (p60 pre_water_frac >= 20 %, frames composed where they have labels)",
+  "seed_km2": 274.66,
+  "all_prewater_km2": 326.69,
+  "decision": "D-SEED_PRIMARY (maintainer, 2026-09-30); D-MEMORY = sensitivity only"
+ },
+ "baseline": {
+  "definition": "optical pre-breach water (p60 pre_water_frac >= 20 %) OR the same rule on any pre-breach day (normally wet)",
+  "s1_pre_dark": "Sentinel-1 dark water 06-01/02: NOT in the baseline (rev 9, maintainer 2026-09-30); masks the S1 'new water' of the validations only",
+  "s1_pre_dark_km2": 700.4,
+  "optical_km2": 326.7,
+  "baseline_km2": 605.5,
+  "normally_wet_km2": 278.8
  },
  "evaluation": "union mosaic of the zones (one terrain graph, one water surface); ownership only for accounting and the per-zone rasters (review F06)",
  "legacy_flags": {
@@ -55,7 +70,12 @@
    "gauge": "river yearbook BS-77 -> EVRF2019 (EPSG:9902 at the post), column H_gauge_evrf",
    "icesat2": "ATL08 h_te + free2mean - zeta_EGG2015 + c (Paper 2 / p57 chain)"
   },
-  "checked": "assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column"
+  "checked": "assert_same_vertical_frame over the terrain raster tag, the SWOT chain and the gauge column",
+  "paper1_frame": {
+   "fabdem_shift_m": 0.0377,
+   "kherson_delta_epsg9902_m": 0.207594,
+   "note": "Paper 1 v6 production chain: FABDEM cells raised by c_production - c_tide-free (Paper 2 paired + free2mean with the tide-free closure); Kherson gauge at the post's own EPSG:9902 step"
+  }
  },
  "rule_variant": "connected_ceiling",
  "closure": "kherson_paper1",

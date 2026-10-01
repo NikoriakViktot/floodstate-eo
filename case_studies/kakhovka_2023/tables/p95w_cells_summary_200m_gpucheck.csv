@@ -1,0 +1,5 @@
+eo,date,sensor,observed_dry_km2,A_EO_km2,A_primary_km2,CSI_primary,A_memory_km2,CSI_memory,A_p05,A_p25,A_p50,A_p75,A_p95,CSI_p05,CSI_p50,CSI_p95,EO_dist_from_sill_km,model_dist_from_sill_km_p50,share_runs_consistent_all_dates,cell_m
+07_ICEYE,2023-06-07,ICEYE X-band SAR 12:18-13:01 UTC,13.02,0.06,10.46,0.006,10.46,0.006,3.43,3.5,3.74,4.34,5.27,0.008,0.011,0.012,1.01,1.9,0.0,200
+09_L9,2023-06-09,Landsat-9 optical 30 m,47.61,6.09,0.0,0.0,34.19,0.123,8.69,9.08,9.81,11.66,14.72,0.218,0.248,0.263,4.09,2.6,0.0,200
+13_S2,2023-06-13,Sentinel-2 optical 08:57 UTC,26.2,0.59,0.0,0.0,0.0,0.0,6.82,7.0,7.46,8.74,10.91,0.039,0.041,0.043,3.69,2.75,0.0,200
+21_S1,2023-06-21,Sentinel-1 C-band SAR,47.61,0.0,0.0,0.0,0.0,0.0,6.4,7.54,8.13,9.9,13.88,0.0,0.0,0.0,,2.73,0.0,200

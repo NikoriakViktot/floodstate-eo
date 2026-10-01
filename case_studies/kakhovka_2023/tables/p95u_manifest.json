@@ -1,0 +1,93 @@
+{
+ "producer": "p95u_evidence_inventory.py",
+ "periods": [
+  [
+   "normal_year",
+   "2022-05-25",
+   "2022-06-30"
+  ],
+  [
+   "pre_breach_2023",
+   "2023-01-01",
+   "2023-06-05"
+  ],
+  [
+   "spring_2023",
+   "2023-04-15",
+   "2023-06-05"
+  ],
+  [
+   "peak",
+   "2023-06-06",
+   "2023-06-09"
+  ],
+  [
+   "recession",
+   "2023-06-10",
+   "2023-06-30"
+  ],
+  [
+   "july",
+   "2023-07-01",
+   "2023-07-31"
+  ]
+ ],
+ "min_share_gate": 0.5,
+ "zones": [
+  "delta",
+  "floodway",
+  "inhulets"
+ ],
+ "strata": [
+  "ALL",
+  "NW_REEDS",
+  "NW_TREES",
+  "HIGH_REEDS",
+  "OPEN_WATER",
+  "EVENT_REEDS",
+  "DRY_LAND",
+  "GROUND_DRY_BEFORE_EVENT",
+  "GROUND_VEGETATED_WETLAND",
+  "GROUND_OPEN_WATER_REFERENCE"
+ ],
+ "sensors": [
+  "S2",
+  "S1_all",
+  "S1_orb14",
+  "k10e",
+  "UNOSAT"
+ ],
+ "facts": {
+  "delta/spring_2023/S2": {
+   "n_scenes": 0,
+   "share_any_clear": 0.0,
+   "best": "",
+   "best_share": 0.0
+  },
+  "delta/peak/S2": {
+   "n_scenes": 1,
+   "share_any_clear": 0.2574,
+   "best": "2023-06-08",
+   "best_share": 0.2574
+  },
+  "floodway/peak/S2": {
+   "n_scenes": 1,
+   "share_any_clear": 0.1182,
+   "best": "2023-06-08",
+   "best_share": 0.1182
+  },
+  "floodway/spring_2023/S2": {
+   "n_scenes": 5,
+   "share_any_clear": 0.6216,
+   "best": "2023-05-06",
+   "best_share": 0.6216
+  },
+  "delta/peak/S1_orb14": {
+   "n_scenes": 1,
+   "share_any_clear": 0.9301,
+   "best": "2023-06-09",
+   "best_share": 0.9301
+  }
+ },
+ "seconds": 30
+}

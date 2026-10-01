@@ -7,8 +7,11 @@ Numbers in captions are taken from the tables named in each caption; the tables 
 
 **Fig01 Study area.** Lower Dnipro from the Kakhovka dam to the Dnipro–Buh liman: hillshade of the seamless DEM (Paper 2),
 terrain below 1 m (channels, lakes), frames B1 (dam → Kherson) and B2 (Kherson delta) on one 10 m lattice, the p42
-terrain-eligible floodplain, the cut rectangles that separate the Inhulets valley and the terraces from the Dnipro reach,
-SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gauge 80805 and the dam.
+terrain-eligible floodplain, the maximum extent of the reconstructed new water over the event (one layer for the Dnipro and the
+Inhulets), the reporting regions (dashed; the Inhulets valley is included in the reconstruction and reported separately, the two
+smaller rectangles are terrace fragments and the reach west of its mouth; they mask nothing), the northern edge of the
+reconstruction domain (dotted), SWOT RiverSP nodes (main stem vs tributaries and side channels), the Kherson gauge 80805, the
+withheld Inhulets validation gauge Kalynivske 80575 and the dam.
 
 **Fig02 Evidence hierarchy.** Four levels, top = strongest: (1) the observation-constrained terrain-connectivity reconstruction
 (the validated water surface of Paper 1 — SWOT nodes and the Kherson gauge — over the seamless terrain–bed model, connectivity to the
@@ -34,7 +37,7 @@ Monte-Carlo worlds of the total water surface itself, every day; n in T12b), the
 sensitivity (orange; no residual bias removed) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
 coverage). (d–f) Reconstructed newly inundated area (Monte-Carlo median, black; shaded p05–p95) with its daily change as bars (blue filling, orange draining) and the
 range of the U-Net U2b persistent-event-flood area over its three training seeds (labels v004; mapped_UNet, a persistence quantity). (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
-the reconstructed areal maximum (7 June, a day set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
+the reconstructed areal maximum (8 June in most worlds, 7 June in the others — days set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
 **Fig05 Disagreement ontology on 2023-06-09.** (a) Agreement between the reconstruction and Sentinel-1 on the S1 footprint:
 A both, B terrain only, C S1 only split by ground elevation relative to the reconstructed surface. (b) B by WorldCover class:
@@ -51,7 +54,10 @@ SWOT (T17).
 full-coverage satellite scene of the corridor (SWOT observed the channel nodes that day), (c) number of days with new
 inundation. Depth = the reconstructed water surface minus the seamless terrain–bed model on new-inundation cells
 (connected-ceiling rule, the nominal world on the union mosaic: the geometry of one world, while the areas and volumes quoted as
-results come from the Monte-Carlo ensemble, T12; depth statistics per region in T12e). Rasters derived from FABDEM through the
+results come from the Monte-Carlo ensemble, T12; depth statistics per region in T12e). The Inhulets valley is shown in full; hatching
+marks cells whose water surface rests on weak (> 10 km) or cross-river support (p95l, FigS14) -- a statement of reliability, not a
+mask. Dashed: the reporting regions; dotted: the northern edge of the reconstruction domain, which cuts the Inhulets valley (its
+area is a lower bound); triangle: the withheld gauge Kalynivske 80575. Rasters derived from FABDEM through the
 seamless terrain–bed model (not redistributed).
 
 **Fig08 ICESat-2 altimetric consistency check.** FABDEM-sourced terrain minus night ICESat-2 ATL08 ground height (median,
@@ -102,8 +108,8 @@ area collapsed in the second week.
 ## Supplementary figures
 
 **FigS01** training loss and validation patch F1 per arm. **FigS02** structural sensitivity of the daily corridor new area (nominal runs, T12):
-the rule (connected ceiling = primary, p42 HAND rule, ceiling only), the terrain as delivered (no residual bias removed),
-4-connectivity, the main-stem seed, nodes unavailable beyond a 3-day gap, a river-aware water surface, no water surface from
+the rule (connected ceiling with the river-network seed = primary, p42 HAND rule, ceiling only), the superseded seeding from every pre-breach water cell (ponds and canals; D-SEED), the memory variant (retained water; D-MEMORY sensitivity), the terrain as delivered (no residual bias removed),
+4-connectivity, nodes unavailable beyond a 3-day gap, a river-aware water surface, no water surface from
 nodes more than 10 km away, and the superseded p59 closure with a +0.5 m margin. None of these is in the Monte-Carlo budget. **FigS03** per-date S1 and reliable S2
 new-water series per region. **FigS04** RF20 (rev 2: global blocks, frame overlap counted once) row-normalised confusion (spatial-block CV) and per-class F1
 for the CV without and with a 3.5 km buffer and for the transfers outside the overlap.
@@ -156,6 +162,40 @@ full reconstruction (the primary product), supported core (≤ 10 km), direct pa
 farther than 10 km (a sensitivity that also changes the connectivity). (c) Share of the new area with weak support per region.
 The 3 and 10 km limits are operational thresholds, not physical constants (T11k, T11l).
 
+**FigS16 Seed classes of the superseded all-prewater seeding and the retained-water decision tree (D-SEED, D-MEMORY).**
+(a–c) New inundation on 6, 9 and 15 June 2023 under the superseded rule that seeded the connectivity from every pre-breach
+water cell, on the Sentinel-2 true-colour image of 13/20 June 2022 (one year before the breach): the event-source network of
+the primary rule (dark; the largest connected component of the pre-breach water map), river-connected new water (blue),
+trapped after an earlier connection (violet; retained-water candidates) and isolated components never connected along their
+day-to-day lineage (red, black outline; seeded by ponds and canals — not event inundation). The three areas over all regions
+are given in each title (p95o, T11n). On 6 June the two large components east of the floodplain are isolated-never; the largest
+(41 km², WorldCover cropland on the sandy terrace of the left bank) hangs on four pond cells under the Kokan' level 14 km away.
+(d) 18 June 2023 on the Sentinel-2 image of that day: the primary reconstruction (river-network seed) and the retained water of
+the memory sensitivity (memory minus primary) classed by the same-day Sentinel-1 scene — water (plausible retained water), open
+ground without a water signal (likely drained), no usable observation (uncertain; T11p). Contains modified Copernicus Sentinel
+data 2022/2023.
+
+**FigS17 Inundation probability of the coherent Monte-Carlo worlds.** P(new inundation) per cell on 7, 8, 9 and 13 June
+2023 over the 1000 coherent worlds of the primary ensemble (p95e cellprob; the same worlds as T12) on the Sentinel-2
+true-colour image of 13/20 June 2022: the classes P ≥ 0.95, 0.75–0.95 and 0.50–0.75 together are the median world — the map
+product of the ensemble — and 0.25–0.50 and 0.05–0.25 are the marginal cells whose connection hangs on a sill within the
+water-surface or terrain uncertainty. Titles give, for the Dnipro corridor, the area of the median world, of the nominal world
+(draw 0; the geometry of Fig07) and the expected area (the sum of P), and the area of every cell with P ≥ 0.05 (T12g). A
+marginal component appears here with its probability instead of being cut by hand. Contains modified Copernicus Sentinel
+data 2022.
+
+**FigS18 Saddle audit of the floodplain lowland south of Krynky, 10 km east of Kozachi Laheri (T15d–T15f).** The lowest path (minimax, 8-neighbours) from the
+pre-breach river network to the lowland on the model terrain: the model terrain (seamless terrain–bed model, residual FABDEM
+class bias removed), FABDEM as delivered, Copernicus DEM GLO-30 (a surface model: metres above the ground under forest), the
+channel bed of the model, the water surfaces of 7 and 8 June and the ICESat-2 ATL08 night ground segments within 100 m of the
+path. The path leaves the floodplain at ~9 km and runs along a terrace at 8.5–8.9 m (the sill) for 6 km before descending into
+the lowland; at the terrace edge the ICESat-2 ground lies 0.1 m below the model terrain (median, NMAD 0.4 m) — the sill is real
+within the data — so the head of the water surface over the sill, +0.7 m on 7 June and +0.1 m on 8 June, is what the ensemble
+sees: a connection that terrain error alone cannot remove on 7 June and can on 8 June (FigS17). Inside the lowland the model
+terrain is 1.1 m above the ICESat-2 ground.
+
+**FigS19 Sentinel-1 new dark water by acquisition date (observed_S1).** The dark-water mask of each Sentinel-1 scene that covers the corridor fully (6, 9, 13, 14, 18 and 21 June 2023; orbit in the panel title) minus the optical pre-breach water (p60) and minus the cells already dark on 1–2 June, on the Sentinel-2 image of June 2022: new dark water in blue, the pre-breach water in grey, the ground the scene did not observe hatched, and the terrain-reconstructed new inundation of the same day as a black line (nominal world). Coverage of the observable domain and the corridor area in the titles (T19). What the radar sees on the day it looks — not water under trees, in built-up land or under emergent reeds (Fig05, T14).
+
 **FigS15 The two withheld gauges.** (a) Inhulets – Kalynivske 80575 and (b) Southern Bug – Mykolaiv 98027 (liman): yearbook
 daily means (EVRF2019; star: the highest level of the year), the reconstructed water surface at the gauge and the Kherson gauge
 (input). (c, d) Absolute error e_abs = reconstruction − gauge and event-relative error e_rise = (H_rec − H_rec,pre) −
@@ -167,7 +207,7 @@ node is interpolated flat across the flood (T17c–T17f; §4.7, §5).
 
 See `tables/README.md` (generated): T01 data inventory · T02/T02b labels and transition · T03/T03b/T03c split · T04 arms ·
 T05 D1 endpoints with intervals · T05s/T06s/T07s the v004 arms per training seed · T06 paired comparisons · T07/T07b attribution endpoints · T08/T08b audit and retention (v002 arms, provenance) ·
-T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T11c Monte-Carlo convergence · T11d ablation of the budget · T11e water-surface offset sensitivity · T11f gap-matched interpolation error · T11g water-surface support · T11h rev 5 → rev 6 attribution (reproduction gate) · T11i seam check · T11j terrain source of the new area · T11k/T11l observational support of the new area (direct / extrapolated / weak, supported core, cross-river flag) · T12 daily area/volume with the Monte-Carlo band · T12c day of the areal maximum across the worlds · T12d emulator (computational diagnostic, not evidence) ·
+T09/T10/T10b/T10c RF20 · T11/T11b terrain constants and uncertainty components · T11c Monte-Carlo convergence · T11d ablation of the budget · T11e water-surface offset sensitivity · T11f gap-matched interpolation error · T11g water-surface support · T11h rev 5 → rev 6 attribution (reproduction gate) · T11i seam check · T11j terrain source of the new area · T11k/T11l observational support of the new area (direct / extrapolated / weak, supported core, cross-river flag) · T12 daily area/volume with the Monte-Carlo band · T12c day of the areal maximum across the worlds · T12d emulator (computational diagnostic, not evidence) · T12f optional event-domain total, Dnipro corridor + Inhulets, date-matched within each Monte-Carlo world · T11m seed-class QA of the superseded all-prewater seeding: lineages of newly inundated components (river-connected / isolated-never / trapped) · T11n daily new inundation by seed class and run · T11o WorldCover class of the new inundation by seed class · T11p retained water of the memory sensitivity vs Sentinel-1 · T12g per-cell inundation probability of the Monte-Carlo worlds: areas by probability threshold, the median world (P ≥ 0.5) vs the nominal · T15d saddle audit of the lowland south of Krynky: lowest path, saddle and head on three terrain surfaces · T15e ICESat-2 night ground residuals of FABDEM and GLO-30 by class in the audit window · T15f FABDEM minus GLO-30 by class · T15g saddle cross-test: every surface along every route, route overlap · T15h the fixed path per kilometre: FABDEM as delivered, model terrain, correction, ICESat-2 ground · T15i ICESat-2 residuals along the path by land cover ·
 T13 terrain vs S1 (raw POD/FAR/CSI; conditional POD diagnostic) · T14 disagreement ontology · T15 ICESat-2 · T16 area accounting
 with area, quantity and temporal semantics · T17/T17b SWOT-input vs gauge · T17c/T17d Inhulets gauge Kalynivske (withheld, independent validation site) vs the reconstruction · T17e/T17f liman gauge Mykolaiv (independent) vs the reconstructed surface · T18 terrain accuracy (Paper 2) · T18b FABDEM − ICESat-2 residual by zone and class · T18c residual semivariograms and fits · T19 per-date series ·
 T20 block-size sensitivity · T21 reservoir balance (daily-mean effective release) · T22 hypsometry with the relative gap ·

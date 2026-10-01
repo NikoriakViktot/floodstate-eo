@@ -1,0 +1,32 @@
+{
+ "producer": "p95p_saddle_audit.py --step profile",
+ "name": "kozachi_laheri_lowland",
+ "target_lonlat": [
+  33.12,
+  46.665
+ ],
+ "window_km": [
+  14.0,
+  13.0
+ ],
+ "days": [
+  "2023-06-07",
+  "2023-06-08"
+ ],
+ "zone": "ZONE_4_DAM_TO_KHERSON_FLOODWAY",
+ "datum_step_fabdem_raster_minus_tile_m": 0.0328,
+ "datum_step_nmad_m": 0.0977,
+ "copdem_tiles": [
+  "Copernicus_DSM_COG_10_N46_00_E032_00_DEM.tif",
+  "Copernicus_DSM_COG_10_N46_00_E033_00_DEM.tif"
+ ],
+ "copdem_source": "Copernicus DEM GLO-30 (ESA / Airbus, 2021 release), AWS open data bucket copernicus-dem-30m; EGM2008 heights moved to EVRF2019 with the same step as the FABDEM tile",
+ "fabdem_tile": "fabdem/fabdem_project_aoi.tif (EGM2008)",
+ "surfaces": [
+  "model_terrain_bias_removed",
+  "fabdem_uncorrected",
+  "glo30_on_land_bed_kept"
+ ],
+ "river_network": "largest connected component of the pre-breach water map (zone grid)",
+ "minimax": "priority flood, 8-neighbours, cells above H_max + 2 m never entered"
+}

@@ -63,10 +63,14 @@ needs the SWOT-DNIPRO environment) → `p95d` (disagreement ontology) → `p95e`
 ablation --n 250`, `--mode convergence --seed 20261001 --days key`, `--mode wse-threshold`; forked workers, resumable chunks in
 `tables/_p95e_chunks/`, valid only under the same input fingerprint (parameters, reconstruction code, frame module, input tables; the cache is cleared when it changes); about 50 s per world and core; the full draw tables `p95e_draws*.csv.gz` are release assets, not in git —
 `tables/p95e_draws_checksums.csv` gives their sha256, rows, seed and code commit) → `p95l` (support classes of the new area; writes
-`$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif`, used by FigS14 and by `p98 --only support`) →
-`p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i`, `p95h`, `p95m`, `p95n` → `p96`, `p97`, `p98`, `p99`. After an input change, the physical
-chain alone is rerun with `rebuild.py --steps p59k p95j p95 p95k p95_<sensitivity> … p95g` (exactly those steps, in DAG order; each run is
-logged in `tables/rebuild_runs.jsonl`), then `--level 1`.
+`$BULK/floodplain_dyn/<ZONE>_connected_ceiling/support_class.tif`, used by FigS14 and by `p98 --only support`) → `p95o` (seed-class
+QA, D-SEED: the primary must have no isolated-never component; `--sfx _connected_ceiling_seed_allprewater` audits the superseded seeding
+for T11m–T11o / FigS16, `--compare _connected_ceiling_memory` the retained water of the memory sensitivity for T11p; the two variants are
+run WITH rasters) → `p95g` (emulator, a diagnostic only), `p95b`, `p95f`, `p95i`, `p95h`, `p95m`, `p95n` → `p96`, `p97b` (own Sentinel-2
+true-colour basemap of Fig07 / FigS14 / FigS16 and the dashboard overlay, from the SAFE archives listed in the input manifest), `p97`,
+`p98`, `p99`. After an input change, the physical chain alone is rerun with `rebuild.py --steps p59k p95j p95 p95k p95_<sensitivity> … p95g`
+(exactly those steps, in DAG order; each run is logged in `tables/rebuild_runs.jsonl`), then `--level 1`. The seed of the primary rule is
+the pre-breach river network (p95 rev 8, `--seed-network main_stem`); `--seed-network all_prewater` reproduces the superseded rev-7 seeding.
 Determinism: fixed seeds (20260923 for splits/bootstraps, 20260929 / 20261001 for the Monte-Carlo, one RNG stream per draw
 index, so results do not depend on the number of workers; 20260929 for the p95j variogram pair sampling); GPU training is deterministic up to
 cuDNN non-determinism (thresholds are re-frozen on validation per run and stored).

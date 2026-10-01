@@ -263,6 +263,99 @@ def _worker(k):
     return run_draw(k)
 
 
+# ---- per-cell inundation probability (maintainer, 2026-09-30: the ensemble, not a hand rule, decides marginal components) -----------
+def draw_masks(k, dates, with_water=False):
+    """The new-water masks of world k on `dates` (cropped mosaic), built exactly as run_draw builds its accounting: the same
+    RNG stream per draw index and the same order of draws (terrain field, then water surface), so the worlds are identical.
+    with_water: also the water mask P_t itself (new water AND the baseline under the day's surface) -> {day: (new, water)}."""
+    M, W, Z, prm = _G["M"], _G["W"], _G["Z"], _G["prm"]; P95 = _G["P95"]
+    rng = np.random.default_rng([prm["seed"], k])
+    if k == 0 or not prm["terrain"]:
+        dem = M["dem"]
+    else:
+        r0, r1, c0, c1 = _G["crop"]
+        F = _G["syns"][prm["field"]].draw(rng)[r0:r1, c0:c1]; eps = (F * M["sig"]).astype("f4"); dem = (M["dem"] + eps).astype("f4"); del F, eps
+    Hmat = None
+    if k > 0 and prm["wse"]:
+        Hmat, _ = draw_hmat(W, prm, rng, _G["runs"])
+    baseline = M["pre"].copy()
+    for day in prm["base_dates"]:
+        baseline |= P95.potential_mosaic(M, W, Z, day, prm["rule"], dem, Hmat, P95.BASE_MARGIN_M, prm["connectivity"], _G["seed"])[0]
+    out = {}
+    for day in dates:
+        pot, _ = P95.potential_mosaic(M, W, Z, day, prm["rule"], dem, Hmat, prm["margin"], prm["connectivity"], _G["seed"])
+        out[day] = (pot & ~baseline, pot) if with_water else pot & ~baseline
+    return out
+
+
+def _cell_chunk(ks):
+    os.environ.setdefault("OMP_NUM_THREADS", "1")
+    dates, idx = _G["cell_dates"], _G["cell_idx"]
+    acc = np.zeros((2, len(dates), len(idx)), "u1")                           # <= 255 draws per chunk; [0] new water, [1] water (P_t)
+    for k in ks:
+        m = draw_masks(k, dates, with_water=True)
+        for i, d in enumerate(dates):
+            acc[0, i] += m[d][0].ravel()[idx]; acc[1, i] += m[d][1].ravel()[idx]
+    return ks, acc
+
+
+def run_cellprob(a, prm, dates, n, seed, tag=""):
+    """P(new inundation) per cell and date over the same n worlds as the primary ensemble (draw 0 = nominal, kept apart):
+    counts accumulated on the base cells in forked workers and written per zone as uint16 count rasters
+    ($BULK/floodplain_dyn/<ZONE>_<rule>/p95e_cellprob<tag>_<date>.tif); areas by probability threshold per region in
+    tables/p95e_cellprob_summary<tag>.csv. The map product of the ensemble: the median world = cells with P >= 0.5."""
+    import rasterio
+    prm = dict(prm, seed=seed); _G["prm"] = prm; M = _G["M"]; P95 = _G["P95"]
+    idx = np.flatnonzero(M["base"]); _G.update(cell_dates=list(dates), cell_idx=idx)
+    assert n < 65535, "counts are uint16"
+    counts = np.zeros((2, len(dates), len(idx)), "u2"); t0 = time.time(); done = 0     # [0] P(new inundation), [1] P(water) (2026-09-30, p95x)
+    chunks = [list(range(s_, min(s_ + a.chunk, n + 1))) for s_ in range(1, n + 1, a.chunk)]
+    ctx = mp.get_context("fork")
+    with ctx.Pool(a.workers) as pool:
+        for ks, acc in pool.imap_unordered(_cell_chunk, chunks, chunksize=1):
+            counts += acc; done += len(ks); print(f"  cellprob{tag}: {done}/{n} draws, {round(time.time() - t0)} s", flush=True)
+    nominal = draw_masks(0, dates)
+    r0, r1, c0, c1 = _G["crop"]; grid = M["grid"]; own = M["own_id"] > 0; regions = M["regions"]
+    rule = prm["rule"]; rows = []; thresholds = (0.05, 0.25, 0.5, 0.75, 0.95)
+    ref = CFG.TABLES / "p95e_area_volume_uncertainty.csv"; R = pd.read_csv(ref).set_index(["date", "region"]) if ref.exists() else None
+    for i, d in enumerate(dates):
+        crop_cnt = np.zeros((r1 - r0, c1 - c0), "u2"); crop_cnt.ravel()[idx] = counts[0, i]
+        crop_wat = np.zeros((r1 - r0, c1 - c0), "u2"); crop_wat.ravel()[idx] = counts[1, i]
+        prob = crop_cnt.astype("f4") / n
+        for rn, m in regions.items():
+            mm = m & own; row = dict(date=d, region=rn, n_draws=n, A_nominal_km2=round(float((nominal[d] & mm).sum()) * CELL_KM2, 2),
+                                    A_expected_km2=round(float(prob[mm].sum()) * CELL_KM2, 2))
+            for t in thresholds:
+                row[f"A_P_ge_{t:.2f}_km2"] = round(float(((prob >= t) & mm).sum()) * CELL_KM2, 2)
+            nom = nominal[d] & mm
+            row["nominal_cells_with_P_ge_0.50_share"] = round(float((prob[nom] >= 0.5).mean()), 4) if nom.any() else np.nan
+            if R is not None and (d, rn) in R.index:
+                row["A_p50_ensemble_km2"] = float(R.loc[(d, rn), "A_p50_km2"]); row["A_p05_ensemble_km2"] = float(R.loc[(d, rn), "A_p05_km2"]); row["A_p95_ensemble_km2"] = float(R.loc[(d, rn), "A_p95_km2"])
+            rows.append(row)
+        full = np.zeros(grid.shape, "u2"); full[r0:r1, c0:c1] = crop_cnt
+        fullw = np.zeros(grid.shape, "u2"); fullw[r0:r1, c0:c1] = crop_wat
+        for z in _G["zone_name"].values():
+            od = P95.DYN / f"{z}_{rule}"
+            with rasterio.open(od / "duration_days.tif") as s_:
+                prof = dict(driver="GTiff", height=s_.height, width=s_.width, count=1, crs=s_.crs, transform=s_.transform, compress="deflate", tiled=True)
+            with rasterio.open(od / f"p95e_cellprob{tag}_{d}.tif", "w", dtype="uint16", nodata=65535, **prof) as o:
+                o.write(grid.extract(full, z).astype("u2"), 1)
+                o.update_tags(producer="p95e_uncertainty_mc.py --mode cellprob", n_draws=str(n), seed=str(seed), date=d,
+                              meaning="number of coherent Monte-Carlo worlds (draw 1..n) in which the cell is NEW inundation on this day; P = value / n_draws; the nominal world is draw 0 (daily_new.npz)")
+            with rasterio.open(od / f"p95e_cellprob_water{tag}_{d}.tif", "w", dtype="uint16", nodata=65535, **prof) as o:
+                o.write(grid.extract(fullw, z).astype("u2"), 1)
+                o.update_tags(producer="p95e_uncertainty_mc.py --mode cellprob", n_draws=str(n), seed=str(seed), date=d,
+                              meaning="number of coherent Monte-Carlo worlds (draw 1..n) in which the cell is WATER on this day (P_t: new inundation OR the "
+                                      "baseline under the day's surface); P = value / n_draws; used by the p95x state mask")
+    S = pd.DataFrame(rows); S["note"] = ("P(new inundation) per cell over the coherent worlds of p95e; A_P_ge_t = area of the cells inundated in at least a share t of the worlds "
+                                         "(the P >= 0.5 map is the median world); A_expected = sum of P = mean area over the worlds; the area of the P >= 0.5 map is not the median of the areas")
+    S.to_csv(CFG.TABLES / f"p95e_cellprob_summary{tag}.csv", index=False)
+    (CFG.TABLES / f"p95e_cellprob_manifest{tag}.json").write_text(json.dumps(dict(mode="cellprob", n_draws=n, seed=seed, dates=list(dates), workers=a.workers, chunk=a.chunk, seconds=round(time.time() - t0),
+                                                                              rule=rule, seed_network=prm.get("seed_network"), decision="maintainer 2026-09-30: the ensemble decides marginal components (no hand cut)"), indent=1, default=str))
+    pd.set_option("display.width", 250); print(S[S.region == "DNIPRO_CORRIDOR"].drop(columns="note").to_string(index=False))
+    return S
+
+
 # ---- summaries ------------------------------------------------------------------------------------------------------------
 def pooled(D):
     """Zones summed (the overlap is owned by one zone): draw x date x region."""
@@ -341,7 +434,7 @@ def setup(a):
         if corr.get("single"):
             syns["single_exponential"] = FieldSynthesizer(full_shape, 20.0, structures=corr["single"]["structures"], nugget=corr["single"]["nugget_share"])
     range_m = max(r for _, r, _ in corr["structures"]); range_src = corr["source"]
-    prm = dict(seed=a.seed, rule=a.rule, margin=P95.SWOT_MARGIN_M, connectivity=a.connectivity, sigma_datum=a.sigma_datum, sigma_gauge=a.sigma_gauge, sigma_swot=sig_swot,
+    prm = dict(seed=a.seed, rule=a.rule, margin=P95.SWOT_MARGIN_M, connectivity=a.connectivity, seed_network=a.seed_network, sigma_datum=a.sigma_datum, sigma_gauge=a.sigma_gauge, sigma_swot=sig_swot,
                sigma_gap=sig_gap, sigma_gap_rmse=rmse_gap, sigma_pass=a.pass_term, range_m=range_m, range_source=range_src, nugget=corr["nugget_share"], corr=corr, field="primary",
                terrain=True, wse=True, baseline_fixed=False,
                base_dates=[str(d.date()) for d in P95.DATES if d <= pd.Timestamp(P95.BASELINE_DATE)],
@@ -422,11 +515,12 @@ def record_draws(path: Path, n: int, seed: int, mode: str, days: str, code_commi
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--n", type=int, default=1000); ap.add_argument("--seed", type=int, default=20260929); ap.add_argument("--workers", type=int, default=8)
     ap.add_argument("--rule", default="connected_ceiling"); ap.add_argument("--days", choices=["all", "key"], default="all")
-    ap.add_argument("--mode", default="primary", choices=["primary", "convergence", "ablation", "peak", "wse-threshold"])
+    ap.add_argument("--mode", default="primary", choices=["primary", "convergence", "ablation", "peak", "wse-threshold", "cellprob"])
+    ap.add_argument("--chunk", type=int, default=20, help="cellprob: draws per worker task (<= 255)"); ap.add_argument("--dates", nargs="*", default=None, help="cellprob: dates (default KEY_DATES)")
     ap.add_argument("--sigma-datum", type=float, default=SIGMA_DATUM_M); ap.add_argument("--sigma-gauge", type=float, default=SIGMA_GAUGE_M)
     ap.add_argument("--pass-term", type=float, default=0.0, help="per-day SWOT term shared by all nodes (m); 0 = off (primary)")
     ap.add_argument("--range-m", type=float, default=None, help="override the fitted correlation range"); ap.add_argument("--no-nugget", action="store_true")
-    ap.add_argument("--connectivity", type=int, default=8, choices=[4, 8]); ap.add_argument("--seed-network", default="all_prewater", choices=["all_prewater", "main_stem"])
+    ap.add_argument("--connectivity", type=int, default=8, choices=[4, 8]); ap.add_argument("--seed-network", default="main_stem", choices=["main_stem", "all_prewater"])   # D-SEED 2026-09-30
     ap.add_argument("--max-gap-days", type=int, default=None); ap.add_argument("--tag", default="")
     a = ap.parse_args(); t0 = time.time()
     P95, M, W, prm, comp, cvtab = setup(a)
@@ -448,6 +542,8 @@ def main():
         (CFG.TABLES / f"p95e_manifest{tag}.json").write_text(json.dumps(man, indent=1, default=str))
         pd.set_option("display.width", 250); print(R[R.region == "DNIPRO_CORRIDOR"][["date", "A_central_km2", "A_p05_km2", "A_p50_km2", "A_p95_km2", "W_total_central_km2", "W_total_p05_km2", "W_total_p50_km2", "W_total_p95_km2", "V_p50_hm3"]].to_string(index=False))
         print(pk.to_string(index=False)); print(cv.to_string(index=False))
+    elif a.mode == "cellprob":
+        run_cellprob(a, prm, a.dates or KEY_DATES, a.n, a.seed, tag)
     elif a.mode == "convergence":
         tag = tag or f"_seed{a.seed}"
         D, infos, secs = run_ensemble(a, prm, tag, a.n, a.seed); D.to_csv(CFG.TABLES / f"p95e_draws{tag}.csv.gz", index=False, compression="gzip")

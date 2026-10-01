@@ -37,9 +37,12 @@ STEPS += [
     ("p95k", 2, ["p95"], "fs", [f"{M6}/p95k_inhulets_gauge_check.py"]),
 ]
 _P95 = f"{M6}/p95_hand_daily_inundation.py"
-STEPS += [(f"p95_{k}", 2, ["p95"] + (["p95k"] if k == "inhulets_gauge_node" else []), "fs", [_P95, *args, "--no-rasters"]) for k, args in (   # structural sensitivities (T12, FigS02)
+_RASTERS = {"seed_allprewater", "memory"}                                        # variants whose daily rasters the QA (p95o) reads
+STEPS += [(f"p95_{k}", 2, ["p95"] + (["p95k"] if k == "inhulets_gauge_node" else []), "fs", [_P95, *args] + ([] if k in _RASTERS else ["--no-rasters"])) for k, args in (   # structural sensitivities (T12, FigS02)
     ("hand_and_ceiling", ["--rule", "hand_and_ceiling"]), ("ceiling_only", ["--rule", "ceiling_only"]), ("dem_uncorrected", ["--dem-bias", "none"]),
-    ("closure_p59", ["--closure", "p59_reservoir", "--margin", "0.5"]), ("conn4", ["--connectivity", "4"]), ("seed_mainstem", ["--seed-network", "main_stem"]),
+    ("closure_p59", ["--closure", "p59_reservoir", "--margin", "0.5"]), ("conn4", ["--connectivity", "4"]),
+    ("seed_allprewater", ["--seed-network", "all_prewater"]),                      # superseded rev-7 seeding (D-SEED, provenance)
+    ("memory", ["--memory"]),                                                       # D-MEMORY: retained water, sensitivity only
     ("maxgap3", ["--max-gap-days", "3"]), ("riveraware", ["--wse-river-aware"]), ("fallback10km", ["--fallback-max-km", "10"]),
     ("inhulets_gauge_node", ["--inhulets-gauge-node"]))]
 STEPS += [
@@ -50,7 +53,37 @@ STEPS += [
     ("p95e_convergence", 2, ["p95e"], "fs", [f"{M6}/p95e_uncertainty_mc.py", "--mode", "convergence", "--seed", "20261001", "--days", "key"]),
     ("p95e_ablation", 2, ["p95e"], "fs", [f"{M6}/p95e_uncertainty_mc.py", "--mode", "ablation", "--n", "250"]),
     ("p95e_wse_threshold", 2, ["p95e"], "fs", [f"{M6}/p95e_uncertainty_mc.py", "--mode", "wse-threshold"]),
+    ("p95e_cellprob", 2, ["p95e"], "fs", [f"{M6}/p95e_uncertainty_mc.py", "--mode", "cellprob"]),          # P(new inundation) per cell over the same worlds (D-CELLPROB: T12g, FigS17, dashboard)
     ("p95l", 2, ["p95"], "fs", [f"{M6}/p95l_support_domain.py"]),
+    ("p95o", 2, ["p95", "p95l"], "fs", [f"{M6}/p95o_component_qa.py"]),                                   # seed-class QA of the primary (isolated-never must be 0)
+    ("p95o_allprewater", 2, ["p95_seed_allprewater", "p95l"], "fs", [f"{M6}/p95o_component_qa.py", "--sfx", "_connected_ceiling_seed_allprewater"]),   # the superseded seeding: three classes (T11m/n/o)
+    ("p95o_memory", 2, ["p95", "p95_memory"], "fs", [f"{M6}/p95o_component_qa.py", "--compare", "_connected_ceiling_memory"]),   # retained water vs S1 (T11p)
+    ("p95p_profile", 2, ["p95"], "fs", [f"{M6}/p95p_saddle_audit.py", "--step", "profile"]),                     # saddle audit of the lowland south of Krynky ('kozachi_laheri_lowland' in file names) (diagnostic)
+    ("p95p_icesat", 2, ["p95p_profile"], "swot", [f"{M6}/p95p_saddle_audit.py", "--step", "icesat"]),
+    ("p95p_crosstest", 2, ["p95p_icesat"], "fs", [f"{M6}/p95p_saddle_audit.py", "--step", "crosstest"]),
+    ("p95p_figure", 2, ["p95p_icesat"], "fs", [f"{M6}/p95p_saddle_audit.py", "--step", "figure"]),
+    ("p95q_moisture", 2, ["p95e_cellprob"], "fs", [f"{M6}/p95q_moisture_trace.py"]),                    # post-event wetness trace of the lowland: S2 SWIR/NDMI vs 2022 matched dates, S1 same-orbit pairs (diagnostic)
+    ("p95r_local_maps", 2, ["p95e_cellprob", "p95l"], "fs", [f"{M6}/p95r_local_daily_maps.py"]),      # daily maps + areas: Kozachi Laheri, Krynky, the lowland (diagnostic; OSM cache)
+    ("p95s_convert", 2, [], "swot", [f"{M6}/p95s_unosat_crosscheck.py", "--step", "convert"]),                       # UNOSAT 3614 layers -> UTM GeoJSON (geopandas)
+    ("p95s_compare", 2, ["p95s_convert", "p95r_local_maps", "p95_memory"], "fs", [f"{M6}/p95s_unosat_crosscheck.py", "--step", "compare"]),   # 7 June vs ICEYE; L9 9 June; Michurina street
+    ("p95t_convert", 2, [], "swot", [f"{M6}/p95t_eo_recession.py", "--step", "convert"]),                           # UNOSAT layers of 7/9/13/21 June -> UTM GeoJSON
+    ("p95t_compare", 2, ["p95t_convert", "p95_memory", "p95e_cellprob"], "fs", [f"{M6}/p95t_eo_recession.py", "--step", "compare"]),   # EO recession vs the frozen variants (nothing fitted)
+    ("p95v_storage", 2, ["p95t_convert", "p95p_crosstest", "p95_memory"], "fs", [f"{M6}/p95v_depression_storage.py"]),   # DEPRESSION_STORAGE v1, lowland south of Krynky (prior-predictive; UNOSAT hold-out)
+    ("p95w_cells_200m", 2, ["p95t_convert", "p95_memory"], "fs", [f"{M6}/p95w_storage_cells.py", "--runs", "100", "--cell-m", "200", "--device", "cuda"]),   # DEPRESSION_STORAGE v2: subgrid storage cells, 100 prior runs (GPU; --device cpu reproduces within ~2 %)
+    ("p95w_cells_100m", 2, ["p95t_convert", "p95_memory"], "fs", [f"{M6}/p95w_storage_cells.py", "--runs", "100", "--cell-m", "100", "--device", "cuda"]),   # resolution test on the same 100 parameter sets
+    ("p95w_convergence", 2, ["p95w_cells_200m", "p95w_cells_100m"], "fs", [f"{M6}/p95w_storage_cells.py", "--convergence"]),   # 200 m vs 100 m on the same parameter sets: numerical sensitivity, not calibration (p95w stops here)
+    ("p95e_cellprob_daily", 2, ["p95e"], "fs", [f"{M6}/p95e_uncertainty_mc.py", "--mode", "cellprob", "--tag", "_daily", "--workers", "4", "--dates", "2023-06-10", "2023-06-12",
+                                                "2023-06-15", "2023-06-16", "2023-06-17", "2023-06-19", "2023-06-20", "2023-06-22", "2023-06-23", "2023-06-24",
+                                                "2023-06-25", "2023-06-26", "2023-06-27", "2023-06-28", "2023-06-29", "2023-06-30"]),   # the June days missing from the key dates (same worlds, same seed); 4 workers: 16 dates x 2 counters fill 23 GB with 8
+    ("p95x_weak_labels", 2, ["p95e_cellprob", "p95e_cellprob_daily", "p95l", "p95t_convert"], "fs", [f"{M6}/p95x_weak_label_quality.py"]),   # daily state mask between EO dates: state + source + quality flags + reference (maintainer 2026-09-30; UNOSAT check only)
+    ("p95e_split", 2, ["p95e", "p95x_weak_labels"], "fs", [f"{M6}/p95e_split_areas.py"]),   # A_new on dry-before-event ground vs vegetated-wetland inundation, the same 1000 worlds (T12h)
+    ("p95y_audit", 2, ["p95x_weak_labels", "p95s_convert", "p95t_convert"], "fs", [f"{M6}/p95y_disagreement_audit.py"]),   # CSI bounds, cumulative overlap with UNOSAT, S1 residual misses, pre-event marsh evidence (diagnostic)
+    ("p95y_maps", 2, ["p95y_audit"], "fs", [f"{M6}/p95y_difference_maps.py"]),   # where ours and UNOSAT differ, on Sentinel-1 same-orbit change (cloud-free) and Sentinel-2 8 June (diagnostic)
+    ("p95z_delta_indices", 2, ["p95e_cellprob"], "fs", [f"{M6}/p95z_delta_indices.py"]),   # every S2 index and S1 VV/VH of the reed-bed strata, delta + floodway, 2022-2023: seasonal evidence (T12i, T12j)
+    ("p95zm_index_maps", 2, ["p95z_delta_indices"], "fs", [f"{M6}/p95zm_index_class_maps.py"]),   # classified index maps and k10e before / after the breach, delta + floodway (display classes)
+    ("p95u_inventory", 2, ["p95x_weak_labels", "p95e_cellprob"], "fs", [f"{M6}/p95u_evidence_inventory.py"]),
+    ("p97c_s2rgb", 2, [], "fs", [f"{PAPER}/p97c_s2_truecolour_dates.py", "--workers", "4"]),   # Sentinel-2 true colour of every archive date for the dashboard (bulk SAFEs)
+    ("p98_dashboard", 2, ["p95x_weak_labels", "p95e_cellprob", "p97c_s2rgb"], "fs", [f"{PAPER}/p98_dashboard_layers.py"]),   # every dashboard layer and the manifest (bulk data)   # observation inventory per zone x stratum x period x sensor: the gate of the diagnostics (T01b)
     ("p95b", 2, ["p95"], "fs", [f"{M6}/p95b_hand_dyn_summary.py"]),
     ("p95f", 2, ["p95"], "fs", [f"{M6}/p95f_reservoir_balance.py"]),
     ("p95i", 2, ["p95f"], "fs", [f"{M6}/p95i_hypsometry_compare.py"]),
@@ -97,10 +130,14 @@ STEPS += [
     ("fill_evidence", 1, ["p96"], "fs", [f"{PAPER}/fill_evidence.py"]),
     ("render_claims", 1, ["fill_evidence"], "fs", [f"{PAPER}/render_claims.py"]),
     ("fill_manuscript", 1, ["p96"], "fs", [f"{PAPER}/fill_manuscript.py"]),
+    ("p96b_wetland", 1, ["p96"], "fs", [f"{PAPER}/p96b_wetland_evidence.py"]),   # the full picture of the reed-bed question, generated from the tables (publication/WETLAND_EVIDENCE.md)
     ("p97_tables_only", 1, ["p96"], "fs", [f"{PAPER}/p97_paper_figures.py", "--tables-only"]),
     ("p99", 1, ["p96"], "fs", [f"{PAPER}/p99_build_notebooks.py", "--build", "--execute"]),
     ("pytest", 1, ["p96", "fill_manuscript", "render_claims"], "fs", ["-m", "pytest", "-q"]),
 ]
+# named groups: one command for a product chain (maintainer 2026-10-01: the wetland evidence is one product, run in one order)
+GROUPS = {"wetland_evidence": ["p95x_weak_labels", "p95e_split", "p95z_delta_indices", "p95zm_index_maps", "p95y_audit", "p95y_maps", "p95u_inventory",
+                               "p96", "p96_check", "fill_manuscript", "p96b_wetland", "pytest"]}
 CWD = {"fill_evidence": f"{PAPER}", "render_claims": f"{PAPER}"}           # these two import their sibling module by name
 
 
@@ -146,12 +183,13 @@ def run(level, dry=False, start=None, only=None):
 def main():
     ap = argparse.ArgumentParser(); ap.add_argument("--level", type=int, choices=[0, 1, 2]); ap.add_argument("--list", action="store_true")
     ap.add_argument("--dry-run", action="store_true"); ap.add_argument("--from", dest="start")
-    ap.add_argument("--steps", nargs="+", help="run exactly these steps, in DAG order (e.g. the physical reconstruction after an input change)"); a = ap.parse_args()
+    ap.add_argument("--steps", nargs="+", help="run exactly these steps, in DAG order (e.g. the physical reconstruction after an input change)")
+    ap.add_argument("--group", choices=sorted(GROUPS), help="run a named product chain (its steps in DAG order)"); a = ap.parse_args()
     ids = [s[0] for s in STEPS]
     for s in STEPS:                                                        # the DAG must be topologically ordered
         assert all(n in ids and ids.index(n) < ids.index(s[0]) for n in s[2]), f"{s[0]}: a dependency is missing or later"
-    if a.steps:
-        run(None, a.dry_run, a.start, only=a.steps); return
+    if a.steps or a.group:
+        run(None, a.dry_run, a.start, only=(a.steps or []) + (GROUPS[a.group] if a.group else [])); return
     if a.list or a.level is None:
         for s in STEPS:
             print(f"L{s[1]}  {s[0]:28s} env={s[3]:4s} needs={','.join(s[2][:4]) + (' ...' if len(s[2]) > 4 else '') or '-'}")

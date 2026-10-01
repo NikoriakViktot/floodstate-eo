@@ -1,0 +1,11 @@
+window,layer,observed_km2,on_prebreach_water_km2,in_our_new_water_7_or_8_june_km2,in_primary_total_water_9_june_km2,in_memory_variant_9_june_km2,elsewhere_km2,our_new_7_or_8_june_km2,share_of_our_7_8_june_new_covered
+corridor (ICEYE analysis extent),L9_20230609_WaterExtent_KhersonskaOblast_UKR,459.56,233.71,165.94,381.05,166.94,59.91,289.7,0.573
+corridor (ICEYE analysis extent),ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast,613.42,324.61,190.91,494.58,193.19,97.89,289.7,0.659
+Kozachi Laheri village,L9_20230609_WaterExtent_KhersonskaOblast_UKR,7.75,7.3,0.44,7.74,0.44,0.01,0.89,0.494
+Kozachi Laheri village,ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast,10.8,9.99,0.68,10.63,0.64,0.13,0.89,0.764
+Krynky + lowland south of Krynky,L9_20230609_WaterExtent_KhersonskaOblast_UKR,41.21,18.1,20.78,27.2,15.17,2.32,85.6,0.243
+Krynky + lowland south of Krynky,ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast,52.56,27.06,22.76,39.16,16.17,2.74,85.6,0.266
+Krynky village,L9_20230609_WaterExtent_KhersonskaOblast_UKR,13.58,8.05,5.29,12.06,4.03,0.23,12.94,0.409
+Krynky village,ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast,19.37,11.02,7.74,16.24,5.31,0.62,12.94,0.598
+lowland box (p95p/p95q),L9_20230609_WaterExtent_KhersonskaOblast_UKR,12.76,0.23,10.51,0.47,6.27,2.02,63.49,0.166
+lowland box (p95p/p95q),ST3_20230606_20230607_20230609_ST2_20230608_ICEYE_20230607_FloodExtent_KhersonskaOblast,9.67,0.65,7.92,1.12,4.4,1.09,63.49,0.125

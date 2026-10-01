@@ -7,6 +7,8 @@ spatial_domains.yaml: INHULETS_TRIBUTARY "joins from the north with its own regi
 own rectangles drawn 2026-09-19 (SWOT-DNIPRO scripts/p42_below_dam_floodplain.py CUT_RECTS, copied verbatim below):
 west of the Inhulets mouth north of the cut line, the Inhulets valley itself, and isolated terrace fragments NE of
 the mouth. Everything outside those rectangles is the DNIPRO corridor (dam -> Kherson -> delta -> liman).
+The rectangles are REPORTING regions, not masks (maintainer, 2026-09-30): every reconstruction and map covers the Inhulets valley;
+only the accounting keeps it apart from the corridor total.
 
 Per run and region: predicted flood (score >= that run's frozen validation threshold) in km2, and its decomposition
 by v003_A ontology (EVENT_FLOOD label / REFERENCE_WATER / LAND / UNKNOWN) and by pre-breach water (labels.tif

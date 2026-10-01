@@ -1,0 +1,42 @@
+{
+ "producer": "p95v_depression_storage.py",
+ "version": "v1 (one depression, prior-predictive)",
+ "n_samples": 2000,
+ "seed": 20260930,
+ "dt_s": 1800.0,
+ "window": [
+  "2023-06-05T12:00",
+  "2023-06-22T00:00"
+ ],
+ "obs_times": {
+  "07_ICEYE": "2023-06-07T12:40",
+  "09_L9": "2023-06-09T08:30",
+  "13_S2": "2023-06-13T08:57",
+  "21_S1": "2023-06-21T16:05"
+ },
+ "sill_m": 8.85,
+ "edge_m": 8.337,
+ "terrace_km": 11.06,
+ "depression_km2": 66.14,
+ "prebreach_water_km2": 5.5,
+ "storage_ground_km2": 60.64,
+ "terrain_sigma_m": [
+  0.0,
+  0.25,
+  0.5,
+  0.75,
+  1.0
+ ],
+ "priors": {
+  "sill": "U(8.75, 8.95)",
+  "floor_offset": "U(-1.2, 0) on the storage ground",
+  "terrain_sigma": "uniform on {0, 0.25, 0.5, 0.75, 1.0} m",
+  "n": "logU(0.03, 0.15)",
+  "f_W": "logU(0.3, 3)",
+  "C_d": "U(1.4, 1.7)",
+  "ET_mm_d": "U(3, 7)",
+  "k_mm_d": "logU(1, 100)"
+ },
+ "consistency": "within a factor 2 of the observed area on 7, 9, 13 June (<= 0.5 km2 where observed < 0.25) -- a check, not a fit",
+ "not_modelled": "rain; groundwater; parallel inflow paths other than the minimax path (f_W stands for them); sub-daily H_up (daily values at 12:00 UTC)"
+}

@@ -104,8 +104,8 @@
   "channel_cell_source": 3,
   "floodplain_radius_m": 250.0,
   "floodplain_land_cells": 409,
-  "terrain_m": 5.152402153015137,
-  "terrain_p25_m": 4.113466762542725
+  "terrain_m": 5.190067043304444,
+  "terrain_p25_m": 4.1511316528320314
  },
  "engines": [
   "primary",
