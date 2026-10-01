@@ -29,6 +29,16 @@ app theme (`[theme.light]`, `[theme.dark]`, Streamlit >= 1.64). The viewer picks
 (top right -> Settings -> Theme); the choice is stored per browser. The maps follow: under the dark theme the default
 basemap is Esri Dark Gray Canvas (`lib.basemap_index`, `st.context.theme`).
 
+## Session (the viewer's choices survive a reload)
+
+Streamlit forgets a widget's value when its page is left and everything on a reload. Every page therefore calls
+`lib.session("<prefix>_")` first: a 12-hex session id is minted or read from the URL (`?sid=...`), the page's widget state is
+restored from a server-side store (in memory for the running server, mirrored to `apps/dashboard/.sessions/<sid>.json`,
+git-ignored) and widgets are built with `**lib.opt(key, options, default)` so that a restored value wins without the
+"default value and Session State" warning (a stored value no longer among the options is dropped). `lib.persist("<prefix>_")`
+after the widgets saves the state. Bookmark or share the URL with its `sid` to come back to the same view; nothing but plain
+widget values is stored. Tests: `tests/test_dashboard_session.py`.
+
 ## Basemaps and overlays (Maps and Surface-context pages)
 
 - **Basemaps** (live tiles, never cached or committed; attribution shown under the map): Gray (Esri Light Gray Canvas), OpenStreetMap

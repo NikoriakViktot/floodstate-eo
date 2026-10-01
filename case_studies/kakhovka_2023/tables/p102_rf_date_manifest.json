@@ -1,0 +1,92 @@
+{
+ "product": "p102_rf_surface_by_date",
+ "status": "ACTIVE (product for the hydraulic model; not a Paper 3 result)",
+ "git": {
+  "commit": "7733488d8f09f7986f50e7e8756e5596709dc4de",
+  "dirty_tracked": true
+ },
+ "created_utc": "2026-10-01T20:28:48Z",
+ "purpose": "land-cover class per Sentinel-2 date on the four zones, 2017-2026, from the indices of that date; weak WorldCover target",
+ "features": {
+  "variants": {
+   "spectral": [
+    "NDVI",
+    "NDWI",
+    "MNDWI",
+    "NDMI",
+    "BSI",
+    "AWEIsh",
+    "NDTI"
+   ],
+   "spectral+doy": [
+    "NDVI",
+    "NDWI",
+    "MNDWI",
+    "NDMI",
+    "BSI",
+    "AWEIsh",
+    "NDTI",
+    "doy_sin",
+    "doy_cos"
+   ]
+  },
+  "production": "spectral+doy",
+  "rule": "production = higher temporal-hold-out macro F1, ties -> spectral (fixed before the run)"
+ },
+ "target": {
+  "source": "ESA WorldCover 2021 (wc_2021_20m per zone, same lattice as the p25 stacks)",
+  "crosswalk": {
+   "80": "WATER",
+   "40": "CROPLAND",
+   "30": "GRASS_LOW_VEGETATION",
+   "10": "FOREST",
+   "20": "SHRUB",
+   "90": "WETLAND_REED",
+   "50": "BUILT_UP",
+   "60": "BARE_SAND",
+   "70": "OTHER",
+   "95": "OTHER",
+   "100": "OTHER"
+  },
+  "purity": "3 x 3 WorldCover neighbourhood agrees",
+  "consistency": [
+   "WATER needs MNDWI > 0 on the date",
+   "non-water classes need MNDWI < 0.3 on the date"
+  ],
+  "train_window": [
+   "2021-01-01",
+   "2023-06-05"
+  ],
+  "per_class_per_zone_date": 1500
+ },
+ "evaluation": {
+  "spatial": "5-fold spatial-block CV, 5 km global UTM blocks",
+  "temporal": "fit 2021-2022, test 2023 pre-breach",
+  "macro_f1_temporal": {
+   "spectral": 0.6465,
+   "spectral+doy": 0.6982
+  }
+ },
+ "random_forest": {
+  "n_estimators": 60,
+  "min_samples_leaf": 20,
+  "max_features": "sqrt",
+  "class_weight": "balanced_subsample",
+  "max_samples": 0.5
+ },
+ "seed": 20261001,
+ "uncertainty": "top-class probability < 0.5 -> UNCERTAIN (10)",
+ "software": {
+  "sklearn": "1.9.1",
+  "numpy": "2.5.3",
+  "rasterio": "1.5.1"
+ },
+ "model": {
+  "path": "/mnt/f/data_kakhovka_dem_swot/frames10/_m6/p102_rf_date_model.joblib",
+  "sha256": "1686fe02be164e66832a91de6361a5e71574b3210681b6ad7fdcbb4b32f1d826"
+ },
+ "outputs": {
+  "rasters": "/mnt/f/data_kakhovka_dem_swot/rf_by_date/<ZONE>/<date>_rf.tif",
+  "probability": "/mnt/f/data_kakhovka_dem_swot/rf_by_date/<ZONE>/<date>_rfp.tif"
+ }
+}

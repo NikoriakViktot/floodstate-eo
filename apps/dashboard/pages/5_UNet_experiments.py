@@ -3,15 +3,16 @@ from __future__ import annotations
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, refs, table
+from lib import C, caption, figure, header, opt, persist, refs, session, table
 
 st.set_page_config(page_title="U-Net experiments", layout="wide")
 header("What EO inputs recover under weak labels: the U-Net arm experiments",
        "agreement with frozen weak labels on the frozen spatial-block split; U2b (+W_pre) is a diagnostic upper bound because W_pre is also a label ingredient")
+session("unet_")
 
 st.subheader("Arms (T04)"); st.caption(caption("T04")); st.dataframe(table("T04").drop(columns=["channels"]), width="stretch", hide_index=True)
 st.subheader("Paired comparisons on identical blocks (T06, T07b)"); st.caption(caption("T06"))
-p = table("T06"); ep = st.selectbox("endpoint", sorted(p.endpoint.unique()), index=sorted(p.endpoint.unique()).index("A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2"))
+p = table("T06"); EPS = sorted(p.endpoint.unique()); ep = st.selectbox("endpoint", EPS, **opt("unet_endpoint", EPS, index=EPS.index("A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2")))
 pp = p[p.endpoint == ep]
 lab_ = lambda r: f"{r.comparison} ({r.labels}" + (f", seed {int(r.seed)})" if "seed" in r and r.seed == r.seed else ")")   # v004 per training seed
 fig = go.Figure()
@@ -23,7 +24,7 @@ st.plotly_chart(fig, width="stretch")
 st.caption(caption("T07b")); st.dataframe(table("T07b"), width="stretch", hide_index=True)
 figure("Fig03")
 st.subheader("D1 endpoints (T05)"); st.caption(caption("T05"))
-e = table("T05"); pick = st.multiselect("endpoints", sorted(e.endpoint.unique()), default=["G_F1", "G_PR_AUC", "A_FP_area_dry_cropland_km2", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "B_recall_flooded_open_low_veg", "W_IoU", "BU_FP_area_km2"])
+e = table("T05"); pick = st.multiselect("endpoints", sorted(e.endpoint.unique()), **opt("unet_pick", sorted(e.endpoint.unique()), default=["G_F1", "G_PR_AUC", "A_FP_area_dry_cropland_km2", "A2_PREDICTED_FLOOD_BURDEN_ON_UNLABELLED_CROPLAND_km2", "B_recall_flooded_open_low_veg", "W_IoU", "BU_FP_area_km2"]))
 idx = ["arm", "labels", "seed"] if "seed" in e.columns else ["arm", "labels"]
 st.dataframe(e[e.endpoint.isin(pick)].pivot_table(index=idx, columns="endpoint", values="value").round(4), width="stretch")
 try:
@@ -41,3 +42,4 @@ for tid in ("T02c", "T02d"):                                               # the
 st.dataframe(table("T03"), width="stretch", hide_index=True)
 st.caption(caption("T20")); st.dataframe(table("T20"), width="stretch", hide_index=True); figure("FigS05"); figure("FigS01")
 refs(["unet"], "📚 Literature: U-Net, ResNet encoders, S1/S2 flood benchmarks, learning from weak / noisy labels and spatial validation", expanded=True)
+persist("unet_")

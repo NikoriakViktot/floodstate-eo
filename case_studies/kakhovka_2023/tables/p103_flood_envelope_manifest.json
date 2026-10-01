@@ -1,0 +1,90 @@
+{
+ "product": "p103_flood_envelope",
+ "created_utc": "2026-10-01T20:25:56Z",
+ "zones": {
+  "ZONE_4_DAM_TO_KHERSON_FLOODWAY": {
+   "n_daily": 46,
+   "first": "2023-05-26",
+   "last": "2023-07-10",
+   "n_cellprob": 50,
+   "s1_event_dates": [
+    "2023-06-06",
+    "2023-06-09",
+    "2023-06-13",
+    "2023-06-14",
+    "2023-06-18",
+    "2023-06-21",
+    "2023-06-25",
+    "2023-06-26",
+    "2023-06-30"
+   ]
+  },
+  "ZONE_2_KHERSON_DELTA": {
+   "n_daily": 46,
+   "first": "2023-05-26",
+   "last": "2023-07-10",
+   "n_cellprob": 50,
+   "s1_event_dates": [
+    "2023-06-06",
+    "2023-06-09",
+    "2023-06-13",
+    "2023-06-14",
+    "2023-06-18",
+    "2023-06-21",
+    "2023-06-25",
+    "2023-06-26",
+    "2023-06-30"
+   ]
+  }
+ },
+ "mosaic": {
+  "x0": 437980.0,
+  "y1": 5223260.0,
+  "ny": 4552,
+  "nx": 6567,
+  "cell_m": 20.0,
+  "crs": "EPSG:32636"
+ },
+ "classes": {
+  "0": "never water",
+  "1": "pre-breach water (optical)",
+  "2": "normally wet (model, same rule before the breach)",
+  "3": "new inundation, nominal run (>= 1 day)",
+  "4": "new inundation, Monte-Carlo median world only (P >= 0.5)",
+  "5": "marginal (0.05 <= P < 0.5)"
+ },
+ "s1_classes": {
+  "0": "never observed",
+  "1": "new dark water on >= 1 event date",
+  "2": "observed, never dark",
+  "3": "dark already on 1-2 June"
+ },
+ "outputs": {
+  "per_zone": [
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_4_DAM_TO_KHERSON_FLOODWAY_connected_ceiling/flood_envelope_class.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_4_DAM_TO_KHERSON_FLOODWAY_connected_ceiling/flood_envelope_pmax.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_4_DAM_TO_KHERSON_FLOODWAY_connected_ceiling/s1_observed_envelope.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_2_KHERSON_DELTA_connected_ceiling/flood_envelope_class.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_2_KHERSON_DELTA_connected_ceiling/flood_envelope_pmax.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/ZONE_2_KHERSON_DELTA_connected_ceiling/s1_observed_envelope.tif"
+  ],
+  "mosaic": [
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/_envelope/flood_envelope_class_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/_envelope/flood_envelope_pmax_20m.tif",
+   "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/_envelope/s1_observed_envelope_20m.tif"
+  ],
+  "polygons": {
+   "total_water_envelope": {
+    "file": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/_envelope/total_water_envelope.geojson",
+    "n": 276,
+    "km2": 945.3
+   },
+   "new_inundation_envelope": {
+    "file": "/mnt/f/data_kakhovka_dem_swot/floodplain_dyn/_envelope/new_inundation_envelope.geojson",
+    "n": 667,
+    "km2": 317.9
+   }
+  }
+ },
+ "companions": "first_day.tif, last_day.tif, duration_days.tif, max_depth_m.tif of the nominal run (floodplain_dyn/<ZONE>_connected_ceiling)"
+}

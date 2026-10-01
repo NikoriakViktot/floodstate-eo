@@ -4,15 +4,16 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, header, ink, refs, table
+from lib import C, caption, figure, header, ink, opt, persist, refs, session, table
 
 st.set_page_config(page_title="Checks", layout="wide")
 header("Independent and cross-sensor checks of the reconstruction",
        "Sentinel-1 per date (raw POD / FAR / CSI on the observation domain; conditional POD is diagnostic) · disagreement ontology · ICESat-2 altimetric consistency · SWOT-input vs gauge · DEM accuracy (Paper 2)")
+session("chk_")
 
 st.subheader("Terrain vs Sentinel-1 per acquisition date (T13)"); st.caption(caption("T13"))
-d = table("T13"); variant = st.selectbox("variant", sorted(d.variant.unique()), index=sorted(d.variant.unique()).index("connected_ceiling") if "connected_ceiling" in set(d.variant) else 0)
-region = st.selectbox("region", ["P42_FLOODPLAIN_DOMAIN", "DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"])
+d = table("T13"); VARS = sorted(d.variant.unique()); variant = st.selectbox("variant", VARS, **opt("chk_variant", VARS, index=VARS.index("connected_ceiling") if "connected_ceiling" in VARS else 0))
+REGIONS = ["P42_FLOODPLAIN_DOMAIN", "DNIPRO_CORRIDOR", "INHULETS_VALLEY_rect"]; region = st.selectbox("region", REGIONS, **opt("chk_region", REGIONS, index=0))
 v = d[(d.variant == variant) & (d.region == region)]
 fig = go.Figure()
 for k, c in [("POD", C["terrain"]), ("FAR", C["s1"]), ("CSI", C["rf"]), ("POD_cond_outside_normally_wet", C["muted"])]:
@@ -21,7 +22,7 @@ fig.update_layout(height=320, margin=dict(l=10, r=10, t=20, b=10), yaxis=dict(ra
 st.dataframe(v[["date", "s1_new_km2", "hand_new_km2", "hit_km2", "miss_km2", "miss_on_normally_wet_km2", "hand_only_km2", "POD", "FAR", "CSI", "POD_cond_outside_normally_wet"]], width="stretch", hide_index=True)
 
 st.subheader("Disagreement ontology (T14, Fig05)"); st.caption(caption("T14"))
-o = table("T14"); date = st.selectbox("date", sorted(o.date.unique()))
+o = table("T14"); DATES = sorted(o.date.unique()); date = st.selectbox("date", DATES, **opt("chk_date", DATES, index=0))
 oo = o[o.date == date].groupby("category").sum(numeric_only=True)
 c1, c2 = st.columns(2)
 with c1:
@@ -83,3 +84,4 @@ with st.expander("FigS15 — the withheld gauges"):
 st.subheader("SWOT input vs Kherson gauge (T17) and DEM accuracy (T18, Paper 2)"); st.caption(caption("T17")); st.dataframe(table("T17"), width="stretch", hide_index=True)
 st.caption(caption("T18")); st.dataframe(table("T18"), width="stretch", hide_index=True)
 refs(["water_surface", "terrain"], "📚 Literature: SWOT input, gauge frame and DEM accuracy (Paper 2, FABDEM)")
+persist("chk_")

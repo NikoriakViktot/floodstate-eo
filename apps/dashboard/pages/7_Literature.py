@@ -3,11 +3,12 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from lib import CLASSIFIERS, CS, INDICES, METHOD_REFS, SERIES, TOPIC_TITLES, TOPICS, bib, fmt_ref, header
+from lib import bib, CLASSIFIERS, CS, fmt_ref, header, INDICES, METHOD_REFS, opt, persist, SERIES, session, TOPICS, TOPIC_TITLES
 
 st.set_page_config(page_title="Literature", layout="wide")
 header("Literature: the Kakhovka series, methods, spectral indices and classifications",
        "every method on this dashboard with the works it rests on; bibliography = docs/references.bib (⚠️ VERIFY = not yet checked against the publisher record)")
+session("lit_")
 
 st.subheader("The Kakhovka series")
 for name, title, status, links, key in SERIES:
@@ -45,7 +46,7 @@ for t, keys in TOPICS.items():
         st.markdown("\n".join(f"- {fmt_ref(k)}" for k in keys))
 
 st.subheader("Full bibliography")
-q = st.text_input("filter (author, title, journal, key)", "")
+q = st.text_input("filter (author, title, journal, key)", **opt("lit_filter", value=""))
 B = bib(); keys = sorted(B, key=lambda k: (B[k].get("year", "0"), k), reverse=True)
 hits = [k for k in keys if not q or q.lower() in (k + " " + " ".join(B[k].values())).lower()]
 st.caption(f"{len(hits)} of {len(B)} entries · ⚠️ VERIFY = {sum('VERIFY' in B[k].get('note', '') for k in B)}")
@@ -54,5 +55,6 @@ st.markdown("\n".join(f"- `{k}` {fmt_ref(k)}" for k in hits))
 th = CS / "publication" / "literature" / "theses.csv"
 if th.exists():
     st.subheader("Literature theses of Paper 3 (p100 knowledge graph)")
-    T = pd.read_csv(th); sec = st.multiselect("section", sorted(T.section.unique()), [])
+    T = pd.read_csv(th); sec = st.multiselect("section", sorted(T.section.unique()), **opt("lit_section", sorted(T.section.unique()), default=[]))
     st.dataframe(T[T.section.isin(sec)] if sec else T, width="stretch", hide_index=True, column_config={"thesis": st.column_config.TextColumn(width="large")})
+persist("lit_")

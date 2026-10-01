@@ -158,6 +158,29 @@ benchmark practice separates the same quantities: observed water, observed flood
     release (T21); the design curve bounded to its table (T27); the day the bed fell dry from the model (6–13 June) and Sentinel-2
     on 20 June (Fig11, T23b); the model extent and Sentinel-1 (wet mud) in FigS08.
 
+28. **RF surface classes by date (p102)** `[implemented 2026-10-01: workflows/m6/p102_rf_surface_by_date.py; a product for the
+    hydraulic-model work (Papers 4–5), not a Paper 3 result]`. The per-date counterpart of RF20: a random forest (60 trees, min leaf
+    20, balanced subsample, half-sample bootstrap) on the seven indices of ONE Sentinel-2 date (the frozen p25 zone stacks, 20 m;
+    optionally day-of-year sin/cos), ESA WorldCover 2021 as the weak target on the same lattice (3 × 3 purity; on the date WATER needs
+    MNDWI > 0 and the non-water classes MNDWI < 0.3), training dates 2021-01-01 .. 2023-06-05, up to 1 500 cells per class, zone and
+    date. Evaluation fixed before the run: 5-fold spatial-block CV (5 km global UTM blocks) and a temporal hold-out (fit 2021–2022,
+    test 2023 pre-breach) for both variants; the production variant is the higher temporal-hold-out macro F1 (ties → spectral).
+    UNCERTAIN where the top probability < 0.5. One class + one probability GeoTIFF per date for the four zones (pool + lower
+    Dnipro, delta, estuary, floodway), 2017–2026 — the drained reservoir bed of 2024–2026 included — in the bulk root
+    (`rf_by_date/<ZONE>/`); `tables/p102_rf_date_{inventory,metrics,class_area}.csv`; `figures/p102/`; dashboard layers of the
+    best-observed date of each month (Maps, Surface context). Land-cover classes, read together with the k10e surface-state map of
+    the same date. Agreement with WorldCover is never accuracy. Nineteen downloaded SAFE dates (eighteen of 15 June – 31 July 2023,
+    one of 2024) have no p25 zone stack yet and therefore no class map (decision pending: run the frozen SWOT-DNIPRO p25 on them).
+29. **The full flood mask (p103)** `[implemented 2026-10-01: workflows/m6/p103_flood_envelope.py]`. The envelope of the primary
+    reconstruction over the whole event, packaged from frozen products: classes pre-breach water (optical), normally wet
+    (model-only part of the normal regime), new inundation of the nominal run on ≥ 1 day (26 May – 10 July), of the Monte-Carlo
+    median world only (P ≥ 0.5 on an evaluated day), marginal (0.05 ≤ P < 0.5); max P per cell; the Sentinel-1 envelope of the event
+    dates (new dark water / observed never dark / dark already on 1–2 June / never observed). Per zone and as a mosaic (ZONE_2 owns
+    the overlap) with GeoJSON polygons of the total and of the new-inundation envelope (`floodplain_dyn/_envelope/`, bulk);
+    `tables/p103_flood_envelope.csv` (corridor: total water envelope 867 km², new inundation 264 nominal / 267 median world);
+    `figures/p103_flood_envelope.png`; dashboard layers `terrain_envelope`, `s1_envelope`. first_day / last_day / duration /
+    max_depth of the nominal run sit next to it. Terrain-reconstructed, not an observation; the hydraulic model's wetted-extent input.
+
 ### Key references
 - Wagner et al. 2026, RSE 333:115108 — CEMS Global Flood Monitoring; observed flood vs reference water. `Wagner_2026`
 - Martinis et al. 2022, RSE 278:113077 — S1/S2 seasonal + permanent reference water. `Martinis_2022`

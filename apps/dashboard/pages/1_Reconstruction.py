@@ -4,17 +4,19 @@ import pandas as pd
 import plotly.graph_objects as go
 import streamlit as st
 
-from lib import C, caption, figure, fmt_ref, header, INDICES, ink, raw, refs, table
+from lib import C, caption, figure, fmt_ref, header, INDICES, ink, opt, persist, raw, refs, session, table
 
 st.set_page_config(page_title="Reconstruction", layout="wide")
 header("Observation-constrained terrain-connectivity reconstruction: the daily reconstructed series",
        "SWOT node heights (gauge-anchored, Paper-1 closure) + Kherson gauge → connected terrain rule → daily area, depth, volume")
+session("rec_")
 
 d = raw("p95_daily_area_pooled_connected_ceiling.csv"); d["t"] = pd.to_datetime(d.date)
 h = raw("p95_daily_area_pooled_hand_and_ceiling.csv"); h["t"] = pd.to_datetime(h.date)
 u = table("T12")
 s1 = raw("p94_flood_dynamics_s1.csv"); s1["t"] = pd.to_datetime(s1.date)
-region = st.selectbox("region", ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"], format_func=lambda r: {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets reported separately)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}[r])
+REGIONS = ["DNIPRO_CORRIDOR", "P42_FLOODPLAIN_DOMAIN", "INHULETS_VALLEY_rect"]
+region = st.selectbox("region", REGIONS, **opt("rec_region", REGIONS, index=0), format_func=lambda r: {"DNIPRO_CORRIDOR": "Dnipro corridor (Inhulets reported separately)", "P42_FLOODPLAIN_DOMAIN": "p42 floodplain domain", "INHULETS_VALLEY_rect": "Inhulets valley (backwater)"}[r])
 s = d[d.region == region]; uu = u[u.region == region].copy(); uu["t"] = pd.to_datetime(uu.date); uu = uu.sort_values("t")
 fig = go.Figure()
 try:
@@ -145,9 +147,9 @@ try:
     st.markdown("**Sentinel-2 indices and surface classes over the pool (T25, T24)** — frozen p25 products; strata from the modelled day of exposure.")
     c1, c2 = st.columns(2)
     with c1:
-        ix = st.selectbox("index", sorted(I["index"].unique()), index=sorted(I["index"].unique()).index("MNDWI"))
+        IXS = sorted(I["index"].unique()); ix = st.selectbox("index", IXS, **opt("rec_index", IXS, index=IXS.index("MNDWI")))
     with c2:
-        strata = st.multiselect("strata", list(I.stratum.unique()), default=list(I.stratum.unique()))
+        strata = st.multiselect("strata", list(I.stratum.unique()), **opt("rec_strata", list(I.stratum.unique()), default=list(I.stratum.unique())))
     if ix in INDICES:
         fo, what, rk, used = INDICES[ix]
         st.markdown(f"**{ix}** = `{fo}` — responds to {what}; here: {used}.  \n" + "  \n".join(f"<small>{fmt_ref(r)}</small>" for r in rk), unsafe_allow_html=True)
@@ -164,3 +166,4 @@ try:
     refs(["indices", "k10e", "reservoir"], "📚 Literature: the 7 spectral indices, the k10e rule classes and studies of the drained Kakhovka bed")
 except FileNotFoundError:
     st.info("reservoir index tables (T24, T25) not built")
+persist("rec_")

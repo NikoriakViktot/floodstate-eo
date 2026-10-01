@@ -4,6 +4,29 @@ Written 2026-09-23, at the end of the session that created this repository's fir
 the "what stage are we at, what do we do when we come back" record — read this before doing anything else
 in this repo.
 
+## UPDATE 2026-10-01 (evening) — products for the hydraulic model, the dashboard session, the article without working names
+
+Maintainer requests of the day and what was done:
+- **The article text carries results, not working names** (commit 7733488): script ids, label-set versions (v002 / v003_A / v004 →
+  "the canonical labels", "the no-reference-water labels", "the intermediate set"), D-/C-tags, split names and seed values removed
+  from the abstract on, in both languages; the Methods give every formula used as 17 numbered equations (water surface, connectivity
+  rule, normal regime, areas / volumes, terrain bias, ground-class split, Monte-Carlo perturbations, effective release, gauge errors,
+  agreement scores with chance and UNKNOWN bounds, indices, U-Net loss). `tests/test_manuscript_production_text.py` pins both.
+  Assembled proofreading DOCX (uk, en) rebuilt with p101.
+- **Dashboard session** (`apps/dashboard/lib.py`: `session`, `persist`, `opt`): every page carries `?sid=` in the URL; widget choices
+  are restored from a server-side store (memory + `.sessions/<sid>.json`, git-ignored) before the widgets are built and saved after
+  them, so a page switch, a reload and a server restart come back to the same choices. `tests/test_dashboard_session.py`.
+- **The full flood mask (p103)**: the envelope of the primary reconstruction (pre-breach water / normally wet / nominal new / MC
+  median world only / marginal) + max P + the Sentinel-1 envelope of the event dates, per zone and as a mosaic with GeoJSON polygons
+  in `floodplain_dyn/_envelope/` (bulk); `tables/p103_flood_envelope.csv`; dashboard layers (Maps page). Corridor: total water
+  envelope 867 km², new inundation 264 (nominal) / 267 (median world) km².
+- **RF surface classes by date (p102)**: a random forest on the seven indices of each Sentinel-2 date, WorldCover 2021 as the weak
+  target, for every date of the four p25 zones 2017–2026 (the pool included; 2024–2026 = the drained bed). Training / evaluation run;
+  the wall-to-wall prediction of all zone-dates runs for hours (resumable; `--group rf_by_date`). Tables, figures and dashboard layers
+  (best-observed date per month) follow the prediction. **Gap**: 19 downloaded SAFE dates (18 of 15 Jun – 31 Jul 2023, 2024-05-25)
+  have no p25 zone stack → no class map; running the frozen SWOT-DNIPRO p25 on them is the maintainer's call.
+- Not done / open: push to origin (local main ahead); FABDEM licence on data.bris, He 2024 full text, Zheng / Monti pages.
+
 ## UPDATE 2026-09-30 — D-SEED: the event source of the connectivity is the river network; everything regenerated
 
 The QA of the weak-support blobs (`workflows/m6/p95o_component_qa.py`) found that seeding the connectivity from EVERY

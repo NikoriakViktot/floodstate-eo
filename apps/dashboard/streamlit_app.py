@@ -7,11 +7,12 @@ from __future__ import annotations
 
 import streamlit as st
 
-from lib import SERIES, caption, figure, header, layers, manifest, refs, table
+from lib import SERIES, caption, figure, header, layers, manifest, refs, session, table
 
 st.set_page_config(page_title="FloodState-EO · Kakhovka 2023", page_icon="🌊", layout="wide")
 header("Kakhovka 2023 — inundation after the dam breach",
        "Paper 3 of the Kakhovka series: observation-constrained terrain-connectivity reconstruction and its uncertainty → independent validation and support → weak-label ML diagnostics")
+session("home_")                                                       # ?sid=... : the viewer's choices on every page survive reloads
 
 st.markdown("""
 **How to read this dashboard.** The main axis is the *observation-constrained terrain-connectivity reconstruction* — a daily reconstructed series, not daily observations — of the inundation from the observed

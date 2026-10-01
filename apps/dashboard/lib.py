@@ -2,6 +2,8 @@
 from __future__ import annotations
 
 import json
+import re
+import uuid
 from pathlib import Path
 
 import pandas as pd
@@ -39,6 +41,79 @@ def manifest() -> dict:
 @st.cache_data(show_spinner=False)
 def layers() -> dict:
     return json.loads((DATA / "manifest.json").read_text())
+
+
+# ---- session: the viewer's choices survive a page switch and a browser reload ---------------------------------------------
+# Streamlit forgets a widget's value when its page is left and forgets everything on a reload (maintainer, 2026-10-01: "there is no
+# session cache, everything disappears on a re-render -- make a session id"). Every page therefore (1) carries a session id in the
+# URL (?sid=...), (2) restores its widget state from a server-side store keyed by that id before the widgets are built, and (3)
+# saves the state after them. The store is in memory for the running server and mirrored to .sessions/<sid>.json (git-ignored),
+# so a reload, a page switch and a server restart all come back to the same choices. Only plain widget values are kept.
+SESS = APP / ".sessions"
+_SID_RE = re.compile(r"^[0-9a-f]{12}$")
+_PLAIN = (str, int, float, bool, list, tuple, type(None))
+
+
+@st.cache_resource(show_spinner=False)
+def _store() -> dict:
+    return {}
+
+
+def session(prefix: str) -> str:
+    """Call first on a page: the session id (created when missing, written to the URL) and the page's widget state restored."""
+    sid = st.session_state.get("_sid") or st.query_params.get("sid")
+    if isinstance(sid, list):                                                # a repeated ?sid= (and the test harness) gives a list
+        sid = sid[-1] if sid else None
+    if not isinstance(sid, str) or not _SID_RE.match(sid):
+        sid = uuid.uuid4().hex[:12]
+    st.session_state["_sid"] = sid
+    try:
+        if st.query_params.get("sid") != sid:
+            st.query_params["sid"] = sid
+    except Exception:                                                        # no browser context (tests, bare mode)
+        pass
+    saved = _store().get(sid)
+    if saved is None:
+        try:
+            saved = json.loads((SESS / f"{sid}.json").read_text()) if (SESS / f"{sid}.json").exists() else {}
+        except (OSError, ValueError):
+            saved = {}
+        _store()[sid] = saved
+    for k, v in saved.items():
+        if k.startswith(prefix) and k not in st.session_state:
+            st.session_state[k] = v
+    for k in [k for k in st.session_state if k.startswith(prefix)]:         # keeps a widget's value alive across page switches
+        st.session_state[k] = st.session_state[k]
+    return sid
+
+
+def persist(prefix: str) -> None:
+    """Call after the widgets: the page's widget state goes to the store of the session (memory + file)."""
+    sid = st.session_state.get("_sid")
+    if not sid:
+        return
+    saved = _store().setdefault(sid, {}); changed = False
+    for k, v in st.session_state.items():
+        if k.startswith(prefix) and isinstance(v, _PLAIN):
+            v = list(v) if isinstance(v, tuple) else v
+            if saved.get(k) != v:
+                saved[k] = v; changed = True
+    if changed:
+        try:
+            SESS.mkdir(exist_ok=True); (SESS / f"{sid}.json").write_text(json.dumps(saved))
+        except (OSError, TypeError):
+            pass
+
+
+def opt(key: str, options=None, **default) -> dict:
+    """Widget kwargs: the key, and the default only while the session holds no value for it -- a restored value wins without the
+    'default value and Session State' warning; a stored value that is no longer among the options is dropped."""
+    if key in st.session_state and options is not None:
+        v = st.session_state[key]; opts = list(options)
+        ok = all(x in opts for x in v) if isinstance(v, (list, tuple)) else v in opts
+        if not ok:
+            del st.session_state[key]
+    return dict(key=key) if key in st.session_state else dict(key=key, **default)
 
 
 def caption(tid: str) -> str:

@@ -3,10 +3,11 @@ from __future__ import annotations
 import pandas as pd
 import streamlit as st
 
-from lib import caption, header, layers, manifest, refs, table
+from lib import caption, header, layers, manifest, opt, persist, refs, session, table
 
 st.set_page_config(page_title="Data & provenance", layout="wide")
 header("Data, provenance and licences", "every number on this dashboard resolves to a committed table cell; every layer to a manifest entry with sha256")
+session("data_")
 st.subheader("Data inventory (T01)"); st.caption(caption("T01")); st.dataframe(table("T01"), width="stretch", hide_index=True)
 st.subheader("Area accounting with semantics (T16)"); st.caption(caption("T16")); st.dataframe(table("T16"), width="stretch", hide_index=True)
 m = manifest(); L = layers()
@@ -24,3 +25,4 @@ st.markdown(f"""
 """)
 refs(["Torres_2012", "Drusch_2012", "Main-Knorn_2017", "Biancamaria_2016", "SWOT_RiverSP_v2", "Altenau_2021", "Neuenschwander_2019", "Hawker_2022", "Zanaga_2022", "Pekel_2016", "UNOSAT_3616_2023", "UNOSAT_3623_2023"], "📚 Data sources: missions, products and reference datasets")
 st.markdown("Full bibliography, the Kakhovka series and the method-by-method literature: **Literature** page.")
+persist("data_")

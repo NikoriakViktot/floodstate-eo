@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-01T08:27:08Z",
+ "generated_utc": "2026-10-01T20:26:40Z",
  "grid": {
   "crs": "EPSG:4326",
   "dlon": 0.001,
@@ -14218,6 +14218,80 @@
    "source": "own work (frame grids, p42 CUT_RECTS, p42 domain simplified 60 m)",
    "bytes": 740686,
    "sha256": "40d8c395542fa990381c6625547b674f51e1ce1e250695cf3708796b18cee6be"
+  },
+  {
+   "id": "terrain_envelope",
+   "group": "envelope",
+   "file": "terrain/envelope.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "pre-breach water (optical)",
+    "2": "normally wet (model, same rule before the breach)",
+    "3": "new inundation, nominal run (>= 1 day)",
+    "4": "new inundation, Monte-Carlo median world only (P >= 0.5)",
+    "5": "marginal (0.05 <= P < 0.5)"
+   },
+   "palette": {
+    "1": "#0b2a5c",
+    "2": "#5a93da",
+    "3": "#2a78d6",
+    "4": "#7fb3e6",
+    "5": "#f5d58a"
+   },
+   "source": "p103 flood envelope: p95 primary run (union of the daily nominal maps + the normal regime), p95e cellprob (median world / marginal), Sentinel-1 per-scene masks",
+   "note": "total water envelope = classes 1-4, new inundation = 3-4; GeoTIFF + GeoJSON in floodplain_dyn/_envelope (bulk)",
+   "bytes": 33261,
+   "sha256": "62dce4cdce91ccd2ecdeefcf16585225b6a133d12d39b6fc1c9854a76212b98e",
+   "area_km2_by_class": {
+    "1": 325.1,
+    "2": 299.9,
+    "3": 309.0,
+    "4": 2.9,
+    "5": 109.5
+   }
+  },
+  {
+   "id": "s1_envelope",
+   "group": "envelope",
+   "file": "s1/envelope.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "new dark water on >= 1 event date",
+    "2": "observed, never dark",
+    "3": "dark already on 1-2 June"
+   },
+   "palette": {
+    "1": "#eb6834",
+    "2": "#efece6",
+    "3": "#f5b79b"
+   },
+   "source": "p103 flood envelope: p95 primary run (union of the daily nominal maps + the normal regime), p95e cellprob (median world / marginal), Sentinel-1 per-scene masks",
+   "note": "not observed is not dry; dark on 1-2 June = water or dry sand",
+   "bytes": 77939,
+   "sha256": "f32e033eae43ebe1409fc80a0a6c87dac4313496724c12da4f4570b662027dc8",
+   "area_km2_by_class": {
+    "1": 689.4,
+    "2": 2494.3,
+    "3": 717.6
+   }
   }
  ],
  "reservoir_grid": {
@@ -14237,7 +14311,7 @@
    ]
   ]
  },
- "total_bytes": 47662745,
- "n_layers": 472,
+ "total_bytes": 47773945,
+ "n_layers": 474,
  "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
 }

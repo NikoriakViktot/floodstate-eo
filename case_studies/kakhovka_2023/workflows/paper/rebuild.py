@@ -89,6 +89,14 @@ STEPS += [
     ("p95i", 2, ["p95f"], "fs", [f"{M6}/p95i_hypsometry_compare.py"]),
     ("p95h", 2, ["p95f"], "fs", [f"{M6}/p95h_reservoir_maps.py"]),                  # reservoir drawdown: exposure with Sentinel-2 (Fig11), model extent and S1 (FigS08)
     ("p95m", 2, ["p95f"], "fs", [f"{M6}/p95m_reservoir_depth.py"]),                  # reservoir water depth (Fig10, T21b)
+    # products of 2026-10-01 for the hydraulic-model work (Papers 4-5); no Paper 3 number rests on them
+    ("p102_train", 2, [], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "train", "--jobs", "24"]),      # RF by date: sample 2021-2023-pre, spatial CV + 2023 hold-out, both variants, model
+    ("p102_predict", 2, ["p102_train"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "predict", "--jobs", "24"]),   # every date of the four zones (hours; resumable)
+    ("p102_tables", 2, ["p102_predict"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "tables"]),
+    ("p102_figures", 2, ["p102_tables"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "figures"]),
+    ("p103_envelope", 2, ["p95", "p95e_cellprob"], "fs", [f"{M6}/p103_flood_envelope.py"]),                  # the full flood mask (envelope) + S1 envelope: rasters, polygons, T-less table, figure
+    ("p98_envelope", 2, ["p103_envelope"], "fs", [f"{PAPER}/p98_dashboard_layers.py", "--only", "envelope"]),
+    ("p98_rf_date", 2, ["p102_tables"], "fs", [f"{PAPER}/p98_dashboard_layers.py", "--only", "rf_date"]),
     ("p95n", 2, ["p95", "p95l"], "fs", [f"{M6}/p95n_flood_depth_summary.py"]),      # flood depth below the dam (T12e)
     ("p95g", 2, ["p95e"], "fs", [f"{M6}/p95g_mc_emulator.py"]),
 ]
@@ -137,7 +145,9 @@ STEPS += [
 ]
 # named groups: one command for a product chain (maintainer 2026-10-01: the wetland evidence is one product, run in one order)
 GROUPS = {"wetland_evidence": ["p95x_weak_labels", "p95e_split", "p95z_delta_indices", "p95zm_index_maps", "p95y_audit", "p95y_maps", "p95u_inventory",
-                               "p96", "p96_check", "fill_manuscript", "p96b_wetland", "pytest"]}
+                               "p96", "p96_check", "fill_manuscript", "p96b_wetland", "pytest"],
+          "rf_by_date": ["p102_train", "p102_predict", "p102_tables", "p102_figures", "p98_rf_date", "pytest"],        # RF surface classes for every S2 date (hydraulic model)
+          "flood_envelope": ["p103_envelope", "p98_envelope", "pytest"]}                                              # the full flood mask
 CWD = {"fill_evidence": f"{PAPER}", "render_claims": f"{PAPER}"}           # these two import their sibling module by name
 
 

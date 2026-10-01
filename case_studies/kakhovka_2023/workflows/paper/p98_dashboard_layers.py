@@ -420,8 +420,60 @@ def reservoir_layers():
                               bytes=p.stat().st_size, sha256=hashlib.sha256(p.read_bytes()).hexdigest()))
 
 
+def _load(name, rel):
+    import importlib.util
+    s = importlib.util.spec_from_file_location(name, REPO / rel); m = importlib.util.module_from_spec(s); s.loader.exec_module(m); return m
+
+
+def envelope_layers():
+    """p103: the full flood mask (envelope of the reconstructed inundation) and the Sentinel-1 envelope of the event dates (maintainer 2026-10-01)."""
+    P3 = _load("p103", "case_studies/kakhovka_2023/workflows/m6/p103_flood_envelope.py")
+    src = "p103 flood envelope: p95 primary run (union of the daily nominal maps + the normal regime), p95e cellprob (median world / marginal), Sentinel-1 per-scene masks"
+    for name, grp_file, lid, leg in (("flood_envelope_class.tif", "terrain/envelope.png", "terrain_envelope", P3.CLS), ("s1_observed_envelope.tif", "s1/envelope.png", "s1_envelope", P3.S1C)):
+        per = {}
+        for z in ZONES:
+            with rasterio.open(BULK / "floodplain_dyn" / f"{z}_connected_ceiling" / name) as s:
+                per[z] = (s.read(1), s.transform, s.crs)
+        write_png(mosaic(per), OUTD / grp_file, {k: v[1] for k, v in leg.items() if k > 0}, {str(k): v[0] for k, v in leg.items() if k > 0}, lid, "envelope", src,
+                  note="total water envelope = classes 1-4, new inundation = 3-4; GeoTIFF + GeoJSON in floodplain_dyn/_envelope (bulk)" if lid == "terrain_envelope" else "not observed is not dry; dark on 1-2 June = water or dry sand")
+        print(lid, flush=True)
+
+
+RFD_GROUPS = ("s2_rf", "reservoir_s2_rf")
+
+
+def rf_date_layers():
+    """p102 RF classes by date: the lower Dnipro (ZONE_4 + ZONE_2 mosaic) and the pool (ZONE_1 on RBOX); the best-observed date of each month, so that
+    the bundle stays small (every date's GeoTIFF is in the bulk root)."""
+    import pandas as pd
+    from rasterio import features
+    P = _load("p102", "case_studies/kakhovka_2023/workflows/m6/p102_rf_surface_by_date.py")
+    I = pd.read_csv(CFG.TABLES / "p102_rf_date_inventory.csv"); pal = dict(P.COLORS); leg = {str(k): v for k, v in P.CLASSES.items()}; utm = CRS.from_epsg(32636)
+    src = "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state"
+    best = lambda df, col, lo: df[df[col] >= lo].assign(ym=lambda d: d.date.str[:7]).sort_values(col, ascending=False).drop_duplicates("ym").sort_values("date")
+    lo = I[I.zone.isin(ZONES)].groupby("date").valid_share.mean().reset_index()
+    for _, r in best(lo, "valid_share", 0.3).iterrows():
+        per = {}
+        for z in ZONES:
+            f = P.OUT / z / f"{r.date}_rf.tif"
+            if f.exists():
+                with rasterio.open(f) as s:
+                    per[z] = (s.read(1), s.transform, s.crs)
+        if per:
+            write_png(mosaic(per), OUTD / "rf" / "by_date" / f"{r.date}.png", pal, leg, f"s2_rf_{r.date}", "s2_rf", src, note=f"valid {r.valid_share:.0%} of the two zones on average; transparent = not observed (cloud / outside the scene)")
+    pool = CFG.load_utm("reservoir_full_pool_prebreach").buffer(1000.0); z1 = I[I.zone == "ZONE_1_KAKHOVKA_LOWER_DNIPRO"].dropna(subset=["pool_observed_share"])
+    for _, r in best(z1, "pool_observed_share", 0.5).iterrows():
+        with rasterio.open(r.raster) as s:
+            a = s.read(1); tr = s.transform
+        a[~features.rasterize([(pool.__geo_interface__, 1)], out_shape=a.shape, transform=tr, fill=0, dtype="uint8").astype(bool)] = 0
+        write_png(to_grid(a, tr, utm, box=RBOX), OUTD / "reservoir" / "rf" / f"{r.date}.png", pal, leg, f"reservoir_s2_rf_{r.date}", "reservoir_s2_rf", src,
+                  note=f"pool observed {r.pool_observed_share:.0%}; the pool + 1 km; transparent = not observed", box=RBOX)
+    print("rf_date", sum(l["group"] in RFD_GROUPS for l in MAN["layers"]), "layers", flush=True)
+
+
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support", "frames", "context", "s1", "s2", "prob"], help="rebuild only the reservoir, terrain, support, frame (U-Net, labels, RF20), context (incl. the p97c true-colour dates), S1 or S2 layers, keep the rest of the manifest")
+    ap = argparse.ArgumentParser(); ap.add_argument("--only", choices=["reservoir", "terrain", "support", "frames", "context", "s1", "s2", "prob", "envelope", "rf_date"],
+                                                    help="rebuild only the reservoir, terrain, support, frame (U-Net, labels, RF20), context (incl. the p97c true-colour dates), S1, S2, envelope (p103) or RF-by-date (p102) layers, keep the rest of the manifest")
     a = ap.parse_args(); t0 = time.time(); OUTD.mkdir(parents=True, exist_ok=True)
     if a.only == "terrain":                                               # e.g. after a new p95 run: keep every other layer, terrain first as before
         old = json.loads((OUTD / "manifest.json").read_text())
@@ -452,6 +504,14 @@ def main():
         old = json.loads((OUTD / "manifest.json").read_text())
         MAN["layers"] = [l for l in old["layers"] if l["group"] not in RES_GROUPS and l["id"] != "reservoir_pool"]
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
+    elif a.only == "envelope":                                            # the full flood mask (p103)
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] != "envelope"]
+        envelope_layers(); print("envelope", round(time.time() - t0), flush=True)
+    elif a.only == "rf_date":                                             # RF classes by date (p102), lower Dnipro + pool
+        old = json.loads((OUTD / "manifest.json").read_text())
+        MAN["layers"] = [l for l in old["layers"] if l["group"] not in RFD_GROUPS]
+        rf_date_layers(); print("rf_date", round(time.time() - t0), flush=True)
     else:
         terrain_layers(); print("terrain", round(time.time() - t0), flush=True)
         prob_layers(); print("prob", round(time.time() - t0), flush=True)
@@ -461,6 +521,11 @@ def main():
         frame_layers(); print("frames", round(time.time() - t0), flush=True)
         reservoir_layers(); print("reservoir", round(time.time() - t0), flush=True)
         context_layers()
+        for fn in (envelope_layers, rf_date_layers):                      # products of 2026-10-01; absent inputs leave the group empty
+            try:
+                fn()
+            except FileNotFoundError as e:
+                print(f"{fn.__name__}: skipped ({e})", flush=True)
     tr, ny, nx = box_grid(RBOX); MAN["reservoir_grid"] = dict(crs="EPSG:4326", dlon=DLON, dlat=DLAT, nx=nx, ny=ny, bounds=[[RBOX[1], RBOX[0]], [RBOX[3], RBOX[2]]])
     MAN["total_bytes"] = int(sum(l["bytes"] for l in MAN["layers"])); MAN["n_layers"] = len(MAN["layers"])
     MAN["licence_note"] = ("Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; "
