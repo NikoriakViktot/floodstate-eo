@@ -61,7 +61,9 @@ Empty or weak cells and why:
 | A_new (all ground; the headline of T12), km² | {H('2023-06-07', C, 'all', 'new_km2_p50')} [{H('2023-06-07', C, 'all', 'new_km2_p05')}–{H('2023-06-07', C, 'all', 'new_km2_p95')}] ({H('2023-06-07', C, 'all', 'new_km2_nominal')}) | {H('2023-06-07', CI, 'all', 'new_km2_p50')} | {H('2023-06-08', C, 'all', 'new_km2_p50')} | {H('2023-06-13', C, 'all', 'new_km2_p50')} |
 
 Semantics: A_wet is the event extent over the wetland (robust across worlds); ΔA_wet is a difference from the reconstructed
-5 June state and inherits its uncertainty (the nominal world lies outside the interval). Never add A_wet or ΔA_wet to A_new,dry.
+5 June state and inherits its uncertainty (the nominal world lies outside the interval). Never add A_wet or ΔA_wet to A_new,dry: A_new,dry + ΔA_wet exceeds the
+aggregate A_new by {{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p50||.0f}} km² ({{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p05||.0f}}–{{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p95||.0f}}) on 7 June — the regime wetland dry
+on 5 June in that world (T12hb). Headline flood expansion = A_new,dry; wetland response = ΔA_wet; legacy aggregate A_new ≠ their sum.
 
 ## 3. The pre-event state of the wetland (T12j, p95z; stratum medians, nothing fitted)
 

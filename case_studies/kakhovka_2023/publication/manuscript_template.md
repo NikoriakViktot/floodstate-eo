@@ -32,20 +32,25 @@ the terrain bias. (4) Weak-label diagnostics: U-Net arms trained with three seed
 built after the operating threshold of its optical component was recalibrated out of fold and its post-event features were
 removed.
 
-**Results.** In the Dnipro corridor below the dam the reconstructed newly inundated area reaches
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June 2023 and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p50_km2||.0f}} km² on 8 June (Monte-Carlo medians; p05–p95
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} and
-{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p95_km2||.0f}} km²),
-between the Sentinel-1 acquisitions of 6 June (partial) and 9 June; the areal maximum falls on 8 June, the day of the peak stage at
-Kherson, in {{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} of the worlds and on 7 June in
+**Results.** On 7 June 2023, {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p50||.0f}} km² of land classified as dry before the breach
+was newly inundated in the Dnipro corridor below the dam (Monte-Carlo median; p05–p95
+{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p95||.0f}} km²). Separately, the
+inundated area within the vegetated wetland complex increased by {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p50||.0f}} km²
+({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p95||.0f}} km²);
+the latter estimate is more sensitive to uncertainty in the pre-event wetland state, whereas the event inundation boundary across the
+wetland showed strong spatial agreement with external satellite mapping. The aggregate newly inundated area under the former state
+definition — every cell outside the pre-breach regime counted alike, not the sum of the two — is {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km²
+on 7 June and {{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p50_km2||.0f}} km² on 8 June ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} and
+{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-08|A_p95_km2||.0f}} km²), between the Sentinel-1 acquisitions of 6 June (partial) and
+9 June; its maximum falls on 8 June, the day of the peak stage at Kherson, in
+{{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-08|share||.0%}} of the worlds and on 7 June in
 {{T12c|region=DNIPRO_CORRIDOR,quantity=new_km2,date_of_maximum=2023-06-07|share||.0%}}. The reconstructed
 total water-surface area rises from {{T12|region=DNIPRO_CORRIDOR,date=2023-06-05|W_total_p50_km2||.0f}} km² in the pre-breach
 regime to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p50_km2||.0f}} km²
 ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|W_total_p95_km2||.0f}} km²),
 the reconstructed new-water volume reaches {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p50_hm3||.0f}} hm³
 ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p05_hm3||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|V_p95_hm3||.0f}} hm³),
-and the newly inundated area recedes to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_p50_km2||.0f}} km² on 13 June and
+and the aggregate newly inundated area recedes to {{T12|region=DNIPRO_CORRIDOR,date=2023-06-13|A_p50_km2||.0f}} km² on 13 June and
 {{T12|region=DNIPRO_CORRIDOR,date=2023-06-21|A_p50_km2||.0f}} km² on 21 June. The maximum depth that the new inundation reached
 has a median of {{T12e|quantity=max_depth_event,region=DNIPRO_CORRIDOR|depth_median_m||.2f}} m and exceeds 2 m on
 {{T12e|quantity=max_depth_event,region=DNIPRO_CORRIDOR|share_gt_2m||.0%}} of the cells. Above the dam the pool fell from
@@ -429,7 +434,13 @@ nominal world {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_ev
 summed within each world, it is {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p50||.0f}} km²
 on 7 June ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR+INHULETS_VALLEY_rect,ground=dry_before_event|new_km2_p95||.0f}} km²).
 The rest of A_new lies on the wetland ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|new_km2_p50||.0f}} km² on 7 June) and on other water
-({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=other_water|new_km2_p50||.0f}} km²).
+({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=other_water|new_km2_p50||.0f}} km²). Within every world A_new is exactly the sum of these three parts (T12hb). The two
+reported quantities are not additive: A_new,dry + ΔA_wet exceeds A_new by {{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p50||.0f}} km²
+({{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p05||.0f}}–{{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dry_plus_dAwet_minus_Anew_p95||.0f}} km²) on 7 June, because ΔA_wet also
+counts the part of the normally-wet regime that was dry on 5 June in that world and under water on the day
+({{T12hb|date=2023-06-07,region=DNIPRO_CORRIDOR|dAwet_minus_Anew_wet_p50||.0f}} km²), which A_new excludes by definition. A_new is therefore the aggregate produced under
+the former state definition — kept as the series of Fig04 and T12 and as the gate of the split — and never the sum of the two new
+quantities: the headline flood expansion of this paper is A_new,dry, the wetland response is ΔA_wet.
 
 On the seasonally wet vegetated wetland the event extent and the pre-event state are separate questions. Inside the event extent on
 7 June lie {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_km2_p50||.0f}} km² of the wetland (p05–p95
@@ -1072,7 +1083,10 @@ correction. A residual terrain error of the FABDEM DTM under reeds, trees and bu
 term on the surveyed bed, and a class bias in the delta that depends on the epoch of the passes (T15c) and is not propagated. SWOT nodes
 on channels only, with the gauge cap beyond 15 km and the nearest-node fallback — structural choices outside the Monte-Carlo, to which
 the delta on 9–13 June is sensitive (§4.2.4) and which leave the upper Inhulets valley weakly constrained; the westernmost SWOT node of
-the delta has no observation from {{T17f|id=serving_node_unobserved|value||}}. No full-coverage satellite scene on the day of the
+the delta has no observation from {{T17f|id=serving_node_unobserved|value||}}. The event inundation boundary across the vegetated wetland complex was reproduced well, whereas the pre-event hydrological state
+beneath emergent vegetation remained uncertain; consequently the uncertainty affects the attribution of the inundated wetland area to
+newly flooded versus seasonally wet conditions, rather than the reconstructed event footprint itself (§4.1.1, T12h, T12hb). No
+full-coverage satellite scene on the day of the
 reconstructed areal maximum; the date-only gauge against 11:00 UTC SWOT passes. Weak labels whose positives are a persistence product,
 whose optical component is trained on Sentinel-1-derived labels, three training seeds per arm, test blocks read at several stages
 (exploratory comparisons), the W_pre circularity of U2b, and one event (no transfer to another flood). The primary rule has no
@@ -1093,13 +1107,17 @@ the surface are shown to be topographically unsupported, not attributed to a cau
 
 1. *Reconstruction.* The observed water surface, taken from the validated vertical frame of Paper 1 and projected on a bias-corrected
    seamless terrain model with connectivity and a same-rule baseline, gives a daily reconstructed extent, depth and volume for the
-   Kakhovka flood: the newly inundated area of the Dnipro corridor peaked at
-   {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km² on 7 June, between the available acquisitions, and receded within
-   two weeks; above the dam the pool lost most of its volume in the first week and most of its area in the second, and most of the
+   Kakhovka flood: on 7 June, {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p50||.0f}} km²
+   ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p95||.0f}} km²) of land classified as dry
+   before the breach was newly inundated in the Dnipro corridor, between the available acquisitions, and the inundation receded within
+   two weeks; separately, the inundated area within the vegetated wetland complex increased by
+   {{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p50||.0f}} km² ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=vegetated_wetland|water_increase_km2_p95||.0f}} km²),
+   a quantity that depends on the reconstructed pre-event state; the aggregate under the former state definition,
+   {{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p50_km2||.0f}} km², is not their sum; above the dam the pool lost most of its volume in the first week and most of its area in the second, and most of the
    released water was transmitted downstream rather than stored on the mapped floodplain.
 2. *Uncertainty.* The coherent Monte-Carlo interval is narrow
-   ({{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p05_km2||.0f}}–{{T12|region=DNIPRO_CORRIDOR,date=2023-06-07|A_p95_km2||.0f}} km² on
-   7 June); the structural and definitional choices — the support of the water surface, the handling of gaps, the reed beds — are
+   ({{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p05||.0f}}–{{T12h|date=2023-06-07,region=DNIPRO_CORRIDOR,ground=dry_before_event|new_km2_p95||.0f}} km² for the new inundation of
+   dry ground on 7 June); the structural and definitional choices — the support of the water surface, the handling of gaps, the reed beds — are
    larger and are reported as such, with the support class of every newly inundated cell; the nominal run is a diagnostic.
 3. *Independent validation.* The withheld gauges show where a static reconstruction fails — a tributary backwater running metres above
    the gauge and peaking three days early, and a western delta without an observed surface; Sentinel-1 agrees where it can see, and

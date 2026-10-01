@@ -520,6 +520,34 @@ def t12h_split():
                        "'all' = the A_new of T12 (gate); other_water = WorldCover water outside the optical reference (the remainder of A_new). Corridor + Inhulets summed within each world (date-matched).", [q], "independent_physical")
 
 
+def t12hb_identity():
+    """Maintainer 2026-10-01 ('146 + 114 != 234: check it in T12h/T28'): the accounting identities of the split, world by world
+    (p95e_split_draws): A_new = A_new,dry + A_new,wet + other (exact partition), and dA_wet exceeds A_new,wet by the regime wetland
+    that was dry on 5 June in that world -- so the legacy aggregate A_new is NOT A_new,dry + dA_wet."""
+    q = T / "p95e_split_draws.csv.gz"
+    if not q.exists():
+        return
+    D = pd.read_csv(q); rows = []
+    for (d, r), x in D.groupby(["date", "region"]):
+        P = x.pivot_table(index="draw", columns="ground", values=["new_km2", "water_increase_km2"]); new, inc = P["new_km2"], P["water_increase_km2"]
+        if "all" not in new or "dry_before_event" not in new:
+            continue
+        parts = new.reindex(columns=["dry_before_event", "vegetated_wetland", "other_water", "open_water_reference", "outside"]).fillna(0).sum(axis=1)
+        excess = new["dry_before_event"] + inc["vegetated_wetland"] - new["all"]; regime = inc["vegetated_wetland"] - new["vegetated_wetland"]
+        mc = excess.index > 0
+        rows.append(dict(date=d, region=r, partition_max_abs_diff_km2=round(float((new["all"] - parts).abs().max()), 6),
+                         dry_plus_dAwet_minus_Anew_nominal=round(float(excess.loc[0]), 2) if 0 in excess.index else np.nan,
+                         dry_plus_dAwet_minus_Anew_p05=round(float(np.percentile(excess[mc], 5)), 2), dry_plus_dAwet_minus_Anew_p50=round(float(np.percentile(excess[mc], 50)), 2),
+                         dry_plus_dAwet_minus_Anew_p95=round(float(np.percentile(excess[mc], 95)), 2),
+                         dAwet_minus_Anew_wet_p50=round(float(np.percentile(regime[mc], 50)), 2), dAwet_minus_Anew_wet_p05=round(float(np.percentile(regime[mc], 5)), 2),
+                         dAwet_minus_Anew_wet_p95=round(float(np.percentile(regime[mc], 95)), 2), dry_plus_dAwet_p50=round(float(np.percentile((new["dry_before_event"] + inc["vegetated_wetland"])[mc], 50)), 2)))
+    put("T12hb", pd.DataFrame(rows), "Accounting identities of the split (p95e_split_draws, per world; medians and p05-p95 over the Monte-Carlo worlds, nominal = draw 0): "
+                   "A_new = A_new,dry + A_new,wet + other holds exactly in every world (partition_max_abs_diff_km2); A_new,dry + dA_wet exceeds A_new by "
+                   "dAwet_minus_Anew_wet -- the part of the normally-wet regime that is dry on 5 June in that world and under water on the day, which dA_wet "
+                   "counts and A_new excludes by definition (inside the baseline). The legacy aggregate A_new is therefore not the sum of the two reported "
+                   "quantities and is never presented as such.", [q], "independent_physical")
+
+
 def t12i_delta():
     """Maintainer 2026-10-01: the reed-bed strata by zone, sensor and window (p95z) -- the seasonal evidence of the pre-event ground class
     VEGETATED_WETLAND (T12i in full, T12j compact), and the diagnostic comparison with the UNOSAT products per ground class (p95y; T16b, T16c)."""
@@ -867,7 +895,7 @@ def readme():
 def build(outdir: Path):
     outdir.mkdir(parents=True, exist_ok=True)
     for f in (t01_inventory, t01b_inventory, t02_labels, t02c_m2_threshold, t03_split, t04_arms, t05_endpoints, t06_paired, t05s_seeds, t07_attribution, t08_audit, t09_rf, t11_terrain, t12_daily,
-              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12f_combined, t12g_cellprob, t12h_split, t12i_delta, t11_seed_qa, t15d_saddle_audit, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
+              t13_terrain_vs_s1, t14_ontology, t15_icesat, t16_accounting, t17_swot_gauge, t18_dem, t19_series, t20_block_sensitivity, t12b_daily_series, t12f_combined, t12g_cellprob, t12h_split, t12hb_identity, t12i_delta, t11_seed_qa, t15d_saddle_audit, t12d_emulator_diagnostic, t21_reservoir, t_depth, t27_capacity_curves,
               t23_t26_reservoir_maps, t28_audit_changes):          # T28 last: it resolves cells of the tables above
         f()
     man = dict(generated_utc=time.strftime("%Y-%m-%dT%H:%M:%SZ", time.gmtime()), git_commit=subprocess.run(["git", "-C", str(REPO), "rev-parse", "HEAD"], capture_output=True, text=True).stdout.strip(),

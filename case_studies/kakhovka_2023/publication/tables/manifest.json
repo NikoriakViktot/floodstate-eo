@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-01T07:43:33Z",
- "git_commit": "d93515b4c1da4bd40276921f4a63ae9f5f9d66fd",
+ "generated_utc": "2026-10-01T10:49:46Z",
+ "git_commit": "076059341131b70fee231b2759c4b1b70a6d9204",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -585,6 +585,15 @@
    ],
    "sha256": "4ba35a5c4fee85f0f352df0787fb045494bacfa61841c72afe8b45a27024fbe4"
   },
+  "T12hb": {
+   "caption": "Accounting identities of the split (p95e_split_draws, per world; medians and p05-p95 over the Monte-Carlo worlds, nominal = draw 0): A_new = A_new,dry + A_new,wet + other holds exactly in every world (partition_max_abs_diff_km2); A_new,dry + dA_wet exceeds A_new by dAwet_minus_Anew_wet -- the part of the normally-wet regime that is dry on 5 June in that world and under water on the day, which dA_wet counts and A_new excludes by definition (inside the baseline). The legacy aggregate A_new is therefore not the sum of the two reported quantities and is never presented as such.",
+   "evidence_level": "independent_physical",
+   "rows": 40,
+   "sources": [
+    "case_studies/kakhovka_2023/tables/p95e_split_draws.csv.gz"
+   ],
+   "sha256": "764e7d2494c5f0bdeaa0b96c256ec56e8cef554b3ab7cdaed59935de9f271a14"
+  },
   "T12i": {
    "caption": "Reed-bed strata of the Kherson delta (Sentinel-2 frame B2) and of the floodway between the dam and Kherson (frame B1, west of 538 km) by window (p95z): 10 m Sentinel-2 indices and C-band backscatter of the zone caches, the median of the scene medians -- the same season of a normal year (13 June 2022), the spring 2023 scenes before the breach (Sentinel-2 in the floodway only, Sentinel-1 in both), the last optical scene before the breach (delta 5 March 2023, floodway 5 June 2023), the peak (8 June, partly cloudy: observed_km2) and the recession (18 June). Strata: NW_REEDS / NW_TREES = model-only normally wet reeds / floodplain forest; HIGH_REEDS = reeds > 0.5 m above the pre-breach surface and not reached on 7 June (P(water) < 0.05); OPEN_WATER = optical pre-breach water; EVENT_REEDS = reeds outside the normal regime that the ensemble floods on 7 June (P(water) >= 0.8); DRY_LAND = grass / cropland > 2 m above the 8 June surface. Observations, nothing fitted; a C-band double-bounce signature is consistent with wet or inundated emergent vegetation and establishes neither open water nor a depth; stratum-level evidence, not a map of water under the canopy on any day.",
    "evidence_level": "cross_sensor",
@@ -997,7 +1006,7 @@
    "sources": [
     "case_studies/kakhovka_2023/publication/audit_changes_source.csv"
    ],
-   "sha256": "7a1cec59b77d02bed87844fbcb55ba805f7df4eb652034cf61c6b956231edc72"
+   "sha256": "2171805142d6c7fe5da68eff1cad27e583c40dbf05ea96fc6c9d014f59da63a2"
   }
  },
  "sources": {
@@ -1189,6 +1198,7 @@
   "case_studies/kakhovka_2023/tables/p95e_draws.csv.gz": "d9e6de16b1c145297ee3cca5457b5fe5eabfcd898a23fc3102b6068af6100cb4",
   "case_studies/kakhovka_2023/tables/p95e_cellprob_summary.csv": "ed7fb96c4de89867da3f41d9e15c18b57bfd44d60b0fa82b6bf264603554f1fa",
   "case_studies/kakhovka_2023/tables/p95e_split_areas.csv": "4ae98cf7e49327fd98106a1bee40b868049195fcc0acfb052823a01b2849a942",
+  "case_studies/kakhovka_2023/tables/p95e_split_draws.csv.gz": "9546d1441f57d2c6e89a3b68b6a699b608c11c48238ccd4c1379506334f69a4c",
   "case_studies/kakhovka_2023/tables/p95z_strata_summary.csv": "8207ab85cc5d4d798da0500c0a24eadd2a34a362fbd5ff10d48d2c6a43b7f890",
   "case_studies/kakhovka_2023/tables/p95z_seasonal_baseline.csv": "d505357bd07475a540bf37ee74ab6befe718b074d33bc0aba2e52ed4015c7601",
   "case_studies/kakhovka_2023/tables/p95zm_index_classes.csv": "89a8b4fc2663be9ec49bb8d0753ba0b98bda6f88a9b9ec4e33f0e726308f4179",
@@ -1251,6 +1261,6 @@
   "case_studies/kakhovka_2023/tables/p95i_design_daily.csv": "4c5f3233ede822b408a0890d4db636f7289a77903ee85a7d5e9a19c0fff0a8a4",
   "case_studies/kakhovka_2023/tables/p95i_design_weekly_2023.csv": "2f702682e60baba3bc410b9b33ed0194274e8397357010a875ff77a5923990d9",
   "case_studies/kakhovka_2023/tables/p95i_manifest.json": "643b9edf728a448abe087e4d86b13d6ad1a3cc61609d09dd74de0386796940a1",
-  "case_studies/kakhovka_2023/publication/audit_changes_source.csv": "4acd31d37b0dec9510651ec1f78247b2c39e5e8a7c01d2318a65c7e3ce6382af"
+  "case_studies/kakhovka_2023/publication/audit_changes_source.csv": "a0efaa83e1562d9ef8f0cf6b3b8d01844ff28e83f9bdfdaa2787b809aad3fa3c"
  }
 }
