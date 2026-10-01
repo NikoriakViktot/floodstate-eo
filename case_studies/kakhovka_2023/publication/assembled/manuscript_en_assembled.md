@@ -23,7 +23,7 @@ Monte-Carlo worlds, each with one terrain-error field whose covariance is fitted
 water-surface realization, the baseline rebuilt in every world; every newly inundated cell is classed by the distance of its
 SWOT support. (3) Independent checks: two river gauges withheld from the reconstruction, Sentinel-1 dark-water masks on 11
 dates with the disagreement decomposed by surface class and elevation, and night ICESat-2 ground heights with a pass hold-out of
-the terrain bias. (4) Weak-label diagnostics: U-Net arms trained with three seeds each on the canonical weak-label ontology v004,
+the terrain bias. (4) Weak-label diagnostics: U-Net arms trained with three seeds each on the canonical weak-label ontology,
 built after the operating threshold of its optical component was recalibrated out of fold and its post-event features were
 removed.
 
@@ -190,7 +190,7 @@ world (T12f); the northern edge of the reconstruction domain cuts the valley, so
 - **River gauges** of the 2023 yearbooks, daily, in the EVRF2019 frame of Paper 1: **Kherson 80805** (the input and anchor of the
   water surface; river-yearbook values through the recorder failure of 6 June – 8 July, as in Paper 1) and, withheld from the
   reconstruction as validation sites, **Inhulets – Kalynivske 80575** and **Southern Bug – Mykolaiv 98027** (the liman) (§3.6).
-- **Seamless terrain–bed elevation model** (Paper 2): the kriged bathymetric bed inside the pre-breach water polygons and FABDEM v1.2 elsewhere — a bare-earth DTM derived from the Copernicus DEM with buildings and forests removed by machine learning (Hawker et al. 2022; the removal reduces the mean absolute vertical error in built-up areas from 1.61 to 1.12 m) — on one 20 m grid in EVRF2019, with a source mask that records which cells are FABDEM and which are bed; the reconstruction refuses an input that does not declare its vertical frame (§3.2). HAND from the p42 workflow (FABDEM floored at the 1 m river level, WhiteboxTools) enters a rule sensitivity and one U-Net arm.
+- **Seamless terrain–bed elevation model** (Paper 2): the kriged bathymetric bed inside the pre-breach water polygons and FABDEM v1.2 elsewhere — a bare-earth DTM derived from the Copernicus DEM with buildings and forests removed by machine learning (Hawker et al. 2022; the removal reduces the mean absolute vertical error in built-up areas from 1.61 to 1.12 m) — on one 20 m grid in EVRF2019, with a source mask that records which cells are FABDEM and which are bed; the reconstruction refuses an input that does not declare its vertical frame (§3.2). HAND from the floodplain workflow (FABDEM floored at the 1 m river level, WhiteboxTools) enters a rule sensitivity and one U-Net arm.
 - **Night ICESat-2 ATL08 ground segments** (2019–2025, Paper 2 chain) give the terrain accuracy by land-cover class (T18; robust
   statistics after Höhle and Höhle 2009): RMSE
   1.04 m, NMAD
@@ -198,12 +198,9 @@ world (T12f); the northern edge of the reconstruction domain cuts the valley, so
   841752 segments, with trees the worst class;
   on the FABDEM cells they calibrate the residual class bias and the terrain-error covariance of the Monte-Carlo (§3.4).
 - **Sentinel-1** (Torres et al. 2012) GRD, radiometrically terrain-corrected (Small 2011), eleven acquisitions 1–30 June 2023 (orbits 14, 65, 87, 138), per-scene dark-water masks (M3 rule of
-  Paper 1's water classifier, 20 m); orbit-138 dates cover 62 % of the observable domain. Orbit-matched dB change channels (p71)
+  Paper 1's water classifier, 20 m); orbit-138 dates cover 62 % of the observable domain. Orbit-matched dB change channels
   are the U-Net inputs. A second set of thirteen reference scenes (15 April–28 May 2023) defines recurrent May water.
 - **Sentinel-2** L2A scenes (Sen2Cor processing, Main-Knorn et al. 2017) as index stacks per date at 10 m — NDWI (McFeeters 1996), MNDWI (Xu 2006), NDVI (Tucker 1979), NDMI (Gao 1996), BSI (Rikimaru et al. 2002, Tropical Ecology 43, 39–47), AWEIsh (Feyisa et al. 2014) and the turbidity index NDTI (Lacaux et al. 2007) — and window composites: PRE (2022-01-01 … 2023-06-05), EVENT (2023-06-07 … 07-31) and TRACE (2023-08-01 … 11-30); the post-event TRACE window is not used by the canonical weak labels (§3.8).
-- **ESA WorldCover 2021** (10 m): the training reference of the RF20 surface classes and the classes of the disagreement ontology.
-- **Reservoir**: pool levels from the SWOT outlet nodes, the Nikopol post (press values) and the Rozumivka gauge; the DniproHES
-  release as inflow; the design level–area–volume table of the reservoir monograph (Table 19; T27).
 
 **Table T18.** Seamless terrain-bed model accuracy against night ICESat-2 ground segments (Paper 2 / p57): RMSE, MAE, bias, median, LE90, LE95, NMAD by zone and WorldCover class, all sources together (context; the uncertainty model uses the FABDEM-only rows of T18b). [independent_physical] *(16 of 16 rows and 10 of 12 columns shown; full table: publication/tables/T18.csv)*
 
@@ -225,6 +222,16 @@ world (T12f); the northern edge of the reconstruction domain cuts the valley, so
 | C seamless, ZONE_4_DAM_TO_KHERSON_FLOODWAY, WorldCover bare | 3525 | 1.42 | 0.903 | 0.309 | 0.307 | 1.852 | 2.388 | 0.935 | C |
 | C seamless, ZONE_4_DAM_TO_KHERSON_FLOODWAY, WorldCover wetla | 21543 | 1.239 | 0.764 | 0.577 | 0.584 | 1.304 | 1.729 | 0.416 | C |
 | C seamless, low terrain (< 5 m) incl. exposed bed | 81853 | 0.862 | 0.635 | 0.357 | 0.344 | 1.367 | 1.782 | 0.686 | C |
+
+The indices are computed on the offset-corrected L2A reflectances of the bands B02 (blue), B03 (green), B04 (red), B08 (NIR),
+B11 and B12 (SWIR):
+
+(16) NDVI = (B08 − B04)/(B08 + B04), NDWI = (B03 − B08)/(B03 + B08), MNDWI = (B03 − B11)/(B03 + B11), NDMI = (B08 − B11)/(B08 + B11),
+BSI = [(B11 + B04) − (B08 + B02)] / [(B11 + B04) + (B08 + B02)], AWEIsh = B02 + 2.5·B03 − 1.5·(B08 + B11) − 0.25·B12,
+NDTI = (B04 − B03)/(B04 + B03); the Sentinel-2 water rule of the checks is NDWI > 0 and MNDWI > 0 on cloud-free cells.
+- **ESA WorldCover 2021** (10 m): the training reference of the RF20 surface classes and the classes of the disagreement ontology.
+- **Reservoir**: pool levels from the SWOT outlet nodes, the Nikopol post (press values) and the Rozumivka gauge; the DniproHES
+  release as inflow; the design level–area–volume table of the reservoir monograph (Table 19; T27).
 
 **Table T27.** Design hypsometry of the Kakhovka reservoir from the Dnipro-reservoirs monograph (Table 19, Figs 13-15; transcribed from photographed pages in SWOT-DNIPRO): water level (historical Baltic, and +0.185 m to EVRF2019), surface area and volume of the whole pool and of the five reaches (dam - Babyne - Nikopol - Verkhnia Tarasivka - Blahovishchenka - Dnipro HPP) at 17 levels, with the design levels (NUF highest forced 17.5, NPG normal impoundment 16.0, UNS navigation drawdown 14.0, GMO dead volume 12.7 m) and the transcription check that the reaches add up to the total. Design data as published; nothing measured or fitted here. FigS10. [contextual] *(17 of 17 rows and 10 of 12 columns shown; full table: publication/tables/T27.csv)*
 
@@ -387,6 +394,14 @@ reported next to it (T11k, T11l, FigS14), and a run with no surface from nodes f
 | 2023-06-08 | DNIPRO_CORRIDOR | extrapolated | False |  | 130.29 | 6.754295174754575 | 0.575 |
 | 2023-06-08 | DNIPRO_CORRIDOR | weak | False |  | 14.63 | 10.966757836804108 | 0.0646 |
 
+In symbols, for node k on day t and for a cell x,
+
+(1) H_k(t) = wse_k(t) + geoid_k − ζ_EGG2015 + c_Kherson,
+
+(2) H(x, t) = median{ H_k(t) : k among the five nearest nodes with |x − x_k| ≤ 3 km }, with H(x, t) = H_gauge(t) where the nearest node is
+farther than 15 km and x lies west of the gauge, and H(x, t) = H_nearest(t) where no node lies within 3 km; H_k(t) between a node's
+observations is linear in time and held at the first and last observation beyond them.
+
 ### 3.3 Terrain-connectivity rule, pre-breach baseline, depth and volume
 
 The reconstruction is a static terrain-connectivity model rather than a dynamic hydraulic simulation. Gravitational control is
@@ -400,9 +415,8 @@ H(x, y, t) derived from the SWOT nodes and the gauge, with a same-rule pre-breac
 pre-existing water, and a propagated uncertainty (§3.4).
 
 A cell is water on day t if its terrain lies below the water surface and it is 8-connected, through such cells, to the
-**pre-breach river network** — the largest connected component of the pre-breach optical water map (p60 pre-water frequency
-≥ 20 %): the Dnipro from the dam to the liman with its delta and side channels, the Inhulets and the Kokan' — within 10 km of
-pre-breach water and downstream of the dam (*connected ceiling*, the primary rule; decision D-SEED). The event source is the
+**pre-breach river network** — the largest connected component of the pre-breach optical water map (pre-breach water frequency ≥ 20 %): the Dnipro from the dam to the liman with its delta and side channels, the Inhulets and the Kokan' — within 10 km of
+pre-breach water and downstream of the dam (*connected ceiling*, the primary rule). The event source is the
 river network, not every pre-existing water body: seeding the connectivity from all pre-breach water cells — the earlier form
 of this rule, kept as the provenance variant *all-prewater seeding* (T12, T13, FigS16) — let a few pond and canal cells "flood"
 42 km² of WorldCover cropland on the left-bank sandy
@@ -412,7 +426,7 @@ pre-breach water maps of the two frames are composed where each frame has labels
 zone boundary (a 30 m strip without labels at the boundary had split it in two at Kherson). Water that entered a depression
 while it was connected and stays after the connection is lost is not held by a static rule; a *memory* variant — a cell
 inundated on day t − 1 stays inundated on day t while it is still below the surface, a storage hypothesis without infiltration
-or drainage — is reported as a sensitivity and never as the primary (D-MEMORY; §4.2.4, T11p). Two other rules bracket it: the p42 rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; more restrictive, because the delta drainage is incompletely mapped) and the ceiling without connectivity. The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)" (Bates 2022), and GeoFlood's authors state as a limitation that "local depressions such as ponds or waterbodies … can be identified as flooded with GeoFlood even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the ceiling into a physically admissible extent; small channels that the 20 m grid does not resolve are a known control on floodplain connectivity (Neal et al. 2012), and in flat terrain the inferred flow path can differ from the real one (Guo et al. 2025) — the two reasons the rules are reported side by side rather than as one answer. The
+or drainage — is reported as a sensitivity and never as the primary (§4.2.4, T11p). Two other rules bracket it: the HAND rule (additionally HAND < WSE − 1 m, channel-connected through the mapped drainage; more restrictive, because the delta drainage is incompletely mapped) and the ceiling without connectivity. The connectivity requirement is not inherited from the terrain-index methods we build on: HAND-type methods "do not preserve hydraulic connectivity (i.e., floodplain cells lower than the channel water height are denoted as flooded whether or not there is a physical flow path to them)" (Bates 2022), and GeoFlood's authors state as a limitation that "local depressions such as ponds or waterbodies … can be identified as flooded with GeoFlood even if they are not connected with the main stem river" (Zheng et al. 2018). Enforcing connectivity by connected-components analysis, as in coastal bathtub mapping (Kulp and Strauss 2019), is what turns the ceiling into a physically admissible extent; small channels that the 20 m grid does not resolve are a known control on floodplain connectivity (Neal et al. 2012), and in flat terrain the inferred flow path can differ from the real one (Guo et al. 2025) — the two reasons the rules are reported side by side rather than as one answer. The
 rule is evaluated once on the union of the two zone grids, so that a connection may cross the zone boundary; the overlap is
 attributed to the delta zone only for accounting (a per-zone evaluation with the ownership applied before the connectivity finds
 0.0 km² of difference on 7 June, T11i). On the FABDEM cells the terrain enters after
@@ -420,13 +434,7 @@ subtraction of the residual class-dependent terrain-elevation bias, estimated pe
 ground differences (T18b; pooled medians: trees +1.65 m, wetland
 +0.56 m, grass +0.32 m, cropland
 +0.09 m); FABDEM is already a bare-earth DTM, so this is a residual bias, not a
-canopy correction, and the bed cells are used as surveyed. The *normal regime* is the union of the same rule over the pre-breach days 26 May–5 June plus the optically
-observed pre-breach water (water in at least 20 % of the pre-breach Sentinel-2 observations, p60); **new inundation** is water on day t outside that regime.
-Sentinel-1 darkness on 1–2 June is not part of the regime: a dark C-band return over dry sand or a smooth field is not water, and most of
-that ground was dry in the later images (T28); it only masks the Sentinel-1 new dark water of the checks, where the sensor was already dark. Cells of the model-only
-normal regime ("normally wet": low reed beds below the normal surface that no optical or SAR mask lists as water) are kept as
-their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation: in flooded vegetation the double bounce raises C-band backscatter above the non-flooded level, but once the water rises over the plants the signal turns dark (Grimaldi et al. 2020; Jarrett et al. 2023; review: Tsyganskaya et al. 2018; flooded vegetation "does not generally have a clear and unique radar signature", Pulvirenti et al. 2021), so the date on which a reed bed goes dark is the date its canopy went under, not the date water arrived. With the terrain as delivered (no residual bias removed) those reed beds sit above the normal surface and count as new inundation; we report
-that run as a sensitivity (T12) and the two quantities — new inundation and wetland submergence — separately.
+canopy correction, and the bed cells are used as surveyed.
 
 ![FigS16](img/FigS16.jpg)
 
@@ -571,6 +579,25 @@ that run as a sensitivity (T12) and the two quantities — new inundation and we
 | POOLED | bare | 3812 | 0.278 | 0.986 | 1.651 | 0.225 | 49 | 60.0 | FABDEM-sourced cells of the seamless terrain-bed model (sour |
 | POOLED | wetland | 33869 | 0.563 | 0.43 | 0.905 | 0.576 | 49 | 90.0 | FABDEM-sourced cells of the seamless terrain-bed model (sour |
 
+In symbols, with z(x) the terrain of the seamless model, a the cell area and S the pre-breach river network,
+
+(3) W_t = C_8( { x : z(x) < H(x, t) }, S ): the cells below the surface that are 8-connected to S through such cells (within 10 km of
+pre-breach water and downstream of the dam);
+
+(4) R = ∪_{t = 26 May … 5 June} W_t ∪ { x : f_water(x) ≥ 0.2 }: the normal regime, the union of the same rule over the pre-breach days
+and the optically observed pre-breach water (f_water = the share of the pre-breach Sentinel-2 observations that see water);
+
+(5) W_total(t) = a·|W_t|, A_new(t) = a·|W_t \ R|, d(x, t) = H(x, t) − z(x), V_new(t) = a·Σ_{x ∈ W_t \ R} d(x, t);
+
+(6) z(x) = z_FABDEM(x) − b_c(x) on the FABDEM cells, with b_c the median of z_FABDEM − z_ICESat-2 over the night ground segments of the
+WorldCover class c in the zone (T18b), and z = z_bed on the surveyed bed. The *normal regime* is the union of the same rule over the pre-breach days 26 May–5 June plus the optically
+observed pre-breach water (water in at least 20 % of the pre-breach Sentinel-2 observations); **new inundation** is water on day t outside that regime.
+Sentinel-1 darkness on 1–2 June is not part of the regime: a dark C-band return over dry sand or a smooth field is not water, and most of
+that ground was dry in the later images; it only masks the Sentinel-1 new dark water of the checks, where the sensor was already dark. Cells of the model-only
+normal regime ("normally wet": low reed beds below the normal surface that no optical or SAR mask lists as water) are kept as
+their own category, because a Sentinel-1 dark-water onset there is a depth signal — the reeds are submerged — not the onset of inundation: in flooded vegetation the double bounce raises C-band backscatter above the non-flooded level, but once the water rises over the plants the signal turns dark (Grimaldi et al. 2020; Jarrett et al. 2023; review: Tsyganskaya et al. 2018; flooded vegetation "does not generally have a clear and unique radar signature", Pulvirenti et al. 2021), so the date on which a reed bed goes dark is the date its canopy went under, not the date water arrived. With the terrain as delivered (no residual bias removed) those reed beds sit above the normal surface and count as new inundation; we report
+that run as a sensitivity (T12) and the two quantities — new inundation and wetland submergence — separately.
+
 *New inundation of dry ground and the response of the wetland complex.* The reed beds of the delta and of the floodplain were wetland,
 not dry ground, before the breach, and their inundation is a different physical quantity from the flooding of dry ground, so the two are
 reported apart. Flood mapping separates the event from the normally present water with a reference-water state, and taking its
@@ -579,7 +606,7 @@ vegetation that state cannot be observed with the sensors used here: standard op
 the flooding duration under a vegetation cover (Lefebvre et al. 2019), subcanopy flooding in high-vegetated wetlands could not be
 detected with Sentinel-1 VV/VH (Slagter et al. 2020), and in tropical herbaceous wetlands inundated vegetation can account for over
 three quarters of the inundated area, which open-water mapping does not detect (Oakes et al. 2023). Every cell therefore carries one
-of three pre-event ground classes (p95x): *dry before the event* — no optical pre-breach water, outside the normal regime, neither
+of three pre-event ground classes: *dry before the event* — no optical pre-breach water, outside the normal regime, neither
 WorldCover herbaceous wetland nor water; the *seasonally wet vegetated wetland* — WorldCover herbaceous wetland (the reed beds,
 including those above the normal surface) and the model-only normally-wet ground, whose low reed beds carry a seasonal C-band
 signature of wet emergent vegetation before the breach (T12j) but for which no observation gives a binary map of water under the
@@ -636,6 +663,43 @@ they are never added to A_new,dry as one flooded area.
 | 2023-06-06 | INHULETS_VALLEY_rect | other_water | 1000 | 2.04 | 1.6 | 1.85 | 1.99 | 2.04 | 1.73 |
 | 2023-06-06 | INHULETS_VALLEY_rect | vegetated_wetland | 1000 | 2.03 | 2.95 | 4.53 | 7.23 | 23.09 | 23.0 |
 | 2023-06-07 | DNIPRO_CORRIDOR | all | 1000 | 214.86 | 216.0 | 233.71 | 253.73 | 718.67 | 685.94 |
+
+With G_dry, G_wet and G_ref the three pre-event ground classes,
+
+(7) A_new,dry(t) = a·|(W_t \ R) ∩ G_dry|, A_wet(t) = a·|W_t ∩ G_wet|, ΔA_wet(t) = A_wet(t) − A_wet(5 June),
+
+and in every world A_new(t) = A_new,dry(t) + a·|(W_t \ R) ∩ G_wet| + a·|(W_t \ R) ∩ G_other| exactly (T12hb); A_new,dry + ΔA_wet is not
+A_new, because ΔA_wet also counts regime wetland that is dry on 5 June in that world.
+
+**Table T12hb.** Accounting identities of the split (p95e_split_draws, per world; medians and p05-p95 over the Monte-Carlo worlds, nominal = draw 0): A_new = A_new,dry + A_new,wet + other holds exactly in every world (partition_max_abs_diff_km2); A_new,dry + dA_wet exceeds A_new by dAwet_minus_Anew_wet -- the part of the normally-wet regime that is dry on 5 June in that world and under water on the day, which dA_wet counts and A_new excludes by definition (inside the baseline). The legacy aggregate A_new is therefore not the sum of the two reported quantities and is never presented as such. [independent_physical] *(25 of 40 rows and 10 of 11 columns shown; full table: publication/tables/T12hb.csv)*
+
+| date | region | partition_max_abs_diff_km2 | dry_plus_dAwet_minus_Anew_nominal | dry_plus_dAwet_minus_Anew_p05 | dry_plus_dAwet_minus_Anew_p50 | dry_plus_dAwet_minus_Anew_p95 | dAwet_minus_Anew_wet_p50 | dAwet_minus_Anew_wet_p05 | dAwet_minus_Anew_wet_p95 |
+|---|---|---|---|---|---|---|---|---|---|
+| 2023-06-05 | DNIPRO_CORRIDOR | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| 2023-06-05 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| 2023-06-05 | INHULETS_VALLEY_rect | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| 2023-06-05 | P42_FLOODPLAIN_DOMAIN | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
+| 2023-06-06 | DNIPRO_CORRIDOR | 0.0 | 27.84 | 15.28 | 26.63 | 37.29 | 28.73 | 17.42 | 39.45 |
+| 2023-06-06 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.18 | 16.19 | 27.97 | 39.26 | 31.93 | 20.18 | 43.19 |
+| 2023-06-06 | INHULETS_VALLEY_rect | 0.0 | 1.34 | -1.04 | 1.38 | 3.93 | 3.19 | 0.81 | 5.68 |
+| 2023-06-06 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.81 | 20.82 | 24.99 | 29.46 | 26.94 | 22.75 | 31.45 |
+| 2023-06-07 | DNIPRO_CORRIDOR | 0.0 | 27.77 | 12.16 | 26.28 | 39.92 | 28.85 | 14.79 | 42.47 |
+| 2023-06-07 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 28.79 | 12.63 | 26.98 | 41.04 | 31.76 | 17.51 | 45.81 |
+| 2023-06-07 | INHULETS_VALLEY_rect | 0.0 | 1.02 | -1.43 | 0.99 | 3.5 | 3.19 | 0.81 | 5.68 |
+| 2023-06-07 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.57 | 20.3 | 24.67 | 29.39 | 27.06 | 22.67 | 31.75 |
+| 2023-06-08 | DNIPRO_CORRIDOR | 0.0 | 28.13 | 0.7 | 25.52 | 44.55 | 27.96 | 3.32 | 47.2 |
+| 2023-06-08 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.0 | 1.42 | 26.17 | 45.8 | 31.04 | 6.38 | 50.78 |
+| 2023-06-08 | INHULETS_VALLEY_rect | 0.0 | 0.87 | -1.61 | 0.79 | 3.35 | 3.19 | 0.81 | 5.68 |
+| 2023-06-08 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.7 | 19.11 | 24.5 | 29.55 | 26.76 | 21.28 | 31.92 |
+| 2023-06-09 | DNIPRO_CORRIDOR | 0.0 | 28.79 | 1.21 | 25.65 | 45.0 | 27.99 | 3.49 | 47.33 |
+| 2023-06-09 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.55 | 1.7 | 26.23 | 45.92 | 31.1 | 6.52 | 50.82 |
+| 2023-06-09 | INHULETS_VALLEY_rect | 0.0 | 0.76 | -1.73 | 0.69 | 3.24 | 3.19 | 0.81 | 5.68 |
+| 2023-06-09 | P42_FLOODPLAIN_DOMAIN | 0.0 | 26.15 | 19.35 | 24.74 | 29.82 | 26.81 | 21.39 | 31.93 |
+| 2023-06-11 | DNIPRO_CORRIDOR | 0.0 | 29.3 | -12.02 | 22.26 | 45.4 | 24.5 | -9.9 | 47.81 |
+| 2023-06-11 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 30.18 | -11.34 | 22.81 | 46.82 | 27.49 | -6.71 | 51.78 |
+| 2023-06-11 | INHULETS_VALLEY_rect | 0.0 | 0.87 | -1.62 | 0.79 | 3.34 | 3.19 | 0.81 | 5.68 |
+| 2023-06-11 | P42_FLOODPLAIN_DOMAIN | 0.0 | 26.24 | 16.0 | 23.29 | 29.27 | 25.3 | 17.97 | 31.29 |
+| 2023-06-13 | DNIPRO_CORRIDOR | 0.0 | 29.82 | -11.81 | 22.51 | 45.72 | 24.55 | -9.85 | 48.05 |
 
 The depth of a newly inundated cell on day t is H − z of the seamless terrain–bed model, and the *reconstructed new-water volume*
 V_new is its integral over the newly inundated area. The per-cell maximum of the daily depth over 26 May–10 July (Fig07a) is a
@@ -774,6 +838,19 @@ cells, T11j).
 | 2023-06-18 | DNIPRO_CORRIDOR | FABDEM_tapered_edge | 4 | 0.92 | 0.0272 |
 | 2023-06-21 | DNIPRO_CORRIDOR | FABDEM | 3 | 3.87 | 0.9481 |
 
+In symbols, for world j, node k, day t and cell x,
+
+(8) H_k^(j)(t) = H_k(t) + δ_c^(j) + δ_k^(j)(t)·𝟙[observed] + s(g)·ε_{k,g}^(j)·𝟙[interpolated or held] + δ_gauge^(j)·𝟙[k = gauge],
+with δ_c ~ N(0, 0.05²) shared by every node and day, δ_k ~ N(0, wse_u,k²), ε ~ N(0, 1) one draw per node and gap g, s(g) the
+gap-matched cross-validation spread (T11f) and δ_gauge ~ N(0, 0.05²);
+
+(9) z^(j)(x) = z(x) + NMAD_c(x)·η^(j)(x), η ~ GRF(0, C), C(h) = n·𝟙[h = 0] + (1 − n)·[w·exp(−h/a₁) + (1 − w)·exp(−h/a₂)],
+with NMAD_c = 1.4826·median|r_c − median r_c| of the class residuals r_c = z_FABDEM − z_ICESat-2 (T18b), n, w, a₁ and a₂ fitted to
+the standardized residuals of same-date ICESat-2 pairs (T18c), and η = 0 on the bed cells;
+
+(10) every area and volume is summarised by its ensemble median q₅₀ and p05–p95 (q₀₅, q₉₅); the relative half-width is
+r = (q₉₅ − q₀₅) / (2·q₅₀).
+
 These 1000 draws are the **primary uncertainty interval** of every
 reconstructed area and volume: the Monte-Carlo median is the reported central value, p05–p95 is reported next to it, and relative
 half-widths are taken over the median. The deterministic nominal run (draw 0, unperturbed inputs) is a diagnostic; its position
@@ -781,7 +858,7 @@ relative to the ensemble and the width of the interval are attributed to the err
 stability of the quantiles against the ensemble size and a second seed is shown in T11c and FigS12 (finite ensembles carry their
 own sampling uncertainty of tail quantiles, Roy and Gupta 2021), the day of the areal maximum is reported as a distribution over
 the worlds (T12c), and the sensitivity of the connected area to a uniform water-surface offset is given in T11e and FigS13. A
-cluster-normal emulator with 100 000 draws per day (p95g) is kept only as a computational diagnostic (T12d): it has no
+cluster-normal emulator with 100 000 draws per day is kept only as a computational diagnostic (T12d): it has no
 connectivity and its total water-surface envelope is built around the nominal total, so it is not an uncertainty estimate and no
 reported number rests on it. The structural choices — the rule, the terrain as delivered, the fallback distance, the handling of
 gaps in the node series, the seed network, the connectivity neighbourhood — are outside the budget and are reported as
@@ -947,16 +1024,7 @@ Above the dam, the daily pool surface is interpolated along the river chainage b
 and the Rozumivka gauge (three or four level points per day) and integrated over the seamless terrain–bed model (50 m) inside the
 pre-breach pool polygon: pool water area and volume (T21), and water depth as surface minus terrain on the wet cells (Fig10,
 T21b). The storage balance gives the *daily-mean effective release*, −dV/dt + Q_in, with the DniproHES release as the inflow
-Q_in — a daily mean, not an instantaneous breach discharge. As a classical, terrain-free reference the design level–volume curve
-(Table 19 of the reservoir monograph; T27) is read at the observed levels; it is defined between 10 and 18 m (BS-77) and left
-undefined outside that range, and weekly storage changes are sums of the daily changes over the same days, one series per level
-source (T27b, T27c). The pool levels are in Paper 1's frame (the SWOT outlet with the reservoir closure of Paper 1, so that the pool surface falls
-from 17.61 m on 31 May to 5.71 m on 13 June at the outlet, as in
-Paper 1); a Sentinel-6A altimetry series (G-REALM) is plotted as a check but not used as an anchor, because its vertical chain is
-not part of that frame and on 9 June it stood above the Nikopol post 50 km upstream. On 13 June the Nikopol post reported only an
-upper bound (the level had fallen below it), so the pool surface, area, volume and depth of 12–13 June are upper estimates. The
-reservoir side is context for the downstream reconstruction; Sentinel-2, observing the whole pool on 20 June, is its
-cross-sensor check (§4.3.5).
+Q_in — a daily mean, not an instantaneous breach discharge.
 
 ![Fig10](img/Fig10.jpg)
 
@@ -1000,6 +1068,19 @@ cross-sensor check (§4.3.5).
 | 2023-06-07 | 3 | 2054.2 | 12.707 | 12.707 | 6.19 | 5.78 | 10.77 | 27.29 | 0.59 |
 | 2023-06-09 | 3 | 1956.5 | 8.32 | 8.32 | 4.25 | 3.74 | 8.58 | 25.26 | 0.372 |
 | 2023-06-13 | 3 | 1790.0 | 4.218 | 4.218 | 2.36 | 2.07 | 5.01 | 20.93 | 0.05 |
+
+In symbols, with V(t) the pool volume under the sloped surface on day t and Q_in the DniproHES release,
+
+(11) Q_eff(t) = −[V(t) − V(t − 1)] / (1 day) + Q_in(t): the daily-mean effective release. As a classical, terrain-free reference the design level–volume curve
+(Table 19 of the reservoir monograph; T27) is read at the observed levels; it is defined between 10 and 18 m (BS-77) and left
+undefined outside that range, and weekly storage changes are sums of the daily changes over the same days, one series per level
+source (T27b, T27c). The pool levels are in Paper 1's frame (the SWOT outlet with the reservoir closure of Paper 1, so that the pool surface falls
+from 17.61 m on 31 May to 5.71 m on 13 June at the outlet, as in
+Paper 1); a Sentinel-6A altimetry series (G-REALM) is plotted as a check but not used as an anchor, because its vertical chain is
+not part of that frame and on 9 June it stood above the Nikopol post 50 km upstream. On 13 June the Nikopol post reported only an
+upper bound (the level had fallen below it), so the pool surface, area, volume and depth of 12–13 June are upper estimates. The
+reservoir side is context for the downstream reconstruction; Sentinel-2, observing the whole pool on 20 June, is its
+cross-sensor check (§4.3.5).
 
 **Table T27b.** The observed 2023 levels, 1 February - 10 July, read on the design curve of T27 (level - 0.185 m -> historical Baltic): before the breach the Rozumivka gauge 80959 (terms 08/20 averaged; the only 2023 daily series; the pool was level, so one gauge reads the whole pool), with G-REALM, ICESat-2 and the SWOT outlet as checks; from 26 May the p95f daily levels (the pre-breach outlet value is HELD, not observed daily -- flagged). 'Outlet' = SWOT nodes at 0 km, the pool just above the dam; for comparison the SWOT level 0.5 km below the dam (p59/p60) and the Kherson gauge 80805, with the head across the dam and pool-minus-Kherson. Design volume and area at the Rozumivka and at the outlet level (during the drawdown the surface sloped by up to 4 m, so the two readings bracket the pool), the volume released from the design curve, and the storage balance with the DniproHES inflow, computed separately for each level source and never switched inside a series (review F14): Q_out = Q_in - dV_design/dt on the Rozumivka series (the whole period; the upper-bound level during the drawdown) and on the outlet series (from 26 May; the lower-bound level) = the outflow through the Kakhovka HPP before the breach and the daily-mean effective release after it (design-curve counterpart of T21; a residual without lateral inflow, evaporation or withdrawals); rozumivka_source names the source of every level used. NaN once a level is below 10.0 m BS, the lowest level of Table 19 (never the endpoint value). Context for Paper 4. [independent_physical] *(25 of 160 rows and 10 of 41 columns shown; full table: publication/tables/T27b.csv)*
 
@@ -1130,6 +1211,10 @@ repeated; T17 lists the same comparison on this paper's node selection as an inp
 | rise and peak 06-06..06-14 | 7 | 0.07 | 0.09 | 0.07 | 0.079 | 0.022 | -0.003 | 0.105 | day (one 11:00 UTC overpass vs a date-only daily gauge value |
 | recession 06-15..07-10 | 18 | -0.014 | -0.019 | 0.041 | 0.047 | 0.048 | -0.093 | 0.064 | day (one 11:00 UTC overpass vs a date-only daily gauge value |
 
+In symbols, with H_rec the reconstructed surface at the gauge, H_g the gauge level and the subscript *pre* the pre-breach mean,
+
+(12) e_abs(t) = H_rec(t) − H_g(t), e_rel(t) = [H_rec(t) − H_rec,pre] − [H_g(t) − H_g,pre].
+
 On each Sentinel-1 date the reconstruction is compared with the S1 new dark water (mask minus water on 1–2 June) on the S1
 valid footprint, the owned zone area and outside the cut rectangles: hits, misses, terrain-only cells, POD, FAR and CSI (contingency-table measures, Schaefer 1990; raw agreement, primary, T13) — reported per date and per domain because binary pattern measures depend on the size of the flood and of the domain over which they are computed (Stephens et al. 2014); the *conditional POD outside the normally-wet class* — POD on the observable dry-background
 domain, with the class fixed before any comparison was read — is a diagnostic conditional agreement, not a corrected POD. The
@@ -1164,6 +1249,19 @@ relative to the reconstructed surface (< 0, 0–2, 2–5, ≥ 5 m; T14).
 | ZONE_2_KHERSON_DELTA | 2023-06-14 | B | 50.33 | 50.33 | 0.0 | 0.0 | 0.0 | 0.0 | 9.75 |
 | ZONE_2_KHERSON_DELTA | 2023-06-14 | C | 34.28 | 17.75 | 3.38 | 2.39 | 10.75 | 18.28 | 0.37 |
 | ZONE_2_KHERSON_DELTA | 2023-06-14 | N | 1199.46 | 320.82 | 111.36 | 60.15 | 699.46 | 132.09 | 139.89 |
+
+With TP the area both call water, FP the area only the reconstruction calls water, FN the area only Sentinel-1 calls water, a = TP + FP,
+b = TP + FN and N the area of the comparison domain,
+
+(13) POD = TP / (TP + FN), FAR = FP / (TP + FP), CSI = TP / (TP + FP + FN), and POD_cond = TP′ / (TP′ + FN′) over the cells outside the
+normally-wet class;
+
+(14) CSI_chance = e / (a + b − e) with e = a·b / N, the CSI of the same two areas placed independently in the domain, and the Heidke
+skill HSS = (p_o − p_e) / (1 − p_e) with p_o = (TP + TN) / N and p_e = [a·b + (N − a)(N − b)] / N²;
+
+(15) where a state mask leaves U cells undecided (UNKNOWN), of which U_w are water in the reference, the CSI of the decided cells is
+bracketed by CSI_min = TP / (TP + FP + FN + U) and CSI_max = (TP + U_w) / (TP + U_w + FP + FN), the two extreme assignments of the
+undecided cells; coverage is the decided share of the domain.
 
 Night ICESat-2 ATL08 ground segments (Paper 2 chain) sampled on the 9 June categories (inside the S1 valid footprint only) give,
 per category, the residual terrain − ICESat-2 on the FABDEM cells, as delivered and after the class-bias correction, and the
@@ -1257,7 +1355,7 @@ one pass left out, five folds of whole passes, and the two epochs either side of
 
 A random forest (Breiman 2001; for its use in land-cover mapping see Belgiu and Drăguţ 2016) on PRE-event Sentinel-2 composite
 predictors, trained on ESA WorldCover 2021 with a purity filter, classifies the surface at 20 m into water, cropland,
-grass/low vegetation, forest, wetland/reed, built-up, bare sand and uncertain (p73). The 5 km cross-validation blocks are defined
+grass/low vegetation, forest, wetland/reed, built-up, bare sand and uncertain. The 5 km cross-validation blocks are defined
 from the map coordinates of the 20 m cells, so a physical cell lies in one block in both frames; where the frames overlap only B2
 contributes training cells, so a physical cell enters the sample once; the cross-validation is repeated with a 3.5 km buffer
 around the test blocks, and the frame transfers B1↔B2 are trained and tested outside the overlap. Per-class precision, recall and
@@ -1309,7 +1407,7 @@ ontology, the evaluation strata of the U-Net arms and the input of arm U1.
 ### 3.8 Weak labels and the U-Net diagnostics
 
 *The optical component.* The weak labels combine Sentinel-1 persistence with an optical second opinion, M2: a random forest on
-Sentinel-2 composite features trained on the Sentinel-1-derived weak labels of p60 — so it is not independent of Sentinel-1. Its
+Sentinel-2 composite features trained on the Sentinel-1-derived weak labels — so it is not independent of Sentinel-1. Its
 operating threshold T50 is the median of the five outer-fold thresholds of a nested spatial cross-validation on 5 km blocks for a
 target recall of 0.90, calibrated on inner out-of-fold scores (fit and calibration cells disjoint, whole blocks), and an envelope
 of more permissive fold thresholds marks weaker optical support (T02c). The canonical M2 uses the 67 features of the PRE and EVENT
@@ -1338,21 +1436,19 @@ windows and none from the post-event TRACE window. The M2 score is not interpret
 | M2 corrected (67 PRE + EVENT features; labels v004) | corrected_notrace | block | median | 22174408 |  | 0.89362 | 0.92532 | 0.4463 | 0.8601 |
 | M2 corrected (67 PRE + EVENT features; labels v004) | corrected_notrace | buffered | median | 22174408 |  | 0.89128 | 0.8833 | 0.4584 | 0.57473 |
 
-*The label versions.* Three label versions exist; only the last is used for the analyses of this paper, and the other two are
-kept as provenance. **v002**, the historical initial version, marks FLOOD where Sentinel-1 saw water on at least two of the three
-peak dates (9, 13, 14 June) on land that was dry before the breach and where M2 calls flood at T50, NON_FLOOD where every observed
-post-breach date was dry and M2 does not, and IGNORE elsewhere. **v003_A**, an intermediate redesign prompted by failure cases,
-keeps these positives and adds an explicit ontology: REFERENCE_WATER — recurrent water on at least three admitted May dates — as a
-negative class, LAND, and UNKNOWN for insufficient, mixed or extrapolated evidence, with the immediate pre-event state W_pre
-(1–2 June) entering the ontology. Both were built on an M2 that used 17 features of the post-event TRACE window and whose
-threshold was calibrated on the forest's own training predictions. **v004** applies the v003_A rules to the corrected M2: v004 is
-the final weak-label ontology used for manuscript analyses after correcting threshold calibration and removing TRACE dependence
-from the M2 label pathway (T02, T02c, T02d; truth tables and the lineage down to the composite windows in
-`docs/LABEL_CONTRACTS.md`). The v002 rule applied to the corrected M2 (v002_notrace), which has no REFERENCE_WATER class, is the
-reference of the label comparison of §4.4.4. For training, EVENT_FLOOD is 1, LAND and REFERENCE_WATER are 0 and UNKNOWN is ignored.
-Withholding the decision where the evidence is ambiguous follows operational practice: Bayesian Sentinel-1 flood mapping excludes
-decisions whose two class probabilities are close to equal (Bauer-Marschallinger et al. 2022; Roth et al. 2025), and an operational boreal flood product classes "areas identified as non-flooded in semi-forested areas" as uncertain (Cohen et al. 2022).
-Every version remains a weak label: v004 is the most consistent of the three, not a reference of higher quality, and agreement with it is not accuracy.
+*The labels.* The canonical weak labels used for every analysis of this paper mark EVENT_FLOOD where Sentinel-1 saw water on at
+least two of the three peak dates (9, 13, 14 June) on land that was dry before the breach and where M2 calls flood at T50;
+REFERENCE_WATER — recurrent water on at least three admitted May dates — as a negative class; LAND where every observed post-breach
+date was dry and M2 does not call flood; and UNKNOWN for insufficient, mixed or extrapolated evidence, with the immediate pre-event
+state W_pre (1–2 June) entering the ontology. They are built on the corrected M2 — threshold calibrated out of fold, no post-event
+features (T02, T02c, T02d). Two earlier label sets are kept only as provenance and enter two diagnostics: the initial rule, which has
+no REFERENCE_WATER class, applied to the corrected M2 (*the no-reference-water labels*) is the reference of the label comparison of
+§4.4.4, and the intermediate set, built on an M2 that used 17 post-event features and an in-sample threshold, is the baseline of the
+label-change table (T02d). For training, EVENT_FLOOD is 1, LAND and REFERENCE_WATER are 0 and UNKNOWN is ignored. Withholding the
+decision where the evidence is ambiguous follows operational practice: Bayesian Sentinel-1 flood mapping excludes decisions whose two
+class probabilities are close to equal (Bauer-Marschallinger et al. 2022; Roth et al. 2025), and an operational boreal flood product
+classes "areas identified as non-flooded in semi-forested areas" as uncertain (Cohen et al. 2022). Every label set remains a weak
+label: the canonical set is the most consistent of the three, not a reference of higher quality, and agreement with it is not accuracy.
 
 **Table T02.** Weak reference labels per frame, km2: v002 (FLOOD / NON_FLOOD / IGNORE) and v003_A (LAND / EVENT_FLOOD / REFERENCE_WATER / UNKNOWN), built on the original M2 (with the post-event TRACE window, in-sample threshold; frozen history), and v002_notrace and v004, the same rules on the corrected M2 (no TRACE, out-of-fold threshold; review F09/F10). EVENT_FLOOD is pixel-identical to the FLOOD of the v002 version it inherits. [weak_label_agreement] *(2 of 2 rows and 10 of 16 columns shown; full table: publication/tables/T02.csv)*
 
@@ -1393,21 +1489,26 @@ Every version remains a weak label: v004 is the most consistent of the three, no
 
 *The arms.* U-Net arms (ResNet-34 encoder from scratch, 512-px patches, masked binary cross-entropy + Dice loss (Milletari et al.
 2016), 60 epochs) differ only in their inputs: U0d (Sentinel-1 orbit-matched change channels + support), U1 (+ RF20 one-hot), U2
-(+ HAND) and U2b (+ W_pre). Each arm is trained with three seeds (20260923, 20261001, 20261002), and each run's threshold is frozen
+(+ HAND) and U2b (+ W_pre). Each arm is trained with three seeds, and each run's threshold is frozen
 on the validation blocks before the test blocks are read. U2b is a diagnostic: W_pre is both an input and a label ingredient, so
 its comparison is not independent.
 
+The loss is the sum of the binary cross-entropy over the labelled pixels and the Dice term,
+
+(17) L = BCE_masked + 1 − 2·Σ_i p_i·y_i / (Σ_i p_i + Σ_i y_i), summed over the pixels with a label (UNKNOWN masked); the agreement
+endpoints are F1 = 2·TP / (2·TP + FP + FN) and the areas of predicted flood per stratum, each from the pixels of the test blocks.
+
 ### 3.9 Spatial blocking, training seeds and statistics
 
-The split m6_split_v1 assigns 10 km blocks of the global lattice to train, validation and test with 640 m eroded buffers and
+The spatial split assigns 10 km blocks of the global lattice to train, validation and test with 640 m eroded buffers and
 pure 512-px footprints (T03; {'train': 64, 'val': 15, 'test': 20} blocks). The block size exceeds the patch plus two
 buffers (5.12 + 1.28 km), the minimum for which a validation patch exists (a 5 km split leaves none); 7.5, 15 and 20 km splits
-retrain U2 as a sensitivity (T20). Endpoints are computed on unique test pixels against the v004 labels and compared between arms
+retrain U2 as a sensitivity (T20). Endpoints are computed on unique test pixels against the The canonical labels mark and compared between arms
 by a paired bootstrap over identical physical blocks (2000 resamples); an endpoint without support in a resample is undefined,
 not zero, and the number of defined resamples is reported. Three training seeds are the minimum evidence unit for any claim
 about an arm difference: every comparison is reported per seed, with the number of seeds whose interval excludes zero and whether
 their signs agree (T06s, T07s); a production raster may come from one frozen model. The test blocks were read for comparisons at
-several stages of this study (including one diagnostic look at a test prediction during the v003_A redesign), so the arm
+several stages of this study (including one diagnostic look at a test prediction during the redesign of the labels), so the arm
 comparisons are exploratory rather than confirmatory. Per-day statistics of the water surface use the day as the independent
 unit, ICESat-2 statistics the pass.
 
@@ -1506,7 +1607,7 @@ validation and the surface context that explains the disagreement (§4.3), and w
 volumes of the reconstruction are Monte-Carlo medians with their p05–p95 unless marked otherwise; maps show the geometry of the
 nominal world.
 
-### 4.1 The terrain-connectivity reconstruction [C01–C03, C14]
+### 4.1 The terrain-connectivity reconstruction
 
 #### 4.1.1 The daily series below the dam
 
@@ -1514,7 +1615,7 @@ In the Dnipro corridor the reconstructed newly inundated area rises from zero on
 152 km² on 6 June and reaches
 234 km² on 7 June (p05–p95
 216–254 km²),
-a day between the Sentinel-1 acquisitions that no full-coverage scene of the corridor covers [C01]; it is
+a day between the Sentinel-1 acquisitions that no full-coverage scene of the corridor covers; it is
 239 km² on 8 June and
 201 km² on 9 June (Fig04, T12). The Kherson stage peaks one day later
 (5.77 m on 8 June, the daily value of the river yearbook; the
@@ -1528,12 +1629,12 @@ the pre-breach regime (5 June; p05–p95
 to 716 km² on 7 June
 (686–744 km²),
 and the reconstructed new-water volume reaches 603 hm³
-(542–659 hm³) [C02].
+(542–659 hm³).
 The newly inundated area then recedes with the Kherson stage:
 143 km² on 13 June,
 45 km² on 18 June and
 3 km² on 21 June, when the stage is back at
-0.73 m (Fig04) [C03]. Inside the p42 floodplain domain the maximum
+0.73 m (Fig04). Inside the terrain-eligible floodplain domain the maximum
 is 190 km² on 8 June. The Inhulets valley, reported separately and
 never added to the corridor, peaks at 50 km² on 9 June; how well
 that is constrained is the subject of §4.2.3 and §4.3.1.
@@ -1558,36 +1659,6 @@ counts the part of the normally-wet regime that was dry on 5 June in that world 
 (29 km²), which A_new excludes by definition. A_new is therefore the aggregate produced under
 the former state definition — kept as the series of Fig04 and T12 and as the gate of the split — and never the sum of the two new
 quantities: the headline flood expansion of this paper is A_new,dry, the wetland response is ΔA_wet.
-
-**Table T12hb.** Accounting identities of the split (p95e_split_draws, per world; medians and p05-p95 over the Monte-Carlo worlds, nominal = draw 0): A_new = A_new,dry + A_new,wet + other holds exactly in every world (partition_max_abs_diff_km2); A_new,dry + dA_wet exceeds A_new by dAwet_minus_Anew_wet -- the part of the normally-wet regime that is dry on 5 June in that world and under water on the day, which dA_wet counts and A_new excludes by definition (inside the baseline). The legacy aggregate A_new is therefore not the sum of the two reported quantities and is never presented as such. [independent_physical] *(25 of 40 rows and 10 of 11 columns shown; full table: publication/tables/T12hb.csv)*
-
-| date | region | partition_max_abs_diff_km2 | dry_plus_dAwet_minus_Anew_nominal | dry_plus_dAwet_minus_Anew_p05 | dry_plus_dAwet_minus_Anew_p50 | dry_plus_dAwet_minus_Anew_p95 | dAwet_minus_Anew_wet_p50 | dAwet_minus_Anew_wet_p05 | dAwet_minus_Anew_wet_p95 |
-|---|---|---|---|---|---|---|---|---|---|
-| 2023-06-05 | DNIPRO_CORRIDOR | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
-| 2023-06-05 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
-| 2023-06-05 | INHULETS_VALLEY_rect | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
-| 2023-06-05 | P42_FLOODPLAIN_DOMAIN | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 | 0.0 |
-| 2023-06-06 | DNIPRO_CORRIDOR | 0.0 | 27.84 | 15.28 | 26.63 | 37.29 | 28.73 | 17.42 | 39.45 |
-| 2023-06-06 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.18 | 16.19 | 27.97 | 39.26 | 31.93 | 20.18 | 43.19 |
-| 2023-06-06 | INHULETS_VALLEY_rect | 0.0 | 1.34 | -1.04 | 1.38 | 3.93 | 3.19 | 0.81 | 5.68 |
-| 2023-06-06 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.81 | 20.82 | 24.99 | 29.46 | 26.94 | 22.75 | 31.45 |
-| 2023-06-07 | DNIPRO_CORRIDOR | 0.0 | 27.77 | 12.16 | 26.28 | 39.92 | 28.85 | 14.79 | 42.47 |
-| 2023-06-07 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 28.79 | 12.63 | 26.98 | 41.04 | 31.76 | 17.51 | 45.81 |
-| 2023-06-07 | INHULETS_VALLEY_rect | 0.0 | 1.02 | -1.43 | 0.99 | 3.5 | 3.19 | 0.81 | 5.68 |
-| 2023-06-07 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.57 | 20.3 | 24.67 | 29.39 | 27.06 | 22.67 | 31.75 |
-| 2023-06-08 | DNIPRO_CORRIDOR | 0.0 | 28.13 | 0.7 | 25.52 | 44.55 | 27.96 | 3.32 | 47.2 |
-| 2023-06-08 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.0 | 1.42 | 26.17 | 45.8 | 31.04 | 6.38 | 50.78 |
-| 2023-06-08 | INHULETS_VALLEY_rect | 0.0 | 0.87 | -1.61 | 0.79 | 3.35 | 3.19 | 0.81 | 5.68 |
-| 2023-06-08 | P42_FLOODPLAIN_DOMAIN | 0.0 | 25.7 | 19.11 | 24.5 | 29.55 | 26.76 | 21.28 | 31.92 |
-| 2023-06-09 | DNIPRO_CORRIDOR | 0.0 | 28.79 | 1.21 | 25.65 | 45.0 | 27.99 | 3.49 | 47.33 |
-| 2023-06-09 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 29.55 | 1.7 | 26.23 | 45.92 | 31.1 | 6.52 | 50.82 |
-| 2023-06-09 | INHULETS_VALLEY_rect | 0.0 | 0.76 | -1.73 | 0.69 | 3.24 | 3.19 | 0.81 | 5.68 |
-| 2023-06-09 | P42_FLOODPLAIN_DOMAIN | 0.0 | 26.15 | 19.35 | 24.74 | 29.82 | 26.81 | 21.39 | 31.93 |
-| 2023-06-11 | DNIPRO_CORRIDOR | 0.0 | 29.3 | -12.02 | 22.26 | 45.4 | 24.5 | -9.9 | 47.81 |
-| 2023-06-11 | DNIPRO_CORRIDOR+INHULETS_VALLEY_rect | 0.0 | 30.18 | -11.34 | 22.81 | 46.82 | 27.49 | -6.71 | 51.78 |
-| 2023-06-11 | INHULETS_VALLEY_rect | 0.0 | 0.87 | -1.62 | 0.79 | 3.34 | 3.19 | 0.81 | 5.68 |
-| 2023-06-11 | P42_FLOODPLAIN_DOMAIN | 0.0 | 26.24 | 16.0 | 23.29 | 29.27 | 25.3 | 17.97 | 31.29 |
-| 2023-06-13 | DNIPRO_CORRIDOR | 0.0 | 29.82 | -11.81 | 22.51 | 45.72 | 24.55 | -9.85 | 48.05 |
 
 On the seasonally wet vegetated wetland the event extent and the pre-event state are separate questions. Inside the event extent on
 7 June lie 318 km² of the wetland (p05–p95
@@ -1815,7 +1886,7 @@ Downstream, the reconstructed new water stored above ground on 8 June was
 504–662 hm³)
 and 164 hm³ in the Inhulets valley — a few per cent of the
 release, implying that most of the released volume was transmitted downstream rather than stored on the mapped floodplain
-(Fig09c) [C14]. The seamless-DEM hypsometry lies below the design table at equal levels —
+(Fig09c). The seamless-DEM hypsometry lies below the design table at equal levels —
 -9 % at 17.5 m, -14 % at 13 m,
 -20 % at 11 m; the design table is undefined below 10 m (T22, FigS07) — so the released
 volume inherits this hypsometry gap; its origin (datum, present morphology, the underwater part of the terrain model, shoreline
@@ -1864,7 +1935,7 @@ level-pool curve gives a range rather than a number (T27b, T27c).
 | 16.5 | 2098.8 | 17.151 | 16.32 | 2165.88 | 18.8812 | -9.163612482257484 | -3.097124494431821 |
 | 17.0 | 2109.1 | 18.203 | 16.82 | 2182.24 | 19.9676 | -8.837316452653306 | -3.3516020236087636 |
 
-### 4.2 Uncertainty and support of the reconstruction [C01, C02, C07]
+### 4.2 Uncertainty and support of the reconstruction
 
 #### 4.2.1 The Monte-Carlo interval
 
@@ -1877,7 +1948,7 @@ against the ensemble size and a second seed (T11c, FigS12: p05–p95 of the new 
 with the primary seed, 216–256 km²
 with the second). The areal maximum falls on 8 June in
 53% of the worlds and on 7 June in
-38% (T12c) [C01]; the two days share the maximum
+38% (T12c); the two days share the maximum
 because on 8 June a large part of the left bank hangs on a sill a few decimetres below the surface (T11e, FigS17). By the ablation (T11d), the
 width of the new area comes mainly from the terrain term, that of the total water-surface area mainly from the water surface, and
 the upper tail on 13 June from the interpolation between node observations.
@@ -1900,7 +1971,7 @@ connected pre-breach water (a rebuilt regime of
 497.7 km² with the terrain alone perturbed,
 against 532.5 km² at the nominal) more
 strongly than the peak-event total water, and the cells so released, deep under water at the flood stage, count as new and add
-depth (Darnell et al. 2008; Hawker et al. 2018) [C07]. Connectivity is a nonlinear operator of the terrain, so a zero-mean terrain
+depth (Darnell et al. 2008; Hawker et al. 2018). Connectivity is a nonlinear operator of the terrain, so a zero-mean terrain
 error need not leave the median area at the nominal one; the same threshold behaviour appears in the response to a uniform
 water-surface offset (T11e, FigS13). No interval in this paper is centred on the nominal run.
 
@@ -1944,7 +2015,7 @@ constrained); the supported core is 199 km² of
 215 km², and a run with no surface from nodes beyond 10 km — which also
 changes the connectivity — gives 199 km² (FigS02,
 FigS14). The weak share falls to 4% on 9 June and
-2% on 13 June, and inside the p42 floodplain domain it is
+2% on 13 June, and inside the terrain-eligible floodplain domain it is
 6% on 7 June: the distant support concerns mainly the first days
 of the event and the ground outside the terrain-eligible floodplain. In the Inhulets valley, whose own SWOT nodes stop about 10 km
 above the mouth, 93% of the new area on 7 June is weakly
@@ -1952,7 +2023,7 @@ constrained and 11.3 km² take their surface from a Dnipro
 node (cross-river flag); distance, not only the river of the node, limits the constraint.
 
 Distance is one axis of support; the seed of the connectivity is another. Every newly inundated component is classed by the
-seed its potential component hangs on and by its day-to-day lineage (overlap graph, ancestry by backward traversal; p95o, T11n):
+seed its potential component hangs on and by its day-to-day lineage (overlap graph, ancestry by backward traversal; T11n):
 *river-connected* (it touches the river network on that day), *trapped* (not today, but it or an ancestor did on an earlier day)
 or *isolated, never connected*. Under the superseded all-prewater seeding,
 47 km² of the corridor's
@@ -2013,7 +2084,7 @@ Under the superseded seeding the trapped area of 9 June splits by that same-day 
 retained water), 19 km²
 of open ground without water (likely drained) and
 14 km² without a usable
-observation — which is why retention stays a sensitivity (D-MEMORY) and not a rule.
+observation — which is why retention stays a sensitivity and not a rule.
 
 ![FigS18](img/FigS18.jpg)
 
@@ -2187,8 +2258,7 @@ observation — which is why retention stays a sensitivity (D-MEMORY) and not a 
 #### 4.2.4 Structural choices outside the budget
 
 The structural choices of the reconstruction are deterministic runs and are compared with the nominal run of the primary rule
-(215 km² on 7 June), not with the median (FigS02, T12): the p42 HAND
-rule gives 269 km², the ceiling without connectivity
+(215 km² on 7 June), not with the median (FigS02, T12): the HAND rule gives 269 km², the ceiling without connectivity
 286 km², 4-connectivity
 215 km², the superseded seeding from every
 pre-breach water cell 260 km²
@@ -2206,7 +2276,7 @@ areal maximum is 288 km² (§3.3). Several of
 these choices move the peak area by more than the Monte-Carlo width: the uncertainty of the reconstruction is dominated by
 structural and definitional choices, which are reported as sensitivities next to the interval rather than folded into it.
 
-### 4.3 Independent validation and support [C03–C06, C12]
+### 4.3 Independent validation and support
 
 #### 4.3.1 Withheld gauges: the Inhulets backwater and the western delta
 
@@ -2220,7 +2290,7 @@ gauge and rises by +9.28 m against +5.87 m at the gauge (daily means).
 The event-relative error, free of any constant datum offset between the two series, shows that the close absolute agreement after
 the peak (+0.04 .. +0.92 m) is a coincidence of the pre-breach offset and a recession that runs ahead of the
 valley (-0.72 m on 2023-06-14); the two agree within ±0.25 m only from 2023-06-26 (T17c,
-T17d, FigS15) [C03]. Because the support never changed, the error follows the hydraulic state: large during the transient, small
+T17d, FigS15). Because the support never changed, the error follows the hydraulic state: large during the transient, small
 once main stem and valley stand at one level. A gauge-assisted sensitivity, not used for any reported number, adds the gauge as a
 local water-surface node: the valley's new area on 7 June falls from
 42.3 to
@@ -2304,9 +2374,9 @@ average away.
 | 2023-06-18 | 98027 | 46.984375 | 31.97207222222222 | 510.0 |  | -5.0 | 0.1997 | 0.3 | 0.329 |
 | 2023-06-19 | 98027 | 46.984375 | 31.97207222222222 | 510.0 |  | -5.0 | 0.1997 | 0.3 | 0.328 |
 
-#### 4.3.2 Sentinel-1 per acquisition date [C04]
+#### 4.3.2 Sentinel-1 per acquisition date
 
-On 9 June, in the p42 floodplain domain and on the Sentinel-1 footprint, the reconstruction allows
+On 9 June, in the terrain-eligible floodplain domain and on the Sentinel-1 footprint, the reconstruction allows
 124 km² of new water and Sentinel-1
 reports 201 km²; they share
 52 km² (POD
@@ -2358,7 +2428,7 @@ follows the reconstruction and the gauge (Fig04).
 | 2023-06-21 | S1 | orb14_ASC | P42_FLOODPLAIN_DOMAIN | 0.991 | 144.6 | 22.3 | 11.1 | observed_S1 |
 | 2023-06-25 | S1 | orb65_DES | DNIPRO_CORRIDOR | 1.0 | 538.9 | 98.9 | 44.2 | observed_S1 |
 
-#### 4.3.3 The disagreement is mechanistic, and the surface context explains it [C05, C12]
+#### 4.3.3 The disagreement is mechanistic, and the surface context explains it
 
 On 9 June the two zones together give A = 59 km², B (terrain only) =
 112 km² and C (Sentinel-1 only) = 260 km²
@@ -2390,14 +2460,14 @@ effect on within-domain spatial CV (macro F1 0.943 before,
 0.941 after) but substantially reduced apparent B1→B2 transfer
 performance (0.904 → 0.848;
 B2→B1 0.907), showing that the overlap primarily biased estimates of
-geographic generalization [C12]. These are agreement numbers against the training reference, not an independent land-cover
+geographic generalization. These are agreement numbers against the training reference, not an independent land-cover
 accuracy.
 
 ![FigS04](img/FigS04.jpg)
 
 **FigS04.** RF20 (rev 2: global blocks, frame overlap counted once) row-normalised confusion (spatial-block CV) and per-class F1 for the CV without and with a 3.5 km buffer and for the transfers outside the overlap.
 
-#### 4.3.4 ICESat-2 altimetric consistency [C06]
+#### 4.3.4 ICESat-2 altimetric consistency
 
 Where Sentinel-1 reports water at least 2 m above the reconstructed surface, the FABDEM-sourced terrain agrees with night
 ICESat-2 ground heights to +0.03 m in the delta
@@ -2484,7 +2554,7 @@ thousand ha of vegetated bed in 2023–2024, Pichura and Potravka 2025). These a
 | 2023-06-09 | S1 | observed_S1 | 2087.1 | 1.0 | 0.925 | 1955.9 |  | -18.75 | orb14_ASC |
 | 2023-06-13 | S1 | observed_S1 | 1937.5 | 0.929 | 0.836 | 1650.4 |  | -16.95 | orb65_DES |
 
-### 4.4 Weak-label ML diagnostics [C08–C13]
+### 4.4 Weak-label ML diagnostics
 
 #### 4.4.1 The optical component behind the labels
 
@@ -2509,12 +2579,12 @@ keep that water out of EVENT_FLOOD (only 0.7 and
 EVENT_FLOOD, T02d). High scores over permanent open water demonstrate that M2 separates the training classes used for weak-label
 construction but is not a standalone flood classifier.
 
-#### 4.4.2 The canonical label ontology v004
+#### 4.4.2 The canonical label ontology
 
-v004 labels 141.9 km² of EVENT_FLOOD in B1 and 75.2 km² in
+The canonical labels mark 141.9 km² of EVENT_FLOOD in B1 and 75.2 km² in
 B2, with 1514 and 643 km² of LAND and
 258 and 282 km² of REFERENCE_WATER; everything
-else is UNKNOWN (T02). Against the intermediate v003_A, the corrected optical component adds
+else is UNKNOWN (T02). Against the intermediate labels, the corrected optical component adds
 12.4 and
 15.7 km² of EVENT_FLOOD from UNKNOWN in B1 and B2, moves
 2.0% and
@@ -2566,10 +2636,10 @@ T05s, FigS01). This training noise is the scale that a difference between arms m
 
 #### 4.4.4 What the arms show under weak supervision
 
-*Reference water in the labels [C09].* Changing the weak-label treatment of pre-event reference water produced a consistent model
+*Reference water in the labels.* Changing the weak-label treatment of pre-event reference water produced a consistent model
 response across all three training seeds: predictions over reference-water areas decreased by
 13.8–48.8
-km² under the v004 ontology (U2 trained on v002_notrace, the same rule without a REFERENCE_WATER class, against U2 on v004 at fixed
+km² under the canonical ontology (U2 trained on the no-reference-water labels against U2 on the canonical labels at fixed
 inputs; per seed -13.8
 [-35.3,
 -1.4],
@@ -2587,8 +2657,8 @@ flood-mapping accuracy. EVENT_FLOOD recall changed by
 1 of the three seeds. Global F1
 is not comparable across label sets.
 
-*Terrain as an input [C10].* The apparent reduction in unlabelled-cropland predictions previously attributed to HAND did not
-reproduce under the corrected v004 ontology and three training seeds. The effect changed sign across seeds
+*Terrain as an input.* The apparent reduction in unlabelled-cropland predictions previously attributed to HAND did not
+reproduce under the corrected canonical ontology and three training seeds. The effect changed sign across seeds
 (+1.0,
 +7.6, and
 -3.8 km²),
@@ -2599,7 +2669,7 @@ without a consistent change (intervals excluding zero in
 1 and
 0 of three seeds; T06s, T07s).
 
-*Land cover as an input [C10].* Supplying the RF20 classes as an input (U1) did not act as a veto: it raised the unlabelled-cropland
+*Land cover as an input.* Supplying the RF20 classes as an input (U1) did not act as a veto: it raised the unlabelled-cropland
 burden in all three seeds
 (+6.8,
 +27.3 and
@@ -2610,7 +2680,7 @@ three intervals exclude zero) while lowering the built-up false positives
 -0.34 and
 -0.36 km², the same sign in every seed).
 
-*Pre-event water as an input [C11].* Adding the pre-event water term W_pre consistently reduced the unlabelled-cropland prediction
+*Pre-event water as an input.* Adding the pre-event water term W_pre consistently reduced the unlabelled-cropland prediction
 burden across all three training seeds
 (-6.0,
 -8.6 and
@@ -2623,9 +2693,9 @@ while its effect over reference-water areas was consistent in two of three seeds
 component of the weak-label construction, this result is interpreted as a diagnostic of label-induced model behaviour rather than
 independent evidence of improved flood discrimination.
 
-#### 4.4.5 Block size [C13]
+#### 4.4.5 Block size
 
-U2 on v004 reaches a global F1 against the weak labels of 0.931 on the frozen 10 km split,
+U2 on the canonical labels reaches a global F1 against the weak labels of 0.931 on the frozen 10 km split,
 0.940 at 7.5 km, 0.932 at 15 km and
 0.889 at 20 km (each split with its own test geography and interval, one arm and one seed
 per split; T20, FigS05); a 5 km split leaves no validation patch inside the buffers. The tested range is meaningful because every
@@ -2637,11 +2707,11 @@ drops mainly at 20 km, where few test blocks remain; the arm comparisons of §4.
 
 **FigS05.** block-size sensitivity of U2 on v003_A and on v004 (7.5 / 10 / 15 / 20 km; each split has its own TEST geography).
 
-#### 4.4.6 Three areas, three definitions [C08]
+#### 4.4.6 Three areas, three definitions
 
 For the same corridor the 9 June Sentinel-1 scene contains 300 km² of new dark
 water (observed_S1), the label recipe (water on ≥ 2 of 3 peak dates) 168 km²,
-the U-Net arm U2b on v004 352,
+the U-Net arm U2b on the canonical labels 352,
 297 and 269 km²
 with its three seeds (mapped_UNet), and the reconstruction 201 km² on 9 June
 and 239 km² at the reconstructed areal maximum (terrain_reconstructed,
@@ -2843,7 +2913,7 @@ the surface are shown to be topographically unsupported, not attributed to a cau
    reference water changes what they learn consistently across seeds, the earlier HAND effect did not reproduce, and no model number
    is flood-mapping accuracy.
 
-The claims register (`claims.md`, C01–C14) names the evidence class, table cells, uncertainty and limitation of each claim. The next
+The next
 steps are the reservoir bowl on the historical bathymetry (Paper 4) and a two-dimensional hydraulic model calibrated on these daily
 surfaces (Paper 5).
 
@@ -2862,13 +2932,13 @@ old and new value, reason and effect on the conclusions — are listed in table 
 
 ## References
 
-`docs/references.bib`; entries added for this paper carry `note = {VERIFY}` until checked (`references_to_verify.md`).
+The reference list is generated from the repository bibliography (docs/references.bib) at typesetting.
 
 ## Build note
 
 **Manuscript draft (Paper 3 of the Kakhovka series), generated from `manuscript_template.md` by `workflows/paper/fill_manuscript.py`.
 Rewritten in one pass on 2026-09-29 after the scientific and code review of 2026-09-28; the changes (old / new / reason / effect on
 the conclusions) are listed in table T28. Every number below is resolved from a committed publication table cell
-(`publication/tables/T*.csv`, manifest with sha256); claim identifiers [C01]–[C14] refer to `evidence_matrix.csv`; terms are frozen
+(`publication/tables/T*.csv`, manifest with sha256); claim identifiers– refer to `evidence_matrix.csv`; terms are frozen
 in `TERMINOLOGY.md`. Figure and table identifiers are internal and are renumbered at typesetting. Numbers are printed from the
 table cells at the stated precision with round-half-to-even; the cell keeps the full value.**
