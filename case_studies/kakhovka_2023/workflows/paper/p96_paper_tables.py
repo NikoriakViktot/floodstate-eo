@@ -27,11 +27,11 @@ KEY_DATES = ["2023-06-05", "2023-06-06", "2023-06-07", "2023-06-08", "2023-06-09
              "2023-06-14", "2023-06-15", "2023-06-16", "2023-06-18", "2023-06-21", "2023-06-25", "2023-06-30"]
 LITERATURE = [  # context only; every row must be VERIFIED against the source before submission
     dict(row_id="lit_unosat_3616", source="UNOSAT product 3616 (9 June 2023)", quantity="flooded LAND, cumulative satellite-detected 6-9 June (ICEYE, Sentinel-3, Sentinel-2); pre-existing water is a separate reference class; preliminary, not field-validated",
-         value_km2=620, quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="cumulative_2023-06-06..09", verify="VERIFY: product id, AOI, reference-water definition (via CEOBS 2023 / REACH 2023)"),
+         value_km2=620, quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="cumulative_2023-06-06..09", verify="verified 2026-10-01 on the UNOSAT product sheet 3616: ICEYE 7 June + Sentinel-3 6/7/9 June + Sentinel-2 8 June, analysed area 19,000 km2, about 620 km2, published 9 June 2023 v1, preliminary / not field-validated"),
     dict(row_id="lit_unosat_3623", source="UNOSAT product 3623 (13 June 2023)", quantity="land that appears flooded on 13 June vs reference water of 3/5 June", value_km2=180,
-         quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="snapshot_2023-06-13", verify="VERIFY: product id and AOI"),
+         quantity_semantics="flooded_land_new (reference water excluded)", temporal_semantics="snapshot_2023-06-13", verify="verified 2026-10-01 on the UNOSAT product sheet 3623: Sentinel-2 13 June 08:46 UTC vs pre-flood water of 3 and 5 June, analysed area 19,000 km2, about 180 km2, published 14 June 2023 v1, preliminary"),
     dict(row_id="lit_kadam_2024", source="Kadam et al. 2024 (HEC-RAS 1D/2D, 300 m breach scenario)", quantity="modelled flood extent (scenario, not an observation)", value_km2=823,
-         quantity_semantics="model_extent (definition per source)", temporal_semantics="scenario maximum", verify="VERIFY: extent definition, AOI, scenario")]
+         quantity_semantics="model_extent (definition per source)", temporal_semantics="scenario maximum", verify="verified 2026-10-01 in the paper (ISPRS Archives XLVIII-3-2024, 251-256): 35962 m3/s peak discharge and 823 km2 flood extent of the 300 m breach scenario, stated to match the remote-sensing observation; the AOI of the extent is not defined numerically in the paper")]
     # Yale HRL 2023 (520 km2) dropped 2026-09-28: no source found, unknown semantics (literature audit)
 
 OUT = {}   # tid -> (df, caption, sources, evidence_level)

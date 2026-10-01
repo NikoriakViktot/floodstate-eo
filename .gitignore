@@ -240,3 +240,6 @@ examples/tiny_geodomain/output/
 
 # throwaway smoke runs of the training chain (level-0 / F16 checks): never committed
 case_studies/kakhovka_2023/runs/_smoke_*/
+
+# third-party source PDFs kept locally for the literature audit (UNEP, UNOSAT product sheets, open-access papers): never committed
+case_studies/kakhovka_2023/literature_audit/_work/

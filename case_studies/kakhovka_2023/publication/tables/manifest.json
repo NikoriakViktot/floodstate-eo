@@ -1,6 +1,6 @@
 {
- "generated_utc": "2026-10-01T10:49:46Z",
- "git_commit": "076059341131b70fee231b2759c4b1b70a6d9204",
+ "generated_utc": "2026-10-01T12:50:25Z",
+ "git_commit": "03166aa96b48f58d2e3ac48d30ef6b0f1a3cf04f",
  "tables": {
   "T01": {
    "caption": "Data inventory: acquisition dates, coverage of the Sentinel-1 observable domain, and the role of every dataset.",
@@ -761,7 +761,7 @@
     "case_studies/kakhovka_2023/tables/p95e_area_volume_uncertainty.csv",
     "case_studies/kakhovka_2023/tables/p95_daily_area_pooled_connected_ceiling.csv"
    ],
-   "sha256": "6875ab9a3b19ed05c9a63cbbe770289b5d0485658f74d4d2aa7b60d47b72c5ff"
+   "sha256": "0c4c4a3efe07364dbf51757810c8f3d866cff1c9633eeed567d08ca3dc8a035c"
   },
   "T16b": {
    "caption": "Diagnostic comparison with the UNOSAT flood of 6-9 June (activation FL20230606UKR, the layers of product 3616: ICEYE 7 June, Sentinel-3 6-9 June at 300 m, Sentinel-2 8 June; preliminary, not field-validated) per pre-event ground class (p95y): our daily state mask WATER on any of 6-9 June against the UNOSAT flood, both outside the optical reference water. CSI_chance = the CSI of the same two areas placed independently within the ground class; heidke_skill = Heidke skill score (Cohen's kappa) of the 2x2 table. Where most of a class is flooded in both (the vegetated wetland), a high CSI is largely prevalence; the flood boundary is tested on the dry-before-event ground. UNOSAT shaped earlier fixes of the reconstruction: a diagnostic, not validation.",

@@ -962,7 +962,7 @@ and {{T16|row_id=rec_A_new_max,region=DNIPRO_CORRIDOR|km2||.0f}} km² at the rec
 Monte-Carlo medians). The label contract is a persistence product and describes the regime around 13 June, and the mapped area of a
 model trained on it depends on the training seed. The operational figures — UNOSAT product 3616, ~620 km² of satellite-detected
 flooded land cumulative over 6–9 June with the pre-existing water as a separate class, preliminary and not field-validated; product
-3623, ~180 km² on 13 June against the reference water of 3/5 June (T16, literature_reported, VERIFY) — are flooded *land*, closer in
+3623, ~180 km² on 13 June against the reference water of 3/5 June (T16, literature_reported; both product sheets read) — are flooded *land*, closer in
 kind to the newly inundated area than to the total water-surface area, and differ in AOI, temporal semantics (cumulative vs
 snapshot) and reference water; they are context, not validation. Two peer-reviewed mappings of the same flood carry their own
 definitions as well: Yailymov et al. (2025) count 473 km² of flooded land as of 9 June across the Kherson region including the

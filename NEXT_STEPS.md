@@ -138,7 +138,14 @@ chooses light / dark / system in the app menu (Settings -> Theme), the maps defa
 Forwarded literature that did NOT check out: 'GFM CSI 0.11-0.81 across events' (Roth 2025 gives 0.03-0.97,
 > 0.70 in 10 of 18 and in all large-scale events), 'Sen1Floods11 hand labels with uncertain areas removed' (not in the paper);
 unread: Pulvirenti 2021 mechanism, Cohen 2022 'uncertain area', the Lefebvre Phragmites number (references_to_verify.md).
-OPEN for the maintainer: switch the headline (abstract, conclusions, C01-C03) to A_new,dry with dA_wet beside it; the remaining 73 km2 of
+DONE 2026-10-01 (maintainer's freeze): headline switched to A_new,dry = 146 [132-166] km2 with dA_wet = 114 [93-135] km2 beside it, A_new = 234
+kept as the aggregate under the former state definition (T12hb checks the identities per world: A_new,dry + dA_wet - A_new = +26 [12-40] km2,
+the regime wetland dry on 5 June). Literature audit: Crossref/DataCite metadata of every VERIFY entry checked, DOIs added to the classic
+references, UNOSAT 3616 / 3623 product sheets and Kadam 2024 read (T16 rows verified), UNEP 2023 PDF read with printed pages in the bib
+note (source PDFs under literature_audit/_work/, git-ignored). Still VERIFY: content quotations to locate in Hawker, Johnson, Olofsson,
+Giustarini, Maiti, Zheng, Lehnigk, Yi, Monti; Pulvirenti / Cohen / Lefebvre full texts unreachable by script (none of their numbers is in the
+text); Rikimaru 2002 and Pedregosa 2011 have no Crossref record (cite as is). No new science for Paper 3 (maintainer 2026-10-01).
+OPEN for the maintainer: the remaining 73 km2 of
 UNOSAT-only flood on event ground; whether the p95x state mask and the ICEYE comparison enter the paper (with coverage and
 admissible interval, as a diagnostic comparison); verify the literature values marked VERIFY in T16 (3616, 3623, Kadam et al. 2024).
 

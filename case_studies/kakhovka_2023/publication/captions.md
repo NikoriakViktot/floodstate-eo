@@ -35,7 +35,7 @@ including pre-breach channels, lakes and reed beds) for the Dnipro corridor, the
 Monte-Carlo median (black) and deterministic nominal run (dotted), the PRIMARY interval (shaded: p05–p95 of the coherent
 Monte-Carlo worlds of the total water surface itself, every day; n in T12b), the terrain-as-delivered
 sensitivity (orange; no residual bias removed) and the Sentinel-1 total dark water per acquisition (diamonds; open = partial
-coverage). (d–f) Reconstructed newly inundated area (Monte-Carlo median, black; shaded p05–p95) with its daily change as bars (blue filling, orange draining) and the
+coverage). (d–f) Reconstructed newly inundated area A_new — the aggregate over all ground under the former state definition; the headline A_new,dry and the wetland response ΔA_wet are in T12h — (Monte-Carlo median, black; shaded p05–p95) with its daily change as bars (blue filling, orange draining) and the
 range of the U-Net U2b persistent-event-flood area over its three training seeds (labels v004; mapped_UNet, a persistence quantity). (g–i) Kherson stage. Values between observation days are reconstructed, not observed;
 the reconstructed areal maximum (8 June in most worlds, 7 June in the others — days set by the interpolated node series and the gauge) lies between the Sentinel-1 acquisitions. Areas are terrain_reconstructed or observed_S1 (T12, T19).
 
