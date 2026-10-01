@@ -71,3 +71,16 @@ widget values is stored. Tests: `tests/test_dashboard_session.py`.
   uncertainty. The daily terrain layer is the nominal world (one world, a diagnostic).
 - Since D-SEED (2026-09-30) the primary reconstruction seeds the connectivity from the pre-breach river network; the superseded
   all-prewater seeding is documented in the paper's T11m-T11o and FigS16, not served as a layer.
+- **Full flood mask** (Maps page, "full flood mask: envelope of the whole event", `data/terrain/envelope.png`; p103): every cell
+  reconstructed as water on at least one day -- pre-breach water (optical), normally wet (model-only part of the normal regime),
+  new inundation of the nominal run, of the Monte-Carlo median world only (P >= 0.5), marginal (0.05 <= P < 0.5). With it the
+  Sentinel-1 envelope of the event dates (`data/s1/envelope.png`: new dark water on any date 6-30 June / observed never dark /
+  dark already on 1-2 June). The GeoTIFFs and GeoJSON polygons for a hydraulic model live in the bulk root
+  (`floodplain_dyn/_envelope/`); `tables/p103_flood_envelope.csv` gives the areas.
+- **RF surface classes by date** (Maps page "RF surface classes by date" for the lower Dnipro and for the pool; Surface-context page
+  with the class-share series; `data/rf/by_date/<date>.png`, `data/reservoir/rf/<date>.png`; p102): a random forest on the seven
+  indices of ONE Sentinel-2 date (WorldCover 2021 as the weak target, the nine RF20 classes), so that every observed date of
+  2017-2026 has a class map, the drained reservoir bed of 2024-2026 included. The dashboard renders the best-observed date of each
+  month (>= 30 % of the two downstream zones valid; >= 50 % of the pool observed); every date's GeoTIFF is in the bulk root
+  (`rf_by_date/<ZONE>/`). Land-cover classes, read together with the k10e surface-state map of the same date; agreement with
+  WorldCover is never accuracy.

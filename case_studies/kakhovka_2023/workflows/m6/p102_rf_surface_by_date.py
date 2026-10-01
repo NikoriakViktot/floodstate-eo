@@ -218,7 +218,7 @@ def predict_date(MD, z, d, pool, force=False):
             tags = dict(producer="p102_rf_surface_by_date.py", date=d, zone=z, classes=json.dumps(CLASSES), features=",".join(MD["features"]), variant=var,
                         uncertain_rule=f"top-class probability < {UNCERTAIN_P} -> 10", target="ESA WorldCover 2021 (weak reference)", model_sha256=MD["sha"],
                         meaning="land-cover class from the indices of this date; 0 = not observed (cloud / outside the scene)")
-            oc.update_tags(**tags); op.update_tags(**tags, meaning="top-class probability x 100; 255 = not observed")
+            oc.update_tags(**tags); op.update_tags(**{**tags, "meaning": "top-class probability x 100; 255 = not observed"})
     side = dict(zone=z, date=d, n_cells=int(H * W), n_valid=int(n_valid), valid_share=round(n_valid / (H * W), 4), scenes=scenes,
                 km2={CLASSES[c]: round(float(counts[c]) * CELL_KM2, 2) for c in range(1, 11)})
     if pool is not None:

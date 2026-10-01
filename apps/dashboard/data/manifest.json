@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-01T20:26:40Z",
+ "generated_utc": "2026-10-01T22:11:54Z",
  "grid": {
   "crs": "EPSG:4326",
   "dlon": 0.001,
@@ -14292,6 +14292,5176 @@
     "2": 2494.3,
     "3": 717.6
    }
+  },
+  {
+   "id": "s2_rf_2017-04-30",
+   "group": "s2_rf",
+   "file": "rf/by_date/2017-04-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 126700,
+   "sha256": "bb4594f68de419565f06fd89bf4e47d16bc1146d70355ad90f3ba868ffd940e7",
+   "area_km2_by_class": {
+    "1": 185.7,
+    "2": 879.8,
+    "3": 593.9,
+    "4": 152.3,
+    "5": 0.0,
+    "6": 143.4,
+    "7": 133.0,
+    "8": 22.5,
+    "9": 0.0,
+    "10": 772.8
+   }
+  },
+  {
+   "id": "s2_rf_2017-07-24",
+   "group": "s2_rf",
+   "file": "rf/by_date/2017-07-24.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 121839,
+   "sha256": "2f9dd14d2fc2d06c87c33c065fd454196579d43f6060f4807e574c14fd614acd",
+   "area_km2_by_class": {
+    "1": 184.3,
+    "2": 844.6,
+    "3": 483.4,
+    "4": 118.8,
+    "5": 0.0,
+    "6": 253.4,
+    "7": 168.3,
+    "8": 44.7,
+    "9": 0.0,
+    "10": 786.0
+   }
+  },
+  {
+   "id": "s2_rf_2017-08-08",
+   "group": "s2_rf",
+   "file": "rf/by_date/2017-08-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 125012,
+   "sha256": "0095a213d1328be5bfa9e9c787f49d1e25e5a0d5b2b92501e213c2577ed971c6",
+   "area_km2_by_class": {
+    "1": 180.5,
+    "2": 1200.1,
+    "3": 455.4,
+    "4": 125.0,
+    "5": 0.0,
+    "6": 252.3,
+    "7": 116.6,
+    "8": 81.7,
+    "9": 0.0,
+    "10": 471.2
+   }
+  },
+  {
+   "id": "s2_rf_2017-09-12",
+   "group": "s2_rf",
+   "file": "rf/by_date/2017-09-12.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 48% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 191761,
+   "sha256": "da5e5e800da2517771aa058d73c2ce31ad924c24b2c5f6d6594dcd914f6dafba",
+   "area_km2_by_class": {
+    "1": 89.5,
+    "2": 2214.2,
+    "3": 761.7,
+    "4": 320.6,
+    "5": 0.0,
+    "6": 278.9,
+    "7": 203.0,
+    "8": 147.6,
+    "9": 0.0,
+    "10": 783.3
+   }
+  },
+  {
+   "id": "s2_rf_2018-04-30",
+   "group": "s2_rf",
+   "file": "rf/by_date/2018-04-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 125555,
+   "sha256": "4911da43eca1cf7678ea6a058e819a4fe8beeb84ab6bde8680b767e166b42f45",
+   "area_km2_by_class": {
+    "1": 182.5,
+    "2": 942.5,
+    "3": 398.0,
+    "4": 212.1,
+    "5": 0.0,
+    "6": 126.4,
+    "7": 109.9,
+    "8": 18.6,
+    "9": 0.0,
+    "10": 893.4
+   }
+  },
+  {
+   "id": "s2_rf_2018-07-04",
+   "group": "s2_rf",
+   "file": "rf/by_date/2018-07-04.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 98% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 119358,
+   "sha256": "00ce176e19dd649855fd6e2c81912e1333695626c273416b317be865ddf82e5e",
+   "area_km2_by_class": {
+    "1": 176.9,
+    "2": 895.3,
+    "3": 762.3,
+    "4": 142.5,
+    "5": 0.0,
+    "6": 225.6,
+    "7": 124.4,
+    "8": 29.0,
+    "9": 0.0,
+    "10": 455.7
+   }
+  },
+  {
+   "id": "s2_rf_2018-08-18",
+   "group": "s2_rf",
+   "file": "rf/by_date/2018-08-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 96% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 121532,
+   "sha256": "4cb6f3eadf523d422d8ca9f273308fa5c85b7bbc110ab0ce92a0e6006d85a52b",
+   "area_km2_by_class": {
+    "1": 180.7,
+    "2": 1203.2,
+    "3": 395.0,
+    "4": 110.6,
+    "5": 0.0,
+    "6": 184.9,
+    "7": 191.1,
+    "8": 36.3,
+    "9": 0.0,
+    "10": 461.0
+   }
+  },
+  {
+   "id": "s2_rf_2018-10-12",
+   "group": "s2_rf",
+   "file": "rf/by_date/2018-10-12.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 119397,
+   "sha256": "ab6648b98e7ce3bf7d8799682f0f093107b145fb705091dcdffcba140d2a9361",
+   "area_km2_by_class": {
+    "1": 174.6,
+    "2": 1174.3,
+    "3": 556.4,
+    "4": 135.8,
+    "5": 0.0,
+    "6": 211.8,
+    "7": 94.0,
+    "8": 29.4,
+    "9": 0.0,
+    "10": 507.1
+   }
+  },
+  {
+   "id": "s2_rf_2019-04-20",
+   "group": "s2_rf",
+   "file": "rf/by_date/2019-04-20.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 124627,
+   "sha256": "d4951b884d84dd9e74e929243e09cc3bbb4a0aebbdbcf4820c3b95a72646d91d",
+   "area_km2_by_class": {
+    "1": 174.8,
+    "2": 953.5,
+    "3": 476.3,
+    "4": 165.6,
+    "5": 0.0,
+    "6": 150.6,
+    "7": 141.1,
+    "8": 20.4,
+    "9": 0.0,
+    "10": 798.9
+   }
+  },
+  {
+   "id": "s2_rf_2019-05-30",
+   "group": "s2_rf",
+   "file": "rf/by_date/2019-05-30.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 96% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 134346,
+   "sha256": "177c9935fa0c1174bc674b64b321862b8f39ac283325a0152dd083e7936435b7",
+   "area_km2_by_class": {
+    "1": 176.3,
+    "2": 570.5,
+    "3": 296.6,
+    "4": 165.9,
+    "5": 0.0,
+    "6": 379.2,
+    "7": 155.7,
+    "8": 19.2,
+    "9": 0.0,
+    "10": 1018.7
+   }
+  },
+  {
+   "id": "s2_rf_2019-08-28",
+   "group": "s2_rf",
+   "file": "rf/by_date/2019-08-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 116111,
+   "sha256": "15578616d590d7978200f9ebe649857a194c3b42094ef94d8a2c5683575bc082",
+   "area_km2_by_class": {
+    "1": 177.5,
+    "2": 1360.9,
+    "3": 432.1,
+    "4": 150.2,
+    "5": 0.0,
+    "6": 187.7,
+    "7": 137.9,
+    "8": 35.9,
+    "9": 0.0,
+    "10": 385.1
+   }
+  },
+  {
+   "id": "s2_rf_2019-09-07",
+   "group": "s2_rf",
+   "file": "rf/by_date/2019-09-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 98% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 117199,
+   "sha256": "620a13b4d27fab2e9ae112bdc5084114ae478eb0741c4f79abbc224e4b27ff30",
+   "area_km2_by_class": {
+    "1": 177.3,
+    "2": 1278.3,
+    "3": 493.5,
+    "4": 164.5,
+    "5": 0.0,
+    "6": 180.3,
+    "7": 109.6,
+    "8": 34.8,
+    "9": 0.0,
+    "10": 395.2
+   }
+  },
+  {
+   "id": "s2_rf_2019-10-02",
+   "group": "s2_rf",
+   "file": "rf/by_date/2019-10-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 113168,
+   "sha256": "89a15d9b62ec40b6636e4514028b48501068f3232e4c5fb1f903cfdcfb48269a",
+   "area_km2_by_class": {
+    "1": 173.1,
+    "2": 1375.5,
+    "3": 477.3,
+    "4": 136.1,
+    "5": 0.0,
+    "6": 211.5,
+    "7": 76.0,
+    "8": 34.2,
+    "9": 0.0,
+    "10": 398.3
+   }
+  },
+  {
+   "id": "s2_rf_2020-01-25",
+   "group": "s2_rf",
+   "file": "rf/by_date/2020-01-25.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 117629,
+   "sha256": "0b4aefe44f594517ab12b904767d43b5ede93105bee1aeffe6ffb8c5dfafe212",
+   "area_km2_by_class": {
+    "1": 185.8,
+    "2": 928.2,
+    "3": 465.0,
+    "4": 233.5,
+    "5": 0.0,
+    "6": 144.5,
+    "7": 37.7,
+    "8": 8.2,
+    "9": 0.0,
+    "10": 880.5
+   }
+  },
+  {
+   "id": "s2_rf_2020-05-19",
+   "group": "s2_rf",
+   "file": "rf/by_date/2020-05-19.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 120862,
+   "sha256": "dfdf2ff77cadc82e0429a93bb2c15cb2697c6e73005d7c0bbb594bc391717ecc",
+   "area_km2_by_class": {
+    "1": 181.4,
+    "2": 695.7,
+    "3": 365.8,
+    "4": 137.9,
+    "5": 0.0,
+    "6": 61.3,
+    "7": 148.2,
+    "8": 27.4,
+    "9": 0.0,
+    "10": 1264.8
+   }
+  },
+  {
+   "id": "s2_rf_2020-09-16",
+   "group": "s2_rf",
+   "file": "rf/by_date/2020-09-16.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 102014,
+   "sha256": "1949993443a3511f3740cece5634e8636aa241867e7464b5b103124b7b093022",
+   "area_km2_by_class": {
+    "1": 176.2,
+    "2": 1577.3,
+    "3": 336.4,
+    "4": 141.9,
+    "5": 0.0,
+    "6": 201.7,
+    "7": 100.9,
+    "8": 34.5,
+    "9": 0.0,
+    "10": 314.5
+   }
+  },
+  {
+   "id": "s2_rf_2021-07-03",
+   "group": "s2_rf",
+   "file": "rf/by_date/2021-07-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 43% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 210992,
+   "sha256": "fef3eb7a53103914e9261d71a21200cb5a6d6daf76f4ed8bc51ff4e2b7300e22",
+   "area_km2_by_class": {
+    "1": 80.9,
+    "2": 1305.2,
+    "3": 747.4,
+    "4": 326.8,
+    "5": 0.0,
+    "6": 391.0,
+    "7": 309.5,
+    "8": 75.0,
+    "9": 0.0,
+    "10": 1073.4
+   }
+  },
+  {
+   "id": "s2_rf_2021-08-02",
+   "group": "s2_rf",
+   "file": "rf/by_date/2021-08-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 122196,
+   "sha256": "0b77c94f888d47912d86abe2d87b97a1fc4411d2decf0324b24195b19e1d0fea",
+   "area_km2_by_class": {
+    "1": 174.7,
+    "2": 960.0,
+    "3": 523.0,
+    "4": 158.3,
+    "5": 0.0,
+    "6": 274.0,
+    "7": 156.0,
+    "8": 19.1,
+    "9": 0.0,
+    "10": 617.8
+   }
+  },
+  {
+   "id": "s2_rf_2021-09-08",
+   "group": "s2_rf",
+   "file": "rf/by_date/2021-09-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 68% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 175274,
+   "sha256": "10b3cf5c5d22ee65fd7f8c43b242995199d524c11d6a37ecc0210d6f1abd670d",
+   "area_km2_by_class": {
+    "1": 108.8,
+    "2": 1899.2,
+    "3": 833.4,
+    "4": 330.8,
+    "5": 0.0,
+    "6": 153.8,
+    "7": 170.9,
+    "8": 93.8,
+    "9": 0.0,
+    "10": 840.9
+   }
+  },
+  {
+   "id": "s2_rf_2021-11-25",
+   "group": "s2_rf",
+   "file": "rf/by_date/2021-11-25.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 119553,
+   "sha256": "1c4b20fec71e2f79bbe4c624199452693c52897d52cb813a29d0c3683790356a",
+   "area_km2_by_class": {
+    "1": 176.8,
+    "2": 932.2,
+    "3": 556.3,
+    "4": 185.8,
+    "5": 0.0,
+    "6": 155.9,
+    "7": 97.4,
+    "8": 20.3,
+    "9": 0.0,
+    "10": 758.5
+   }
+  },
+  {
+   "id": "s2_rf_2022-02-13",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-02-13.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 98% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 122476,
+   "sha256": "0675f6df6748b519aa52fdff65105173a710392edbda643d3b70027d43ea32ca",
+   "area_km2_by_class": {
+    "1": 181.5,
+    "2": 729.7,
+    "3": 355.6,
+    "4": 314.4,
+    "5": 0.0,
+    "6": 230.8,
+    "7": 97.6,
+    "8": 11.0,
+    "9": 0.0,
+    "10": 897.3
+   }
+  },
+  {
+   "id": "s2_rf_2022-06-03",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-06-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 129244,
+   "sha256": "94e04ec49fffe89fe304f7e5e5fc51f5851b13ee62e8a5e83aa32b5e6d33ac85",
+   "area_km2_by_class": {
+    "1": 169.3,
+    "2": 401.3,
+    "3": 456.5,
+    "4": 133.5,
+    "5": 0.0,
+    "6": 216.3,
+    "7": 229.3,
+    "8": 20.9,
+    "9": 0.0,
+    "10": 1238.9
+   }
+  },
+  {
+   "id": "s2_rf_2022-07-18",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-07-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 116800,
+   "sha256": "9a92aa25635979113b6b631fe08891e9ba323bd61ceec607316f1bbbf1a59005",
+   "area_km2_by_class": {
+    "1": 172.8,
+    "2": 961.9,
+    "3": 656.1,
+    "4": 150.2,
+    "5": 0.0,
+    "6": 220.7,
+    "7": 129.6,
+    "8": 19.1,
+    "9": 0.0,
+    "10": 568.6
+   }
+  },
+  {
+   "id": "s2_rf_2022-08-07",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-08-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 121772,
+   "sha256": "2fd1a6530089fc0895d5fc02a38bc0313fd9a65abdcd63ac03a93138f86e3012",
+   "area_km2_by_class": {
+    "1": 170.3,
+    "2": 943.7,
+    "3": 694.7,
+    "4": 150.3,
+    "5": 0.0,
+    "6": 252.4,
+    "7": 114.9,
+    "8": 23.0,
+    "9": 0.0,
+    "10": 525.5
+   }
+  },
+  {
+   "id": "s2_rf_2022-10-11",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-10-11.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 136129,
+   "sha256": "ed494584e1155d64921a111472576843049ff5a01ea08f9709116d9d6a6d34cf",
+   "area_km2_by_class": {
+    "1": 170.5,
+    "2": 525.3,
+    "3": 569.7,
+    "4": 232.9,
+    "5": 0.0,
+    "6": 329.0,
+    "7": 88.2,
+    "8": 14.5,
+    "9": 0.0,
+    "10": 952.9
+   }
+  },
+  {
+   "id": "s2_rf_2022-11-15",
+   "group": "s2_rf",
+   "file": "rf/by_date/2022-11-15.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 118255,
+   "sha256": "140e265044fefbd18670648dfeb8670870d3c63dc889d63642c209591908211d",
+   "area_km2_by_class": {
+    "1": 170.8,
+    "2": 263.0,
+    "3": 736.5,
+    "4": 229.6,
+    "5": 0.0,
+    "6": 209.0,
+    "7": 50.5,
+    "8": 12.4,
+    "9": 0.0,
+    "10": 1202.4
+   }
+  },
+  {
+   "id": "s2_rf_2023-02-23",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-02-23.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 121553,
+   "sha256": "d593b42f9753c8e8644aac4d80c817ae7875eef73af003c8a40bd756f66559b7",
+   "area_km2_by_class": {
+    "1": 185.8,
+    "2": 740.2,
+    "3": 544.8,
+    "4": 213.7,
+    "5": 0.0,
+    "6": 179.8,
+    "7": 108.7,
+    "8": 9.2,
+    "9": 0.0,
+    "10": 885.0
+   }
+  },
+  {
+   "id": "s2_rf_2023-08-27",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-08-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 87% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 287520,
+   "sha256": "a9e997e0e2ca110ad2eecf5a198f903b301516adbf165892b47c69c44caf50d9",
+   "area_km2_by_class": {
+    "1": 149.5,
+    "2": 2163.8,
+    "3": 1971.9,
+    "4": 502.3,
+    "5": 0.0,
+    "6": 231.7,
+    "7": 337.8,
+    "8": 129.7,
+    "9": 0.0,
+    "10": 1470.3
+   }
+  },
+  {
+   "id": "s2_rf_2023-09-08",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-09-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 69% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 194176,
+   "sha256": "6ac51ccedc54c3dd04baefe4da116c846124b2e07d878dc9aa7888f4723c819e",
+   "area_km2_by_class": {
+    "1": 60.5,
+    "2": 1268.5,
+    "3": 1309.8,
+    "4": 226.0,
+    "5": 0.0,
+    "6": 119.2,
+    "7": 292.7,
+    "8": 96.8,
+    "9": 0.0,
+    "10": 1165.0
+   }
+  },
+  {
+   "id": "s2_rf_2023-10-11",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-10-11.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 74% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 234696,
+   "sha256": "39f1265490b0ca8503d8b33726d7a8173c1a45a9695fb2736880113f2e1b1613",
+   "area_km2_by_class": {
+    "1": 217.1,
+    "2": 2913.3,
+    "3": 432.5,
+    "4": 381.9,
+    "5": 0.0,
+    "6": 362.6,
+    "7": 118.1,
+    "8": 117.0,
+    "9": 0.0,
+    "10": 1604.8
+   }
+  },
+  {
+   "id": "s2_rf_2023-11-10",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-11-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 47% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 204817,
+   "sha256": "cfcd4183137bf963f3a9bf53e7c820ac2309411d8ea50989a0941bed9bcf2b21",
+   "area_km2_by_class": {
+    "1": 93.0,
+    "2": 1433.0,
+    "3": 958.7,
+    "4": 556.8,
+    "5": 0.0,
+    "6": 111.9,
+    "7": 91.3,
+    "8": 66.5,
+    "9": 0.0,
+    "10": 1475.2
+   }
+  },
+  {
+   "id": "s2_rf_2024-02-28",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-02-28.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 74% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 256637,
+   "sha256": "65f86dbf7e0b67779067e79306b85a46af5dc9e228c3e8e86291ef6352e02a78",
+   "area_km2_by_class": {
+    "1": 242.7,
+    "2": 1002.3,
+    "3": 1633.6,
+    "4": 955.9,
+    "5": 0.0,
+    "6": 291.8,
+    "7": 122.5,
+    "8": 79.4,
+    "9": 0.0,
+    "10": 1810.9
+   }
+  },
+  {
+   "id": "s2_rf_2024-03-09",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-03-09.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 303892,
+   "sha256": "2fbb4544367f54d67a4c96dbddcbc7fad9af3e6132fe91cf687866087f76bb00",
+   "area_km2_by_class": {
+    "1": 158.3,
+    "2": 1799.0,
+    "3": 1748.2,
+    "4": 662.9,
+    "5": 0.0,
+    "6": 232.0,
+    "7": 253.8,
+    "8": 65.4,
+    "9": 0.0,
+    "10": 2669.4
+   }
+  },
+  {
+   "id": "s2_rf_2024-04-03",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-04-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 124238,
+   "sha256": "7fedc9623e813b68ba766820154d3dfb7ba8e9baee372ff68d7d6340e39793bc",
+   "area_km2_by_class": {
+    "1": 174.5,
+    "2": 608.8,
+    "3": 931.4,
+    "4": 229.5,
+    "5": 0.0,
+    "6": 179.1,
+    "7": 78.3,
+    "8": 20.1,
+    "9": 0.0,
+    "10": 659.9
+   }
+  },
+  {
+   "id": "s2_rf_2024-07-07",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-07-07.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 118178,
+   "sha256": "1cbabde3ae065e08f69a655c8dbee86d5010ec040fb2f83f4fdc86ffab048ec9",
+   "area_km2_by_class": {
+    "1": 178.7,
+    "2": 955.4,
+    "3": 806.7,
+    "4": 47.4,
+    "5": 0.0,
+    "6": 188.7,
+    "7": 143.7,
+    "8": 30.2,
+    "9": 0.0,
+    "10": 531.9
+   }
+  },
+  {
+   "id": "s2_rf_2024-08-11",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-08-11.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 118175,
+   "sha256": "5aa92db86015d9952ebbb780e15db998cc1d9bd1e3d570cf54971379af578c34",
+   "area_km2_by_class": {
+    "1": 177.1,
+    "2": 1338.4,
+    "3": 488.8,
+    "4": 77.9,
+    "5": 0.0,
+    "6": 191.1,
+    "7": 74.3,
+    "8": 124.0,
+    "9": 0.0,
+    "10": 375.1
+   }
+  },
+  {
+   "id": "s2_rf_2024-09-25",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-09-25.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 99816,
+   "sha256": "cb3e883fdda0101666056a03f289b6f17e79a5352a473686a78312bf23eabc50",
+   "area_km2_by_class": {
+    "1": 173.6,
+    "2": 1489.5,
+    "3": 467.0,
+    "4": 83.0,
+    "5": 0.0,
+    "6": 231.5,
+    "7": 82.6,
+    "8": 27.9,
+    "9": 0.0,
+    "10": 328.3
+   }
+  },
+  {
+   "id": "s2_rf_2024-10-05",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-10-05.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 94548,
+   "sha256": "1bf8b431c36cd80cb39e9f8e243f0e0f2b2b14b5d8d1fc9d506126396e085913",
+   "area_km2_by_class": {
+    "1": 164.5,
+    "2": 1611.6,
+    "3": 376.3,
+    "4": 73.3,
+    "5": 0.0,
+    "6": 72.7,
+    "7": 83.2,
+    "8": 35.3,
+    "9": 0.0,
+    "10": 466.1
+   }
+  },
+  {
+   "id": "s2_rf_2024-12-14",
+   "group": "s2_rf",
+   "file": "rf/by_date/2024-12-14.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 121201,
+   "sha256": "690444a178e92a3b93cd9110bdbc2068d35e802cee59a49a0dca20c3d58fe187",
+   "area_km2_by_class": {
+    "1": 182.5,
+    "2": 448.1,
+    "3": 919.2,
+    "4": 226.5,
+    "5": 0.0,
+    "6": 191.5,
+    "7": 29.0,
+    "8": 11.7,
+    "9": 0.0,
+    "10": 871.2
+   }
+  },
+  {
+   "id": "s2_rf_2025-01-13",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-01-13.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 98% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 124121,
+   "sha256": "536bcaeb4e773483d2e81cac758666da33728b0a946ac540b6d02196fe11bd0f",
+   "area_km2_by_class": {
+    "1": 162.1,
+    "2": 529.2,
+    "3": 80.4,
+    "4": 490.3,
+    "5": 0.0,
+    "6": 164.7,
+    "7": 119.0,
+    "8": 54.1,
+    "9": 0.0,
+    "10": 1233.1
+   }
+  },
+  {
+   "id": "s2_rf_2025-02-02",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-02-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 117204,
+   "sha256": "bc7c266d852b9862de5096ba63fb89dba6db5d58fe29bac69f12d89311175b7b",
+   "area_km2_by_class": {
+    "1": 183.7,
+    "2": 445.2,
+    "3": 86.1,
+    "4": 1102.0,
+    "5": 0.0,
+    "6": 322.4,
+    "7": 10.4,
+    "8": 4.9,
+    "9": 0.0,
+    "10": 726.6
+   }
+  },
+  {
+   "id": "s2_rf_2025-04-18",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-04-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 127027,
+   "sha256": "9c145026e08ab05f978d827f30f45d3f33466fb106bbd964573c78932b99d167",
+   "area_km2_by_class": {
+    "1": 64.1,
+    "2": 610.3,
+    "3": 943.2,
+    "4": 101.4,
+    "5": 0.0,
+    "6": 231.2,
+    "7": 99.7,
+    "8": 21.7,
+    "9": 0.0,
+    "10": 811.6
+   }
+  },
+  {
+   "id": "s2_rf_2025-05-03",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-05-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 124941,
+   "sha256": "eec14645f056f99d95de9b87fc9fa5300a4bacfd1bd471a1f9a5243421f0ee9e",
+   "area_km2_by_class": {
+    "1": 179.6,
+    "2": 598.4,
+    "3": 723.4,
+    "4": 114.2,
+    "5": 0.0,
+    "6": 118.2,
+    "7": 107.5,
+    "8": 18.0,
+    "9": 0.0,
+    "10": 1011.0
+   }
+  },
+  {
+   "id": "s2_rf_2025-06-27",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-06-27.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 295786,
+   "sha256": "ee1e95d87659cd16bbeb2abb28fa2b69ec7486d90c5707a19b9655253edb6fef",
+   "area_km2_by_class": {
+    "1": 254.1,
+    "2": 4352.5,
+    "3": 2444.5,
+    "4": 197.4,
+    "5": 0.0,
+    "6": 322.3,
+    "7": 178.1,
+    "8": 186.5,
+    "9": 0.0,
+    "10": 1077.8
+   }
+  },
+  {
+   "id": "s2_rf_2025-08-31",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-08-31.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 221663,
+   "sha256": "4b935ae9740baa955a2a0111c42115f07ef2c789aeb19af5126f3d468800dc79",
+   "area_km2_by_class": {
+    "1": 123.8,
+    "2": 5320.8,
+    "3": 410.4,
+    "4": 185.5,
+    "5": 0.0,
+    "6": 243.6,
+    "7": 178.3,
+    "8": 382.7,
+    "9": 0.0,
+    "10": 817.3
+   }
+  },
+  {
+   "id": "s2_rf_2025-11-14",
+   "group": "s2_rf",
+   "file": "rf/by_date/2025-11-14.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 127349,
+   "sha256": "bb0707eb00fbc4838836e692687490ed4216a6fcdc8d2adac8382f4edb99b286",
+   "area_km2_by_class": {
+    "1": 175.6,
+    "2": 595.3,
+    "3": 525.6,
+    "4": 200.3,
+    "5": 0.0,
+    "6": 116.5,
+    "7": 82.6,
+    "8": 9.7,
+    "9": 0.0,
+    "10": 1142.1
+   }
+  },
+  {
+   "id": "s2_rf_2026-05-08",
+   "group": "s2_rf",
+   "file": "rf/by_date/2026-05-08.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 97% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 123863,
+   "sha256": "dc1b7d3411974687ab318bef4e5e2d2964e22f1bcaede1b2c09d4988df2daa67",
+   "area_km2_by_class": {
+    "1": 187.1,
+    "2": 931.1,
+    "3": 412.8,
+    "4": 135.0,
+    "5": 0.0,
+    "6": 75.8,
+    "7": 113.5,
+    "8": 13.1,
+    "9": 0.0,
+    "10": 926.5
+   }
+  },
+  {
+   "id": "s2_rf_2026-07-02",
+   "group": "s2_rf",
+   "file": "rf/by_date/2026-07-02.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 99% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 108625,
+   "sha256": "5994753f4ea5087f863348677b282ad886ee4b77b9f0415fcb61e749f1ca362b",
+   "area_km2_by_class": {
+    "1": 177.3,
+    "2": 1289.3,
+    "3": 612.3,
+    "4": 52.1,
+    "5": 0.0,
+    "6": 198.1,
+    "7": 99.3,
+    "8": 23.1,
+    "9": 0.0,
+    "10": 408.2
+   }
+  },
+  {
+   "id": "s2_rf_2026-08-16",
+   "group": "s2_rf",
+   "file": "rf/by_date/2026-08-16.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 114000,
+   "sha256": "6b441f3ffecf7cae6c28b7bf83ede774256e90f6d6525d7510fe6cf339ab448b",
+   "area_km2_by_class": {
+    "1": 180.6,
+    "2": 1497.8,
+    "3": 380.2,
+    "4": 76.9,
+    "5": 0.0,
+    "6": 171.2,
+    "7": 83.4,
+    "8": 52.9,
+    "9": 0.0,
+    "10": 439.1
+   }
+  },
+  {
+   "id": "s2_rf_2026-09-10",
+   "group": "s2_rf",
+   "file": "rf/by_date/2026-09-10.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 105774,
+   "sha256": "3cc5990980b7b84d7581bc4684d50c293279163fa7fc8830737d5e5db2746e16",
+   "area_km2_by_class": {
+    "1": 178.1,
+    "2": 1622.9,
+    "3": 394.4,
+    "4": 134.2,
+    "5": 0.0,
+    "6": 141.5,
+    "7": 56.9,
+    "8": 39.0,
+    "9": 0.0,
+    "10": 316.2
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2017-07-01",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2017-07-01.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 70649,
+   "sha256": "33e8da696548785b0d00e21a19ada5074bcd95f2fb1d3e2af8371fb55bcc989b",
+   "area_km2_by_class": {
+    "1": 2090.8,
+    "2": 131.0,
+    "3": 102.9,
+    "4": 46.6,
+    "5": 0.0,
+    "6": 69.0,
+    "7": 126.7,
+    "8": 7.5,
+    "9": 0.0,
+    "10": 275.9
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2018-09-19",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2018-09-19.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 74350,
+   "sha256": "1d53aa1baf584827f41f23ee98dfaa3b5b9d2982f2356bab1530ffe41fd38f49",
+   "area_km2_by_class": {
+    "1": 2088.1,
+    "2": 125.7,
+    "3": 90.4,
+    "4": 125.3,
+    "5": 0.0,
+    "6": 97.9,
+    "7": 99.6,
+    "8": 5.2,
+    "9": 0.0,
+    "10": 218.2
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2019-08-25",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2019-08-25.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 74532,
+   "sha256": "e13147c820f716b9415bcb26e2c11f1fa84918f2096688750e8ad0afb2c5899c",
+   "area_km2_by_class": {
+    "1": 2091.9,
+    "2": 138.9,
+    "3": 105.5,
+    "4": 118.0,
+    "5": 0.0,
+    "6": 79.1,
+    "7": 116.6,
+    "8": 6.5,
+    "9": 0.0,
+    "10": 193.4
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2019-09-09",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2019-09-09.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 73254,
+   "sha256": "e538a43f87e50324cfe78f6204ca21da9c4332f44d6d073d9cec5b2ee1ffd61d",
+   "area_km2_by_class": {
+    "1": 2095.4,
+    "2": 110.5,
+    "3": 93.3,
+    "4": 90.8,
+    "5": 0.0,
+    "6": 86.9,
+    "7": 140.6,
+    "8": 4.3,
+    "9": 0.0,
+    "10": 228.6
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2020-06-10",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2020-06-10.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 76605,
+   "sha256": "5ef007df9ee6a7f7e6f15599aad458dc01e3b03b88a6373b2ad6faebebe86b04",
+   "area_km2_by_class": {
+    "1": 2065.2,
+    "2": 78.3,
+    "3": 147.4,
+    "4": 106.7,
+    "5": 0.0,
+    "6": 55.1,
+    "7": 93.2,
+    "8": 8.2,
+    "9": 0.0,
+    "10": 290.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2020-07-05",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2020-07-05.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 69741,
+   "sha256": "f4e5e6b5c545c123fc584b1c2174ba1ccb23b844b23bb060b1d8db3c5561dda1",
+   "area_km2_by_class": {
+    "1": 2089.8,
+    "2": 110.7,
+    "3": 143.6,
+    "4": 55.7,
+    "5": 0.0,
+    "6": 70.5,
+    "7": 138.2,
+    "8": 4.1,
+    "9": 0.0,
+    "10": 237.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-04-01",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-04-01.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 70381,
+   "sha256": "9f682658aab2ed6f238650dccfbe2ad3fd89f1194cead52b9a6955f0be92f986",
+   "area_km2_by_class": {
+    "1": 2104.7,
+    "2": 79.5,
+    "3": 166.5,
+    "4": 106.5,
+    "5": 0.0,
+    "6": 43.9,
+    "7": 95.0,
+    "8": 5.3,
+    "9": 0.0,
+    "10": 249.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-05-01",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-05-01.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 52%; the pool + 1 km; transparent = not observed",
+   "bytes": 38039,
+   "sha256": "302c4a1f4889664fb7756cf2c064956306726e1f7c3cb41c292fdaba42b1024b",
+   "area_km2_by_class": {
+    "1": 1058.7,
+    "2": 31.7,
+    "3": 27.8,
+    "4": 56.0,
+    "5": 0.0,
+    "6": 39.4,
+    "7": 59.8,
+    "8": 11.3,
+    "9": 0.0,
+    "10": 107.0
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-06-30",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-06-30.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 85%; the pool + 1 km; transparent = not observed",
+   "bytes": 65706,
+   "sha256": "5ff19054dd53f59f33f2e4745f8da7a0f1a16f74d6af423d20846b7eb2fce54a",
+   "area_km2_by_class": {
+    "1": 1787.4,
+    "2": 94.4,
+    "3": 62.9,
+    "4": 84.3,
+    "5": 0.0,
+    "6": 45.8,
+    "7": 54.2,
+    "8": 7.6,
+    "9": 0.0,
+    "10": 211.9
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-07-15",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-07-15.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 72747,
+   "sha256": "18c930fd1e959d7e4572c49b8daed2f03b28df52c638cb67e0fe0088469bac4e",
+   "area_km2_by_class": {
+    "1": 2091.5,
+    "2": 110.3,
+    "3": 85.1,
+    "4": 118.0,
+    "5": 0.0,
+    "6": 86.6,
+    "7": 99.5,
+    "8": 5.1,
+    "9": 0.0,
+    "10": 254.2
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-08-19",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-08-19.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 35183,
+   "sha256": "68cc429089843ed9b806aab56423c877b661315b26d4c8cd45907017a3e91b45",
+   "area_km2_by_class": {
+    "1": 1114.9,
+    "2": 22.2,
+    "3": 20.0,
+    "4": 74.7,
+    "5": 0.0,
+    "6": 64.8,
+    "7": 55.1,
+    "8": 3.9,
+    "9": 0.0,
+    "10": 84.7
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-09-08",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-09-08.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 73498,
+   "sha256": "7f9b4e74915d523cda85415cc949b121ab698a841fbd59cdf8e17a528702bc6b",
+   "area_km2_by_class": {
+    "1": 2090.5,
+    "2": 120.9,
+    "3": 91.5,
+    "4": 120.3,
+    "5": 0.0,
+    "6": 100.1,
+    "7": 111.7,
+    "8": 3.7,
+    "9": 0.0,
+    "10": 211.6
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2021-11-17",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2021-11-17.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 61%; the pool + 1 km; transparent = not observed",
+   "bytes": 46239,
+   "sha256": "c76abddf3bb410af6a5c4606429597f375f4232abf90ff2f402cda8c26f4d144",
+   "area_km2_by_class": {
+    "1": 1272.3,
+    "2": 32.2,
+    "3": 55.2,
+    "4": 84.4,
+    "5": 0.0,
+    "6": 39.0,
+    "7": 48.3,
+    "8": 5.3,
+    "9": 0.0,
+    "10": 136.5
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-02-15",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-02-15.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 77859,
+   "sha256": "bb3dc20269318b50a37f2a5390102d74639e90557738117c81a30fa858493c4c",
+   "area_km2_by_class": {
+    "1": 2075.2,
+    "2": 112.8,
+    "3": 75.5,
+    "4": 104.9,
+    "5": 0.0,
+    "6": 56.7,
+    "7": 108.2,
+    "8": 10.5,
+    "9": 0.0,
+    "10": 283.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-03-22",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-03-22.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 73305,
+   "sha256": "24f69f3a908affd4f94da08d7dab4fff2c6606c249ca19fcc07efeb9597b2cde",
+   "area_km2_by_class": {
+    "1": 2086.5,
+    "2": 101.7,
+    "3": 205.7,
+    "4": 116.6,
+    "5": 0.0,
+    "6": 67.1,
+    "7": 79.0,
+    "8": 8.3,
+    "9": 0.0,
+    "10": 182.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-04-26",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-04-26.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 73277,
+   "sha256": "7ed1ff5719c39e25966ce1fea75b979a2a1037a946938ed28338e756e50bc09d",
+   "area_km2_by_class": {
+    "1": 2071.9,
+    "2": 119.5,
+    "3": 182.0,
+    "4": 72.1,
+    "5": 0.0,
+    "6": 64.2,
+    "7": 96.5,
+    "8": 6.5,
+    "9": 0.0,
+    "10": 230.0
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-05-06",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-05-06.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 95%; the pool + 1 km; transparent = not observed",
+   "bytes": 66702,
+   "sha256": "5c1e61b872467909f37b5d7d4da34e056d4795870ac8554c1aecf296664c87ca",
+   "area_km2_by_class": {
+    "1": 2014.0,
+    "2": 127.8,
+    "3": 166.0,
+    "4": 70.2,
+    "5": 0.0,
+    "6": 41.6,
+    "7": 75.9,
+    "8": 4.1,
+    "9": 0.0,
+    "10": 197.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-06-20",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-06-20.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 75526,
+   "sha256": "2fc51d01454de2927e86d84a0fd189648fcd21370cf49e1312f0ae65d4bd076a",
+   "area_km2_by_class": {
+    "1": 2062.7,
+    "2": 126.2,
+    "3": 148.2,
+    "4": 112.7,
+    "5": 0.0,
+    "6": 59.3,
+    "7": 76.9,
+    "8": 7.8,
+    "9": 0.0,
+    "10": 248.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-07-15",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-07-15.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 35574,
+   "sha256": "843b7ae8e221821986715f6bfb8124f0488bd517876a6249004b31553e08eaf1",
+   "area_km2_by_class": {
+    "1": 1112.9,
+    "2": 23.7,
+    "3": 37.6,
+    "4": 59.3,
+    "5": 0.0,
+    "6": 57.8,
+    "7": 52.6,
+    "8": 4.3,
+    "9": 0.0,
+    "10": 90.5
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-08-09",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-08-09.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 74935,
+   "sha256": "d7b0527f84996c7c65497cce4f71e5b6566b7e8a64e8a6d0ab65ac1b84ee49b8",
+   "area_km2_by_class": {
+    "1": 2087.9,
+    "2": 132.6,
+    "3": 118.7,
+    "4": 99.7,
+    "5": 0.0,
+    "6": 87.5,
+    "7": 107.7,
+    "8": 5.5,
+    "9": 0.0,
+    "10": 210.5
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-09-18",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-09-18.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 58%; the pool + 1 km; transparent = not observed",
+   "bytes": 48120,
+   "sha256": "51040757d5c6afbc94fe117491f7e0f90742f24eed821f3ec24c02fc3dc1de33",
+   "area_km2_by_class": {
+    "1": 1186.9,
+    "2": 33.0,
+    "3": 40.1,
+    "4": 114.9,
+    "5": 0.0,
+    "6": 61.5,
+    "7": 42.8,
+    "8": 5.2,
+    "9": 0.0,
+    "10": 112.0
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2022-10-18",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2022-10-18.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 73272,
+   "sha256": "616fc7f8b8b7dfd8deefe10d5a72346974fd91b1be0f4c93a68616db04bb6aff",
+   "area_km2_by_class": {
+    "1": 2085.8,
+    "2": 98.0,
+    "3": 123.0,
+    "4": 162.1,
+    "5": 0.0,
+    "6": 56.3,
+    "7": 45.6,
+    "8": 6.3,
+    "9": 0.0,
+    "10": 273.0
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-02-10",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-02-10.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 88%; the pool + 1 km; transparent = not observed",
+   "bytes": 77293,
+   "sha256": "51100be2827b65da31a26ac15868fb9ce93696fb2e248d46169d2198991f6469",
+   "area_km2_by_class": {
+    "1": 1807.6,
+    "2": 75.5,
+    "3": 101.0,
+    "4": 36.3,
+    "5": 0.0,
+    "6": 13.9,
+    "7": 106.2,
+    "8": 36.4,
+    "9": 0.0,
+    "10": 304.5
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-05-06",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-05-06.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 75456,
+   "sha256": "886a2eac8c749f092bc0e09c90172b70dafbafd0bc8bc01b07f78c50d4bf26ab",
+   "area_km2_by_class": {
+    "1": 2081.3,
+    "2": 102.8,
+    "3": 166.6,
+    "4": 118.0,
+    "5": 0.0,
+    "6": 53.5,
+    "7": 83.7,
+    "8": 5.3,
+    "9": 0.0,
+    "10": 239.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-06-05",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-06-05.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 72380,
+   "sha256": "ee36dfe39664c83f86a16bbda33218290093610c2f35e341903a1d6bc8d6a035",
+   "area_km2_by_class": {
+    "1": 2102.1,
+    "2": 65.4,
+    "3": 106.1,
+    "4": 77.4,
+    "5": 0.0,
+    "6": 63.3,
+    "7": 86.7,
+    "8": 4.7,
+    "9": 0.0,
+    "10": 344.6
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-07-05",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-07-05.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 93%; the pool + 1 km; transparent = not observed",
+   "bytes": 159608,
+   "sha256": "2680d3f2181ad26750bfab345e9c1cfbcd689c46fc54d7c88dac9949a2e5b5b1",
+   "area_km2_by_class": {
+    "1": 330.1,
+    "2": 65.2,
+    "3": 124.4,
+    "4": 61.7,
+    "5": 0.0,
+    "6": 87.4,
+    "7": 515.9,
+    "8": 944.8,
+    "9": 0.0,
+    "10": 516.2
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-08-17",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-08-17.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 53%; the pool + 1 km; transparent = not observed",
+   "bytes": 109502,
+   "sha256": "dddc9caa76f417e9d2a42d592918e99941319124400717a103b6720bd95f0fe5",
+   "area_km2_by_class": {
+    "1": 180.6,
+    "2": 48.0,
+    "3": 90.7,
+    "4": 90.8,
+    "5": 0.0,
+    "6": 69.3,
+    "7": 414.2,
+    "8": 346.2,
+    "9": 0.0,
+    "10": 375.7
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-09-08",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-09-08.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 99%; the pool + 1 km; transparent = not observed",
+   "bytes": 183514,
+   "sha256": "306cc6a90701e1bc1fd400453275734cb52765ec1b7bed1ad1764f619dd074c6",
+   "area_km2_by_class": {
+    "1": 213.8,
+    "2": 109.1,
+    "3": 178.8,
+    "4": 125.1,
+    "5": 0.0,
+    "6": 229.5,
+    "7": 745.1,
+    "8": 387.7,
+    "9": 0.0,
+    "10": 857.6
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-10-03",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-10-03.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 55%; the pool + 1 km; transparent = not observed",
+   "bytes": 86760,
+   "sha256": "d6ea59b0b6802a347666cc8ac040fb9112aeb6b2482703c0115a8feeece50715",
+   "area_km2_by_class": {
+    "1": 14.1,
+    "2": 85.8,
+    "3": 27.3,
+    "4": 4.9,
+    "5": 0.0,
+    "6": 56.9,
+    "7": 469.1,
+    "8": 267.6,
+    "9": 0.0,
+    "10": 543.7
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2023-11-07",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2023-11-07.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 101241,
+   "sha256": "6052433d640300da9a881802d63fa5cfd735c6ce07b71193db5f647f35272c3a",
+   "area_km2_by_class": {
+    "1": 94.4,
+    "2": 127.2,
+    "3": 66.2,
+    "4": 223.0,
+    "5": 0.0,
+    "6": 31.2,
+    "7": 219.1,
+    "8": 228.2,
+    "9": 0.0,
+    "10": 476.5
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-01-29",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-01-29.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 119352,
+   "sha256": "3643ca383e0c49fb85125ed755a71eecfea39e2fbde13b88f0be732bfe65c368",
+   "area_km2_by_class": {
+    "1": 337.7,
+    "2": 116.2,
+    "3": 43.2,
+    "4": 287.7,
+    "5": 0.0,
+    "6": 50.9,
+    "7": 89.1,
+    "8": 132.9,
+    "9": 0.0,
+    "10": 617.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-04-30",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-04-30.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 92217,
+   "sha256": "2460ac3be8558dc46e14c74cd062a3411fe8a460394465346cff6fd2a3693293",
+   "area_km2_by_class": {
+    "1": 54.5,
+    "2": 235.9,
+    "3": 86.7,
+    "4": 61.6,
+    "5": 0.0,
+    "6": 502.0,
+    "7": 84.5,
+    "8": 90.6,
+    "9": 0.0,
+    "10": 338.7
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-05-10",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-05-10.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 54%; the pool + 1 km; transparent = not observed",
+   "bytes": 94858,
+   "sha256": "f46750d8cc3de000151ddcc163006488a67c8fa9c25264dc93007857db33ae95",
+   "area_km2_by_class": {
+    "1": 350.4,
+    "2": 273.5,
+    "3": 72.3,
+    "4": 56.2,
+    "5": 0.0,
+    "6": 167.2,
+    "7": 93.3,
+    "8": 85.3,
+    "9": 0.0,
+    "10": 351.3
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-07-14",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-07-14.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 55%; the pool + 1 km; transparent = not observed",
+   "bytes": 99948,
+   "sha256": "98fe52a9d8ce1b38ecb2ddae8892a10530767ee49ba8c9b248e8b5bf2a668939",
+   "area_km2_by_class": {
+    "1": 177.4,
+    "2": 65.2,
+    "3": 66.6,
+    "4": 75.1,
+    "5": 0.0,
+    "6": 234.3,
+    "7": 276.3,
+    "8": 105.3,
+    "9": 0.0,
+    "10": 470.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-08-13",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-08-13.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 92%; the pool + 1 km; transparent = not observed",
+   "bytes": 173085,
+   "sha256": "407c81bc82180f99c3191df9914b725929400eed9c05fe5172e390123dd777e1",
+   "area_km2_by_class": {
+    "1": 165.5,
+    "2": 187.8,
+    "3": 148.3,
+    "4": 268.4,
+    "5": 0.0,
+    "6": 232.0,
+    "7": 477.3,
+    "8": 195.4,
+    "9": 0.0,
+    "10": 932.3
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2024-10-22",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2024-10-22.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 90%; the pool + 1 km; transparent = not observed",
+   "bytes": 151516,
+   "sha256": "34fb9b96d5835cafb71a3ac3a36721fc77a79504bd8ea088846dd90a20ad5540",
+   "area_km2_by_class": {
+    "1": 153.5,
+    "2": 155.7,
+    "3": 69.8,
+    "4": 967.1,
+    "5": 0.0,
+    "6": 61.8,
+    "7": 278.9,
+    "8": 133.3,
+    "9": 0.0,
+    "10": 703.9
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2025-02-12",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2025-02-12.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 51%; the pool + 1 km; transparent = not observed",
+   "bytes": 119047,
+   "sha256": "a6a083ec28889786141707dc9fffbf88578ebf8f8fefb602f48271e6ab1cb80a",
+   "area_km2_by_class": {
+    "1": 186.2,
+    "2": 46.4,
+    "3": 158.7,
+    "4": 343.4,
+    "5": 0.0,
+    "6": 212.5,
+    "7": 113.9,
+    "8": 70.5,
+    "9": 0.0,
+    "10": 424.9
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2025-06-09",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2025-06-09.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 58%; the pool + 1 km; transparent = not observed",
+   "bytes": 119046,
+   "sha256": "04001c8369453218ddb2f4a1153ef397a79be6fa45ed52e87dc73e1341665d74",
+   "area_km2_by_class": {
+    "1": 101.4,
+    "2": 111.4,
+    "3": 167.4,
+    "4": 44.6,
+    "5": 0.0,
+    "6": 179.8,
+    "7": 273.7,
+    "8": 72.6,
+    "9": 0.0,
+    "10": 818.1
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2025-08-28",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2025-08-28.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 95%; the pool + 1 km; transparent = not observed",
+   "bytes": 169035,
+   "sha256": "3e727bd26f6b27ef6748ff3264081635ac18d9085c797e06220360edc0d0421f",
+   "area_km2_by_class": {
+    "1": 127.7,
+    "2": 319.9,
+    "3": 206.6,
+    "4": 779.2,
+    "5": 0.0,
+    "6": 188.1,
+    "7": 233.0,
+    "8": 104.0,
+    "9": 0.0,
+    "10": 738.3
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2025-09-22",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2025-09-22.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 55%; the pool + 1 km; transparent = not observed",
+   "bytes": 101843,
+   "sha256": "ad62e25e73b830ebb4857d73d8efab991cc5e4df748516001a188f192e9a2e95",
+   "area_km2_by_class": {
+    "1": 69.0,
+    "2": 86.1,
+    "3": 96.5,
+    "4": 298.1,
+    "5": 0.0,
+    "6": 156.2,
+    "7": 159.1,
+    "8": 67.6,
+    "9": 0.0,
+    "10": 537.4
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2026-06-29",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2026-06-29.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 95%; the pool + 1 km; transparent = not observed",
+   "bytes": 163613,
+   "sha256": "02b1f1cb9be7bfbfd8f8a79be1c204057d74b0237ce02bbf50d133af20233377",
+   "area_km2_by_class": {
+    "1": 153.4,
+    "2": 176.3,
+    "3": 252.0,
+    "4": 91.0,
+    "5": 0.0,
+    "6": 912.0,
+    "7": 234.6,
+    "8": 72.6,
+    "9": 0.0,
+    "10": 794.2
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2026-07-19",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2026-07-19.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 95%; the pool + 1 km; transparent = not observed",
+   "bytes": 162492,
+   "sha256": "83b59b5574f18fc25d1b258034fba301c7a149396709174d2ec235e916c53c37",
+   "area_km2_by_class": {
+    "1": 144.4,
+    "2": 149.9,
+    "3": 236.5,
+    "4": 236.1,
+    "5": 0.0,
+    "6": 933.1,
+    "7": 228.3,
+    "8": 67.3,
+    "9": 0.0,
+    "10": 688.8
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2026-08-23",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2026-08-23.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 95%; the pool + 1 km; transparent = not observed",
+   "bytes": 170741,
+   "sha256": "2135900e846dd813d8bf8fa076f5ff1b4df798901bcb107f872115160a612603",
+   "area_km2_by_class": {
+    "1": 140.5,
+    "2": 223.1,
+    "3": 195.8,
+    "4": 392.9,
+    "5": 0.0,
+    "6": 752.3,
+    "7": 232.9,
+    "8": 71.1,
+    "9": 0.0,
+    "10": 688.4
+   }
+  },
+  {
+   "id": "reservoir_s2_rf_2026-09-12",
+   "group": "reservoir_s2_rf",
+   "file": "reservoir/rf/2026-09-12.png",
+   "bounds": [
+    [
+     46.7,
+     33.3
+    ],
+    [
+     47.95,
+     35.4
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "pool observed 78%; the pool + 1 km; transparent = not observed",
+   "bytes": 145775,
+   "sha256": "cb89e81f09f974049c39ffd4a8a071abd06d75d6d6e5eaf9017ae222a4027791",
+   "area_km2_by_class": {
+    "1": 108.3,
+    "2": 221.7,
+    "3": 91.1,
+    "4": 182.6,
+    "5": 0.0,
+    "6": 602.5,
+    "7": 199.5,
+    "8": 63.2,
+    "9": 0.0,
+    "10": 726.8
+   }
   }
  ],
  "reservoir_grid": {
@@ -14311,7 +19481,7 @@
    ]
   ]
  },
- "total_bytes": 47773945,
- "n_layers": 474,
+ "total_bytes": 59201362,
+ "n_layers": 568,
  "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
 }
