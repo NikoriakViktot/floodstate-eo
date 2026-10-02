@@ -110,7 +110,9 @@ st.subheader("RF surface classes by date (p102): every Sentinel-2 date of the ar
 st.caption("The per-date counterpart of RF20: a random forest on the seven indices of ONE date (WorldCover 2021 as the weak target; the same nine classes), "
            "so that every observed date of 2017–2026 has a class map — the drained reservoir bed of 2024–2026 included, which no pre-event composite covers. "
            "Land-cover classes (a bare field in winter is still cropland); the per-date physical state is the k10e rule map of the same stack. "
-           "A product for the hydraulic-model work (Papers 4–5), not a result of Paper 3; agreement with WorldCover is never accuracy.")
+           "A product for the hydraulic-model work (Papers 4–5), not a result of Paper 3. Agreement with the WorldCover-2021-derived weak reference: macro F1 0.764 "
+           "(5 km spatial-block CV) and 0.698 in the 2023 hold-out of pre-breach dates — a temporal-transfer degradation relative to those labels, not a validated "
+           "2023 accuracy; after the breach there is no reference (WorldCover 2021 shows the pool as water), so 2023-post and 2024–2026 are predictions only.")
 try:
     A = raw("p102_rf_date_class_area.csv"); A["t"] = pd.to_datetime(A.date); I = raw("p102_rf_date_inventory.csv")
     RFL = [l for l in L["layers"] if l["group"] in ("s2_rf", "reservoir_s2_rf")]; pal = RFL[0]["palette"] if RFL else {}; leg = RFL[0]["legend"] if RFL else {}
@@ -155,7 +157,14 @@ try:
             folium.LayerControl(collapsed=True).add_to(m); st_folium(m, use_container_width=True, height=520, returned_objects=[], key="ctx_rf_map")
     else:
         st.info("RF-by-date layers not rendered (p98 --only rf_date)")
-    st.markdown(f"<small>Classes and areas of every date: `tables/p102_rf_date_class_area.csv`; metrics (spatial-block CV and the 2023 hold-out, both variants): `tables/p102_rf_date_metrics.csv`.</small>", unsafe_allow_html=True)
+    for fn, cap in (("confusion_spectral_doy.png", "confusion matrices (row %, recall on the diagonal) of the production variant: spatial-block CV and the 2023 hold-out"),
+                    ("ZONE_1_pool_transition.png", "the drained bed season by season: WorldCover 2021 class × dominant RF class (a transition, not an error); control outside the pool")):
+        fp_ = CS / "figures" / "p102" / fn
+        if fp_.exists():
+            with st.expander(cap, expanded=False):
+                st.image(str(fp_), width="stretch")
+    st.markdown("<small>Classes and areas of every date: `tables/p102_rf_date_class_area.csv`; per-class scores and confusion matrices of both evaluations and variants: "
+                "`tables/p102_rf_date_{metrics,confusion_long}.csv`; transition matrices: `tables/p102_rf_date_transition.csv`.</small>", unsafe_allow_html=True)
 except FileNotFoundError:
     st.info("RF classes by date not built (workflows/m6/p102_rf_surface_by_date.py)")
 

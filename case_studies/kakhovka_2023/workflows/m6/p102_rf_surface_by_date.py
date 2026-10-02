@@ -116,6 +116,201 @@ def metric_rows(ys, pred, labels, **tag):
     return rows
 
 
+def build_sample():
+    """The training sample of the run, deterministic (SEED): the same cells, folds and hold-out split for `train` and `evaluate`."""
+    t0 = time.time(); rng = np.random.default_rng(SEED); parts = []; inv = []
+    for z in ZONES:
+        y, tr = worldcover_target(z)
+        for d in dates_of(z):
+            if not (TRAIN_START <= d <= TRAIN_END):
+                continue
+            r = sample_date(z, d, y, tr, rng)
+            if r is None:
+                inv.append(dict(zone=z, date=d, n=0)); continue
+            X7, yy, xc, yc = r; s_, c_ = doy(d)
+            parts.append(dict(X=X7, y=yy, xc=xc, yc=yc, zone=np.full(len(yy), ZONES.index(z), "u1"), year=np.full(len(yy), int(d[:4]), "i2"),
+                              doy=np.column_stack([np.full(len(yy), s_, "f4"), np.full(len(yy), c_, "f4")])))
+            inv.append(dict(zone=z, date=d, n=int(len(yy)), **{f"n_{CLASSES[c]}": int((yy == c).sum()) for c in range(1, 10)}))
+    cat = lambda k: np.concatenate([p[k] for p in parts])
+    X7, ys, xc, yc, zone, year, DOY = (cat(k) for k in ("X", "y", "xc", "yc", "zone", "year", "doy"))
+    blk = np.floor(yc / BLOCK_M).astype("i8") * 100000 + np.floor(xc / BLOCK_M).astype("i8")
+    ub = np.unique(blk); rng.shuffle(ub); fold = dict(zip(ub.tolist(), (np.arange(len(ub)) % 5).tolist())); fv = np.vectorize(fold.get)(blk)
+    print(f"training sample {len(ys):,} cells, {len(ub)} blocks ({time.time() - t0:.0f} s)", flush=True)
+    return dict(VAR={"spectral": X7, "spectral+doy": np.hstack([X7, DOY])}, ys=ys, zone=zone, year=year, fv=fv, n_blocks=len(ub),
+                labels=[c for c in range(1, 10) if (ys == c).any()]), inv
+
+
+def step_evaluate(a):
+    """Confusion matrices and per-class scores of both evaluations, both variants, all zones and per zone (maintainer 2026-10-02: the matrix,
+    not only macro F1). Re-runs the fixed evaluation on the deterministic sample; the production model is not refitted. Every number is
+    agreement with the WorldCover-2021-derived weak reference: the 2023 hold-out (pre-breach dates) measures the temporal-transfer
+    degradation relative to those labels, not an independently validated 2023 accuracy; post-breach dates have no reference at all."""
+    from sklearn.metrics import confusion_matrix
+    t0 = time.time(); S, _ = build_sample(); ys, zone, year, fv, labels = S["ys"], S["zone"], S["year"], S["fv"], S["labels"]
+    tr_, te = year <= 2022, year >= 2023; met, conf = [], []
+
+    def add(evaluation, var, yt, yp, zz):
+        for zi, zn in [(None, "ALL")] + list(enumerate(ZONES)):
+            m = np.ones(len(yt), bool) if zi is None else (zz == zi)
+            if m.sum() < 100:
+                continue
+            lab = [c for c in labels if (yt[m] == c).any()]
+            met.extend(metric_rows(yt[m], yp[m], lab, variant=var, evaluation=evaluation, zone=zn))
+            C = confusion_matrix(yt[m], yp[m], labels=labels)
+            conf.extend(dict(variant=var, evaluation=evaluation, zone=zn, reference=CLASSES[r], predicted=CLASSES[p], n=int(C[i, j]))
+                        for i, r in enumerate(labels) for j, p in enumerate(labels))
+    for var, X in S["VAR"].items():
+        pred = np.zeros_like(ys)
+        for k in range(5):
+            m = rf(a.jobs).fit(X[fv != k], ys[fv != k]); pred[fv == k] = m.predict(X[fv == k])
+        add("spatial_block_cv_5fold", var, ys, pred, zone)
+        m = rf(a.jobs).fit(X[tr_], ys[tr_]); add("temporal_holdout_2023pre", var, ys[te], m.predict(X[te]), zone[te])
+        print(f"  {var} evaluated ({time.time() - t0:.0f} s)", flush=True)
+    M = pd.DataFrame(met); C = pd.DataFrame(conf)
+    old = pd.read_csv(CFG.TABLES / "p102_rf_date_metrics.csv") if (CFG.TABLES / "p102_rf_date_metrics.csv").exists() else None
+    if old is not None:                                                     # determinism check against the train run
+        k = ["variant", "evaluation", "zone", "cls"]; j = old.merge(M, on=k, suffixes=("_train", "_eval"))
+        print(f"  reproduces the train-step metrics: max |dF1| = {float((j.F1_train - j.F1_eval).abs().max()):.2e} over {len(j)} rows", flush=True)
+    M.to_csv(CFG.TABLES / "p102_rf_date_metrics.csv", index=False); C.to_csv(CFG.TABLES / "p102_rf_date_confusion_long.csv", index=False)
+    figure_confusion(C, M)
+    print(f"-> tables/p102_rf_date_{{metrics,confusion_long}}.csv, figures/p102/confusion_*.png ({time.time() - t0:.0f} s)", flush=True)
+
+
+def figure_confusion(C, M):
+    import matplotlib; matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    FIG.mkdir(parents=True, exist_ok=True)
+    prod = json.loads((CFG.TABLES / "p102_rf_date_manifest.json").read_text())["features"]["production"] if (CFG.TABLES / "p102_rf_date_manifest.json").exists() else "spectral+doy"
+    for var in VARIANTS:
+        fig, axs = plt.subplots(1, 2, figsize=(15, 6.6))
+        for ax, ev, title in ((axs[0], "spatial_block_cv_5fold", "5-fold spatial-block CV (5 km blocks), 2021 – 5 June 2023"),
+                              (axs[1], "temporal_holdout_2023pre", "temporal hold-out: fit 2021–2022, test 1 Jan – 5 June 2023")):
+            c = C[(C.variant == var) & (C.evaluation == ev) & (C.zone == "ALL")]
+            P = c.pivot_table(index="reference", columns="predicted", values="n", aggfunc="sum").reindex(index=[CLASSES[k] for k in range(1, 10)], columns=[CLASSES[k] for k in range(1, 10)]).dropna(how="all").dropna(axis=1, how="all").fillna(0)
+            R = P.div(P.sum(axis=1).replace(0, np.nan), axis=0) * 100
+            ax.imshow(R.values, cmap="Blues", vmin=0, vmax=100)
+            for i in range(R.shape[0]):
+                for j in range(R.shape[1]):
+                    v = R.values[i, j]
+                    if v >= 0.5:
+                        ax.text(j, i, f"{v:.0f}", ha="center", va="center", fontsize=7, color="white" if v > 55 else "black")
+            f1 = M[(M.variant == var) & (M.evaluation == ev) & (M.zone == "ALL")].set_index("cls").F1
+            ax.set_xticks(range(R.shape[1]), [s.replace("_", " ").lower()[:14] for s in R.columns], rotation=45, ha="right", fontsize=7)
+            ax.set_yticks(range(R.shape[0]), [f"{s.replace('_', ' ').lower()[:14]} · F1 {f1.get(s, np.nan):.2f} · n {int(P.loc[s].sum()):,}" for s in R.index], fontsize=7)
+            ax.set_xlabel("RF class"); ax.set_ylabel("WorldCover 2021 class (weak reference)")
+            ax.set_title(f"{title}\nmacro F1 {f1.get('MACRO', np.nan):.3f} · row % (recall on the diagonal)", fontsize=8, loc="left")
+        fig.suptitle(f"p102 RF by date, variant {var}{' (production)' if var == prod else ''}: agreement with the WorldCover-2021-derived weak reference, never accuracy", fontsize=9)
+        fig.tight_layout(); fig.savefig(FIG / f"confusion_{var.replace('+', '_')}.png", dpi=120); plt.close(fig)
+
+
+#: growing-season periods of the transition matrices (season-matched so that phenology does not pass for change); the 2023 period
+#: starts on the breach day
+PERIODS = [("2021 May–Sep (WorldCover yr)", "2021-05-01", "2021-09-30"), ("2022 May–Sep", "2022-05-01", "2022-09-30"),
+           ("2023 6 Jun–Sep (after the breach)", "2023-06-06", "2023-09-30"), ("2024 May–Sep", "2024-05-01", "2024-09-30"),
+           ("2025 May–Sep", "2025-05-01", "2025-09-30"), ("2026 May–Sep", "2026-05-01", "2026-09-30")]
+MIN_OBS = 2
+
+
+def step_transition(a):
+    """Transition matrices of the reservoir: WorldCover 2021 class (rows; the pre-breach state) x the dominant RF class of each growing
+    season (columns), km², inside the pre-breach pool and, as a control, in ZONE_1 outside it (where land cover changed little, so the
+    off-diagonal mass there is the classifier's year-to-year noise). Dominant class = the per-cell mode over the observed dates of the
+    period, a cell needs >= MIN_OBS observations. This is where the transformation of the drained bed shows (water -> bare -> vegetation);
+    the confusion matrices against WorldCover cannot show it, because WorldCover 2021 describes the state before the breach."""
+    import matplotlib; matplotlib.use("Agg")
+    import matplotlib.pyplot as plt
+    t0 = time.time(); z = "ZONE_1_KAKHOVKA_LOWER_DNIPRO"; wc, tr = None, None
+    with rasterio.open(WC / z / "wc_2021_20m.tif") as s:
+        wc = s.read(1); tr = s.transform
+    ref = np.zeros(wc.shape, "u1")
+    for wv, pc in WC2P.items():
+        ref[wc == wv] = pc
+    pool = pool_mask(z, wc.shape, tr); inside_zone = ref > 0
+    strata = {"POOL_PREBREACH": pool & inside_zone, "ZONE1_OUTSIDE_POOL": ~pool & inside_zone}
+    rows, krows = [], []; rr, cc = np.nonzero(pool); r0, r1, c0, c1 = rr.min(), rr.max() + 1, cc.min(), cc.max() + 1; pw = pool[r0:r1, c0:c1]
+    K10E = {1: "OPEN_WATER", 2: "SHALLOW_OR_MIXED_WATER", 3: "WET_SEDIMENT", 4: "DRY_BARE_SEDIMENT", 5: "SPARSE_HERBACEOUS", 6: "DENSE_HERBACEOUS",
+            7: "REED_OR_FLOODED_VEGETATION", 8: "BUILT_HARD_SURFACE", 9: "AMBIGUOUS"}
+    for name, lo, hi in PERIODS:
+        ds = [d for d in dates_of(z) if lo <= d <= hi and (OUT / z / f"{d}_rf.tif").exists()]
+        cnt = np.zeros((11,) + wc.shape, "u1")
+        for d in ds:
+            with rasterio.open(OUT / z / f"{d}_rf.tif") as s:
+                c = s.read(1)
+            for k in range(1, 11):
+                cnt[k] += (c == k)
+        nobs = cnt.sum(0); mode = cnt.argmax(0).astype("u1"); mode[nobs < MIN_OBS] = 0; del cnt
+        # the physical surface state of the same dates inside the pool (k10e rule classes of the p25 stacks): what each RF class on the bed is
+        kc = np.zeros((10, r1 - r0, c1 - c0), "u1")
+        for d in ds:
+            with rasterio.open(SPEC / z / f"{d}_class.tif") as s:
+                k = s.read(1, window=rasterio.windows.Window(c0, r0, c1 - c0, r1 - r0))
+            for j in range(1, 10):
+                kc[j] += (k == j)
+        kmode = kc.argmax(0).astype("u1"); kmode[kc.sum(0) < MIN_OBS] = 0; del kc
+        rm = mode[r0:r1, c0:c1]; ok = pw & (rm > 0) & (kmode > 0)
+        if ok.any():
+            H = np.zeros((11, 10), "i8"); np.add.at(H, (rm[ok], kmode[ok]), 1)
+            krows += [dict(period=name, n_dates=len(ds), rf_class=CLASSES[i], k10e_class=K10E[j], km2=round(float(H[i, j]) * CELL_KM2, 2))
+                      for i in range(1, 11) for j in range(1, 10) if H[i, j]]
+        for sn, sm in strata.items():
+            for rc in range(1, 10):
+                m = sm & (ref == rc)
+                if not m.any():
+                    continue
+                h = np.bincount(mode[m], minlength=11); obs = int(h[1:].sum())
+                for k in range(0, 11):
+                    rows.append(dict(stratum=sn, period=name, n_dates=len(ds), reference=CLASSES[rc], rf_class=CLASSES.get(k, "NOT_OBSERVED") if k else "NOT_OBSERVED",
+                                     km2=round(float(h[k]) * CELL_KM2, 2), share_of_observed=round(float(h[k]) / obs, 4) if (k and obs) else None))
+        print(f"  {name}: {len(ds)} dates ({time.time() - t0:.0f} s)", flush=True)
+    T = pd.DataFrame(rows); T.to_csv(CFG.TABLES / "p102_rf_date_transition.csv", index=False)
+    KT = pd.DataFrame(krows); KT.to_csv(CFG.TABLES / "p102_rf_date_rf_vs_k10e_pool.csv", index=False)
+    # figure: the pool's WorldCover-water row by season (km²), and the row-normalised matrices of the latest season, pool vs control
+    FIG.mkdir(parents=True, exist_ok=True); fig, axs = plt.subplots(1, 3, figsize=(18, 5.6), gridspec_kw=dict(width_ratios=[1.3, 1, 1]))
+    w = T[(T.stratum == "POOL_PREBREACH") & (T.reference == "WATER") & (T.rf_class != "NOT_OBSERVED")]
+    per = [p[0] for p in PERIODS]; bottom = np.zeros(len(per))
+    for k in range(1, 11):
+        v = np.array([w[(w.period == p) & (w.rf_class == CLASSES[k])].km2.sum() for p in per])
+        if v.sum() > 0:
+            axs[0].bar(range(len(per)), v, bottom=bottom, color=COLORS[k], label=CLASSES[k].replace("_", " ").lower()); bottom += v
+    nd = [int(T[(T.period == p)].n_dates.iloc[0]) if len(T[T.period == p]) else 0 for p in per]
+    axs[0].set_xticks(range(len(per)), [f"{p.split(' (')[0]}\n{n} dates" for p, n in zip(per, nd)], fontsize=7); axs[0].set_ylabel("km² (observed cells)")
+    axs[0].set_title("the pre-breach reservoir (WorldCover 2021 = water): dominant RF class of each growing season", fontsize=8, loc="left"); axs[0].legend(fontsize=7, frameon=False)
+    last = next((p for p in reversed(per) if T[(T.period == p) & (T.rf_class != "NOT_OBSERVED")].km2.sum() > 0), per[-1])
+    for ax, sn in ((axs[1], "POOL_PREBREACH"), (axs[2], "ZONE1_OUTSIDE_POOL")):
+        q = T[(T.stratum == sn) & (T.period == last) & (T.rf_class != "NOT_OBSERVED")]
+        P = q.pivot_table(index="reference", columns="rf_class", values="km2", aggfunc="sum").reindex(index=[CLASSES[k] for k in range(1, 10)], columns=[CLASSES[k] for k in range(1, 11)]).fillna(0)
+        P = P[P.sum(axis=1) > 0.5]; R = P.div(P.sum(axis=1), axis=0) * 100
+        ax.imshow(R.values, cmap="Greens", vmin=0, vmax=100)
+        for i in range(R.shape[0]):
+            for j in range(R.shape[1]):
+                if R.values[i, j] >= 1:
+                    ax.text(j, i, f"{R.values[i, j]:.0f}", ha="center", va="center", fontsize=7, color="white" if R.values[i, j] > 55 else "black")
+        ax.set_xticks(range(R.shape[1]), [s.replace("_", " ").lower()[:12] for s in R.columns], rotation=45, ha="right", fontsize=7)
+        ax.set_yticks(range(R.shape[0]), [f"{s.replace('_', ' ').lower()[:14]} · {P.loc[s].sum():,.0f} km²" for s in R.index], fontsize=7)
+        ax.set_title(f"{'pool' if sn.startswith('POOL') else 'control: ZONE_1 outside the pool'}, {last}: row %", fontsize=8, loc="left")
+        ax.set_xlabel("dominant RF class"); ax.set_ylabel("WorldCover 2021 class")
+    fig.suptitle("p102: the drained Kakhovka bed season by season (WorldCover 2021 = the pre-breach state; a transition, not an error). Contains modified Copernicus Sentinel data.", fontsize=9)
+    fig.tight_layout(); fig.savefig(FIG / "ZONE_1_pool_transition.png", dpi=120); plt.close(fig)
+    if len(KT):
+        sel = [p[0] for p in PERIODS if p[1] >= "2023-06-06" and KT[KT.period == p[0]].km2.sum() > 0]
+        fig, axs = plt.subplots(1, len(sel), figsize=(6.2 * len(sel), 5.4), squeeze=False)
+        for ax, per_ in zip(axs[0], sel):
+            q = KT[KT.period == per_]; P = q.pivot_table(index="rf_class", columns="k10e_class", values="km2", aggfunc="sum").reindex(
+                index=[CLASSES[k] for k in range(1, 11)], columns=[K10E[k] for k in range(1, 10)]).fillna(0)
+            P = P[P.sum(axis=1) > 0.5]; R = P.div(P.sum(axis=1), axis=0) * 100
+            ax.imshow(R.values, cmap="Oranges", vmin=0, vmax=100)
+            for i in range(R.shape[0]):
+                for j in range(R.shape[1]):
+                    if R.values[i, j] >= 1:
+                        ax.text(j, i, f"{R.values[i, j]:.0f}", ha="center", va="center", fontsize=7, color="white" if R.values[i, j] > 55 else "black")
+            ax.set_xticks(range(R.shape[1]), [s.replace("_", " ").lower()[:16] for s in R.columns], rotation=45, ha="right", fontsize=7)
+            ax.set_yticks(range(R.shape[0]), [f"{s.replace('_', ' ').lower()[:12]} · {P.loc[s].sum():,.0f} km²" for s in R.index], fontsize=7)
+            ax.set_title(f"pool, {per_}: RF class (rows) × k10e surface state (row %)", fontsize=8, loc="left"); ax.set_xlabel("dominant k10e class (rule on the indices)")
+        fig.suptitle("p102: what the RF classes on the drained bed are physically -- WorldCover has no exposed-sediment class, so the forest assigns it to the nearest land-cover classes", fontsize=9)
+        fig.tight_layout(); fig.savefig(FIG / "ZONE_1_pool_rf_vs_k10e.png", dpi=120); plt.close(fig)
+    print(f"-> tables/p102_rf_date_{{transition,rf_vs_k10e_pool}}.csv, figures/p102/ZONE_1_pool_{{transition,rf_vs_k10e}}.png ({time.time() - t0:.0f} s)", flush=True)
+
+
 def step_train(a):
     import joblib, sklearn
     from sklearn.metrics import confusion_matrix
@@ -308,7 +503,7 @@ def _git():
 
 
 def main():
-    ap = argparse.ArgumentParser(); ap.add_argument("--step", choices=["train", "predict", "tables", "figures", "all"], default="all")
+    ap = argparse.ArgumentParser(); ap.add_argument("--step", choices=["train", "predict", "tables", "figures", "evaluate", "transition", "all"], default="all")
     ap.add_argument("--zones", nargs="*", choices=ZONES); ap.add_argument("--since"); ap.add_argument("--until"); ap.add_argument("--force", action="store_true")
     ap.add_argument("--jobs", type=int, default=24)
     a = ap.parse_args()
@@ -320,6 +515,10 @@ def main():
         step_tables(a)
     if a.step in ("figures", "all"):
         step_figures(a)
+    if a.step in ("evaluate", "all"):
+        step_evaluate(a)
+    if a.step in ("transition", "all"):
+        step_transition(a)
 
 
 if __name__ == "__main__":

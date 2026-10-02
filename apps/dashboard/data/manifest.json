@@ -1,5 +1,5 @@
 {
- "generated_utc": "2026-10-01T22:11:54Z",
+ "generated_utc": "2026-10-02T03:46:11Z",
  "grid": {
   "crs": "EPSG:4326",
   "dlon": 0.001,
@@ -15009,9 +15009,9 @@
    }
   },
   {
-   "id": "s2_rf_2020-01-25",
+   "id": "s2_rf_2020-01-15",
    "group": "s2_rf",
-   "file": "rf/by_date/2020-01-25.png",
+   "file": "rf/by_date/2020-01-15.png",
    "bounds": [
     [
      46.35,
@@ -15048,19 +15048,19 @@
    },
    "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
    "note": "valid 100% of the two zones on average; transparent = not observed (cloud / outside the scene)",
-   "bytes": 117629,
-   "sha256": "0b4aefe44f594517ab12b904767d43b5ede93105bee1aeffe6ffb8c5dfafe212",
+   "bytes": 116543,
+   "sha256": "86fca0d9877433c176f9265f729e498b0df95657f8fddc01d1b69de803c14122",
    "area_km2_by_class": {
-    "1": 185.8,
-    "2": 928.2,
-    "3": 465.0,
-    "4": 233.5,
+    "1": 185.5,
+    "2": 1066.1,
+    "3": 301.8,
+    "4": 260.0,
     "5": 0.0,
-    "6": 144.5,
-    "7": 37.7,
-    "8": 8.2,
+    "6": 154.5,
+    "7": 44.4,
+    "8": 8.9,
     "9": 0.0,
-    "10": 880.5
+    "10": 862.0
    }
   },
   {
@@ -15776,6 +15776,116 @@
     "8": 9.2,
     "9": 0.0,
     "10": 885.0
+   }
+  },
+  {
+   "id": "s2_rf_2023-06-18",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-06-18.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 67% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 296953,
+   "sha256": "fd191e96b50140ca921f55b7e7bc1be4c1e64860c2334b698cfad5f5a6112c66",
+   "area_km2_by_class": {
+    "1": 239.9,
+    "2": 780.9,
+    "3": 1317.0,
+    "4": 348.6,
+    "5": 0.0,
+    "6": 378.3,
+    "7": 455.7,
+    "8": 109.0,
+    "9": 0.0,
+    "10": 2355.2
+   }
+  },
+  {
+   "id": "s2_rf_2023-07-03",
+   "group": "s2_rf",
+   "file": "rf/by_date/2023-07-03.png",
+   "bounds": [
+    [
+     46.35,
+     32.15
+    ],
+    [
+     47.15,
+     33.55
+    ]
+   ],
+   "legend": {
+    "1": "WATER",
+    "2": "CROPLAND",
+    "3": "GRASS_LOW_VEGETATION",
+    "4": "FOREST",
+    "5": "SHRUB",
+    "6": "WETLAND_REED",
+    "7": "BUILT_UP",
+    "8": "BARE_SAND",
+    "9": "OTHER",
+    "10": "UNCERTAIN"
+   },
+   "palette": {
+    "1": "#1b6ca8",
+    "2": "#f2c14e",
+    "3": "#b8d98d",
+    "4": "#1e6f3f",
+    "5": "#8c9a3a",
+    "6": "#2a9d8f",
+    "7": "#7d7d7d",
+    "8": "#d9c58b",
+    "9": "#c7522a",
+    "10": "#e8e4d8"
+   },
+   "source": "p102 RF surface classes by date: random forest on the 7 indices of the date (WorldCover 2021 weak target, 3x3 purity; 2021-2023-pre training dates); land-cover classes, not surface state",
+   "note": "valid 91% of the two zones on average; transparent = not observed (cloud / outside the scene)",
+   "bytes": 368439,
+   "sha256": "8217ba96bc5113ec54e927d325f6183caadf33b4f128b6279d9ab0f722c267b1",
+   "area_km2_by_class": {
+    "1": 266.1,
+    "2": 1174.5,
+    "3": 2862.2,
+    "4": 556.6,
+    "5": 0.0,
+    "6": 318.4,
+    "7": 485.6,
+    "8": 124.1,
+    "9": 0.0,
+    "10": 2559.3
    }
   },
   {
@@ -19481,7 +19591,7 @@
    ]
   ]
  },
- "total_bytes": 59201362,
- "n_layers": 568,
+ "total_bytes": 59865668,
+ "n_layers": 570,
  "licence_note": "Terrain layers are rendered classed images derived from FABDEM v1.2 (Hawker et al. 2022, CC BY-NC-SA 4.0) via the seamless terrain-bed model; provided for non-commercial use with attribution; no FABDEM-derived numeric raster is redistributed. Sentinel data: Copernicus. WorldCover 2021: CC BY 4.0."
 }

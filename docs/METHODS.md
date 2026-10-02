@@ -169,8 +169,21 @@ benchmark practice separates the same quantities: observed water, observed flood
     Dnipro, delta, estuary, floodway), 2017–2026 — the drained reservoir bed of 2024–2026 included — in the bulk root
     (`rf_by_date/<ZONE>/`); `tables/p102_rf_date_{inventory,metrics,class_area}.csv`; `figures/p102/`; dashboard layers of the
     best-observed date of each month (Maps, Surface context). Land-cover classes, read together with the k10e surface-state map of
-    the same date. Agreement with WorldCover is never accuracy. Nineteen downloaded SAFE dates (eighteen of 15 June – 31 July 2023,
-    one of 2024) have no p25 zone stack yet and therefore no class map (decision pending: run the frozen SWOT-DNIPRO p25 on them).
+    the same date. Agreement with the WorldCover-2021-derived weak reference fell from a spatially blocked macro F1 of 0.764 to 0.698
+    in the 2023 temporal hold-out (dates 1 January – 5 June 2023, before the breach): a temporal-transfer degradation relative to the
+    reference labels -- RF error, real change 2021→2023, WorldCover label error and season together -- not an independently validated
+    2023 land-cover accuracy. After the breach no reference exists (WorldCover 2021 shows the pool as water), so for post-breach dates
+    and 2024–2026 the classes are predictions in the WorldCover-trained ontology and no agreement is reported. Confusion matrices and
+    per-class scores of both evaluations (`p102 --step evaluate`: `tables/p102_rf_date_{metrics,confusion_long}.csv`,
+    `figures/p102/confusion_*.png`) and the transition matrices of the drained bed (`--step transition`: WorldCover 2021 class ×
+    dominant RF class of each growing season, inside the pre-breach pool and outside it as a control; `tables/p102_rf_date_transition.csv`,
+    `figures/p102/ZONE_1_pool_transition.png`), with the k10e state of the same dates as the physical reading of each RF class on the
+    bed (`tables/p102_rf_date_rf_vs_k10e_pool.csv`): WorldCover has no exposed-sediment class, so the forest labels much of the
+    exposed bed "built-up" (k10e: dry bare sediment, sparse herbaceous), and its "forest" on the bed is k10e reed / flooded vegetation
+    -- the classes inside the pool are not usable for roughness without a rule (see NEXT_STEPS 2026-10-02). Stacks of 17 more dates (49 zone-dates of 15 June – 30 July 2023) were added on
+    2026-10-02 by running SWOT-DNIPRO's frozen p25 unchanged on the event store (`workflows/m6/p25x_zone_stack_extension.py`,
+    `tables/p25x_zone_stack_extension.csv`); 2023-07-31 and 2024-05-25 stay without a stack (orbit-edge slivers below p25's 200 MB
+    scene filter). The Paper 3 tables built on the stacks (p95h: T23–T25) exclude the extension dates.
 29. **The full flood mask (p103)** `[implemented 2026-10-01: workflows/m6/p103_flood_envelope.py]`. The envelope of the primary
     reconstruction over the whole event, packaged from frozen products: classes pre-breach water (optical), normally wet
     (model-only part of the normal regime), new inundation of the nominal run on ≥ 1 day (26 May – 10 July), of the Monte-Carlo

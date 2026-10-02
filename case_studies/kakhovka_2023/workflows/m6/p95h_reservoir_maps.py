@@ -65,6 +65,9 @@ S1_MIN_OBS = 0.10                                              # map a scene onl
 S2_DATES = ["2023-05-06", "2023-06-05", "2023-07-05", "2023-08-17", "2023-09-08"]   # >= 50 % of the pool observed (06-30, 07-25, 08-27: < 7 %)
 S2_TABLE_MIN_OBS = 0.50                                        # class / index tables: every 2023 p25 date observing >= 50 % of the pool
 S2XC_DATES =["2023-06-08", "2023-06-13", "2023-06-15", "2023-06-20"]
+#: ZONE_1 stacks added on 2026-10-02 by p25x (the frozen p25 run on the event store; tables/p25x_zone_stack_extension.csv) for the
+#: hydraulic-model products. The paper's tables (T23-T25) are built on the stacks that existed before; these dates stay out of them.
+EXTENSION_DATES = frozenset({"2023-06-18", "2023-06-25", "2023-07-03", "2023-07-08", "2023-07-15", "2023-07-30"})
 INDEX_NAMES = ("NDVI", "NDWI", "MNDWI", "NDMI", "BSI", "AWEIsh", "NDTI")
 _WATER_RAMP = ["#8c6d31", "#d9c58b", "#9cc0ea", "#1b6ca8"]
 _TRI_RAMP = ["#c7522a", "#f2efe6", "#2a78d6"]
@@ -195,7 +198,7 @@ def main():
     mref = to_grid(wet[str(REF_DAY.date())], mtr, ztr, zshape).astype(bool)
     ez = to_grid(exp, mtr, ztr, zshape)                                     # strata on the S2 grid from the modelled day of exposure
     strata = {"POOL": zpool, "EXPOSED_BY_0613": zpool & (ez >= 6) & (ez <= 13), "WET_ON_0613": zpool & (ez == 255)}
-    for d in sorted(p.name[:10] for p in S2DIR.glob("2023-*_class.tif")):
+    for d in sorted(p.name[:10] for p in S2DIR.glob("2023-*_class.tif") if p.name[:10] not in EXTENSION_DATES):
         with rasterio.open(S2DIR / f"{d}_class.tif") as s:
             cl = s.read(1); regime = s.tags().get("regime", "")
         with rasterio.open(S2DIR / f"{d}_water3.tif") as s:

@@ -4,6 +4,43 @@ Written 2026-09-23, at the end of the session that created this repository's fir
 the "what stage are we at, what do we do when we come back" record — read this before doing anything else
 in this repo.
 
+## UPDATE 2026-10-02 — zone stacks extended (option A), the RF matrices, the product inventory, the p25 migration plan
+
+- **Option A done**: SWOT-DNIPRO's frozen p25, unchanged, run on the event store through `workflows/m6/p25x_zone_stack_extension.py`
+  (driver: adds `sentinel_event_2023` to the SAFE stores, skips the frozen regime composites). 49 new zone-dates (ZONE_1 6, ZONE_2 13,
+  ZONE_3 17, ZONE_4 13) = 17 of the 19 unstacked dates; 2023-07-31 (78 MB) and 2024-05-25 (47 / 64 MB) are orbit-edge slivers below
+  p25's 200 MB filter and stay unstacked. The sibling's p25 manifests (and their hard-linked `deliverables` copies) were restored to
+  their committed content; the record is `tables/p25x_zone_stack_extension.csv`. **p95h pins its date set** (`EXTENSION_DATES`): T23–T25
+  do not change. p102 predicted the new zone-dates; tables, figures and dashboard layers rebuilt.
+- **RF wording** (maintainer, after a literature check): 0.764 (spatial-block CV) → 0.698 (2023 hold-out, pre-breach dates) is a
+  temporal-transfer degradation relative to the WorldCover-2021-derived weak reference, not a validated 2023 accuracy; no agreement is
+  reported after the breach or for 2024–2026. The forwarded sources (ESA WorldCover v200 validation 76.7 %, Xu et al. 2024 RSE,
+  a cross-year Sentinel-2 transfer study with 2.3–14.9 pp, Tavus et al. 2026) are **not verified yet** -- check them against the
+  primary text before any citation (rule of 2026-10-01).
+- **The matrices** (maintainer: "the matrix must be in the plan"): `p102 --step evaluate` -- confusion matrices and per-class
+  precision / recall / F1 of both evaluations, both variants, all zones and per zone (`tables/p102_rf_date_{metrics,confusion_long}.csv`,
+  `figures/p102/confusion_*.png`); `p102 --step transition` -- WorldCover 2021 class × dominant RF class of each growing season
+  (2021, 2022, 2023 after the breach, 2024, 2025, 2026) inside the pre-breach pool, and outside it as the control of the classifier's
+  year-to-year noise (`tables/p102_rf_date_transition.csv`, `figures/p102/ZONE_1_pool_transition.png`). The transformation of the
+  drained bed shows in the transition matrices, not in the confusion matrices (WorldCover 2021 describes the pre-breach state).
+- **What the matrices show.** Confusion (production variant, F1 spatial CV / 2023 hold-out): water 0.98 / 0.94, bare 0.87 / 0.85,
+  forest 0.74 / 0.67, wetland 0.70 / 0.63, grass 0.69 / 0.61, built 0.69 / 0.66, cropland 0.69 / 0.55 (30 % of WorldCover cropland
+  goes to grass in the hold-out); hold-out macro F1 by zone 0.678 (pool zone), 0.728 (delta), 0.688 (estuary); the evaluation step
+  reproduced the training-step metrics exactly. Transition, pre-breach pool (WorldCover water 2,106 km²): water 2,088 km² in the
+  2021 and 2022 seasons → 2023 after the breach water 305, bare 626, "built-up" 668, wetland 118, uncertain 328 → 2026 wetland 824,
+  forest 227, "built-up" 166, water 169, uncertain 575. **Ontology gap**: the RF's "built-up" on the bed is, by the k10e state of the
+  same dates, dry bare sediment (34 %) and sparse herbaceous (25 %) -- WorldCover has no exposed-sediment class; the RF's "forest" on
+  the bed is k10e reed / flooded vegetation (76–97 %) -- the spectra do not separate willow thickets from reed. Before the hydraulic
+  model uses the pool classes (decisions for the maintainer): (a) BUILT_UP → EXPOSED_SEDIMENT inside the pre-breach pool (no buildings
+  exist there), (b) roughness classes from RF and k10e together, (c) canopy height from ICESat-2 ATL08 / GEDI to separate forest from
+  reed (`BULK/gedi` exists). `tables/p102_rf_date_rf_vs_k10e_pool.csv`, `figures/p102/ZONE_1_pool_rf_vs_k10e.png`.
+- **Product inventory** (`workflows/paper/p104_product_inventory.py` → `case_studies/kakhovka_2023/PRODUCT_INVENTORY.md`,
+  `tables/p104_product_inventory.csv`): every index map, classified map, water mask, flood / state map, dashboard layer group and map
+  figure, with paths, producers, grids and dates per year; generated from the files on disk.
+- **p25 migration plan**: `provenance/PLAN_P25_MIGRATION.md` (engine / driver split under the event-agnostic gate, date manifest,
+  config, parity gate with byte-identical arrays before any consumer switches). Not started: needs the maintainer's go-ahead.
+- Still open: push to origin; FABDEM licence on data.bris, He 2024, Zheng / Monti pages.
+
 ## UPDATE 2026-10-01 (evening) — products for the hydraulic model, the dashboard session, the article without working names
 
 Maintainer requests of the day and what was done:

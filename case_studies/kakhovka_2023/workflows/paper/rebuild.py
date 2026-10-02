@@ -94,6 +94,9 @@ STEPS += [
     ("p102_predict", 2, ["p102_train"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "predict", "--jobs", "24"]),   # every date of the four zones (hours; resumable)
     ("p102_tables", 2, ["p102_predict"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "tables"]),
     ("p102_figures", 2, ["p102_tables"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "figures"]),
+    ("p102_evaluate", 2, ["p102_train"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "evaluate", "--jobs", "16"]),    # confusion matrices + per-class scores, both evaluations
+    ("p102_transition", 2, ["p102_predict"], "fs", [f"{M6}/p102_rf_surface_by_date.py", "--step", "transition"]),             # WorldCover 2021 x RF by growing season, pool + control
+    ("p104_inventory", 1, [], "fs", [f"{PAPER}/p104_product_inventory.py"]),                                                 # where every map / mask lives (PRODUCT_INVENTORY.md)
     ("p103_envelope", 2, ["p95", "p95e_cellprob"], "fs", [f"{M6}/p103_flood_envelope.py"]),                  # the full flood mask (envelope) + S1 envelope: rasters, polygons, T-less table, figure
     ("p98_envelope", 2, ["p103_envelope"], "fs", [f"{PAPER}/p98_dashboard_layers.py", "--only", "envelope"]),
     ("p98_rf_date", 2, ["p102_tables"], "fs", [f"{PAPER}/p98_dashboard_layers.py", "--only", "rf_date"]),
@@ -146,7 +149,7 @@ STEPS += [
 # named groups: one command for a product chain (maintainer 2026-10-01: the wetland evidence is one product, run in one order)
 GROUPS = {"wetland_evidence": ["p95x_weak_labels", "p95e_split", "p95z_delta_indices", "p95zm_index_maps", "p95y_audit", "p95y_maps", "p95u_inventory",
                                "p96", "p96_check", "fill_manuscript", "p96b_wetland", "pytest"],
-          "rf_by_date": ["p102_train", "p102_predict", "p102_tables", "p102_figures", "p98_rf_date", "pytest"],        # RF surface classes for every S2 date (hydraulic model)
+          "rf_by_date": ["p102_train", "p102_predict", "p102_tables", "p102_figures", "p102_evaluate", "p102_transition", "p98_rf_date", "p104_inventory", "pytest"],   # RF surface classes for every S2 date (hydraulic model); the zone stacks themselves come from SWOT-DNIPRO p25 (+ p25x, run under its environment)
           "flood_envelope": ["p103_envelope", "p98_envelope", "pytest"]}                                              # the full flood mask
 CWD = {"fill_evidence": f"{PAPER}", "render_claims": f"{PAPER}"}           # these two import their sibling module by name
 
