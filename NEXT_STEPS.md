@@ -37,6 +37,10 @@ in this repo.
 - **Product inventory** (`workflows/paper/p104_product_inventory.py` → `case_studies/kakhovka_2023/PRODUCT_INVENTORY.md`,
   `tables/p104_product_inventory.csv`): every index map, classified map, water mask, flood / state map, dashboard layer group and map
   figure, with paths, producers, grids and dates per year; generated from the files on disk.
+- **Bed classes and p74** (maintainer, 2026-10-02): option (b) RF + k10e together and (c) canopy height, not (a); p102 unchanged;
+  the reclassification is a separate step here, p74 "hydraulic surface state", on top of p43 (SWOT-DNIPRO roughness states) and
+  p102; no classified-index GeoTIFFs per date; nothing rebuilt. Design and open points: `docs/P74_HYDRAULIC_SURFACE_STATE.md`
+  (PLANNED; the name p74 is taken by `p74_m6_smoke_b2.py` -> proposed `p74h_hydraulic_surface_state.py`).
 - **p25 stays out of floodstate-eo** (maintainer, 2026-10-02): a separate repository will host the zone spectral stacks; nothing
   is copied here. `provenance/PLAN_P25_MIGRATION.md` is kept as the blueprint for that repository; floodstate-eo reads
   `BULK/zone_spectral` as an external product (SWOT-DNIPRO p25 now, the new repository later).
