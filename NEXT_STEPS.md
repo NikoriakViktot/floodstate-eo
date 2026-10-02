@@ -37,8 +37,9 @@ in this repo.
 - **Product inventory** (`workflows/paper/p104_product_inventory.py` → `case_studies/kakhovka_2023/PRODUCT_INVENTORY.md`,
   `tables/p104_product_inventory.csv`): every index map, classified map, water mask, flood / state map, dashboard layer group and map
   figure, with paths, producers, grids and dates per year; generated from the files on disk.
-- **p25 migration plan**: `provenance/PLAN_P25_MIGRATION.md` (engine / driver split under the event-agnostic gate, date manifest,
-  config, parity gate with byte-identical arrays before any consumer switches). Not started: needs the maintainer's go-ahead.
+- **p25 stays out of floodstate-eo** (maintainer, 2026-10-02): a separate repository will host the zone spectral stacks; nothing
+  is copied here. `provenance/PLAN_P25_MIGRATION.md` is kept as the blueprint for that repository; floodstate-eo reads
+  `BULK/zone_spectral` as an external product (SWOT-DNIPRO p25 now, the new repository later).
 - Still open: push to origin; FABDEM licence on data.bris, He 2024, Zheng / Monti pages.
 
 ## UPDATE 2026-10-01 (evening) — products for the hydraulic model, the dashboard session, the article without working names

@@ -1,8 +1,10 @@
-# Plan: migrating the zone spectral stacks (p25) from SWOT-DNIPRO into floodstate-eo
+# Plan: moving the zone spectral stacks (p25) out of SWOT-DNIPRO
 
-Status: **PLAN, not started** (2026-10-02). Copying code from SWOT-DNIPRO needs the maintainer's explicit go-ahead (CLAUDE.md);
-nothing below has been copied yet. The 2026-10-02 extension of the stacks (`workflows/m6/p25x_zone_stack_extension.py`) ran
-SWOT-DNIPRO's frozen script unchanged from its own environment; this plan replaces that arrangement.
+Status: **DECIDED 2026-10-02 (maintainer): p25 is NOT migrated into floodstate-eo.** It will get a separate repository (to be
+created); nothing is copied here. Until then floodstate-eo reads `BULK/zone_spectral` as an external product of SWOT-DNIPRO's
+frozen p25 (the 2026-10-02 extension ran it unchanged from its own environment: `workflows/m6/p25x_zone_stack_extension.py`).
+The analysis below -- what p25 consists of, the engine / driver split, the date manifest, the parity gate -- is the blueprint for
+that repository; where it names floodstate-eo paths, read them as the new repository's.
 
 ## Why
 

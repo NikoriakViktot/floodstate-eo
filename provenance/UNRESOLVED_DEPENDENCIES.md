@@ -90,3 +90,16 @@ against the public ESA WorldCover STAC/S3 endpoint) as Phase 6 work.
 not been checked against floodstate-eo's own release licence (`LICENSE` at repo root, not read as part of this
 task). Not blocking (the dependency is optional and not required for the repository to function), but must be
 resolved — verify or drop the FABDEM overlay — before any public/Zenodo release that bundles this figure.
+
+## 9. Zone spectral stacks (`scripts/p25_zone_spectral_stacks.py`)
+
+**Where it's needed:** every per-date index map, k10e class map and 20 m Sentinel-2 water mask of the four zones
+(`BULK/zone_spectral/<ZONE>/`) comes from it; floodstate-eo reads them in p95h (T23-T25), p102 (RF by date), p104 and the dashboard.
+
+**Why not pulled in:** decision of 2026-10-02 (maintainer): the stacks get a separate repository of their own; floodstate-eo
+consumes them as an external product. The one extension so far (49 zone-dates of June-July 2023) ran SWOT-DNIPRO's frozen script
+unchanged through `workflows/m6/p25x_zone_stack_extension.py`, recorded in `tables/p25x_zone_stack_extension.csv`; p95h excludes
+those dates.
+
+**To resolve:** in the new repository, following `provenance/PLAN_P25_MIGRATION.md` (engine / driver split, one date manifest,
+parity gate with byte-identical arrays before any consumer switches).
