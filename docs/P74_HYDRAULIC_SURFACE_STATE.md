@@ -1,13 +1,15 @@
 # p74 — hydraulic surface state (design)
 
-Status: **PLANNED / NOT YET IMPLEMENTED** (2026-10-02). Nothing below runs yet; the open points at the end need the maintainer's
-confirmation first.
+Status: **NOT A TASK OF THIS REPOSITORY** (maintainer, 2026-10-02, after the decisions below): the hydraulic surface state will
+be built in a separate repository, together with the zone stacks. Nothing here is implemented or will be; this document is kept
+only as the hand-off blueprint (decisions, inputs, rule draft, open points), like `provenance/PLAN_P25_MIGRATION.md`. Where it
+says "here", read the new repository. floodstate-eo keeps p102 and p103 as products and reads p43 / zone stacks as external data.
 
 ## Decisions (maintainer, 2026-10-02)
 
 - Classes on the drained bed: **(b) RF and k10e together + (c) canopy height**; not (a) — no blanket relabelling of the RF's
   "built-up" on the bed.
-- **p102 is not changed.** The reclassification is a separate step here, p74 "hydraulic surface state", built on top of **p43**
+- **p102 is not changed.** The reclassification is a separate step, p74 "hydraulic surface state" (planned here, then moved out, see Status), built on top of **p43**
   (SWOT-DNIPRO's Manning roughness states) and **p102** (RF by date).
 - No classified-index GeoTIFFs per date: the indices exist (`zone_spectral`), and p74 is the final product for the hydraulic model.
 - Nothing is rebuilt: p25 stacks, p43 and p102 products are read as they are. The zone stacks belong to a separate repository.
